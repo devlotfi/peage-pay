@@ -1,2 +1,3 @@
-export * from './../button/button';
-export * from './lib/web-shared';
+import Button from './lib/components/button/button.component';
+
+export { Button };

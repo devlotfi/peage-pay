@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import './themes.css';
+import './global.css';
 
 /* eslint-disable-next-line */
 export interface ThemeProviderProps {}

@@ -1,3 +1,7 @@
+import { faAt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@peage-pay/web-shared';
+
 export function App() {
   const toggleTheme = () => {
     const htmlTag = document.querySelector('html');
@@ -16,10 +20,48 @@ export function App() {
       <div className="min-h-[3.5rem] flex items-center px-[1rem] border-edge-100 border-b-[1px]">
         <button
           onClick={toggleTheme}
-          className="rounded-lg bg-primary text-color-content min-h-[2.5rem] px-[0.5rem] font-semibold text-[13pt]"
+          className="rounded-lg bg-primary text-color-content min-h-[2.5rem] px-[0.5rem] font-semibold text-[10pt]"
         >
           Toggle theme
         </button>
+      </div>
+
+      <div className="content">
+        <h1>content</h1>
+        <Button variant={'base-200'} className="min-h-[4rem]">
+          <Button.Icon>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>
+            <div className="flex flex-col items-start">
+              <div className="">test</div>
+              <div className="">details about</div>
+            </div>
+          </Button.Content>
+          <Button.Icon variant={'right'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+
+        <Button variant={'primary'}>
+          <Button.Icon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>lol button</Button.Content>
+          <Button.Icon variant={'right'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+
+        <Button variant={'base-100'}>
+          <Button.Icon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>test</Button.Content>
+          <Button.Icon variant={'right'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
       </div>
     </div>
   );
