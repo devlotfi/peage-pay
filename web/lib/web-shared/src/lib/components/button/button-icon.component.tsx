@@ -5,12 +5,13 @@ import { Utils } from '../../utils';
 const buttonIconVariants = cva('flex justify-center items-center text-[15pt]', {
   variants: {
     variant: {
-      left: 'mr-[1rem]',
-      right: 'ml-[1rem]',
+      signle: '',
+      left: 'mr-[0.5rem]',
+      right: 'ml-[0.5rem]',
     },
   },
   defaultVariants: {
-    variant: 'left',
+    variant: 'signle',
   },
 });
 

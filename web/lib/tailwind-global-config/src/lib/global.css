@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 html {
-  --primary: #2aa8ee;
-  --success: #49d77d;
-  --error: #dc2626;
-  --warning: #c2af00;
+  --primary-100: #2aa8ee;
+  --primary-200: #2280b3;
+
+  --success-100: #49d77d;
+  --success-200: #3ba161;
+
+  --error-100: #dc2626;
+  --error-200: #921d1d;
+
+  --warning-100: #c2af00;
+  --warning-200: #8f8100;
+
   --color-content: #ffffff;
 }
 
@@ -13,6 +21,7 @@ html[data-theme='light'] {
   --base-200: #eaeef2;
   --base-300: #d4d8dd;
   --base-content: #435864;
+
   --edge-100: #ababab;
   --edge-200: #8f8f8f;
   --edge-300: #838383;
@@ -23,6 +32,7 @@ html[data-theme='dark'] {
   --base-200: #202732;
   --base-300: #161e22;
   --base-content: #e0eaf0;
+
   --edge-100: #abc0cc;
   --edge-200: #abc0cc;
   --edge-300: #abc0cc;

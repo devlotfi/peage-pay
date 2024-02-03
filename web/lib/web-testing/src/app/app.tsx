@@ -1,6 +1,6 @@
-import { faAt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faEnvelope, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@peage-pay/web-shared';
+import { Button, ButtonOutline, Checkbox } from '@peage-pay/web-shared';
 
 export function App() {
   const toggleTheme = () => {
@@ -16,20 +16,35 @@ export function App() {
   };
 
   return (
-    <div className="bg-base-100 min-h-screen flex flex-col">
-      <div className="min-h-[3.5rem] flex items-center px-[1rem] border-edge-100 border-b-[1px]">
-        <button
-          onClick={toggleTheme}
-          className="rounded-lg bg-primary text-color-content min-h-[2.5rem] px-[0.5rem] font-semibold text-[10pt]"
-        >
-          Toggle theme
-        </button>
+    <div className="bg-base-100 min-h-screen flex flex-col text-base-content">
+      <div className="min-h-[4rem] flex items-center px-[1rem] border-edge-100 border-b-[1px]">
+        <Button variant={'primary'} onClick={toggleTheme}>
+          <Button.Icon variant={'left'}>
+            <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>Toggle theme</Button.Content>
+        </Button>
       </div>
 
       <div className="content">
         <h1>content</h1>
+        <Checkbox>
+          <Checkbox.Label htmlFor="lol">lol</Checkbox.Label>
+          <Checkbox.CheckboxInput id="lol"></Checkbox.CheckboxInput>
+        </Checkbox>
+
+        <ButtonOutline variant={'primary'}>
+          <ButtonOutline.Icon variant={'left'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </ButtonOutline.Icon>
+          <ButtonOutline.Content>test</ButtonOutline.Content>
+          <ButtonOutline.Icon variant={'right'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </ButtonOutline.Icon>
+        </ButtonOutline>
+
         <Button variant={'base-200'} className="min-h-[4rem]">
-          <Button.Icon>
+          <Button.Icon variant={'left'}>
             <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
           </Button.Icon>
           <Button.Content>
@@ -44,7 +59,7 @@ export function App() {
         </Button>
 
         <Button variant={'primary'}>
-          <Button.Icon>
+          <Button.Icon variant={'left'}>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
           </Button.Icon>
           <Button.Content>lol button</Button.Content>
@@ -54,11 +69,17 @@ export function App() {
         </Button>
 
         <Button variant={'base-100'}>
-          <Button.Icon>
+          <Button.Icon variant={'left'}>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
           </Button.Icon>
           <Button.Content>test</Button.Content>
           <Button.Icon variant={'right'}>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+
+        <Button variant={'base-100'}>
+          <Button.Icon>
             <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
           </Button.Icon>
         </Button>
