@@ -4,14 +4,10 @@ import { Utils } from '../../utils';
 
 const buttonIconVariants = cva('flex justify-center items-center text-[15pt]', {
   variants: {
-    variant: {
-      signle: '',
+    position: {
       left: 'mr-[0.5rem]',
       right: 'ml-[0.5rem]',
     },
-  },
-  defaultVariants: {
-    variant: 'signle',
   },
 });
 
@@ -19,18 +15,19 @@ interface ButtonIconProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof buttonIconVariants> {}
 
-export default function ButtonIcon({
-  variant,
+const ButtonIcon = ({
+  position,
   className,
   children,
   ...props
-}: ButtonIconProps): JSX.Element {
+}: ButtonIconProps): JSX.Element => {
   return (
     <div
-      className={Utils.cn(buttonIconVariants({ variant, className }))}
+      className={Utils.cn(buttonIconVariants({ position, className }))}
       {...props}
     >
       {children}
     </div>
   );
-}
+};
+export default ButtonIcon;

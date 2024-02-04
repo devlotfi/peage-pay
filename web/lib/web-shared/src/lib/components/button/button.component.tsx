@@ -27,12 +27,12 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-export default function Button({
+const Button = ({
   variant,
   className,
   children,
   ...props
-}: ButtonProps): JSX.Element {
+}: ButtonProps): JSX.Element => {
   return (
     <button
       className={Utils.cn(buttonVariants({ variant, className }))}
@@ -41,7 +41,7 @@ export default function Button({
       {children}
     </button>
   );
-}
-
+};
 Button.Content = ButtonContent;
 Button.Icon = ButtonIcon;
+export default Button;

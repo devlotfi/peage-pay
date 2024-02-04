@@ -25,12 +25,12 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonOutlineVariants> {}
 
-export default function ButtonOutline({
+const ButtonOutline = ({
   variant,
   className,
   children,
   ...props
-}: ButtonProps): JSX.Element {
+}: ButtonProps): JSX.Element => {
   return (
     <button
       className={Utils.cn(buttonOutlineVariants({ variant, className }))}
@@ -39,7 +39,7 @@ export default function ButtonOutline({
       {children}
     </button>
   );
-}
-
+};
 ButtonOutline.Content = ButtonContent;
 ButtonOutline.Icon = ButtonIcon;
+export default ButtonOutline;
