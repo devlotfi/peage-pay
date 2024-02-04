@@ -10,6 +10,7 @@ import {
   ButtonOutline,
   Checkbox,
   Link,
+  MenuItem,
   TextInput,
 } from '@peage-pay/web-shared';
 
@@ -74,6 +75,18 @@ export function App() {
             Info message
           </TextInput.TextInputInfoMessage>
         </TextInput>
+        <MenuItem variant={'success'} className="w-full">
+          <MenuItem.MenuItemIcon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemIcon>
+          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+        </MenuItem>
+        <MenuItem variant={'base-200'} className="w-full">
+          <MenuItem.MenuItemIcon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemIcon>
+          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+        </MenuItem>
 
         <Link href="#">lol</Link>
 
@@ -91,6 +104,25 @@ export function App() {
             <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
           </ButtonOutline.Icon>
         </ButtonOutline>
+
+        <MenuItem>
+          <MenuItem.MenuItemIcon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemIcon>
+          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+        </MenuItem>
+        <MenuItem variant={'primary'}>
+          <MenuItem.MenuItemIcon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemIcon>
+          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+        </MenuItem>
+        <MenuItem variant={'base-200'}>
+          <MenuItem.MenuItemIcon>
+            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemIcon>
+          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+        </MenuItem>
 
         <Button variant={'base-200'} className="min-h-[4rem]">
           <Button.Icon position={'left'}>
