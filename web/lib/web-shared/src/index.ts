@@ -4,6 +4,16 @@ import Checkbox from './lib/components/checkbox/checkbox.component';
 import Link from './lib/components/link/link.component';
 import MenuItem from './lib/components/menu-item/menu-item.component';
 import Select from './lib/components/select/select.component';
+import TextArea from './lib/components/text-area/text-area.component';
 import TextInput from './lib/components/text-input/text-input.component';
 
-export { Button, ButtonOutline, Checkbox, Link, TextInput, MenuItem, Select };
+export {
+  Button,
+  ButtonOutline,
+  Checkbox,
+  Link,
+  TextInput,
+  MenuItem,
+  Select,
+  TextArea,
+};

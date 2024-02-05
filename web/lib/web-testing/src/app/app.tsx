@@ -12,6 +12,7 @@ import {
   Link,
   MenuItem,
   Select,
+  TextArea,
   TextInput,
 } from '@peage-pay/web-shared';
 
@@ -159,6 +160,28 @@ export function App() {
             <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
           </Button.Icon>
         </Button>
+
+        <TextArea variant={'success'} className="mb-[1rem]">
+          <TextArea.TextAreaMain>
+            <TextArea.TextAreaLabel>E-mail</TextArea.TextAreaLabel>
+            <TextArea.TextAreaIcon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </TextArea.TextAreaIcon>
+            <TextArea.TextAreaField name="lol"></TextArea.TextAreaField>
+            <TextArea.TextAreaIcon position={'right'}>
+              <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
+            </TextArea.TextAreaIcon>
+          </TextArea.TextAreaMain>
+        </TextArea>
+        <TextArea variant={'edge-100'} className="mb-[1rem]">
+          <TextArea.TextAreaMain>
+            <TextArea.TextAreaLabel>E-mail</TextArea.TextAreaLabel>
+            <TextArea.TextAreaIcon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </TextArea.TextAreaIcon>
+            <TextArea.TextAreaField name="lol"></TextArea.TextAreaField>
+          </TextArea.TextAreaMain>
+        </TextArea>
 
         <Button variant={'primary'}>
           <Button.Icon position={'left'}>
