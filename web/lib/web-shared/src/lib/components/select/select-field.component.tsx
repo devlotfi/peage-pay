@@ -3,7 +3,7 @@ import { SelectHTMLAttributes } from 'react';
 import { Utils } from '../../utils';
 
 const selectFieldVariants = cva(
-  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem]'
+  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] mr-[0.5rem]'
 );
 
 interface SelectProps
