@@ -3,7 +3,7 @@ import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '../../utils';
 import { MenuItemContext } from './menu-item.component';
 
-const menuItemTextVariants = cva('flex px-[1rem]', {
+const menuItemTextVariants = cva('flex items-center px-[1rem]', {
   variants: {
     variant: {
       primary: 'text-color-content',

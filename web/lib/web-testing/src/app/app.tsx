@@ -11,6 +11,7 @@ import {
   Checkbox,
   Link,
   MenuItem,
+  Select,
   TextInput,
 } from '@peage-pay/web-shared';
 
@@ -56,6 +57,24 @@ export function App() {
             </TextInput.TextInputIcon>
           </TextInput.TextInputMain>
         </TextInput>
+        <Select className="mb-[1rem]" variant={'primary'}>
+          <Select.SelectMain>
+            <Select.SelectLabel htmlFor="email">E-mail</Select.SelectLabel>
+            <Select.SelectIcon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.SelectIcon>
+            <Select.SelectField name="email" id="email">
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+            </Select.SelectField>
+            <Select.SelectIcon position={'right'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.SelectIcon>
+          </Select.SelectMain>
+          <Select.SelectInfoMessage>Info message</Select.SelectInfoMessage>
+        </Select>
         <TextInput className="mb-[1rem]">
           <TextInput.TextInputMain>
             <TextInput.TextInputLabel htmlFor="email">
@@ -79,7 +98,9 @@ export function App() {
           <MenuItem.MenuItemIcon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
           </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+          <MenuItem.MenuItemText className="flex justify-between flex-1">
+            lol <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+          </MenuItem.MenuItemText>
         </MenuItem>
         <MenuItem variant={'base-200'} className="w-full">
           <MenuItem.MenuItemIcon>

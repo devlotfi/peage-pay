@@ -6,7 +6,7 @@ const textInputFieldVariants = cva(
   'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem]'
 );
 
-interface TextInputProps
+interface TextInputFieldProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof textInputFieldVariants> {}
 
@@ -14,7 +14,7 @@ const TextInputField = ({
   className,
   children,
   ...props
-}: TextInputProps): JSX.Element => {
+}: TextInputFieldProps): JSX.Element => {
   return (
     <input
       className={Utils.cn(

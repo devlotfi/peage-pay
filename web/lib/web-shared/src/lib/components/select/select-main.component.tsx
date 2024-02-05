@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '../../utils';
-import { TextInputContext } from './text-input.component';
+import { SelectContext } from './select.component';
 
-const textInputMainVariants = cva(
+const selectMainVariants = cva(
   'flex flex-1 min-h-[3rem] border-[1px] rounded-lg relative focus-within:outline outline-[2px] outline-offset-[2px]',
   {
     variants: {
@@ -15,9 +15,6 @@ const textInputMainVariants = cva(
         'edge-100': 'border-edge-100 outline-edge-100',
         'edge-200': 'border-edge-200 outline-edge-200',
       },
-      active: {
-        active: 'outline outline-[2px] outline-offset-[2px]',
-      },
     },
     defaultVariants: {
       variant: 'edge-100',
@@ -25,22 +22,22 @@ const textInputMainVariants = cva(
   }
 );
 
-interface TextInputMainProps
+interface SelectMainProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof textInputMainVariants> {}
+    VariantProps<typeof selectMainVariants> {}
 
-const TextInputMain = ({
+const SelectMain = ({
   variant,
   className,
   children,
   ...props
-}: TextInputMainProps): JSX.Element => {
-  const { variant: globalVariant } = useContext(TextInputContext);
+}: SelectMainProps): JSX.Element => {
+  const { variant: globalVariant } = useContext(SelectContext);
 
   return (
     <div
       className={Utils.cn(
-        textInputMainVariants({
+        selectMainVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
@@ -52,4 +49,4 @@ const TextInputMain = ({
     </div>
   );
 };
-export default TextInputMain;
+export default SelectMain;
