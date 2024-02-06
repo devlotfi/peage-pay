@@ -28,7 +28,7 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
-  --base-100: #2b3441;
+  --base-100: #313b4b;
   --base-200: #202732;
   --base-300: #161e22;
   --base-content: #e0eaf0;

@@ -3,7 +3,7 @@ import { InputHTMLAttributes } from 'react';
 import { Utils } from '../../utils';
 
 const textInputFieldVariants = cva(
-  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem]'
+  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] text-base-content'
 );
 
 interface TextInputFieldProps

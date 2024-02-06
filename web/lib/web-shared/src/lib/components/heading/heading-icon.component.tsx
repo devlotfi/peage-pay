@@ -1,0 +1,53 @@
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes, useContext } from 'react';
+import { Utils } from '../../utils';
+import { HeadingContext } from './heading.component';
+
+const headingIconVariants = cva('flex justify-center items-center', {
+  variants: {
+    variant: {
+      primary: 'text-primary-100',
+      success: 'text-success-100',
+      error: 'text-error-100',
+      warning: 'text-warning-100',
+    },
+    position: {
+      left: 'mr-[1rem]',
+      right: 'ml-[1rem]',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+  },
+});
+
+interface HeadingIconProps
+  extends BaseHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof headingIconVariants> {}
+
+const HeadingIcon = ({
+  variant,
+  className,
+  children,
+  position,
+  ...props
+}: HeadingIconProps): JSX.Element => {
+  const { variant: globalVariant } = useContext(HeadingContext);
+
+  return (
+    <div
+      className={Utils.cn(
+        headingIconVariants({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          variant: variant || (globalVariant as any),
+          position,
+          className,
+        })
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+export default HeadingIcon;

@@ -3,21 +3,24 @@ import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '../../utils';
 import { MenuItemContext } from './menu-item.component';
 
-const menuItemTextVariants = cva('flex items-center px-[1rem]', {
-  variants: {
-    variant: {
-      primary: 'text-color-content',
-      success: 'text-color-content',
-      error: 'text-color-content',
-      warning: 'text-color-content',
-      'base-100': 'text-base-content',
-      'base-200': 'text-edge-content',
+const menuItemTextVariants = cva(
+  'flex items-center px-[1rem] text-[11pt] font-semibold',
+  {
+    variants: {
+      variant: {
+        primary: 'text-color-content',
+        success: 'text-color-content',
+        error: 'text-color-content',
+        warning: 'text-color-content',
+        'base-100': 'text-base-content',
+        'base-200': 'text-base-content',
+      },
     },
-  },
-  defaultVariants: {
-    variant: 'base-100',
-  },
-});
+    defaultVariants: {
+      variant: 'base-100',
+    },
+  }
+);
 
 interface menuItemTextProps
   extends BaseHTMLAttributes<HTMLDivElement>,

@@ -4,7 +4,7 @@ import { Utils } from '../../utils';
 import { MenuItemContext } from './menu-item.component';
 
 const menuItemIconVariants = cva(
-  'flex justify-center items-center rounded-md min-h-[2.5rem] min-w-[2.5rem] text-[15pt]',
+  'flex justify-center items-center rounded-md min-h-[2rem] min-w-[2rem] text-[15pt] duration-300 ease',
   {
     variants: {
       variant: {

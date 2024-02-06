@@ -1,19 +1,54 @@
-import { BaseHTMLAttributes } from 'react';
+import { VariantProps, cva } from 'class-variance-authority';
+import { LabelHTMLAttributes, createContext } from 'react';
 import { Utils } from '../../utils';
-import CheckboxLabel from './checkbox-label.component';
-import CheckboxInput from './checkbox-input.component';
 
-export default function Checkbox({
+const checkboxVariants = cva('flex flex-col', {
+  variants: {
+    variant: {
+      primary: '',
+      success: '',
+      error: '',
+      warning: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+  },
+});
+
+interface CheckboxProps
+  extends LabelHTMLAttributes<HTMLLabelElement>,
+    VariantProps<typeof checkboxVariants> {}
+
+interface CheckboxContext {
+  variant: string;
+}
+
+const initialValue: CheckboxContext = {
+  variant: 'edge-100',
+};
+
+export const CheckboxContext = createContext(initialValue);
+
+const Checkbox = ({
+  variant,
   className,
   children,
   ...props
-}: BaseHTMLAttributes<HTMLDivElement>): JSX.Element {
+}: CheckboxProps): JSX.Element => {
   return (
-    <div className={Utils.cn(className)} {...props}>
-      {children}
-    </div>
+    <CheckboxContext.Provider
+      value={{
+        variant: variant || 'edge-100',
+      }}
+    >
+      <label
+        className={Utils.cn(checkboxVariants({ variant, className }))}
+        {...props}
+      >
+        {children}
+      </label>
+    </CheckboxContext.Provider>
   );
-}
-
-Checkbox.Label = CheckboxLabel;
-Checkbox.CheckboxInput = CheckboxInput;
+};
+export default Checkbox;

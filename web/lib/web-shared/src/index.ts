@@ -1,6 +1,7 @@
 import ButtonOutline from './lib/components/button/button-outline.component';
 import Button from './lib/components/button/button.component';
 import Checkbox from './lib/components/checkbox/checkbox.component';
+import Heading from './lib/components/heading/heading.component';
 import Link from './lib/components/link/link.component';
 import MenuItem from './lib/components/menu-item/menu-item.component';
 import Select from './lib/components/select/select.component';
@@ -16,4 +17,5 @@ export {
   MenuItem,
   Select,
   TextArea,
+  Heading,
 };
