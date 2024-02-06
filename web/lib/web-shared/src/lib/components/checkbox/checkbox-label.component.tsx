@@ -1,14 +1,29 @@
-import { LabelHTMLAttributes } from 'react';
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '../../utils';
 
-export default function CheckboxLabel({
+const checkboxLabelVariants = cva('flex text-base-content mx-[0.5rem]');
+
+interface checkboxLabelProps
+  extends BaseHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof checkboxLabelVariants> {}
+
+const CheckboxLabel = ({
   className,
   children,
   ...props
-}: LabelHTMLAttributes<HTMLLabelElement>): JSX.Element {
+}: checkboxLabelProps): JSX.Element => {
   return (
-    <label className={Utils.cn(className)} {...props}>
+    <div
+      className={Utils.cn(
+        checkboxLabelVariants({
+          className,
+        })
+      )}
+      {...props}
+    >
       {children}
-    </label>
+    </div>
   );
-}
+};
+export default CheckboxLabel;

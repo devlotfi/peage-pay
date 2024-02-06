@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Breadcrumbs,
   Button,
+  Checkbox,
   Heading,
   MenuItem,
   TextInput,
@@ -149,6 +150,16 @@ export function Layout() {
                 </Heading.HeadingIcon>
                 <Heading.HeadingText>Example</Heading.HeadingText>
               </Heading>
+              <Checkbox>
+                <Checkbox.CheckboxCheck></Checkbox.CheckboxCheck>
+                <Checkbox.CheckboxField checked></Checkbox.CheckboxField>
+                <Checkbox.CheckboxLabel>lol</Checkbox.CheckboxLabel>
+              </Checkbox>
+              <Checkbox>
+                <Checkbox.CheckboxCheck></Checkbox.CheckboxCheck>
+                <Checkbox.CheckboxField></Checkbox.CheckboxField>
+                <Checkbox.CheckboxLabel>lol</Checkbox.CheckboxLabel>
+              </Checkbox>
               <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
                 <TextInput.TextInputMain>
                   <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
