@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@peage-pay/admin-shared": ["web/lib/admin-shared/src/index.ts"],
       "@peage-pay/assets": ["assets/src/index.ts"],
       "@peage-pay/tailwind-global-config": [
         "web/lib/tailwind-global-config/src/index.ts"

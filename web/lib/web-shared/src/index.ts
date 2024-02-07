@@ -7,6 +7,7 @@ import Heading from './lib/components/heading/heading.component';
 import Link from './lib/components/link/link.component';
 import MenuDropdown from './lib/components/menu-dropdown/menu-dropdown.component';
 import MenuItem from './lib/components/menu-item/menu-item.component';
+import Modal from './lib/components/modal/modal.component';
 import Select from './lib/components/select/select.component';
 import TextArea from './lib/components/text-area/text-area.component';
 import TextInput from './lib/components/text-input/text-input.component';
@@ -26,4 +27,5 @@ export {
   Tooltip,
   MenuDropdown,
   Dropdown,
+  Modal,
 };
