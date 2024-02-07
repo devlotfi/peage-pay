@@ -14,9 +14,12 @@ import {
   Breadcrumbs,
   Button,
   Checkbox,
+  Dropdown,
   Heading,
+  MenuDropdown,
   MenuItem,
   TextInput,
+  Tooltip,
 } from '@peage-pay/web-shared';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
 
@@ -46,18 +49,83 @@ export function Layout() {
           </Button.Content>
         </Button>
         <div className="w-full h-[1px] bg-edge-100 my-[1.5rem]"></div>
-        <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-          <MenuItem.MenuItemIcon>
-            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
-        </MenuItem>
+        <Tooltip
+          className="mb-[0.5rem]"
+          tooltipElement={
+            <Tooltip.TooltipMessage position={'right'}>
+              Test
+            </Tooltip.TooltipMessage>
+          }
+        >
+          <MenuItem className="w-full" variant={'base-200'}>
+            <MenuItem.MenuItemIcon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.MenuItemIcon>
+            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem>
+        </Tooltip>
         <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
           <MenuItem.MenuItemIcon>
             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
           </MenuItem.MenuItemIcon>
           <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
         </MenuItem>
+        <MenuDropdown
+          mainElement={
+            <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+              <MenuItem className="w-full" variant={'base-200'}>
+                <MenuItem.MenuItemIcon>
+                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                </MenuItem.MenuItemIcon>
+                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem>
+            </MenuDropdown.MenuDropdownMain>
+          }
+        >
+          <MenuDropdown
+            mainElement={
+              <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+              </MenuDropdown.MenuDropdownMain>
+            }
+          >
+            <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
+              <MenuItem.MenuItemIcon>
+                <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+              </MenuItem.MenuItemIcon>
+              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem>
+            <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+              <MenuItem.MenuItemIcon>
+                <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+              </MenuItem.MenuItemIcon>
+              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem>
+            <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+              <MenuItem.MenuItemIcon>
+                <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+              </MenuItem.MenuItemIcon>
+              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem>
+          </MenuDropdown>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+            <MenuItem.MenuItemIcon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.MenuItemIcon>
+            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+            <MenuItem.MenuItemIcon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.MenuItemIcon>
+            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem>
+        </MenuDropdown>
         <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
           <MenuItem.MenuItemIcon>
             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -86,6 +154,47 @@ export function Layout() {
               <Button.Content>Back</Button.Content>
             </Button>
           </div>
+
+          <Dropdown
+            mainElement={
+              <Dropdown.DropdownMain>
+                <Button variant={'base-200'}>
+                  <Button.Icon position={'left'}>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </Button.Icon>
+                  <Button.Content>Username</Button.Content>
+                  <Button.Icon position={'right'}></Button.Icon>
+                </Button>
+              </Dropdown.DropdownMain>
+            }
+          >
+            <Dropdown.DropdownContent position={'bottom-right'}>
+              <div className="flex items-end justify-center min-h-[5rem] bg-base-200 rounded-lg mb-[3rem]">
+                <FontAwesomeIcon
+                  className="mb-[-2.5rem] text-[5rem] text-base-content"
+                  icon={faUserCircle}
+                ></FontAwesomeIcon>
+              </div>
+              <MenuItem className="w-full" variant={'base-100'}>
+                <MenuItem.MenuItemIcon>
+                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                </MenuItem.MenuItemIcon>
+                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem>
+              <MenuItem className="w-full" variant={'base-100'}>
+                <MenuItem.MenuItemIcon>
+                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                </MenuItem.MenuItemIcon>
+                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem>
+              <MenuItem className="w-full" variant={'base-100'}>
+                <MenuItem.MenuItemIcon>
+                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                </MenuItem.MenuItemIcon>
+                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem>
+            </Dropdown.DropdownContent>
+          </Dropdown>
 
           <Button variant={'base-200'} onClick={toggleTheme}>
             <Button.Icon position={'left'}>
@@ -129,6 +238,7 @@ export function Layout() {
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
             </Breadcrumbs.BreadcrumbsItem>
+
             <Breadcrumbs.BreadcrumbsItem>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>
@@ -139,6 +249,42 @@ export function Layout() {
               </Button>
             </Breadcrumbs.BreadcrumbsItem>
           </Breadcrumbs>
+          <div className="flex items-start">
+            <Dropdown
+              mainElement={
+                <Dropdown.DropdownMain>
+                  <Button variant={'base-100'}>
+                    <Button.Icon position={'left'}>
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </Button.Icon>
+                    <Button.Content>Username</Button.Content>
+                    <Button.Icon position={'right'}></Button.Icon>
+                  </Button>
+                </Dropdown.DropdownMain>
+              }
+            >
+              <Dropdown.DropdownContent position={'right-top'}>
+                <MenuItem className="w-full" variant={'base-100'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+                <MenuItem className="w-full" variant={'base-100'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+                <MenuItem className="w-full" variant={'base-100'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+              </Dropdown.DropdownContent>
+            </Dropdown>
+          </div>
           <div className="flex flex-col items-center">
             <form
               action=""
@@ -199,28 +345,24 @@ export function Layout() {
                   </TextInput.TextInputIcon>
                 </TextInput.TextInputMain>
               </TextInput>
-              <Button variant={'primary'}>
-                <Button.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
-                </Button.Icon>
-                <Button.Content>Username</Button.Content>
-                <Button.Icon position={'right'}></Button.Icon>
-              </Button>
+              <Tooltip
+                tooltipElement={
+                  <Tooltip.TooltipMessage position={'right'}>
+                    lol
+                  </Tooltip.TooltipMessage>
+                }
+                className="w-full"
+              >
+                <Button variant={'primary'} className="w-full">
+                  <Button.Icon position={'left'}>
+                    <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
+                  </Button.Icon>
+                  <Button.Content>Username</Button.Content>
+                  <Button.Icon position={'right'}></Button.Icon>
+                </Button>
+              </Tooltip>
             </form>
           </div>
-
-          <h1 className="text-[10rem]">test</h1>
-          <h1 className="text-[10rem]">test</h1>
-          <div className="flex-none flex overflow-x-auto">
-            <h1 className="text-[10rem]">test</h1>
-            <h1 className="text-[10rem]">test</h1>
-            <h1 className="text-[10rem]">test</h1>
-            <h1 className="text-[10rem]">test</h1>
-          </div>
-          <h1 className="text-[10rem]">test</h1>
-          <h1 className="text-[10rem]">test</h1>
-          <h1 className="text-[10rem]">test</h1>
-          <h1 className="text-[10rem]">test</h1>
         </div>
       </div>
     </div>

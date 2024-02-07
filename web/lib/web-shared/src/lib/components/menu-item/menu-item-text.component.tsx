@@ -4,7 +4,7 @@ import { Utils } from '../../utils';
 import { MenuItemContext } from './menu-item.component';
 
 const menuItemTextVariants = cva(
-  'flex items-center px-[1rem] text-[11pt] font-semibold',
+  'flex w-full items-center px-[1rem] text-[11pt] font-semibold',
   {
     variants: {
       variant: {
@@ -26,7 +26,7 @@ interface menuItemTextProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof menuItemTextVariants> {}
 
-const TextInputLabel = ({
+const MenuItemText = ({
   variant,
   className,
   children,
@@ -49,4 +49,4 @@ const TextInputLabel = ({
     </div>
   );
 };
-export default TextInputLabel;
+export default MenuItemText;

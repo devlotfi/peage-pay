@@ -8,10 +8,10 @@ const menuItemIconVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-base-100 text-primary-100',
-        success: 'bg-base-100 text-success-100',
-        error: 'bg-base-100 text-error-100',
-        warning: 'bg-base-100 text-warning-100',
+        primary: 'bg-color-content text-primary-100',
+        success: 'bg-color-content text-success-100',
+        error: 'bg-color-content text-error-100',
+        warning: 'bg-color-content text-warning-100',
         'base-100': 'bg-base-200 group-hover:bg-base-100 text-base-content',
         'base-200': 'bg-base-100 group-hover:bg-base-200 text-base-content',
       },

@@ -4,11 +4,11 @@ import Layout from './layout';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/components',
     element: <Components></Components>,
   },
   {
-    path: '/layout',
+    path: '/',
     element: <Layout></Layout>,
   },
 ]);
