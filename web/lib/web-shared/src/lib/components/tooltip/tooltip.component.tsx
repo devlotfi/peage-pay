@@ -24,5 +24,5 @@ const Tooltip = ({
     </div>
   );
 };
-Tooltip.TooltipMessage = TooltipMessage;
+Tooltip.Message = TooltipMessage;
 export default Tooltip;

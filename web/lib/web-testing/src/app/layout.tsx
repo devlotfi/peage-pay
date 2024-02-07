@@ -52,91 +52,89 @@ export function Layout() {
         <Tooltip
           className="mb-[0.5rem]"
           tooltipElement={
-            <Tooltip.TooltipMessage position={'right'}>
-              Test
-            </Tooltip.TooltipMessage>
+            <Tooltip.Message position={'right'}>Test</Tooltip.Message>
           }
         >
           <MenuItem className="w-full" variant={'base-200'}>
-            <MenuItem.MenuItemIcon>
+            <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </MenuItem.MenuItemIcon>
-            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
           </MenuItem>
         </Tooltip>
         <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>Test</MenuItem.Text>
         </MenuItem>
         <MenuDropdown
           mainElement={
-            <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+            <MenuDropdown.Main className="mb-[0.5rem]">
               <MenuItem className="w-full" variant={'base-200'}>
-                <MenuItem.MenuItemIcon>
+                <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.MenuItemIcon>
-                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem.Icon>
+                <MenuItem.Text>Test</MenuItem.Text>
               </MenuItem>
-            </MenuDropdown.MenuDropdownMain>
+            </MenuDropdown.Main>
           }
         >
           <MenuDropdown
             mainElement={
-              <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+              <MenuDropdown.Main className="mb-[0.5rem]">
                 <MenuItem className="w-full" variant={'base-200'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
-              </MenuDropdown.MenuDropdownMain>
+              </MenuDropdown.Main>
             }
           >
             <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
-              <MenuItem.MenuItemIcon>
+              <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-              </MenuItem.MenuItemIcon>
-              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem.Icon>
+              <MenuItem.Text>Test</MenuItem.Text>
             </MenuItem>
             <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-              <MenuItem.MenuItemIcon>
+              <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-              </MenuItem.MenuItemIcon>
-              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem.Icon>
+              <MenuItem.Text>Test</MenuItem.Text>
             </MenuItem>
             <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-              <MenuItem.MenuItemIcon>
+              <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-              </MenuItem.MenuItemIcon>
-              <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+              </MenuItem.Icon>
+              <MenuItem.Text>Test</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
           <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-            <MenuItem.MenuItemIcon>
+            <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </MenuItem.MenuItemIcon>
-            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
           </MenuItem>
           <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-            <MenuItem.MenuItemIcon>
+            <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </MenuItem.MenuItemIcon>
-            <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
           </MenuItem>
         </MenuDropdown>
         <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>Test</MenuItem.Text>
         </MenuItem>
         <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>Test</MenuItem.Text>
         </MenuItem>
       </div>
       <div className="flex flex-col w-full pb-[0.5rem] pr-[0.5rem] pl-[0.5rem] lg:pl-0 lg:pb-[1rem] lg:pr-[1rem] overflow-hidden">
@@ -157,7 +155,7 @@ export function Layout() {
 
           <Dropdown
             mainElement={
-              <Dropdown.DropdownMain>
+              <Dropdown.Main>
                 <Button variant={'base-200'}>
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -165,10 +163,10 @@ export function Layout() {
                   <Button.Content>Username</Button.Content>
                   <Button.Icon position={'right'}></Button.Icon>
                 </Button>
-              </Dropdown.DropdownMain>
+              </Dropdown.Main>
             }
           >
-            <Dropdown.DropdownContent position={'bottom-right'}>
+            <Dropdown.Content position={'bottom-right'}>
               <div className="flex items-end justify-center min-h-[5rem] bg-base-200 rounded-lg mb-[3rem]">
                 <FontAwesomeIcon
                   className="mb-[-2.5rem] text-[5rem] text-base-content"
@@ -176,80 +174,80 @@ export function Layout() {
                 ></FontAwesomeIcon>
               </div>
               <MenuItem className="w-full" variant={'base-100'}>
-                <MenuItem.MenuItemIcon>
+                <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.MenuItemIcon>
-                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem.Icon>
+                <MenuItem.Text>Test</MenuItem.Text>
               </MenuItem>
               <MenuItem className="w-full" variant={'base-100'}>
-                <MenuItem.MenuItemIcon>
+                <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.MenuItemIcon>
-                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem.Icon>
+                <MenuItem.Text>Test</MenuItem.Text>
               </MenuItem>
               <MenuItem className="w-full" variant={'base-100'}>
-                <MenuItem.MenuItemIcon>
+                <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.MenuItemIcon>
-                <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem.Icon>
+                <MenuItem.Text>Test</MenuItem.Text>
               </MenuItem>
               <MenuDropdown
                 mainElement={
-                  <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+                  <MenuDropdown.Main className="mb-[0.5rem]">
                     <MenuItem className="w-full" variant={'base-100'}>
-                      <MenuItem.MenuItemIcon>
+                      <MenuItem.Icon>
                         <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                      </MenuItem.MenuItemIcon>
-                      <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                      </MenuItem.Icon>
+                      <MenuItem.Text>Test</MenuItem.Text>
                     </MenuItem>
-                  </MenuDropdown.MenuDropdownMain>
+                  </MenuDropdown.Main>
                 }
               >
                 <MenuDropdown
                   mainElement={
-                    <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+                    <MenuDropdown.Main className="mb-[0.5rem]">
                       <MenuItem className="w-full" variant={'base-100'}>
-                        <MenuItem.MenuItemIcon>
+                        <MenuItem.Icon>
                           <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                        </MenuItem.MenuItemIcon>
-                        <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                        </MenuItem.Icon>
+                        <MenuItem.Text>Test</MenuItem.Text>
                       </MenuItem>
-                    </MenuDropdown.MenuDropdownMain>
+                    </MenuDropdown.Main>
                   }
                 >
                   <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
-                    <MenuItem.MenuItemIcon>
+                    <MenuItem.Icon>
                       <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.MenuItemIcon>
-                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                    </MenuItem.Icon>
+                    <MenuItem.Text>Test</MenuItem.Text>
                   </MenuItem>
                   <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
-                    <MenuItem.MenuItemIcon>
+                    <MenuItem.Icon>
                       <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.MenuItemIcon>
-                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                    </MenuItem.Icon>
+                    <MenuItem.Text>Test</MenuItem.Text>
                   </MenuItem>
                   <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
-                    <MenuItem.MenuItemIcon>
+                    <MenuItem.Icon>
                       <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.MenuItemIcon>
-                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                    </MenuItem.Icon>
+                    <MenuItem.Text>Test</MenuItem.Text>
                   </MenuItem>
                 </MenuDropdown>
                 <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
                 <MenuItem className="w-full" variant={'base-100'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown>
-            </Dropdown.DropdownContent>
+            </Dropdown.Content>
           </Dropdown>
 
           <Button variant={'base-200'} onClick={toggleTheme}>
@@ -267,7 +265,7 @@ export function Layout() {
         </div>
         <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden rounded-xl bg-base-100">
           <Breadcrumbs className="m-[1rem]">
-            <Breadcrumbs.BreadcrumbsItem>
+            <Breadcrumbs.Item>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -275,8 +273,8 @@ export function Layout() {
                 <Button.Content>Username</Button.Content>
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
-            </Breadcrumbs.BreadcrumbsItem>
-            <Breadcrumbs.BreadcrumbsItem>
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -284,8 +282,8 @@ export function Layout() {
                 <Button.Content>Username</Button.Content>
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
-            </Breadcrumbs.BreadcrumbsItem>
-            <Breadcrumbs.BreadcrumbsItem>
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -293,9 +291,9 @@ export function Layout() {
                 <Button.Content>Username</Button.Content>
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
-            </Breadcrumbs.BreadcrumbsItem>
+            </Breadcrumbs.Item>
 
-            <Breadcrumbs.BreadcrumbsItem>
+            <Breadcrumbs.Item>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -303,12 +301,12 @@ export function Layout() {
                 <Button.Content>Username</Button.Content>
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
-            </Breadcrumbs.BreadcrumbsItem>
+            </Breadcrumbs.Item>
           </Breadcrumbs>
           <div className="flex items-start">
             <Dropdown
               mainElement={
-                <Dropdown.DropdownMain>
+                <Dropdown.Main>
                   <Button variant={'base-100'}>
                     <Button.Icon position={'left'}>
                       <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -316,29 +314,29 @@ export function Layout() {
                     <Button.Content>Username</Button.Content>
                     <Button.Icon position={'right'}></Button.Icon>
                   </Button>
-                </Dropdown.DropdownMain>
+                </Dropdown.Main>
               }
             >
-              <Dropdown.DropdownContent position={'right-top'}>
+              <Dropdown.Content position={'right-top'}>
                 <MenuItem className="w-full" variant={'base-100'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
                 <MenuItem className="w-full" variant={'base-100'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
                 <MenuItem className="w-full" variant={'base-100'}>
-                  <MenuItem.MenuItemIcon>
+                  <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </MenuItem.MenuItemIcon>
-                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Test</MenuItem.Text>
                 </MenuItem>
-              </Dropdown.DropdownContent>
+              </Dropdown.Content>
             </Dropdown>
           </div>
           <div className="flex flex-col items-center">
@@ -347,89 +345,81 @@ export function Layout() {
               className="flex flex-col w-[90%] max-w-[57rem] mt-[1rem]"
             >
               <Heading className="mb-[2rem] text-[30pt]">
-                <Heading.HeadingIcon position={'left'}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Heading.HeadingIcon>
-                <Heading.HeadingText>Example</Heading.HeadingText>
+                </Heading.Icon>
+                <Heading.Text>Example</Heading.Text>
               </Heading>
               <Checkbox>
-                <Checkbox.CheckboxCheck></Checkbox.CheckboxCheck>
-                <Checkbox.CheckboxField checked></Checkbox.CheckboxField>
-                <Checkbox.CheckboxLabel>lol</Checkbox.CheckboxLabel>
+                <Checkbox.Check></Checkbox.Check>
+                <Checkbox.Field checked></Checkbox.Field>
+                <Checkbox.Label>lol</Checkbox.Label>
               </Checkbox>
               <Checkbox>
-                <Checkbox.CheckboxCheck></Checkbox.CheckboxCheck>
-                <Checkbox.CheckboxField></Checkbox.CheckboxField>
-                <Checkbox.CheckboxLabel>lol</Checkbox.CheckboxLabel>
+                <Checkbox.Check></Checkbox.Check>
+                <Checkbox.Field></Checkbox.Field>
+                <Checkbox.Label>lol</Checkbox.Label>
               </Checkbox>
               <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
-                <TextInput.TextInputMain>
-                  <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
-                  <TextInput.TextInputIcon position={'left'}>
+                <TextInput.Main>
+                  <TextInput.Label>E-mail</TextInput.Label>
+                  <TextInput.Icon position={'left'}>
                     <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                  <TextInput.TextInputField
+                  </TextInput.Icon>
+                  <TextInput.Field
                     name="lol"
                     type="datetime-local"
-                  ></TextInput.TextInputField>
-                  <TextInput.TextInputIcon position={'right'}>
+                  ></TextInput.Field>
+                  <TextInput.Icon position={'right'}>
                     <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                </TextInput.TextInputMain>
+                  </TextInput.Icon>
+                </TextInput.Main>
               </TextInput>
               <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
-                <TextInput.TextInputMain>
-                  <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
-                  <TextInput.TextInputIcon position={'left'}>
+                <TextInput.Main>
+                  <TextInput.Label>E-mail</TextInput.Label>
+                  <TextInput.Icon position={'left'}>
                     <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                  <TextInput.TextInputField
+                  </TextInput.Icon>
+                  <TextInput.Field
                     name="lol"
                     placeholder="Enter e-mail"
-                  ></TextInput.TextInputField>
-                  <TextInput.TextInputIcon position={'right'}>
+                  ></TextInput.Field>
+                  <TextInput.Icon position={'right'}>
                     <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                </TextInput.TextInputMain>
+                  </TextInput.Icon>
+                </TextInput.Main>
               </TextInput>
 
               <TextInput variant={'primary'} className="w-full mb-[1.5rem]">
-                <TextInput.TextInputMain>
-                  <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
+                <TextInput.Main>
+                  <TextInput.Label>E-mail</TextInput.Label>
 
-                  <TextInput.TextInputField
+                  <TextInput.Field
                     name="lol"
                     placeholder="Enter e-mail"
-                  ></TextInput.TextInputField>
-                </TextInput.TextInputMain>
-                <TextInput.TextInputInfoMessage>
-                  User not found
-                </TextInput.TextInputInfoMessage>
-                <TextInput.TextInputInfoMessage>
-                  User not found
-                </TextInput.TextInputInfoMessage>
-                <TextInput.TextInputInfoMessage>
-                  User not found
-                </TextInput.TextInputInfoMessage>
+                  ></TextInput.Field>
+                </TextInput.Main>
+                <TextInput.InfoMessage>User not found</TextInput.InfoMessage>
+                <TextInput.InfoMessage>User not found</TextInput.InfoMessage>
+                <TextInput.InfoMessage>User not found</TextInput.InfoMessage>
               </TextInput>
 
               <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
-                <TextInput.TextInputMain>
-                  <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
-                  <TextInput.TextInputIcon position={'left'}>
+                <TextInput.Main>
+                  <TextInput.Label>E-mail</TextInput.Label>
+                  <TextInput.Icon position={'left'}>
                     <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                  <TextInput.TextInputField
+                  </TextInput.Icon>
+                  <TextInput.Field
                     name="lol"
                     placeholder="Enter e-mail"
-                  ></TextInput.TextInputField>
-                </TextInput.TextInputMain>
+                  ></TextInput.Field>
+                </TextInput.Main>
               </TextInput>
               <Tooltip
                 tooltipElement={
-                  <Tooltip.TooltipMessage position={'top'}>
-                    lol
-                  </Tooltip.TooltipMessage>
+                  <Tooltip.Message position={'top'}>lol</Tooltip.Message>
                 }
                 className="w-full"
               >

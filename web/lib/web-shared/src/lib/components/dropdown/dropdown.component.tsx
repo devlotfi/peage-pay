@@ -57,6 +57,6 @@ const Dropdown = ({
     </DropdownContext.Provider>
   );
 };
-Dropdown.DropdownMain = DropdownMain;
-Dropdown.DropdownContent = DropdownContent;
+Dropdown.Main = DropdownMain;
+Dropdown.Content = DropdownContent;
 export default Dropdown;

@@ -59,5 +59,5 @@ const MenuDropdown = ({
     </MenuDropdownContext.Provider>
   );
 };
-MenuDropdown.MenuDropdownMain = MenuDropdownMain;
+MenuDropdown.Main = MenuDropdownMain;
 export default MenuDropdown;

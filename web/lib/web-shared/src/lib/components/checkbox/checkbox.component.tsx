@@ -64,7 +64,7 @@ const Checkbox = ({
     </CheckboxContext.Provider>
   );
 };
-Checkbox.CheckboxField = CheckboxField;
-Checkbox.CheckboxLabel = CheckboxLabel;
-Checkbox.CheckboxCheck = CheckboxCheck;
+Checkbox.Field = CheckboxField;
+Checkbox.Label = CheckboxLabel;
+Checkbox.Check = CheckboxCheck;
 export default Checkbox;

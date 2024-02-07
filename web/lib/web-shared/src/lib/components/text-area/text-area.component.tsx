@@ -58,9 +58,9 @@ const TextArea = ({
     </TextAreaContext.Provider>
   );
 };
-TextArea.TextAreaMain = TextAreaMain;
-TextArea.TextAreaField = TextAreaField;
-TextArea.TextAreaIcon = TextAreaIcon;
-TextArea.TextAreaLabel = TextAreaLabel;
-TextArea.TextAreaInfoMessage = TextAreaInfoMessage;
+TextArea.Main = TextAreaMain;
+TextArea.Field = TextAreaField;
+TextArea.Icon = TextAreaIcon;
+TextArea.Label = TextAreaLabel;
+TextArea.InfoMessage = TextAreaInfoMessage;
 export default TextArea;

@@ -44,12 +44,12 @@ const MenuDropdownMain = ({
         variant={'base-200'}
         className="bg-transparent hover:bg-transparent"
       >
-        <MenuItem.MenuItemIcon className="bg-transparent group-hover:bg-transparent">
+        <MenuItem.Icon className="bg-transparent group-hover:bg-transparent">
           <FontAwesomeIcon
             icon={faCaretDown}
             className={Utils.cn('duration-300 ease', open && 'rotate-180')}
           ></FontAwesomeIcon>
-        </MenuItem.MenuItemIcon>
+        </MenuItem.Icon>
       </MenuItem>
     </div>
   );

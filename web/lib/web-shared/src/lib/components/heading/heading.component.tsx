@@ -53,6 +53,6 @@ const Heading = ({
     </HeadingContext.Provider>
   );
 };
-Heading.HeadingText = HeadingText;
-Heading.HeadingIcon = HeadingIcon;
+Heading.Text = HeadingText;
+Heading.Icon = HeadingIcon;
 export default Heading;

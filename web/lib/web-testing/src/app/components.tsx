@@ -44,70 +44,63 @@ const Components = () => {
         <h1>content</h1>
 
         <TextInput variant={'success'} className="mb-[1rem]">
-          <TextInput.TextInputMain>
-            <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
-            <TextInput.TextInputIcon position={'left'}>
+          <TextInput.Main>
+            <TextInput.Label>E-mail</TextInput.Label>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </TextInput.TextInputIcon>
-            <TextInput.TextInputField
-              name="lol"
-              type="datetime-local"
-            ></TextInput.TextInputField>
-            <TextInput.TextInputIcon position={'right'}>
+            </TextInput.Icon>
+            <TextInput.Field name="lol" type="datetime-local"></TextInput.Field>
+            <TextInput.Icon position={'right'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-            </TextInput.TextInputIcon>
-          </TextInput.TextInputMain>
+            </TextInput.Icon>
+          </TextInput.Main>
         </TextInput>
         <Select className="mb-[1rem]" variant={'primary'}>
-          <Select.SelectMain>
-            <Select.SelectLabel htmlFor="email">E-mail</Select.SelectLabel>
-            <Select.SelectIcon position={'left'}>
+          <Select.Main>
+            <Select.Label htmlFor="email">E-mail</Select.Label>
+            <Select.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </Select.SelectIcon>
-            <Select.SelectField name="email" id="email">
+            </Select.Icon>
+            <Select.Field name="email" id="email">
               <option value="lol1">lol1</option>
               <option value="lol1">lol1</option>
               <option value="lol1">lol1</option>
               <option value="lol1">lol1</option>
-            </Select.SelectField>
-            <Select.SelectIcon position={'right'}>
+            </Select.Field>
+            <Select.Icon position={'right'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </Select.SelectIcon>
-          </Select.SelectMain>
-          <Select.SelectInfoMessage>Info message</Select.SelectInfoMessage>
+            </Select.Icon>
+          </Select.Main>
+          <Select.InfoMessage>Info message</Select.InfoMessage>
         </Select>
         <TextInput className="mb-[1rem]">
-          <TextInput.TextInputMain>
-            <TextInput.TextInputLabel htmlFor="email">
-              E-mail
-            </TextInput.TextInputLabel>
-            <TextInput.TextInputIcon position={'left'}>
+          <TextInput.Main>
+            <TextInput.Label htmlFor="email">E-mail</TextInput.Label>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </TextInput.TextInputIcon>
-            <TextInput.TextInputField
+            </TextInput.Icon>
+            <TextInput.Field
               name="email"
               type="email"
               placeholder="E-mail"
               id="email"
-            ></TextInput.TextInputField>
-          </TextInput.TextInputMain>
-          <TextInput.TextInputInfoMessage>
-            Info message
-          </TextInput.TextInputInfoMessage>
+            ></TextInput.Field>
+          </TextInput.Main>
+          <TextInput.InfoMessage>Info message</TextInput.InfoMessage>
         </TextInput>
         <MenuItem variant={'success'} className="w-full">
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText className="flex justify-between flex-1">
+          </MenuItem.Icon>
+          <MenuItem.Text className="flex justify-between flex-1">
             lol <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemText>
+          </MenuItem.Text>
         </MenuItem>
         <MenuItem variant={'base-200'} className="w-full">
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>lol</MenuItem.Text>
         </MenuItem>
 
         <Link href="#">lol</Link>
@@ -125,22 +118,22 @@ const Components = () => {
         </ButtonOutline>
 
         <MenuItem>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>lol</MenuItem.Text>
         </MenuItem>
         <MenuItem variant={'primary'}>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>lol</MenuItem.Text>
         </MenuItem>
         <MenuItem variant={'base-200'}>
-          <MenuItem.MenuItemIcon>
+          <MenuItem.Icon>
             <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </MenuItem.MenuItemIcon>
-          <MenuItem.MenuItemText>lol</MenuItem.MenuItemText>
+          </MenuItem.Icon>
+          <MenuItem.Text>lol</MenuItem.Text>
         </MenuItem>
 
         <Button variant={'base-200'} className="min-h-[4rem]">
@@ -159,25 +152,25 @@ const Components = () => {
         </Button>
 
         <TextArea variant={'success'} className="mb-[1rem]">
-          <TextArea.TextAreaMain>
-            <TextArea.TextAreaLabel>E-mail</TextArea.TextAreaLabel>
-            <TextArea.TextAreaIcon position={'left'}>
+          <TextArea.Main>
+            <TextArea.Label>E-mail</TextArea.Label>
+            <TextArea.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </TextArea.TextAreaIcon>
-            <TextArea.TextAreaField name="lol"></TextArea.TextAreaField>
-            <TextArea.TextAreaIcon position={'right'}>
+            </TextArea.Icon>
+            <TextArea.Field name="lol"></TextArea.Field>
+            <TextArea.Icon position={'right'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-            </TextArea.TextAreaIcon>
-          </TextArea.TextAreaMain>
+            </TextArea.Icon>
+          </TextArea.Main>
         </TextArea>
         <TextArea variant={'edge-100'} className="mb-[1rem]">
-          <TextArea.TextAreaMain>
-            <TextArea.TextAreaLabel>E-mail</TextArea.TextAreaLabel>
-            <TextArea.TextAreaIcon position={'left'}>
+          <TextArea.Main>
+            <TextArea.Label>E-mail</TextArea.Label>
+            <TextArea.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-            </TextArea.TextAreaIcon>
-            <TextArea.TextAreaField name="lol"></TextArea.TextAreaField>
-          </TextArea.TextAreaMain>
+            </TextArea.Icon>
+            <TextArea.Field name="lol"></TextArea.Field>
+          </TextArea.Main>
         </TextArea>
 
         <Button variant={'primary'}>

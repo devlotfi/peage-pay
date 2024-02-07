@@ -20,5 +20,5 @@ const Breadcrumbs = ({
     </div>
   );
 };
-Breadcrumbs.BreadcrumbsItem = BreadcrumbsItem;
+Breadcrumbs.Item = BreadcrumbsItem;
 export default Breadcrumbs;

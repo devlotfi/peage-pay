@@ -58,6 +58,6 @@ const MenuItem = ({
     </MenuItemContext.Provider>
   );
 };
-MenuItem.MenuItemIcon = MenuItemIcon;
-MenuItem.MenuItemText = MenuItemText;
+MenuItem.Icon = MenuItemIcon;
+MenuItem.Text = MenuItemText;
 export default MenuItem;

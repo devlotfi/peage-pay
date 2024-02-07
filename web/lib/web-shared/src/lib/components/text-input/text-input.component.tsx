@@ -58,9 +58,9 @@ const TextInput = ({
     </TextInputContext.Provider>
   );
 };
-TextInput.TextInputMain = TextInputMain;
-TextInput.TextInputField = TextInputField;
-TextInput.TextInputIcon = TextInputIcon;
-TextInput.TextInputLabel = TextInputLabel;
-TextInput.TextInputInfoMessage = TextInputInfoMessage;
+TextInput.Main = TextInputMain;
+TextInput.Field = TextInputField;
+TextInput.Icon = TextInputIcon;
+TextInput.Label = TextInputLabel;
+TextInput.InfoMessage = TextInputInfoMessage;
 export default TextInput;

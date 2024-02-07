@@ -58,9 +58,9 @@ const Select = ({
     </SelectContext.Provider>
   );
 };
-Select.SelectMain = SelectMain;
-Select.SelectField = SelectField;
-Select.SelectIcon = SelectIcon;
-Select.SelectLabel = SelectLabel;
-Select.SelectInfoMessage = SelectInfoMessage;
+Select.Main = SelectMain;
+Select.Field = SelectField;
+Select.Icon = SelectIcon;
+Select.Label = SelectLabel;
+Select.InfoMessage = SelectInfoMessage;
 export default Select;
