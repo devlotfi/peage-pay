@@ -392,6 +392,27 @@ export function Layout() {
                   </TextInput.TextInputIcon>
                 </TextInput.TextInputMain>
               </TextInput>
+
+              <TextInput variant={'primary'} className="w-full mb-[1.5rem]">
+                <TextInput.TextInputMain>
+                  <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
+
+                  <TextInput.TextInputField
+                    name="lol"
+                    placeholder="Enter e-mail"
+                  ></TextInput.TextInputField>
+                </TextInput.TextInputMain>
+                <TextInput.TextInputInfoMessage>
+                  User not found
+                </TextInput.TextInputInfoMessage>
+                <TextInput.TextInputInfoMessage>
+                  User not found
+                </TextInput.TextInputInfoMessage>
+                <TextInput.TextInputInfoMessage>
+                  User not found
+                </TextInput.TextInputInfoMessage>
+              </TextInput>
+
               <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
                 <TextInput.TextInputMain>
                   <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
@@ -406,7 +427,7 @@ export function Layout() {
               </TextInput>
               <Tooltip
                 tooltipElement={
-                  <Tooltip.TooltipMessage position={'right'}>
+                  <Tooltip.TooltipMessage position={'top'}>
                     lol
                   </Tooltip.TooltipMessage>
                 }
@@ -417,7 +438,9 @@ export function Layout() {
                     <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Username</Button.Content>
-                  <Button.Icon position={'right'}></Button.Icon>
+                  <Button.Icon position={'right'}>
+                    <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
+                  </Button.Icon>
                 </Button>
               </Tooltip>
             </form>
