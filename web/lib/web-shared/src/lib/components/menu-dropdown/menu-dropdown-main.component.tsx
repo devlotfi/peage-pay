@@ -40,8 +40,11 @@ const MenuDropdownMain = ({
       {...props}
     >
       {children}
-      <MenuItem variant={'base-200'}>
-        <MenuItem.MenuItemIcon>
+      <MenuItem
+        variant={'base-200'}
+        className="bg-transparent hover:bg-transparent"
+      >
+        <MenuItem.MenuItemIcon className="bg-transparent group-hover:bg-transparent">
           <FontAwesomeIcon
             icon={faCaretDown}
             className={Utils.cn('duration-300 ease', open && 'rotate-180')}

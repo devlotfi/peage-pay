@@ -193,6 +193,62 @@ export function Layout() {
                 </MenuItem.MenuItemIcon>
                 <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
               </MenuItem>
+              <MenuDropdown
+                mainElement={
+                  <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+                    <MenuItem className="w-full" variant={'base-100'}>
+                      <MenuItem.MenuItemIcon>
+                        <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                      </MenuItem.MenuItemIcon>
+                      <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                    </MenuItem>
+                  </MenuDropdown.MenuDropdownMain>
+                }
+              >
+                <MenuDropdown
+                  mainElement={
+                    <MenuDropdown.MenuDropdownMain className="mb-[0.5rem]">
+                      <MenuItem className="w-full" variant={'base-100'}>
+                        <MenuItem.MenuItemIcon>
+                          <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                        </MenuItem.MenuItemIcon>
+                        <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                      </MenuItem>
+                    </MenuDropdown.MenuDropdownMain>
+                  }
+                >
+                  <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
+                    <MenuItem.MenuItemIcon>
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </MenuItem.MenuItemIcon>
+                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem>
+                  <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
+                    <MenuItem.MenuItemIcon>
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </MenuItem.MenuItemIcon>
+                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem>
+                  <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
+                    <MenuItem.MenuItemIcon>
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </MenuItem.MenuItemIcon>
+                    <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                  </MenuItem>
+                </MenuDropdown>
+                <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+                <MenuItem className="w-full" variant={'base-100'}>
+                  <MenuItem.MenuItemIcon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.MenuItemIcon>
+                  <MenuItem.MenuItemText>Test</MenuItem.MenuItemText>
+                </MenuItem>
+              </MenuDropdown>
             </Dropdown.DropdownContent>
           </Dropdown>
 
@@ -327,7 +383,10 @@ export function Layout() {
                   <TextInput.TextInputIcon position={'left'}>
                     <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
                   </TextInput.TextInputIcon>
-                  <TextInput.TextInputField name="lol"></TextInput.TextInputField>
+                  <TextInput.TextInputField
+                    name="lol"
+                    placeholder="Enter e-mail"
+                  ></TextInput.TextInputField>
                   <TextInput.TextInputIcon position={'right'}>
                     <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                   </TextInput.TextInputIcon>
@@ -337,12 +396,12 @@ export function Layout() {
                 <TextInput.TextInputMain>
                   <TextInput.TextInputLabel>E-mail</TextInput.TextInputLabel>
                   <TextInput.TextInputIcon position={'left'}>
-                    <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                  </TextInput.TextInputIcon>
-                  <TextInput.TextInputField name="lol"></TextInput.TextInputField>
-                  <TextInput.TextInputIcon position={'right'}>
                     <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                   </TextInput.TextInputIcon>
+                  <TextInput.TextInputField
+                    name="lol"
+                    placeholder="Enter e-mail"
+                  ></TextInput.TextInputField>
                 </TextInput.TextInputMain>
               </TextInput>
               <Tooltip

@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '../../utils';
 
 const dropdownContentVariants = cva(
-  'flex flex-col bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-lg border-[1px] border-edge-100',
+  'flex flex-col z-30 bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-lg border-[1px] border-edge-100 overflow-y-auto',
   {
     variants: {
       position: {
