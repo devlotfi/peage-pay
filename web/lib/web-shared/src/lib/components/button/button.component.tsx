@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import ButtonContent from './button-content.component';
 import ButtonIcon from './button-icon.component';
 
@@ -35,7 +35,7 @@ const Button = ({
 }: ButtonProps): JSX.Element => {
   return (
     <button
-      className={Utils.cn(buttonVariants({ variant, className }))}
+      className={WebUtils.cn(buttonVariants({ variant, className }))}
       {...props}
     >
       {children}

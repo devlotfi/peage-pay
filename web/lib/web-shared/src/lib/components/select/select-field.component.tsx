@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { SelectHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const selectFieldVariants = cva(
   'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] mr-[0.5rem]'
@@ -17,7 +17,7 @@ const SelectField = ({
 }: SelectProps): JSX.Element => {
   return (
     <select
-      className={Utils.cn(
+      className={WebUtils.cn(
         selectFieldVariants({
           className,
         })

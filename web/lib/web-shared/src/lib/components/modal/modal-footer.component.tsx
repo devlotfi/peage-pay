@@ -1,5 +1,5 @@
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalFooterVariants = cva(
@@ -17,7 +17,7 @@ const ModalFooter = ({
   ...props
 }: ModalFooterProps): JSX.Element => {
   return (
-    <div className={Utils.cn(modalFooterVariants({ className }))} {...props}>
+    <div className={WebUtils.cn(modalFooterVariants({ className }))} {...props}>
       {children}
     </div>
   );

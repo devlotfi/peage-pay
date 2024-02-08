@@ -1,5 +1,5 @@
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalWindowVariants = cva(
@@ -16,7 +16,7 @@ const ModalWindow = ({
   ...props
 }: ModalWindowProps): JSX.Element => {
   return (
-    <div className={Utils.cn(modalWindowVariants({ className }))} {...props}>
+    <div className={WebUtils.cn(modalWindowVariants({ className }))} {...props}>
       {children}
     </div>
   );

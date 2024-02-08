@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { SelectContext } from './select.component';
 
 const selectInfoMessageVariants = cva('flex ml-[1rem]', {
@@ -33,7 +33,7 @@ const SelectInfoMessage = ({
 
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         selectInfoMessageVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

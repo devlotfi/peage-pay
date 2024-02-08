@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes, useContext, useEffect } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { CheckboxContext } from './checkbox.component';
 
 const checkboxFieldVariants = cva('hidden');
@@ -36,7 +36,7 @@ const CheckboxField = ({
       type="checkbox"
       checked={globalChecked}
       onChange={handleChange}
-      className={Utils.cn(
+      className={WebUtils.cn(
         checkboxFieldVariants({
           className,
         })

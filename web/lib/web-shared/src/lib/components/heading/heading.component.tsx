@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import HeadingText from './heading-text.component';
 import HeadingIcon from './heading-icon.component';
 
@@ -45,7 +45,7 @@ const Heading = ({
       }}
     >
       <div
-        className={Utils.cn(headingVariants({ variant, className }))}
+        className={WebUtils.cn(headingVariants({ variant, className }))}
         {...props}
       >
         {children}

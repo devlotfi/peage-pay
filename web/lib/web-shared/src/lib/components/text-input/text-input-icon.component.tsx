@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { TextInputContext } from './text-input.component';
 
 const textInputIconVariants = cva(
@@ -41,7 +41,7 @@ const TextInputIcon = ({
 
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         textInputIconVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

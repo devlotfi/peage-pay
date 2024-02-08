@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import SelectField from './select-field.component';
 import SelectIcon from './select-icon.component';
 import SelectInfoMessage from './select-info-message.component';
@@ -50,7 +50,7 @@ const Select = ({
       }}
     >
       <div
-        className={Utils.cn(selectVariants({ variant, className }))}
+        className={WebUtils.cn(selectVariants({ variant, className }))}
         {...props}
       >
         {children}

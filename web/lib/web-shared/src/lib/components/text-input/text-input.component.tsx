@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import TextInputMain from './text-input-main.component';
 import TextInputField from './text-input-field.component';
 import TextInputIcon from './text-input-icon.component';
@@ -50,7 +50,7 @@ const TextInput = ({
       }}
     >
       <div
-        className={Utils.cn(textInputVariants({ variant, className }))}
+        className={WebUtils.cn(textInputVariants({ variant, className }))}
         {...props}
       >
         {children}

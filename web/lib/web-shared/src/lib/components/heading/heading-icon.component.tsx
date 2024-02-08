@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { HeadingContext } from './heading.component';
 
 const headingIconVariants = cva('flex justify-center items-center', {
@@ -36,7 +36,7 @@ const HeadingIcon = ({
 
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         headingIconVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

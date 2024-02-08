@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { LabelHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { SelectContext } from './select.component';
 
 const selectLabelVariants = cva(
@@ -36,7 +36,7 @@ const SelectLabel = ({
 
   return (
     <label
-      className={Utils.cn(
+      className={WebUtils.cn(
         selectLabelVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

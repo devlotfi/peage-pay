@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const buttonIconVariants = cva('flex justify-center items-center text-[15pt]', {
   variants: {
@@ -23,7 +23,7 @@ const ButtonIcon = ({
 }: ButtonIconProps): JSX.Element => {
   return (
     <div
-      className={Utils.cn(buttonIconVariants({ position, className }))}
+      className={WebUtils.cn(buttonIconVariants({ position, className }))}
       {...props}
     >
       {children}

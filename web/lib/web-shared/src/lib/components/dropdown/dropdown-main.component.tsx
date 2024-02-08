@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { DropdownContext } from './dropdown.component';
 
 const dropdownMainVariants = cva('flex items-center');
@@ -29,7 +29,7 @@ const DropdownMain = ({
   return (
     <div
       onClick={handleClick}
-      className={Utils.cn(
+      className={WebUtils.cn(
         dropdownMainVariants({
           className,
         })

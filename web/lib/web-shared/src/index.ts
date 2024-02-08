@@ -12,6 +12,7 @@ import Select from './lib/components/select/select.component';
 import TextArea from './lib/components/text-area/text-area.component';
 import TextInput from './lib/components/text-input/text-input.component';
 import Tooltip from './lib/components/tooltip/tooltip.component';
+import { WebUtils } from './lib/web-utils';
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   MenuDropdown,
   Dropdown,
   Modal,
+  WebUtils,
 };

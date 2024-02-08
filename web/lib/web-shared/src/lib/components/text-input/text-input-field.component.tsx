@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const textInputFieldVariants = cva(
   'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] text-base-content'
@@ -17,7 +17,7 @@ const TextInputField = ({
 }: TextInputFieldProps): JSX.Element => {
   return (
     <input
-      className={Utils.cn(
+      className={WebUtils.cn(
         textInputFieldVariants({
           className,
         })

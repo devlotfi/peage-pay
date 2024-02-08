@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { TextAreaContext } from './text-area.component';
 
 const textAreaMainVariants = cva(
@@ -39,7 +39,7 @@ const TextAreaMain = ({
 
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         textAreaMainVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

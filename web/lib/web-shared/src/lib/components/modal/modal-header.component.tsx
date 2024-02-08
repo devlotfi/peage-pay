@@ -1,5 +1,5 @@
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalHeaderVariants = cva(
@@ -17,7 +17,7 @@ const ModalHeader = ({
   ...props
 }: ModalHeaderProps): JSX.Element => {
   return (
-    <div className={Utils.cn(modalHeaderVariants({ className }))} {...props}>
+    <div className={WebUtils.cn(modalHeaderVariants({ className }))} {...props}>
       {children}
     </div>
   );

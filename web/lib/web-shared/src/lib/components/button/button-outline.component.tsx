@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import ButtonContent from './button-content.component';
 import ButtonIcon from './button-icon.component';
 
@@ -33,7 +33,7 @@ const ButtonOutline = ({
 }: ButtonProps): JSX.Element => {
   return (
     <button
-      className={Utils.cn(buttonOutlineVariants({ variant, className }))}
+      className={WebUtils.cn(buttonOutlineVariants({ variant, className }))}
       {...props}
     >
       {children}

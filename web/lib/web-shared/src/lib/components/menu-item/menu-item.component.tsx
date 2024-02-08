@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, createContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import MenuItemIcon from './menu-item-icon.component';
 import MenuItemText from './menu-item-text.component';
 
@@ -50,7 +50,7 @@ const MenuItem = ({
       }}
     >
       <button
-        className={Utils.cn(menuItemVariants({ variant, className }))}
+        className={WebUtils.cn(menuItemVariants({ variant, className }))}
         {...props}
       >
         {children}

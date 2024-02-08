@@ -6,7 +6,6 @@ import {
   faCaretDown,
   faCaretLeft,
   faKey,
-  faTrash,
   faUser,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
@@ -19,14 +18,17 @@ import {
   Heading,
   MenuDropdown,
   MenuItem,
-  Modal,
   TextInput,
   Tooltip,
 } from '@peage-pay/web-shared';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
-import { useRef } from 'react';
+import {
+  AdminPanelLayout,
+  Navbar,
+  Sidebar,
+} from '@peage-pay/admin-panel-shared';
 
-export function NewLayout() {
+export function Layout() {
   const toggleTheme = () => {
     const htmlTag = document.querySelector('html');
 
@@ -39,54 +41,51 @@ export function NewLayout() {
     }
   };
 
-  const modalRef = useRef(null);
-
   return (
-    <div className="flex">
-      <h1>lol</h1>
-      <Button onClick={() => modalRef.current.showModal()} variant={'success'}>
-        <Button.Content>Open modal</Button.Content>
-      </Button>
-      <Modal modalRef={modalRef}>
-        <Modal.Window>
-          <Modal.Header>
-            <Heading className="text-[17pt] p-[0.5rem]" variant={'error'}>
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Test</Heading.Text>
-            </Heading>
-          </Modal.Header>
-          <Modal.Content>
-            <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
-              <TextInput.Main>
-                <TextInput.Label>E-mail</TextInput.Label>
-                <TextInput.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </TextInput.Icon>
-                <TextInput.Field
-                  name="lol"
-                  type="datetime-local"
-                ></TextInput.Field>
-                <TextInput.Icon position={'right'}>
-                  <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-                </TextInput.Icon>
-              </TextInput.Main>
-            </TextInput>
-            <h1>lol</h1>
-          </Modal.Content>
-          <Modal.Footer>
-            <Button
-              onClick={() => modalRef.current.close()}
-              variant={'base-200'}
-            >
-              <Button.Content>Close modal</Button.Content>
+    <AdminPanelLayout>
+      <Sidebar>
+        <Sidebar.Main>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
+            <MenuItem.Icon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
+          </MenuItem>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+            <MenuItem.Icon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
+          </MenuItem>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
+            <MenuItem.Icon>
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            </MenuItem.Icon>
+            <MenuItem.Text>Test</MenuItem.Text>
+          </MenuItem>
+        </Sidebar.Main>
+        <Sidebar.Overlay></Sidebar.Overlay>
+      </Sidebar>
+      <div className="flex flex-col w-full pb-[0.5rem] pr-[0.5rem] pl-[0.5rem] lg:pl-0 lg:pb-[1rem] lg:pr-[1rem] overflow-hidden">
+        <Navbar>
+          <Navbar.LeftContent>
+            <Button variant={'base-100'} onClick={toggleTheme}>
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Sign in</Button.Content>
             </Button>
-          </Modal.Footer>
-        </Modal.Window>
-      </Modal>
-    </div>
+          </Navbar.LeftContent>
+          <Navbar.RightContent>
+            <h1>lol</h1>
+          </Navbar.RightContent>
+        </Navbar>
+        <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden rounded-xl bg-base-100">
+          // content
+        </div>
+      </div>
+    </AdminPanelLayout>
   );
 }
 
-export default NewLayout;
+export default Layout;

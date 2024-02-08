@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import TextAreaMain from './text-area-main.component';
 import TextAreaField from './text-area-field.component';
 import TextAreaIcon from './text-area-icon.component';
@@ -50,7 +50,7 @@ const TextArea = ({
       }}
     >
       <div
-        className={Utils.cn(textAreaVariants({ variant, className }))}
+        className={WebUtils.cn(textAreaVariants({ variant, className }))}
         {...props}
       >
         {children}

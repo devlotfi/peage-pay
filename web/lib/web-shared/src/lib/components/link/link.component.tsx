@@ -1,5 +1,5 @@
 import { AnchorHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const linkVariants = cva('text-primary-100 font-medium underline');
@@ -10,7 +10,7 @@ interface LinkProps
 
 const Link = ({ className, children, ...props }: LinkProps): JSX.Element => {
   return (
-    <a className={Utils.cn(linkVariants({ className }))} {...props}>
+    <a className={WebUtils.cn(linkVariants({ className }))} {...props}>
       {children}
     </a>
   );

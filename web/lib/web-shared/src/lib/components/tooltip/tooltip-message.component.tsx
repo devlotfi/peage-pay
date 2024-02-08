@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const tooltipMessageVariants = cva(
-  'px-[0.5rem] py-[0.3rem] rounded-md text-[10pt] opacity-0 absolute group-hover:opacity-100 duration-300 ease z-50 text-color-content',
+  'px-[0.5rem] py-[0.3rem] rounded-md text-[10pt] opacity-0 absolute group-hover:opacity-100 duration-300 ease z-20 text-color-content',
   {
     variants: {
       variant: {
@@ -38,11 +38,12 @@ const TooltipMessage = ({
 }: TooltipMessageProps): JSX.Element => {
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         tooltipMessageVariants({ variant, className, position })
       )}
       {...props}
     >
+      <h1></h1>
       {children}
     </div>
   );

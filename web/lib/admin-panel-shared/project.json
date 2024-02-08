@@ -1,7 +1,7 @@
 {
-  "name": "admin-shared",
+  "name": "admin-panel-shared",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "web/lib/admin-shared/src",
+  "sourceRoot": "web/lib/admin-panel-shared/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/web/lib/admin-shared"
+        "outputPath": "dist/web/lib/admin-panel-shared"
       },
       "configurations": {
         "development": {

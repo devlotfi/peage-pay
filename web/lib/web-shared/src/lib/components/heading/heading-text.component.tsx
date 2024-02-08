@@ -1,5 +1,5 @@
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const headingTextVariants = cva('text-base-content font-bold');
@@ -14,7 +14,7 @@ const HeadingText = ({
   ...props
 }: HeadingTextProps): JSX.Element => {
   return (
-    <div className={Utils.cn(headingTextVariants({ className }))} {...props}>
+    <div className={WebUtils.cn(headingTextVariants({ className }))} {...props}>
       {children}
     </div>
   );

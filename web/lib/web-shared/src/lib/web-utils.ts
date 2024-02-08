@@ -1,7 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export class Utils {
+export class WebUtils {
   public static cn(...inputs: ClassValue[]): string {
     return twMerge(clsx(inputs));
   }

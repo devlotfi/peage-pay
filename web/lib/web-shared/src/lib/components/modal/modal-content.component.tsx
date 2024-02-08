@@ -1,5 +1,5 @@
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalContentVariants = cva('flex flex-col p-[1rem] flex-1');
@@ -14,7 +14,10 @@ const ModalContent = ({
   ...props
 }: ModalContentProps): JSX.Element => {
   return (
-    <div className={Utils.cn(modalContentVariants({ className }))} {...props}>
+    <div
+      className={WebUtils.cn(modalContentVariants({ className }))}
+      {...props}
+    >
       {children}
     </div>
   );

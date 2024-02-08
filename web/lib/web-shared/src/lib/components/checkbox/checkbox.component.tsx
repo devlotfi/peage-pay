@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { LabelHTMLAttributes, createContext, useState } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import CheckboxField from './checkbox-field.component';
 import CheckboxLabel from './checkbox-label.component';
 import CheckboxCheck from './checkbox-check.component';
@@ -56,7 +56,7 @@ const Checkbox = ({
       }}
     >
       <label
-        className={Utils.cn(checkboxVariants({ variant, className }))}
+        className={WebUtils.cn(checkboxVariants({ variant, className }))}
         {...props}
       >
         {children}

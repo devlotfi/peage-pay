@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const dropdownContentVariants = cva(
-  'flex flex-col z-30 bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-lg border-[1px] border-edge-100 overflow-y-auto',
+  'flex flex-col z-10 bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-lg border-[1px] border-edge-100 overflow-y-auto',
   {
     variants: {
       position: {
@@ -36,7 +36,7 @@ const DropdownContent = ({
 }: DropdownContentProps): JSX.Element => {
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         dropdownContentVariants({
           className,
           position,

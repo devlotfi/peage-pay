@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { MenuItemContext } from './menu-item.component';
 
 const menuItemIconVariants = cva(
@@ -36,7 +36,7 @@ const MenuItemIcon = ({
 
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         menuItemIconVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),

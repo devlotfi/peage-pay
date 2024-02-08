@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext, useState } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import DropdownMain from './dropdown-main.component';
 import DropdownContent from './dropdown-content.component';
 
@@ -50,7 +50,7 @@ const Dropdown = ({
         setOpen,
       }}
     >
-      <div className={Utils.cn(dropdownVariants({ className }))} {...props}>
+      <div className={WebUtils.cn(dropdownVariants({ className }))} {...props}>
         <div className="">{mainElement}</div>
         <div className="">{open ? children : null}</div>
       </div>

@@ -1,5 +1,5 @@
 import { DialogHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import ModalHeader from './modal-header.component';
 import ModalWindow from './modal-window.component';
@@ -23,7 +23,7 @@ const Modal = ({
   return (
     <dialog
       ref={modalRef}
-      className={Utils.cn(modalVariants({ className }))}
+      className={WebUtils.cn(modalVariants({ className }))}
       {...props}
     >
       {children}

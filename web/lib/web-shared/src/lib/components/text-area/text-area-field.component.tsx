@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { TextareaHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const textAreaFieldVariants = cva(
   'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] min-h-[5rem] pt-[0.7rem]'
@@ -17,7 +17,7 @@ const TextAreaField = ({
 }: TextAreaFieldProps): JSX.Element => {
   return (
     <textarea
-      className={Utils.cn(
+      className={WebUtils.cn(
         textAreaFieldVariants({
           className,
         })

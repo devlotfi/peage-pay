@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext, useState } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 import MenuDropdownMain from './menu-dropdown-main.component';
 
 const menuDropdownVariants = cva('flex flex-col', {
@@ -49,7 +49,10 @@ const MenuDropdown = ({
         setOpen,
       }}
     >
-      <div className={Utils.cn(menuDropdownVariants({ className }))} {...props}>
+      <div
+        className={WebUtils.cn(menuDropdownVariants({ className }))}
+        {...props}
+      >
         {mainElement}
         <div className="flex w-full">
           <div className="flex min-w-[2px] mx-[0.7rem] h-full bg-edge-100"></div>

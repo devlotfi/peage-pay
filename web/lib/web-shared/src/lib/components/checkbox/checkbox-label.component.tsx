@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '../../utils';
+import { WebUtils } from '../../web-utils';
 
 const checkboxLabelVariants = cva('flex text-base-content mx-[0.5rem]');
 
@@ -15,7 +15,7 @@ const CheckboxLabel = ({
 }: checkboxLabelProps): JSX.Element => {
   return (
     <div
-      className={Utils.cn(
+      className={WebUtils.cn(
         checkboxLabelVariants({
           className,
         })
