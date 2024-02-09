@@ -7,7 +7,7 @@ import Card from '../card/card.component';
 import SignInLayoutMain from './sign-in-layout-main.component';
 
 const signInLayoutVariants = cva(
-  'flex flex-col max-h-screen bg-base-200 min-h-screen bg-cover text-base-content'
+  'flex flex-col max-h-screen bg-base-100 min-h-screen bg-cover text-base-content',
 );
 
 interface SignInLayoutProps

@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
 
 const cardHeaderVariants = cva(
-  'flex flex-col items-center w-[90%] mt-[0.5rem] border-edge-100 border-b-[1px] pb-[0.5rem] mb-[1rem]'
+  'flex flex-col bg-base-200 py-[1rem] rounded-lg items-center w-[90%]',
 );
 
 interface CardHeaderProps

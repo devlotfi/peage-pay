@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
 import ButtonContent from './button-content.component';
-import ButtonIcon from './button-icon.component';
+import TabsItemIcon from './button-icon.component';
 
 const buttonOutlineVariants = cva(
   'flex min-h-[3rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md bg-base-100 border-[1px] hover:bg-base-200 duration-300 ease active:scale-95',
@@ -18,7 +18,7 @@ const buttonOutlineVariants = cva(
     defaultVariants: {
       variant: 'primary',
     },
-  }
+  },
 );
 
 interface ButtonProps
@@ -41,5 +41,5 @@ const ButtonOutline = ({
   );
 };
 ButtonOutline.Content = ButtonContent;
-ButtonOutline.Icon = ButtonIcon;
+ButtonOutline.Icon = TabsItemIcon;
 export default ButtonOutline;

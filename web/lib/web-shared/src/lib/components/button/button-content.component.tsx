@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
 
-const buttonContentVariants = cva('flex items-center');
+const buttonContentVariants = cva('flex items-center whitespace-nowrap');
 
 interface ButtonContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,

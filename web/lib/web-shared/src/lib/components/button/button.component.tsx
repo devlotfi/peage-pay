@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
 import ButtonContent from './button-content.component';
-import ButtonIcon from './button-icon.component';
+import TabsItemIcon from './button-icon.component';
 
 const buttonVariants = cva(
   'flex min-h-[3rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md duration-300 ease active:scale-95',
@@ -21,7 +21,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'base-100',
     },
-  }
+  },
 );
 
 interface ButtonProps
@@ -44,5 +44,5 @@ const Button = ({
   );
 };
 Button.Content = ButtonContent;
-Button.Icon = ButtonIcon;
+Button.Icon = TabsItemIcon;
 export default Button;

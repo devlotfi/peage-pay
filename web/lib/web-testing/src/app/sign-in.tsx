@@ -17,8 +17,10 @@ import {
   Checkbox,
   Dropdown,
   Heading,
+  LoaderDots,
   MenuDropdown,
   MenuItem,
+  Tabs,
   TextInput,
   Tooltip,
 } from '@peage-pay/web-shared';
@@ -49,7 +51,7 @@ export function SignIn() {
           <Dropdown
             mainElement={
               <Dropdown.Main>
-                <Button variant={'base-200'}>
+                <Button variant={'base-100'}>
                   <Button.Icon>
                     <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
                   </Button.Icon>
@@ -74,7 +76,7 @@ export function SignIn() {
             General adminstration
           </SignInLayout.Card.Header>
           <div className="flex flex-col w-[90%]">
-            <div className="flex mb-[1rem] text-[23pt] font-semibold">
+            <div className="flex my-[1.5rem] text-[25pt] font-semibold">
               Sign in
             </div>
             <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
@@ -95,9 +97,54 @@ export function SignIn() {
                 <TextInput.Field name="lol" type="password"></TextInput.Field>
               </TextInput.Main>
             </TextInput>
+
             <Button variant={'primary'}>
-              <Button.Content>Sign in</Button.Content>
+              <Button.Content>
+                <LoaderDots
+                  dotProps={{
+                    variant: 'color-content',
+                  }}
+                ></LoaderDots>
+              </Button.Content>
             </Button>
+            <Tabs variant={'base-100'}>
+              <Tabs.Item isActive={'active'}>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+              <Tabs.Item>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+              <Tabs.Item>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+              <Tabs.Item>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+              <Tabs.Item>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+              <Tabs.Item>
+                <Tabs.Item.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </Tabs.Item.Icon>
+                <Tabs.Item.Content>test lola</Tabs.Item.Content>
+              </Tabs.Item>
+            </Tabs>
           </div>
         </SignInLayout.Card>
         <SignInLayout.Drawing></SignInLayout.Drawing>

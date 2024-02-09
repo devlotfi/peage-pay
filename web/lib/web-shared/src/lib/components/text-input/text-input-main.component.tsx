@@ -22,7 +22,7 @@ const textInputMainVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextInputMainProps
@@ -44,7 +44,7 @@ const TextInputMain = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

@@ -19,7 +19,7 @@ const selectMainVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface SelectMainProps
@@ -41,7 +41,7 @@ const SelectMain = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

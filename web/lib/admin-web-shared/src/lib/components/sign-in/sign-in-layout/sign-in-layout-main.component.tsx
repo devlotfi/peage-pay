@@ -2,9 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
 
-const signInLayoutMainVariants = cva(
-  'flex flex-1 bg-base-200 lg:bg-base-100 m-[0.5rem] rounded-xl'
-);
+const signInLayoutMainVariants = cva('flex flex-1 m-[0.5rem] mt-0 rounded-xl');
 
 interface SignInLayoutMainProps
   extends BaseHTMLAttributes<HTMLDivElement>,
