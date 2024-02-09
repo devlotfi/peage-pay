@@ -49,7 +49,7 @@ export function SignIn() {
           <Dropdown
             mainElement={
               <Dropdown.Main>
-                <Button variant={'base-100'}>
+                <Button variant={'base-200'}>
                   <Button.Icon>
                     <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
                   </Button.Icon>

@@ -19,7 +19,7 @@ const NavbarLeftContent = ({
       className={WebUtils.cn(navbarLeftContentVariants({ className }))}
       {...props}
     >
-      <Button variant={'base-100'}>
+      <Button variant={'base-200'}>
         <Button.Content>
           <img
             className="w-[1.8rem]"
