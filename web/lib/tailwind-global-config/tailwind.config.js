@@ -45,6 +45,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        logo: ['Fugaz One', ...defaultTheme.fontFamily.sans],
       },
     },
   },

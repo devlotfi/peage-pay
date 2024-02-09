@@ -1,6 +1,8 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, createContext, useState } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
+import AdminPanelLayoutMain from './admin-panel-layout-main.component';
+import AdminPanelLayoutContent from './admin-panel-layout-content.component';
 
 const adminPanelLayoutVariants = cva(
   'flex max-h-screen min-h-screen bg-base-200'
@@ -47,4 +49,6 @@ const AdminPanelLayout = ({
     </AdminPanelLayoutContext.Provider>
   );
 };
+AdminPanelLayout.Main = AdminPanelLayoutMain;
+AdminPanelLayout.Content = AdminPanelLayoutContent;
 export default AdminPanelLayout;

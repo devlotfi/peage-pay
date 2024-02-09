@@ -44,14 +44,17 @@ const SidebarMain = ({
       )}
       {...props}
     >
-      <div className="flex">
-        <Button variant={'base-200'}>
+      <div className="flex justify-center">
+        <Button variant={'base-200'} className="w-full">
           <Button.Content>
             <img
-              className="w-[15rem]"
+              className="w-[1.8rem]"
               src={PeagePayAdminLogo}
               alt="peage-pay-admin-logo"
             />
+            <div className="flex font-bold font-logo text-[15pt] ml-[0.7rem]">
+              PeagePay Admin
+            </div>
           </Button.Content>
         </Button>
         <Button

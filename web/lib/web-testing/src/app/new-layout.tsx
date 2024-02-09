@@ -66,10 +66,10 @@ export function Layout() {
         </Sidebar.Main>
         <Sidebar.Overlay></Sidebar.Overlay>
       </Sidebar>
-      <div className="flex flex-col w-full pb-[0.5rem] pr-[0.5rem] pl-[0.5rem] lg:pl-0 lg:pb-[1rem] lg:pr-[1rem] overflow-hidden">
+      <AdminPanelLayout.Main>
         <Navbar>
           <Navbar.LeftContent>
-            <Button variant={'base-100'} onClick={toggleTheme}>
+            <Button variant={'base-200'} onClick={toggleTheme}>
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
               </Button.Icon>
@@ -80,10 +80,24 @@ export function Layout() {
             <h1>lol</h1>
           </Navbar.RightContent>
         </Navbar>
-        <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden rounded-xl bg-base-100">
-          // content
-        </div>
-      </div>
+        <AdminPanelLayout.Content className="p-[1rem]">
+          <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
+            <TextInput.Main>
+              <TextInput.Label>E-mail</TextInput.Label>
+              <TextInput.Icon position={'left'}>
+                <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+              </TextInput.Icon>
+              <TextInput.Field
+                name="lol"
+                type="datetime-local"
+              ></TextInput.Field>
+              <TextInput.Icon position={'right'}>
+                <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
+              </TextInput.Icon>
+            </TextInput.Main>
+          </TextInput>
+        </AdminPanelLayout.Content>
+      </AdminPanelLayout.Main>
     </AdminPanelLayout>
   );
 }
