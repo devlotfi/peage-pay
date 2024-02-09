@@ -22,7 +22,7 @@ import {
   Tooltip,
 } from '@peage-pay/web-shared';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
-import { AdminDashboardLayout } from '@peage-pay/admin-panel-shared';
+import { AdminDashboardLayout } from '@peage-pay/admin-web-shared';
 
 export function Layout() {
   const toggleTheme = () => {

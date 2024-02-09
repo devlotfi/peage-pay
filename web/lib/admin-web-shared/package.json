@@ -1,5 +1,5 @@
 {
-  "name": "@peage-pay/admin-panel-shared",
+  "name": "@peage-pay/admin-web-shared",
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",

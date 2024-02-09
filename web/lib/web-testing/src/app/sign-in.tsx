@@ -25,7 +25,7 @@ import { PeagePayAdminLogo, AuthSignInBg, Toll } from '@peage-pay/assets';
 import {
   AdminDashboardLayout,
   SignInLayout,
-} from '@peage-pay/admin-panel-shared';
+} from '@peage-pay/admin-web-shared';
 
 export function SignIn() {
   const toggleTheme = () => {
@@ -115,7 +115,7 @@ export function SignIn() {
           </div>
         </div>
         <div className="hidden lg:flex flex-1 justify-center items-center">
-          <img className="max-w-[55%]" src={Toll} alt="toll" />
+          <img className="max-w-[55%] opacity-90" src={Toll} alt="toll" />
         </div>
       </div>
     </SignInLayout>
