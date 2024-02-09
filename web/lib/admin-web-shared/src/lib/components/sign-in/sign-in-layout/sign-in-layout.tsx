@@ -2,10 +2,9 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
 import Navbar from '../navbar/navbar.component';
-import { AuthSignInBg } from '@peage-pay/assets';
 
 const signInLayoutVariants = cva(
-  'flex flex-col max-h-screen bg-[image:var(--image-url)] bg-base-200 min-h-screen bg-cover text-base-content'
+  'flex flex-col max-h-screen bg-base-100 min-h-screen bg-cover text-base-content'
 );
 
 interface SignInLayoutProps
@@ -19,9 +18,6 @@ const SignInLayout = ({
 }: SignInLayoutProps): JSX.Element => {
   return (
     <div
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      style={{ '--image-url': `url(${AuthSignInBg})` }}
       className={WebUtils.cn(signInLayoutVariants({ className }))}
       {...props}
     >

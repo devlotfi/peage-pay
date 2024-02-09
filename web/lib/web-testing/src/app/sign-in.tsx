@@ -69,15 +69,8 @@ export function SignIn() {
           </Dropdown>
         </SignInLayout.Navbar.RightContent>
       </SignInLayout.Navbar>
-      <div className="flex flex-1 bg-base-200 lg:bg-transparent">
-        <div className="flex flex-col bg-base-100 rounded-xl m-[0.5rem] lg:m-[1rem] w-full lg:w-[45%] lg:max-w-[38rem] items-center">
-          <div className="hidden lg:flex justify-center items-center h-[4rem] w-[4rem] border-edge-100 border-[1px] rounded-full shadow-lg mt-[-2.5rem] bg-base-100">
-            <img
-              src={PeagePayAdminLogo}
-              alt="peage-pay-logo"
-              className="h-[2rem] w-[2rem]"
-            />
-          </div>
+      <div className="flex flex-1 bg-base-200 lg:bg-base-100">
+        <div className="flex flex-col w-full lg:w-[45%] lg:max-w-[38rem] items-center bg-base-100 rounded-xl m-[0.5rem] lg:m-0">
           <div className="flex flex-col items-center w-[90%] mt-[0.5rem] border-edge-100 border-b-[1px] pb-[0.5rem] mb-[1rem]">
             <div className="fle font-bold text-[15pt]">
               PeagePay Adminstration
@@ -114,7 +107,11 @@ export function SignIn() {
             </TextInput>
           </div>
         </div>
-        <div className="hidden lg:flex flex-1 justify-center items-center">
+        <div // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          style={{ '--image-url': `url(${AuthSignInBg})` }}
+          className="hidden lg:flex m-[1rem] flex-1 bg-base-200 rounded-xl justify-center items-center bg-[image:var(--image-url)] bg-cover"
+        >
           <img className="max-w-[55%] opacity-90" src={Toll} alt="toll" />
         </div>
       </div>
