@@ -69,19 +69,53 @@ export function SignIn() {
           </Dropdown>
         </SignInLayout.Navbar.RightContent>
       </SignInLayout.Navbar>
-      <div className="flex flex-1">
-        <div className="flex w-full xl:p-[1rem]">
-          <div className="flex flex-col bg-base-100 xl:rounded-xl xl:mt-[0.5rem] min-w-[38rem] xl:max-w-[38rem]">
-            <div className="flex justify-center">
-              <div className="flex justify-center items-center xl:mt-[-2.5rem] bg-base-100 h-[5rem] w-[5rem] border-edge-100 border-[1px] rounded-full">
-                <img className="h-[3rem]" src={PeagePayAdminLogo} alt="" />
-              </div>
+      <div className="flex flex-1 bg-base-200 lg:bg-transparent">
+        <div className="flex flex-col bg-base-100 rounded-xl m-[0.5rem] lg:m-[1rem] w-full lg:w-[45%] lg:max-w-[38rem] items-center">
+          <div className="hidden lg:flex justify-center items-center h-[4rem] w-[4rem] border-edge-100 border-[1px] rounded-full shadow-lg mt-[-2.5rem] bg-base-100">
+            <img
+              src={PeagePayAdminLogo}
+              alt="peage-pay-logo"
+              className="h-[2rem] w-[2rem]"
+            />
+          </div>
+          <div className="flex flex-col items-center w-[90%] mt-[0.5rem] border-edge-100 border-b-[1px] pb-[0.5rem] mb-[1rem]">
+            <div className="fle font-bold text-[15pt]">
+              PeagePay Adminstration
             </div>
-            <h1>lol</h1>
+            <div className="flex text-[11pt]">General adminstration</div>
+          </div>
+          <div className="flex flex-col w-[90%]">
+            <div className="flex mb-[1rem] text-[23pt] font-semibold">
+              Sign in
+            </div>
+            <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
+              <TextInput.Main>
+                <TextInput.Label>E-mail</TextInput.Label>
+                <TextInput.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </TextInput.Icon>
+                <TextInput.Field name="lol" type="email"></TextInput.Field>
+                <TextInput.Icon position={'right'}>
+                  <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
+                </TextInput.Icon>
+              </TextInput.Main>
+            </TextInput>
+            <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
+              <TextInput.Main>
+                <TextInput.Label>E-mail</TextInput.Label>
+                <TextInput.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+                </TextInput.Icon>
+                <TextInput.Field name="lol" type="password"></TextInput.Field>
+                <TextInput.Icon position={'right'}>
+                  <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
+                </TextInput.Icon>
+              </TextInput.Main>
+            </TextInput>
           </div>
         </div>
-        <div className="hidden xl:flex flex-1 justify-center items-center">
-          <img className="max-h-[25rem]" src={Toll} alt="toll" />
+        <div className="hidden lg:flex flex-1 justify-center items-center">
+          <img className="max-w-[55%]" src={Toll} alt="toll" />
         </div>
       </div>
     </SignInLayout>

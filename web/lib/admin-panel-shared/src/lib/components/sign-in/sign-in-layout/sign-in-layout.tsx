@@ -5,7 +5,7 @@ import Navbar from '../navbar/navbar.component';
 import { AuthSignInBg } from '@peage-pay/assets';
 
 const signInLayoutVariants = cva(
-  'flex flex-col max-h-screen bg-[image:var(--image-url)] min-h-screen bg-cover'
+  'flex flex-col max-h-screen bg-[image:var(--image-url)] bg-base-200 min-h-screen bg-cover text-base-content'
 );
 
 interface SignInLayoutProps

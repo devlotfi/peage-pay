@@ -26,7 +26,7 @@ const NavbarLeftContent = ({
             src={PeagePayAdminLogo}
             alt="peage-pay-admin-logo"
           />
-          <div className="hidden lg:flex font-bold font-logo text-[15pt] ml-[0.7rem]">
+          <div className="hidden lg:flex font-bold font-logo text-[15pt] ml-[0.7rem] lg:text-base-content">
             PeagePay Admin
           </div>
         </Button.Content>
