@@ -167,24 +167,6 @@ export function Layout() {
             }
           >
             <Dropdown.Content position={'bottom-right'}>
-              <div className="flex items-end justify-center min-h-[5rem] bg-base-200 rounded-lg mb-[3rem]">
-                <FontAwesomeIcon
-                  className="mb-[-2.5rem] text-[5rem] text-base-content"
-                  icon={faUserCircle}
-                ></FontAwesomeIcon>
-              </div>
-              <MenuItem className="w-full" variant={'base-100'}>
-                <MenuItem.Icon>
-                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.Icon>
-                <MenuItem.Text>Test</MenuItem.Text>
-              </MenuItem>
-              <MenuItem className="w-full" variant={'base-100'}>
-                <MenuItem.Icon>
-                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                </MenuItem.Icon>
-                <MenuItem.Text>Test</MenuItem.Text>
-              </MenuItem>
               <MenuItem className="w-full" variant={'base-100'}>
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -203,37 +185,6 @@ export function Layout() {
                   </MenuDropdown.Main>
                 }
               >
-                <MenuDropdown
-                  mainElement={
-                    <MenuDropdown.Main className="mb-[0.5rem]">
-                      <MenuItem className="w-full" variant={'base-100'}>
-                        <MenuItem.Icon>
-                          <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                        </MenuItem.Icon>
-                        <MenuItem.Text>Test</MenuItem.Text>
-                      </MenuItem>
-                    </MenuDropdown.Main>
-                  }
-                >
-                  <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
-                    <MenuItem.Icon>
-                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.Icon>
-                    <MenuItem.Text>Test</MenuItem.Text>
-                  </MenuItem>
-                  <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
-                    <MenuItem.Icon>
-                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.Icon>
-                    <MenuItem.Text>Test</MenuItem.Text>
-                  </MenuItem>
-                  <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
-                    <MenuItem.Icon>
-                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    </MenuItem.Icon>
-                    <MenuItem.Text>Test</MenuItem.Text>
-                  </MenuItem>
-                </MenuDropdown>
                 <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>

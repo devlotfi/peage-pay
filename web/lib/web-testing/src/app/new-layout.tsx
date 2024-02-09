@@ -22,11 +22,7 @@ import {
   Tooltip,
 } from '@peage-pay/web-shared';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
-import {
-  AdminPanelLayout,
-  Navbar,
-  Sidebar,
-} from '@peage-pay/admin-panel-shared';
+import { AdminDashboardLayout } from '@peage-pay/admin-panel-shared';
 
 export function Layout() {
   const toggleTheme = () => {
@@ -42,9 +38,9 @@ export function Layout() {
   };
 
   return (
-    <AdminPanelLayout>
-      <Sidebar>
-        <Sidebar.Main>
+    <AdminDashboardLayout>
+      <AdminDashboardLayout.Sidebar>
+        <AdminDashboardLayout.Sidebar.Main>
           <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
@@ -63,24 +59,24 @@ export function Layout() {
             </MenuItem.Icon>
             <MenuItem.Text>Test</MenuItem.Text>
           </MenuItem>
-        </Sidebar.Main>
-        <Sidebar.Overlay></Sidebar.Overlay>
-      </Sidebar>
-      <AdminPanelLayout.Main>
-        <Navbar>
-          <Navbar.LeftContent>
+        </AdminDashboardLayout.Sidebar.Main>
+        <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>
+      </AdminDashboardLayout.Sidebar>
+      <AdminDashboardLayout.Main>
+        <AdminDashboardLayout.Navbar>
+          <AdminDashboardLayout.Navbar.LeftContent>
             <Button variant={'base-200'} onClick={toggleTheme}>
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Sign in</Button.Content>
             </Button>
-          </Navbar.LeftContent>
-          <Navbar.RightContent>
+          </AdminDashboardLayout.Navbar.LeftContent>
+          <AdminDashboardLayout.Navbar.RightContent>
             <h1>lol</h1>
-          </Navbar.RightContent>
-        </Navbar>
-        <AdminPanelLayout.Content className="p-[1rem]">
+          </AdminDashboardLayout.Navbar.RightContent>
+        </AdminDashboardLayout.Navbar>
+        <AdminDashboardLayout.Content className="p-[1rem]">
           <TextInput variant={'edge-100'} className="w-full mb-[1.5rem]">
             <TextInput.Main>
               <TextInput.Label>E-mail</TextInput.Label>
@@ -96,9 +92,9 @@ export function Layout() {
               </TextInput.Icon>
             </TextInput.Main>
           </TextInput>
-        </AdminPanelLayout.Content>
-      </AdminPanelLayout.Main>
-    </AdminPanelLayout>
+        </AdminDashboardLayout.Content>
+      </AdminDashboardLayout.Main>
+    </AdminDashboardLayout>
   );
 }
 

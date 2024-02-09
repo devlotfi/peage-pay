@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Button, WebUtils } from '@peage-pay/web-shared';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
-import { AdminPanelLayoutContext } from '../admin-panel-layout/admin-panel-layout.component';
+import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -31,7 +31,7 @@ const SidebarMain = ({
   ...props
 }: SidebarMainProps): JSX.Element => {
   const { sidebarOpened, setSidebarOpened } = useContext(
-    AdminPanelLayoutContext
+    AdminDashboardLayoutContext
   );
 
   return (

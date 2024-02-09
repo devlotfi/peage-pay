@@ -13,6 +13,7 @@ const buttonVariants = cva(
         success: 'bg-success-100 hover:bg-success-200 text-color-content',
         error: 'bg-error-100 hover:bg-error-200 text-color-content',
         warning: 'bg-warning-100 hover:bg-warning-200 text-color-content',
+        transparent: 'bg-transparent text-base-content',
         'base-100': 'bg-base-100 hover:bg-base-200 text-base-content',
         'base-200': 'bg-base-200 hover:bg-base-300 text-base-content',
       },

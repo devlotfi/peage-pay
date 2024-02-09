@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
-import { AdminPanelLayoutContext } from '../admin-panel-layout/admin-panel-layout.component';
+import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 
 const sidebarOverlayVariants = cva(
   'fixed lg:hidden h-screen w-screen bg-black opacity-50 z-40',
@@ -27,7 +27,7 @@ const SidebarOverlay = ({
   children,
   ...props
 }: SidebarOverlayProps): JSX.Element => {
-  const { sidebarOpened } = useContext(AdminPanelLayoutContext);
+  const { sidebarOpened } = useContext(AdminDashboardLayoutContext);
 
   return (
     <div

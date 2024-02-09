@@ -3,12 +3,10 @@ import { BaseHTMLAttributes, useContext } from 'react';
 import { Button, WebUtils } from '@peage-pay/web-shared';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AdminPanelLayoutContext } from '../admin-panel-layout/admin-panel-layout.component';
+import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { PeagePayAdminLogo } from '@peage-pay/assets';
 
-const navbarLeftContentVariants = cva(
-  'flex min-h-[3.5rem] items-center justify-between'
-);
+const navbarLeftContentVariants = cva('flex');
 
 interface NavbarLeftContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,
@@ -19,7 +17,7 @@ const NavbarLeftContent = ({
   children,
   ...props
 }: NavbarLeftContentProps): JSX.Element => {
-  const { setSidebarOpened } = useContext(AdminPanelLayoutContext);
+  const { setSidebarOpened } = useContext(AdminDashboardLayoutContext);
 
   return (
     <div
