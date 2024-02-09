@@ -19,8 +19,6 @@ const DropdownMain = ({
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOpen(!open);
-    console.log('lol');
-
     if (onClick) {
       onClick(e);
     }

@@ -16,7 +16,7 @@ html {
   --color-content: #ffffff;
 }
 
-html[data-theme='light'] {
+html[data-theme='LIGHT'] {
   --base-100: #ffffff;
   --base-200: #eaeef2;
   --base-300: #d4d8dd;
@@ -27,7 +27,7 @@ html[data-theme='light'] {
   --edge-300: #838383;
 }
 
-html[data-theme='dark'] {
+html[data-theme='DARK'] {
   --base-100: #313b4b;
   --base-200: #202732;
   --base-300: #161e22;

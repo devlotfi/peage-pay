@@ -21,10 +21,10 @@ const Components = () => {
     const htmlTag = document.querySelector('html');
 
     if (htmlTag) {
-      if (htmlTag?.dataset.theme === 'dark') {
-        htmlTag.dataset.theme = 'light';
+      if (htmlTag?.dataset.theme === 'DARK') {
+        htmlTag.dataset.theme = 'LIGHT';
       } else {
-        htmlTag.dataset.theme = 'dark';
+        htmlTag.dataset.theme = 'DARK';
       }
     }
   };
