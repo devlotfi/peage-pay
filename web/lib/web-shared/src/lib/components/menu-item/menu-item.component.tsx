@@ -20,7 +20,7 @@ const menuItemVariants = cva(
     defaultVariants: {
       variant: 'base-100',
     },
-  }
+  },
 );
 
 interface MenuItemProps

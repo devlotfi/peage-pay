@@ -9,11 +9,11 @@ html {
   --success-200: #3ba161;
   --success-transparent: #49d77d50;
 
-  --error-100: #dc2626;
-  --error-200: #921d1d;
-  --error-transparent: #dc262650;
+  --error-100: #e04a4a;
+  --error-200: #9b3434;
+  --error-transparent: #e04a4a50;
 
-  --warning-100: #c2af00;
+  --warning-100: #f3de24;
   --warning-200: #8f8100;
   --warning-transparent: #c2af0050;
 

@@ -2,7 +2,9 @@ import { AnchorHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
-const linkVariants = cva('text-primary-100 font-medium underline');
+const linkVariants = cva(
+  'text-primary-100 font-medium underline active:scale-95',
+);
 
 interface LinkProps
   extends AnchorHTMLAttributes<HTMLAnchorElement>,

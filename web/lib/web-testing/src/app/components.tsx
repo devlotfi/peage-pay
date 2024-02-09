@@ -30,7 +30,7 @@ const Components = () => {
   };
 
   return (
-    <div className="bg-base-100 min-h-screen flex flex-col text-base-content">
+    <div className="bg-base-100 min-h-screen flex flex-col text-base-content p-[1rem]">
       <div className="min-h-[4rem] flex items-center px-[1rem] border-edge-100 border-b-[1px]">
         <Button variant={'primary'} onClick={toggleTheme}>
           <Button.Icon position={'left'}>
@@ -230,6 +230,21 @@ const Components = () => {
         </Button>
 
         <Button variant={'base-100'}>
+          <Button.Icon>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+        <Button variant={'error'}>
+          <Button.Icon>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+        <Button variant={'success'}>
+          <Button.Icon>
+            <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          </Button.Icon>
+        </Button>
+        <Button variant={'warning'}>
           <Button.Icon>
             <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
           </Button.Icon>
