@@ -73,6 +73,42 @@ const Components = () => {
           </Select.Main>
           <Select.InfoMessage>Info message</Select.InfoMessage>
         </Select>
+        <Select className="mb-[1rem]" variant={'edge-100'}>
+          <Select.Main>
+            <Select.Label htmlFor="email">E-mail</Select.Label>
+            <Select.Icon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.Icon>
+            <Select.Field name="email" id="email">
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+            </Select.Field>
+            <Select.Icon position={'right'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.Icon>
+          </Select.Main>
+          <Select.InfoMessage>Info message</Select.InfoMessage>
+        </Select>
+        <Select className="mb-[1rem]" variant={'error'}>
+          <Select.Main>
+            <Select.Label htmlFor="email">E-mail</Select.Label>
+            <Select.Icon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.Icon>
+            <Select.Field name="email" id="email">
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+              <option value="lol1">lol1</option>
+            </Select.Field>
+            <Select.Icon position={'right'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </Select.Icon>
+          </Select.Main>
+          <Select.InfoMessage>Info message</Select.InfoMessage>
+        </Select>
         <TextInput className="mb-[1rem]">
           <TextInput.Main>
             <TextInput.Label htmlFor="email">E-mail</TextInput.Label>

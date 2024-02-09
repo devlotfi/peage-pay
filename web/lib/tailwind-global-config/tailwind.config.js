@@ -7,7 +7,7 @@ module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
+      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
@@ -17,18 +17,22 @@ module.exports = {
         primary: {
           100: 'var(--primary-100)',
           200: 'var(--primary-200)',
+          transparent: 'var(--primary-transparent)',
         },
         success: {
           100: 'var(--success-100)',
           200: 'var(--success-200)',
+          transparent: 'var(--success-transparent)',
         },
         error: {
           100: 'var(--error-100)',
           200: 'var(--error-200)',
+          transparent: 'var(--error-transparent)',
         },
         warning: {
           100: 'var(--warning-100)',
           200: 'var(--warning-200)',
+          transparent: 'var(--warning-transparent)',
         },
         'color-content': 'var(--color-content)',
         base: {

@@ -3,15 +3,19 @@
 html {
   --primary-100: #2aa8ee;
   --primary-200: #2280b3;
+  --primary-transparent: #2aa8ee50;
 
   --success-100: #49d77d;
   --success-200: #3ba161;
+  --success-transparent: #49d77d50;
 
   --error-100: #dc2626;
   --error-200: #921d1d;
+  --error-transparent: #dc262650;
 
   --warning-100: #c2af00;
   --warning-200: #8f8100;
+  --warning-transparent: #c2af0050;
 
   --color-content: #ffffff;
 }
