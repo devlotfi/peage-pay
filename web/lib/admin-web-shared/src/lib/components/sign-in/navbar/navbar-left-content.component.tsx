@@ -1,4 +1,4 @@
-import { PeagePayAdminLogo } from '@peage-pay/assets';
+import { PeagePayLogo } from '@peage-pay/assets';
 import { Button, WebUtils } from '@peage-pay/web-shared';
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
@@ -23,7 +23,7 @@ const NavbarLeftContent = ({
         <Button.Content>
           <img
             className="w-[1.8rem]"
-            src={PeagePayAdminLogo}
+            src={PeagePayLogo}
             alt="peage-pay-admin-logo"
           />
           <div className="hidden md:flex font-bold font-logo text-[15pt] ml-[0.7rem] lg:text-base-content">

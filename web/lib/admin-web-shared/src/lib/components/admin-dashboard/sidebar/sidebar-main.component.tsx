@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Button, WebUtils } from '@peage-pay/web-shared';
-import { PeagePayAdminLogo } from '@peage-pay/assets';
+import { PeagePayLogo } from '@peage-pay/assets';
 import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ const sidebarMainVariants = cva(
     defaultVariants: {
       sidebarOpened: 'closed',
     },
-  }
+  },
 );
 
 interface SidebarMainProps
@@ -31,7 +31,7 @@ const SidebarMain = ({
   ...props
 }: SidebarMainProps): JSX.Element => {
   const { sidebarOpened, setSidebarOpened } = useContext(
-    AdminDashboardLayoutContext
+    AdminDashboardLayoutContext,
   );
 
   return (
@@ -40,7 +40,7 @@ const SidebarMain = ({
         sidebarMainVariants({
           className,
           sidebarOpened: sidebarOpened ? 'opened' : 'closed',
-        })
+        }),
       )}
       {...props}
     >
@@ -49,7 +49,7 @@ const SidebarMain = ({
           <Button.Content>
             <img
               className="w-[1.8rem]"
-              src={PeagePayAdminLogo}
+              src={PeagePayLogo}
               alt="peage-pay-admin-logo"
             />
             <div className="flex font-bold font-logo text-[15pt] ml-[0.7rem]">
