@@ -34,6 +34,7 @@ export const Base: Story = {
   args: {
     variant: 'primary',
     label: 'test',
+    theme: 'LIGHT',
   },
   render: ({ variant, label, theme }) => {
     return (

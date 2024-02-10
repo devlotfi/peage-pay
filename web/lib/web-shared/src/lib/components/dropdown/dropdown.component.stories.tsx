@@ -69,7 +69,7 @@ export const Base: Story = {
   },
   render: ({ dropdownMain, dropdownContent, theme, position }) => {
     return (
-      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
+      <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <Dropdown
             className="absolute"

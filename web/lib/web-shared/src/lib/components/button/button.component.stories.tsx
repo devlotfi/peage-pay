@@ -47,10 +47,11 @@ export const RightIcon: Story = {
     content: 'test',
     variant: 'primary',
     rightIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
+    theme: 'LIGHT',
   },
   render: ({ variant, content, rightIcon, theme }) => {
     return (
-      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
+      <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <Button variant={variant}>
             <Button.Content>{content}</Button.Content>
@@ -67,6 +68,7 @@ export const LeftIcon: Story = {
     content: 'test',
     variant: 'primary',
     leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
+    theme: 'LIGHT',
   },
   render: ({ variant, content, leftIcon, theme }) => {
     return (
@@ -88,6 +90,7 @@ export const BothIcons: Story = {
     variant: 'primary',
     rightIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
     leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
+    theme: 'LIGHT',
   },
   render: ({ variant, content, leftIcon, rightIcon, theme }) => {
     return (

@@ -44,7 +44,7 @@ export const NoIcon: Story = {
   },
   render: ({ variant, headingContent, headingFontSize, theme }) => {
     return (
-      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
+      <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <Heading
             variant={variant}

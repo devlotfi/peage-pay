@@ -3,9 +3,7 @@ import { BaseHTMLAttributes, createContext, useState } from 'react';
 import { WebUtils } from '../../web-utils';
 import MenuDropdownMain from './menu-dropdown-main.component';
 
-const menuDropdownVariants = cva('flex flex-col', {
-  variants: {},
-});
+const menuDropdownVariants = cva('flex flex-col');
 
 interface MenuDropdownProps
   extends BaseHTMLAttributes<HTMLDivElement>,
@@ -38,7 +36,7 @@ const MenuDropdown = ({
   ...props
 }: MenuDropdownProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(
-    opened !== undefined ? opened : true
+    opened !== undefined ? opened : true,
   );
 
   return (
