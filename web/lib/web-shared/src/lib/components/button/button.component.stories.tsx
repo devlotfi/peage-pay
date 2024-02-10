@@ -21,7 +21,6 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
-      defaultValue: 'LIGHT',
     },
     content: {
       control: 'text',
@@ -51,7 +50,7 @@ export const RightIcon: Story = {
   },
   render: ({ variant, content, rightIcon, theme }) => {
     return (
-      <div id="theme-provider" data-theme={theme}>
+      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
         <ThemeProvider>
           <Button variant={variant}>
             <Button.Content>{content}</Button.Content>

@@ -21,7 +21,6 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
-      defaultValue: 'LIGHT',
     },
     headingContent: {
       control: 'text',
@@ -45,7 +44,7 @@ export const NoIcon: Story = {
   },
   render: ({ variant, headingContent, headingFontSize, theme }) => {
     return (
-      <div id="theme-provider" data-theme={theme}>
+      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
         <ThemeProvider>
           <Heading
             variant={variant}

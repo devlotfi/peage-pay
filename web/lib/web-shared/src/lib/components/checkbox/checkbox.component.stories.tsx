@@ -17,7 +17,6 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
-      defaultValue: 'LIGHT',
     },
     label: {
       control: 'text',

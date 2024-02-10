@@ -10,6 +10,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 interface Props {
   dropdownMain: JSX.Element;
   dropdownContent: JSX.Element;
+  position: string;
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -22,7 +23,19 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
-      defaultValue: 'LIGHT',
+    },
+    position: {
+      control: 'select',
+      options: [
+        'bottom-left',
+        'bottom-right',
+        'top-left',
+        'top-right',
+        'left-bottom',
+        'left-top',
+        'right-bottom',
+        'right-top',
+      ],
     },
   },
 };
@@ -54,15 +67,16 @@ export const Base: Story = {
     ),
     theme: 'LIGHT',
   },
-  render: ({ dropdownMain, dropdownContent, theme }) => {
+  render: ({ dropdownMain, dropdownContent, theme, position }) => {
     return (
-      <div id="theme-provider" data-theme={theme}>
+      <div id="theme-provider" data-theme={theme || 'LIGHT'}>
         <ThemeProvider>
           <Dropdown
             className="absolute"
             mainElement={<Dropdown.Main>{dropdownMain}</Dropdown.Main>}
           >
-            <Dropdown.Content position={'bottom-left'}>
+            {/*eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <Dropdown.Content position={(position as any) || 'bottom-left'}>
               {dropdownContent}
             </Dropdown.Content>
           </Dropdown>
