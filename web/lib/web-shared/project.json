@@ -23,6 +23,43 @@
           "mode": "production"
         }
       }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "web/lib/web-shared/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/web-shared",
+        "configDir": "web/lib/web-shared/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "web-shared:build-storybook",
+        "staticFilePath": "dist/storybook/web-shared"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "web-shared:build-storybook:ci"
+        }
+      }
     }
   }
 }

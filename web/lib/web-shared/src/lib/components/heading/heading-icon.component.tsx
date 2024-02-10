@@ -12,8 +12,8 @@ const headingIconVariants = cva('flex justify-center items-center', {
       warning: 'text-warning-100',
     },
     position: {
-      left: 'mr-[1rem]',
-      right: 'ml-[1rem]',
+      left: 'mr-[0.5rem]',
+      right: 'ml-[0.5rem]',
     },
   },
   defaultVariants: {
@@ -42,7 +42,7 @@ const HeadingIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        })
+        }),
       )}
       {...props}
     >
