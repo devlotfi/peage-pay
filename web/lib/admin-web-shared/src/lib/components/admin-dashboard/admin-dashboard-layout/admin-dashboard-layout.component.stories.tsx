@@ -69,16 +69,11 @@ export const Base: Story = {
             </AdminDashboardLayout.Sidebar>
             <AdminDashboardLayout.Main>
               <AdminDashboardLayout.Navbar>
-                <AdminDashboardLayout.Navbar.LeftContent>
-                  <Button variant={'base-200'} onClick={() => {}}>
-                    <Button.Icon position={'left'}>
-                      <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
-                    </Button.Icon>
-                    <Button.Content>Sign in</Button.Content>
-                  </Button>
-                </AdminDashboardLayout.Navbar.LeftContent>
+                <AdminDashboardLayout.Navbar.LeftContent></AdminDashboardLayout.Navbar.LeftContent>
                 <AdminDashboardLayout.Navbar.RightContent>
-                  <h1>lol</h1>
+                  <Button variant={'base-200'}>
+                    <Button.Content>Test</Button.Content>
+                  </Button>
                 </AdminDashboardLayout.Navbar.RightContent>
               </AdminDashboardLayout.Navbar>
               <AdminDashboardLayout.Content className="p-[1rem]">
