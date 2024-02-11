@@ -243,7 +243,6 @@ export function Layout() {
                 <Button.Icon position={'right'}></Button.Icon>
               </Button>
             </Breadcrumbs.Item>
-
             <Breadcrumbs.Item>
               <Button variant={'base-100'}>
                 <Button.Icon position={'left'}>

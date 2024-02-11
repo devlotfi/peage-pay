@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
-import BreadcrumbsItem from './breadcrumb-item.component';
+import BreadcrumbsItem from './breadcrumbs-item.component';
 
 const headingVariants = cva('flex-none flex items-center overflow-x-auto');
 

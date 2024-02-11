@@ -49,6 +49,9 @@ export const LeftIcon: Story = {
   args: {
     headingContent: 'test',
     headingIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
+    showLeftIcon: true,
+    showRightIcon: false,
+    headingFontSize: 30,
     theme: 'LIGHT',
   },
   render: ({

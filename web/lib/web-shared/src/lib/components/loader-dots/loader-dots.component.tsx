@@ -13,7 +13,7 @@ const loaderDotsDotVariants = cva('', {
       error: 'bg-error-100',
       warning: 'bg-warning-100',
       'base-100': 'bg-base-100',
-      'base-200': 'bg-base-100',
+      'base-200': 'bg-base-200',
       'base-content': 'bg-base-content',
       'color-content': 'bg-color-content',
     },

@@ -1,4 +1,4 @@
-import '../src/tailwind.css';
+import '../src/lib/tailwind-input.css';
 import { Preview } from '@storybook/react';
 
 const preview: Preview = {

@@ -1,4 +1,4 @@
-import Breadcrumbs from './lib/components/breadcrumb/breadcrumb.component';
+import Breadcrumbs from './lib/components/breadcrumbs/breadcrumbs.component';
 import ButtonOutline from './lib/components/button/button-outline.component';
 import Button from './lib/components/button/button.component';
 import Checkbox from './lib/components/checkbox/checkbox.component';
@@ -31,7 +31,7 @@ export {
   MenuDropdown,
   Dropdown,
   Modal,
-  LoaderDots as LoaderDots,
+  LoaderDots,
   Tabs,
   WebUtils,
 };
