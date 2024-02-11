@@ -9,6 +9,8 @@ interface Props {
   buttonContent: string;
   rightIcon: JSX.Element;
   leftIcon: JSX.Element;
+  showRightIcon: boolean;
+  showLeftIcon: boolean;
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -22,6 +24,12 @@ const meta: Meta<StorybookProps> = {
       control: 'select',
       options: ['LIGHT', 'DARK'],
     },
+    showRightIcon: {
+      control: 'boolean',
+    },
+    showLeftIcon: {
+      control: 'boolean',
+    },
     buttonContent: {
       control: 'text',
     },
@@ -34,53 +42,7 @@ const meta: Meta<StorybookProps> = {
 export default meta;
 type Story = StoryObj<StorybookProps>;
 
-export const RightIcon: Story = {
-  args: {
-    buttonContent: 'test',
-    variant: 'primary',
-    rightIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
-  },
-  render: ({ variant, buttonContent, rightIcon, theme }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <ButtonOutline variant={variant}>
-            <ButtonOutline.Content>{buttonContent}</ButtonOutline.Content>
-            <ButtonOutline.Icon position={'right'}>
-              {rightIcon}
-            </ButtonOutline.Icon>
-          </ButtonOutline>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
-export const LeftIcon: Story = {
-  args: {
-    buttonContent: 'test',
-    variant: 'primary',
-    leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
-  },
-  render: ({ variant, buttonContent, leftIcon, theme }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <ButtonOutline variant={variant}>
-            <ButtonOutline.Icon position={'left'}>
-              {leftIcon}
-            </ButtonOutline.Icon>
-            <ButtonOutline.Content>{buttonContent}</ButtonOutline.Content>
-          </ButtonOutline>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
-export const BothIcons: Story = {
+export const Base: Story = {
   args: {
     buttonContent: 'test',
     variant: 'primary',
@@ -88,20 +50,30 @@ export const BothIcons: Story = {
     leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
     theme: 'LIGHT',
   },
-  render: ({ variant, buttonContent, leftIcon, rightIcon, theme }) => {
+  render: ({
+    variant,
+    buttonContent,
+    leftIcon,
+    rightIcon,
+    theme,
+    showLeftIcon,
+    showRightIcon,
+  }) => {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <ButtonOutline variant={variant}>
-            <ButtonOutline.Icon position={'left'}>
-              {leftIcon}
-            </ButtonOutline.Icon>
-
+            {showLeftIcon ? (
+              <ButtonOutline.Icon position={'left'}>
+                {leftIcon}
+              </ButtonOutline.Icon>
+            ) : null}
             <ButtonOutline.Content>{buttonContent}</ButtonOutline.Content>
-
-            <ButtonOutline.Icon position={'right'}>
-              {rightIcon}
-            </ButtonOutline.Icon>
+            {showRightIcon ? (
+              <ButtonOutline.Icon position={'right'}>
+                {rightIcon}
+              </ButtonOutline.Icon>
+            ) : null}
           </ButtonOutline>
         </ThemeProvider>
       </div>

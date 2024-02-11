@@ -9,6 +9,8 @@ interface Props {
   content: string;
   rightIcon: JSX.Element;
   leftIcon: JSX.Element;
+  showRightIcon: boolean;
+  showLeftIcon: boolean;
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -21,6 +23,12 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
+    },
+    showRightIcon: {
+      control: 'boolean',
+    },
+    showLeftIcon: {
+      control: 'boolean',
     },
     content: {
       control: 'text',
@@ -42,49 +50,7 @@ const meta: Meta<StorybookProps> = {
 export default meta;
 type Story = StoryObj<StorybookProps>;
 
-export const RightIcon: Story = {
-  args: {
-    content: 'test',
-    variant: 'primary',
-    rightIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
-  },
-  render: ({ variant, content, rightIcon, theme }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <Button variant={variant}>
-            <Button.Content>{content}</Button.Content>
-            <Button.Icon position={'right'}>{rightIcon}</Button.Icon>
-          </Button>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
-export const LeftIcon: Story = {
-  args: {
-    content: 'test',
-    variant: 'primary',
-    leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
-  },
-  render: ({ variant, content, leftIcon, theme }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <Button variant={variant}>
-            <Button.Icon position={'left'}>{leftIcon}</Button.Icon>
-            <Button.Content>{content}</Button.Content>
-          </Button>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
-export const BothIcons: Story = {
+export const Base: Story = {
   args: {
     content: 'test',
     variant: 'primary',
@@ -92,16 +58,26 @@ export const BothIcons: Story = {
     leftIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
     theme: 'LIGHT',
   },
-  render: ({ variant, content, leftIcon, rightIcon, theme }) => {
+  render: ({
+    variant,
+    content,
+    leftIcon,
+    rightIcon,
+    theme,
+    showLeftIcon,
+    showRightIcon,
+  }) => {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <Button variant={variant}>
-            <Button.Icon position={'left'}>{leftIcon}</Button.Icon>
-
+            {showLeftIcon ? (
+              <Button.Icon position={'left'}>{leftIcon}</Button.Icon>
+            ) : null}
             <Button.Content>{content}</Button.Content>
-
-            <Button.Icon position={'right'}>{rightIcon}</Button.Icon>
+            {showRightIcon ? (
+              <Button.Icon position={'right'}>{rightIcon}</Button.Icon>
+            ) : null}
           </Button>
         </ThemeProvider>
       </div>

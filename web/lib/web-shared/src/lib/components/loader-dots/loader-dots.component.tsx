@@ -26,14 +26,14 @@ const loaderDotsDotVariants = cva('', {
 interface LoaderDotsProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof loaderDotsVariants> {
-  dotProps: BaseHTMLAttributes<HTMLDivElement> &
+  dotProps?: BaseHTMLAttributes<HTMLDivElement> &
     VariantProps<typeof loaderDotsDotVariants>;
 }
 
 const LoaderDots = ({
   className,
   children,
-  dotProps: { className: dotClassName, variant: dotVariant },
+  dotProps,
   ...props
 }: LoaderDotsProps): JSX.Element => {
   return (
@@ -42,31 +42,31 @@ const LoaderDots = ({
         className={WebUtils.cn(
           'bounce1',
           loaderDotsDotVariants({
-            className: dotClassName,
-            variant: dotVariant,
+            className: dotProps ? dotProps.className : undefined,
+            variant: dotProps ? dotProps.variant : undefined,
           }),
         )}
-        {...props}
+        {...dotProps}
       ></div>
       <div
         className={WebUtils.cn(
           'bounce2',
           loaderDotsDotVariants({
-            className: dotClassName,
-            variant: dotVariant,
+            className: dotProps ? dotProps.className : undefined,
+            variant: dotProps ? dotProps.variant : undefined,
           }),
         )}
-        {...props}
+        {...dotProps}
       ></div>
       <div
         className={WebUtils.cn(
           'bounce3',
           loaderDotsDotVariants({
-            className: dotClassName,
-            variant: dotVariant,
+            className: dotProps ? dotProps.className : undefined,
+            variant: dotProps ? dotProps.variant : undefined,
           }),
         )}
-        {...props}
+        {...dotProps}
       ></div>
     </div>
   );

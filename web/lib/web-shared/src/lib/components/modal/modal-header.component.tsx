@@ -3,7 +3,7 @@ import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalHeaderVariants = cva(
-  'flex items-center py-[1rem] mx-[1rem] min-h-[3rem] border-b-[1px] border-edge-100'
+  'flex items-center py-[1rem] mx-[1rem] min-h-[3rem] border-b-[1px] border-edge-100 text-[15pt] font-bold',
 );
 
 interface ModalHeaderProps

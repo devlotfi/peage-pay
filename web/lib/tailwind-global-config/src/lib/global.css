@@ -41,3 +41,7 @@ html {
   --edge-200: #abc0cc;
   --edge-300: #abc0cc;
 }
+
+#theme-provider {
+  color: var(--base-content);
+}

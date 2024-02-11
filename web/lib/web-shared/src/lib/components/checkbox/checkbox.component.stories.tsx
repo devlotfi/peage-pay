@@ -4,7 +4,7 @@ import { ThemeProvider } from '@peage-pay/tailwind-global-config';
 import { ComponentProps } from 'react';
 
 interface Props {
-  label: string;
+  checkboxLabel: string;
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -18,7 +18,7 @@ const meta: Meta<StorybookProps> = {
       control: 'select',
       options: ['LIGHT', 'DARK'],
     },
-    label: {
+    checkboxLabel: {
       control: 'text',
     },
     variant: {
@@ -33,15 +33,15 @@ type Story = StoryObj<StorybookProps>;
 export const Base: Story = {
   args: {
     variant: 'primary',
-    label: 'test',
+    checkboxLabel: 'test',
     theme: 'LIGHT',
   },
-  render: ({ variant, label, theme }) => {
+  render: ({ variant, checkboxLabel, theme }) => {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <Checkbox variant={variant}>
-            <Checkbox.Label>{label}</Checkbox.Label>
+            <Checkbox.Label>{checkboxLabel}</Checkbox.Label>
             <Checkbox.Check></Checkbox.Check>
             <Checkbox.Field></Checkbox.Field>
           </Checkbox>

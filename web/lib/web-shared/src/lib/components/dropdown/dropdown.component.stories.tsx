@@ -10,7 +10,15 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 interface Props {
   dropdownMain: JSX.Element;
   dropdownContent: JSX.Element;
-  position: string;
+  position:
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top';
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -66,6 +74,7 @@ export const Base: Story = {
       </>
     ),
     theme: 'LIGHT',
+    position: 'bottom-left',
   },
   render: ({ dropdownMain, dropdownContent, theme, position }) => {
     return (
@@ -75,8 +84,7 @@ export const Base: Story = {
             className="absolute"
             mainElement={<Dropdown.Main>{dropdownMain}</Dropdown.Main>}
           >
-            {/*eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <Dropdown.Content position={(position as any) || 'bottom-left'}>
+            <Dropdown.Content position={position}>
               {dropdownContent}
             </Dropdown.Content>
           </Dropdown>

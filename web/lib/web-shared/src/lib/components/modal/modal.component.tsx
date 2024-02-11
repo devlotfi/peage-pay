@@ -1,3 +1,4 @@
+import './modal-animation.css';
 import { DialogHTMLAttributes } from 'react';
 import { WebUtils } from '../../web-utils';
 import { VariantProps, cva } from 'class-variance-authority';
@@ -6,7 +7,9 @@ import ModalWindow from './modal-window.component';
 import ModalFooter from './modal-footer.component';
 import ModalContent from './modal-content.component';
 
-const modalVariants = cva('bg-transparent w-[40rem] p-0');
+const modalVariants = cva(
+  'bg-transparent w-[40rem] p-0 text-base-content animate-[modal_0.5s_ease]',
+);
 
 interface ModalProps
   extends DialogHTMLAttributes<HTMLDialogElement>,

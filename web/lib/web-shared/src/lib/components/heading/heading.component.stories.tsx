@@ -9,6 +9,8 @@ interface Props {
   headingContent: string;
   headingFontSize: number;
   headingIcon: JSX.Element;
+  showRightIcon: boolean;
+  showLeftIcon: boolean;
   theme: 'LIGHT' | 'DARK';
 }
 
@@ -21,6 +23,12 @@ const meta: Meta<StorybookProps> = {
     theme: {
       control: 'select',
       options: ['LIGHT', 'DARK'],
+    },
+    showRightIcon: {
+      control: 'boolean',
+    },
+    showLeftIcon: {
+      control: 'boolean',
     },
     headingContent: {
       control: 'text',
@@ -37,60 +45,6 @@ const meta: Meta<StorybookProps> = {
 export default meta;
 type Story = StoryObj<StorybookProps>;
 
-export const NoIcon: Story = {
-  args: {
-    headingContent: 'test',
-    theme: 'LIGHT',
-  },
-  render: ({ variant, headingContent, headingFontSize, theme }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <Heading
-            variant={variant}
-            style={{
-              fontSize: headingFontSize,
-            }}
-          >
-            <Heading.Text>{headingContent}</Heading.Text>
-          </Heading>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
-export const RightIcon: Story = {
-  args: {
-    headingContent: 'test',
-    headingIcon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
-  },
-  render: ({
-    variant,
-    headingContent,
-    headingFontSize,
-    headingIcon,
-    theme,
-  }) => {
-    return (
-      <div id="theme-provider" data-theme={theme}>
-        <ThemeProvider>
-          <Heading
-            variant={variant}
-            style={{
-              fontSize: headingFontSize,
-            }}
-          >
-            <Heading.Text>{headingContent}</Heading.Text>
-            <Heading.Icon position={'right'}>{headingIcon}</Heading.Icon>
-          </Heading>
-        </ThemeProvider>
-      </div>
-    );
-  },
-};
-
 export const LeftIcon: Story = {
   args: {
     headingContent: 'test',
@@ -103,6 +57,8 @@ export const LeftIcon: Story = {
     headingFontSize,
     headingIcon,
     theme,
+    showLeftIcon,
+    showRightIcon,
   }) => {
     return (
       <div id="theme-provider" data-theme={theme}>
@@ -113,8 +69,13 @@ export const LeftIcon: Story = {
               fontSize: headingFontSize,
             }}
           >
-            <Heading.Icon position={'left'}>{headingIcon}</Heading.Icon>
+            {showLeftIcon ? (
+              <Heading.Icon position={'left'}>{headingIcon}</Heading.Icon>
+            ) : null}
             <Heading.Text>{headingContent}</Heading.Text>
+            {showRightIcon ? (
+              <Heading.Icon position={'right'}>{headingIcon}</Heading.Icon>
+            ) : null}
           </Heading>
         </ThemeProvider>
       </div>
