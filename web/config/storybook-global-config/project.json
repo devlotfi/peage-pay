@@ -1,7 +1,7 @@
 {
-  "name": "tailwind-global-config",
+  "name": "storybook-global-config",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "web/lib/tailwind-global-config/src",
+  "sourceRoot": "web/config/storybook-global-config/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/web/lib/tailwind-global-config"
+        "outputPath": "dist/web/config/storybook-global-config"
       },
       "configurations": {
         "development": {
