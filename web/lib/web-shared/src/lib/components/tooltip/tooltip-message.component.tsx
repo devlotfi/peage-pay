@@ -22,7 +22,7 @@ const tooltipMessageVariants = cva(
     defaultVariants: {
       variant: 'primary',
     },
-  }
+  },
 );
 
 interface TooltipMessageProps
@@ -39,11 +39,10 @@ const TooltipMessage = ({
   return (
     <div
       className={WebUtils.cn(
-        tooltipMessageVariants({ variant, className, position })
+        tooltipMessageVariants({ variant, className, position }),
       )}
       {...props}
     >
-      <h1></h1>
       {children}
     </div>
   );
