@@ -4,7 +4,7 @@ import { WebUtils } from '@peage-pay/web-shared';
 import { AuthSignInBg, Toll } from '@peage-pay/assets';
 
 const signInLayoutDrawingVariants = cva(
-  'hidden lg:flex m-[1rem] mt-0 flex-1 bg-base-200 rounded-xl justify-center items-center bg-[image:var(--image-url)] bg-cover',
+  'hidden lg:flex mt-0 flex-1 bg-base-200 rounded-tr-xl rounded-br-xl justify-center items-center bg-[image:var(--image-url)] bg-cover',
 );
 
 interface SignInLayoutDrawingProps

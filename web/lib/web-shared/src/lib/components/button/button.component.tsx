@@ -5,7 +5,7 @@ import ButtonContent from './button-content.component';
 import TabsItemIcon from './button-icon.component';
 
 const buttonVariants = cva(
-  'flex min-h-[3rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md duration-300 transition-colors transition-transform ease active:scale-95',
+  'flex min-h-[3rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md duration-300 ease active:scale-95',
   {
     variants: {
       variant: {

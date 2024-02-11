@@ -21,7 +21,7 @@ import {
   TextInput,
   Tooltip,
 } from '@peage-pay/web-shared';
-import { PeagePayAdminLogo } from '@peage-pay/assets';
+import { PeagePayLogo } from '@peage-pay/assets';
 
 export function Layout() {
   const toggleTheme = () => {
@@ -43,7 +43,7 @@ export function Layout() {
           <Button.Content>
             <img
               className="w-[15rem]"
-              src={PeagePayAdminLogo}
+              src={PeagePayLogo}
               alt="peage-pay-admin-logo"
             />
           </Button.Content>

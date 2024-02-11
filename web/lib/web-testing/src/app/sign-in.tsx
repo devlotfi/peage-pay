@@ -24,7 +24,6 @@ import {
   TextInput,
   Tooltip,
 } from '@peage-pay/web-shared';
-import { PeagePayAdminLogo, AuthSignInBg, Toll } from '@peage-pay/assets';
 import {
   AdminDashboardLayout,
   SignInLayout,
@@ -51,7 +50,7 @@ export function SignIn() {
           <Dropdown
             mainElement={
               <Dropdown.Main>
-                <Button variant={'base-100'}>
+                <Button variant={'base-200'}>
                   <Button.Icon>
                     <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
                   </Button.Icon>
@@ -107,44 +106,6 @@ export function SignIn() {
                 ></LoaderDots>
               </Button.Content>
             </Button>
-            <Tabs variant={'base-100'}>
-              <Tabs.Item isActive={'active'}>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-              <Tabs.Item>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-              <Tabs.Item>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-              <Tabs.Item>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-              <Tabs.Item>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-              <Tabs.Item>
-                <Tabs.Item.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-                </Tabs.Item.Icon>
-                <Tabs.Item.Content>test lola</Tabs.Item.Content>
-              </Tabs.Item>
-            </Tabs>
           </div>
         </SignInLayout.Card>
         <SignInLayout.Drawing></SignInLayout.Drawing>
