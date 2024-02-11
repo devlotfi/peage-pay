@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { WebUtils } from '@peage-pay/web-shared';
 
 const signInLayoutMainVariants = cva(
-  'flex flex-1 m-[0.5rem] lg:m-[1rem] mt-0 lg:mt-0 rounded-xl bg-base-100',
+  'flex flex-1 m-[0.5rem] lg:m-[1.5rem] mt-0 lg:mt-0 rounded-xl bg-base-100',
 );
 
 interface SignInLayoutMainProps

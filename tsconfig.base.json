@@ -17,6 +17,9 @@
     "paths": {
       "@peage-pay/admin-web-shared": ["web/lib/admin-web-shared/src/index.ts"],
       "@peage-pay/assets": ["assets/src/index.ts"],
+      "@peage-pay/storybook-global-config": [
+        "web/lib/storybook-global-config/src/index.ts"
+      ],
       "@peage-pay/tailwind-global-config": [
         "web/lib/tailwind-global-config/src/index.ts"
       ],
