@@ -2674,7 +2674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/react@npm:18.0.4, @nx/react@npm:^18.0.4":
+"@nx/react@npm:18.0.4":
   version: 18.0.4
   resolution: "@nx/react@npm:18.0.4"
   dependencies:
@@ -2708,7 +2708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/vite@npm:18.0.4, @nx/vite@npm:^18.0.4":
+"@nx/vite@npm:18.0.4":
   version: 18.0.4
   resolution: "@nx/vite@npm:18.0.4"
   dependencies:
@@ -2769,9 +2769,9 @@ __metadata:
     "@nx/eslint": "npm:18.0.4"
     "@nx/eslint-plugin": "npm:18.0.4"
     "@nx/js": "npm:18.0.4"
-    "@nx/react": "npm:^18.0.4"
+    "@nx/react": "npm:18.0.4"
     "@nx/storybook": "npm:18.0.4"
-    "@nx/vite": "npm:^18.0.4"
+    "@nx/vite": "npm:18.0.4"
     "@nx/web": "npm:18.0.4"
     "@nx/workspace": "npm:18.0.4"
     "@storybook/addon-essentials": "npm:7.6.14"
