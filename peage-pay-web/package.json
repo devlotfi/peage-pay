@@ -10,7 +10,7 @@
     "@nx/eslint-plugin": "18.0.4",
     "@nx/js": "18.0.4",
     "@nx/react": "^18.0.4",
-    "@nx/storybook": "^18.0.4",
+    "@nx/storybook": "18.0.4",
     "@nx/vite": "^18.0.4",
     "@nx/web": "18.0.4",
     "@nx/workspace": "18.0.4",
