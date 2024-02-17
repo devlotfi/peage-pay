@@ -1,3 +1,11 @@
-/*
-!.gitignore
+# Ignore everything
+*
+
+# Allow .drawio files
 !*.drawio
+
+# Allow subdirectories
+!*/
+
+# Exclude all other files in subdirectories
+!*/[!.]*
