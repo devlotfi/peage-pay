@@ -1,0 +1,147 @@
+<mxfile host="Electron" modified="2024-02-17T15:24:53.254Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="-Xuab4HwZYS8RcjwqvRm" version="23.1.5" type="device" pages="3">
+  <diagram name="general" id="0r15LicjZupKUx1gMpUZ">
+    <mxGraphModel dx="819" dy="478" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="B-APXg0CKO88gCgFBy_x-21" value="Digramme de cas d&#39;utilisation de l&#39;administrateur de&amp;nbsp;barrière" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
+          <mxGeometry x="414" y="70" width="476" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-22" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;dashed=1;" parent="B-APXg0CKO88gCgFBy_x-21" source="B-APXg0CKO88gCgFBy_x-24" target="B-APXg0CKO88gCgFBy_x-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-23" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="B-APXg0CKO88gCgFBy_x-22" vertex="1" connectable="0">
+          <mxGeometry x="-0.1124" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-24" value="Facturer les trajet d&#39;un utilisateur possedant un ticket" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="B-APXg0CKO88gCgFBy_x-21" vertex="1">
+          <mxGeometry x="50" y="50" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-25" value="S&#39;authenthifier" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="B-APXg0CKO88gCgFBy_x-21" vertex="1">
+          <mxGeometry x="332" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XD-W8-iY9Gi-yHOeM5hl-1" value="Facturer les trajet d&#39;un utilisateur en situation de fraude&lt;b&gt;&amp;nbsp;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="B-APXg0CKO88gCgFBy_x-21">
+          <mxGeometry x="50" y="180" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="XD-W8-iY9Gi-yHOeM5hl-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;dashed=1;" edge="1" parent="B-APXg0CKO88gCgFBy_x-21" source="XD-W8-iY9Gi-yHOeM5hl-1" target="B-APXg0CKO88gCgFBy_x-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="100" as="sourcePoint" />
+            <mxPoint x="342" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XD-W8-iY9Gi-yHOeM5hl-4" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="XD-W8-iY9Gi-yHOeM5hl-3">
+          <mxGeometry x="-0.1124" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-32" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" parent="1" source="B-APXg0CKO88gCgFBy_x-33" target="B-APXg0CKO88gCgFBy_x-24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B-APXg0CKO88gCgFBy_x-33" value="Administrateur&amp;nbsp;de&amp;nbsp;barrière&lt;span style=&quot;font-weight: bold;&quot;&gt;&amp;nbsp;&lt;/span&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="1" vertex="1">
+          <mxGeometry x="310" y="190" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XD-W8-iY9Gi-yHOeM5hl-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="B-APXg0CKO88gCgFBy_x-33" target="XD-W8-iY9Gi-yHOeM5hl-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="170" as="sourcePoint" />
+            <mxPoint x="474" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="z9mLG1ERHuDMWebA4OWY" name="facturer un utilisateur possedant un ticket">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur de&amp;nbsp;barrière&amp;nbsp;(Facturer le trajet d&#39;un utilisateur possédant un ticket)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
+          <mxGeometry x="420" y="100" width="730" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-2" value="Facturer le trajet d&#39;un utilisateur possédant un ticket" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-1" vertex="1">
+          <mxGeometry x="20" y="165" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" parent="PlZhrxEp4HjUXXEG5EeR-1" source="PlZhrxEp4HjUXXEG5EeR-5" target="PlZhrxEp4HjUXXEG5EeR-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="564.9999999999998" y="164.9999999999999" as="sourcePoint" />
+            <mxPoint x="450" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-4" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-3" vertex="1" connectable="0">
+          <mxGeometry x="-0.1628" y="3" relative="1" as="geometry">
+            <mxPoint x="12" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-5" value="Consulter le montant a payer" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-1" vertex="1">
+          <mxGeometry x="250" y="60" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="PlZhrxEp4HjUXXEG5EeR-1" source="PlZhrxEp4HjUXXEG5EeR-5" target="PlZhrxEp4HjUXXEG5EeR-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="160" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-13" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-12" vertex="1" connectable="0">
+          <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-14" value="Scanner le ticket d&#39;un utilisateur" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-1" vertex="1">
+          <mxGeometry x="570" y="60" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IRXQNRSccVpeJQo8LQmG-1" value="Marquer le trajet comme payé" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="PlZhrxEp4HjUXXEG5EeR-1" vertex="1">
+          <mxGeometry x="250" y="270" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IRXQNRSccVpeJQo8LQmG-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="PlZhrxEp4HjUXXEG5EeR-1" source="IRXQNRSccVpeJQo8LQmG-1" target="PlZhrxEp4HjUXXEG5EeR-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="187" as="sourcePoint" />
+            <mxPoint x="320" y="245" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IRXQNRSccVpeJQo8LQmG-3" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="IRXQNRSccVpeJQo8LQmG-2" vertex="1" connectable="0">
+          <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-18" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" parent="1" source="PlZhrxEp4HjUXXEG5EeR-19" target="PlZhrxEp4HjUXXEG5EeR-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PlZhrxEp4HjUXXEG5EeR-19" value="Administrateur&amp;nbsp;de&amp;nbsp;barrière&amp;nbsp;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="1" vertex="1">
+          <mxGeometry x="330" y="275" width="30" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="UZMXTl6v6ZlmHlFLZJ0G" name="facturer un utilisateur en situation de fraude">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dOiArkDcOglKKW9mEjih-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur de&amp;nbsp;barrière&amp;nbsp;(Facturer les trajet d&#39;un utilisateur en situation de fraude&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp;&lt;/b&gt;)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="540" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-2" value="Facturer les trajet d&#39;un utilisateur en situation de fraude&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&amp;nbsp;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dOiArkDcOglKKW9mEjih-1">
+          <mxGeometry x="52.5" y="70" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-5" value="Recevoir le payement necessaire" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dOiArkDcOglKKW9mEjih-1">
+          <mxGeometry x="342.5" y="70" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-6" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" edge="1" parent="dOiArkDcOglKKW9mEjih-1" source="dOiArkDcOglKKW9mEjih-5" target="dOiArkDcOglKKW9mEjih-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="160" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-7" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="dOiArkDcOglKKW9mEjih-6">
+          <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="dOiArkDcOglKKW9mEjih-13" target="dOiArkDcOglKKW9mEjih-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dOiArkDcOglKKW9mEjih-13" value="Administrateur&amp;nbsp;de&amp;nbsp;barrière&amp;nbsp;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="1">
+          <mxGeometry x="320" y="180" width="30" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,10 +1,10 @@
-<mxfile host="Electron" modified="2024-02-16T17:29:10.118Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="eON6qntzbDgtixIi_nPN" version="23.1.5" type="device" pages="5">
+<mxfile host="Electron" modified="2024-02-17T14:16:45.416Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="nZA3hMUpSaKTTNXosna5" version="23.1.5" type="device" pages="5">
   <diagram name="general" id="lKCrcBrGeFNF5y-A4sd_">
-    <mxGraphModel dx="1687" dy="984" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1366" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="XZZ0qfn3rQ4veDuX1GlM-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur general" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="XZZ0qfn3rQ4veDuX1GlM-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="430" y="70" width="590" height="540" as="geometry" />
         </mxCell>
         <mxCell id="f9rSoK2AUhVcHhe2ojxJ-19" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;dashed=1;" parent="XZZ0qfn3rQ4veDuX1GlM-1" source="f9rSoK2AUhVcHhe2ojxJ-5" target="f9rSoK2AUhVcHhe2ojxJ-17" edge="1">
@@ -15,7 +15,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="f9rSoK2AUhVcHhe2ojxJ-5" value="Gerer les autoroutes" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
+        <mxCell id="f9rSoK2AUhVcHhe2ojxJ-5" value="Gérer les autoroutes" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
           <mxGeometry x="130" y="60" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="f9rSoK2AUhVcHhe2ojxJ-21" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" parent="XZZ0qfn3rQ4veDuX1GlM-1" source="f9rSoK2AUhVcHhe2ojxJ-11" target="f9rSoK2AUhVcHhe2ojxJ-17" edge="1">
@@ -26,7 +26,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="f9rSoK2AUhVcHhe2ojxJ-11" value="Gerer les administrateurs des ressources humaines" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
+        <mxCell id="f9rSoK2AUhVcHhe2ojxJ-11" value="Gérer les administrateurs des ressources humaines" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
           <mxGeometry x="108.5" y="190" width="163" height="80" as="geometry" />
         </mxCell>
         <mxCell id="f9rSoK2AUhVcHhe2ojxJ-22" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" parent="XZZ0qfn3rQ4veDuX1GlM-1" source="VvY3mol7uNeCDwPsIVn0-1" target="f9rSoK2AUhVcHhe2ojxJ-17" edge="1">
@@ -45,7 +45,7 @@
         <mxCell id="VvY3mol7uNeCDwPsIVn0-1" value="Modifier le tarif par kilométre d&#39;un trajet" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
           <mxGeometry x="130" y="320" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="VvY3mol7uNeCDwPsIVn0-2" value="Gerer les abonnements" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
+        <mxCell id="VvY3mol7uNeCDwPsIVn0-2" value="Gérer les abonnements" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="XZZ0qfn3rQ4veDuX1GlM-1" vertex="1">
           <mxGeometry x="130" y="440" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="VvY3mol7uNeCDwPsIVn0-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" parent="XZZ0qfn3rQ4veDuX1GlM-1" source="VvY3mol7uNeCDwPsIVn0-2" target="f9rSoK2AUhVcHhe2ojxJ-17" edge="1">
@@ -80,11 +80,11 @@
     </mxGraphModel>
   </diagram>
   <diagram id="EqlXyUBi7fi3bFe4SMSa" name="gerer les autoroutes">
-    <mxGraphModel dx="1509" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2049" dy="1194" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="WCDNOuppWgPNHAL4rH-N-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérér les autoroutes)" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="WCDNOuppWgPNHAL4rH-N-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérér les autoroutes)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="420" y="100" width="720" height="620" as="geometry" />
         </mxCell>
         <mxCell id="WCDNOuppWgPNHAL4rH-N-3" value="Gérér les autoroutes" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="WCDNOuppWgPNHAL4rH-N-1" vertex="1">
@@ -172,11 +172,11 @@
     </mxGraphModel>
   </diagram>
   <diagram name="gerer les poste de peage" id="fu6WHPQwVtLCa0S-gjS5">
-    <mxGraphModel dx="989" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2049" dy="1194" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="HCnlmReOeFNfiNALZV0U-0" />
         <mxCell id="HCnlmReOeFNfiNALZV0U-1" parent="HCnlmReOeFNfiNALZV0U-0" />
-        <mxCell id="AoNhlmMS8roE3U3sIbQf-22" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérér les postes de péage)" style="swimlane;whiteSpace=wrap;html=1;" parent="HCnlmReOeFNfiNALZV0U-1" vertex="1">
+        <mxCell id="AoNhlmMS8roE3U3sIbQf-22" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérer les postes de péage)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="HCnlmReOeFNfiNALZV0U-1" vertex="1">
           <mxGeometry x="430" y="110" width="1130" height="590" as="geometry" />
         </mxCell>
         <mxCell id="AoNhlmMS8roE3U3sIbQf-26" value="Ajouter un poste de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
@@ -194,7 +194,7 @@
         <mxCell id="AoNhlmMS8roE3U3sIbQf-36" value="Rechercher des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
           <mxGeometry x="940" y="40" width="140" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="AoNhlmMS8roE3U3sIbQf-39" value="Gérér les postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
+        <mxCell id="AoNhlmMS8roE3U3sIbQf-39" value="Gérer les postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
           <mxGeometry x="50" y="250" width="140" height="80" as="geometry" />
         </mxCell>
         <mxCell id="AoNhlmMS8roE3U3sIbQf-44" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="AoNhlmMS8roE3U3sIbQf-22" source="AoNhlmMS8roE3U3sIbQf-35" target="AoNhlmMS8roE3U3sIbQf-39" edge="1">
@@ -241,55 +241,55 @@
             <mxPoint x="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-0" value="Consulter la liste des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="AoNhlmMS8roE3U3sIbQf-22">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-0" value="Consulter la liste des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
           <mxGeometry x="680" y="160" width="140" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-1" value="Consulter la carte des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="AoNhlmMS8roE3U3sIbQf-22">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-1" value="Consulter la carte des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
           <mxGeometry x="680" y="40" width="140" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" edge="1" parent="AoNhlmMS8roE3U3sIbQf-22" source="AoNhlmMS8roE3U3sIbQf-36" target="H_1gFzj1DchUTu0QWr7R-1">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="AoNhlmMS8roE3U3sIbQf-22" source="AoNhlmMS8roE3U3sIbQf-36" target="H_1gFzj1DchUTu0QWr7R-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="851" y="191" as="sourcePoint" />
             <mxPoint x="719" y="204" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-3" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="H_1gFzj1DchUTu0QWr7R-2">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-3" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="H_1gFzj1DchUTu0QWr7R-2" vertex="1" connectable="0">
           <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
             <mxPoint x="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" edge="1" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-1" target="AoNhlmMS8roE3U3sIbQf-35">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-1" target="AoNhlmMS8roE3U3sIbQf-35" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="860" y="164" as="sourcePoint" />
             <mxPoint x="710" y="111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-5" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="H_1gFzj1DchUTu0QWr7R-4">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-5" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="H_1gFzj1DchUTu0QWr7R-4" vertex="1" connectable="0">
           <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
             <mxPoint x="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-6" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" edge="1" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-0" target="AoNhlmMS8roE3U3sIbQf-35">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-6" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-0" target="AoNhlmMS8roE3U3sIbQf-35" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="587" y="108" as="sourcePoint" />
             <mxPoint x="503" y="132" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-7" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="H_1gFzj1DchUTu0QWr7R-6">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-7" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="H_1gFzj1DchUTu0QWr7R-6" vertex="1" connectable="0">
           <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
             <mxPoint x="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-8" value="Definir la distance entre deux peages adjacents" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="AoNhlmMS8roE3U3sIbQf-22">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-8" value="Definir la distance entre deux peages adjacents" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="AoNhlmMS8roE3U3sIbQf-22" vertex="1">
           <mxGeometry x="680" y="320" width="140" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-9" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" edge="1" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-8" target="AoNhlmMS8roE3U3sIbQf-29">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-9" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="AoNhlmMS8roE3U3sIbQf-22" source="H_1gFzj1DchUTu0QWr7R-8" target="AoNhlmMS8roE3U3sIbQf-29" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="968" y="306" as="sourcePoint" />
             <mxPoint x="840" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H_1gFzj1DchUTu0QWr7R-10" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="H_1gFzj1DchUTu0QWr7R-9">
+        <mxCell id="H_1gFzj1DchUTu0QWr7R-10" value="&amp;lt;&amp;lt;extends&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" parent="H_1gFzj1DchUTu0QWr7R-9" vertex="1" connectable="0">
           <mxGeometry x="-0.1178" y="-3" relative="1" as="geometry">
             <mxPoint x="1" as="offset" />
           </mxGeometry>
@@ -306,14 +306,14 @@
     </mxGraphModel>
   </diagram>
   <diagram id="0ptFQS03c92WpOGcM7KP" name="gerer les administrateurs des ressources humaines">
-    <mxGraphModel dx="2390" dy="1393" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="kJC-AkrXbTyM8f_8hJuW-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérér les administrateurs des ressources humaines)" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="kJC-AkrXbTyM8f_8hJuW-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérer les administrateurs des ressources humaines)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="420" y="100" width="840" height="530" as="geometry" />
         </mxCell>
-        <mxCell id="kJC-AkrXbTyM8f_8hJuW-2" value="Gérér les administrateurs des ressources humaines" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="kJC-AkrXbTyM8f_8hJuW-1" vertex="1">
+        <mxCell id="kJC-AkrXbTyM8f_8hJuW-2" value="Gérer les administrateurs des ressources humaines" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="kJC-AkrXbTyM8f_8hJuW-1" vertex="1">
           <mxGeometry x="30" y="175" width="150" height="80" as="geometry" />
         </mxCell>
         <mxCell id="kJC-AkrXbTyM8f_8hJuW-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="kJC-AkrXbTyM8f_8hJuW-1" source="kJC-AkrXbTyM8f_8hJuW-5" target="kJC-AkrXbTyM8f_8hJuW-2" edge="1">
@@ -384,11 +384,11 @@
     </mxGraphModel>
   </diagram>
   <diagram id="oqXaaQzDjFjKnYzJ79VO" name="gerer les abonnements">
-    <mxGraphModel dx="869" dy="507" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1195" dy="697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="q29YjpeqHQyvzQKvjnWt-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérér les postes de péage)" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="q29YjpeqHQyvzQKvjnWt-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur général (Gérer les postes de péage)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="430" y="110" width="730" height="520" as="geometry" />
         </mxCell>
         <mxCell id="q29YjpeqHQyvzQKvjnWt-2" value="Ajouter un type abonnements" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="q29YjpeqHQyvzQKvjnWt-1" vertex="1">
@@ -417,7 +417,7 @@
             <mxPoint x="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q29YjpeqHQyvzQKvjnWt-9" value="Gérér les types abonnements" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="q29YjpeqHQyvzQKvjnWt-1" vertex="1">
+        <mxCell id="q29YjpeqHQyvzQKvjnWt-9" value="Gérer les types abonnements" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=#99D3FF;" parent="q29YjpeqHQyvzQKvjnWt-1" vertex="1">
           <mxGeometry x="20" y="160" width="140" height="80" as="geometry" />
         </mxCell>
         <mxCell id="q29YjpeqHQyvzQKvjnWt-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="q29YjpeqHQyvzQKvjnWt-1" source="q29YjpeqHQyvzQKvjnWt-5" target="q29YjpeqHQyvzQKvjnWt-9" edge="1">
