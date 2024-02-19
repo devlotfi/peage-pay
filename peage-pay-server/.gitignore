@@ -8,6 +8,9 @@ tmp
 # dependencies
 node_modules
 
+# yarn files
+.yarn
+
 # IDEs and editors
 /.idea
 .project
