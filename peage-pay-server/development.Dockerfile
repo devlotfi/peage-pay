@@ -6,11 +6,10 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY .yarnrc.yml ./
-COPY .yarn ./.yarn
 
 RUN yarn
 
 COPY . .
 
-CMD yarn nx serve ${SERVICE_NAME}
+CMD yarn nx reset && yarn nx serve ${SERVICE_NAME}
 
