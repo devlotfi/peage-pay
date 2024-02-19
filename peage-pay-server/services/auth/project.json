@@ -1,21 +1,21 @@
 {
-  "name": "demo",
+  "name": "auth",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "services/demo/src",
+  "sourceRoot": "services/auth/src",
   "projectType": "application",
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "demo:build"
+        "buildTarget": "auth:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "demo:build:development"
+          "buildTarget": "auth:build:development"
         },
         "production": {
-          "buildTarget": "demo:build:production"
+          "buildTarget": "auth:build:production"
         }
       }
     }

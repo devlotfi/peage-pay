@@ -1,24 +1,25 @@
 services:
-  demo:
+  gateway:
     build:
       dockerfile: development.Dockerfile
       args:
-        - SERVICE_NAME=demo
+        - SERVICE_NAME=gateway
     volumes:
       - ./services:/usr/src/app/services
       - ./lib:/usr/src/app/lib
     ports:
       - 3000:3000
-  demo-2:
+
+  auth:
     build:
       dockerfile: development.Dockerfile
       args:
-        - SERVICE_NAME=demo
+        - SERVICE_NAME=auth
     volumes:
       - ./services:/usr/src/app/services
       - ./lib:/usr/src/app/lib
     ports:
-      - 3001:3000
+      - 3001:3001
 
   postgres:
     image: postgres
