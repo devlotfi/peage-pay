@@ -1,0 +1,8 @@
+{
+  "name": "web-testing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "lib/web-testing/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}
