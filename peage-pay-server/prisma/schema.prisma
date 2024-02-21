@@ -11,4 +11,91 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model AuthMethod {
+  id String @id @default(uuid())
+  userId String @unique
+  user BaseUser @relation(fields: [userId], references: [id])
+  emailAuthMethod EmailAuthMethod?
+  googleAuthMethod GoogleAuthMethod?
+  phoneAuthMethod PhoneAuthMethod?
+}
+
+model EmailAuthMethod {
+  authMethodId String @id
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
+
+  email String @unique
+  passwordHash String
+  verifiedAt DateTime
+}
+
+model GoogleAuthMethod {
+  authMethodId String @id
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
+
+  googleId String @unique
+  email String @unique
+}
+
+model PhoneAuthMethod {
+  authMethodId String @id
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
+  
+  phoneNumber String @unique
+}
+
+model BaseUser {
+  id String @id @default(uuid())
+  user User?
+  authMethod AuthMethod?
+  generalAdmin GeneralAdmin?
+  humanRessourcesAdmin HumanRessourcesAdmin?
+  moderator Moderator?
+  tollAdmin TollAdmin?
+  gateAdmin GateAdmin?
+  
+  firstName String
+  lastName String
+  birthDate DateTime
+  gender Gender
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+}
+
+model GeneralAdmin {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+}
+
+model HumanRessourcesAdmin {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+}
+
+model Moderator {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+}
+
+model TollAdmin {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+}
+
+model GateAdmin {
+  baseUserId String @id
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
 }
