@@ -20,40 +20,49 @@ enum Gender {
 }
 
 model AuthMethod {
+  user BaseUser @relation(fields: [userId], references: [id])
+
   id String @id @default(uuid())
   userId String @unique
-  user BaseUser @relation(fields: [userId], references: [id])
   emailAuthMethod EmailAuthMethod?
   googleAuthMethod GoogleAuthMethod?
   phoneAuthMethod PhoneAuthMethod?
 }
 
 model EmailAuthMethod {
-  authMethodId String @id
   authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
 
+  authMethodId String @id
   email String @unique
   passwordHash String
-  verifiedAt DateTime
+  verifiedAt DateTime?
 }
 
 model GoogleAuthMethod {
-  authMethodId String @id
   authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
 
+  authMethodId String @id
   googleId String @unique
   email String @unique
 }
 
 model PhoneAuthMethod {
-  authMethodId String @id
   authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
   
+  authMethodId String @id
   phoneNumber String @unique
 }
 
-model BaseUser {
+model VerificationToken {
+  user BaseUser @relation(fields: [userId], references: [id])
+
   id String @id @default(uuid())
+  userId String @unique
+  tokenHash String
+  createdAt DateTime @default(now())
+}
+
+model BaseUser {
   user User?
   authMethod AuthMethod?
   generalAdmin GeneralAdmin?
@@ -61,7 +70,9 @@ model BaseUser {
   moderator Moderator?
   tollAdmin TollAdmin?
   gateAdmin GateAdmin?
+  verificationToken VerificationToken?
   
+  id String @id @default(uuid())
   firstName String
   lastName String
   birthDate DateTime
@@ -71,31 +82,37 @@ model BaseUser {
 }
 
 model User {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }
 
 model GeneralAdmin {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }
 
 model HumanRessourcesAdmin {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }
 
 model Moderator {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }
 
 model TollAdmin {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }
 
 model GateAdmin {
-  baseUserId String @id
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  baseUserId String @id
 }

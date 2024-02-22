@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class Env {
   @IsNumber()
@@ -12,4 +12,19 @@ export class Env {
 
   @IsString()
   public REDIS_URL: string;
+
+  @IsString()
+  public SMTP_HOST: string;
+
+  @IsString()
+  public SMTP_USER: string;
+
+  @IsString()
+  public SMTP_PASSWORD: string;
+
+  @IsNumber()
+  public SMTP_PORT: number;
+
+  @IsBoolean()
+  public SMTP_SECURE: boolean;
 }
