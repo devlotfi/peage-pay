@@ -5,13 +5,25 @@ export class Env {
   public PORT: number;
 
   @IsString()
+  public WEB_CLIENT_URL: string;
+
+  @IsString()
   public DATABASE_URL: string;
 
   @IsString()
   public SHADOW_DATABASE_URL: string;
 
   @IsString()
-  public REDIS_URL: string;
+  public REDIS_USERNAME: string;
+
+  @IsString()
+  public REDIS_PASSWORD: string;
+
+  @IsString()
+  public REDIS_HOST: string;
+
+  @IsNumber()
+  public REDIS_PORT: number;
 
   @IsString()
   public SMTP_HOST: string;

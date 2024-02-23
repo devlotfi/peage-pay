@@ -17,18 +17,22 @@ import { Env } from './config/env.type';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      cache: true,
       validate: validateEnv,
     }),
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      async useFactory(...args: [ConfigService<Env>]) {
-        const configService = args[0];
-        const redisUrl = configService.getOrThrow<string>('REDIS_URL');
-
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      useFactory(...args) {
+        const configService: ConfigService<Env> = args[0];
         return {
-          url: redisUrl
+          redis: {
+            username: configService.getOrThrow<string>('REDIS_USERNAME'),
+            password: configService.getOrThrow<string>('REDIS_PASSWORD'),
+            host: configService.getOrThrow<string>('REDIS_HOST'),
+            port: configService.getOrThrow<string>('REDIS_PORT'),
+          },
         };
       },
     }),

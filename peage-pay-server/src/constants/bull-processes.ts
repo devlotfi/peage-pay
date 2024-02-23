@@ -1,0 +1,3 @@
+export enum BullProcesses {
+  SEND_VERIFICATION_EMAIL = 'SEND_VERIFICATION_EMAIL',
+}
