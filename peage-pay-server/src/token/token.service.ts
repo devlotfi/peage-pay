@@ -108,4 +108,49 @@ export class TokenService {
 
     return accessToken;
   }
+
+  public async checkRefreshTokenCookie(req: Request, res: Response) {
+    const cookies = new Cookies(req, res);
+    const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
+    let valid = true;
+    let payload;
+    if (refreshToken) {
+      try {
+        payload = await this.jwtService.verifyAsync(refreshToken, {
+          secret: this.configService.getOrThrow<string>(
+            'JWT_REFRESH_TOKEN_SECRET',
+          ),
+        });
+      } catch (error) {
+        valid = false;
+      }
+    }
+
+    return {
+      refreshToken,
+      payload,
+      valid,
+    };
+  }
+
+  public async checkRefreshToken(refreshToken: string) {
+    let valid = true;
+    let payload;
+    if (refreshToken) {
+      try {
+        payload = await this.jwtService.verifyAsync(refreshToken, {
+          secret: this.configService.getOrThrow<string>(
+            'JWT_REFRESH_TOKEN_SECRET',
+          ),
+        });
+      } catch (error) {
+        valid = false;
+      }
+    }
+
+    return {
+      payload,
+      valid,
+    };
+  }
 }

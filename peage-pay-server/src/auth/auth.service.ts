@@ -19,6 +19,8 @@ import { JwtService } from '@nestjs/jwt';
 import { GraphQLExecutionContext } from '@nestjs/graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
+import { RedisService } from 'src/redis/redis.service';
+import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
 
 @Injectable()
 export class AuthService {
@@ -27,6 +29,7 @@ export class AuthService {
     private readonly emailService: EmailService,
     private readonly configService: ConfigService<Env>,
     private readonly tokenService: TokenService,
+    private readonly redisService: RedisService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -235,5 +238,62 @@ export class AuthService {
 
   public async signInWithRefreshToken(
     signInWithRefreshTokenInput: SignInWithRefreshTokenInput,
-  ): Promise<SignInWithRefreshTokenResult> {}
+  ): Promise<SignInWithRefreshTokenResult> {
+    const { payload, valid } = await this.tokenService.checkRefreshToken(
+      signInWithRefreshTokenInput.refreshToken,
+    );
+    if (!valid) {
+      throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
+    }
+
+    console.log(payload);
+    const userId: string = payload.userId;
+    const baseUser = await this.databaseService.baseUser.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    const accessToken = await this.tokenService.generateAccessToken(userId);
+
+    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult();
+    signInWithRefreshTokenResult.accessToken = accessToken;
+    signInWithRefreshTokenResult.baseUser = baseUser as BaseUserType;
+
+    return signInWithRefreshTokenResult;
+  }
+
+  public async signInWithRefreshTokenCookie(
+    context: GraphQLExecutionContext,
+  ): Promise<SignInWithRefreshTokenResult> {
+    const { payload, valid, refreshToken } =
+      await this.tokenService.checkRefreshTokenCookie(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        context.req,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        context.res,
+      );
+    if (!refreshToken) {
+      throw new GraphQLError(AuthErrors.REFRESH_TOKEN_NOT_PROVIDED);
+    }
+    if (!valid) {
+      throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
+    }
+
+    console.log(payload);
+    const userId: string = payload.userId;
+    const baseUser = await this.databaseService.baseUser.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    const accessToken = await this.tokenService.generateAccessToken(userId);
+
+    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult();
+    signInWithRefreshTokenResult.accessToken = accessToken;
+    signInWithRefreshTokenResult.baseUser = baseUser as BaseUserType;
+
+    return signInWithRefreshTokenResult;
+  }
 }

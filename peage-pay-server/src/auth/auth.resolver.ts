@@ -69,4 +69,12 @@ export class AuthResolver {
       signInWithRefreshTokenInput,
     );
   }
+
+  @Mutation(() => SignInWithRefreshTokenResult)
+  public async signInWithRefreshTokenCookie(
+    @Context()
+    context: GraphQLExecutionContext,
+  ): Promise<SignInWithRefreshTokenResult> {
+    return await this.authService.signInWithRefreshTokenCookie(context);
+  }
 }

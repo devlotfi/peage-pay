@@ -6,6 +6,7 @@ import { EmailModule } from 'src/email/email.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TokenModule } from 'src/token/token.module';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TokenModule } from 'src/token/token.module';
     EmailModule,
     ConfigModule,
     TokenModule,
+    RedisModule,
     JwtModule.register({}),
   ],
   providers: [AuthResolver, AuthService],

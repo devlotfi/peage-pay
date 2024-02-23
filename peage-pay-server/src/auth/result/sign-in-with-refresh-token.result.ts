@@ -7,5 +7,5 @@ export class SignInWithRefreshTokenResult {
   public baseUser: BaseUserType;
 
   @Field()
-  public refreshToken: string;
+  public accessToken: string;
 }
