@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsDate, IsEmail, Length } from 'class-validator';
+import { IsDate, IsPhoneNumber, Length } from 'class-validator';
 import { GenderType } from 'src/user/graphql/gender.graphql';
 
 @InputType()
-export class SignUpWithEmailInput {
+export class SignUpWithPhoneInput {
   @Field()
   @Length(1, 64)
   public firstName: string;
@@ -20,10 +20,6 @@ export class SignUpWithEmailInput {
   public gender: GenderType;
 
   @Field()
-  @IsEmail()
-  public email: string;
-
-  @Field()
-  @Length(7, 512)
-  public password: string;
+  @IsPhoneNumber('DZ')
+  public phoneNumber: string;
 }

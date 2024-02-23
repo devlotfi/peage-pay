@@ -5,18 +5,33 @@ import { BullProcesses } from 'src/constants/bull-processes';
 import { BullQueues } from 'src/constants/bull-queues';
 import { SendVerificationEmail } from 'src/jobs/send-verification-email.type';
 import { DatabaseService } from 'src/database/database.service';
+import { randomBytes } from 'crypto';
+import { URL } from 'url';
 import { Utils } from 'src/utils';
-import { EmailProvider } from './email.provider';
-import { TokenService } from 'src/token/token.service';
 
-@Processor(BullQueues.EMAIL)
-export class EmailProcessor {
+@Processor(BullQueues.SMS)
+export class SmsProcessor {
   public constructor(
     private readonly configService: ConfigService,
     private readonly databaseService: DatabaseService,
-    private readonly emailProvider: EmailProvider,
-    private readonly tokenService: TokenService,
   ) {}
+
+  public generateVerificationCode(userId: string) {
+    const tokenLength = 128;
+    const size = Math.floor(tokenLength / 2);
+    const token = randomBytes(size).toString('hex');
+    const webClientUrl =
+      this.configService.getOrThrow<string>('WEB_CLIENT_URL');
+    const verificationUrl = new URL(`${webClientUrl}/verify`);
+
+    verificationUrl.searchParams.append('userId', userId);
+    verificationUrl.searchParams.append('token', token);
+
+    return {
+      verificationUrl: verificationUrl.toString(),
+      token,
+    };
+  }
 
   @OnQueueActive()
   onActive(job: Job) {
@@ -25,14 +40,15 @@ export class EmailProcessor {
     );
   }
 
-  @Process(BullProcesses.SEND_VERIFICATION_EMAIL)
+  @Process(BullProcesses.SEND_VERIFICATION_SMS)
   public async handleSendVerificationEmail(job: Job<SendVerificationEmail>) {
     console.log('running job');
 
     console.log(job.data);
 
-    const { token, verificationUrl } =
-      this.tokenService.generateVerificationUrl(job.data.userId);
+    const { token, verificationUrl } = this.generateVerificationCode(
+      job.data.userId,
+    );
     const hashedToken = await Utils.hashString(token);
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + 30);
@@ -47,13 +63,6 @@ export class EmailProcessor {
           },
         },
       },
-    });
-
-    await this.emailProvider.transporter.sendMail({
-      from: this.configService.getOrThrow<string>('SMTP_USER'),
-      to: job.data.email,
-      subject: 'PeagePay account verification',
-      text: `Your verification link is ${verificationUrl}`,
     });
   }
 }

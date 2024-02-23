@@ -20,7 +20,7 @@ enum Gender {
 }
 
 model AuthMethod {
-  user BaseUser @relation(fields: [userId], references: [id])
+  baseUser BaseUser @relation(fields: [userId], references: [id])
 
   id String @id @default(uuid())
   userId String @unique
@@ -54,11 +54,22 @@ model PhoneAuthMethod {
 }
 
 model VerificationToken {
-  user BaseUser @relation(fields: [userId], references: [id])
+  baseUser BaseUser @relation(fields: [userId], references: [id])
 
   id String @id @default(uuid())
   userId String @unique
   tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model RefreshToken {
+  baseUser BaseUser @relation(fields: [userId], references: [id])
+
+  id String @id @default(uuid())
+  userId String @unique
+  tokenHash String
+  expiresAt DateTime
   createdAt DateTime @default(now())
 }
 
@@ -71,6 +82,7 @@ model BaseUser {
   tollAdmin TollAdmin?
   gateAdmin GateAdmin?
   verificationToken VerificationToken?
+  refreshToken RefreshToken?
   
   id String @id @default(uuid())
   firstName String

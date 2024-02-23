@@ -13,6 +13,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { AuthErrors } from './auth/auth-errors';
 import { BullModule } from '@nestjs/bull';
 import { Env } from './config/env.type';
+import { UserErrors } from './user/user-errors';
+import { TokenModule } from './token/token.module';
 
 @Module({
   imports: [
@@ -41,8 +43,9 @@ import { Env } from './config/env.type';
       autoSchemaFile: true,
       playground: false,
       buildSchemaOptions: {
-        orphanedTypes: [AuthErrors],
+        orphanedTypes: [AuthErrors, UserErrors],
       },
+      context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     DatabaseModule,
@@ -51,6 +54,7 @@ import { Env } from './config/env.type';
     EmailModule,
     SmsModule,
     UserModule,
+    TokenModule,
   ],
 })
 export class AppModule {}

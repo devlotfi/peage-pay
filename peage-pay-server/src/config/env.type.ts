@@ -39,4 +39,19 @@ export class Env {
 
   @IsBoolean()
   public SMTP_SECURE: boolean;
+
+  @IsString()
+  public TWILIO_ACCOUNT: string;
+
+  @IsString()
+  public TWILIO_AUTH_TOKEN: string;
+
+  @IsString()
+  public JWT_REFRESH_TOKEN_SECRET: string;
+
+  @IsString()
+  public JWT_ACCESS_TOKEN_SECRET: string;
+
+  @IsString()
+  public COOKIES_SECRET: string;
 }
