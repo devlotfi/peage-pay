@@ -18,9 +18,6 @@
       "@peage-pay-web/admin-ui": ["lib/admin-ui/src/index.ts"],
       "@peage-pay-web/assets": ["assets/src/index.ts"],
       "@peage-pay-web/auth": ["lib/auth/src/index.ts"],
-      "@peage-pay-web/graphql-generated-types": [
-        "lib/graphql-generated-types/src/index.ts"
-      ],
       "@peage-pay-web/storybook-config": ["lib/storybook-config/src/index.ts"],
       "@peage-pay-web/tailwind-config": ["lib/tailwind-config/src/index.ts"],
       "@peage-pay-web/ui": ["lib/ui/src/index.ts"],

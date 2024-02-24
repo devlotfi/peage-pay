@@ -36,7 +36,7 @@ const MenuDropdown = ({
   ...props
 }: MenuDropdownProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(
-    opened !== undefined ? opened : true
+    opened !== undefined ? opened : false,
   );
 
   return (

@@ -6,7 +6,7 @@ import TabsItemContent from './tabs-item-content.component';
 import TabsItemIcon from './tabs-item-icon.component';
 
 const tabsItemVariants = cva(
-  'flex items-start relative justify-center items-center px-[1rem] min-h-[3rem] duration-300 ease rounded-lg mx-[0.3rem] active:scale-95',
+  'flex items-start relative justify-center items-center px-[1.5rem] min-h-[3rem] duration-300 ease rounded-lg mx-[0.3rem] active:scale-95',
   {
     variants: {
       variant: {
@@ -22,7 +22,7 @@ const tabsItemVariants = cva(
       variant: 'base-100',
       isActive: 'notActive',
     },
-  }
+  },
 );
 
 interface TabsItemProps
@@ -46,15 +46,17 @@ const TabsItem = ({
           variant: variant || (globalVariant as any),
           className,
           isActive,
-        })
+        }),
       )}
       {...props}
     >
-      <div className="flex flex-1 whitespace-nowrap²">{children}</div>
+      <div className="flex flex-1 whitespace-nowrap justify-center">
+        {children}
+      </div>
       <div
         className={Utils.cn(
-          'flex absolute w-[70%] h-[0.3rem] rounded-t-lg bg-primary-100 bottom-0',
-          isActive !== 'active' && 'hidden'
+          'flex absolute w-[70%] h-[0.3rem] rounded-t-lg bg-primary-100 bottom-0 duration-300 ease',
+          isActive !== 'active' && 'h-[0rem] w-[0rem]',
         )}
       ></div>
     </button>

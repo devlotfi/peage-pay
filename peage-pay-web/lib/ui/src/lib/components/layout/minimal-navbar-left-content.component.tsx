@@ -10,7 +10,7 @@ interface NavbarLeftContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof navbarLeftContentVariants> {}
 
-const NavbarLeftContent = ({
+const MinimalNavbarLeftContent = ({
   className,
   children,
   ...props
@@ -36,4 +36,4 @@ const NavbarLeftContent = ({
     </div>
   );
 };
-export default NavbarLeftContent;
+export default MinimalNavbarLeftContent;

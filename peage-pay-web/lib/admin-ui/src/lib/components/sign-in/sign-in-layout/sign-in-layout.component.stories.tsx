@@ -2,14 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SignInLayout from './sign-in-layout.component';
 import { ThemeProvider } from '@peage-pay-web/tailwind-config';
 import { ComponentProps } from 'react';
-import { Button, Dropdown, MenuItem, TextInput } from '@peage-pay-web/ui';
+import { Button, MinimalNavbar, TextInput } from '@peage-pay-web/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAt,
-  faEllipsisH,
-  faKey,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAt, faKey } from '@fortawesome/free-solid-svg-icons';
+import {} from '@peage-pay-web/ui';
 
 interface Props {
   checkboxLabel: string;
@@ -43,31 +39,10 @@ export const Base: Story = {
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
           <SignInLayout>
-            <SignInLayout.Navbar>
-              <SignInLayout.Navbar.LeftContent></SignInLayout.Navbar.LeftContent>
-              <SignInLayout.Navbar.RightContent>
-                <Dropdown
-                  mainElement={
-                    <Dropdown.Main>
-                      <Button variant={'base-200'}>
-                        <Button.Icon>
-                          <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
-                        </Button.Icon>
-                      </Button>
-                    </Dropdown.Main>
-                  }
-                >
-                  <Dropdown.Content position={'bottom-right'}>
-                    <MenuItem className="w-full" variant={'base-100'}>
-                      <MenuItem.Icon>
-                        <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                      </MenuItem.Icon>
-                      <MenuItem.Text>Test</MenuItem.Text>
-                    </MenuItem>
-                  </Dropdown.Content>
-                </Dropdown>
-              </SignInLayout.Navbar.RightContent>
-            </SignInLayout.Navbar>
+            <MinimalNavbar>
+              <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+              <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
+            </MinimalNavbar>
             <SignInLayout.Main>
               <SignInLayout.Card>
                 <SignInLayout.Card.Header>

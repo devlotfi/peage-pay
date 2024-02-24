@@ -1,7 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import Navbar from '../navbar/navbar.component';
 import SignInLayoutDrawing from './sign-in-layout-drawing.component';
 import Card from '../card/card.component';
 import SignInLayoutMain from './sign-in-layout-main.component';
@@ -25,7 +24,6 @@ const SignInLayout = ({
     </div>
   );
 };
-SignInLayout.Navbar = Navbar;
 SignInLayout.Main = SignInLayoutMain;
 SignInLayout.Drawing = SignInLayoutDrawing;
 SignInLayout.Card = Card;
