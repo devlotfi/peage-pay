@@ -52,15 +52,6 @@ const initTheme = (): ThemesEnum | undefined => {
   }
 };
 
-const getCurrentThemeDom = (): ThemesEnum | undefined => {
-  const htmlTag: HTMLBaseElement | null =
-    document.querySelector('#theme-provider');
-
-  if (htmlTag) {
-    return htmlTag.dataset.theme as ThemesEnum;
-  }
-};
-
 export const ThemeContext = createContext(initialValue);
 
 export function ThemeProvider({ children }: PropsWithChildren) {

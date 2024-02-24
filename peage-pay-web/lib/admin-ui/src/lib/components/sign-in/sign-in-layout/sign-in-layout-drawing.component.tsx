@@ -1,10 +1,10 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { AuthSignInBg, Toll } from '@peage-pay-web/assets';
+import { Toll } from '@peage-pay-web/assets';
 
 const signInLayoutDrawingVariants = cva(
-  'hidden lg:flex mt-0 flex-1 bg-base-200 rounded-tr-xl rounded-br-xl justify-center items-center bg-[image:var(--image-url)] bg-cover',
+  'hidden lg:flex mt-0 flex-1 bg-base-200 rounded-tr-xl rounded-br-xl justify-center items-center bg-cover',
 );
 
 interface SignInLayoutDrawingProps
@@ -18,9 +18,9 @@ const SignInLayoutDrawing = ({
 }: SignInLayoutDrawingProps): JSX.Element => {
   return (
     <div
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      style={{ '--image-url': `url(${AuthSignInBg})` }}
+      style={{
+        backgroundImage: `url('/auth-sign-in-bg.svg')`,
+      }}
       className={Utils.cn(signInLayoutDrawingVariants({ className }))}
       {...props}
     >
