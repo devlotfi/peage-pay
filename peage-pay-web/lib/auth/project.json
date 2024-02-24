@@ -1,7 +1,7 @@
 {
-  "name": "testing-project",
+  "name": "auth",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "lib/testing-project/src",
+  "sourceRoot": "lib/auth/src",
   "projectType": "library",
   "tags": [],
   "targets": {}
