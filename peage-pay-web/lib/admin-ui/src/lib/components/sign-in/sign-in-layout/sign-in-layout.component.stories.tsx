@@ -44,11 +44,12 @@ export const Base: Story = {
               <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
             </MinimalNavbar>
             <SignInLayout.Main>
-              <SignInLayout.Card>
-                <SignInLayout.Card.Header>
-                  General adminstration
-                </SignInLayout.Card.Header>
-                <div className="flex flex-col w-[90%]">
+              <SignInLayout.Card
+                header={
+                  <SignInLayout.Card.Header>lol</SignInLayout.Card.Header>
+                }
+              >
+                <div className="flex flex-col w-full">
                   <div className="flex my-[1.5rem] text-[25pt] font-semibold">
                     Sign in
                   </div>
@@ -90,7 +91,6 @@ export const Base: Story = {
                   </Button>
                 </div>
               </SignInLayout.Card>
-              <SignInLayout.Drawing></SignInLayout.Drawing>
             </SignInLayout.Main>
           </SignInLayout>
         </ThemeProvider>

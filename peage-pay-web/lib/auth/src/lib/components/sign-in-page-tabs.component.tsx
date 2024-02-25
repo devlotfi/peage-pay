@@ -2,23 +2,25 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faAt, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tabs } from '@peage-pay-web/ui';
-import { useState } from 'react';
 
-enum SignInTabsEnum {
+export enum SignInTabsEnum {
   EMAIL = 'EMAIL',
   PHONE = 'PHONE',
   GOOGLE = 'GOOGLE',
 }
 
-const SignInPageTabs = (): JSX.Element => {
-  const [tab, setTab] = useState<SignInTabsEnum>(SignInTabsEnum.EMAIL);
+interface Props {
+  onChange: (value: SignInTabsEnum) => void;
+  value: SignInTabsEnum;
+}
 
+const SignInPageTabs = ({ onChange, value }: Props): JSX.Element => {
   return (
     <Tabs>
       <Tabs.Item
         className="flex-1"
-        onClick={() => setTab(SignInTabsEnum.EMAIL)}
-        isActive={tab === SignInTabsEnum.EMAIL ? 'active' : 'notActive'}
+        onClick={() => onChange(SignInTabsEnum.EMAIL)}
+        isActive={value === SignInTabsEnum.EMAIL ? 'active' : 'notActive'}
       >
         <Tabs.Item.Icon position={'left'}>
           <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
@@ -27,8 +29,8 @@ const SignInPageTabs = (): JSX.Element => {
       </Tabs.Item>
       <Tabs.Item
         className="flex-1"
-        onClick={() => setTab(SignInTabsEnum.GOOGLE)}
-        isActive={tab === SignInTabsEnum.GOOGLE ? 'active' : 'notActive'}
+        onClick={() => onChange(SignInTabsEnum.GOOGLE)}
+        isActive={value === SignInTabsEnum.GOOGLE ? 'active' : 'notActive'}
       >
         <Tabs.Item.Icon position={'left'}>
           <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
@@ -37,8 +39,8 @@ const SignInPageTabs = (): JSX.Element => {
       </Tabs.Item>
       <Tabs.Item
         className="flex-1"
-        onClick={() => setTab(SignInTabsEnum.PHONE)}
-        isActive={tab === SignInTabsEnum.PHONE ? 'active' : 'notActive'}
+        onClick={() => onChange(SignInTabsEnum.PHONE)}
+        isActive={value === SignInTabsEnum.PHONE ? 'active' : 'notActive'}
       >
         <Tabs.Item.Icon position={'left'}>
           <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>
