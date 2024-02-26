@@ -37,6 +37,23 @@ export class TokenService {
     };
   }
 
+  public generatePasswordResetUrl(userId: string) {
+    const tokenLength = 128;
+    const size = Math.floor(tokenLength / 2);
+    const token = randomBytes(size).toString('hex');
+    const webClientUrl =
+      this.configService.getOrThrow<string>('WEB_CLIENT_URL');
+    const passwordResetUrl = new URL(`${webClientUrl}/reset`);
+
+    passwordResetUrl.searchParams.append('userId', userId);
+    passwordResetUrl.searchParams.append('token', token);
+
+    return {
+      passwordResetUrl: passwordResetUrl.toString(),
+      token,
+    };
+  }
+
   public async generateRefreshToken(
     userId: string,
     req: Request,

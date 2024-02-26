@@ -4,7 +4,7 @@ import { Env } from 'src/config/env.type';
 import * as twilio from 'twilio';
 
 @Injectable()
-export class SmsProvider {
+export class TwilioService {
   public constructor(private readonly configService: ConfigService<Env>) {}
 
   private readonly _twilioClient = twilio(

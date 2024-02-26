@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
 
 @Injectable()
-export class EmailProvider {
+export class NodemailerService {
   public constructor(private readonly configService: ConfigService) {}
 
   private readonly _transporter = nodemailer.createTransport({

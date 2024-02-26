@@ -5,7 +5,7 @@ import { BullModule } from '@nestjs/bull';
 import { EmailProcessor } from './email.processor';
 import { BullQueues } from 'src/constants/bull-queues';
 import { DatabaseModule } from 'src/database/database.module';
-import { EmailProvider } from './email.provider';
+import { NodemailerService } from './nodemailer.service';
 import { TokenModule } from 'src/token/token.module';
 
 @Module({
@@ -17,7 +17,7 @@ import { TokenModule } from 'src/token/token.module';
       name: BullQueues.EMAIL,
     }),
   ],
-  providers: [EmailService, EmailProcessor, EmailProvider],
+  providers: [EmailService, EmailProcessor, NodemailerService],
   exports: [EmailService],
 })
 export class EmailModule {}

@@ -21,6 +21,7 @@ import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { RedisService } from 'src/redis/redis.service';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
+import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +43,7 @@ export class AuthService {
       },
     });
     if (existingUser) {
-      throw new GraphQLError(AuthErrors.USER_WITH_EMAIL_EXISTS);
+      throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
     }
 
     const hashedPassword = await Utils.hashString(
@@ -142,6 +143,12 @@ export class AuthService {
     return true;
   }
 
+  public async sendPasswordResetEmail(
+    sendPasswordResetEmailInput: SendResetPasswordEmailInput,
+  ): Promise<boolean> {
+    return true;
+  }
+
   public async signUpWithPhone(
     signUpWithPhoneInput: SignUpWithPhoneInput,
   ): Promise<boolean> {
@@ -151,7 +158,7 @@ export class AuthService {
       },
     });
     if (existingUser) {
-      throw new GraphQLError(AuthErrors.USER_WITH_PHONE_EXISTS);
+      throw new GraphQLError(UserErrors.USER_WITH_PHONE_EXISTS);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -206,6 +213,13 @@ export class AuthService {
       });
     if (!emailAuthMethod) {
       throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+    }
+    if (!emailAuthMethod.verifiedAt) {
+      await this.emailService.sendVerificationEmail(
+        emailAuthMethod.authMethod.userId,
+        emailAuthMethod.email,
+      );
+      throw new GraphQLError(AuthErrors.NOT_VERIFIED);
     }
 
     const result = await compare(
