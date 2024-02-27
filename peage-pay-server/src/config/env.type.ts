@@ -51,7 +51,4 @@ export class Env {
 
   @IsString()
   public JWT_ACCESS_TOKEN_SECRET: string;
-
-  @IsString()
-  public COOKIES_SECRET: string;
 }
