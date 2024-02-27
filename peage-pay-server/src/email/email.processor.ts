@@ -61,6 +61,8 @@ export class EmailProcessor {
       subject: 'PeagePay account verification',
       text: `Your verification link is ${verificationUrl}`,
     });
+
+    return {};
   }
 
   @Process(BullProcesses.SEND_PASSWORD_RESET_EMAIL)
@@ -98,5 +100,7 @@ export class EmailProcessor {
       subject: 'PeagePay password reset',
       text: `Your password reset link is ${passwordResetUrl}`,
     });
+
+    return {};
   }
 }

@@ -10,10 +10,10 @@ import { UserModule } from './user/user.module';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import { AuthErrors } from './auth/auth-errors';
+import { AuthErrors } from './auth/graphql/auth-errors.graphql';
 import { BullModule } from '@nestjs/bull';
 import { Env } from './config/env.type';
-import { UserErrors } from './user/user-errors';
+import { UserErrors } from './user/graphql/user-errors.graphql';
 import { TokenModule } from './token/token.module';
 
 @Module({

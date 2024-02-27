@@ -25,4 +25,20 @@ export class EmailService {
       },
     );
   }
+
+  public async sendPasswordResetEmail(
+    userId: string,
+    email: string,
+  ): Promise<void> {
+    await this.emailQueue.add(
+      BullProcesses.SEND_PASSWORD_RESET_EMAIL,
+      {
+        userId,
+        email,
+      },
+      {
+        delay: 3000,
+      },
+    );
+  }
 }
