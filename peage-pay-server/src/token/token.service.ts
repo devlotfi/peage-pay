@@ -109,7 +109,7 @@ export class TokenService {
   }
 
   public async generateAccessToken(userId: string): Promise<string> {
-    const userRoles = this.userService.getUserRolesList(userId);
+    const userRoles = await this.userService.getUserRolesList(userId);
     const accessToken = await this.jwtService.signAsync(
       {
         userId,
