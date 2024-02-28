@@ -33,11 +33,7 @@ const DashboardLayout = (): JSX.Element => {
       <AdminDashboardLayout.Main>
         <AdminDashboardLayout.Navbar>
           <AdminDashboardLayout.Navbar.LeftContent></AdminDashboardLayout.Navbar.LeftContent>
-          <AdminDashboardLayout.Navbar.RightContent>
-            <Button variant={'base-200'}>
-              <Button.Content>Test</Button.Content>
-            </Button>
-          </AdminDashboardLayout.Navbar.RightContent>
+          <AdminDashboardLayout.Navbar.RightContent></AdminDashboardLayout.Navbar.RightContent>
         </AdminDashboardLayout.Navbar>
         <AdminDashboardLayout.Content className="p-[1rem]">
           <Outlet></Outlet>

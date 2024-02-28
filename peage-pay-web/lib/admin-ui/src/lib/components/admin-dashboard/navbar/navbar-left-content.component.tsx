@@ -27,14 +27,14 @@ const NavbarLeftContent = ({
     >
       <Button
         onClick={() => setSidebarOpened(true)}
-        variant={'base-200'}
+        variant={'base-100'}
         className="lg:hidden"
       >
         <Button.Icon>
           <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
         </Button.Icon>
       </Button>
-      <Button variant={'base-200'} className="lg:hidden">
+      <Button variant={'base-100'} className="lg:hidden">
         <Button.Content>
           <img
             className="w-[1.8rem]"

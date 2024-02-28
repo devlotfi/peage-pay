@@ -3,6 +3,7 @@ import {
   faCaretDown,
   faLanguage,
   faMoon,
+  faPowerOff,
   faSun,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +38,7 @@ const NavbarDropdown = (): JSX.Element => {
     <Dropdown
       mainElement={
         <Dropdown.Main>
-          <Button variant={'base-200'}>
+          <Button variant={'base-100'}>
             <NavbarDropdownArrow></NavbarDropdownArrow>
             {authData ? (
               <Button.Content>
@@ -97,7 +98,7 @@ const NavbarDropdown = (): JSX.Element => {
         <MenuDropdown
           mainElement={
             <MenuDropdown.Main>
-              <MenuItem className="w-full" variant={'base-100'}>
+              <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
                 </MenuItem.Icon>
@@ -121,13 +122,19 @@ const NavbarDropdown = (): JSX.Element => {
             </MenuItem.Icon>
             <MenuItem.Text>French</MenuItem.Text>
           </MenuItem>
-          <MenuItem className="w-full" variant={'base-100'}>
+          <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
             </MenuItem.Icon>
             <MenuItem.Text>Arabic</MenuItem.Text>
           </MenuItem>
         </MenuDropdown>
+        <MenuItem className="w-full" variant={'error'}>
+          <MenuItem.Icon>
+            <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
+          </MenuItem.Icon>
+          <MenuItem.Text>Sign out</MenuItem.Text>
+        </MenuItem>
       </Dropdown.Content>
     </Dropdown>
   );
