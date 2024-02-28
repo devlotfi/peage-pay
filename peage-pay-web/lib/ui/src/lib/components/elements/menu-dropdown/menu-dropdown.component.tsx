@@ -49,10 +49,12 @@ const MenuDropdown = ({
     >
       <div className={Utils.cn(menuDropdownVariants({ className }))} {...props}>
         {mainElement}
-        <div className="flex w-full">
-          <div className="flex min-w-[2px] mx-[0.7rem] h-full bg-edge-100"></div>
-          <div className="flex flex-col w-full">{open ? children : null}</div>
-        </div>
+        {open ? (
+          <div className="flex w-full">
+            <div className="flex min-w-[1px] my-[0.5rem] mx-[0.5rem] bg-edge-100"></div>
+            <div className="flex flex-col w-full">{children}</div>
+          </div>
+        ) : null}
       </div>
     </MenuDropdownContext.Provider>
   );
