@@ -1,0 +1,8 @@
+{
+  "name": "general-admin-panel",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "client/general-admin-panel/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

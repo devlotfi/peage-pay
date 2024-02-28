@@ -108,6 +108,26 @@ export class TokenService {
     return refreshToken;
   }
 
+  public async clearRefreshToken(
+    userId: string,
+    req: Request,
+    res: Response,
+    refreshTokenMode: RefreshTokenMode,
+  ): Promise<void> {
+    await this.databaseService.refreshToken.delete({
+      where: {
+        userId,
+      },
+    });
+
+    if (refreshTokenMode === RefreshTokenMode.COOKIE) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const cookies = new Cookies(req, res);
+      cookies.set(CookieKeys.REFRESH_TOKEN, undefined);
+    }
+  }
+
   public async generateAccessToken(userId: string): Promise<string> {
     const userRoles = await this.userService.getUserRolesList(userId);
     const accessToken = await this.jwtService.signAsync(

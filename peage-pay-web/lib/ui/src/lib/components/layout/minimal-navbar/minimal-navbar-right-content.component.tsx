@@ -49,11 +49,7 @@ const MinimalNavbarRightContent = ({
           <MenuDropdown
             mainElement={
               <MenuDropdown.Main className="mb-[0.5rem]">
-                <MenuItem
-                  className="w-full"
-                  variant={'base-100'}
-                  showFocusEffect={'hide'}
-                >
+                <MenuItem className="w-full" variant={'base-100'}>
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faBrush}></FontAwesomeIcon>
                   </MenuItem.Icon>

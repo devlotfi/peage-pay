@@ -289,9 +289,13 @@ export class EmailAuthService {
       context.res,
       refreshTokenMode,
     );
+    const accessToken = await this.tokenService.generateAccessToken(
+      emailAuthMethod.authMethod.userId,
+    );
     const signInWithEmailResult = new SignInWithEmailResult();
     signInWithEmailResult.baseUser = emailAuthMethod.authMethod
       .baseUser as BaseUserType;
+    signInWithEmailResult.accessToken = accessToken;
     if (refreshTokenMode === RefreshTokenMode.PLAIN_TEXT) {
       signInWithEmailResult.refreshToken = refreshToken;
     }

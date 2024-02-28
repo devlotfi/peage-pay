@@ -7,6 +7,7 @@ import { GraphQLExecutionContext } from '@nestjs/graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 
 @Injectable()
 export class TokenAuthService {
@@ -74,5 +75,17 @@ export class TokenAuthService {
     signInWithRefreshTokenResult.baseUser = baseUser as BaseUserType;
 
     return signInWithRefreshTokenResult;
+  }
+
+  public async signOut(
+    refreshTokenMode: RefreshTokenMode,
+    context: GraphQLExecutionContext,
+  ): Promise<boolean> {
+    //await this.tokenService.clearRefreshToken()
+    return true;
+  }
+
+  public async signOutWithRefreshTokenCookie(): Promise<boolean> {
+    return true;
   }
 }

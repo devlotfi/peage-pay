@@ -5,7 +5,7 @@ import MenuItemIcon from './menu-item-icon.component';
 import MenuItemText from './menu-item-text.component';
 
 const menuItemVariants = cva(
-  'group flex items-center rounded-lg p-[0.3rem] duration-300 ease',
+  'group flex items-center rounded-lg p-[0.3rem] duration-300 ease active:scale-95',
   {
     variants: {
       variant: {

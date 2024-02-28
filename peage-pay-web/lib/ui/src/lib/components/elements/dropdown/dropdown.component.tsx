@@ -39,7 +39,7 @@ const Dropdown = ({
   ...props
 }: dropdownProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(
-    opened !== undefined ? opened : false
+    opened !== undefined ? opened : false,
   );
 
   return (
@@ -59,4 +59,5 @@ const Dropdown = ({
 };
 Dropdown.Main = DropdownMain;
 Dropdown.Content = DropdownContent;
+Dropdown.Context = DropdownContext;
 export default Dropdown;

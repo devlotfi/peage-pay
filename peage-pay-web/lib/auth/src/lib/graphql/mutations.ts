@@ -24,20 +24,40 @@ export const SIGN_IN_WITH_EMAIL = gql(`
         createdAt
         updatedAt
       }
-      refreshToken
+      accessToken
     }
   }
 `);
 
-export const SIGN_UP_WITH_REFRESH_TOKEN = gql(`
-  mutation SIGN_UP_WITH_REFRESH_TOKEN($signUpWithEmailInput: SignUpWithEmailInput!) {
-    signUpWithEmail(signUpWithEmailInput: $signUpWithEmailInput)
+export const SIGN_IN_WITH_REFRESH_TOKEN = gql(`
+  query SIGN_IN_WITH_REFRESH_TOKEN($signInWithRefreshTokenInput: SignInWithRefreshTokenInput!) {
+    signInWithRefreshToken(signInWithRefreshTokenInput: $signInWithRefreshTokenInput) {
+      baseUser {
+        id
+        firstName
+        lastName
+        birthDate
+        gender
+        createdAt
+        updatedAt
+      }
+      accessToken
+    }
   }
 `);
 
-export const SIGN_UP_WITH_REFRESH_TOKEN_COOKIE = gql(`
-  mutation SIGN_UP_WITH_REFRESH_TOKEN_COOKIE {
+export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
+  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {
     signInWithRefreshTokenCookie {
+      baseUser {
+        id
+        firstName
+        lastName
+        birthDate
+        gender
+        createdAt
+        updatedAt
+      }
       accessToken
     }
   }

@@ -1,6 +1,7 @@
 import { Utils } from '@peage-pay-web/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
+import NavbarDropdown from './navbar-dropdown.component';
 
 const navbarRightContentVariants = cva('flex');
 
@@ -19,6 +20,7 @@ const NavbarRightContent = ({
       {...props}
     >
       {children}
+      <NavbarDropdown></NavbarDropdown>
     </div>
   );
 };

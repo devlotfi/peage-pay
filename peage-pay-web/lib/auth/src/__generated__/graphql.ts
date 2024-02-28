@@ -21,13 +21,15 @@ export type Scalars = {
 export enum AuthErrors {
   EmailAlreadyVerified = 'EMAIL_ALREADY_VERIFIED',
   EmailAuthNotFound = 'EMAIL_AUTH_NOT_FOUND',
+  EmailVerificationAttemptsExceeded = 'EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
   InvalidEmailOrPassword = 'INVALID_EMAIL_OR_PASSWORD',
   InvalidRefreshToken = 'INVALID_REFRESH_TOKEN',
   InvalidVerificationToken = 'INVALID_VERIFICATION_TOKEN',
+  PasswordResetAttemptsExceeded = 'PASSWORD_RESET_ATTEMPTS_EXCEEDED',
   PhoneAuthNotFound = 'PHONE_AUTH_NOT_FOUND',
   RefreshTokenNotProvided = 'REFRESH_TOKEN_NOT_PROVIDED',
-  UserWithEmailExists = 'USER_WITH_EMAIL_EXISTS',
-  UserWithPhoneExists = 'USER_WITH_PHONE_EXISTS',
+  SignInWithEmaIlAttemptsExceeded = 'SIGN_IN_WITH_EMAIl_ATTEMPTS_EXCEEDED',
+  VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING',
   VerificationTokenExpired = 'VERIFICATION_TOKEN_EXPIRED',
   VerificationTokenNotFound = 'VERIFICATION_TOKEN_NOT_FOUND'
 }
@@ -50,12 +52,21 @@ export enum GenderType {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  resetPassword: Scalars['Boolean']['output'];
+  sendPasswordResetEmail: Scalars['Boolean']['output'];
   signInWithEmail: SignInWithEmailResult;
-  signInWithRefreshToken: SignInWithRefreshTokenResult;
-  signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   signUpWithEmail: Scalars['Boolean']['output'];
-  signUpWithPhone: Scalars['Boolean']['output'];
   verifyEmail: Scalars['Boolean']['output'];
+};
+
+
+export type MutationResetPasswordArgs = {
+  resetPasswordInput: ResetPasswordInput;
+};
+
+
+export type MutationSendPasswordResetEmailArgs = {
+  sendPasswordResetEmailInput: SendResetPasswordEmailInput;
 };
 
 
@@ -65,18 +76,8 @@ export type MutationSignInWithEmailArgs = {
 };
 
 
-export type MutationSignInWithRefreshTokenArgs = {
-  signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
-};
-
-
 export type MutationSignUpWithEmailArgs = {
   signUpWithEmailInput: SignUpWithEmailInput;
-};
-
-
-export type MutationSignUpWithPhoneArgs = {
-  signUpWithPhoneInput: SignUpWithPhoneInput;
 };
 
 
@@ -87,6 +88,13 @@ export type MutationVerifyEmailArgs = {
 export type Query = {
   __typename?: 'Query';
   lol: Scalars['String']['output'];
+  signInWithRefreshToken: SignInWithRefreshTokenResult;
+  signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
+};
+
+
+export type QuerySignInWithRefreshTokenArgs = {
+  signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 };
 
 export enum RefreshTokenMode {
@@ -94,8 +102,19 @@ export enum RefreshTokenMode {
   PlainText = 'PLAIN_TEXT'
 }
 
+export type ResetPasswordInput = {
+  password: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
+export type SendResetPasswordEmailInput = {
+  email: Scalars['String']['input'];
+};
+
 export type SignInWithEmailResult = {
   __typename?: 'SignInWithEmailResult';
+  accessToken: Scalars['String']['output'];
   baseUser: BaseUserType;
   refreshToken?: Maybe<Scalars['String']['output']>;
 };
@@ -107,7 +126,7 @@ export type SignInWithRefreshTokenInput = {
 export type SignInWithRefreshTokenResult = {
   __typename?: 'SignInWithRefreshTokenResult';
   accessToken: Scalars['String']['output'];
-  baseUser?: Maybe<BaseUserType>;
+  baseUser: BaseUserType;
 };
 
 export type SignUpWithEmailInput = {
@@ -119,21 +138,15 @@ export type SignUpWithEmailInput = {
   password: Scalars['String']['input'];
 };
 
-export type SignUpWithPhoneInput = {
-  birthDate: Scalars['DateTime']['input'];
-  firstName: Scalars['String']['input'];
-  gender: GenderType;
-  lastName: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
-};
-
 export type SigninWithEmailInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
 export enum UserErrors {
-  UserNotFound = 'USER_NOT_FOUND'
+  UserNotFound = 'USER_NOT_FOUND',
+  UserWithEmailExists = 'USER_WITH_EMAIL_EXISTS',
+  UserWithPhoneExists = 'USER_WITH_PHONE_EXISTS'
 }
 
 export type VerifyEmailInput = {
@@ -161,23 +174,23 @@ export type Sign_In_With_EmailMutationVariables = Exact<{
 }>;
 
 
-export type Sign_In_With_EmailMutation = { __typename?: 'Mutation', signInWithEmail: { __typename?: 'SignInWithEmailResult', refreshToken?: string | null, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, birthDate: any, gender: GenderType, createdAt: any, updatedAt: any } } };
+export type Sign_In_With_EmailMutation = { __typename?: 'Mutation', signInWithEmail: { __typename?: 'SignInWithEmailResult', accessToken: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, birthDate: any, gender: GenderType, createdAt: any, updatedAt: any } } };
 
-export type Sign_Up_With_Refresh_TokenMutationVariables = Exact<{
-  signUpWithEmailInput: SignUpWithEmailInput;
+export type Sign_In_With_Refresh_TokenQueryVariables = Exact<{
+  signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 }>;
 
 
-export type Sign_Up_With_Refresh_TokenMutation = { __typename?: 'Mutation', signUpWithEmail: boolean };
+export type Sign_In_With_Refresh_TokenQuery = { __typename?: 'Query', signInWithRefreshToken: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, birthDate: any, gender: GenderType, createdAt: any, updatedAt: any } } };
 
-export type Sign_Up_With_Refresh_Token_CookieMutationVariables = Exact<{ [key: string]: never; }>;
+export type Sign_In_With_Refresh_Token_CookieQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Sign_Up_With_Refresh_Token_CookieMutation = { __typename?: 'Mutation', signInWithRefreshTokenCookie: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string } };
+export type Sign_In_With_Refresh_Token_CookieQuery = { __typename?: 'Query', signInWithRefreshTokenCookie: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, birthDate: any, gender: GenderType, createdAt: any, updatedAt: any } } };
 
 
 export const Sign_Up_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_UP_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpWithEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUpWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}}}]}]}}]} as unknown as DocumentNode<Sign_Up_With_EmailMutation, Sign_Up_With_EmailMutationVariables>;
 export const Verify_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VERIFY_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"verifyEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"VerifyEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verifyEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"verifyEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"verifyEmailInput"}}}]}]}}]} as unknown as DocumentNode<Verify_EmailMutation, Verify_EmailMutationVariables>;
-export const Sign_In_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SigninWithEmailInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RefreshTokenMode"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}}},{"kind":"Argument","name":{"kind":"Name","value":"refreshTokenMode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_EmailMutation, Sign_In_With_EmailMutationVariables>;
-export const Sign_Up_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_UP_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpWithEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUpWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}}}]}]}}]} as unknown as DocumentNode<Sign_Up_With_Refresh_TokenMutation, Sign_Up_With_Refresh_TokenMutationVariables>;
-export const Sign_Up_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_UP_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_Up_With_Refresh_Token_CookieMutation, Sign_Up_With_Refresh_Token_CookieMutationVariables>;
+export const Sign_In_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SigninWithEmailInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RefreshTokenMode"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}}},{"kind":"Argument","name":{"kind":"Name","value":"refreshTokenMode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_EmailMutation, Sign_In_With_EmailMutationVariables>;
+export const Sign_In_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_TokenQuery, Sign_In_With_Refresh_TokenQueryVariables>;
+export const Sign_In_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_CookieQuery, Sign_In_With_Refresh_Token_CookieQueryVariables>;

@@ -1,27 +1,28 @@
 import { PropsWithChildren, createContext, useState } from 'react';
 import { BaseUserType } from '../../__generated__/graphql';
+import { useQuery } from '@apollo/client';
+import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
+import AuthLoading from '../components/auth-loading.component';
+
+type AuthData = {
+  baseUser: BaseUserType;
+  accessToken: string;
+} | null;
 
 interface AuthContext {
-  authData: {
-    baseUser: BaseUserType;
-    accessToken: string;
-  } | null;
+  authData: AuthData;
 
-  setBaseUser: (baseUser: BaseUserType) => void;
+  setAuthData: (authData: AuthData) => void;
   setAccessToken: (accessToken: string) => void;
-  clearAuthData: () => void;
 }
 
 const initialValue: AuthContext = {
   authData: null,
 
-  setBaseUser: () => {
+  setAuthData: () => {
     return;
   },
   setAccessToken: () => {
-    return;
-  },
-  clearAuthData: () => {
     return;
   },
 };
@@ -30,15 +31,17 @@ export const AuthContext = createContext(initialValue);
 
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [authData, setAuthData] = useState(initialValue.authData);
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
 
-  const setBaseUser = (baseUser: BaseUserType) => {
-    if (authData) {
-      setAuthData({
-        accessToken: authData.accessToken,
-        baseUser,
-      });
-    }
-  };
+  useQuery(SIGN_IN_WITH_REFRESH_TOKEN_COOKIE, {
+    onCompleted(data) {
+      setAuthData(data.signInWithRefreshTokenCookie);
+      setAuthLoading(false);
+    },
+    onError(error) {
+      setAuthLoading(false);
+    },
+  });
 
   const setAccessToken = (accessToken: string) => {
     if (authData) {
@@ -49,20 +52,15 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
     }
   };
 
-  const clearAuthData = () => {
-    setAuthData(null);
-  };
-
   return (
     <AuthContext.Provider
       value={{
         authData: authData,
-        setBaseUser,
+        setAuthData,
         setAccessToken,
-        clearAuthData,
       }}
     >
-      {children}
+      {authLoading ? <AuthLoading></AuthLoading> : children}
     </AuthContext.Provider>
   );
 };

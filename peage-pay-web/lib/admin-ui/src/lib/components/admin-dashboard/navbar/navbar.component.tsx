@@ -3,8 +3,11 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import NavbarRightContent from './navbar-right-content.component';
 import NavbarLeftContent from './navbar-left-content.component';
+import NavbarDropdown from './navbar-dropdown.component';
 
-const navbarVariants = cva('flex min-h-[3.5rem] items-center justify-between');
+const navbarVariants = cva(
+  'flex min-h-[3.5rem] items-center justify-between px-[0.2rem] lg:px-0',
+);
 
 interface NavbarProps
   extends BaseHTMLAttributes<HTMLDivElement>,
@@ -23,4 +26,5 @@ const Navbar = ({
 };
 Navbar.RightContent = NavbarRightContent;
 Navbar.LeftContent = NavbarLeftContent;
+Navbar.Dropdown = NavbarDropdown;
 export default Navbar;

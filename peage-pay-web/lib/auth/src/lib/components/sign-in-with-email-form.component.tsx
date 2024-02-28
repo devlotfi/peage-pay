@@ -1,8 +1,17 @@
+import { useMutation } from '@apollo/client';
 import { faAt, faKey, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Link, TextInput } from '@peage-pay-web/ui';
+import { Button, Link, LoaderDots, TextInput } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { SIGN_IN_WITH_EMAIL } from '../graphql/mutations';
+import {
+  AuthErrors,
+  RefreshTokenMode,
+  UserErrors,
+} from '../../__generated__/graphql';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -20,14 +29,50 @@ const initialValues: Values = {
 };
 
 const SignInWithEmailForm = (): JSX.Element => {
-  const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
-    useFormik({
-      validationSchema: signInWithEmailValidationSchema,
-      initialValues,
-      onSubmit(values, formikHelpers) {
-        return;
-      },
-    });
+  const { setAuthData } = useContext(AuthContext);
+  const [signInWithEmail, { loading }] = useMutation(SIGN_IN_WITH_EMAIL, {
+    onCompleted(data, clientOptions) {
+      console.log(data);
+      setAuthData(data.signInWithEmail);
+    },
+    onError(error, clientOptions) {
+      switch (error.message) {
+        case UserErrors.UserNotFound:
+          setFieldError('email', 'auth:errors.USER_NOT_FOUND');
+          break;
+        case AuthErrors.InvalidEmailOrPassword:
+          setFieldError('email', 'auth:errors.INVALID_EMAIL_OR_PASSWORD');
+          break;
+        case AuthErrors.SignInWithEmaIlAttemptsExceeded:
+          setFieldError('email', 'auth:errors.SIGN_IN_ATTEMPTS_EXCEEDED');
+          break;
+      }
+    },
+  });
+
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    errors,
+    touched,
+    values,
+    setFieldError,
+  } = useFormik({
+    validationSchema: signInWithEmailValidationSchema,
+    initialValues,
+    onSubmit(values, formikHelpers) {
+      signInWithEmail({
+        variables: {
+          signInWithEmailInput: {
+            email: values.email,
+            password: values.password,
+          },
+          refreshTokenMode: RefreshTokenMode.Cookie,
+        },
+      });
+    },
+  });
 
   return (
     <form onSubmit={handleSubmit} className="mt-[2rem]">
@@ -77,11 +122,19 @@ const SignInWithEmailForm = (): JSX.Element => {
       </TextInput>
       <Link className="mb-[1rem]">Reset password</Link>
 
-      <Button className="w-full" variant={'primary'}>
-        <Button.Icon position={'left'}>
-          <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
-        </Button.Icon>
-        <Button.Content>Sign in</Button.Content>
+      <Button className="w-full" variant={'primary'} type="submit">
+        {loading ? (
+          <Button.Content>
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
+          </Button.Content>
+        ) : (
+          <>
+            <Button.Icon position={'left'}>
+              <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
+            </Button.Icon>
+            <Button.Content>Sign in</Button.Content>
+          </>
+        )}
       </Button>
     </form>
   );

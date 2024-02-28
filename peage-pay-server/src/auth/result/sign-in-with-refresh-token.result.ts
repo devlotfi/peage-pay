@@ -3,7 +3,7 @@ import { BaseUserType } from 'src/user/graphql/base-user.graphql';
 
 @ObjectType()
 export class SignInWithRefreshTokenResult {
-  @Field(() => BaseUserType, { nullable: true })
+  @Field(() => BaseUserType)
   public baseUser: BaseUserType;
 
   @Field()

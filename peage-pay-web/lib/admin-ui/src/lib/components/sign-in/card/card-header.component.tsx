@@ -24,7 +24,9 @@ const CardHeader = ({
           icon={faUserGear}
         ></FontAwesomeIcon>
       </div>
-      <div className="flex text-[13pt] opacity-70 mt-[0.7rem]">{children}</div>
+      <div className="flex text-[13pt] opacity-70 lg:mt-[0.7rem]">
+        {children}
+      </div>
     </div>
   );
 };

@@ -80,7 +80,7 @@ export class AuthResolver {
     );
   }
 
-  @Mutation(() => SignInWithRefreshTokenResult)
+  @Query(() => SignInWithRefreshTokenResult)
   public async signInWithRefreshToken(
     @Args('signInWithRefreshTokenInput')
     signInWithRefreshTokenInput: SignInWithRefreshTokenInput,
@@ -90,7 +90,7 @@ export class AuthResolver {
     );
   }
 
-  @Mutation(() => SignInWithRefreshTokenResult)
+  @Query(() => SignInWithRefreshTokenResult)
   public async signInWithRefreshTokenCookie(
     @Context()
     context: GraphQLExecutionContext,

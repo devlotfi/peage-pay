@@ -22,7 +22,7 @@ const Card = ({
   return (
     <div className={Utils.cn(cardVariants({ className }))} {...props}>
       <div className="flex w-full justify-center">{children}</div>
-      <div className="flex bg-edge-100 w-[1px] my-[1rem] mx-[2rem]"></div>
+      <div className="bg-edge-100 w-[1px] my-[1rem] mx-[2rem] hidden lg:flex"></div>
       {header}
     </div>
   );

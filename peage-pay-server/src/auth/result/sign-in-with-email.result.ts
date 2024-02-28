@@ -8,4 +8,7 @@ export class SignInWithEmailResult {
 
   @Field({ nullable: true })
   public refreshToken: string;
+
+  @Field()
+  public accessToken: string;
 }
