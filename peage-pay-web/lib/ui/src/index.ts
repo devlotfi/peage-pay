@@ -14,7 +14,7 @@ import Tabs from './lib/components/elements/tabs/tabs.component';
 import TextArea from './lib/components/elements/text-area/text-area.component';
 import TextInput from './lib/components/elements/text-input/text-input.component';
 import Tooltip from './lib/components/elements/tooltip/tooltip.component';
-import MinimalNavbar from './lib/components/layout/minimal-navbar.component';
+import MinimalNavbar from './lib/components/layout/minimal-navbar/minimal-navbar.component';
 
 export {
   Button,

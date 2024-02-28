@@ -1,8 +1,8 @@
 import { Utils } from '@peage-pay-web/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import Dropdown from '../elements/dropdown/dropdown.component';
-import Button from '../elements/button/button.component';
+import Dropdown from '../../elements/dropdown/dropdown.component';
+import Button from '../../elements/button/button.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBrush,
@@ -11,8 +11,8 @@ import {
   faMoon,
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
-import MenuItem from '../elements/menu-item/menu-item.component';
-import MenuDropdown from '../elements/menu-dropdown/menu-dropdown.component';
+import MenuItem from '../../elements/menu-item/menu-item.component';
+import MenuDropdown from '../../elements/menu-dropdown/menu-dropdown.component';
 import { ThemeContext, ThemesEnum } from '@peage-pay-web/tailwind-config';
 
 const navbarRightContentVariants = cva('flex');
@@ -49,7 +49,11 @@ const MinimalNavbarRightContent = ({
           <MenuDropdown
             mainElement={
               <MenuDropdown.Main className="mb-[0.5rem]">
-                <MenuItem className="w-full" variant={'base-100'}>
+                <MenuItem
+                  className="w-full"
+                  variant={'base-100'}
+                  showFocusEffect={'hide'}
+                >
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faBrush}></FontAwesomeIcon>
                   </MenuItem.Icon>

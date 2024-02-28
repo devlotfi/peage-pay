@@ -5,7 +5,7 @@ import MenuItemIcon from './menu-item-icon.component';
 import MenuItemText from './menu-item-text.component';
 
 const menuItemVariants = cva(
-  'group flex items-center rounded-lg p-[0.3rem] duration-300 ease active:scale-95',
+  'group flex items-center rounded-lg p-[0.3rem] duration-300 ease',
   {
     variants: {
       variant: {
@@ -16,11 +16,16 @@ const menuItemVariants = cva(
         'base-100': 'bg-base-100 hover:bg-base-200',
         'base-200': 'bg-base-200 hover:bg-base-100',
       },
+      showFocusEffect: {
+        show: 'active:scale-95',
+        hide: '',
+      },
     },
     defaultVariants: {
       variant: 'base-100',
+      showFocusEffect: 'show',
     },
-  }
+  },
 );
 
 interface MenuItemProps
@@ -41,6 +46,7 @@ const MenuItem = ({
   variant,
   className,
   children,
+  showFocusEffect,
   ...props
 }: MenuItemProps): JSX.Element => {
   return (
@@ -50,7 +56,9 @@ const MenuItem = ({
       }}
     >
       <button
-        className={Utils.cn(menuItemVariants({ variant, className }))}
+        className={Utils.cn(
+          menuItemVariants({ variant, showFocusEffect, className }),
+        )}
         {...props}
       >
         {children}
