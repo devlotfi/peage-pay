@@ -29,11 +29,11 @@ const initialValues: Values = {
 };
 
 const SignInWithEmailForm = (): JSX.Element => {
-  const { setAuthData } = useContext(AuthContext);
+  const { setAuthData, setAccessToken } = useContext(AuthContext);
   const [signInWithEmail, { loading }] = useMutation(SIGN_IN_WITH_EMAIL, {
     onCompleted(data, clientOptions) {
-      console.log(data);
-      setAuthData(data.signInWithEmail);
+      setAuthData({ baseUser: data.signInWithEmail.baseUser });
+      setAccessToken(data.signInWithEmail.accessToken);
     },
     onError(error, clientOptions) {
       switch (error.message) {

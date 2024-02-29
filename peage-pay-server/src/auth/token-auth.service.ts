@@ -3,10 +3,12 @@ import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
 import { AuthErrors } from './graphql/auth-errors.graphql';
 import { BaseUserType } from 'src/user/graphql/base-user.graphql';
-import { GraphQLExecutionContext } from '@nestjs/graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
+import { AccessTokenPayload } from './types/access-token-payload.type';
+import { Request, Response } from 'express';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 
 @Injectable()
 export class TokenAuthService {
@@ -42,17 +44,11 @@ export class TokenAuthService {
   }
 
   public async signInWithRefreshTokenCookie(
-    context: GraphQLExecutionContext,
+    req: Request,
+    res: Response,
   ): Promise<SignInWithRefreshTokenResult> {
     const { payload, valid, refreshToken } =
-      await this.tokenService.checkRefreshTokenCookie(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        context.req,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        context.res,
-      );
+      await this.tokenService.checkRefreshTokenCookie(req, res);
     if (!refreshToken) {
       throw new GraphQLError(AuthErrors.REFRESH_TOKEN_NOT_PROVIDED);
     }
@@ -76,12 +72,27 @@ export class TokenAuthService {
     return signInWithRefreshTokenResult;
   }
 
-  public async signOut(): Promise<boolean> {
-    //await this.tokenService.clearRefreshToken()
+  public async signOut(
+    accessTokenPayload: AccessTokenPayload,
+  ): Promise<boolean> {
+    await this.tokenService.clearRefreshToken(
+      accessTokenPayload.userId,
+      RefreshTokenMode.COOKIE,
+    );
     return true;
   }
 
-  public async signOutWithRefreshTokenCookie(): Promise<boolean> {
+  public async signOutWithRefreshTokenCookie(
+    accessTokenPayload: AccessTokenPayload,
+    req: Request,
+    res: Response,
+  ): Promise<boolean> {
+    await this.tokenService.clearRefreshToken(
+      accessTokenPayload.userId,
+      RefreshTokenMode.COOKIE,
+      req,
+      res,
+    );
     return true;
   }
 }

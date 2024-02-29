@@ -4,13 +4,7 @@ import App from './app/app';
 import { ThemeProvider } from '@peage-pay-web/tailwind-config';
 import './i18n';
 import { AuthProvider } from '@peage-pay-web/auth';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-
-const apolloClient = new ApolloClient({
-  uri: `${import.meta.env['VITE_SERVER_URL']}/graphql`,
-  cache: new InMemoryCache(),
-  credentials: 'include',
-});
+import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -18,11 +12,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ThemeProvider>
-      <ApolloProvider client={apolloClient}>
+      <ApplicationApolloClientProvider>
         <AuthProvider>
           <App />
         </AuthProvider>
-      </ApolloProvider>
+      </ApplicationApolloClientProvider>
     </ThemeProvider>
   </StrictMode>,
 );

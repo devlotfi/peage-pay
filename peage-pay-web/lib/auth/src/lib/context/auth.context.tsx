@@ -3,10 +3,10 @@ import { BaseUserType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
 import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import AuthLoading from '../components/auth-loading.component';
+import { SessionStorageKeys } from '@peage-pay-web/constants';
 
 type AuthData = {
   baseUser: BaseUserType;
-  accessToken: string;
 } | null;
 
 interface AuthContext {
@@ -14,6 +14,7 @@ interface AuthContext {
 
   setAuthData: (authData: AuthData) => void;
   setAccessToken: (accessToken: string) => void;
+  clearAccessToken: () => void;
 }
 
 const initialValue: AuthContext = {
@@ -23,6 +24,9 @@ const initialValue: AuthContext = {
     return;
   },
   setAccessToken: () => {
+    return;
+  },
+  clearAccessToken: () => {
     return;
   },
 };
@@ -35,7 +39,10 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
 
   useQuery(SIGN_IN_WITH_REFRESH_TOKEN_COOKIE, {
     onCompleted(data) {
-      setAuthData(data.signInWithRefreshTokenCookie);
+      setAuthData({
+        baseUser: data.signInWithRefreshTokenCookie.baseUser,
+      });
+      setAccessToken(data.signInWithRefreshTokenCookie.accessToken);
       setAuthLoading(false);
     },
     onError(error) {
@@ -44,12 +51,10 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   });
 
   const setAccessToken = (accessToken: string) => {
-    if (authData) {
-      setAuthData({
-        accessToken: accessToken,
-        baseUser: authData.baseUser,
-      });
-    }
+    sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+  };
+  const clearAccessToken = () => {
+    sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);
   };
 
   return (
@@ -58,6 +63,7 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
         authData: authData,
         setAuthData,
         setAccessToken,
+        clearAccessToken,
       }}
     >
       {authLoading ? <AuthLoading></AuthLoading> : children}

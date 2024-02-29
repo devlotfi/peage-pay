@@ -1,11 +1,4 @@
-import {
-  Args,
-  Context,
-  GraphQLExecutionContext,
-  Mutation,
-  Query,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SignUpWithEmailInput } from './input/sign-up-with-email.input';
 import { VerifyEmailInput } from './input/verify-email.input';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input';
@@ -21,8 +14,11 @@ import { SendResetPasswordEmailInput } from './input/send-reset-password-email.i
 import { ResetPasswordInput } from './input/reset-password.input';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { AllowRoles } from 'src/decorators/allow-roles.decorator';
-import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
+import { GraphqlRequest } from 'src/decorators/graphql-request.decorator';
+import { Request, Response } from 'express';
+import { GraphqlResponse } from 'src/decorators/graphql-response.decorator';
+import { ContextAccessTokenPayload } from 'src/decorators/context-access-token-payload.decorator';
+import { AccessTokenPayload } from './types/access-token-payload.type';
 
 @Resolver()
 export class AuthResolver {
@@ -75,12 +71,14 @@ export class AuthResolver {
     @Args('signInWithEmailInput') signInWithEmailInput: SigninWithEmailInput,
     @Args('refreshTokenMode', { type: () => RefreshTokenMode })
     refreshTokenMode: RefreshTokenMode,
-    @Context() context: GraphQLExecutionContext,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
   ): Promise<SignInWithEmailResult> {
     return await this.emailAuthService.signInWithEmail(
       signInWithEmailInput,
       refreshTokenMode,
-      context,
+      req,
+      res,
     );
   }
 
@@ -96,16 +94,31 @@ export class AuthResolver {
 
   @Query(() => SignInWithRefreshTokenResult)
   public async signInWithRefreshTokenCookie(
-    @Context()
-    context: GraphQLExecutionContext,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
   ): Promise<SignInWithRefreshTokenResult> {
-    return await this.tokenAuthService.signInWithRefreshTokenCookie(context);
+    return await this.tokenAuthService.signInWithRefreshTokenCookie(req, res);
   }
 
   @Mutation(() => Boolean)
   @UseGuards(AuthGuard)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
-  public async signOut(): Promise<boolean> {
-    return await this.tokenAuthService.signOut();
+  public async signOut(
+    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+  ): Promise<boolean> {
+    return await this.tokenAuthService.signOut(accessTokenPayload);
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AuthGuard)
+  public async signOutWithRefreshTokenCookie(
+    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
+  ): Promise<boolean> {
+    return await this.tokenAuthService.signOutWithRefreshTokenCookie(
+      accessTokenPayload,
+      req,
+      res,
+    );
   }
 }

@@ -12,11 +12,11 @@ import { SigninWithEmailInput } from './input/sign-in-with-email.input';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { SignInWithEmailResult } from './result/sign-in-with-email.result';
 import { BaseUserType } from 'src/user/graphql/base-user.graphql';
-import { GraphQLExecutionContext } from '@nestjs/graphql';
 import { TokenService } from 'src/token/token.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
 import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class EmailAuthService {
@@ -223,7 +223,8 @@ export class EmailAuthService {
   public async signInWithEmail(
     signInWithEmailInput: SigninWithEmailInput,
     refreshTokenMode: RefreshTokenMode,
-    context: GraphQLExecutionContext,
+    req: Request,
+    res: Response,
   ): Promise<SignInWithEmailResult> {
     const emailAuthMethod =
       await this.databaseService.emailAuthMethod.findFirst({
@@ -281,12 +282,8 @@ export class EmailAuthService {
 
     const refreshToken = await this.tokenService.generateRefreshToken(
       emailAuthMethod.authMethod.userId,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      context.req,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      context.res,
+      req,
+      res,
       refreshTokenMode,
     );
     const accessToken = await this.tokenService.generateAccessToken(

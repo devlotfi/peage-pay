@@ -10,8 +10,8 @@ import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/utils';
 import { UserService } from 'src/user/user.service';
 import { Env } from 'src/config/env.type';
-import { RefreshTokenContent } from 'src/auth/types/refresh-token-content.type';
-import { AccessTokenContent } from 'src/auth/types/access-token-content.type';
+import { RefreshTokenPayload } from 'src/auth/types/refresh-token-payload.type';
+import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
 
 @Injectable()
 export class TokenService {
@@ -97,8 +97,6 @@ export class TokenService {
     });
 
     if (refreshTokenMode === RefreshTokenMode.COOKIE) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const cookies = new Cookies(req, res);
       cookies.set(CookieKeys.REFRESH_TOKEN, refreshToken, {
         httpOnly: true,
@@ -112,19 +110,19 @@ export class TokenService {
 
   public async clearRefreshToken(
     userId: string,
-    req: Request,
-    res: Response,
     refreshTokenMode: RefreshTokenMode,
+    req?: Request,
+    res?: Response,
   ): Promise<void> {
-    await this.databaseService.refreshToken.delete({
-      where: {
-        userId,
-      },
-    });
+    try {
+      await this.databaseService.refreshToken.delete({
+        where: {
+          userId,
+        },
+      });
+    } catch (error) {}
 
-    if (refreshTokenMode === RefreshTokenMode.COOKIE) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    if (refreshTokenMode === RefreshTokenMode.COOKIE && req && res) {
       const cookies = new Cookies(req, res);
       cookies.set(CookieKeys.REFRESH_TOKEN, undefined);
     }
@@ -152,10 +150,10 @@ export class TokenService {
     const cookies = new Cookies(req, res);
     const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
     let valid = true;
-    let payload: RefreshTokenContent | undefined;
+    let payload: RefreshTokenPayload | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync<RefreshTokenContent>(
+        payload = await this.jwtService.verifyAsync<RefreshTokenPayload>(
           refreshToken,
           {
             secret: this.configService.getOrThrow<string>(
@@ -177,10 +175,10 @@ export class TokenService {
 
   public async checkRefreshToken(refreshToken: string) {
     let valid = true;
-    let payload: RefreshTokenContent | undefined;
+    let payload: RefreshTokenPayload | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync<RefreshTokenContent>(
+        payload = await this.jwtService.verifyAsync<RefreshTokenPayload>(
           refreshToken,
           {
             secret: this.configService.getOrThrow<string>(
@@ -201,10 +199,10 @@ export class TokenService {
 
   public async checkAccessToken(accessToken: string) {
     let valid = true;
-    let payload: AccessTokenContent | undefined;
+    let payload: AccessTokenPayload | undefined;
     if (accessToken) {
       try {
-        payload = await this.jwtService.verifyAsync<AccessTokenContent>(
+        payload = await this.jwtService.verifyAsync<AccessTokenPayload>(
           accessToken,
           {
             secret: this.configService.getOrThrow<string>(

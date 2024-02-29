@@ -6,7 +6,7 @@ import NavbarLeftContent from './navbar-left-content.component';
 import NavbarDropdown from './navbar-dropdown.component';
 
 const navbarVariants = cva(
-  'flex min-h-[3.5rem] items-center justify-between px-[0.2rem] border-edge-100 border-b-[1px]',
+  'flex min-h-[3.5rem] items-center justify-between border-edge-100 border-b-[1px]',
 );
 
 interface NavbarProps
