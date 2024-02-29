@@ -19,6 +19,10 @@ import { PhoneAuthService } from './phone-auth.service';
 import { TokenAuthService } from './token-auth.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
 import { ResetPasswordInput } from './input/reset-password.input';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AllowRoles } from 'src/decorators/allow-roles.decorator';
+import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
 
 @Resolver()
 export class AuthResolver {
@@ -96,5 +100,12 @@ export class AuthResolver {
     context: GraphQLExecutionContext,
   ): Promise<SignInWithRefreshTokenResult> {
     return await this.tokenAuthService.signInWithRefreshTokenCookie(context);
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AuthGuard)
+  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  public async signOut(): Promise<boolean> {
+    return await this.tokenAuthService.signOut();
   }
 }

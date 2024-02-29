@@ -7,7 +7,6 @@ import { GraphQLExecutionContext } from '@nestjs/graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 
 @Injectable()
 export class TokenAuthService {
@@ -22,7 +21,7 @@ export class TokenAuthService {
     const { payload, valid } = await this.tokenService.checkRefreshToken(
       signInWithRefreshTokenInput.refreshToken,
     );
-    if (!valid) {
+    if (!valid || !payload) {
       throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
     }
 
@@ -57,7 +56,7 @@ export class TokenAuthService {
     if (!refreshToken) {
       throw new GraphQLError(AuthErrors.REFRESH_TOKEN_NOT_PROVIDED);
     }
-    if (!valid) {
+    if (!valid || !payload) {
       throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
     }
 
@@ -77,10 +76,7 @@ export class TokenAuthService {
     return signInWithRefreshTokenResult;
   }
 
-  public async signOut(
-    refreshTokenMode: RefreshTokenMode,
-    context: GraphQLExecutionContext,
-  ): Promise<boolean> {
+  public async signOut(): Promise<boolean> {
     //await this.tokenService.clearRefreshToken()
     return true;
   }

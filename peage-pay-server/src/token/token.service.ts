@@ -10,6 +10,8 @@ import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/utils';
 import { UserService } from 'src/user/user.service';
 import { Env } from 'src/config/env.type';
+import { RefreshTokenContent } from 'src/auth/types/refresh-token-content.type';
+import { AccessTokenContent } from 'src/auth/types/access-token-content.type';
 
 @Injectable()
 export class TokenService {
@@ -150,14 +152,17 @@ export class TokenService {
     const cookies = new Cookies(req, res);
     const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
     let valid = true;
-    let payload;
+    let payload: RefreshTokenContent | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync(refreshToken, {
-          secret: this.configService.getOrThrow<string>(
-            'JWT_REFRESH_TOKEN_SECRET',
-          ),
-        });
+        payload = await this.jwtService.verifyAsync<RefreshTokenContent>(
+          refreshToken,
+          {
+            secret: this.configService.getOrThrow<string>(
+              'JWT_REFRESH_TOKEN_SECRET',
+            ),
+          },
+        );
       } catch (error) {
         valid = false;
       }
@@ -172,14 +177,41 @@ export class TokenService {
 
   public async checkRefreshToken(refreshToken: string) {
     let valid = true;
-    let payload;
+    let payload: RefreshTokenContent | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync(refreshToken, {
-          secret: this.configService.getOrThrow<string>(
-            'JWT_REFRESH_TOKEN_SECRET',
-          ),
-        });
+        payload = await this.jwtService.verifyAsync<RefreshTokenContent>(
+          refreshToken,
+          {
+            secret: this.configService.getOrThrow<string>(
+              'JWT_REFRESH_TOKEN_SECRET',
+            ),
+          },
+        );
+      } catch (error) {
+        valid = false;
+      }
+    }
+
+    return {
+      payload,
+      valid,
+    };
+  }
+
+  public async checkAccessToken(accessToken: string) {
+    let valid = true;
+    let payload: AccessTokenContent | undefined;
+    if (accessToken) {
+      try {
+        payload = await this.jwtService.verifyAsync<AccessTokenContent>(
+          accessToken,
+          {
+            secret: this.configService.getOrThrow<string>(
+              'JWT_ACCESS_TOKEN_SECRET',
+            ),
+          },
+        );
       } catch (error) {
         valid = false;
       }
