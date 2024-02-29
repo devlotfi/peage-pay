@@ -11,12 +11,13 @@ interface SignOutModalProps {
 }
 
 const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
-  const { setAuthData } = useContext(AuthContext);
+  const { setAuthData, clearAccessToken } = useContext(AuthContext);
   const [signOutWithRefreshTokenCookie, { loading }] = useMutation(
     SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE,
     {
       onCompleted(data, clientOptions) {
         setAuthData(null);
+        clearAccessToken();
       },
       onError(error, clientOptions) {
         console.log(error);
