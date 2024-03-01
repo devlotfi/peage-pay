@@ -1,52 +1,54 @@
+import { useMutation } from '@apollo/client';
 import { Google } from '@peage-pay-web/assets';
-import { Button } from '@peage-pay-web/ui';
+import { Button, LoaderDots } from '@peage-pay-web/ui';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-
-const signInWithEmailValidationSchema = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
-});
-
-interface Values {
-  email: string;
-  password: string;
-}
-
-const initialValues: Values = {
-  email: '',
-  password: '',
-};
+import { SIGN_IN_WITH_GOOGLE } from '../graphql/mutations';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
+import { RefreshTokenMode } from '../../__generated__/graphql';
 
 const SignInWithGoogleForm = (): JSX.Element => {
-  const { handleSubmit } = useFormik({
-    validationSchema: signInWithEmailValidationSchema,
-    initialValues,
-    onSubmit(values, formikHelpers) {
-      return;
+  const { setAccessToken, setAuthData } = useContext(AuthContext);
+  const [signInWithGoogle, { loading }] = useMutation(SIGN_IN_WITH_GOOGLE, {
+    onCompleted(data, clientOptions) {
+      setAuthData({ baseUser: data.signInWithGoogle.baseUser });
+      setAccessToken(data.signInWithGoogle.accessToken);
+    },
+    onError(error, clientOptions) {
+      console.log(error);
     },
   });
-
   const googleLogin = useGoogleLogin({
+    scope: 'https://www.googleapis.com/auth/user.birthday.read',
     onSuccess(tokenResponse) {
-      console.log(tokenResponse);
+      signInWithGoogle({
+        variables: {
+          refreshTokenMode: RefreshTokenMode.Cookie,
+          signInWithGoogleInput: {
+            token: tokenResponse.access_token,
+          },
+        },
+      });
     },
   });
 
   return (
-    <form onSubmit={handleSubmit} className="mt-[2rem]">
-      <Button
-        onClick={() => googleLogin()}
-        className="w-full"
-        variant={'base-200'}
-      >
-        <Button.Icon position={'left'}>
-          <img src={Google} alt="" />
-        </Button.Icon>
-        <Button.Content>Sign in with google</Button.Content>
-      </Button>
-    </form>
+    <Button
+      onClick={() => googleLogin()}
+      className="w-full mt-[2rem]"
+      variant={'base-200'}
+    >
+      {loading ? (
+        <LoaderDots dotProps={{ variant: 'primary' }}></LoaderDots>
+      ) : (
+        <>
+          <Button.Icon position={'left'}>
+            <img src={Google} alt="" />
+          </Button.Icon>
+          <Button.Content>Sign in with google</Button.Content>
+        </>
+      )}
+    </Button>
   );
 };
 

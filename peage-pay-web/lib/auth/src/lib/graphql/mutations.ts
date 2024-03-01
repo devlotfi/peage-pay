@@ -19,8 +19,21 @@ export const SIGN_IN_WITH_EMAIL = gql(`
         id
         firstName
         lastName
-        birthDate
-        gender
+        createdAt
+        updatedAt
+      }
+      accessToken
+    }
+  }
+`);
+
+export const SIGN_IN_WITH_GOOGLE = gql(`
+  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {
+    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {
+      baseUser {
+        id
+        firstName
+        lastName
         createdAt
         updatedAt
       }
@@ -36,8 +49,6 @@ export const SIGN_IN_WITH_REFRESH_TOKEN = gql(`
         id
         firstName
         lastName
-        birthDate
-        gender
         createdAt
         updatedAt
       }
@@ -53,8 +64,6 @@ export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
         id
         firstName
         lastName
-        birthDate
-        gender
         createdAt
         updatedAt
       }

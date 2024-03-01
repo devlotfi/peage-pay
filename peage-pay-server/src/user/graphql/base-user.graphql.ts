@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { GenderType } from './gender.graphql';
 
 @ObjectType()
 export class BaseUserType {
@@ -11,12 +10,6 @@ export class BaseUserType {
 
   @Field()
   public lastName: string;
-
-  @Field()
-  public birthDate: Date;
-
-  @Field(() => GenderType)
-  public gender: GenderType;
 
   @Field()
   public createdAt: Date;

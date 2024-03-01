@@ -14,11 +14,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-enum Gender {
-  MALE
-  FEMALE
-}
-
 model AuthMethod {
   baseUser BaseUser @relation(fields: [userId], references: [id])
 
@@ -87,8 +82,6 @@ model BaseUser {
   id String @id @default(uuid())
   firstName String
   lastName String
-  birthDate DateTime
-  gender Gender
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

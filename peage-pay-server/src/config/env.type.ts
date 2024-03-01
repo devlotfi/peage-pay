@@ -51,4 +51,10 @@ export class Env {
 
   @IsString()
   public JWT_ACCESS_TOKEN_SECRET: string;
+
+  @IsString()
+  public GOOGLE_OAUTH_CLIENT_ID: string;
+
+  @IsString()
+  public GOOGLE_OAUTH_CLIENT_SECRET: string;
 }

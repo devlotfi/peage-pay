@@ -12,6 +12,7 @@ import { UserService } from 'src/user/user.service';
 import { Env } from 'src/config/env.type';
 import { RefreshTokenPayload } from 'src/auth/types/refresh-token-payload.type';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { google } from 'googleapis';
 
 @Injectable()
 export class TokenService {
@@ -219,5 +220,24 @@ export class TokenService {
       payload,
       valid,
     };
+  }
+
+  public async getGoogleProfileData(token: string) {
+    const googleOAuth2Client = new google.auth.OAuth2({
+      clientId: this.configService.getOrThrow<string>('GOOGLE_OAUTH_CLIENT_ID'),
+      clientSecret: this.configService.getOrThrow<string>(
+        'GOOGLE_OAUTH_CLIENT_SECRET',
+      ),
+    });
+    googleOAuth2Client.setCredentials({
+      access_token: token,
+    });
+    const oAuth2Service = google.oauth2({
+      version: 'v2',
+      auth: googleOAuth2Client,
+    });
+    const response = await oAuth2Service.userinfo.get({});
+
+    return response.data;
   }
 }

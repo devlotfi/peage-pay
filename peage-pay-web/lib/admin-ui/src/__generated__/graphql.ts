@@ -25,6 +25,7 @@ export enum AuthErrors {
   EmailVerificationAttemptsExceeded = 'EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
   InvalidAccessToken = 'INVALID_ACCESS_TOKEN',
   InvalidEmailOrPassword = 'INVALID_EMAIL_OR_PASSWORD',
+  InvalidGoogleOauthToken = 'INVALID_GOOGLE_OAUTH_TOKEN',
   InvalidRefreshToken = 'INVALID_REFRESH_TOKEN',
   InvalidVerificationToken = 'INVALID_VERIFICATION_TOKEN',
   PasswordResetAttemptsExceeded = 'PASSWORD_RESET_ATTEMPTS_EXCEEDED',
@@ -38,25 +39,19 @@ export enum AuthErrors {
 
 export type BaseUserType = {
   __typename?: 'BaseUserType';
-  birthDate: Scalars['DateTime']['output'];
   createdAt: Scalars['DateTime']['output'];
   firstName: Scalars['String']['output'];
-  gender: GenderType;
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export enum GenderType {
-  Female = 'FEMALE',
-  Male = 'MALE'
-}
-
 export type Mutation = {
   __typename?: 'Mutation';
   resetPassword: Scalars['Boolean']['output'];
   sendPasswordResetEmail: Scalars['Boolean']['output'];
-  signInWithEmail: SignInWithEmailResult;
+  signInWithEmail: SignInResult;
+  signInWithGoogle: SignInResult;
   signOut: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
@@ -77,6 +72,11 @@ export type MutationSendPasswordResetEmailArgs = {
 export type MutationSignInWithEmailArgs = {
   refreshTokenMode: RefreshTokenMode;
   signInWithEmailInput: SigninWithEmailInput;
+};
+
+
+export type MutationSignInWithGoogleArgs = {
+  signInWithGoogleInput: SignInWithGoogleInput;
 };
 
 
@@ -116,11 +116,15 @@ export type SendResetPasswordEmailInput = {
   email: Scalars['String']['input'];
 };
 
-export type SignInWithEmailResult = {
-  __typename?: 'SignInWithEmailResult';
+export type SignInResult = {
+  __typename?: 'SignInResult';
   accessToken: Scalars['String']['output'];
   baseUser: BaseUserType;
   refreshToken?: Maybe<Scalars['String']['output']>;
+};
+
+export type SignInWithGoogleInput = {
+  token: Scalars['String']['input'];
 };
 
 export type SignInWithRefreshTokenInput = {
@@ -134,10 +138,8 @@ export type SignInWithRefreshTokenResult = {
 };
 
 export type SignUpWithEmailInput = {
-  birthDate: Scalars['DateTime']['input'];
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
-  gender: GenderType;
   lastName: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };

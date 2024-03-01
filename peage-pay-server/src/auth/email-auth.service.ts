@@ -10,7 +10,7 @@ import { UserErrors } from 'src/user/graphql/user-errors.graphql';
 import { Utils } from 'src/utils';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
-import { SignInWithEmailResult } from './result/sign-in-with-email.result';
+import { SignInResult } from './result/sign-in.result';
 import { BaseUserType } from 'src/user/graphql/base-user.graphql';
 import { TokenService } from 'src/token/token.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
@@ -47,8 +47,6 @@ export class EmailAuthService {
       data: {
         firstName: signUpWithEmailInput.firstName,
         lastName: signUpWithEmailInput.lastName,
-        birthDate: signUpWithEmailInput.birthDate,
-        gender: signUpWithEmailInput.gender,
         user: {
           create: {},
         },
@@ -225,7 +223,7 @@ export class EmailAuthService {
     refreshTokenMode: RefreshTokenMode,
     req: Request,
     res: Response,
-  ): Promise<SignInWithEmailResult> {
+  ): Promise<SignInResult> {
     const emailAuthMethod =
       await this.databaseService.emailAuthMethod.findFirst({
         where: {
@@ -289,7 +287,7 @@ export class EmailAuthService {
     const accessToken = await this.tokenService.generateAccessToken(
       emailAuthMethod.authMethod.userId,
     );
-    const signInWithEmailResult = new SignInWithEmailResult();
+    const signInWithEmailResult = new SignInResult();
     signInWithEmailResult.baseUser = emailAuthMethod.authMethod
       .baseUser as BaseUserType;
     signInWithEmailResult.accessToken = accessToken;

@@ -3,7 +3,7 @@ import { SignUpWithEmailInput } from './input/sign-up-with-email.input';
 import { VerifyEmailInput } from './input/verify-email.input';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
-import { SignInWithEmailResult } from './result/sign-in-with-email.result';
+import { SignInResult } from './result/sign-in.result';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
 import { EmailAuthService } from './email-auth.service';
@@ -19,6 +19,7 @@ import { Request, Response } from 'express';
 import { GraphqlResponse } from 'src/decorators/graphql-response.decorator';
 import { ContextAccessTokenPayload } from 'src/decorators/context-access-token-payload.decorator';
 import { AccessTokenPayload } from './types/access-token-payload.type';
+import { SignInWithGoogleInput } from './input/sign-in-with-google.input';
 
 @Resolver()
 export class AuthResolver {
@@ -66,14 +67,14 @@ export class AuthResolver {
     return await this.emailAuthService.resetPassword(resetPasswordInput);
   }
 
-  @Mutation(() => SignInWithEmailResult)
+  @Mutation(() => SignInResult)
   public async signInWithEmail(
     @Args('signInWithEmailInput') signInWithEmailInput: SigninWithEmailInput,
     @Args('refreshTokenMode', { type: () => RefreshTokenMode })
     refreshTokenMode: RefreshTokenMode,
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
-  ): Promise<SignInWithEmailResult> {
+  ): Promise<SignInResult> {
     return await this.emailAuthService.signInWithEmail(
       signInWithEmailInput,
       refreshTokenMode,
@@ -117,6 +118,23 @@ export class AuthResolver {
   ): Promise<boolean> {
     return await this.tokenAuthService.signOutWithRefreshTokenCookie(
       accessTokenPayload,
+      req,
+      res,
+    );
+  }
+
+  @Mutation(() => SignInResult)
+  public async signInWithGoogle(
+    @Args('signInWithGoogleInput')
+    signInWithGoogleInput: SignInWithGoogleInput,
+    @Args('refreshTokenMode', { type: () => RefreshTokenMode })
+    refreshTokenMode: RefreshTokenMode,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
+  ): Promise<SignInResult> {
+    return await this.googleAuthService.singInWithGoogle(
+      signInWithGoogleInput,
+      refreshTokenMode,
       req,
       res,
     );
