@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import CardHeader from './card-header.component';
 
 const cardVariants = cva(
-  'flex w-full p-[1rem] lg:p-[2rem] lg:max-w-[55rem] bg-base-100 rounded-xl flex-col-reverse justify-end lg:flex-row',
+  'flex w-full p-[1rem] lg:p-[2rem] lg:max-w-[55rem] bg-base-100 rounded-xl flex-col-reverse justify-end lg:flex-row border-[1px] border-edge-200',
 );
 
 interface CardProps

@@ -3,7 +3,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
 const modalWindowVariants = cva(
-  'flex flex-col w-full min-h-[15rem] bg-base-100 rounded-xl'
+  'flex flex-col w-full min-h-[15rem] bg-base-100 rounded-xl border-[1px] border-edge-200',
 );
 
 interface ModalWindowProps

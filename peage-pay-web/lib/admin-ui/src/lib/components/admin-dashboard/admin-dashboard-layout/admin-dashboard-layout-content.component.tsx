@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const adminDashboardLayoutContentVariants = cva(
-  'flex flex-col h-full overflow-y-auto overflow-x-hidden rounded-xl bg-base-100',
+  'flex flex-col h-full overflow-y-auto overflow-x-hidden',
 );
 
 interface AdminDashboardLayoutContentProps
