@@ -1,5 +1,6 @@
 import { Google } from '@peage-pay-web/assets';
 import { Button } from '@peage-pay-web/ui';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -27,9 +28,19 @@ const SignInWithGoogleForm = (): JSX.Element => {
     },
   });
 
+  const googleLogin = useGoogleLogin({
+    onSuccess(tokenResponse) {
+      console.log(tokenResponse);
+    },
+  });
+
   return (
     <form onSubmit={handleSubmit} className="mt-[2rem]">
-      <Button className="w-full" variant={'base-200'}>
+      <Button
+        onClick={() => googleLogin()}
+        className="w-full"
+        variant={'base-200'}
+      >
         <Button.Icon position={'left'}>
           <img src={Google} alt="" />
         </Button.Icon>

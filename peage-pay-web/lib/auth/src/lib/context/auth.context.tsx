@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import AuthLoading from '../components/auth-loading.component';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 type AuthData = {
   baseUser: BaseUserType;
@@ -58,15 +59,17 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        authData: authData,
-        setAuthData,
-        setAccessToken,
-        clearAccessToken,
-      }}
-    >
-      {authLoading ? <AuthLoading></AuthLoading> : children}
-    </AuthContext.Provider>
+    <GoogleOAuthProvider clientId="634456479643-ql9g7hlo87pfs3r4if8itrflqm7vkr96.apps.googleusercontent.com">
+      <AuthContext.Provider
+        value={{
+          authData: authData,
+          setAuthData,
+          setAccessToken,
+          clearAccessToken,
+        }}
+      >
+        {authLoading ? <AuthLoading></AuthLoading> : children}
+      </AuthContext.Provider>
+    </GoogleOAuthProvider>
   );
 };

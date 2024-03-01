@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { PeagePayLogo } from '@peage-pay-web/assets';
 
-const navbarLeftContentVariants = cva('flex');
+const navbarLeftContentVariants = cva('flex ml-[0.5rem]');
 
 interface NavbarLeftContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,

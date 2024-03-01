@@ -47,7 +47,7 @@ const NavbarDropdown = (): JSX.Element => {
       <Dropdown
         mainElement={
           <Dropdown.Main>
-            <Button variant={'base-200'} className="min-h-[2.5rem] mr-[0.5rem]">
+            <Button variant={'base-200'} className="min-h-[2.5rem]">
               <NavbarDropdownArrow></NavbarDropdownArrow>
               {authData ? (
                 <Button.Content>

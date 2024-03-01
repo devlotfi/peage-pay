@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import NavbarDropdown from './navbar-dropdown.component';
 
-const navbarRightContentVariants = cva('flex');
+const navbarRightContentVariants = cva('flex mr-[0.5rem]');
 
 interface NavbarRightContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,

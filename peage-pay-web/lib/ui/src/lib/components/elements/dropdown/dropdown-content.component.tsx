@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const dropdownContentVariants = cva(
-  'flex flex-col z-10 bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-lg border-[1px] border-edge-100 overflow-y-auto',
+  'flex flex-col z-10 bg-base-100 absolute p-[0.3rem] w-[15rem] rounded-xl shadow-xl border-[1px] border-edge-200 overflow-y-auto',
   {
     variants: {
       position: {
@@ -20,7 +20,7 @@ const dropdownContentVariants = cva(
         'right-top': 'left-[calc(100%+0.5rem)] top-0',
       },
     },
-  }
+  },
 );
 
 interface DropdownContentProps
@@ -40,7 +40,7 @@ const DropdownContent = ({
         dropdownContentVariants({
           className,
           position,
-        })
+        }),
       )}
       {...props}
     >
