@@ -59,7 +59,9 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   };
 
   return (
-    <GoogleOAuthProvider clientId="634456479643-ql9g7hlo87pfs3r4if8itrflqm7vkr96.apps.googleusercontent.com">
+    <GoogleOAuthProvider
+      clientId={import.meta.env['VITE_GOOGLE_OAUTH_CLIENT_ID']}
+    >
       <AuthContext.Provider
         value={{
           authData: authData,

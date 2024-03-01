@@ -71,3 +71,9 @@ export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
     }
   }
 `);
+
+export const SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE = gql(`
+  mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {
+    signOutWithRefreshTokenCookie
+  }
+`);

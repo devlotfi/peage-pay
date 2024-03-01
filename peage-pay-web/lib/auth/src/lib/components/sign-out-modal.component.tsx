@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Button, LoaderDots, Modal } from '@peage-pay-web/ui';
-import { SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE } from '../../../graphql/mutations';
+import { SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import { useContext } from 'react';
 import { AuthContext } from '@peage-pay-web/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
