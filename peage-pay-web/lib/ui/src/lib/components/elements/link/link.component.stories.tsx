@@ -12,7 +12,7 @@ type StorybookProps = ComponentProps<typeof Link> & Props;
 
 const meta: Meta<StorybookProps> = {
   component: Link,
-  title: 'Link',
+  title: 'CustomLink',
   argTypes: {
     theme: {
       control: 'select',

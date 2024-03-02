@@ -13,7 +13,7 @@ import { useFormik } from 'formik';
 
 const verifyEmailvalidationSchema = yup.object({
   userId: yup.string().uuid().required(),
-  token: yup.string().length(128),
+  token: yup.string().length(128).required(),
 });
 
 const VerifyEmailPage = (): JSX.Element => {
@@ -51,7 +51,7 @@ const VerifyEmailPage = (): JSX.Element => {
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex h-full flex-col justify-center items-center">
-        <div className="flex flex-col rounded-xl border-edge-200 border-[1px] bg-base-100 p-[1rem] w-full max-w-[30rem]">
+        <div className="flex flex-col rounded-xl border-edge-200 border-[1px] bg-base-100 p-[1rem] w-[90%] lg:w-full max-w-[30rem]">
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <img
               className="max-h-[10rem] my-[2rem]"

@@ -5,7 +5,7 @@ import Button from './lib/components/elements/button/button.component';
 import Checkbox from './lib/components/elements/checkbox/checkbox.component';
 import Dropdown from './lib/components/elements/dropdown/dropdown.component';
 import Heading from './lib/components/elements/heading/heading.component';
-import Link from './lib/components/elements/link/link.component';
+import CustomLink from './lib/components/elements/link/link.component';
 import LoaderDots from './lib/components/elements/loader-dots/loader-dots.component';
 import MenuDropdown from './lib/components/elements/menu-dropdown/menu-dropdown.component';
 import MenuItem from './lib/components/elements/menu-item/menu-item.component';
@@ -23,7 +23,7 @@ export {
   Button,
   ButtonOutline,
   Checkbox,
-  Link,
+  CustomLink,
   TextInput,
   MenuItem,
   Select,

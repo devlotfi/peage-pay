@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { faAt, faKey, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Link, LoaderDots, TextInput } from '@peage-pay-web/ui';
+import { Button, CustomLink, LoaderDots, TextInput } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SIGN_IN_WITH_EMAIL } from '../graphql/mutations';
@@ -13,6 +13,7 @@ import {
 import { useContext, useRef } from 'react';
 import { AuthContext } from '../context/auth.context';
 import VerifyEmailModal from './verify-email-modal.component';
+import { Link } from 'react-router-dom';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -143,7 +144,9 @@ const SignInWithEmailForm = (): JSX.Element => {
             <TextInput.InfoMessage>{errors.password}</TextInput.InfoMessage>
           ) : null}
         </TextInput>
-        <Link className="mb-[1rem]">Reset password</Link>
+        <Link to={'/send-password-reset-email'}>
+          <CustomLink className="mb-[1rem]">Reset password</CustomLink>
+        </Link>
 
         <Button className="w-full" variant={'primary'} type="submit">
           {loading ? (

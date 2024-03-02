@@ -17,6 +17,15 @@ const useRouter = () => {
         };
       },
     },
+    {
+      path: '/reset',
+      async lazy() {
+        const { ResetPasswordPage } = await import('@peage-pay-web/auth');
+        return {
+          element: <ResetPasswordPage></ResetPasswordPage>,
+        };
+      },
+    },
   ]);
 
   return { router };

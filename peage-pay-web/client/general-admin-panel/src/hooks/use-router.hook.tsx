@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ErrorPage } from '@peage-pay-web/ui';
 import DashboardLayout from '../layout/dashboard-layout.component';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '@peage-pay-web/auth';
 
 const useRouter = () => {
@@ -23,11 +23,15 @@ const useRouter = () => {
       },
     },
     {
-      path: '/verify',
+      path: '/send-password-reset-email',
       async lazy() {
-        const { VerifyEmailPage } = await import('@peage-pay-web/auth');
+        const { SendPasswordResetEmailPage } = await import(
+          '@peage-pay-web/auth'
+        );
         return {
-          element: notAuthGuard(<VerifyEmailPage></VerifyEmailPage>),
+          element: notAuthGuard(
+            <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
+          ),
         };
       },
     },

@@ -42,7 +42,7 @@ const HeadingIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        })
+        }),
       )}
       {...props}
     >
