@@ -11,7 +11,13 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: [configService.getOrThrow<string>('WEB_CLIENT_URL')],
+    origin: [
+      configService.getOrThrow<string>('GENERAL_ADMIN_PANEL_URL'),
+      configService.getOrThrow<string>('HUMAN_RESSOURCES_PANEL_URL'),
+      configService.getOrThrow<string>('TOLL_ADMIN_PANEL_URL'),
+      configService.getOrThrow<string>('GATE_ADMIN_PANEL_URL'),
+      configService.getOrThrow<string>('AUTH_COMMON_CLIENT_URL'),
+    ],
   });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());

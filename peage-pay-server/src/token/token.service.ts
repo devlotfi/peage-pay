@@ -27,8 +27,9 @@ export class TokenService {
     const tokenLength = 128;
     const size = Math.floor(tokenLength / 2);
     const token = randomBytes(size).toString('hex');
-    const webClientUrl =
-      this.configService.getOrThrow<string>('WEB_CLIENT_URL');
+    const webClientUrl = this.configService.getOrThrow<string>(
+      'AUTH_COMMON_CLIENT_URL',
+    );
     const verificationUrl = new URL(`${webClientUrl}/verify`);
 
     verificationUrl.searchParams.append('userId', userId);
@@ -44,8 +45,9 @@ export class TokenService {
     const tokenLength = 128;
     const size = Math.floor(tokenLength / 2);
     const token = randomBytes(size).toString('hex');
-    const webClientUrl =
-      this.configService.getOrThrow<string>('WEB_CLIENT_URL');
+    const webClientUrl = this.configService.getOrThrow<string>(
+      'AUTH_COMMON_CLIENT_URL',
+    );
     const passwordResetUrl = new URL(`${webClientUrl}/reset`);
 
     passwordResetUrl.searchParams.append('userId', userId);

@@ -1,0 +1,8 @@
+{
+  "name": "auth-common-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "client/auth-common-client/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

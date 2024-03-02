@@ -1,10 +1,11 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import useAuthGuard from './use-auth-guard.hook';
 import { ErrorPage } from '@peage-pay-web/ui';
 import DashboardLayout from '../layout/dashboard-layout.component';
+import React, { useContext } from 'react';
+import { AuthContext } from '@peage-pay-web/auth';
 
 const useRouter = () => {
-  const { authGuard, notAuthGuard } = useAuthGuard();
+  const { authGuard, notAuthGuard } = useContext(AuthContext);
 
   const router = createBrowserRouter([
     {
