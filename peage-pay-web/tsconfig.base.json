@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@peage-pay-web/admin-ui": ["lib/admin-ui/src/index.ts"],
       "@peage-pay-web/apollo-client": ["lib/apollo-client/src/index.ts"],
       "@peage-pay-web/assets": ["assets/src/index.ts"],
       "@peage-pay-web/auth": ["lib/auth/src/index.ts"],

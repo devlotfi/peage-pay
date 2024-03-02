@@ -4,7 +4,7 @@ import { SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import { useContext } from 'react';
 import { AuthContext } from '@peage-pay-web/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface SignOutModalProps {
   modalRef: React.LegacyRef<HTMLDialogElement>;
@@ -43,6 +43,9 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
             variant={'base-200'}
             className="mr-[0.5rem]"
           >
+            <Button.Icon position={'left'}>
+              <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
+            </Button.Icon>
             <Button.Content>Close</Button.Content>
           </Button>
           <Button

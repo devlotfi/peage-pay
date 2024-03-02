@@ -240,24 +240,6 @@ export class EmailAuthService {
     if (!emailAuthMethod) {
       throw new GraphQLError(UserErrors.USER_NOT_FOUND);
     }
-    if (!emailAuthMethod.verifiedAt) {
-      const emailVerificationAttempts =
-        await this.authRedisService.getEmailVerificationAttempts(
-          emailAuthMethod.authMethod.userId,
-        );
-      if (emailVerificationAttempts < 1) {
-        throw new GraphQLError(AuthErrors.EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED);
-      }
-
-      await this.emailService.sendVerificationEmail(
-        emailAuthMethod.authMethod.userId,
-        emailAuthMethod.email,
-      );
-      await this.authRedisService.decrementEmailVerificationAttempts(
-        emailAuthMethod.authMethod.userId,
-      );
-      throw new GraphQLError(AuthErrors.VERIFICATION_REQUEST_PENDING);
-    }
 
     const signInWithEmailAttempts =
       await this.authRedisService.getSignInWithEmailAttempts(
@@ -276,6 +258,24 @@ export class EmailAuthService {
         emailAuthMethod.authMethod.userId,
       );
       throw new GraphQLError(AuthErrors.INVALID_EMAIL_OR_PASSWORD);
+    }
+    if (!emailAuthMethod.verifiedAt) {
+      const emailVerificationAttempts =
+        await this.authRedisService.getEmailVerificationAttempts(
+          emailAuthMethod.authMethod.userId,
+        );
+      if (emailVerificationAttempts < 1) {
+        throw new GraphQLError(AuthErrors.EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED);
+      }
+
+      await this.emailService.sendVerificationEmail(
+        emailAuthMethod.authMethod.userId,
+        emailAuthMethod.email,
+      );
+      await this.authRedisService.decrementEmailVerificationAttempts(
+        emailAuthMethod.authMethod.userId,
+      );
+      throw new GraphQLError(AuthErrors.VERIFICATION_REQUEST_PENDING);
     }
 
     const refreshToken = await this.tokenService.generateRefreshToken(

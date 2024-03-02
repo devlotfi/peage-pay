@@ -15,6 +15,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInput: SignUpWithEmailInput!) {\n    signUpWithEmail(signUpWithEmailInput: $signUpWithEmailInput)\n  }\n": types.Sign_Up_With_EmailDocument,
     "\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n": types.Verify_EmailDocument,
+    "\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n": types.Send_Password_Reset_EmailDocument,
+    "\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n": types.Reset_PasswordDocument,
     "\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInput: SigninWithEmailInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithEmail(signInWithEmailInput: $signInWithEmailInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n    }\n  }\n": types.Sign_In_With_EmailDocument,
     "\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n    }\n  }\n": types.Sign_In_With_GoogleDocument,
     "\n  query SIGN_IN_WITH_REFRESH_TOKEN($signInWithRefreshTokenInput: SignInWithRefreshTokenInput!) {\n    signInWithRefreshToken(signInWithRefreshTokenInput: $signInWithRefreshTokenInput) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n    }\n  }\n": types.Sign_In_With_Refresh_TokenDocument,
@@ -44,6 +46,14 @@ export function gql(source: "\n  mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInp
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n"): (typeof documents)["\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n"): (typeof documents)["\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n"): (typeof documents)["\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

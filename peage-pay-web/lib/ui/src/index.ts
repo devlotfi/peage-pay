@@ -1,3 +1,4 @@
+import Alert from './lib/components/elements/alert/alert.component';
 import Breadcrumbs from './lib/components/elements/breadcrumbs/breadcrumbs.component';
 import ButtonOutline from './lib/components/elements/button/button-outline.component';
 import Button from './lib/components/elements/button/button.component';
@@ -14,7 +15,9 @@ import Tabs from './lib/components/elements/tabs/tabs.component';
 import TextArea from './lib/components/elements/text-area/text-area.component';
 import TextInput from './lib/components/elements/text-input/text-input.component';
 import Tooltip from './lib/components/elements/tooltip/tooltip.component';
+import AdminDashboardLayout from './lib/components/layout/admin-dashboard/admin-dashboard-layout/admin-dashboard-layout.component';
 import MinimalNavbar from './lib/components/layout/minimal-navbar/minimal-navbar.component';
+import ErrorPage from './lib/components/pages/error-page/error.page';
 
 export {
   Button,
@@ -34,4 +37,7 @@ export {
   LoaderDots,
   Tabs,
   MinimalNavbar,
+  Alert,
+  AdminDashboardLayout,
+  ErrorPage,
 };

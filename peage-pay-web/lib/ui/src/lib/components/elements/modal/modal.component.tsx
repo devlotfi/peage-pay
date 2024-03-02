@@ -8,7 +8,7 @@ import ModalFooter from './modal-footer.component';
 import ModalContent from './modal-content.component';
 
 const modalVariants = cva(
-  'bg-transparent w-[40rem] p-0 text-base-content animate-[modal_0.5s_ease]'
+  'bg-transparent w-[40rem] p-0 text-base-content animate-[modal_0.5s_ease]',
 );
 
 interface ModalProps

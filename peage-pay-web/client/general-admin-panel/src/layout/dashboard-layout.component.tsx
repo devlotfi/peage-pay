@@ -1,8 +1,7 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AdminDashboardLayout } from '@peage-pay-web/admin-ui';
 import { NavbarDropdown } from '@peage-pay-web/auth';
-import { MenuItem } from '@peage-pay-web/ui';
+import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
 import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {

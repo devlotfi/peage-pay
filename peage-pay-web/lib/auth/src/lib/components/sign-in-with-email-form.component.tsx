@@ -10,20 +10,21 @@ import {
   RefreshTokenMode,
   UserErrors,
 } from '../../__generated__/graphql';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { AuthContext } from '../context/auth.context';
+import VerifyEmailModal from './verify-email-modal.component';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().required(),
 });
 
-interface Values {
+interface SignInWithEMailValues {
   email: string;
   password: string;
 }
 
-const initialValues: Values = {
+const initialValues: SignInWithEMailValues = {
   email: '',
   password: '',
 };
@@ -41,14 +42,30 @@ const SignInWithEmailForm = (): JSX.Element => {
           setFieldError('email', 'auth:errors.USER_NOT_FOUND');
           break;
         case AuthErrors.InvalidEmailOrPassword:
-          setFieldError('email', 'auth:errors.INVALID_EMAIL_OR_PASSWORD');
+          setFieldError('password', 'auth:errors.INVALID_EMAIL_OR_PASSWORD');
           break;
         case AuthErrors.SignInWithEmaIlAttemptsExceeded:
           setFieldError('email', 'auth:errors.SIGN_IN_ATTEMPTS_EXCEEDED');
           break;
+        case AuthErrors.EmailVerificationAttemptsExceeded:
+          setFieldError(
+            'email',
+            'auth:errors.EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
+          );
+          break;
+        case AuthErrors.VerificationRequestPending:
+          showVerifyEmailModal();
+          break;
       }
     },
   });
+  const verifyEmailModalRef = useRef(null);
+
+  const showVerifyEmailModal = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    verifyEmailModalRef.current.showModal();
+  };
 
   const {
     handleSubmit,
@@ -75,68 +92,75 @@ const SignInWithEmailForm = (): JSX.Element => {
   });
 
   return (
-    <form onSubmit={handleSubmit} className="mt-[2rem]">
-      <TextInput
-        variant={errors.email && touched.email ? 'error' : 'edge-100'}
-        className="w-full mb-[1.5rem]"
-      >
-        <TextInput.Main>
-          <TextInput.Label>E-mail</TextInput.Label>
-          <TextInput.Icon position={'left'}>
-            <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
-          </TextInput.Icon>
-          <TextInput.Field
-            name="email"
-            type="email"
-            placeholder="Enter e-mail"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          ></TextInput.Field>
-        </TextInput.Main>
-        {errors.email && touched.email ? (
-          <TextInput.InfoMessage>{errors.email}</TextInput.InfoMessage>
-        ) : null}
-      </TextInput>
-      <TextInput
-        variant={errors.password && touched.password ? 'error' : 'edge-100'}
-        className="w-full mb-[1.5rem]"
-      >
-        <TextInput.Main>
-          <TextInput.Label>Password</TextInput.Label>
-          <TextInput.Icon position={'left'}>
-            <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
-          </TextInput.Icon>
-          <TextInput.Field
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          ></TextInput.Field>
-        </TextInput.Main>
-        {errors.password && touched.password ? (
-          <TextInput.InfoMessage>{errors.password}</TextInput.InfoMessage>
-        ) : null}
-      </TextInput>
-      <Link className="mb-[1rem]">Reset password</Link>
+    <>
+      <VerifyEmailModal
+        modalRef={verifyEmailModalRef}
+        email={values.email}
+      ></VerifyEmailModal>
 
-      <Button className="w-full" variant={'primary'} type="submit">
-        {loading ? (
-          <Button.Content>
-            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
-          </Button.Content>
-        ) : (
-          <>
-            <Button.Icon position={'left'}>
-              <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
-            </Button.Icon>
-            <Button.Content>Sign in</Button.Content>
-          </>
-        )}
-      </Button>
-    </form>
+      <form onSubmit={handleSubmit} className="mt-[2rem]">
+        <TextInput
+          variant={errors.email && touched.email ? 'error' : 'edge-100'}
+          className="w-full mb-[1.5rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>E-mail</TextInput.Label>
+            <TextInput.Icon position={'left'}>
+              <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
+            </TextInput.Icon>
+            <TextInput.Field
+              name="email"
+              type="email"
+              placeholder="Enter e-mail"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            ></TextInput.Field>
+          </TextInput.Main>
+          {errors.email && touched.email ? (
+            <TextInput.InfoMessage>{errors.email}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+        <TextInput
+          variant={errors.password && touched.password ? 'error' : 'edge-100'}
+          className="w-full mb-[1.5rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Icon position={'left'}>
+              <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
+            </TextInput.Icon>
+            <TextInput.Field
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            ></TextInput.Field>
+          </TextInput.Main>
+          {errors.password && touched.password ? (
+            <TextInput.InfoMessage>{errors.password}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+        <Link className="mb-[1rem]">Reset password</Link>
+
+        <Button className="w-full" variant={'primary'} type="submit">
+          {loading ? (
+            <Button.Content>
+              <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
+            </Button.Content>
+          ) : (
+            <>
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Sign in</Button.Content>
+            </>
+          )}
+        </Button>
+      </form>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import useAuthGuard from './use-auth-guard.hook';
+import { ErrorPage } from '@peage-pay-web/ui';
 import DashboardLayout from '../layout/dashboard-layout.component';
 
 const useRouter = () => {
@@ -9,6 +10,7 @@ const useRouter = () => {
     {
       path: '/',
       element: <Navigate to={'/sign-in'}></Navigate>,
+      errorElement: <ErrorPage></ErrorPage>,
     },
     {
       path: '/sign-in',
@@ -16,6 +18,15 @@ const useRouter = () => {
         const { SignInPage } = await import('@peage-pay-web/auth');
         return {
           element: notAuthGuard(<SignInPage></SignInPage>),
+        };
+      },
+    },
+    {
+      path: '/verify',
+      async lazy() {
+        const { VerifyEmailPage } = await import('@peage-pay-web/auth');
+        return {
+          element: notAuthGuard(<VerifyEmailPage></VerifyEmailPage>),
         };
       },
     },
