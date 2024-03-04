@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { TextInputContext } from './text-input.component';
 
 const textInputMainVariants = cva(
-  'flex flex-1 min-h-[3rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
+  'flex flex-1 min-h-[2.7rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
   {
     variants: {
       variant: {
@@ -22,7 +22,7 @@ const textInputMainVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextInputMainProps
@@ -44,7 +44,7 @@ const TextInputMain = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

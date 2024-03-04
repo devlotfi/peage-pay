@@ -14,8 +14,8 @@ const selectIconVariants = cva('flex justify-center items-center text-[15pt]', {
       'edge-200': 'text-edge-200',
     },
     position: {
-      left: 'pl-[1rem]',
-      right: 'pr-[1rem]',
+      left: 'pl-[0.7rem]',
+      right: 'pr-[0.7rem]',
     },
   },
   defaultVariants: {
@@ -44,7 +44,7 @@ const SelectIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        })
+        }),
       )}
       {...props}
     >

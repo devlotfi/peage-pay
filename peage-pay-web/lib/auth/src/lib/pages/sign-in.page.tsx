@@ -9,8 +9,13 @@ import SignInWithPhoneForm from '../components/sign-in-with-phone-form.component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn, faUserGear } from '@fortawesome/free-solid-svg-icons';
 import { Toll } from '@peage-pay-web/assets';
+import { Link } from 'react-router-dom';
 
-const SignInPage = (): JSX.Element => {
+interface SignInPageProps {
+  title: string;
+}
+
+const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
   const [tab, setTab] = useState<SignInTabsEnum>(SignInTabsEnum.EMAIL);
 
   const renderTabContent = () => {
@@ -27,14 +32,14 @@ const SignInPage = (): JSX.Element => {
   return (
     <div className="flex flex-col bg-base-200 min-h-screen bg-cover text-base-content">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title={title}></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex flex-1 justify-center mt-0 lg:m-0 lg:items-center">
-        <div className="flex w-full p-[1rem] lg:p-[1.5rem] lg:max-w-[55rem] bg-base-100 rounded-none lg:rounded-xl flex-col-reverse justify-end lg:flex-row border-[0px] lg:border-[1px] border-edge-200">
-          <div className="flex flex-col w-full justify-center">
+        <div className="flex w-full mb-[5rem] p-[1rem] lg:p-[1.5rem] lg:max-w-[55rem] bg-base-100 rounded-none lg:rounded-xl flex-col-reverse justify-end lg:flex-row border-[0px] lg:border-[1px] border-edge-200">
+          <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
-              <Heading className="text-[27pt] mb-[1rem]">
+              <Heading className="text-[23pt] mb-[1rem]">
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                 </Heading.Icon>
@@ -51,9 +56,11 @@ const SignInPage = (): JSX.Element => {
                 Or
               </div>
             </div>
-            <ButtonOutline variant={'primary'}>
-              <ButtonOutline.Content>Sign up</ButtonOutline.Content>
-            </ButtonOutline>
+            <Link to={'/sign-up'} className="flex w-full">
+              <ButtonOutline className="flex w-full" variant={'primary'}>
+                <ButtonOutline.Content>Sign up</ButtonOutline.Content>
+              </ButtonOutline>
+            </Link>
           </div>
           <div className="bg-edge-100 w-[1px] my-[1rem] mx-[1.5rem] hidden lg:flex"></div>
           <div className="flex flex-col">
@@ -64,7 +71,9 @@ const SignInPage = (): JSX.Element => {
                 icon={faUserGear}
               ></FontAwesomeIcon>
             </div>
-            <div className="flex text-[13pt] opacity-70 lg:mt-[0.7rem]"></div>
+            <div className="flex text-[13pt] opacity-70 lg:mt-[0.7rem]">
+              {title}
+            </div>
             <img
               className="hidden lg:flex max-h-[20rem]"
               src={Toll}

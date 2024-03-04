@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { TextInputContext } from './text-input.component';
 
 const textInputLabelVariants = cva(
-  'flex absolute top-[-1rem] left-[1rem] bg-base-100 px-[0.5rem]',
+  'flex text-[11pt] absolute top-[-1rem] left-[1rem] bg-base-100 px-[0.5rem]',
   {
     variants: {
       variant: {
@@ -19,7 +19,7 @@ const textInputLabelVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextInputLabelProps
@@ -41,7 +41,7 @@ const TextInputLabel = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

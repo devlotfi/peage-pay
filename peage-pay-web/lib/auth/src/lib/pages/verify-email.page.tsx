@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { AuthErrors } from '../../__generated__/graphql';
 
 const verifyEmailvalidationSchema = yup.object({
   userId: yup.string().uuid().required(),
@@ -20,11 +21,15 @@ const VerifyEmailPage = (): JSX.Element => {
   const [params] = useSearchParams();
   const [verifyEmail, { loading, error, data }] = useMutation(VERIFY_EMAIL, {
     onError(error, clientOptions) {
-      console.log(error);
+      switch (error.message) {
+        case AuthErrors.InvalidVerificationToken:
+          setFieldError('password', 'auth:errors.INVALID_VERIFICATION_TOKEN');
+          break;
+      }
     },
   });
 
-  const { handleSubmit } = useFormik({
+  const { handleSubmit, setFieldError } = useFormik({
     validationSchema: verifyEmailvalidationSchema,
     initialValues: {
       userId: params.get('userId'),

@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { SelectContext } from './select.component';
 
 const selectMainVariants = cva(
-  'flex flex-1 min-h-[3rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
+  'flex flex-1 min-h-[2.7rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
   {
     variants: {
       variant: {
@@ -19,7 +19,7 @@ const selectMainVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface SelectMainProps
@@ -41,7 +41,7 @@ const SelectMain = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

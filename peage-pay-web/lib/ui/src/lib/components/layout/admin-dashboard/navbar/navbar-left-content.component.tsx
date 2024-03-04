@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
-import { Button } from '@peage-pay-web/ui';
+import { Button, IconButton } from '@peage-pay-web/ui';
 import { Utils } from '@peage-pay-web/utils';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,15 +25,13 @@ const NavbarLeftContent = ({
       className={Utils.cn(navbarLeftContentVariants({ className }))}
       {...props}
     >
-      <Button
+      <IconButton
         onClick={() => setSidebarOpened(true)}
         variant={'base-100'}
         className="lg:hidden"
       >
-        <Button.Icon>
-          <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
-        </Button.Icon>
-      </Button>
+        <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+      </IconButton>
       <Button variant={'base-100'} className="lg:hidden">
         <Button.Content>
           <img

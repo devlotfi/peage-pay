@@ -18,7 +18,20 @@ const useRouter = () => {
       async lazy() {
         const { SignInPage } = await import('@peage-pay-web/auth');
         return {
-          element: notAuthGuard(<SignInPage></SignInPage>),
+          element: notAuthGuard(
+            <SignInPage title="General admin"></SignInPage>,
+          ),
+        };
+      },
+    },
+    {
+      path: '/sign-up',
+      async lazy() {
+        const { SignUpPage } = await import('@peage-pay-web/auth');
+        return {
+          element: notAuthGuard(
+            <SignUpPage title="General admin"></SignUpPage>,
+          ),
         };
       },
     },

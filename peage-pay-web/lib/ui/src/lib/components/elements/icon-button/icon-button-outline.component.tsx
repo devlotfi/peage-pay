@@ -1,11 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import ButtonContent from './button-content.component';
-import TabsItemIcon from './button-icon.component';
 
-const buttonOutlineVariants = cva(
-  'flex min-h-[2.7rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md bg-base-100 border-[1px] hover:bg-base-200 duration-300 ease active:scale-95',
+const iconButtonOutlineVariants = cva(
+  'flex h-[3rem] w-[3rem] justify-center items-center text-[11pt] font-medium rounded-md bg-base-100 border-[1px] hover:bg-base-200 duration-300 ease active:scale-95',
   {
     variants: {
       variant: {
@@ -21,25 +19,23 @@ const buttonOutlineVariants = cva(
   },
 );
 
-interface ButtonProps
+interface IconButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonOutlineVariants> {}
+    VariantProps<typeof iconButtonOutlineVariants> {}
 
-const ButtonOutline = ({
+const IconButtonOutline = ({
   variant,
   className,
   children,
   ...props
-}: ButtonProps): JSX.Element => {
+}: IconButtonProps): JSX.Element => {
   return (
     <button
-      className={Utils.cn(buttonOutlineVariants({ variant, className }))}
+      className={Utils.cn(iconButtonOutlineVariants({ variant, className }))}
       {...props}
     >
       {children}
     </button>
   );
 };
-ButtonOutline.Content = ButtonContent;
-ButtonOutline.Icon = TabsItemIcon;
-export default ButtonOutline;
+export default IconButtonOutline;

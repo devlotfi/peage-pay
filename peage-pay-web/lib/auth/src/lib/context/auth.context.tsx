@@ -34,10 +34,10 @@ const initialValue: AuthContext = {
     return;
   },
   authGuard: () => {
-    return <h1>test</h1>;
+    return <h1>authGuard</h1>;
   },
   notAuthGuard: () => {
-    return <h1>test</h1>;
+    return <h1>notAuthGuard</h1>;
   },
 };
 

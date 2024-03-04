@@ -13,6 +13,7 @@ import { useFormik } from 'formik';
 import { useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { RESET_PASSWORD } from '../graphql/mutations';
+import { AuthErrors } from '../../__generated__/graphql';
 
 const resetPasswordValidationSchema = yup.object({
   password: yup.string().min(7).max(512).required(),
@@ -31,7 +32,11 @@ const ResetPasswordPage = () => {
       return;
     },
     onError(error, clientOptions) {
-      return;
+      switch (error.message) {
+        case AuthErrors.InvalidVerificationToken:
+          setFieldError('password', 'auth:errors.INVALID_VERIFICATION_TOKEN');
+          break;
+      }
     },
   });
   const {

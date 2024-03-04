@@ -1,11 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import ButtonContent from './button-content.component';
-import TabsItemIcon from './button-icon.component';
 
-const buttonVariants = cva(
-  'flex min-h-[2.7rem] justify-center items-center text-[11pt] font-medium px-[1rem] rounded-md duration-300 ease active:scale-95',
+const iconButtonVariants = cva(
+  'flex min-h-[3rem] min-w-[3rem] h-[3rem] w-[3rem] justify-center items-center text-[17pt] font-medium rounded-md duration-300 ease active:scale-95',
   {
     variants: {
       variant: {
@@ -24,25 +22,23 @@ const buttonVariants = cva(
   },
 );
 
-interface ButtonProps
+interface IconButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof iconButtonVariants> {}
 
-const Button = ({
+const IconButton = ({
   variant,
   className,
   children,
   ...props
-}: ButtonProps): JSX.Element => {
+}: IconButtonProps): JSX.Element => {
   return (
     <button
-      className={Utils.cn(buttonVariants({ variant, className }))}
+      className={Utils.cn(iconButtonVariants({ variant, className }))}
       {...props}
     >
       {children}
     </button>
   );
 };
-Button.Content = ButtonContent;
-Button.Icon = TabsItemIcon;
-export default Button;
+export default IconButton;

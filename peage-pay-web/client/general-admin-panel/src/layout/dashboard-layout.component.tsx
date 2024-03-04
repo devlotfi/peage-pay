@@ -8,7 +8,7 @@ const DashboardLayout = (): JSX.Element => {
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main>
+        <AdminDashboardLayout.Sidebar.Main title="General admin">
           <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>

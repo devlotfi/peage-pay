@@ -2,7 +2,6 @@ import { Utils } from '@peage-pay-web/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import Dropdown from '../../elements/dropdown/dropdown.component';
-import Button from '../../elements/button/button.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBrush,
@@ -14,6 +13,7 @@ import {
 import MenuItem from '../../elements/menu-item/menu-item.component';
 import MenuDropdown from '../../elements/menu-dropdown/menu-dropdown.component';
 import { ThemeContext, ThemesEnum } from '@peage-pay-web/tailwind-config';
+import IconButton from '../../elements/icon-button/icon-button.component';
 
 const navbarRightContentVariants = cva('flex');
 
@@ -37,11 +37,9 @@ const MinimalNavbarRightContent = ({
       <Dropdown
         mainElement={
           <Dropdown.Main>
-            <Button variant={'base-200'}>
-              <Button.Icon>
-                <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
-              </Button.Icon>
-            </Button>
+            <IconButton variant={'base-200'}>
+              <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
+            </IconButton>
           </Dropdown.Main>
         }
       >

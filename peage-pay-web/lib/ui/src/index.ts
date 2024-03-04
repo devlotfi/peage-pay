@@ -5,6 +5,8 @@ import Button from './lib/components/elements/button/button.component';
 import Checkbox from './lib/components/elements/checkbox/checkbox.component';
 import Dropdown from './lib/components/elements/dropdown/dropdown.component';
 import Heading from './lib/components/elements/heading/heading.component';
+import IconButtonOutline from './lib/components/elements/icon-button/icon-button-outline.component';
+import IconButton from './lib/components/elements/icon-button/icon-button.component';
 import CustomLink from './lib/components/elements/link/link.component';
 import LoaderDots from './lib/components/elements/loader-dots/loader-dots.component';
 import MenuDropdown from './lib/components/elements/menu-dropdown/menu-dropdown.component';
@@ -40,4 +42,6 @@ export {
   Alert,
   AdminDashboardLayout,
   ErrorPage,
+  IconButton,
+  IconButtonOutline,
 };

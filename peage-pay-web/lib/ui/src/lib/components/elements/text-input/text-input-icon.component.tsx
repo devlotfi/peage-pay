@@ -16,14 +16,14 @@ const textInputIconVariants = cva(
         'edge-200': 'text-edge-200',
       },
       position: {
-        left: 'pl-[1rem]',
-        right: 'pr-[1rem]',
+        left: 'pl-[0.7rem]',
+        right: 'pr-[0.7rem]',
       },
     },
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextInputIconProps
@@ -47,7 +47,7 @@ const TextInputIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        })
+        }),
       )}
       {...props}
     >

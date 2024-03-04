@@ -6,7 +6,7 @@ import TabsItemContent from './tabs-item-content.component';
 import TabsItemIcon from './tabs-item-icon.component';
 
 const tabsItemVariants = cva(
-  'flex items-start relative justify-center items-center px-[1.5rem] min-h-[3rem] duration-300 ease rounded-lg mx-[0.3rem] active:scale-95',
+  'flex items-start relative justify-center items-center px-[1.5rem] min-h-[2.7rem] duration-300 ease rounded-lg mx-[0.3rem] active:scale-95',
   {
     variants: {
       variant: {
@@ -55,7 +55,7 @@ const TabsItem = ({
       </div>
       <div
         className={Utils.cn(
-          'flex absolute w-[70%] h-[0.3rem] rounded-t-lg bg-primary-100 bottom-0 duration-300 ease',
+          'flex absolute w-[70%] h-[0.2rem] rounded-t-lg bg-primary-100 bottom-0 duration-300 ease',
           isActive !== 'active' && 'h-[0rem] w-[0rem]',
         )}
       ></div>
