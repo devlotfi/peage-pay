@@ -2,6 +2,14 @@ import * as React from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { createCustomEqual } from 'fast-equals';
 import { isLatLngLiteral } from '@googlemaps/typescript-guards';
+import TextInput from '../text-input/text-input.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCheck,
+  faLocationDot,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import Button from '../button/button.component';
 
 const render = (status: Status) => {
   return <h1>{status}</h1>;
@@ -10,6 +18,7 @@ const render = (status: Status) => {
 const deepCompareEqualsForMaps = createCustomEqual(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (deepEqual) => (a: any, b: any, state) => {
     if (
       isLatLngLiteral(a) ||
@@ -27,6 +36,7 @@ const deepCompareEqualsForMaps = createCustomEqual(
   },
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useDeepCompareMemoize(value: any) {
   const ref = React.useRef();
 
@@ -39,8 +49,10 @@ function useDeepCompareMemoize(value: any) {
 
 function useDeepCompareEffectForMaps(
   callback: React.EffectCallback,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dependencies: any[],
 ) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(callback, dependencies.map(useDeepCompareMemoize));
 }
 
@@ -133,7 +145,15 @@ const Marker: React.FC<Partial<google.maps.marker.AdvancedMarkerElement>> = (
   return null;
 };
 
-const LocationPicker = (): JSX.Element => {
+interface LocationPickerProps {
+  onChange: (latLng: google.maps.LatLng | null) => void;
+  closeLocationPicker: () => void;
+}
+
+const LocationPicker = ({
+  closeLocationPicker,
+  onChange,
+}: LocationPickerProps): JSX.Element => {
   const [selectedLocation, setSelectedLocation] =
     React.useState<google.maps.LatLng | null>(null);
   const [zoom, setZoom] = React.useState(3);
@@ -145,18 +165,80 @@ const LocationPicker = (): JSX.Element => {
   const onClick = (e: google.maps.MapMouseEvent) => {
     setSelectedLocation(e.latLng);
     console.log(e.latLng);
+    onChange(e.latLng);
   };
 
   const onIdle = (m: google.maps.Map) => {
     console.log('onIdle');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setZoom(m.getZoom()!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setCenter(m.getCenter()!.toJSON());
   };
 
-  return (
-    <div className="flex h-screen w-screen">
-      {import.meta.env['VITE_GOOGLE_MAPS_API_KEY']}
+  const clearSelectedPosition = () => {
+    setSelectedLocation(null);
+  };
 
+  const confirmPicker = () => {
+    closeLocationPicker();
+  };
+
+  return (
+    <div className="fixed top-0 left-0 flex h-screen w-screen flex-col bg-base-100 z-[5000]">
+      <div className="flex justify-between flex-col lg:flex-row p-[1rem] border-b-[1px] border-edge-200">
+        <div className="flex mb-[0.5rem] lg:mb-[0rem]">
+          <TextInput variant={'edge-100'} className="w-full">
+            <TextInput.Main>
+              <TextInput.Label>Latitude</TextInput.Label>
+              <TextInput.Icon position={'left'}>
+                <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+              </TextInput.Icon>
+              <TextInput.Field
+                type={'text'}
+                value={
+                  selectedLocation ? selectedLocation.lat() : 'Not Selected'
+                }
+              ></TextInput.Field>
+            </TextInput.Main>
+          </TextInput>
+          <TextInput variant={'edge-100'} className="w-full ml-[0.5rem]">
+            <TextInput.Main>
+              <TextInput.Label>Longitude</TextInput.Label>
+              <TextInput.Icon position={'left'}>
+                <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+              </TextInput.Icon>
+              <TextInput.Field
+                type={'text'}
+                value={
+                  selectedLocation ? selectedLocation.lng() : 'Not Selected'
+                }
+              ></TextInput.Field>
+            </TextInput.Main>
+          </TextInput>
+
+          {selectedLocation ? (
+            <Button
+              onClick={clearSelectedPosition}
+              variant={'error'}
+              className="ml-[0.5rem]"
+            >
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Clear</Button.Content>
+            </Button>
+          ) : null}
+        </div>
+        <div className="flex justify-between lg:justify-start">
+          <Button onClick={confirmPicker} variant={'primary'}>
+            <Button.Icon position={'left'}>
+              <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+            </Button.Icon>
+            <Button.Content>Ok</Button.Content>
+          </Button>
+        </div>
+      </div>
       <Wrapper
         apiKey={import.meta.env['VITE_GOOGLE_MAPS_API_KEY']}
         render={render}
