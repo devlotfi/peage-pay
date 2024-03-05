@@ -32,11 +32,7 @@ export const Base: Story = {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
-          <LocationPicker
-            onChange={() => {
-              return;
-            }}
-          ></LocationPicker>
+          <LocationPicker></LocationPicker>
         </ThemeProvider>
       </div>
     );
