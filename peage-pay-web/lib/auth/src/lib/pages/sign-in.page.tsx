@@ -32,14 +32,14 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
   return (
     <div className="flex flex-col bg-base-200 min-h-screen bg-cover text-base-content">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent title={title}></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
-      <div className="flex flex-1 justify-center mt-0 lg:m-0 lg:items-center">
-        <div className="flex w-full mb-[5rem] p-[1rem] lg:p-[1.5rem] lg:max-w-[55rem] bg-base-100 rounded-none lg:rounded-xl flex-col-reverse justify-end lg:flex-row border-[0px] lg:border-[1px] border-edge-200">
+      <div className="flex flex-1 justify-center mt-0 lg:m-0 md:items-center">
+        <div className="flex w-full md:w-[80%] md:mb-[5rem] p-[1rem] md:p-[1.5rem] md:max-w-[55rem] bg-base-100 rounded-none md:rounded-xl flex-col-reverse justify-end lg:flex-row border-[0px] md:border-[1px] border-edge-200">
           <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
-              <Heading className="text-[23pt] mb-[1rem]">
+              <Heading className="text-[27pt] lg:text-[23pt] mb-[1rem] flex justify-center">
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                 </Heading.Icon>
@@ -64,7 +64,7 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
           </div>
           <div className="bg-edge-100 w-[1px] my-[1rem] mx-[1.5rem] hidden lg:flex"></div>
           <div className="flex flex-col">
-            <div className="flex text-[17pt] items-center">
+            <div className="flex justify-between text-[17pt] items-center">
               <div className="flex mr-[1.5rem]">PeagePay Adminstration</div>
               <FontAwesomeIcon
                 className="text-[25pt] text-primary-100"

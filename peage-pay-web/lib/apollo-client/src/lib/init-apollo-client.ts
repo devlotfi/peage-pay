@@ -4,7 +4,10 @@ import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
-const serverGraphqlEndpoint = `${import.meta.env['VITE_SERVER_URL']}/graphql`;
+const serverGraphqlEndpoint = `${
+  import.meta.env['VITE_SERVER_URL'] ||
+  import.meta.env['RENDERER_VITE_SERVER_URL']
+}/graphql`;
 
 const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = `
   query {
