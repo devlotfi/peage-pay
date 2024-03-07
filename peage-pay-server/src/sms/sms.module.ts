@@ -16,5 +16,6 @@ import { BullQueues } from 'src/constants/bull-queues';
     }),
   ],
   providers: [SmsService, SmsProcessor, TwilioService],
+  exports: [SmsService],
 })
 export class SmsModule {}

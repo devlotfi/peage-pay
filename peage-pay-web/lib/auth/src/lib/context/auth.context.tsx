@@ -5,7 +5,6 @@ import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import AuthLoading from '../components/auth-loading.component';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { Navigate } from 'react-router-dom';
 
 type AuthData = {
   baseUser: BaseUserType;
@@ -17,8 +16,6 @@ interface AuthContext {
   setAuthData: (authData: AuthData) => void;
   setAccessToken: (accessToken: string) => void;
   clearAccessToken: () => void;
-  authGuard: (element: JSX.Element) => JSX.Element;
-  notAuthGuard: (element: JSX.Element) => JSX.Element;
 }
 
 const initialValue: AuthContext = {
@@ -32,12 +29,6 @@ const initialValue: AuthContext = {
   },
   clearAccessToken: () => {
     return;
-  },
-  authGuard: () => {
-    return <h1>authGuard</h1>;
-  },
-  notAuthGuard: () => {
-    return <h1>notAuthGuard</h1>;
   },
 };
 
@@ -67,20 +58,6 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
     sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);
   };
 
-  const authGuard = (element: JSX.Element): JSX.Element => {
-    if (authData) {
-      return element;
-    }
-    return <Navigate to={'/sign-in'}></Navigate>;
-  };
-
-  const notAuthGuard = (element: JSX.Element): JSX.Element => {
-    if (!authData) {
-      return element;
-    }
-    return <Navigate to={'/dashboard'}></Navigate>;
-  };
-
   return (
     <GoogleOAuthProvider
       clientId={import.meta.env['VITE_GOOGLE_OAUTH_CLIENT_ID']}
@@ -91,8 +68,6 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
           setAuthData,
           setAccessToken,
           clearAccessToken,
-          authGuard,
-          notAuthGuard,
         }}
       >
         {authLoading ? <AuthLoading></AuthLoading> : children}

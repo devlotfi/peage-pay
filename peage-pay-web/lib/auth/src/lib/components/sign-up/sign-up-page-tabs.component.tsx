@@ -5,7 +5,6 @@ import { Tabs } from '@peage-pay-web/ui';
 export enum SignUpTabsEnum {
   EMAIL = 'EMAIL',
   PHONE = 'PHONE',
-  GOOGLE = 'GOOGLE',
 }
 
 interface Props {

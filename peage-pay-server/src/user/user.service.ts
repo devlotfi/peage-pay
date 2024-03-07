@@ -8,7 +8,7 @@ export class UserService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
   public async getUserRolesList(userId: string): Promise<UserRolesType[]> {
-    const baseUser = await this.databaseService.baseUser.findFirst({
+    const baseUser = await this.databaseService.baseUser.findUnique({
       where: {
         id: userId,
       },

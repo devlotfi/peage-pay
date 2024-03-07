@@ -2,18 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
 import { AuthErrors } from './graphql/auth-errors.graphql';
-import { BaseUserType } from 'src/user/graphql/base-user.graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
 import { AccessTokenPayload } from './types/access-token-payload.type';
 import { Request, Response } from 'express';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
+import { UserService } from 'src/user/user.service';
+import { UserErrors } from 'src/user/graphql/user-errors.graphql';
 
 @Injectable()
 export class TokenAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
+    private readonly userService: UserService,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -29,16 +31,22 @@ export class TokenAuthService {
 
     console.log(payload);
     const userId: string = payload.userId;
-    const baseUser = await this.databaseService.baseUser.findFirst({
+    const baseUser = await this.databaseService.baseUser.findUnique({
       where: {
         id: userId,
       },
     });
-    const accessToken = await this.tokenService.generateAccessToken(userId);
+    if (!baseUser) {
+      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+    }
 
-    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult();
-    signInWithRefreshTokenResult.accessToken = accessToken;
-    signInWithRefreshTokenResult.baseUser = baseUser as BaseUserType;
+    const accessToken = await this.tokenService.generateAccessToken(userId);
+    const roles = await this.userService.getUserRolesList(userId);
+    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
+      baseUser,
+      accessToken,
+      roles,
+    );
 
     return signInWithRefreshTokenResult;
   }
@@ -58,16 +66,22 @@ export class TokenAuthService {
 
     console.log(payload);
     const userId: string = payload.userId;
-    const baseUser = await this.databaseService.baseUser.findFirst({
+    const baseUser = await this.databaseService.baseUser.findUnique({
       where: {
         id: userId,
       },
     });
-    const accessToken = await this.tokenService.generateAccessToken(userId);
+    if (!baseUser) {
+      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+    }
 
-    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult();
-    signInWithRefreshTokenResult.accessToken = accessToken;
-    signInWithRefreshTokenResult.baseUser = baseUser as BaseUserType;
+    const accessToken = await this.tokenService.generateAccessToken(userId);
+    const roles = await this.userService.getUserRolesList(userId);
+    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
+      baseUser,
+      accessToken,
+      roles,
+    );
 
     return signInWithRefreshTokenResult;
   }

@@ -11,14 +11,18 @@ import { EmailAuthService } from './email-auth.service';
 import { TokenAuthService } from './token-auth.service';
 import { GoogleAuthService } from './google-auth.service';
 import { PhoneAuthService } from './phone-auth.service';
+import { SmsModule } from 'src/sms/sms.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
     DatabaseModule,
     EmailModule,
+    SmsModule,
     ConfigModule,
     TokenModule,
     RedisModule,
+    UserModule,
     JwtModule.register({}),
   ],
   providers: [

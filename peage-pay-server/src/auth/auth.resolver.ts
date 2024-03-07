@@ -20,6 +20,8 @@ import { GraphqlResponse } from 'src/decorators/graphql-response.decorator';
 import { ContextAccessTokenPayload } from 'src/decorators/context-access-token-payload.decorator';
 import { AccessTokenPayload } from './types/access-token-payload.type';
 import { SignInWithGoogleInput } from './input/sign-in-with-google.input';
+import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result';
+import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input';
 
 @Resolver()
 export class AuthResolver {
@@ -138,5 +140,13 @@ export class AuthResolver {
       req,
       res,
     );
+  }
+
+  @Mutation(() => SignUpWithPhoneResult)
+  public async signUpWithPhone(
+    @Args('signUpWithPhoneInput')
+    signUpWithPhoneInput: SignUpWithPhoneInput,
+  ): Promise<SignUpWithPhoneResult> {
+    return await this.phoneAuthService.signUpWithPhone(signUpWithPhoneInput);
   }
 }

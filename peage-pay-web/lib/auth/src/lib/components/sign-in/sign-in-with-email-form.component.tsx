@@ -4,15 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, CustomLink, LoaderDots, TextInput } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { SIGN_IN_WITH_EMAIL } from '../graphql/mutations';
+import { SIGN_IN_WITH_EMAIL } from '../../graphql/mutations';
 import {
   AuthErrors,
   RefreshTokenMode,
   UserErrors,
-} from '../../__generated__/graphql';
+} from '../../../__generated__/graphql';
 import { useContext, useRef } from 'react';
-import { AuthContext } from '../context/auth.context';
-import VerifyEmailModal from './verify-email-modal.component';
+import { AuthContext } from '../../context/auth.context';
+import VerifyEmailModal from '../verify-email-modal.component';
 import { Link } from 'react-router-dom';
 
 const signInWithEmailValidationSchema = yup.object({
@@ -20,12 +20,12 @@ const signInWithEmailValidationSchema = yup.object({
   password: yup.string().required(),
 });
 
-interface SignInWithEMailValues {
+interface SignInWithEmailValues {
   email: string;
   password: string;
 }
 
-const initialValues: SignInWithEMailValues = {
+const initialValues: SignInWithEmailValues = {
   email: '',
   password: '',
 };
@@ -40,18 +40,24 @@ const SignInWithEmailForm = (): JSX.Element => {
     onError(error, clientOptions) {
       switch (error.message) {
         case UserErrors.UserNotFound:
-          setFieldError('email', 'auth:errors.USER_NOT_FOUND');
+          setFieldError('email', `auth:errors.${UserErrors.UserNotFound}`);
           break;
         case AuthErrors.InvalidEmailOrPassword:
-          setFieldError('password', 'auth:errors.INVALID_EMAIL_OR_PASSWORD');
+          setFieldError(
+            'password',
+            `auth:errors.${AuthErrors.InvalidEmailOrPassword}`,
+          );
           break;
         case AuthErrors.SignInWithEmaIlAttemptsExceeded:
-          setFieldError('email', 'auth:errors.SIGN_IN_ATTEMPTS_EXCEEDED');
+          setFieldError(
+            'email',
+            `auth:errors.${AuthErrors.SignInWithEmaIlAttemptsExceeded}`,
+          );
           break;
         case AuthErrors.EmailVerificationAttemptsExceeded:
           setFieldError(
             'email',
-            'auth:errors.EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
+            `auth:errors.${AuthErrors.EmailVerificationAttemptsExceeded}`,
           );
           break;
         case AuthErrors.VerificationRequestPending:

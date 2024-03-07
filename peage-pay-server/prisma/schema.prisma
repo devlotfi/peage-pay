@@ -68,6 +68,32 @@ model RefreshToken {
   createdAt DateTime @default(now())
 }
 
+enum VehicleType {
+  Lightweight
+  Truck
+  Bus
+  Taxi
+}
+
+model Subscription {
+  userSubscriptions UserSubscription[]
+
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserSubscription {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  baseUserId String
+  subscriptionId String
+
+  @@id([baseUserId, subscriptionId])
+}
+
 model BaseUser {
   user User?
   authMethod AuthMethod?
@@ -78,6 +104,8 @@ model BaseUser {
   gateAdmin GateAdmin?
   verificationToken VerificationToken?
   refreshToken RefreshToken?
+  trips Trip[]
+  userSubscriptions UserSubscription[]
   
   id String @id @default(uuid())
   firstName String
@@ -112,12 +140,203 @@ model Moderator {
 
 model TollAdmin {
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  toll Toll? @relation(fields: [tollId], references: [id])
 
   baseUserId String @id
+  tollId String?
 }
 
 model GateAdmin {
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  toll Toll? @relation(fields: [tollId], references: [id])
 
   baseUserId String @id
+  tollId String?
+}
+
+model Wilaya {
+  tolls Toll[]
+
+  id String @id @default(uuid())
+  name String @unique
+  code Int @unique
+}
+
+model Highway {
+  tolls Toll[]
+  
+  id String @id @default(uuid())
+  name String @unique
+  code String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PaymentMethod {
+  Cash
+  MobileApp
+  TollBadge
+}
+
+enum LaneStatus {
+  Active
+  OutOfSercvice
+}
+
+model Toll {
+  wilaya Wilaya @relation(fields: [wilayaId], references: [id])
+  highway Highway @relation(fields: [highwayId], references: [id])
+  fromTolls TollDistance[] @relation("fromToll")
+  toTolls TollDistance[] @relation("toToll")
+  lanes Lane[]
+  automaticGates AutomaticGate[]
+  entryTollsTrip Trip[] @relation("entryTollTrip")
+  exitTollsTrip Trip[] @relation("exitTollTrip")
+  entryTollsTicket Ticket[] @relation("entryTollTicket")
+  exitTollsTicket Ticket[] @relation("exitTollTicket")
+  prices Price[]
+  tollAdmins TollAdmin[]
+  gateAdmins GateAdmin[]
+
+  id String @id @default(uuid())
+  wilayaId String
+  highwayId String
+  name String
+  longitude Decimal
+  latitude Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TollDistance {
+  fromToll Toll @relation("fromToll", fields: [fromTollId], references: [id])
+  toToll Toll @relation("toToll",fields: [toTollId], references: [id])
+  
+  fromTollId String
+  toTollId String
+  distance Decimal
+
+  @@id([fromTollId, toTollId])
+}
+
+model Lane {
+  toll Toll @relation(fields: [tollId], references: [id])
+
+  id String @id @default(uuid())
+  tollId String
+  number Int
+  paymentMethod PaymentMethod
+  status LaneStatus
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AutomaticGate {
+  toll Toll @relation(fields: [tollId], references: [id])
+
+  id String @id @default(uuid())
+  tollId String
+  name String
+  passwordHash String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Trip {
+  entryToll Toll @relation("entryTollTrip", fields: [entryTollId], references: [id])
+  exitToll Toll @relation("exitTollTrip", fields: [exitTollId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+
+  id String @id @default(uuid())
+  entryTollId String
+  exitTollId String
+  baseUserId String
+  entryTimeStamp DateTime @default(now())
+  entryTollPrice Decimal
+  exitTimeStamp DateTime
+  exitTollPrice Decimal
+  distance Decimal
+}
+
+model Ticket {
+  entryToll Toll @relation("entryTollTicket", fields: [entryTollId], references: [id])
+  exitToll Toll @relation("exitTollTicket", fields: [exitTollId], references: [id])
+
+  id String @id @default(uuid())
+  entryTollId String
+  exitTollId String
+  entryTimeStamp DateTime @default(now())
+  entryTollPrice Decimal
+  exitTimeStamp DateTime
+  exitTollPrice Decimal
+  distance Decimal
+}
+
+enum PriceType {
+  Override
+  Add
+  Subsctract
+  AddPercentage
+  SubscractPercentage
+}
+
+model Price {
+  toll Toll? @relation(fields: [tollId], references: [id])
+  dailyPrice DailyPrice?
+  weeklyPrice WeeklyPrice?
+  monthlyPrice MonthlyPrice?
+  yearlyPrice YearlyPrice?
+  customPrice CustomPrice?
+
+  id String @id @default(uuid())
+  tollId String?
+  value Decimal
+  startTimestamp DateTime
+  endTimestamp DateTime
+  priceType PriceType
+  priority Int
+  createdAt DateTime @default(now())
+  pdatedAt DateTime @updatedAt
+}
+
+model DailyPrice {
+  price Price @relation(fields: [priceId], references: [id])
+
+  priceId String @id
+}
+
+model WeeklyPrice {
+  price Price @relation(fields: [priceId], references: [id])
+
+  priceId String @id
+}
+
+model MonthlyPrice {
+  price Price @relation(fields: [priceId], references: [id])
+
+  priceId String @id
+}
+
+model YearlyPrice {
+  price Price @relation(fields: [priceId], references: [id])
+
+  priceId String @id
+}
+
+model CustomPrice {
+  price Price @relation(fields: [priceId], references: [id])
+
+  priceId String @id
+}
+
+
+model DefaultPrice {
+  id String @id @default(uuid())
+  value Decimal
+}
+
+model ReloadCode {
+  id String @id @default(uuid())
+  codeHash String @unique
+  createdAt DateTime @default(now())
 }

@@ -15,6 +15,8 @@ import { BullModule } from '@nestjs/bull';
 import { Env } from './config/env.type';
 import { UserErrors } from './user/graphql/user-errors.graphql';
 import { TokenModule } from './token/token.module';
+import { HighwayModule } from './highway/highway.module';
+import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
 
 @Module({
   imports: [
@@ -43,7 +45,7 @@ import { TokenModule } from './token/token.module';
       autoSchemaFile: true,
       playground: false,
       buildSchemaOptions: {
-        orphanedTypes: [AuthErrors, UserErrors],
+        orphanedTypes: [AuthErrors, UserErrors, HighwayErrors],
       },
       context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
@@ -55,6 +57,7 @@ import { TokenModule } from './token/token.module';
     SmsModule,
     UserModule,
     TokenModule,
+    HighwayModule,
   ],
 })
 export class AppModule {}

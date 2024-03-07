@@ -15,7 +15,7 @@ export class EmailProcessor {
   public constructor(
     private readonly configService: ConfigService,
     private readonly databaseService: DatabaseService,
-    private readonly emailProvider: NodemailerService,
+    private readonly nodeMailerService: NodemailerService,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -55,7 +55,7 @@ export class EmailProcessor {
       },
     });
 
-    await this.emailProvider.transporter.sendMail({
+    await this.nodeMailerService.transporter.sendMail({
       from: this.configService.getOrThrow<string>('SMTP_USER'),
       to: job.data.email,
       subject: 'PeagePay account verification',
@@ -94,7 +94,7 @@ export class EmailProcessor {
       },
     });
 
-    await this.emailProvider.transporter.sendMail({
+    await this.nodeMailerService.transporter.sendMail({
       from: this.configService.getOrThrow<string>('SMTP_USER'),
       to: job.data.email,
       subject: 'PeagePay password reset',

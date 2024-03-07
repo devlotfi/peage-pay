@@ -11,12 +11,13 @@ import { Utils } from 'src/utils';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { SignInResult } from './result/sign-in.result';
-import { BaseUserType } from 'src/user/graphql/base-user.graphql';
 import { TokenService } from 'src/token/token.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
 import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input';
 import { Request, Response } from 'express';
+import { UserService } from 'src/user/user.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class EmailAuthService {
@@ -24,66 +25,67 @@ export class EmailAuthService {
     private readonly databaseService: DatabaseService,
     private readonly emailService: EmailService,
     private readonly tokenService: TokenService,
+    private readonly userService: UserService,
     private readonly authRedisService: AuthRedisService,
   ) {}
 
   public async signUpWithEmail(
     signUpWithEmailInput: SignUpWithEmailInput,
   ): Promise<boolean> {
-    const existingUser = await this.databaseService.emailAuthMethod.findFirst({
-      where: {
-        email: signUpWithEmailInput.email,
-      },
-    });
-    if (existingUser) {
-      throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
-    }
-
     const hashedPassword = await Utils.hashString(
       signUpWithEmailInput.password,
     );
 
-    const baseUser = await this.databaseService.baseUser.create({
-      data: {
-        firstName: signUpWithEmailInput.firstName,
-        lastName: signUpWithEmailInput.lastName,
-        user: {
-          create: {},
-        },
-        authMethod: {
-          create: {
-            emailAuthMethod: {
-              create: {
-                email: signUpWithEmailInput.email,
-                passwordHash: hashedPassword,
+    try {
+      const baseUser = await this.databaseService.baseUser.create({
+        data: {
+          firstName: signUpWithEmailInput.firstName,
+          lastName: signUpWithEmailInput.lastName,
+          user: {
+            create: {},
+          },
+          authMethod: {
+            create: {
+              emailAuthMethod: {
+                create: {
+                  email: signUpWithEmailInput.email,
+                  passwordHash: hashedPassword,
+                },
               },
             },
           },
         },
-      },
-      include: {
-        authMethod: {
-          include: {
-            emailAuthMethod: true,
+        include: {
+          authMethod: {
+            include: {
+              emailAuthMethod: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    console.log(baseUser);
+      console.log(baseUser);
 
-    await this.emailService.sendVerificationEmail(
-      baseUser.id,
-      baseUser.authMethod?.emailAuthMethod?.email as any,
-    );
+      await this.emailService.sendVerificationEmail(
+        baseUser.id,
+        baseUser.authMethod?.emailAuthMethod?.email as any,
+      );
 
-    return true;
+      return true;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
+        }
+      }
+      throw error;
+    }
   }
 
   public async verifyEmail(
     verifyEmailInput: VerifyEmailInput,
   ): Promise<boolean> {
-    const baseUser = await this.databaseService.baseUser.findFirst({
+    const baseUser = await this.databaseService.baseUser.findUnique({
       where: {
         id: verifyEmailInput.userId,
       },
@@ -171,7 +173,7 @@ export class EmailAuthService {
   public async resetPassword(
     resetPasswordInput: ResetPasswordInput,
   ): Promise<boolean> {
-    const baseUser = await this.databaseService.baseUser.findFirst({
+    const baseUser = await this.databaseService.baseUser.findUnique({
       where: {
         id: resetPasswordInput.userId,
       },
@@ -225,7 +227,7 @@ export class EmailAuthService {
     res: Response,
   ): Promise<SignInResult> {
     const emailAuthMethod =
-      await this.databaseService.emailAuthMethod.findFirst({
+      await this.databaseService.emailAuthMethod.findUnique({
         where: {
           email: signInWithEmailInput.email,
         },
@@ -287,14 +289,18 @@ export class EmailAuthService {
     const accessToken = await this.tokenService.generateAccessToken(
       emailAuthMethod.authMethod.userId,
     );
-    const signInWithEmailResult = new SignInResult();
-    signInWithEmailResult.baseUser = emailAuthMethod.authMethod
-      .baseUser as BaseUserType;
-    signInWithEmailResult.accessToken = accessToken;
-    if (refreshTokenMode === RefreshTokenMode.PLAIN_TEXT) {
-      signInWithEmailResult.refreshToken = refreshToken;
-    }
+    const roles = await this.userService.getUserRolesList(
+      emailAuthMethod.authMethod.userId,
+    );
+    const signInResult = new SignInResult(
+      emailAuthMethod.authMethod.baseUser,
+      accessToken,
+      roles,
+      refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
+        ? refreshToken
+        : undefined,
+    );
 
-    return signInWithEmailResult;
+    return signInResult;
   }
 }

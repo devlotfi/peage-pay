@@ -7,12 +7,13 @@ import { AuthErrors } from './graphql/auth-errors.graphql';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { Request, Response } from 'express';
-import { BaseUserType } from 'src/user/graphql/base-user.graphql';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class GoogleAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
+    private readonly userService: UserService,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -28,7 +29,7 @@ export class GoogleAuthService {
       );
 
       let googleAuthMethod =
-        await this.databaseService.googleAuthMethod.findFirst({
+        await this.databaseService.googleAuthMethod.findUnique({
           where: {
             googleId: `${googleProfile.id}`,
           },
@@ -70,8 +71,8 @@ export class GoogleAuthService {
         });
       }
 
-      googleAuthMethod = (await this.databaseService.googleAuthMethod.findFirst(
-        {
+      googleAuthMethod =
+        (await this.databaseService.googleAuthMethod.findUnique({
           where: {
             googleId: `${googleProfile.id}`,
           },
@@ -82,8 +83,7 @@ export class GoogleAuthService {
               },
             },
           },
-        },
-      ))!;
+        }))!;
       const refreshToken = await this.tokenService.generateRefreshToken(
         googleAuthMethod.authMethod.userId,
         req,
@@ -93,13 +93,17 @@ export class GoogleAuthService {
       const accessToken = await this.tokenService.generateAccessToken(
         googleAuthMethod.authMethod.userId,
       );
-      const signInResult = new SignInResult();
-      signInResult.baseUser = googleAuthMethod.authMethod
-        .baseUser as BaseUserType;
-      signInResult.accessToken = accessToken;
-      if (refreshTokenMode === RefreshTokenMode.PLAIN_TEXT) {
-        signInResult.refreshToken = refreshToken;
-      }
+      const roles = await this.userService.getUserRolesList(
+        googleAuthMethod.authMethod.userId,
+      );
+      const signInResult = new SignInResult(
+        googleAuthMethod.authMethod.baseUser,
+        accessToken,
+        roles,
+        refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
+          ? refreshToken
+          : undefined,
+      );
 
       return signInResult;
     } catch (error) {

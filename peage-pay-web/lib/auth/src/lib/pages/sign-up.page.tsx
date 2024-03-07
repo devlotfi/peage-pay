@@ -1,29 +1,26 @@
 import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
 import { useState } from 'react';
-import SignInWithEmailForm from '../components/sign-in-with-email-form.component';
-import SignInWithGoogleForm from '../components/sign-in-with-google-form.component';
-import SignInWithPhoneForm from '../components/sign-in-with-phone-form.component';
+import SignInWithPhoneForm from '../components/sign-in/sign-in-with-phone-form.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn, faUserGear } from '@fortawesome/free-solid-svg-icons';
 import { Toll } from '@peage-pay-web/assets';
 import SignUpPageTabs, {
   SignUpTabsEnum,
-} from '../components/sign-up-page-tabs.component';
+} from '../components/sign-up/sign-up-page-tabs.component';
 import { Link } from 'react-router-dom';
+import SignUpWithEmailForm from '../components/sign-up/sign-up-with-email-form.component';
 
-interface SignInPageProps {
+interface SignUpPageProps {
   title: string;
 }
 
-const SignUpPage = ({ title }: SignInPageProps): JSX.Element => {
+const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
   const [tab, setTab] = useState<SignUpTabsEnum>(SignUpTabsEnum.EMAIL);
 
   const renderTabContent = () => {
     switch (tab) {
       case SignUpTabsEnum.EMAIL:
-        return <SignInWithEmailForm></SignInWithEmailForm>;
-      case SignUpTabsEnum.GOOGLE:
-        return <SignInWithGoogleForm></SignInWithGoogleForm>;
+        return <SignUpWithEmailForm></SignUpWithEmailForm>;
       case SignUpTabsEnum.PHONE:
         return <SignInWithPhoneForm></SignInWithPhoneForm>;
     }
