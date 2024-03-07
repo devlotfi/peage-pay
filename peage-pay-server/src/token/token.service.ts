@@ -142,7 +142,7 @@ export class TokenService {
         secret: this.configService.getOrThrow<string>(
           'JWT_ACCESS_TOKEN_SECRET',
         ),
-        expiresIn: '5min',
+        expiresIn: '30min',
       },
     );
 

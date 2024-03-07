@@ -41,7 +41,7 @@ export class HighwayResolver {
     )) as HighwayType;
   }
 
-  @Mutation(() => HighwayType)
+  @Mutation(() => Boolean)
   @AllowRoles([UserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteHighway(

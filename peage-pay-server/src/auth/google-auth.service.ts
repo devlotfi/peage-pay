@@ -3,11 +3,11 @@ import { SignInResult } from './result/sign-in.result';
 import { SignInWithGoogleInput } from './input/sign-in-with-google.input';
 import { TokenService } from 'src/token/token.service';
 import { GraphQLError } from 'graphql';
-import { AuthErrors } from './graphql/auth-errors.graphql';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
+import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
 @Injectable()
 export class GoogleAuthService {
@@ -107,7 +107,7 @@ export class GoogleAuthService {
 
       return signInResult;
     } catch (error) {
-      throw new GraphQLError(AuthErrors.INVALID_GOOGLE_OAUTH_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_GOOGLE_OAUTH_TOKEN);
     }
   }
 }

@@ -5,7 +5,7 @@ import { AddHighwayInput } from './input/add-highway.input';
 import { EditHighwayInput } from './input/edit-highway.input';
 import { DeleteHighwayInput } from './input/delete-highway.input';
 import { GraphQLError } from 'graphql';
-import { UserErrors } from 'src/user/graphql/user-errors.graphql';
+import { HighwayErrors } from './graphql/highway-errors.graphql';
 
 @Injectable()
 export class HighwayService {
@@ -28,7 +28,7 @@ export class HighwayService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
+          throw new GraphQLError(HighwayErrors.HIGHWAY_EXISTS);
         }
       }
       throw error;
@@ -53,7 +53,7 @@ export class HighwayService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
+          throw new GraphQLError(HighwayErrors.HIGHWAY_EXISTS);
         }
       }
       throw error;

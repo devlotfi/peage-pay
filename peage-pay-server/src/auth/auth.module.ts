@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AuthResolver } from './auth.resolver';
-import { DatabaseModule } from 'src/database/database.module';
 import { EmailModule } from 'src/email/email.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { TokenModule } from 'src/token/token.module';
 import { RedisModule } from 'src/redis/redis.module';
 import { AuthRedisService } from './auth-redis.service';
 import { EmailAuthService } from './email-auth.service';
@@ -16,11 +14,9 @@ import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
-    DatabaseModule,
     EmailModule,
     SmsModule,
     ConfigModule,
-    TokenModule,
     RedisModule,
     UserModule,
     JwtModule.register({}),

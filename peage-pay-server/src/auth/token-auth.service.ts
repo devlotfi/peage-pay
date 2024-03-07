@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
-import { AuthErrors } from './graphql/auth-errors.graphql';
 import { TokenService } from 'src/token/token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
@@ -10,6 +9,7 @@ import { Request, Response } from 'express';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { UserService } from 'src/user/user.service';
 import { UserErrors } from 'src/user/graphql/user-errors.graphql';
+import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
 @Injectable()
 export class TokenAuthService {
@@ -26,7 +26,7 @@ export class TokenAuthService {
       signInWithRefreshTokenInput.refreshToken,
     );
     if (!valid || !payload) {
-      throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_REFRESH_TOKEN);
     }
 
     console.log(payload);
@@ -58,10 +58,10 @@ export class TokenAuthService {
     const { payload, valid, refreshToken } =
       await this.tokenService.checkRefreshTokenCookie(req, res);
     if (!refreshToken) {
-      throw new GraphQLError(AuthErrors.REFRESH_TOKEN_NOT_PROVIDED);
+      throw new GraphQLError(TokenErrors.REFRESH_TOKEN_NOT_PROVIDED);
     }
     if (!valid || !payload) {
-      throw new GraphQLError(AuthErrors.INVALID_REFRESH_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_REFRESH_TOKEN);
     }
 
     console.log(payload);

@@ -17,6 +17,9 @@ import { UserErrors } from './user/graphql/user-errors.graphql';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
 import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
+import { SubscriptionModule } from './subscription/subscription.module';
+import { HumanRessourcesAdminModule } from './human-ressources-admin/human-ressources-admin.module';
+import { TokenErrors } from './token/graphql/token-errors.graphql';
 
 @Module({
   imports: [
@@ -45,7 +48,7 @@ import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
       autoSchemaFile: true,
       playground: false,
       buildSchemaOptions: {
-        orphanedTypes: [AuthErrors, UserErrors, HighwayErrors],
+        orphanedTypes: [AuthErrors, UserErrors, HighwayErrors, TokenErrors],
       },
       context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
@@ -58,6 +61,8 @@ import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
     UserModule,
     TokenModule,
     HighwayModule,
+    SubscriptionModule,
+    HumanRessourcesAdminModule,
   ],
 })
 export class AppModule {}

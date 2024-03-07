@@ -18,6 +18,7 @@ import { ResetPasswordInput } from './input/reset-password.input';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { Prisma } from '@prisma/client';
+import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
 @Injectable()
 export class EmailAuthService {
@@ -102,7 +103,7 @@ export class EmailAuthService {
       throw new GraphQLError(UserErrors.USER_NOT_FOUND);
     }
     if (!baseUser.verificationToken) {
-      throw new GraphQLError(AuthErrors.VERIFICATION_TOKEN_NOT_FOUND);
+      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
     }
     if (!baseUser.authMethod || !baseUser.authMethod.emailAuthMethod) {
       throw new GraphQLError(AuthErrors.EMAIL_AUTH_NOT_FOUND);
@@ -111,7 +112,7 @@ export class EmailAuthService {
       throw new GraphQLError(AuthErrors.EMAIL_ALREADY_VERIFIED);
     }
     if (new Date() > baseUser.verificationToken.expiresAt) {
-      throw new GraphQLError(AuthErrors.VERIFICATION_TOKEN_EXPIRED);
+      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
     }
 
     console.log(baseUser);
@@ -121,7 +122,7 @@ export class EmailAuthService {
       baseUser.verificationToken.tokenHash,
     );
     if (!result) {
-      throw new GraphQLError(AuthErrors.INVALID_VERIFICATION_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_VERIFICATION_TOKEN);
     }
 
     await this.databaseService.emailAuthMethod.update({
@@ -190,13 +191,13 @@ export class EmailAuthService {
       throw new GraphQLError(UserErrors.USER_NOT_FOUND);
     }
     if (!baseUser.verificationToken) {
-      throw new GraphQLError(AuthErrors.VERIFICATION_TOKEN_NOT_FOUND);
+      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
     }
     if (!baseUser.authMethod || !baseUser.authMethod.emailAuthMethod) {
       throw new GraphQLError(AuthErrors.EMAIL_AUTH_NOT_FOUND);
     }
     if (new Date() > baseUser.verificationToken.expiresAt) {
-      throw new GraphQLError(AuthErrors.VERIFICATION_TOKEN_EXPIRED);
+      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
     }
 
     console.log(baseUser);
@@ -206,7 +207,7 @@ export class EmailAuthService {
       baseUser.verificationToken.tokenHash,
     );
     if (!result) {
-      throw new GraphQLError(AuthErrors.INVALID_VERIFICATION_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_VERIFICATION_TOKEN);
     }
 
     await this.databaseService.emailAuthMethod.update({

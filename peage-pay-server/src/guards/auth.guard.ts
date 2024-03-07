@@ -2,8 +2,8 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { GraphQLError } from 'graphql';
-import { AuthErrors } from 'src/auth/graphql/auth-errors.graphql';
 import { AllowRoles } from 'src/decorators/allow-roles.decorator';
+import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 import { TokenService } from 'src/token/token.service';
 import { UserErrors } from 'src/user/graphql/user-errors.graphql';
 import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
@@ -32,14 +32,14 @@ export class AuthGuard implements CanActivate {
 
     const authorizarion: string = req.headers['authorization'];
     if (!authorizarion) {
-      throw new GraphQLError(AuthErrors.ACCESS_TOKEN_NOT_PROVIDED);
+      throw new GraphQLError(TokenErrors.ACCESS_TOKEN_NOT_PROVIDED);
     }
 
     const accessToken: string = authorizarion.split(' ')[1];
     const { payload, valid } =
       await this.tokenService.checkAccessToken(accessToken);
     if (!valid || !payload) {
-      throw new GraphQLError(AuthErrors.INVALID_ACCESS_TOKEN);
+      throw new GraphQLError(TokenErrors.INVALID_ACCESS_TOKEN);
     }
 
     const allowedRoles = this.reflector.get(AllowRoles, context.getHandler());
