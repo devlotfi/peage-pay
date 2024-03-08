@@ -10,7 +10,7 @@ import { TokenAuthService } from './token-auth.service';
 import { GoogleAuthService } from './google-auth.service';
 import { PhoneAuthService } from './phone-auth.service';
 import { SmsModule } from 'src/sms/sms.module';
-import { UserModule } from 'src/user/user.module';
+import { BaseUserModule } from 'src/base-user/base-user.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { UserModule } from 'src/user/user.module';
     SmsModule,
     ConfigModule,
     RedisModule,
-    UserModule,
+    BaseUserModule,
     JwtModule.register({}),
   ],
   providers: [

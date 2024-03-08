@@ -7,15 +7,15 @@ import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.
 import { AccessTokenPayload } from './types/access-token-payload.type';
 import { Request, Response } from 'express';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
-import { UserService } from 'src/user/user.service';
-import { UserErrors } from 'src/user/graphql/user-errors.graphql';
+import { BaseUserService } from 'src/base-user/base-user.service';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
 import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
 @Injectable()
 export class TokenAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
-    private readonly userService: UserService,
+    private readonly baseUserService: BaseUserService,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -37,11 +37,11 @@ export class TokenAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
 
     const accessToken = await this.tokenService.generateAccessToken(userId);
-    const roles = await this.userService.getUserRolesList(userId);
+    const roles = await this.baseUserService.getUserRolesList(userId);
     const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
       baseUser,
       accessToken,
@@ -72,11 +72,11 @@ export class TokenAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
 
     const accessToken = await this.tokenService.generateAccessToken(userId);
-    const roles = await this.userService.getUserRolesList(userId);
+    const roles = await this.baseUserService.getUserRolesList(userId);
     const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
       baseUser,
       accessToken,

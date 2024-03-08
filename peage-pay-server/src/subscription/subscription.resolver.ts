@@ -1,13 +1,14 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SubscriptionService } from './subscription.service';
 import { SubscriptionType } from './graphql/subscription.graphql';
 import { AddSubscriptionInput } from './input/add-subscription.input';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { AllowRoles } from 'src/decorators/allow-roles.decorator';
-import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
 import { EditSubscriptionInput } from './input/edit-subscription.input';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input';
+import { SubscriptionListInput } from './input/subscription-list.input';
 
 @Resolver()
 export class SubscriptionResolver {
@@ -15,15 +16,19 @@ export class SubscriptionResolver {
     private readonly subscriptionService: SubscriptionService,
   ) {}
 
-  @Mutation(() => SubscriptionType)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @Query(() => [SubscriptionType])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
-  public async subscriptions(): Promise<SubscriptionType[]> {
-    return await this.subscriptionService.subscriptions();
+  public async subscriptionList(
+    @Args('subscriptionListInput') subscriptionListInput: SubscriptionListInput,
+  ): Promise<SubscriptionType[]> {
+    return await this.subscriptionService.subscriptionList(
+      subscriptionListInput,
+    );
   }
 
   @Mutation(() => SubscriptionType)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async addSubscription(
     @Args('addSubscriptionInput') addSubscriptionInput: AddSubscriptionInput,
@@ -32,7 +37,7 @@ export class SubscriptionResolver {
   }
 
   @Mutation(() => SubscriptionType)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async editSubscription(
     @Args('editSubscriptionInput') editSubscriptionInput: EditSubscriptionInput,
@@ -43,7 +48,7 @@ export class SubscriptionResolver {
   }
 
   @Mutation(() => Boolean)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteSubscription(
     @Args('deleteSubscriptionInput')

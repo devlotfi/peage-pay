@@ -1,11 +1,11 @@
 import { OnQueueActive, Process, Processor } from '@nestjs/bull';
 import { ConfigService } from '@nestjs/config';
 import { Job } from 'bull';
-import { BullQueues } from 'src/constants/bull-queues';
+import { BullQueues } from 'src/shared/constants/bull-queues';
 import { DatabaseService } from 'src/database/database.service';
-import { Env } from 'src/config/env.type';
-import { BullProcesses } from 'src/constants/bull-processes';
-import { SendVerificationSms } from 'src/jobs/send-verification-sms.type';
+import { Env } from 'src/shared/config/env.type';
+import { BullProcesses } from 'src/shared/constants/bull-processes';
+import { SendVerificationSms } from 'src/shared/jobs/send-verification-sms.type';
 import { TwilioService } from './twilio.service';
 
 @Processor(BullQueues.SMS)

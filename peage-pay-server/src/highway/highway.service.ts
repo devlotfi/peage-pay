@@ -6,13 +6,59 @@ import { EditHighwayInput } from './input/edit-highway.input';
 import { DeleteHighwayInput } from './input/delete-highway.input';
 import { GraphQLError } from 'graphql';
 import { HighwayErrors } from './graphql/highway-errors.graphql';
+import { HighwayListInput } from './input/highway-list.input';
 
 @Injectable()
 export class HighwayService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
-  public async highways(): Promise<Highway[]> {
-    return await this.databaseService.highway.findMany();
+  public async highwayList(
+    highwayListInput: HighwayListInput,
+  ): Promise<Highway[]> {
+    return await this.databaseService.highway.findMany({
+      where: highwayListInput.search
+        ? highwayListInput.searchField
+          ? {
+              [highwayListInput.searchField]: {
+                contains: highwayListInput.search,
+                mode: 'insensitive',
+              },
+            }
+          : {
+              OR: [
+                {
+                  id: {
+                    contains: highwayListInput.search,
+                    mode: 'insensitive',
+                  },
+                },
+                {
+                  name: {
+                    contains: highwayListInput.search,
+                    mode: 'insensitive',
+                  },
+                },
+                {
+                  code: {
+                    contains: highwayListInput.search,
+                    mode: 'insensitive',
+                  },
+                },
+              ],
+            }
+        : undefined,
+
+      orderBy: highwayListInput.orderByField
+        ? {
+            [highwayListInput.orderByField]: highwayListInput.sortMode
+              ? highwayListInput.sortMode
+              : 'desc',
+          }
+        : undefined,
+
+      take: highwayListInput.take,
+      skip: highwayListInput.skip,
+    });
   }
 
   public async addHighway(addHighwayInput: AddHighwayInput): Promise<Highway> {

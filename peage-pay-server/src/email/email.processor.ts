@@ -1,14 +1,14 @@
 import { OnQueueActive, Process, Processor } from '@nestjs/bull';
 import { ConfigService } from '@nestjs/config';
 import { Job } from 'bull';
-import { BullProcesses } from 'src/constants/bull-processes';
-import { BullQueues } from 'src/constants/bull-queues';
-import { SendVerificationEmail } from 'src/jobs/send-verification-email.type';
+import { BullProcesses } from 'src/shared/constants/bull-processes';
+import { BullQueues } from 'src/shared/constants/bull-queues';
+import { SendVerificationEmail } from 'src/shared/jobs/send-verification-email.type';
 import { DatabaseService } from 'src/database/database.service';
-import { Utils } from 'src/utils';
+import { Utils } from 'src/shared/utils';
 import { NodemailerService } from './nodemailer.service';
 import { TokenService } from 'src/token/token.service';
-import { SendResetPasswordEmail } from 'src/jobs/send-reset-password-email.type';
+import { SendResetPasswordEmail } from 'src/shared/jobs/send-reset-password-email.type';
 
 @Processor(BullQueues.EMAIL)
 export class EmailProcessor {

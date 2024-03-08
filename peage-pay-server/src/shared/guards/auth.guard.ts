@@ -2,11 +2,11 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { GraphQLError } from 'graphql';
-import { AllowRoles } from 'src/decorators/allow-roles.decorator';
+import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 import { TokenService } from 'src/token/token.service';
-import { UserErrors } from 'src/user/graphql/user-errors.graphql';
-import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,8 +16,8 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   private checkRoles(
-    allowedRoles: UserRolesType[],
-    userRoles: UserRolesType[],
+    allowedRoles: BaseUserRolesType[],
+    userRoles: BaseUserRolesType[],
   ): boolean {
     for (const role of allowedRoles) {
       if (userRoles.indexOf(role) !== -1) {
@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate {
 
     const allowed = this.checkRoles(allowedRoles, payload.userRoles);
     if (!allowed) {
-      throw new GraphQLError(UserErrors.INSUFFICIENT_PRIVILEGES);
+      throw new GraphQLError(BaseUserErrors.INSUFFICIENT_PRIVILEGES);
     }
 
     return true;

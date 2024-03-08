@@ -1,13 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseUserType } from 'src/user/graphql/base-user.graphql';
-import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
+import { BaseUserType } from 'src/base-user/graphql/base-user.graphql';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
 
 @ObjectType()
 export class SignInResult {
   public constructor(
     baseUser: BaseUserType,
     accessToken: string,
-    roles: UserRolesType[],
+    roles: BaseUserRolesType[],
     refreshToken?: string,
   ) {
     this.baseUser = baseUser;
@@ -25,6 +25,6 @@ export class SignInResult {
   @Field()
   public accessToken: string;
 
-  @Field(() => [UserRolesType])
-  public roles: UserRolesType[];
+  @Field(() => [BaseUserRolesType])
+  public roles: BaseUserRolesType[];
 }

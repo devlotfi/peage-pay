@@ -4,7 +4,7 @@ import { SmsProcessor } from './sms.processor';
 import { TwilioService } from './twilio.service';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
-import { BullQueues } from 'src/constants/bull-queues';
+import { BullQueues } from 'src/shared/constants/bull-queues';
 
 @Module({
   imports: [

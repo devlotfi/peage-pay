@@ -6,8 +6,8 @@ import { compare } from 'bcrypt';
 import { EmailService } from 'src/email/email.service';
 import { AuthErrors } from './graphql/auth-errors.graphql';
 import { VerifyEmailInput } from './input/verify-email.input';
-import { UserErrors } from 'src/user/graphql/user-errors.graphql';
-import { Utils } from 'src/utils';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
+import { Utils } from 'src/shared/utils';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { SignInResult } from './result/sign-in.result';
@@ -16,7 +16,7 @@ import { SendResetPasswordEmailInput } from './input/send-reset-password-email.i
 import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input';
 import { Request, Response } from 'express';
-import { UserService } from 'src/user/user.service';
+import { BaseUserService } from 'src/base-user/base-user.service';
 import { Prisma } from '@prisma/client';
 import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
@@ -26,7 +26,7 @@ export class EmailAuthService {
     private readonly databaseService: DatabaseService,
     private readonly emailService: EmailService,
     private readonly tokenService: TokenService,
-    private readonly userService: UserService,
+    private readonly baseUserService: BaseUserService,
     private readonly authRedisService: AuthRedisService,
   ) {}
 
@@ -76,7 +76,7 @@ export class EmailAuthService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new GraphQLError(UserErrors.USER_WITH_EMAIL_EXISTS);
+          throw new GraphQLError(BaseUserErrors.BASE_USER_WITH_EMAIL_EXISTS);
         }
       }
       throw error;
@@ -100,7 +100,7 @@ export class EmailAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
     if (!baseUser.verificationToken) {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
@@ -150,7 +150,7 @@ export class EmailAuthService {
         },
       });
     if (!emailAuthMethod) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
 
     const passwordResetAttempts =
@@ -188,7 +188,7 @@ export class EmailAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
     if (!baseUser.verificationToken) {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
@@ -241,7 +241,7 @@ export class EmailAuthService {
         },
       });
     if (!emailAuthMethod) {
-      throw new GraphQLError(UserErrors.USER_NOT_FOUND);
+      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
     }
 
     const signInWithEmailAttempts =
@@ -290,7 +290,7 @@ export class EmailAuthService {
     const accessToken = await this.tokenService.generateAccessToken(
       emailAuthMethod.authMethod.userId,
     );
-    const roles = await this.userService.getUserRolesList(
+    const roles = await this.baseUserService.getUserRolesList(
       emailAuthMethod.authMethod.userId,
     );
     const signInResult = new SignInResult(

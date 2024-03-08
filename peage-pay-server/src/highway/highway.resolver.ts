@@ -3,11 +3,12 @@ import { HighwayService } from './highway.service';
 import { AddHighwayInput } from './input/add-highway.input';
 import { HighwayType } from './graphql/highway.graphql';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { AllowRoles } from 'src/decorators/allow-roles.decorator';
-import { UserRolesType } from 'src/user/graphql/user-roles.graphql';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
 import { EditHighwayInput } from './input/edit-highway.input';
 import { DeleteHighwayInput } from './input/delete-highway.input';
+import { HighwayListInput } from './input/highway-list.input';
 
 @Resolver()
 export class HighwayResolver {
@@ -15,12 +16,14 @@ export class HighwayResolver {
 
   @Query(() => [HighwayType])
   @UseGuards(AuthGuard)
-  public async highways(): Promise<HighwayType[]> {
-    return await this.highwayService.highways();
+  public async highwayList(
+    @Args('highwayListInput') highwayListInput: HighwayListInput,
+  ): Promise<HighwayType[]> {
+    return await this.highwayService.highwayList(highwayListInput);
   }
 
   @Mutation(() => HighwayType)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async addHighway(
     @Args('addHighwayInput') addHighwayInput: AddHighwayInput,
@@ -31,7 +34,7 @@ export class HighwayResolver {
   }
 
   @Mutation(() => HighwayType)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async editHighway(
     @Args('editHighwayInput') editHighwayInput: EditHighwayInput,
@@ -42,7 +45,7 @@ export class HighwayResolver {
   }
 
   @Mutation(() => Boolean)
-  @AllowRoles([UserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteHighway(
     @Args('deleteHighwayInput') deleteHighwayInput: DeleteHighwayInput,

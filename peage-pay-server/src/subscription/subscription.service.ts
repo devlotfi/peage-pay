@@ -6,13 +6,53 @@ import { GraphQLError } from 'graphql';
 import { SubscriptionErrors } from './graphql/subscription-errors.graphql';
 import { EditSubscriptionInput } from './input/edit-subscription.input';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input';
+import { SubscriptionListInput } from './input/subscription-list.input';
 
 @Injectable()
 export class SubscriptionService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
-  public async subscriptions(): Promise<Subscription[]> {
-    return await this.databaseService.subscription.findMany();
+  public async subscriptionList(
+    subscriptionListInput: SubscriptionListInput,
+  ): Promise<Subscription[]> {
+    return await this.databaseService.subscription.findMany({
+      where: subscriptionListInput.search
+        ? subscriptionListInput.searchField
+          ? {
+              [subscriptionListInput.searchField]: {
+                contains: subscriptionListInput.search,
+                mode: 'insensitive',
+              },
+            }
+          : {
+              OR: [
+                {
+                  id: {
+                    contains: subscriptionListInput.search,
+                    mode: 'insensitive',
+                  },
+                },
+                {
+                  name: {
+                    contains: subscriptionListInput.search,
+                    mode: 'insensitive',
+                  },
+                },
+              ],
+            }
+        : undefined,
+
+      orderBy: subscriptionListInput.orderByField
+        ? {
+            [subscriptionListInput.orderByField]: subscriptionListInput.sortMode
+              ? subscriptionListInput.sortMode
+              : 'desc',
+          }
+        : undefined,
+
+      take: subscriptionListInput.take,
+      skip: subscriptionListInput.skip,
+    });
   }
 
   public async addSubscription(

@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class HighwayType {
+export class Wilaya {
   @Field(() => ID)
   public id: string;
 
@@ -10,10 +10,4 @@ export class HighwayType {
 
   @Field()
   public code: string;
-
-  @Field(() => Date)
-  public createdAt: Date;
-
-  @Field(() => Date)
-  public updatedAt: Date;
 }

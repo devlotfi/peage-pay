@@ -4,12 +4,12 @@ import { JwtService } from '@nestjs/jwt';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import * as Cookies from 'cookies';
-import { CookieKeys } from 'src/constants/cookie-keys';
+import { CookieKeys } from 'src/shared/constants/cookie-keys';
 import { RefreshTokenMode } from 'src/auth/graphql/refresh-token-mode.graphql';
 import { DatabaseService } from 'src/database/database.service';
-import { Utils } from 'src/utils';
-import { UserService } from 'src/user/user.service';
-import { Env } from 'src/config/env.type';
+import { Utils } from 'src/shared/utils';
+import { BaseUserService } from 'src/base-user/base-user.service';
+import { Env } from 'src/shared/config/env.type';
 import { RefreshTokenPayload } from 'src/auth/types/refresh-token-payload.type';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
 import { google } from 'googleapis';
@@ -19,7 +19,7 @@ export class TokenService {
   public constructor(
     private readonly configService: ConfigService<Env>,
     private readonly databaseService: DatabaseService,
-    private readonly userService: UserService,
+    private readonly baseUserService: BaseUserService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -132,7 +132,7 @@ export class TokenService {
   }
 
   public async generateAccessToken(userId: string): Promise<string> {
-    const userRoles = await this.userService.getUserRolesList(userId);
+    const userRoles = await this.baseUserService.getUserRolesList(userId);
     const accessToken = await this.jwtService.signAsync(
       {
         userId,

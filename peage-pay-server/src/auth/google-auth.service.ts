@@ -6,14 +6,14 @@ import { GraphQLError } from 'graphql';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
 import { Request, Response } from 'express';
-import { UserService } from 'src/user/user.service';
+import { BaseUserService } from 'src/base-user/base-user.service';
 import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
 
 @Injectable()
 export class GoogleAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
-    private readonly userService: UserService,
+    private readonly baseUserService: BaseUserService,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -93,7 +93,7 @@ export class GoogleAuthService {
       const accessToken = await this.tokenService.generateAccessToken(
         googleAuthMethod.authMethod.userId,
       );
-      const roles = await this.userService.getUserRolesList(
+      const roles = await this.baseUserService.getUserRolesList(
         googleAuthMethod.authMethod.userId,
       );
       const signInResult = new SignInResult(

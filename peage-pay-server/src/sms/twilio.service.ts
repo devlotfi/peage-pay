@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Env } from 'src/config/env.type';
+import { Env } from 'src/shared/config/env.type';
 import { Twilio } from 'twilio';
 
 @Injectable()

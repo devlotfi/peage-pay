@@ -1,8 +1,8 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { BullProcesses } from 'src/constants/bull-processes';
-import { BullQueues } from 'src/constants/bull-queues';
+import { BullProcesses } from 'src/shared/constants/bull-processes';
+import { BullQueues } from 'src/shared/constants/bull-queues';
 
 @Injectable()
 export class EmailService {

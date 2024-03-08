@@ -5,21 +5,22 @@ import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { SmsModule } from './sms/sms.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { validateEnv } from './config/validate-env';
-import { UserModule } from './user/user.module';
+import { validateEnv } from './shared/config/validate-env';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { AuthErrors } from './auth/graphql/auth-errors.graphql';
 import { BullModule } from '@nestjs/bull';
-import { Env } from './config/env.type';
-import { UserErrors } from './user/graphql/user-errors.graphql';
+import { Env } from './shared/config/env.type';
+import { BaseUserErrors } from './base-user/graphql/base-user-errors.graphql';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
 import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { HumanRessourcesAdminModule } from './human-ressources-admin/human-ressources-admin.module';
 import { TokenErrors } from './token/graphql/token-errors.graphql';
+import { TollModule } from './toll/toll.module';
+import { BaseUserModule } from './base-user/base-user.module';
 
 @Module({
   imports: [
@@ -48,7 +49,7 @@ import { TokenErrors } from './token/graphql/token-errors.graphql';
       autoSchemaFile: true,
       playground: false,
       buildSchemaOptions: {
-        orphanedTypes: [AuthErrors, UserErrors, HighwayErrors, TokenErrors],
+        orphanedTypes: [AuthErrors, BaseUserErrors, HighwayErrors, TokenErrors],
       },
       context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
@@ -58,11 +59,12 @@ import { TokenErrors } from './token/graphql/token-errors.graphql';
     AuthModule,
     EmailModule,
     SmsModule,
-    UserModule,
     TokenModule,
     HighwayModule,
     SubscriptionModule,
     HumanRessourcesAdminModule,
+    TollModule,
+    BaseUserModule,
   ],
 })
 export class AppModule {}
