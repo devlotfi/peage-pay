@@ -5,7 +5,7 @@ import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import * as Cookies from 'cookies';
 import { CookieKeys } from 'src/shared/constants/cookie-keys';
-import { RefreshTokenMode } from 'src/auth/graphql/refresh-token-mode.graphql';
+import { RefreshTokenMode } from 'src/auth/graphql/refresh-token-mode.gql';
 import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
 import { BaseUserService } from 'src/base-user/base-user.service';

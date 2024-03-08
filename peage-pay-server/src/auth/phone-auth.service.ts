@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input';
-import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result';
+import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input.gql';
+import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result.gql';
 import { SmsService } from 'src/sms/sms.service';
 import { Twilio } from 'twilio';
 

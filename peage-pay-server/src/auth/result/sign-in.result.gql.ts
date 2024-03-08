@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseUserType } from 'src/base-user/graphql/base-user.graphql';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
+import { BaseUserType } from 'src/base-user/graphql/base-user.gql';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 
 @ObjectType()
 export class SignInResult {

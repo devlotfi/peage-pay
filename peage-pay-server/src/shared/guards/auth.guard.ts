@@ -3,10 +3,10 @@ import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { GraphQLError } from 'graphql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
-import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
+import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { TokenService } from 'src/token/token.service';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.graphql';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
+import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

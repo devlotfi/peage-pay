@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Highway, Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
-import { AddHighwayInput } from './input/add-highway.input';
-import { EditHighwayInput } from './input/edit-highway.input';
-import { DeleteHighwayInput } from './input/delete-highway.input';
+import { AddHighwayInput } from './input/add-highway.input.gql';
+import { EditHighwayInput } from './input/edit-highway.input.gql';
+import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { GraphQLError } from 'graphql';
-import { HighwayErrors } from './graphql/highway-errors.graphql';
-import { HighwayListInput } from './input/highway-list.input';
+import { HighwayErrors } from './graphql/highway-errors.gql';
+import { HighwayListInput } from './input/highway-list.input.gql';
 
 @Injectable()
 export class HighwayService {
@@ -16,45 +16,28 @@ export class HighwayService {
     highwayListInput: HighwayListInput,
   ): Promise<Highway[]> {
     return await this.databaseService.highway.findMany({
-      where: highwayListInput.search
-        ? highwayListInput.searchField
-          ? {
-              [highwayListInput.searchField]: {
-                contains: highwayListInput.search,
-                mode: 'insensitive',
-              },
-            }
-          : {
-              OR: [
-                {
-                  id: {
-                    contains: highwayListInput.search,
-                    mode: 'insensitive',
-                  },
-                },
-                {
-                  name: {
-                    contains: highwayListInput.search,
-                    mode: 'insensitive',
-                  },
-                },
-                {
-                  code: {
-                    contains: highwayListInput.search,
-                    mode: 'insensitive',
-                  },
-                },
-              ],
-            }
-        : undefined,
-
-      orderBy: highwayListInput.orderByField
-        ? {
-            [highwayListInput.orderByField]: highwayListInput.sortMode
-              ? highwayListInput.sortMode
-              : 'desc',
-          }
-        : undefined,
+      where: {
+        OR: [
+          {
+            id: {
+              contains: highwayListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: highwayListInput.nameSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            code: {
+              contains: highwayListInput.codeSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
 
       take: highwayListInput.take,
       skip: highwayListInput.skip,
@@ -109,15 +92,11 @@ export class HighwayService {
   public async deleteHighway(
     deleteHighwayInput: DeleteHighwayInput,
   ): Promise<boolean> {
-    try {
-      await this.databaseService.highway.delete({
-        where: {
-          id: deleteHighwayInput.highwayId,
-        },
-      });
-      return true;
-    } catch (error) {
-      throw error;
-    }
+    await this.databaseService.highway.delete({
+      where: {
+        id: deleteHighwayInput.highwayId,
+      },
+    });
+    return true;
   }
 }

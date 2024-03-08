@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { SignInResult } from './result/sign-in.result';
-import { SignInWithGoogleInput } from './input/sign-in-with-google.input';
+import { SignInResult } from './result/sign-in.result.gql';
+import { SignInWithGoogleInput } from './input/sign-in-with-google.input.gql';
 import { TokenService } from 'src/token/token.service';
 import { GraphQLError } from 'graphql';
 import { DatabaseService } from 'src/database/database.service';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { Request, Response } from 'express';
 import { BaseUserService } from 'src/base-user/base-user.service';
-import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
+import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 @Injectable()
 export class GoogleAuthService {

@@ -3,7 +3,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { GraphQLError } from 'graphql';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
-import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
+import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 export const ContextAccessTokenPayload = createParamDecorator(
   async (data: unknown, context: ExecutionContext) => {

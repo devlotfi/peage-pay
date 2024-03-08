@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Subscription } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
-import { AddSubscriptionInput } from './input/add-subscription.input';
+import { AddSubscriptionInput } from './input/add-subscription.input.gql';
 import { GraphQLError } from 'graphql';
-import { SubscriptionErrors } from './graphql/subscription-errors.graphql';
-import { EditSubscriptionInput } from './input/edit-subscription.input';
-import { DeleteSubscriptionInput } from './input/delete-subscription.input';
-import { SubscriptionListInput } from './input/subscription-list.input';
+import { SubscriptionErrors } from './graphql/subscription-errors.gql';
+import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
+import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
+import { SubscriptionListInput } from './input/subscription-list.input.gql';
 
 @Injectable()
 export class SubscriptionService {
@@ -16,40 +16,22 @@ export class SubscriptionService {
     subscriptionListInput: SubscriptionListInput,
   ): Promise<Subscription[]> {
     return await this.databaseService.subscription.findMany({
-      where: subscriptionListInput.search
-        ? subscriptionListInput.searchField
-          ? {
-              [subscriptionListInput.searchField]: {
-                contains: subscriptionListInput.search,
-                mode: 'insensitive',
-              },
-            }
-          : {
-              OR: [
-                {
-                  id: {
-                    contains: subscriptionListInput.search,
-                    mode: 'insensitive',
-                  },
-                },
-                {
-                  name: {
-                    contains: subscriptionListInput.search,
-                    mode: 'insensitive',
-                  },
-                },
-              ],
-            }
-        : undefined,
-
-      orderBy: subscriptionListInput.orderByField
-        ? {
-            [subscriptionListInput.orderByField]: subscriptionListInput.sortMode
-              ? subscriptionListInput.sortMode
-              : 'desc',
-          }
-        : undefined,
-
+      where: {
+        OR: [
+          {
+            id: {
+              contains: subscriptionListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: subscriptionListInput.nameSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
       take: subscriptionListInput.take,
       skip: subscriptionListInput.skip,
     });

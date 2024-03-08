@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
 import { TokenService } from 'src/token/token.service';
-import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
-import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
+import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result.gql';
+import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input.gql';
 import { AccessTokenPayload } from './types/access-token-payload.type';
 import { Request, Response } from 'express';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { BaseUserService } from 'src/base-user/base-user.service';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
-import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
+import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 @Injectable()
 export class TokenAuthService {

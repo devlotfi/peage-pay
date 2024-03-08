@@ -1,17 +1,17 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { SignUpWithEmailInput } from './input/sign-up-with-email.input';
-import { VerifyEmailInput } from './input/verify-email.input';
-import { SigninWithEmailInput } from './input/sign-in-with-email.input';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
-import { SignInResult } from './result/sign-in.result';
-import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result';
-import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input';
+import { SignUpWithEmailInput } from './input/sign-up-with-email.input.gql';
+import { VerifyEmailInput } from './input/verify-email.input.gql';
+import { SigninWithEmailInput } from './input/sign-in-with-email.input.gql';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
+import { SignInResult } from './result/sign-in.result.gql';
+import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result.gql';
+import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input.gql';
 import { EmailAuthService } from './email-auth.service';
 import { GoogleAuthService } from './google-auth.service';
 import { PhoneAuthService } from './phone-auth.service';
 import { TokenAuthService } from './token-auth.service';
-import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
-import { ResetPasswordInput } from './input/reset-password.input';
+import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input.gql';
+import { ResetPasswordInput } from './input/reset-password.input.gql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { GraphqlRequest } from 'src/shared/decorators/graphql-request.decorator';
@@ -19,9 +19,9 @@ import { Request, Response } from 'express';
 import { GraphqlResponse } from 'src/shared/decorators/graphql-response.decorator';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
 import { AccessTokenPayload } from './types/access-token-payload.type';
-import { SignInWithGoogleInput } from './input/sign-in-with-google.input';
-import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result';
-import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input';
+import { SignInWithGoogleInput } from './input/sign-in-with-google.input.gql';
+import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result.gql';
+import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input.gql';
 
 @Resolver()
 export class AuthResolver {

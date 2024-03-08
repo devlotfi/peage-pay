@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { BaseUserRolesType } from './graphql/base-user-roles.graphql';
-import { BaseUserErrors } from './graphql/base-user-errors.graphql';
+import { BaseUserRolesType } from './graphql/base-user-roles.gql';
+import { BaseUserErrors } from './graphql/base-user-errors.gql';
 
 @Injectable()
 export class BaseUserService {

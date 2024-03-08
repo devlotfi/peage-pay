@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { SignUpWithEmailInput } from './input/sign-up-with-email.input';
+import { SignUpWithEmailInput } from './input/sign-up-with-email.input.gql';
 import { GraphQLError } from 'graphql';
 import { compare } from 'bcrypt';
 import { EmailService } from 'src/email/email.service';
-import { AuthErrors } from './graphql/auth-errors.graphql';
-import { VerifyEmailInput } from './input/verify-email.input';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.graphql';
+import { AuthErrors } from './graphql/auth-errors.gql';
+import { VerifyEmailInput } from './input/verify-email.input.gql';
+import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
 import { Utils } from 'src/shared/utils';
-import { SigninWithEmailInput } from './input/sign-in-with-email.input';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.graphql';
-import { SignInResult } from './result/sign-in.result';
+import { SigninWithEmailInput } from './input/sign-in-with-email.input.gql';
+import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
+import { SignInResult } from './result/sign-in.result.gql';
 import { TokenService } from 'src/token/token.service';
-import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input';
+import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input.gql';
 import { AuthRedisService } from './auth-redis.service';
-import { ResetPasswordInput } from './input/reset-password.input';
+import { ResetPasswordInput } from './input/reset-password.input.gql';
 import { Request, Response } from 'express';
 import { BaseUserService } from 'src/base-user/base-user.service';
 import { Prisma } from '@prisma/client';
-import { TokenErrors } from 'src/token/graphql/token-errors.graphql';
+import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 @Injectable()
 export class EmailAuthService {

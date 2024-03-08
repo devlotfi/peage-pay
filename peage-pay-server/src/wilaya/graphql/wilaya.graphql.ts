@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class Wilaya {
+export class WilayaType {
   @Field(() => ID)
   public id: string;
 
@@ -9,5 +9,5 @@ export class Wilaya {
   public name: string;
 
   @Field()
-  public code: string;
+  public code: number;
 }

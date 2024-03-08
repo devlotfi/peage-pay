@@ -9,18 +9,22 @@ import { validateEnv } from './shared/config/validate-env';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import { AuthErrors } from './auth/graphql/auth-errors.graphql';
+import { AuthErrors } from './auth/graphql/auth-errors.gql';
 import { BullModule } from '@nestjs/bull';
 import { Env } from './shared/config/env.type';
-import { BaseUserErrors } from './base-user/graphql/base-user-errors.graphql';
+import { BaseUserErrors } from './base-user/graphql/base-user-errors.gql';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
-import { HighwayErrors } from './highway/graphql/highway-errors.graphql';
+import { HighwayErrors } from './highway/graphql/highway-errors.gql';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { HumanRessourcesAdminModule } from './human-ressources-admin/human-ressources-admin.module';
-import { TokenErrors } from './token/graphql/token-errors.graphql';
+import { TokenErrors } from './token/graphql/token-errors.gql';
 import { TollModule } from './toll/toll.module';
 import { BaseUserModule } from './base-user/base-user.module';
+import { WilayaModule } from './wilaya/wilaya.module';
+import { TollErrors } from './toll/graphql/toll-errors.gql';
+import { TollDistanceModule } from './toll-distance/toll-distance.module';
+import { PriceModule } from './price/price.module';
 
 @Module({
   imports: [
@@ -49,7 +53,13 @@ import { BaseUserModule } from './base-user/base-user.module';
       autoSchemaFile: true,
       playground: false,
       buildSchemaOptions: {
-        orphanedTypes: [AuthErrors, BaseUserErrors, HighwayErrors, TokenErrors],
+        orphanedTypes: [
+          AuthErrors,
+          BaseUserErrors,
+          HighwayErrors,
+          TokenErrors,
+          TollErrors,
+        ],
       },
       context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
@@ -65,6 +75,9 @@ import { BaseUserModule } from './base-user/base-user.module';
     HumanRessourcesAdminModule,
     TollModule,
     BaseUserModule,
+    WilayaModule,
+    TollDistanceModule,
+    PriceModule,
   ],
 })
 export class AppModule {}
