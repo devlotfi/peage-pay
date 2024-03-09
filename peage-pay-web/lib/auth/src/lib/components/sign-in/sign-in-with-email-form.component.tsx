@@ -7,8 +7,8 @@ import * as yup from 'yup';
 import { SIGN_IN_WITH_EMAIL } from '../../graphql/mutations';
 import {
   AuthErrors,
+  BaseUserErrors,
   RefreshTokenMode,
-  UserErrors,
 } from '../../../__generated__/graphql';
 import { useContext, useRef } from 'react';
 import { AuthContext } from '../../context/auth.context';
@@ -39,8 +39,11 @@ const SignInWithEmailForm = (): JSX.Element => {
     },
     onError(error, clientOptions) {
       switch (error.message) {
-        case UserErrors.UserNotFound:
-          setFieldError('email', `auth:errors.${UserErrors.UserNotFound}`);
+        case BaseUserErrors.BaseUserNotFound:
+          setFieldError(
+            'email',
+            `auth:errors.${BaseUserErrors.BaseUserNotFound}`,
+          );
           break;
         case AuthErrors.InvalidEmailOrPassword:
           setFieldError(

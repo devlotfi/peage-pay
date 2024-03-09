@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { VehicleTypeType } from './vehicle-type.gql';
 
 @ObjectType()
 export class SubscriptionType {
@@ -7,6 +8,9 @@ export class SubscriptionType {
 
   @Field()
   public name: string;
+
+  @Field(() => VehicleTypeType)
+  public vehicleType: VehicleTypeType;
 
   @Field(() => Date)
   public createdAt: Date;

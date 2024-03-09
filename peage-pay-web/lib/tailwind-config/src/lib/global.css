@@ -36,7 +36,7 @@ html {
 }
 
 #theme-provider[data-theme='DARK'] {
-  --base-100: #313b4b;
+  --base-100: #384255;
   --base-200: #202732;
   --base-300: #161e22;
   --base-content: #e0eaf0;

@@ -1,5 +1,8 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { WilayaType } from 'src/wilaya/graphql/wilaya.graphql';
+import { TollStatusType } from './toll-status.gql';
+import { HighwayType } from 'src/highway/graphql/highway.gql';
+import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
 
 @ObjectType()
 export class TollType {
@@ -15,8 +18,20 @@ export class TollType {
   @Field()
   public highwayId: string;
 
+  @Field(() => HighwayType)
+  public highway: HighwayType;
+
+  @Field()
+  public tollNetworkId: string;
+
+  @Field(() => TollNetworkType)
+  public tollNetwork: TollNetworkType;
+
   @Field()
   public name: string;
+
+  @Field(() => TollStatusType)
+  public status: TollStatusType;
 
   @Field()
   public longitude: number;

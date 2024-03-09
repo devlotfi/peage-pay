@@ -1,20 +1,20 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, IsPositive, Length, Max } from 'class-validator';
+import { IsOptional, IsPositive, Max, MaxLength } from 'class-validator';
 
 @InputType()
 export class HighwayListInput {
   @Field({ nullable: true })
-  @Length(1, 1024)
+  @MaxLength(1024)
   @IsOptional()
   public idSearch?: string;
 
   @Field({ nullable: true })
-  @Length(1, 1024)
+  @MaxLength(1024)
   @IsOptional()
   public nameSearch?: string;
 
   @Field({ nullable: true })
-  @Length(1, 1024)
+  @MaxLength(1024)
   @IsOptional()
   public codeSearch?: string;
 

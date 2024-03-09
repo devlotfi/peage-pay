@@ -5,7 +5,7 @@ import { BullQueues } from 'src/shared/constants/bull-queues';
 import { DatabaseService } from 'src/database/database.service';
 import { Env } from 'src/shared/config/env.type';
 import { BullProcesses } from 'src/shared/constants/bull-processes';
-import { SendVerificationSms } from 'src/shared/jobs/send-verification-sms.type';
+import { SendVerificationSms } from 'src/shared/jobs/send-verification-sms.job';
 import { TwilioService } from './twilio.service';
 
 @Processor(BullQueues.SMS)

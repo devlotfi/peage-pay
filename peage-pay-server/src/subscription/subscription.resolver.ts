@@ -22,9 +22,9 @@ export class SubscriptionResolver {
   public async subscriptionList(
     @Args('subscriptionListInput') subscriptionListInput: SubscriptionListInput,
   ): Promise<SubscriptionType[]> {
-    return await this.subscriptionService.subscriptionList(
+    return (await this.subscriptionService.subscriptionList(
       subscriptionListInput,
-    );
+    )) as any;
   }
 
   @Mutation(() => SubscriptionType)
@@ -33,7 +33,9 @@ export class SubscriptionResolver {
   public async addSubscription(
     @Args('addSubscriptionInput') addSubscriptionInput: AddSubscriptionInput,
   ): Promise<SubscriptionType> {
-    return await this.subscriptionService.addSubscription(addSubscriptionInput);
+    return (await this.subscriptionService.addSubscription(
+      addSubscriptionInput,
+    )) as any;
   }
 
   @Mutation(() => SubscriptionType)
@@ -42,9 +44,9 @@ export class SubscriptionResolver {
   public async editSubscription(
     @Args('editSubscriptionInput') editSubscriptionInput: EditSubscriptionInput,
   ): Promise<SubscriptionType> {
-    return await this.subscriptionService.editSubscription(
+    return (await this.subscriptionService.editSubscription(
       editSubscriptionInput,
-    );
+    )) as any;
   }
 
   @Mutation(() => Boolean)

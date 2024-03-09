@@ -12,6 +12,10 @@ export class AddTollInput {
   public highwayId: string;
 
   @Field()
+  @IsUUID()
+  public tollNetworkId: string;
+
+  @Field()
   @Length(1, 1024)
   public name: string;
 

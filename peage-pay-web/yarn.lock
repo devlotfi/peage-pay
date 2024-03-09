@@ -3607,6 +3607,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-i18next: "npm:^14.0.5"
     react-router-dom: "npm:^6.22.1"
+    react-toastify: "npm:^10.0.4"
     sort-by: "npm:^1.2.0"
     storybook: "npm:7.6.14"
     tailwind-merge: "npm:^2.2.1"
@@ -14423,6 +14424,18 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/6d66f3bdb65e1ec79089f80314da97c9a005087a04ee034255a5de129a4c0d9fd0bf99fa7bf642781ac2dc745ca687aae3de082bd8afdd0d117bc953241e15ad
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^10.0.4":
+  version: 10.0.4
+  resolution: "react-toastify@npm:10.0.4"
+  dependencies:
+    clsx: "npm:^2.1.0"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10c0/3d31edf81e8b394fd0085615fd7ba9fb9546c7cdae56e5334df67b58d65450c73af14a8fc163f19ceed03cfee7a344d1af1489422536f52c9516ca45e9b61a37
   languageName: node
   linkType: hard
 

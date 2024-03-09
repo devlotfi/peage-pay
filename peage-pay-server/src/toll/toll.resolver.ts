@@ -6,7 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { TollType } from './graphql/toll-type.gql';
+import { TollType } from './graphql/toll.gql';
 import { WilayaType } from 'src/wilaya/graphql/wilaya.graphql';
 import { TollService } from './toll.service';
 import { HighwayType } from 'src/highway/graphql/highway.gql';
@@ -18,6 +18,7 @@ import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
 import { DeleteTollInput } from './input/delete-toll.input.gql';
+import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -25,7 +26,7 @@ export class TollResolver {
 
   @Query(() => [TollType])
   @UseGuards(AuthGuard)
-  public async highwayList(
+  public async tollList(
     @Args('tollListInput') tollListInput: TollListInput,
   ): Promise<TollType[]> {
     return (await this.tollService.tollList(tollListInput)) as any;
@@ -60,11 +61,16 @@ export class TollResolver {
 
   @ResolveField(() => WilayaType)
   public async wilaya(@Parent() toll: TollType): Promise<WilayaType> {
-    return (await this.tollService.wilaya(toll))!;
+    return (await this.tollService.wilaya(toll.wilayaId))!;
   }
 
   @ResolveField(() => HighwayType)
   public async highway(@Parent() toll: TollType): Promise<HighwayType> {
-    return (await this.tollService.highway(toll))!;
+    return (await this.tollService.highway(toll.highwayId))!;
+  }
+
+  @ResolveField(() => TollNetworkType)
+  public async tollNetwork(@Parent() toll: TollType): Promise<TollNetworkType> {
+    return (await this.tollService.tollNetwork(toll.tollNetworkId))!;
   }
 }

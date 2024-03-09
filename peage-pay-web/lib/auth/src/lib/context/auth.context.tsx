@@ -1,10 +1,10 @@
 import { PropsWithChildren, createContext, useState } from 'react';
 import { BaseUserType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
-import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/mutations';
 import AuthLoading from '../components/auth-loading.component';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
 
 type AuthData = {
   baseUser: BaseUserType;

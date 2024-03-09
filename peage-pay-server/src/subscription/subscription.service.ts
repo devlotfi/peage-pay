@@ -44,6 +44,7 @@ export class SubscriptionService {
       const subscription = await this.databaseService.subscription.create({
         data: {
           name: addSubscriptionInput.name,
+          vehicleType: addSubscriptionInput.vehicleType,
         },
       });
       return subscription;
@@ -64,6 +65,7 @@ export class SubscriptionService {
       const subscription = await this.databaseService.subscription.update({
         data: {
           name: editSubscriptionInput.name,
+          vehicleType: editSubscriptionInput.vehicleType,
         },
         where: {
           id: editSubscriptionInput.id,

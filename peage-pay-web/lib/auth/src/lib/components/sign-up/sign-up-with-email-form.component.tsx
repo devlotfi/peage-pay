@@ -5,7 +5,7 @@ import { Button, LoaderDots, TextInput } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SIGN_UP_WITH_EMAIL } from '../../graphql/mutations';
-import { AuthErrors, UserErrors } from '../../../__generated__/graphql';
+import { AuthErrors, BaseUserErrors } from '../../../__generated__/graphql';
 import { useRef } from 'react';
 import VerifyEmailModal from '../verify-email-modal.component';
 
@@ -43,10 +43,10 @@ const SignUpWithEmailForm = (): JSX.Element => {
     },
     onError(error, clientOptions) {
       switch (error.message) {
-        case UserErrors.UserWithEmailExists:
+        case BaseUserErrors.BaseUserWithEmailExists:
           setFieldError(
             'email',
-            `auth:errors.${UserErrors.UserWithEmailExists}`,
+            `auth:errors.${BaseUserErrors.BaseUserWithEmailExists}`,
           );
           break;
         case AuthErrors.SignInWithEmaIlAttemptsExceeded:

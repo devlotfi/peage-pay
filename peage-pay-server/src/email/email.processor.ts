@@ -3,12 +3,12 @@ import { ConfigService } from '@nestjs/config';
 import { Job } from 'bull';
 import { BullProcesses } from 'src/shared/constants/bull-processes';
 import { BullQueues } from 'src/shared/constants/bull-queues';
-import { SendVerificationEmail } from 'src/shared/jobs/send-verification-email.type';
+import { SendVerificationEmail } from 'src/shared/jobs/send-verification-email.job';
 import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
 import { NodemailerService } from './nodemailer.service';
 import { TokenService } from 'src/token/token.service';
-import { SendResetPasswordEmail } from 'src/shared/jobs/send-reset-password-email.type';
+import { SendResetPasswordEmail } from 'src/shared/jobs/send-reset-password-email.job';
 
 @Processor(BullQueues.EMAIL)
 export class EmailProcessor {

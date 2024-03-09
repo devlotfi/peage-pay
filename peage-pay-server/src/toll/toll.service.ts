@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { TollType } from './graphql/toll-type.gql';
-import { Highway, Prisma, Wilaya } from '@prisma/client';
+import { Highway, Prisma, TollNetwork, Wilaya } from '@prisma/client';
 import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
@@ -18,9 +17,20 @@ export class TollService {
       where: {
         OR: [
           {
+            id: {
+              contains: tollListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
             name: {
               contains: tollListInput.nameSearch,
               mode: 'insensitive',
+            },
+          },
+          {
+            status: {
+              equals: tollListInput.statusSearch,
             },
           },
         ],
@@ -68,10 +78,6 @@ export class TollService {
           ],
         },
       },
-      include: {
-        wilaya: true,
-        highway: true,
-      },
       take: tollListInput.take,
       skip: tollListInput.skip,
     });
@@ -94,10 +100,11 @@ export class TollService {
               id: addTollInput.highwayId,
             },
           },
-        },
-        include: {
-          wilaya: true,
-          highway: true,
+          tollNetwork: {
+            connect: {
+              id: addTollInput.tollNetworkId,
+            },
+          },
         },
       });
       return toll;
@@ -116,6 +123,7 @@ export class TollService {
       const toll = await this.databaseService.toll.update({
         data: {
           name: editTollInput.name,
+          status: editTollInput.status,
           longitude: editTollInput.longitude,
           latitude: editTollInput.latitude,
           wilaya: {
@@ -128,10 +136,11 @@ export class TollService {
               id: editTollInput.highwayId,
             },
           },
-        },
-        include: {
-          wilaya: true,
-          highway: true,
+          tollNetwork: {
+            connect: {
+              id: editTollInput.tollNetworkId,
+            },
+          },
         },
         where: {
           id: editTollInput.tollId,
@@ -158,18 +167,26 @@ export class TollService {
     return true;
   }
 
-  public async wilaya(toll: TollType): Promise<Wilaya | null> {
+  public async wilaya(wilayaId: string): Promise<Wilaya | null> {
     return await this.databaseService.wilaya.findUnique({
       where: {
-        id: toll.wilayaId,
+        id: wilayaId,
       },
     });
   }
 
-  public async highway(toll: TollType): Promise<Highway | null> {
+  public async highway(highwayId: string): Promise<Highway | null> {
     return await this.databaseService.highway.findUnique({
       where: {
-        id: toll.highwayId,
+        id: highwayId,
+      },
+    });
+  }
+
+  public async tollNetwork(tollNetworkId: string): Promise<TollNetwork | null> {
+    return await this.databaseService.tollNetwork.findUnique({
+      where: {
+        id: tollNetworkId,
       },
     });
   }

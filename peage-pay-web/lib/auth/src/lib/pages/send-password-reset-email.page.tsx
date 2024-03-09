@@ -12,7 +12,7 @@ import {
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SEND_PASSWORD_RESET_EMAIL } from '../graphql/mutations';
-import { AuthErrors, UserErrors } from '../../__generated__/graphql';
+import { AuthErrors, BaseUserErrors } from '../../__generated__/graphql';
 
 const sendPasswordResetEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -35,13 +35,16 @@ const SendPasswordResetEmailPage = (): JSX.Element => {
       },
       onError(error, clientOptions) {
         switch (error.message) {
-          case UserErrors.UserNotFound:
-            setFieldError('email', 'auth:errors.USER_NOT_FOUND');
+          case BaseUserErrors.BaseUserNotFound:
+            setFieldError(
+              'email',
+              `auth:errors.${BaseUserErrors.BaseUserNotFound}`,
+            );
             break;
           case AuthErrors.PasswordResetAttemptsExceeded:
             setFieldError(
               'email',
-              'auth:errors.PASSWORD_RESET_ATTEMPTS_EXCEEDED',
+              `auth:errors.${AuthErrors.PasswordResetAttemptsExceeded}`,
             );
             break;
 

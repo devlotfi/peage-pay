@@ -70,29 +70,42 @@ model RefreshToken {
 }
 
 enum VehicleType {
-  Lightweight
-  Truck
-  Bus
-  Taxi
+  LIGHTWEIGHT
+  TRUCK
+  BUS
+  TAXI
+}
+
+model RfidTag {
+  userSubscription UserSubscription?
+
+  id                 String   @id @default(uuid())
+  rfid               String   @unique
+  registrationNumber String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model Subscription {
   userSubscriptions UserSubscription[]
 
-  id        String   @id @default(uuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String      @id @default(uuid())
+  name        String      @unique
+  vehicleType VehicleType
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model UserSubscription {
   baseUser     BaseUser     @relation(fields: [baseUserId], references: [id])
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
+  rfidTag      RfidTag      @relation(fields: [rfidTagId], references: [id])
 
   baseUserId     String
   subscriptionId String
+  rfidTagId      String @unique
 
-  @@id([baseUserId, subscriptionId])
+  @@id([baseUserId, subscriptionId, rfidTagId])
 }
 
 model BaseUser {
@@ -173,45 +186,54 @@ model Highway {
   updatedAt DateTime @updatedAt
 }
 
-enum PaymentMethod {
-  Cash
-  MobileApp
-  TollBadge
-}
-
-enum LaneStatus {
-  Active
-  OutOfSercvice
-}
-
-model Toll {
-  wilaya           Wilaya          @relation(fields: [wilayaId], references: [id])
-  highway          Highway         @relation(fields: [highwayId], references: [id])
-  fromTolls        TollDistance[]  @relation("fromToll")
-  toTolls          TollDistance[]  @relation("toToll")
-  lanes            Lane[]
-  automaticGates   AutomaticGate[]
-  entryTollsTrip   Trip[]          @relation("entryTollTrip")
-  exitTollsTrip    Trip[]          @relation("exitTollTrip")
-  entryTollsTicket Ticket[]        @relation("entryTollTicket")
-  exitTollsTicket  Ticket[]        @relation("exitTollTicket")
-  prices           Price[]
-  tollAdmins       TollAdmin[]
-  gateAdmins       GateAdmin[]
+model TollNetwork {
+  tolls Toll[]
 
   id        String   @id @default(uuid())
-  wilayaId  String
-  highwayId String
-  name      String
-  longitude Decimal
-  latitude  Decimal
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model TollDistance {
-  fromToll Toll @relation("fromToll", fields: [fromTollId], references: [id])
-  toToll   Toll @relation("toToll", fields: [toTollId], references: [id])
+enum TollStatus {
+  ACTIVE
+  OVERLOAD
+  OUT_OF_SERVICE
+}
+
+model Toll {
+  wilaya                    Wilaya                 @relation(fields: [wilayaId], references: [id])
+  highway                   Highway                @relation(fields: [highwayId], references: [id])
+  tollNetwork               TollNetwork            @relation(fields: [tollNetworkId], references: [id])
+  fromTollDistances         TollDistance[]         @relation("fromTollDistance")
+  toTollDistances           TollDistance[]         @relation("toTollDistance")
+  fromAdjacentTollDistances AdjacentTollDistance[] @relation("fromAdjacentTollDistance")
+  toAdjacentTollDistances   AdjacentTollDistance[] @relation("toAdjacentTollDistance")
+  lanes                     Lane[]
+  automaticGates            AutomaticGate[]
+  entryTollsTrip            Trip[]                 @relation("entryTollTrip")
+  exitTollsTrip             Trip[]                 @relation("exitTollTrip")
+  entryTollsTicket          Ticket[]               @relation("entryTollTicket")
+  exitTollsTicket           Ticket[]               @relation("exitTollTicket")
+  prices                    Price[]
+  tollAdmins                TollAdmin[]
+  gateAdmins                GateAdmin[]
+
+  id            String     @id @default(uuid())
+  wilayaId      String
+  tollNetworkId String
+  highwayId     String
+  name          String     @unique
+  status        TollStatus @default(OUT_OF_SERVICE)
+  longitude     Decimal
+  latitude      Decimal
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model AdjacentTollDistance {
+  fromToll Toll @relation("fromAdjacentTollDistance", fields: [fromTollId], references: [id])
+  toToll   Toll @relation("toAdjacentTollDistance", fields: [toTollId], references: [id])
 
   fromTollId String
   toTollId   String
@@ -220,12 +242,34 @@ model TollDistance {
   @@id([fromTollId, toTollId])
 }
 
+model TollDistance {
+  fromToll Toll @relation("fromTollDistance", fields: [fromTollId], references: [id])
+  toToll   Toll @relation("toTollDistance", fields: [toTollId], references: [id])
+
+  fromTollId String
+  toTollId   String
+  distance   Decimal
+
+  @@id([fromTollId, toTollId])
+}
+
+enum PaymentMethod {
+  CASH
+  MOBILE_APP
+  TOLL_BADGE
+}
+
+enum LaneStatus {
+  ACTIVE
+  OUT_OF_SERVICE
+}
+
 model Lane {
   toll Toll @relation(fields: [tollId], references: [id])
 
   id            String        @id @default(uuid())
   tollId        String
-  number        Int
+  number        Int           @unique
   paymentMethod PaymentMethod
   status        LaneStatus
   createdAt     DateTime      @default(now())
@@ -237,7 +281,7 @@ model AutomaticGate {
 
   id           String   @id @default(uuid())
   tollId       String
-  name         String
+  name         String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -274,11 +318,11 @@ model Ticket {
 }
 
 enum PriceType {
-  Override
-  Add
-  Subsctract
-  AddPercentage
-  SubscractPercentage
+  OVERRIDE
+  ADD
+  SUBSCTRACT
+  ADD_PERCENTAGE
+  SUBSCTRACT_PERCENTAGE
 }
 
 model Price {

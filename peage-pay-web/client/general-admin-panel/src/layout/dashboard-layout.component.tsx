@@ -1,32 +1,198 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFileSignature,
+  faHome,
+  faList,
+  faPlus,
+  faRoad,
+  faRoadBarrier,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavbarDropdown } from '@peage-pay-web/auth';
-import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
-import { Outlet } from 'react-router-dom';
+import {
+  AdminDashboardLayout,
+  MenuDropdown,
+  MenuItem,
+} from '@peage-pay-web/ui';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
         <AdminDashboardLayout.Sidebar.Main title="General admin">
-          <MenuItem className="w-full mb-[0.5rem]" variant={'primary'}>
+          <MenuItem
+            onClick={() => navigate('/dashboard')}
+            variant={
+              location.pathname === '/dashboard' ? 'primary' : 'base-200'
+            }
+            className="w-full mb-[0.5rem]"
+          >
             <MenuItem.Icon>
-              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Test</MenuItem.Text>
+            <MenuItem.Text>Home</MenuItem.Text>
           </MenuItem>
-          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-            <MenuItem.Icon>
-              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </MenuItem.Icon>
-            <MenuItem.Text>Test</MenuItem.Text>
-          </MenuItem>
-          <MenuItem className="w-full mb-[0.5rem]" variant={'base-200'}>
-            <MenuItem.Icon>
-              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </MenuItem.Icon>
-            <MenuItem.Text>Test</MenuItem.Text>
-          </MenuItem>
+
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Highways</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/highway/list')}
+              variant={
+                location.pathname === '/dashboard/highway/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate('/dashboard/highway/add')}
+              variant={
+                location.pathname === '/dashboard/highway/add'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faFileSignature}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Subscriptions</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/subscription/list')}
+              variant={
+                location.pathname === '/dashboard/subscription/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate('/dashboard/subscription/add')}
+              variant={
+                location.pathname === '/dashboard/subscription/add'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
+
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Tolls</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/toll/list')}
+              variant={
+                location.pathname === '/dashboard/toll/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate('/dashboard/toll/add')}
+              variant={
+                location.pathname === '/dashboard/toll/add'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
+
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Users</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/user/list')}
+              variant={
+                location.pathname === '/dashboard/user/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>
       </AdminDashboardLayout.Sidebar>
