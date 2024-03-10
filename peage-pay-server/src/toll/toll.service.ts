@@ -13,74 +13,88 @@ export class TollService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
   public async tollList(tollListInput: TollListInput) {
-    return await this.databaseService.toll.findMany({
-      where: {
-        OR: [
-          {
-            id: {
-              contains: tollListInput.idSearch,
-              mode: 'insensitive',
-            },
-          },
-          {
-            name: {
-              contains: tollListInput.nameSearch,
-              mode: 'insensitive',
-            },
-          },
-          {
-            status: {
-              equals: tollListInput.statusSearch,
-            },
-          },
-        ],
-        wilaya: {
+    if (
+      tollListInput.idSearch ||
+      tollListInput.nameSearch ||
+      tollListInput.statusSearch ||
+      tollListInput.wilayaNameSearch ||
+      tollListInput.wilayaCodeSearch ||
+      tollListInput.highwayNameSearch ||
+      tollListInput.highwayCodeSearch ||
+      tollListInput.tollNetworkNameSearch
+    ) {
+      return await this.databaseService.toll.findMany({
+        where: {
           OR: [
             {
               id: {
-                contains: tollListInput.wilayaIdSearch,
+                contains: tollListInput.idSearch,
                 mode: 'insensitive',
               },
             },
             {
               name: {
-                contains: tollListInput.wilayaNameSearch,
+                contains: tollListInput.nameSearch,
                 mode: 'insensitive',
               },
             },
             {
-              code: {
-                equals: tollListInput.wilayaCodeSearch,
+              status: {
+                equals: tollListInput.statusSearch,
               },
             },
           ],
+          wilaya: {
+            OR: [
+              {
+                name: {
+                  contains: tollListInput.wilayaNameSearch,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                code: {
+                  equals: tollListInput.wilayaCodeSearch,
+                },
+              },
+            ],
+          },
+          highway: {
+            OR: [
+              {
+                name: {
+                  contains: tollListInput.highwayNameSearch,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                code: {
+                  contains: tollListInput.highwayCodeSearch,
+                  mode: 'insensitive',
+                },
+              },
+            ],
+          },
+          tollNetwork: {
+            OR: [
+              {
+                name: {
+                  contains: tollListInput.tollNetworkNameSearch,
+                  mode: 'insensitive',
+                },
+              },
+            ],
+          },
         },
-        highway: {
-          OR: [
-            {
-              id: {
-                contains: tollListInput.highwayIdSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: tollListInput.highwayNameSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              code: {
-                contains: tollListInput.highwayCodeSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
-      },
-      take: tollListInput.take,
-      skip: tollListInput.skip,
-    });
+        take: tollListInput.take,
+        skip: tollListInput.skip,
+      });
+    } else {
+      return await this.databaseService.toll.findMany({
+        take: tollListInput.take,
+        skip: tollListInput.skip,
+      });
+    }
   }
 
   public async addToll(addTollInput: AddTollInput) {

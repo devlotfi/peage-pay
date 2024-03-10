@@ -15,26 +15,33 @@ export class SubscriptionService {
   public async subscriptionList(
     subscriptionListInput: SubscriptionListInput,
   ): Promise<Subscription[]> {
-    return await this.databaseService.subscription.findMany({
-      where: {
-        OR: [
-          {
-            id: {
-              contains: subscriptionListInput.idSearch,
-              mode: 'insensitive',
+    if (subscriptionListInput.idSearch || subscriptionListInput.nameSearch) {
+      return await this.databaseService.subscription.findMany({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: subscriptionListInput.idSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-          {
-            name: {
-              contains: subscriptionListInput.nameSearch,
-              mode: 'insensitive',
+            {
+              name: {
+                contains: subscriptionListInput.nameSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-        ],
-      },
-      take: subscriptionListInput.take,
-      skip: subscriptionListInput.skip,
-    });
+          ],
+        },
+        take: subscriptionListInput.take,
+        skip: subscriptionListInput.skip,
+      });
+    } else {
+      return await this.databaseService.subscription.findMany({
+        take: subscriptionListInput.take,
+        skip: subscriptionListInput.skip,
+      });
+    }
   }
 
   public async addSubscription(

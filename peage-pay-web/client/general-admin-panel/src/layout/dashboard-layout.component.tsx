@@ -4,7 +4,6 @@ import {
   faList,
   faPlus,
   faRoad,
-  faRoadBarrier,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -110,49 +109,6 @@ const DashboardLayout = (): JSX.Element => {
               onClick={() => navigate('/dashboard/subscription/add')}
               variant={
                 location.pathname === '/dashboard/subscription/add'
-                  ? 'primary'
-                  : 'base-200'
-              }
-              className="w-full mb-[0.5rem]"
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>Add</MenuItem.Text>
-            </MenuItem>
-          </MenuDropdown>
-
-          <MenuDropdown
-            opened={true}
-            mainElement={
-              <MenuDropdown.Main className="mb-[0.5rem]">
-                <MenuItem className="w-full" variant={'base-200'}>
-                  <MenuItem.Icon>
-                    <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
-                  </MenuItem.Icon>
-                  <MenuItem.Text>Tolls</MenuItem.Text>
-                </MenuItem>
-              </MenuDropdown.Main>
-            }
-          >
-            <MenuItem
-              onClick={() => navigate('/dashboard/toll/list')}
-              variant={
-                location.pathname === '/dashboard/toll/list'
-                  ? 'primary'
-                  : 'base-200'
-              }
-              className="w-full mb-[0.5rem]"
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>List</MenuItem.Text>
-            </MenuItem>
-            <MenuItem
-              onClick={() => navigate('/dashboard/toll/add')}
-              variant={
-                location.pathname === '/dashboard/toll/add'
                   ? 'primary'
                   : 'base-200'
               }

@@ -15,33 +15,43 @@ export class HighwayService {
   public async highwayList(
     highwayListInput: HighwayListInput,
   ): Promise<Highway[]> {
-    return await this.databaseService.highway.findMany({
-      where: {
-        OR: [
-          {
-            id: {
-              contains: highwayListInput.idSearch,
-              mode: 'insensitive',
+    if (
+      highwayListInput.idSearch ||
+      highwayListInput.nameSearch ||
+      highwayListInput.codeSearch
+    ) {
+      return await this.databaseService.highway.findMany({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: highwayListInput.idSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-          {
-            name: {
-              contains: highwayListInput.nameSearch,
-              mode: 'insensitive',
+            {
+              name: {
+                contains: highwayListInput.nameSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-          {
-            code: {
-              contains: highwayListInput.codeSearch,
-              mode: 'insensitive',
+            {
+              code: {
+                contains: highwayListInput.codeSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-        ],
-      },
-
-      take: highwayListInput.take,
-      skip: highwayListInput.skip,
-    });
+          ],
+        },
+        take: highwayListInput.take,
+        skip: highwayListInput.skip,
+      });
+    } else {
+      return await this.databaseService.highway.findMany({
+        take: highwayListInput.take,
+        skip: highwayListInput.skip,
+      });
+    }
   }
 
   public async addHighway(addHighwayInput: AddHighwayInput): Promise<Highway> {

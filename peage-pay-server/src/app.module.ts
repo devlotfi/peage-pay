@@ -27,6 +27,10 @@ import { AdjacentTollDistanceModule } from './adjacent-toll-distance/adjacent-to
 import { PriceModule } from './price/price.module';
 import { TollNetworkModule } from './toll-network/toll-network.module';
 import { TollDistanceModule } from './toll-distance/toll-distance.module';
+import { HighwaySearchFields } from './highway/graphql/highway-search-fields.gql';
+import { TollNetworkSearchFields } from './toll-network/graphql/toll-network-search-fields.gql';
+import { TollSearchFields } from './toll/graphql/toll-search-fields.gql';
+import { SubscriptionSearchFields } from './subscription/graphql/subscription-search-fields.gql';
 
 @Module({
   imports: [
@@ -61,6 +65,11 @@ import { TollDistanceModule } from './toll-distance/toll-distance.module';
           HighwayErrors,
           TokenErrors,
           TollErrors,
+
+          HighwaySearchFields,
+          TollNetworkSearchFields,
+          TollSearchFields,
+          SubscriptionSearchFields,
         ],
       },
       context: ({ req, res }) => ({ req, res }),

@@ -15,27 +15,34 @@ export class TollNetworkService {
   public async tollNetworkList(
     tollNetworkListInput: TollNetworkListInput,
   ): Promise<TollNetwork[]> {
-    return await this.databaseService.tollNetwork.findMany({
-      where: {
-        OR: [
-          {
-            id: {
-              contains: tollNetworkListInput.idSearch,
-              mode: 'insensitive',
+    if (tollNetworkListInput.idSearch || tollNetworkListInput.nameSearch) {
+      return await this.databaseService.tollNetwork.findMany({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: tollNetworkListInput.idSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-          {
-            name: {
-              contains: tollNetworkListInput.nameSearch,
-              mode: 'insensitive',
+            {
+              name: {
+                contains: tollNetworkListInput.nameSearch,
+                mode: 'insensitive',
+              },
             },
-          },
-        ],
-      },
+          ],
+        },
 
-      take: tollNetworkListInput.take,
-      skip: tollNetworkListInput.skip,
-    });
+        take: tollNetworkListInput.take,
+        skip: tollNetworkListInput.skip,
+      });
+    } else {
+      return await this.databaseService.tollNetwork.findMany({
+        take: tollNetworkListInput.take,
+        skip: tollNetworkListInput.skip,
+      });
+    }
   }
 
   public async addTollNetwork(

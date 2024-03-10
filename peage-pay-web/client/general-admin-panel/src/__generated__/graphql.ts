@@ -159,6 +159,12 @@ export type HighwayListInput = {
   take: Scalars['Float']['input'];
 };
 
+export enum HighwaySearchFields {
+  CodeSearch = 'codeSearch',
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch'
+}
+
 export type HighwayType = {
   __typename?: 'HighwayType';
   code: Scalars['String']['output'];
@@ -413,6 +419,11 @@ export type SubscriptionListInput = {
   take: Scalars['Float']['input'];
 };
 
+export enum SubscriptionSearchFields {
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch'
+}
+
 export type SubscriptionType = {
   __typename?: 'SubscriptionType';
   createdAt: Scalars['DateTime']['output'];
@@ -439,15 +450,14 @@ export enum TollErrors {
 
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
-  highwayIdSearch?: InputMaybe<Scalars['String']['input']>;
   highwayNameSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Float']['input']>;
   statusSearch?: InputMaybe<TollStatusType>;
   take: Scalars['Float']['input'];
+  tollNetworkNameSearch?: InputMaybe<Scalars['String']['input']>;
   wilayaCodeSearch?: InputMaybe<Scalars['Float']['input']>;
-  wilayaIdSearch?: InputMaybe<Scalars['String']['input']>;
   wilayaNameSearch?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -458,6 +468,11 @@ export type TollNetworkListInput = {
   take: Scalars['Float']['input'];
 };
 
+export enum TollNetworkSearchFields {
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch'
+}
+
 export type TollNetworkType = {
   __typename?: 'TollNetworkType';
   createdAt: Scalars['DateTime']['output'];
@@ -465,6 +480,17 @@ export type TollNetworkType = {
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
+
+export enum TollSearchFields {
+  HighwayCodeSearch = 'highwayCodeSearch',
+  HighwayNameSearch = 'highwayNameSearch',
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch',
+  StatusSearch = 'statusSearch',
+  TollNetworkNameSearch = 'tollNetworkNameSearch',
+  WilayaCodeSearch = 'wilayaCodeSearch',
+  WilayaNameSearch = 'wilayaNameSearch'
+}
 
 export enum TollStatusType {
   Active = 'ACTIVE',

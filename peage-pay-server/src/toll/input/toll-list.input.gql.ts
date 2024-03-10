@@ -12,21 +12,11 @@ export class TollListInput {
   @Field({ nullable: true })
   @MaxLength(1024)
   @IsOptional()
-  public wilayaIdSearch?: string;
-
-  @Field({ nullable: true })
-  @MaxLength(1024)
-  @IsOptional()
   public wilayaNameSearch?: string;
 
   @Field({ nullable: true })
   @IsOptional()
   public wilayaCodeSearch?: number;
-
-  @Field({ nullable: true })
-  @MaxLength(1024)
-  @IsOptional()
-  public highwayIdSearch?: string;
 
   @Field({ nullable: true })
   @MaxLength(1024)
@@ -37,6 +27,11 @@ export class TollListInput {
   @MaxLength(1024)
   @IsOptional()
   public highwayCodeSearch?: string;
+
+  @Field({ nullable: true })
+  @MaxLength(1024)
+  @IsOptional()
+  public tollNetworkNameSearch?: string;
 
   @Field({ nullable: true })
   @MaxLength(1024)

@@ -73,21 +73,21 @@ class Distance {
 }
 
 const pointEntities: PointEntity[] = [
-  new PointEntity("1", "alger"),
-  new PointEntity("2", "meliana"),
-  new PointEntity("3", "medea"),
-  new PointEntity("4", "chlef"),
-  new PointEntity("5", "oran"),
-  new PointEntity("6", "djelfa"),
-  new PointEntity("7", "blida"),
+  new PointEntity("1", "péage 1"),
+  new PointEntity("2", "péage 2"),
+  new PointEntity("3", "péage 3"),
+  new PointEntity("4", "péage 4"),
+  new PointEntity("5", "péage 5"),
+  new PointEntity("6", "péage 6"),
+  new PointEntity("7", "péage 7"),
 ];
 const pointLinkEntities: PointLinkEntity[] = [
-  new PointLinkEntity("1", "2", 100),
-  new PointLinkEntity("2", "3", 50),
-  new PointLinkEntity("2", "4", 150),
-  new PointLinkEntity("4", "5", 250),
-  new PointLinkEntity("3", "6", 220),
-  new PointLinkEntity("3", "7", 70),
+  new PointLinkEntity("1", "2", 25),
+  new PointLinkEntity("2", "3", 53),
+  new PointLinkEntity("2", "4", 47),
+  new PointLinkEntity("4", "7", 19),
+  new PointLinkEntity("3", "5", 16),
+  new PointLinkEntity("3", "6", 35),
 ];
 
 const points: Point[] = [];
@@ -148,6 +148,8 @@ console.log(points);
 
 const allLinks: PointLinkReference[] = [];
 
-calculateAllLinksForPoint(points[0], points[0], 0, allLinks);
+for (const point of points) {
+  calculateAllLinksForPoint(point, point, 0, allLinks);
+}
 
 console.log(allLinks);
