@@ -1,4 +1,5 @@
 import {
+  faCircleNodes,
   faFileSignature,
   faHome,
   faList,
@@ -78,6 +79,7 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Text>Add</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
+
           <MenuDropdown
             opened={true}
             mainElement={
@@ -109,6 +111,49 @@ const DashboardLayout = (): JSX.Element => {
               onClick={() => navigate('/dashboard/subscription/add')}
               variant={
                 location.pathname === '/dashboard/subscription/add'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
+
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faCircleNodes}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Toll networks</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/toll-network/list')}
+              variant={
+                location.pathname === '/dashboard/toll-network/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate('/dashboard/toll-network/add')}
+              variant={
+                location.pathname === '/dashboard/toll-network/add'
                   ? 'primary'
                   : 'base-200'
               }

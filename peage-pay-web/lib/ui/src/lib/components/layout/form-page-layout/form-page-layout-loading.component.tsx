@@ -1,34 +1,34 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '@peage-pay-web/utils';
 import { PeagePayLogo } from '@peage-pay-web/assets';
 import LoaderDots from '../../elements/loader-dots/loader-dots.component';
+import { Utils } from '@peage-pay-web/utils';
 
-const listPageLayoutLoadingVariants = cva(
+const formPageLayoutLoadingVariants = cva(
   'flex justify-center items-center h-full',
 );
 
-interface ListPageLayoutLoadingProps
+interface FormPageLayoutLoadingProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof listPageLayoutLoadingVariants> {
+    VariantProps<typeof formPageLayoutLoadingVariants> {
   loading: boolean;
 }
 
-const ListPageLayoutLoading = ({
+const FormPageLayoutLoading = ({
   className,
-  loading,
   children,
+  loading,
   ...props
-}: ListPageLayoutLoadingProps) => {
+}: FormPageLayoutLoadingProps) => {
   if (loading) {
     return (
       <div
-        className={Utils.cn(listPageLayoutLoadingVariants({ className }))}
+        className={Utils.cn(formPageLayoutLoadingVariants({ className }))}
         {...props}
       >
         <div className="flex flex-col">
           <img
-            className="h-[3rem] mb-[0.5rem]"
+            className="h-[4.3rem] mb-[1rem]"
             src={PeagePayLogo}
             alt="PeagePayLogo"
           />
@@ -40,4 +40,4 @@ const ListPageLayoutLoading = ({
     return children;
   }
 };
-export default ListPageLayoutLoading;
+export default FormPageLayoutLoading;

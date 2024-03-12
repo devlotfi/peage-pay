@@ -1,9 +1,20 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNumber, IsOptional, Max, MaxLength, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsUUID,
+  Max,
+  MaxLength,
+  Min,
+} from 'class-validator';
 import { TollStatusType } from '../graphql/toll-status.gql';
 
 @InputType()
 export class TollListInput {
+  @Field()
+  @IsUUID()
+  public tollNetworkId: string;
+
   @Field({ nullable: true })
   @MaxLength(1024)
   @IsOptional()
@@ -27,11 +38,6 @@ export class TollListInput {
   @MaxLength(1024)
   @IsOptional()
   public highwayCodeSearch?: string;
-
-  @Field({ nullable: true })
-  @MaxLength(1024)
-  @IsOptional()
-  public tollNetworkNameSearch?: string;
 
   @Field({ nullable: true })
   @MaxLength(1024)

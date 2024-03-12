@@ -13,37 +13,34 @@ import {
   LoaderDots,
   TextInput,
 } from '@peage-pay-web/ui';
-import { ADD_HIGHWAY } from '../../graphql/mutations';
+import { ADD_TOLL_NETWORK } from '../../graphql/mutations';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-interface AddHighwayValues {
+interface AddTollNetworkValues {
   name: string;
-  code: string;
 }
 
-const initialValues: AddHighwayValues = {
+const initialValues: AddTollNetworkValues = {
   name: '',
-  code: '',
 };
 
-const addHighwayValidationSchema = yup.object({
+const addTollNetworkValidationSchema = yup.object({
   name: yup.string().max(256).required(),
-  code: yup.string().max(10).required(),
 });
 
-const AddHighwayPage = (): JSX.Element => {
-  const [addHighway, { loading, error, data }] = useMutation(ADD_HIGHWAY);
+const AddTollNetworkPage = (): JSX.Element => {
+  const [addTollNetwork, { loading, error, data }] =
+    useMutation(ADD_TOLL_NETWORK);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
     useFormik({
       initialValues,
-      validationSchema: addHighwayValidationSchema,
+      validationSchema: addTollNetworkValidationSchema,
       onSubmit(values, formikHelpers) {
-        addHighway({
+        addTollNetwork({
           variables: {
-            addHighwayInput: {
+            addTollNetworkInput: {
               name: values.name,
-              code: values.code,
             },
           },
         });
@@ -57,7 +54,7 @@ const AddHighwayPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Add highway</Heading.Text>
+          <Heading.Text>Add toll network</Heading.Text>
         </Heading>
 
         <TextInput
@@ -71,31 +68,12 @@ const AddHighwayPage = (): JSX.Element => {
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter highway name"
+              placeholder="Enter toll network name"
               type="text"
             ></TextInput.Field>
           </TextInput.Main>
           {errors.name && touched.name ? (
             <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
-          ) : null}
-        </TextInput>
-        <TextInput
-          variant={errors.code && touched.code ? 'error' : 'edge-100'}
-          className="w-full mb-[1.3rem]"
-        >
-          <TextInput.Main>
-            <TextInput.Label>Code</TextInput.Label>
-            <TextInput.Field
-              name="code"
-              value={values.code}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter highway code"
-              type="text"
-            ></TextInput.Field>
-          </TextInput.Main>
-          {errors.code && touched.code ? (
-            <TextInput.InfoMessage>{errors.code}</TextInput.InfoMessage>
           ) : null}
         </TextInput>
 
@@ -104,7 +82,7 @@ const AddHighwayPage = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Highway created</Alert.Content>
+            <Alert.Content>Toll network created</Alert.Content>
           </Alert>
         ) : null}
 
@@ -125,7 +103,7 @@ const AddHighwayPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add highway</Button.Content>
+              <Button.Content>Add toll network</Button.Content>
             </>
           )}
         </Button>
@@ -134,4 +112,4 @@ const AddHighwayPage = (): JSX.Element => {
   );
 };
 
-export default AddHighwayPage;
+export default AddTollNetworkPage;

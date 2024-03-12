@@ -9,22 +9,31 @@ const listPageLayoutEmptyVariants = cva(
 
 interface ListPageLayoutEmptyProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof listPageLayoutEmptyVariants> {}
+    VariantProps<typeof listPageLayoutEmptyVariants> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  list?: any[];
+}
 
 const ListPageLayoutEmpty = ({
   className,
+  list,
+  children,
   ...props
-}: ListPageLayoutEmptyProps): JSX.Element => {
-  return (
-    <div
-      className={Utils.cn(listPageLayoutEmptyVariants({ className }))}
-      {...props}
-    >
-      <div className="flex flex-col items-center">
-        <img className="h-[10rem] mb-[0.5rem]" src={NoData} alt="Empty" />
-        <div className="flex text-[17pt]">No data</div>
+}: ListPageLayoutEmptyProps) => {
+  if (list && list.length) {
+    return children;
+  } else {
+    return (
+      <div
+        className={Utils.cn(listPageLayoutEmptyVariants({ className }))}
+        {...props}
+      >
+        <div className="flex flex-col items-center">
+          <img className="h-[10rem] mb-[0.5rem]" src={NoData} alt="Empty" />
+          <div className="flex text-[17pt]">No data</div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 export default ListPageLayoutEmpty;

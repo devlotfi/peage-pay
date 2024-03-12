@@ -1,0 +1,105 @@
+import {
+  faEllipsisH,
+  faList,
+  faPen,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  Table,
+  Dropdown,
+  IconButtonOutline,
+  MenuItem,
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { TollNetworkType } from '../../__generated__/graphql';
+import { useNavigate } from 'react-router-dom';
+import DeleteTollNetworkModal from './delete-toll-network-modal.component';
+
+interface TollNetworkItemProps {
+  tollNetwork: TollNetworkType;
+}
+
+const TollNetworkItem = ({
+  tollNetwork,
+}: TollNetworkItemProps): JSX.Element => {
+  const navigate = useNavigate();
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
+
+  return (
+    <Table.Body.Tr>
+      <Table.Body.Td>
+        <Dropdown
+          mainElement={
+            <Dropdown.Main>
+              {
+                <IconButtonOutline>
+                  <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
+                </IconButtonOutline>
+              }
+            </Dropdown.Main>
+          }
+        >
+          <Dropdown.Content position={'bottom-left'}>
+            <DeleteTollNetworkModal
+              modalRef={deleteModalRef}
+              tollNetwork={tollNetwork}
+            ></DeleteTollNetworkModal>
+            <MenuItem
+              onClick={() => navigate(`/dashboard/toll/list/${tollNetwork.id}`)}
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Toll list</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate(`/dashboard/toll/add/${tollNetwork.id}`)}
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add toll</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/toll-network/edit/${tollNetwork.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Edit</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => deleteModalRef.current?.showModal()}
+              className="w-full"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon
+                  className="text-error-100"
+                  icon={faTrash}
+                ></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text className="text-error-100">Delete</MenuItem.Text>
+            </MenuItem>
+          </Dropdown.Content>
+        </Dropdown>
+      </Table.Body.Td>
+      <Table.Body.Td>{tollNetwork.id}</Table.Body.Td>
+      <Table.Body.Td>{tollNetwork.name}</Table.Body.Td>
+      <Table.Body.Td>{tollNetwork.createdAt}</Table.Body.Td>
+      <Table.Body.Td>{tollNetwork.updatedAt}</Table.Body.Td>
+    </Table.Body.Tr>
+  );
+};
+
+export default TollNetworkItem;

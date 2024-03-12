@@ -115,3 +115,31 @@ export const DELETE_TOLL = gql(`
     deleteToll(deleteTollInput: $deleteTollInput)
   }
 `);
+
+export const ADD_TOLL_NETWORK = gql(`
+  mutation ADD_TOLL_NETWORK($addTollNetworkInput: AddTollNetworkInput!) {
+    addTollNetwork(addTollNetworkInput: $addTollNetworkInput) {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const EDIT_TOLL_NETWORK = gql(`
+  mutation EDIT_TOLL_NETWORK($editTollNetworkInput: EditTollNetworkInput!) {
+    editTollNetwork(editTollNetworkInput: $editTollNetworkInput) {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const DELETE_TOLL_NETWORK = gql(`
+  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {
+    deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)
+  }
+`);

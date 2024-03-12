@@ -22,9 +22,17 @@ const documents = {
     "\n  mutation ADD_TOLL($addTollInput: AddTollInput!) {\n    addToll(addTollInput: $addTollInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Add_TollDocument,
     "\n  mutation EDIT_TOLL($editTollInput: EditTollInput!) {\n    editToll(editTollInput: $editTollInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Edit_TollDocument,
     "\n  mutation DELETE_TOLL($deleteTollInput: DeleteTollInput!) {\n    deleteToll(deleteTollInput: $deleteTollInput)\n  }\n": types.Delete_TollDocument,
+    "\n  mutation ADD_TOLL_NETWORK($addTollNetworkInput: AddTollNetworkInput!) {\n    addTollNetwork(addTollNetworkInput: $addTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Add_Toll_NetworkDocument,
+    "\n  mutation EDIT_TOLL_NETWORK($editTollNetworkInput: EditTollNetworkInput!) {\n    editTollNetwork(editTollNetworkInput: $editTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Edit_Toll_NetworkDocument,
+    "\n  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {\n    deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)\n  }\n": types.Delete_Toll_NetworkDocument,
     "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_ListDocument,
+    "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
     "\n  query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {\n    subscriptionList(subscriptionListInput: $subscriptionListInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Subscription_ListDocument,
+    "\n  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {\n    subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {\n      id\n      name\n      vehicleType\n      createdAt\n      updatedAt\n    }\n  }\n": types.Subscription_By_IdDocument,
     "\n  query TOLL_LIST($tollListInput: TollListInput!) {\n    tollList(tollListInput: $tollListInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Toll_ListDocument,
+    "\n  query TOLL_BY_ID($tollByIdInput: TollByIdInput!) {\n    tollById(tollByIdInput: $tollByIdInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Toll_By_IdDocument,
+    "\n  query TOLL_NETWORK_LIST($tollNetworkListInput: TollNetworkListInput!) {\n    tollNetworkList(tollNetworkListInput: $tollNetworkListInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Toll_Network_ListDocument,
+    "\n  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: TollNetworkByIdInput!) {\n    tollNetworkById(tollNetworkByIdInput: $tollNetworkByIdInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Toll_Network_By_IdDocument,
 };
 
 /**
@@ -80,7 +88,23 @@ export function gql(source: "\n  mutation DELETE_TOLL($deleteTollInput: DeleteTo
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation ADD_TOLL_NETWORK($addTollNetworkInput: AddTollNetworkInput!) {\n    addTollNetwork(addTollNetworkInput: $addTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation ADD_TOLL_NETWORK($addTollNetworkInput: AddTollNetworkInput!) {\n    addTollNetwork(addTollNetworkInput: $addTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation EDIT_TOLL_NETWORK($editTollNetworkInput: EditTollNetworkInput!) {\n    editTollNetwork(editTollNetworkInput: $editTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  mutation EDIT_TOLL_NETWORK($editTollNetworkInput: EditTollNetworkInput!) {\n    editTollNetwork(editTollNetworkInput: $editTollNetworkInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {\n    deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)\n  }\n"): (typeof documents)["\n  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {\n    deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -88,7 +112,23 @@ export function gql(source: "\n  query SUBSCRIPTION_LIST($subscriptionListInput:
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {\n    subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {\n      id\n      name\n      vehicleType\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {\n    subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {\n      id\n      name\n      vehicleType\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query TOLL_LIST($tollListInput: TollListInput!) {\n    tollList(tollListInput: $tollListInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query TOLL_LIST($tollListInput: TollListInput!) {\n    tollList(tollListInput: $tollListInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query TOLL_BY_ID($tollByIdInput: TollByIdInput!) {\n    tollById(tollByIdInput: $tollByIdInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query TOLL_BY_ID($tollByIdInput: TollByIdInput!) {\n    tollById(tollByIdInput: $tollByIdInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        name\n        code\n      }\n      highway {\n        name\n        code\n      }\n      tollNetwork {\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query TOLL_NETWORK_LIST($tollNetworkListInput: TollNetworkListInput!) {\n    tollNetworkList(tollNetworkListInput: $tollNetworkListInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query TOLL_NETWORK_LIST($tollNetworkListInput: TollNetworkListInput!) {\n    tollNetworkList(tollNetworkListInput: $tollNetworkListInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: TollNetworkByIdInput!) {\n    tollNetworkById(tollNetworkByIdInput: $tollNetworkByIdInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: TollNetworkByIdInput!) {\n    tollNetworkById(tollNetworkByIdInput: $tollNetworkByIdInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

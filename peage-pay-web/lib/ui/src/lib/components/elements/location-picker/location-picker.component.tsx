@@ -232,6 +232,7 @@ const LocationPicker = ({
 
                 {selectedLocation ? (
                   <Button
+                    type="button"
                     onClick={clearSelectedPosition}
                     variant={'error'}
                     className="ml-[0.5rem]"
@@ -244,7 +245,11 @@ const LocationPicker = ({
                 ) : null}
               </div>
               <div className="flex justify-between lg:justify-start">
-                <Button onClick={confirmPicker} variant={'primary'}>
+                <Button
+                  type="button"
+                  onClick={confirmPicker}
+                  variant={'primary'}
+                >
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                   </Button.Icon>

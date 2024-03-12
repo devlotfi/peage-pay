@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsUUID } from 'class-validator';
 
 @InputType()
-export class DeleteAdjacentTollDistanceInput {
+export class DeleteGraphTollDistanceInput {
   @Field()
   @IsUUID()
   public fromTollId: string;

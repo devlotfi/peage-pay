@@ -33,7 +33,7 @@ export class TollResolver {
     return (await this.tollService.tollList(tollListInput)) as any;
   }
 
-  @Query(() => [TollType])
+  @Query(() => TollType)
   @UseGuards(AuthGuard)
   public async tollById(
     @Args('tollByIdInput') tollByIdInput: TollByIdInput,

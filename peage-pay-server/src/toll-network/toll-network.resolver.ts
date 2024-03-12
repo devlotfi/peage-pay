@@ -23,7 +23,7 @@ export class TollNetworkResolver {
     return await this.tollNetworkService.tollNetworkList(tollNetworkListInput);
   }
 
-  @Query(() => [TollNetworkType])
+  @Query(() => TollNetworkType)
   @UseGuards(AuthGuard)
   public async tollNetworkById(
     @Args('tollNetworkByIdInput') tollNetworkByIdInput: TollNetworkByIdInput,

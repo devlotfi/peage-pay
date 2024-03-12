@@ -23,7 +23,7 @@ import { TollModule } from './toll/toll.module';
 import { BaseUserModule } from './base-user/base-user.module';
 import { WilayaModule } from './wilaya/wilaya.module';
 import { TollErrors } from './toll/graphql/toll-errors.gql';
-import { AdjacentTollDistanceModule } from './adjacent-toll-distance/adjacent-toll-distance.module';
+import { GraphTollDistanceModule } from './graph-toll-distance/graph-toll-distance.module';
 import { PriceModule } from './price/price.module';
 import { TollNetworkModule } from './toll-network/toll-network.module';
 import { TollDistanceModule } from './toll-distance/toll-distance.module';
@@ -87,7 +87,7 @@ import { SubscriptionSearchFields } from './subscription/graphql/subscription-se
     TollModule,
     BaseUserModule,
     WilayaModule,
-    AdjacentTollDistanceModule,
+    GraphTollDistanceModule,
     PriceModule,
     TollNetworkModule,
     TollDistanceModule,

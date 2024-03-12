@@ -9,25 +9,24 @@ export class TollDistanceService {
   public async generateTollDistances(
     generateTollDistancesInput: GenerateTollDistancesInput,
   ): Promise<boolean> {
-    const adjacentTollDistances =
-      this.databaseService.adjacentTollDistance.findMany({
-        where: {
-          fromToll: {
-            tollNetwork: {
-              id: generateTollDistancesInput.tollNetworkId,
-            },
-          },
-          toToll: {
-            tollNetwork: {
-              id: generateTollDistancesInput.tollNetworkId,
-            },
+    const tollDistances = this.databaseService.tollDistance.findMany({
+      where: {
+        fromToll: {
+          tollNetwork: {
+            id: generateTollDistancesInput.tollNetworkId,
           },
         },
-        include: {
-          fromToll: true,
-          toToll: true,
+        toToll: {
+          tollNetwork: {
+            id: generateTollDistancesInput.tollNetworkId,
+          },
         },
-      });
+      },
+      include: {
+        fromToll: true,
+        toToll: true,
+      },
+    });
 
     return true;
   }

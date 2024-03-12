@@ -7,7 +7,7 @@ import {
   MenuItem,
 } from '@peage-pay-web/ui';
 import { useRef } from 'react';
-import { HighwayType } from '../__generated__/graphql';
+import { HighwayType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteHighwayModal from './delete-highway-modal.component';
 

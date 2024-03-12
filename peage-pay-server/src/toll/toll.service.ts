@@ -21,11 +21,13 @@ export class TollService {
       tollListInput.wilayaNameSearch ||
       tollListInput.wilayaCodeSearch ||
       tollListInput.highwayNameSearch ||
-      tollListInput.highwayCodeSearch ||
-      tollListInput.tollNetworkNameSearch
+      tollListInput.highwayCodeSearch
     ) {
       return await this.databaseService.toll.findMany({
         where: {
+          tollNetwork: {
+            id: tollListInput.tollNetworkId,
+          },
           OR: [
             {
               id: {
@@ -76,22 +78,17 @@ export class TollService {
               },
             ],
           },
-          tollNetwork: {
-            OR: [
-              {
-                name: {
-                  contains: tollListInput.tollNetworkNameSearch,
-                  mode: 'insensitive',
-                },
-              },
-            ],
-          },
         },
         take: tollListInput.take,
         skip: tollListInput.skip,
       });
     } else {
       return await this.databaseService.toll.findMany({
+        where: {
+          tollNetwork: {
+            id: tollListInput.tollNetworkId,
+          },
+        },
         take: tollListInput.take,
         skip: tollListInput.skip,
       });

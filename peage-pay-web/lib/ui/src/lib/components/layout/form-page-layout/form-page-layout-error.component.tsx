@@ -1,33 +1,37 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
-import { Utils } from '@peage-pay-web/utils';
 import { PageError } from '@peage-pay-web/assets';
+import { Utils } from '@peage-pay-web/utils';
 
-const listPageLayoutErrorVariants = cva(
+const formPageLayoutErrorVariants = cva(
   'flex justify-center items-center h-full',
 );
 
-interface ListPageLayoutErrorProps
+interface FormPageLayoutErrorProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof listPageLayoutErrorVariants> {
+    VariantProps<typeof formPageLayoutErrorVariants> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
 }
 
-const ListPageLayoutError = ({
+const FormPageLayoutError = ({
   className,
-  error,
   children,
+  error,
   ...props
-}: ListPageLayoutErrorProps) => {
+}: FormPageLayoutErrorProps) => {
   if (error) {
     return (
       <div
-        className={Utils.cn(listPageLayoutErrorVariants({ className }))}
+        className={Utils.cn(formPageLayoutErrorVariants({ className }))}
         {...props}
       >
-        <div className="flex flex-col items-center">
-          <img className="h-[10rem] mb-[0.5rem]" src={PageError} alt="Error" />
+        <div className="flex flex-col">
+          <img
+            className="h-[10rem] mb-[1rem]"
+            src={PageError}
+            alt="PeageError"
+          />
           <div className="flex text-[17pt]">Error while fetching</div>
         </div>
       </div>
@@ -36,4 +40,4 @@ const ListPageLayoutError = ({
     return children;
   }
 };
-export default ListPageLayoutError;
+export default FormPageLayoutError;

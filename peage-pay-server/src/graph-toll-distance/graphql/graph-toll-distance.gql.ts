@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 
 @ObjectType()
-export class AdjacentTollDistanceType {
+export class GraphTollDistanceType {
   @Field()
   public fromTollId: string;
 

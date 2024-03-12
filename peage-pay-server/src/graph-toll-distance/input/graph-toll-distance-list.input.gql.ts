@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsOptional, IsPositive, IsUUID, Max } from 'class-validator';
 
 @InputType()
-export class AdjacentTollDistanceListInput {
+export class GraphTollDistanceListInput {
   @Field({ nullable: true })
   @IsUUID()
   public tollId: string;

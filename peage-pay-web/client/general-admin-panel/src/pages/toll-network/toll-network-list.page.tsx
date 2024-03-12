@@ -1,29 +1,29 @@
 import { useQuery } from '@apollo/client';
-import { HIGHWAY_LIST } from '../../graphql/queries';
+import { TOLL_NETWORK_LIST } from '../../graphql/queries';
 import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
 import { useState } from 'react';
-import { HighwaySearchFields } from '../../__generated__/graphql';
-import HighwayItem from '../../components/highway/highway-item.component';
+import { TollNetworkSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
+import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
 
-interface HighwayListSearchValues {
+interface TollNetworkListSearchValues {
   search: string;
-  field: HighwaySearchFields;
+  field: TollNetworkSearchFields;
   page: number;
 }
 
-const initialValues: HighwayListSearchValues = {
+const initialValues: TollNetworkListSearchValues = {
   search: '',
-  field: HighwaySearchFields.NameSearch,
+  field: TollNetworkSearchFields.NameSearch,
   page: 1,
 };
 
-const HighwayListPage = (): JSX.Element => {
+const TollNetworkListPage = (): JSX.Element => {
   const [searchData, setSearchData] = useState(initialValues);
-  const { data, loading, error } = useQuery(HIGHWAY_LIST, {
+  const { data, loading, error } = useQuery(TOLL_NETWORK_LIST, {
     variables: {
-      highwayListInput: {
+      tollNetworkListInput: {
         take: 10,
         skip: 10 * (searchData.page - 1),
         [searchData.field]: searchData.search,
@@ -37,19 +37,27 @@ const HighwayListPage = (): JSX.Element => {
       <SearchForm
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
-        initialFieldSearch={HighwaySearchFields.NameSearch}
+        initialFieldSearch={TollNetworkSearchFields.NameSearch}
         fieldSelectOptions={
           <>
-            {Object.keys(HighwaySearchFields).map((key) => (
+            {Object.keys(TollNetworkSearchFields).map((key) => (
               <option
                 key={
-                  HighwaySearchFields[key as keyof typeof HighwaySearchFields]
+                  TollNetworkSearchFields[
+                    key as keyof typeof TollNetworkSearchFields
+                  ]
                 }
                 value={
-                  HighwaySearchFields[key as keyof typeof HighwaySearchFields]
+                  TollNetworkSearchFields[
+                    key as keyof typeof TollNetworkSearchFields
+                  ]
                 }
               >
-                {HighwaySearchFields[key as keyof typeof HighwaySearchFields]}
+                {
+                  TollNetworkSearchFields[
+                    key as keyof typeof TollNetworkSearchFields
+                  ]
+                }
               </option>
             ))}
           </>
@@ -60,12 +68,12 @@ const HighwayListPage = (): JSX.Element => {
         <Heading.Icon position={'left'}>
           <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
         </Heading.Icon>
-        <Heading.Text>Highway list</Heading.Text>
+        <Heading.Text>Toll network list</Heading.Text>
       </Heading>
 
       <ListPageLayout.Loading loading={loading}>
         <ListPageLayout.Error error={error}>
-          <ListPageLayout.Empty list={data?.highwayList}>
+          <ListPageLayout.Empty list={data?.tollNetworkList}>
             <Table.Container className="h-full">
               <Table>
                 <Table.Head>
@@ -73,17 +81,16 @@ const HighwayListPage = (): JSX.Element => {
                     <Table.Head.Th></Table.Head.Th>
                     <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Name</Table.Head.Th>
-                    <Table.Head.Th>Code</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
-                  {data?.highwayList.map((highway) => (
-                    <HighwayItem
-                      key={highway.id}
-                      highway={highway}
-                    ></HighwayItem>
+                  {data?.tollNetworkList.map((tollNetwork) => (
+                    <TollNetworkItem
+                      key={tollNetwork.id}
+                      tollNetwork={tollNetwork}
+                    ></TollNetworkItem>
                   ))}
                 </Table.Body>
               </Table>
@@ -95,4 +102,4 @@ const HighwayListPage = (): JSX.Element => {
   );
 };
 
-export default HighwayListPage;
+export default TollNetworkListPage;

@@ -2,7 +2,9 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { FormHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
-const formPageLayoutFormVariants = cva('flex flex-col max-w-[55rem] w-full');
+const formPageLayoutFormVariants = cva(
+  'flex flex-col max-w-[55rem] w-full h-full',
+);
 
 interface FormPageLayoutFormProps
   extends FormHTMLAttributes<HTMLFormElement>,

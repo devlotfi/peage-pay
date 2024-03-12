@@ -15,6 +15,9 @@ import AddTollPage from '../pages/toll/add-toll.page';
 import EditTollPage from '../pages/toll/edit-toll.page';
 import UserListPage from '../pages/user/user-list.page';
 import EditUserPage from '../pages/user/edit-user.page';
+import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
+import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
+import EditTollNetworkPage from '../pages/toll-network/edit-toll-network.page';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -94,6 +97,19 @@ const useRouter = () => {
         },
 
         {
+          path: '/dashboard/toll-network/list',
+          element: <TollNetworkListPage></TollNetworkListPage>,
+        },
+        {
+          path: '/dashboard/toll-network/add',
+          element: <AddTollNetworkPage></AddTollNetworkPage>,
+        },
+        {
+          path: '/dashboard/toll-network/edit/:tollNetworkId',
+          element: <EditTollNetworkPage></EditTollNetworkPage>,
+        },
+
+        {
           path: '/dashboard/subscription/list',
           element: <SubscriptionListPage></SubscriptionListPage>,
         },
@@ -107,11 +123,11 @@ const useRouter = () => {
         },
 
         {
-          path: '/dashboard/toll/list',
+          path: '/dashboard/toll/list/:tollNetworkId',
           element: <TollListPage></TollListPage>,
         },
         {
-          path: '/dashboard/toll/add',
+          path: '/dashboard/toll/add/:tollNetworkId',
           element: <AddTollPage></AddTollPage>,
         },
         {

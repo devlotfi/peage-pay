@@ -7,28 +7,28 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Button, Alert, LoaderDots } from '@peage-pay-web/ui';
 import { RefObject } from 'react';
-import { DELETE_HIGHWAY } from '../graphql/mutations';
-import { HighwayType } from '../__generated__/graphql';
-import { HIGHWAY_LIST } from '../graphql/queries';
+import { DELETE_TOLL } from '../../graphql/mutations';
+import { TollType } from '../../__generated__/graphql';
+import { TOLL_LIST } from '../../graphql/queries';
 
-interface DeleteHighwayModalProps {
+interface DeleteTollModalProps {
   modalRef: RefObject<HTMLDialogElement>;
-  highway: HighwayType;
+  toll: TollType;
 }
 
-const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
-  const [deleteHighway, { loading, error }] = useMutation(DELETE_HIGHWAY, {
+const DeleteTollModal = ({ modalRef, toll }: DeleteTollModalProps) => {
+  const [deleteToll, { loading, error }] = useMutation(DELETE_TOLL, {
     onCompleted(data, clientOptions) {
       modalRef.current?.close();
     },
-    refetchQueries: [HIGHWAY_LIST],
+    refetchQueries: [TOLL_LIST],
   });
 
   const handleDelete = () => {
-    deleteHighway({
+    deleteToll({
       variables: {
-        deleteHighwayInput: {
-          highwayId: highway.id,
+        deleteTollInput: {
+          tollId: toll.id,
         },
       },
     });
@@ -37,9 +37,9 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete highway</Modal.Header>
+        <Modal.Header>Delete toll</Modal.Header>
         <Modal.Content>
-          Are you sure you want to dete this highway
+          Are you sure you want to dete this toll
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
               <Alert.Icon position={'left'}>
@@ -81,4 +81,4 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
   );
 };
 
-export default DeleteHighwayModal;
+export default DeleteTollModal;

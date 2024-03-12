@@ -12,11 +12,35 @@ export const HIGHWAY_LIST = gql(`
   }
 `);
 
+export const HIGHWAY_BY_ID = gql(`
+  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {
+    highwaybyId(highwayByIdInput: $highwayByIdInput) {
+      code
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
 export const SUBSCRIPTION_LIST = gql(`
   query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {
     subscriptionList(subscriptionListInput: $subscriptionListInput) {
       id
       name
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const SUBSCRIPTION_BY_ID = gql(`
+  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {
+    subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {
+      id
+      name
+      vehicleType
       createdAt
       updatedAt
     }
@@ -42,6 +66,53 @@ export const TOLL_LIST = gql(`
       tollNetwork {
         name
       }
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const TOLL_BY_ID = gql(`
+  query TOLL_BY_ID($tollByIdInput: TollByIdInput!) {
+    tollById(tollByIdInput: $tollByIdInput) {
+      id
+      name
+      status
+      longitude
+      latitude
+      wilaya {
+        name
+        code
+      }
+      highway {
+        name
+        code
+      }
+      tollNetwork {
+        name
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const TOLL_NETWORK_LIST = gql(`
+  query TOLL_NETWORK_LIST($tollNetworkListInput: TollNetworkListInput!) {
+    tollNetworkList(tollNetworkListInput: $tollNetworkListInput) {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const TOLL_NETWORK_BY_ID = gql(`
+  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: TollNetworkByIdInput!) {
+    tollNetworkById(tollNetworkByIdInput: $tollNetworkByIdInput) {
+      id
+      name
       createdAt
       updatedAt
     }

@@ -14,55 +14,49 @@ import {
   LoaderDots,
   TextInput,
 } from '@peage-pay-web/ui';
-import { EDIT_HIGHWAY } from '../../graphql/mutations';
+import { EDIT_TOLL_NETWORK } from '../../graphql/mutations';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
-import { HIGHWAY_BY_ID } from '../../graphql/queries';
+import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
 
-interface EditHighwayValues {
+interface EditTollNetworkValues {
   name: string;
-  code: string;
 }
 
-const initialValues: EditHighwayValues = {
+const initialValues: EditTollNetworkValues = {
   name: '',
-  code: '',
 };
 
-const editHighwayValidationSchema = yup.object({
+const editTollNetworkValidationSchema = yup.object({
   name: yup.string().max(256).required(),
-  code: yup.string().max(10).required(),
 });
 
-const EditHighwayPage = (): JSX.Element => {
-  const { highwayId } = useParams();
+const EditTollNetworkPage = (): JSX.Element => {
+  const { tollNetworkId } = useParams();
   const {
-    loading: highwayLoading,
-    error: highwayError,
-    data: highwayData,
-  } = useQuery(HIGHWAY_BY_ID, {
+    loading: tollNetworkLoading,
+    error: tollNetworkError,
+    data: tollNetworkData,
+  } = useQuery(TOLL_NETWORK_BY_ID, {
     variables: {
-      highwayByIdInput: {
-        highwayId: highwayId as string,
+      tollNetworkByIdInput: {
+        tollNetworkId: tollNetworkId as string,
       },
     },
     fetchPolicy: 'network-only',
     onCompleted(data) {
-      if (data.highwaybyId) {
-        console.log(data);
-
+      if (data.tollNetworkById) {
         setValues({
-          name: data.highwaybyId.name,
-          code: data.highwaybyId.code,
+          name: data.tollNetworkById.name,
         });
       }
     },
   });
   const [
-    editHighway,
+    editTollNetwork,
     { loading: editLoading, error: editError, data: editData },
-  ] = useMutation(EDIT_HIGHWAY);
+  ] = useMutation(EDIT_TOLL_NETWORK);
   const {
     errors,
     touched,
@@ -73,15 +67,14 @@ const EditHighwayPage = (): JSX.Element => {
     setValues,
   } = useFormik({
     initialValues,
-    validationSchema: editHighwayValidationSchema,
+    validationSchema: editTollNetworkValidationSchema,
     onSubmit(values, formikHelpers) {
-      if (highwayId) {
-        editHighway({
+      if (tollNetworkId) {
+        editTollNetwork({
           variables: {
-            editHighwayInput: {
-              highwayId,
+            editTollNetworkInput: {
+              tollNetworkId,
               name: values.name,
-              code: values.code,
             },
           },
         });
@@ -92,17 +85,17 @@ const EditHighwayPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={highwayLoading}>
-          <FormPageLayout.Error error={highwayError}>
+        <FormPageLayout.Loading loading={tollNetworkLoading}>
+          <FormPageLayout.Error error={tollNetworkError}>
             <Heading className="text-[20pt]">
               <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </Heading.Icon>
-              <Heading.Text>Edit highway</Heading.Text>
+              <Heading.Text>Edit toll network</Heading.Text>
             </Heading>
             <Heading className="text-[15pt] mb-[2rem]">
               <Heading.Text className="opacity-70">
-                Highway: {highwayData?.highwaybyId?.name}
+                toll network: {tollNetworkData?.tollNetworkById?.name}
               </Heading.Text>
             </Heading>
 
@@ -117,31 +110,12 @@ const EditHighwayPage = (): JSX.Element => {
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter highway name"
+                  placeholder="Enter toll network name"
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
               {errors.name && touched.name ? (
                 <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
-              ) : null}
-            </TextInput>
-            <TextInput
-              variant={errors.code && touched.code ? 'error' : 'edge-100'}
-              className="w-full mb-[1.3rem]"
-            >
-              <TextInput.Main>
-                <TextInput.Label>Code</TextInput.Label>
-                <TextInput.Field
-                  name="code"
-                  value={values.code}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter highway code"
-                  type="text"
-                ></TextInput.Field>
-              </TextInput.Main>
-              {errors.code && touched.code ? (
-                <TextInput.InfoMessage>{errors.code}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
 
@@ -150,7 +124,7 @@ const EditHighwayPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Highway updated</Alert.Content>
+                <Alert.Content>Toll network updated</Alert.Content>
               </Alert>
             ) : null}
 
@@ -173,7 +147,7 @@ const EditHighwayPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit highway</Button.Content>
+                  <Button.Content>Edit toll network</Button.Content>
                 </>
               )}
             </Button>
@@ -184,4 +158,4 @@ const EditHighwayPage = (): JSX.Element => {
   );
 };
 
-export default EditHighwayPage;
+export default EditTollNetworkPage;
