@@ -13,12 +13,16 @@ import MenuDropdown from './lib/components/elements/menu-dropdown/menu-dropdown.
 import MenuItem from './lib/components/elements/menu-item/menu-item.component';
 import Modal from './lib/components/elements/modal/modal.component';
 import Select from './lib/components/elements/select/select.component';
+import Table from './lib/components/elements/table/table.component';
 import Tabs from './lib/components/elements/tabs/tabs.component';
 import TextArea from './lib/components/elements/text-area/text-area.component';
 import TextInput from './lib/components/elements/text-input/text-input.component';
 import Tooltip from './lib/components/elements/tooltip/tooltip.component';
 import AdminDashboardLayout from './lib/components/layout/admin-dashboard/admin-dashboard-layout/admin-dashboard-layout.component';
+import FormPageLayout from './lib/components/layout/form-layout/form-page-layout.component';
+import ListPageLayout from './lib/components/layout/list-page-layout/list-page-layout.component';
 import MinimalNavbar from './lib/components/layout/minimal-navbar/minimal-navbar.component';
+import SearchForm from './lib/components/layout/search-form/search-form.component';
 import ErrorPage from './lib/components/pages/error-page/error.page';
 
 export {
@@ -44,4 +48,8 @@ export {
   ErrorPage,
   IconButton,
   IconButtonOutline,
+  SearchForm,
+  Table,
+  ListPageLayout,
+  FormPageLayout,
 };

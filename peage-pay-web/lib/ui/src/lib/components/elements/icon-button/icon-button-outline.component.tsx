@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const iconButtonOutlineVariants = cva(
-  'flex h-[3rem] w-[3rem] justify-center items-center text-[11pt] font-medium rounded-md bg-base-100 border-[1px] hover:bg-base-200 duration-300 ease active:scale-95',
+  'flex min-h-[2.7rem] min-w-[2.7rem] h-[2.7rem] w-[2.7rem] justify-center items-center text-[11pt] font-medium rounded-md bg-base-100 border-[1px] hover:bg-base-200 duration-300 ease active:scale-95',
   {
     variants: {
       variant: {

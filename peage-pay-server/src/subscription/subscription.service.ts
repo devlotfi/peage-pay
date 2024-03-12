@@ -7,6 +7,7 @@ import { SubscriptionErrors } from './graphql/subscription-errors.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
+import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
 
 @Injectable()
 export class SubscriptionService {
@@ -44,6 +45,16 @@ export class SubscriptionService {
     }
   }
 
+  public async subscriptionById(
+    subscriptionByIdInput: SubscriptionByIdInput,
+  ): Promise<Subscription | null> {
+    return await this.databaseService.subscription.findUnique({
+      where: {
+        id: subscriptionByIdInput.subscriptionId,
+      },
+    });
+  }
+
   public async addSubscription(
     addSubscriptionInput: AddSubscriptionInput,
   ): Promise<Subscription> {
@@ -75,7 +86,7 @@ export class SubscriptionService {
           vehicleType: editSubscriptionInput.vehicleType,
         },
         where: {
-          id: editSubscriptionInput.id,
+          id: editSubscriptionInput.subscriptionId,
         },
       });
       return subscription;

@@ -1,17 +1,20 @@
 import { PropsWithChildren, createContext, useState } from 'react';
-import { BaseUserType } from '../../__generated__/graphql';
+import { BaseUserRolesType, BaseUserType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
 import AuthLoading from '../components/auth-loading.component';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
+import PermissionErrorPage from '../pages/permission-error.page';
 
 type AuthData = {
   baseUser: BaseUserType;
+  userRoles: BaseUserRolesType[];
 } | null;
 
 interface AuthContext {
   authData: AuthData;
+  allowedRoles: BaseUserRolesType[];
 
   setAuthData: (authData: AuthData) => void;
   setAccessToken: (accessToken: string) => void;
@@ -20,6 +23,7 @@ interface AuthContext {
 
 const initialValue: AuthContext = {
   authData: null,
+  allowedRoles: [],
 
   setAuthData: () => {
     return;
@@ -34,7 +38,14 @@ const initialValue: AuthContext = {
 
 export const AuthContext = createContext(initialValue);
 
-export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
+interface AuthProviderProps {
+  allowedRoles: BaseUserRolesType[];
+}
+
+export const AuthProvider = ({
+  children,
+  allowedRoles,
+}: PropsWithChildren<AuthProviderProps>): JSX.Element => {
   const [authData, setAuthData] = useState(initialValue.authData);
   const [authLoading, setAuthLoading] = useState<boolean>(true);
 
@@ -42,6 +53,7 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
     onCompleted(data) {
       setAuthData({
         baseUser: data.signInWithRefreshTokenCookie.baseUser,
+        userRoles: data.signInWithRefreshTokenCookie.roles,
       });
       setAccessToken(data.signInWithRefreshTokenCookie.accessToken);
       setAuthLoading(false);
@@ -58,6 +70,33 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
     sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);
   };
 
+  const checkRoles = (
+    allowedRoles: BaseUserRolesType[],
+    userRoles: BaseUserRolesType[],
+  ): boolean => {
+    for (const role of allowedRoles) {
+      if (userRoles.indexOf(role) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const renderContent = () => {
+    if (authLoading) {
+      return <AuthLoading></AuthLoading>;
+    } else {
+      if (
+        (authData && checkRoles(allowedRoles, authData.userRoles)) ||
+        !authData
+      ) {
+        return children;
+      } else {
+        return <PermissionErrorPage></PermissionErrorPage>;
+      }
+    }
+  };
+
   return (
     <GoogleOAuthProvider
       clientId={
@@ -68,12 +107,13 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
       <AuthContext.Provider
         value={{
           authData: authData,
+          allowedRoles,
           setAuthData,
           setAccessToken,
           clearAccessToken,
         }}
       >
-        {authLoading ? <AuthLoading></AuthLoading> : children}
+        {renderContent()}
       </AuthContext.Provider>
     </GoogleOAuthProvider>
   );

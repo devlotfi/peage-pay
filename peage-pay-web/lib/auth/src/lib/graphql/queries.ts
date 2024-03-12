@@ -11,6 +11,7 @@ export const SIGN_IN_WITH_REFRESH_TOKEN = gql(`
         updatedAt
       }
       accessToken
+      roles
     }
   }
 `);
@@ -26,6 +27,7 @@ export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
         updatedAt
       }
       accessToken
+      roles
     }
   }
 `);

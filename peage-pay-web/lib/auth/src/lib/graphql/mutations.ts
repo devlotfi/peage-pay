@@ -35,6 +35,7 @@ export const SIGN_IN_WITH_EMAIL = gql(`
         updatedAt
       }
       accessToken
+      roles
     }
   }
 `);
@@ -50,6 +51,7 @@ export const SIGN_IN_WITH_GOOGLE = gql(`
         updatedAt
       }
       accessToken
+      roles
     }
   }
 `);

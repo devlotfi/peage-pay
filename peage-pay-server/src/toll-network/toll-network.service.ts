@@ -7,6 +7,7 @@ import { GraphQLError } from 'graphql';
 import { TollNetworkErrors } from './graphql/toll-network-errors.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
+import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
 
 @Injectable()
 export class TollNetworkService {
@@ -43,6 +44,16 @@ export class TollNetworkService {
         skip: tollNetworkListInput.skip,
       });
     }
+  }
+
+  public async tollNetworkById(
+    tollNetworkByIdInput: TollNetworkByIdInput,
+  ): Promise<TollNetwork | null> {
+    return await this.databaseService.tollNetwork.findUnique({
+      where: {
+        id: tollNetworkByIdInput.tollNetworkId,
+      },
+    });
   }
 
   public async addTollNetwork(

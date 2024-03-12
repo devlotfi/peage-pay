@@ -6,7 +6,7 @@ import { VehicleTypeType } from '../graphql/vehicle-type.gql';
 export class EditSubscriptionInput {
   @Field()
   @IsUUID()
-  public id: string;
+  public subscriptionId: string;
 
   @Field({ nullable: true })
   @Length(1, 256)

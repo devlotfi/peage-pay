@@ -11,7 +11,10 @@ const SignInWithGoogleForm = (): JSX.Element => {
   const { setAccessToken, setAuthData } = useContext(AuthContext);
   const [signInWithGoogle, { loading }] = useMutation(SIGN_IN_WITH_GOOGLE, {
     onCompleted(data, clientOptions) {
-      setAuthData({ baseUser: data.signInWithGoogle.baseUser });
+      setAuthData({
+        baseUser: data.signInWithGoogle.baseUser,
+        userRoles: data.signInWithGoogle.roles,
+      });
       setAccessToken(data.signInWithGoogle.accessToken);
     },
     onError(error, clientOptions) {

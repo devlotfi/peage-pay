@@ -3,7 +3,7 @@ import { SelectHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const selectFieldVariants = cva(
-  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] mr-[0.5rem]'
+  'flex w-full border-[1px] bg-base-100 outline-none border-none px-[1rem] mr-[0.5rem]',
 );
 
 interface SelectProps
@@ -20,7 +20,7 @@ const SelectField = ({
       className={Utils.cn(
         selectFieldVariants({
           className,
-        })
+        }),
       )}
       {...props}
     >

@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const iconButtonVariants = cva(
-  'flex min-h-[3rem] min-w-[3rem] h-[3rem] w-[3rem] justify-center items-center text-[17pt] font-medium rounded-md duration-300 ease active:scale-95',
+  'flex min-h-[2.7rem] min-w-[2.7rem] h-[2.7rem] w-[2.7rem] justify-center items-center text-[17pt] font-medium rounded-md duration-300 ease active:scale-95',
   {
     variants: {
       variant: {

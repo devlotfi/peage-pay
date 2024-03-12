@@ -1,15 +1,22 @@
 import { useMutation } from '@apollo/client';
-import { faAt, faKey, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAt,
+  faExclamationCircle,
+  faKey,
+  faSignIn,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, CustomLink, LoaderDots, TextInput } from '@peage-pay-web/ui';
+import {
+  Alert,
+  Button,
+  CustomLink,
+  LoaderDots,
+  TextInput,
+} from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SIGN_IN_WITH_EMAIL } from '../../graphql/mutations';
-import {
-  AuthErrors,
-  BaseUserErrors,
-  RefreshTokenMode,
-} from '../../../__generated__/graphql';
+import { AuthErrors, RefreshTokenMode } from '../../../__generated__/graphql';
 import { useContext, useRef } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import VerifyEmailModal from '../verify-email-modal.component';
@@ -32,74 +39,43 @@ const initialValues: SignInWithEmailValues = {
 
 const SignInWithEmailForm = (): JSX.Element => {
   const { setAuthData, setAccessToken } = useContext(AuthContext);
-  const [signInWithEmail, { loading }] = useMutation(SIGN_IN_WITH_EMAIL, {
-    onCompleted(data, clientOptions) {
-      setAuthData({ baseUser: data.signInWithEmail.baseUser });
-      setAccessToken(data.signInWithEmail.accessToken);
+  const [signInWithEmail, { loading, error }] = useMutation(
+    SIGN_IN_WITH_EMAIL,
+    {
+      onCompleted(data, clientOptions) {
+        setAuthData({
+          baseUser: data.signInWithEmail.baseUser,
+          userRoles: data.signInWithEmail.roles,
+        });
+        setAccessToken(data.signInWithEmail.accessToken);
+      },
+      onError(error, clientOptions) {
+        switch (error.message) {
+          case AuthErrors.VerificationRequestPending:
+            verifyEmailModalRef.current?.showModal();
+            break;
+        }
+      },
     },
-    onError(error, clientOptions) {
-      switch (error.message) {
-        case BaseUserErrors.BaseUserNotFound:
-          setFieldError(
-            'email',
-            `auth:errors.${BaseUserErrors.BaseUserNotFound}`,
-          );
-          break;
-        case AuthErrors.InvalidEmailOrPassword:
-          setFieldError(
-            'password',
-            `auth:errors.${AuthErrors.InvalidEmailOrPassword}`,
-          );
-          break;
-        case AuthErrors.SignInWithEmaIlAttemptsExceeded:
-          setFieldError(
-            'email',
-            `auth:errors.${AuthErrors.SignInWithEmaIlAttemptsExceeded}`,
-          );
-          break;
-        case AuthErrors.EmailVerificationAttemptsExceeded:
-          setFieldError(
-            'email',
-            `auth:errors.${AuthErrors.EmailVerificationAttemptsExceeded}`,
-          );
-          break;
-        case AuthErrors.VerificationRequestPending:
-          showVerifyEmailModal();
-          break;
-      }
-    },
-  });
-  const verifyEmailModalRef = useRef(null);
+  );
+  const verifyEmailModalRef = useRef<HTMLDialogElement>(null);
 
-  const showVerifyEmailModal = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    verifyEmailModalRef.current.showModal();
-  };
-
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    errors,
-    touched,
-    values,
-    setFieldError,
-  } = useFormik({
-    validationSchema: signInWithEmailValidationSchema,
-    initialValues,
-    onSubmit(values, formikHelpers) {
-      signInWithEmail({
-        variables: {
-          signInWithEmailInput: {
-            email: values.email,
-            password: values.password,
+  const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
+    useFormik({
+      validationSchema: signInWithEmailValidationSchema,
+      initialValues,
+      onSubmit(values, formikHelpers) {
+        signInWithEmail({
+          variables: {
+            signInWithEmailInput: {
+              email: values.email,
+              password: values.password,
+            },
+            refreshTokenMode: RefreshTokenMode.Cookie,
           },
-          refreshTokenMode: RefreshTokenMode.Cookie,
-        },
-      });
-    },
-  });
+        });
+      },
+    });
 
   return (
     <>
@@ -156,6 +132,15 @@ const SignInWithEmailForm = (): JSX.Element => {
         <Link to={'/send-password-reset-email'}>
           <CustomLink className="mb-[1rem]">Reset password</CustomLink>
         </Link>
+
+        {error ? (
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
+              <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+          </Alert>
+        ) : null}
 
         <Button className="w-full" variant={'primary'} type="submit">
           {loading ? (

@@ -2,9 +2,10 @@ import { Button, Modal } from '@peage-pay-web/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MailSent } from '@peage-pay-web/assets';
+import { RefObject } from 'react';
 
 interface VerifyEmailModalProps {
-  modalRef: React.LegacyRef<HTMLDialogElement>;
+  modalRef: RefObject<HTMLDialogElement>;
   email: string;
 }
 
@@ -12,12 +13,6 @@ const VerifyEmailModal = ({
   modalRef,
   email,
 }: VerifyEmailModalProps): JSX.Element => {
-  const closeModal = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    modalRef.current.close();
-  };
-
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window className="max-w-[30rem]">
@@ -34,7 +29,10 @@ const VerifyEmailModal = ({
           <div className="flex justify-center text-primary-100">{email}</div>
         </Modal.Content>
         <Modal.Footer className="justify-end">
-          <Button onClick={closeModal} variant={'base-200'}>
+          <Button
+            onClick={() => modalRef.current?.close()}
+            variant={'base-200'}
+          >
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>

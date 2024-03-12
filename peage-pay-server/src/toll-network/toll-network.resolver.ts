@@ -9,6 +9,7 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
+import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
 
 @Resolver()
 export class TollNetworkResolver {
@@ -20,6 +21,14 @@ export class TollNetworkResolver {
     @Args('tollNetworkListInput') tollNetworkListInput: TollNetworkListInput,
   ): Promise<TollNetworkType[]> {
     return await this.tollNetworkService.tollNetworkList(tollNetworkListInput);
+  }
+
+  @Query(() => [TollNetworkType])
+  @UseGuards(AuthGuard)
+  public async tollNetworkById(
+    @Args('tollNetworkByIdInput') tollNetworkByIdInput: TollNetworkByIdInput,
+  ): Promise<TollNetworkType | null> {
+    return await this.tollNetworkService.tollNetworkById(tollNetworkByIdInput);
   }
 
   @Mutation(() => TollNetworkType)

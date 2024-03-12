@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { TollType } from './graphql/toll.gql';
-import { WilayaType } from 'src/wilaya/graphql/wilaya.graphql';
+import { WilayaType } from 'src/wilaya/graphql/wilaya.gql';
 import { TollService } from './toll.service';
 import { HighwayType } from 'src/highway/graphql/highway.gql';
 import { UseGuards } from '@nestjs/common';
@@ -19,6 +19,7 @@ import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
 import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
+import { TollByIdInput } from './input/toll-by-id.input.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -30,6 +31,14 @@ export class TollResolver {
     @Args('tollListInput') tollListInput: TollListInput,
   ): Promise<TollType[]> {
     return (await this.tollService.tollList(tollListInput)) as any;
+  }
+
+  @Query(() => [TollType])
+  @UseGuards(AuthGuard)
+  public async tollById(
+    @Args('tollByIdInput') tollByIdInput: TollByIdInput,
+  ): Promise<TollType[]> {
+    return (await this.tollService.tollById(tollByIdInput)) as any;
   }
 
   @Mutation(() => TollType)

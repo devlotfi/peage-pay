@@ -1,5 +1,5 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { WilayaType } from './graphql/wilaya.graphql';
+import { WilayaType } from './graphql/wilaya.gql';
 import { WilayaService } from './wilaya.service';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { UseGuards } from '@nestjs/common';

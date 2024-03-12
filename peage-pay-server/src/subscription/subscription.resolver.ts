@@ -9,6 +9,7 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
+import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
 
 @Resolver()
 export class SubscriptionResolver {
@@ -17,13 +18,22 @@ export class SubscriptionResolver {
   ) {}
 
   @Query(() => [SubscriptionType])
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async subscriptionList(
     @Args('subscriptionListInput') subscriptionListInput: SubscriptionListInput,
   ): Promise<SubscriptionType[]> {
     return (await this.subscriptionService.subscriptionList(
       subscriptionListInput,
+    )) as any;
+  }
+
+  @Query(() => SubscriptionType, { nullable: true })
+  @UseGuards(AuthGuard)
+  public async subscriptionById(
+    @Args('subscriptionByIdInput') subscriptionByIdInput: SubscriptionByIdInput,
+  ): Promise<SubscriptionType | null> {
+    return (await this.subscriptionService.subscriptionById(
+      subscriptionByIdInput,
     )) as any;
   }
 

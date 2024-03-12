@@ -1,11 +1,16 @@
 import { useMutation } from '@apollo/client';
-import { faAt, faKey, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAt,
+  faExclamationCircle,
+  faKey,
+  faSignIn,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, LoaderDots, TextInput } from '@peage-pay-web/ui';
+import { Alert, Button, LoaderDots, TextInput } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SIGN_UP_WITH_EMAIL } from '../../graphql/mutations';
-import { AuthErrors, BaseUserErrors } from '../../../__generated__/graphql';
+import { AuthErrors } from '../../../__generated__/graphql';
 import { useRef } from 'react';
 import VerifyEmailModal from '../verify-email-modal.component';
 
@@ -37,68 +42,40 @@ const initialValues: SignUpWithEmailValues = {
 };
 
 const SignUpWithEmailForm = (): JSX.Element => {
-  const [signInWithEmail, { loading }] = useMutation(SIGN_UP_WITH_EMAIL, {
-    onCompleted(data, clientOptions) {
-      showVerifyEmailModal();
+  const [signInWithEmail, { loading, error }] = useMutation(
+    SIGN_UP_WITH_EMAIL,
+    {
+      onCompleted(data, clientOptions) {
+        verifyEmailModalRef.current?.showModal();
+      },
+      onError(error, clientOptions) {
+        switch (error.message) {
+          case AuthErrors.VerificationRequestPending:
+            verifyEmailModalRef.current?.showModal();
+            break;
+        }
+      },
     },
-    onError(error, clientOptions) {
-      switch (error.message) {
-        case BaseUserErrors.BaseUserWithEmailExists:
-          setFieldError(
-            'email',
-            `auth:errors.${BaseUserErrors.BaseUserWithEmailExists}`,
-          );
-          break;
-        case AuthErrors.SignInWithEmaIlAttemptsExceeded:
-          setFieldError(
-            'email',
-            `auth:errors.${AuthErrors.SignInWithEmaIlAttemptsExceeded}`,
-          );
-          break;
-        case AuthErrors.EmailVerificationAttemptsExceeded:
-          setFieldError(
-            'email',
-            `auth:errors.${AuthErrors.EmailVerificationAttemptsExceeded}`,
-          );
-          break;
-        case AuthErrors.VerificationRequestPending:
-          showVerifyEmailModal();
-          break;
-      }
-    },
-  });
-  const verifyEmailModalRef = useRef(null);
+  );
+  const verifyEmailModalRef = useRef<HTMLDialogElement>(null);
 
-  const showVerifyEmailModal = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    verifyEmailModalRef.current.showModal();
-  };
-
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    errors,
-    touched,
-    values,
-    setFieldError,
-  } = useFormik({
-    validationSchema: signUpWithEmailValidationSchema,
-    initialValues,
-    onSubmit(values, formikHelpers) {
-      signInWithEmail({
-        variables: {
-          signUpWithEmailInput: {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
-            password: values.password,
+  const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
+    useFormik({
+      validationSchema: signUpWithEmailValidationSchema,
+      initialValues,
+      onSubmit(values, formikHelpers) {
+        signInWithEmail({
+          variables: {
+            signUpWithEmailInput: {
+              firstName: values.firstName,
+              lastName: values.lastName,
+              email: values.email,
+              password: values.password,
+            },
           },
-        },
-      });
-    },
-  });
+        });
+      },
+    });
 
   return (
     <>
@@ -224,6 +201,15 @@ const SignUpWithEmailForm = (): JSX.Element => {
             </TextInput.InfoMessage>
           ) : null}
         </TextInput>
+
+        {error ? (
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
+              <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+          </Alert>
+        ) : null}
 
         <Button className="w-full" variant={'primary'} type="submit">
           {loading ? (

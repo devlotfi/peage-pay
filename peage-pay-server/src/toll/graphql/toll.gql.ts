@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { WilayaType } from 'src/wilaya/graphql/wilaya.graphql';
+import { WilayaType } from 'src/wilaya/graphql/wilaya.gql';
 import { TollStatusType } from './toll-status.gql';
 import { HighwayType } from 'src/highway/graphql/highway.gql';
 import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';

@@ -1,8 +1,142 @@
+import { useMutation } from '@apollo/client';
+import {
+  faCheck,
+  faExclamationCircle,
+  faPlus,
+  faRoad,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  Alert,
+  Button,
+  FormPageLayout,
+  Heading,
+  LoaderDots,
+  TextInput,
+} from '@peage-pay-web/ui';
+import { EDIT_HIGHWAY } from '../../graphql/mutations';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useSearchParams } from 'react-router-dom';
+
+interface EditHighwayValues {
+  name: string;
+  code: string;
+}
+
+const initialValues: EditHighwayValues = {
+  name: '',
+  code: '',
+};
+
+const editHighwayValidationSchema = yup.object({
+  name: yup.string().max(256).required(),
+  code: yup.string().max(10).required(),
+});
+
 const EditHighwayPage = (): JSX.Element => {
+  const [editHighway, { loading, error, data }] = useMutation(EDIT_HIGHWAY);
+  const [params] = useSearchParams();
+  const { errors, touched, handleChange, handleBlur, handleSubmit } = useFormik(
+    {
+      initialValues,
+      validationSchema: editHighwayValidationSchema,
+      onSubmit(values, formikHelpers) {
+        const highwayId = params.get('highwayId');
+        if (highwayId) {
+          editHighway({
+            variables: {
+              editHighwayInput: {
+                highwayId,
+                name: values.name,
+                code: values.code,
+              },
+            },
+          });
+        }
+      },
+    },
+  );
+
   return (
-    <div className="flex">
-      <h1>Edit highway</h1>
-    </div>
+    <FormPageLayout>
+      <FormPageLayout.Form onSubmit={handleSubmit}>
+        <Heading className="text-[20pt] mb-[1rem]">
+          <Heading.Icon position={'left'}>
+            <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Edit highway</Heading.Text>
+        </Heading>
+
+        <TextInput
+          variant={errors.name && touched.name ? 'error' : 'edge-100'}
+          className="w-full mb-[1.3rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>Name</TextInput.Label>
+            <TextInput.Field
+              name="name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter highway name"
+              type="text"
+            ></TextInput.Field>
+          </TextInput.Main>
+          {errors.name && touched.name ? (
+            <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+        <TextInput
+          variant={errors.code && touched.code ? 'error' : 'edge-100'}
+          className="w-full mb-[1.3rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>Code</TextInput.Label>
+            <TextInput.Field
+              name="code"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter highway code"
+              type="text"
+            ></TextInput.Field>
+          </TextInput.Main>
+          {errors.code && touched.code ? (
+            <TextInput.InfoMessage>{errors.code}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+
+        {data ? (
+          <Alert variant={'success'}>
+            <Alert.Icon position={'left'}>
+              <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>Highway created</Alert.Content>
+          </Alert>
+        ) : null}
+
+        {error ? (
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
+              <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+          </Alert>
+        ) : null}
+
+        <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
+          {loading ? (
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
+          ) : (
+            <>
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Add highway</Button.Content>
+            </>
+          )}
+        </Button>
+      </FormPageLayout.Form>
+    </FormPageLayout>
   );
 };
 

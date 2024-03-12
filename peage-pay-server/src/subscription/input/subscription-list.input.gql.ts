@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, IsPositive, Max, MaxLength } from 'class-validator';
+import { IsNumber, IsOptional, Max, MaxLength, Min } from 'class-validator';
 
 @InputType()
 export class SubscriptionListInput {
@@ -14,12 +14,14 @@ export class SubscriptionListInput {
   public nameSearch?: string;
 
   @Field()
+  @IsNumber()
   @Max(10)
-  @IsPositive()
+  @Min(0)
   public take: number;
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsPositive()
+  @IsNumber()
+  @Min(0)
   public skip?: number;
 }

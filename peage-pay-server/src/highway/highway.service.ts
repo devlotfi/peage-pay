@@ -7,6 +7,7 @@ import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { GraphQLError } from 'graphql';
 import { HighwayErrors } from './graphql/highway-errors.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
+import { HighwayByIdInput } from './input/highway-by-id.input.gql';
 
 @Injectable()
 export class HighwayService {
@@ -52,6 +53,16 @@ export class HighwayService {
         skip: highwayListInput.skip,
       });
     }
+  }
+
+  public async highwayById(
+    highwayByIdInput: HighwayByIdInput,
+  ): Promise<Highway | null> {
+    return await this.databaseService.highway.findUnique({
+      where: {
+        id: highwayByIdInput.highwayId,
+      },
+    });
   }
 
   public async addHighway(addHighwayInput: AddHighwayInput): Promise<Highway> {

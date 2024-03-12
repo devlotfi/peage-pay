@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { Highway, Prisma, TollNetwork, Wilaya } from '@prisma/client';
+import { Highway, Prisma, Toll, TollNetwork, Wilaya } from '@prisma/client';
 import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
 import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { GraphQLError } from 'graphql';
 import { TollErrors } from './graphql/toll-errors.gql';
+import { TollByIdInput } from './input/toll-by-id.input.gql';
 
 @Injectable()
 export class TollService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
-  public async tollList(tollListInput: TollListInput) {
+  public async tollList(tollListInput: TollListInput): Promise<Toll[]> {
     if (
       tollListInput.idSearch ||
       tollListInput.nameSearch ||
@@ -97,6 +98,14 @@ export class TollService {
     }
   }
 
+  public async tollById(tollByIdInput: TollByIdInput): Promise<Toll | null> {
+    return await this.databaseService.toll.findUnique({
+      where: {
+        id: tollByIdInput.tollId,
+      },
+    });
+  }
+
   public async addToll(addTollInput: AddTollInput) {
     try {
       const toll = await this.databaseService.toll.create({
@@ -132,7 +141,7 @@ export class TollService {
     }
   }
 
-  public async editToll(editTollInput: EditTollInput) {
+  public async editToll(editTollInput: EditTollInput): Promise<Toll> {
     try {
       const toll = await this.databaseService.toll.update({
         data: {

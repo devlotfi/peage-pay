@@ -9,6 +9,7 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { EditHighwayInput } from './input/edit-highway.input.gql';
 import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
+import { HighwayByIdInput } from './input/highway-by-id.input.gql';
 
 @Resolver()
 export class HighwayResolver {
@@ -20,6 +21,14 @@ export class HighwayResolver {
     @Args('highwayListInput') highwayListInput: HighwayListInput,
   ): Promise<HighwayType[]> {
     return await this.highwayService.highwayList(highwayListInput);
+  }
+
+  @Query(() => HighwayType, { nullable: true })
+  @UseGuards(AuthGuard)
+  public async highwaybyId(
+    @Args('highwayByIdInput') highwayByIdInput: HighwayByIdInput,
+  ): Promise<HighwayType | null> {
+    return await this.highwayService.highwayById(highwayByIdInput);
   }
 
   @Mutation(() => HighwayType)
