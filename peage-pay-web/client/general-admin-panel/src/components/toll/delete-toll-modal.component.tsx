@@ -22,6 +22,7 @@ const DeleteTollModal = ({ modalRef, toll }: DeleteTollModalProps) => {
       modalRef.current?.close();
     },
     refetchQueries: [TOLL_LIST],
+    awaitRefetchQueries: true,
   });
 
   const handleDelete = () => {

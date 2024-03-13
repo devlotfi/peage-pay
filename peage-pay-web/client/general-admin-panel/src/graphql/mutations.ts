@@ -69,14 +69,17 @@ export const ADD_TOLL = gql(`
       longitude
       latitude
       wilaya {
+        id
         name
         code
       }
       highway {
+        id
         name
         code
       }
       tollNetwork {
+        id
         name
       }
       createdAt
@@ -94,14 +97,17 @@ export const EDIT_TOLL = gql(`
       longitude
       latitude
       wilaya {
+        id
         name
         code
       }
       highway {
+        id
         name
         code
       }
       tollNetwork {
+        id
         name
       }
       createdAt

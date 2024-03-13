@@ -156,11 +156,6 @@ export class TollService {
               id: editTollInput.highwayId,
             },
           },
-          tollNetwork: {
-            connect: {
-              id: editTollInput.tollNetworkId,
-            },
-          },
         },
         where: {
           id: editTollInput.tollId,

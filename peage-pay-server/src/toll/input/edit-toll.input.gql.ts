@@ -14,37 +14,32 @@ export class EditTollInput {
   @IsUUID()
   public tollId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsUUID()
   @IsOptional()
   public wilayaId?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsUUID()
   @IsOptional()
   public highwayId?: string;
 
-  @Field()
-  @IsUUID()
-  @IsOptional()
-  public tollNetworkId?: string;
-
-  @Field()
+  @Field({ nullable: true })
   @Length(1, 1024)
   @IsOptional()
   public name?: string;
 
-  @Field(() => TollStatusType)
+  @Field(() => TollStatusType, { nullable: true })
   @IsOptional()
   public status?: TollStatusType;
 
-  @Field()
+  @Field({ nullable: true })
   @IsLatitude()
   @IsOptional()
-  public longitude?: number;
+  public latitude?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsLongitude()
   @IsOptional()
-  public latitude?: number;
+  public longitude?: number;
 }

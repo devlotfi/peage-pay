@@ -51,6 +51,22 @@ const TollListPage = (): JSX.Element => {
     fetchPolicy: 'network-only',
   });
 
+  const renderFieldOptions = () => {
+    return (
+      <>
+        {Object.keys(TollSearchFields).map((key) => {
+          const keyValue =
+            TollSearchFields[key as keyof typeof TollSearchFields];
+          return (
+            <option key={keyValue} value={keyValue}>
+              {keyValue}
+            </option>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <ListPageLayout>
       <ListPageLayout.Loading loading={tollNetworkLoading}>
@@ -59,20 +75,7 @@ const TollListPage = (): JSX.Element => {
             className="mb-[1rem]"
             handleSearch={(searchData) => setSearchData(searchData)}
             initialFieldSearch={TollSearchFields.NameSearch}
-            fieldSelectOptions={
-              <>
-                {Object.keys(TollSearchFields).map((key) => (
-                  <option
-                    key={TollSearchFields[key as keyof typeof TollSearchFields]}
-                    value={
-                      TollSearchFields[key as keyof typeof TollSearchFields]
-                    }
-                  >
-                    {TollSearchFields[key as keyof typeof TollSearchFields]}
-                  </option>
-                ))}
-              </>
-            }
+            fieldSelectOptions={renderFieldOptions()}
           ></SearchForm>
 
           <Heading className="text-[20pt]">
@@ -90,14 +93,13 @@ const TollListPage = (): JSX.Element => {
           <ListPageLayout.Loading loading={listLoading}>
             <ListPageLayout.Error error={listError}>
               <ListPageLayout.Empty list={listData?.tollList}>
-                <Table.Container>
+                <Table.Container className="h-full">
                   <Table>
                     <Table.Head>
                       <Table.Head.Tr>
                         <Table.Head.Th></Table.Head.Th>
                         <Table.Head.Th>Id</Table.Head.Th>
                         <Table.Head.Th>Name</Table.Head.Th>
-                        <Table.Head.Th>Code</Table.Head.Th>
                         <Table.Head.Th>Created at</Table.Head.Th>
                         <Table.Head.Th>Updated at</Table.Head.Th>
                       </Table.Head.Tr>

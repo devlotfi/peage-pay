@@ -21,9 +21,9 @@ export class AddTollInput {
 
   @Field()
   @IsLatitude()
-  public longitude: number;
+  public latitude: number;
 
   @Field()
   @IsLongitude()
-  public latitude: number;
+  public longitude: number;
 }

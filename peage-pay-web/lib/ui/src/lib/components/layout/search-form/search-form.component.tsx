@@ -107,11 +107,7 @@ const SearchForm = <T,>({
 
       <div className="flex mb-[1rem] xl:mb-0 w-full xl:w-auto">
         <div className="flex mr-[0.5rem]">
-          <IconButton
-            type="submit"
-            onClick={decrementPages}
-            variant={'base-200'}
-          >
+          <IconButton onClick={decrementPages} variant={'base-200'}>
             <FontAwesomeIcon icon={faAnglesLeft}></FontAwesomeIcon>
           </IconButton>
           <TextInput className="mx-[0.2rem] min-w-[5rem] w-full xl:w-auto">
@@ -128,11 +124,7 @@ const SearchForm = <T,>({
               ></TextInput.Field>
             </TextInput.Main>
           </TextInput>
-          <IconButton
-            type="submit"
-            onClick={incrementPages}
-            variant={'base-200'}
-          >
+          <IconButton onClick={incrementPages} variant={'base-200'}>
             <FontAwesomeIcon icon={faAnglesRight}></FontAwesomeIcon>
           </IconButton>
         </div>

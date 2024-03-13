@@ -3,7 +3,7 @@ import { TextareaHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const textAreaFieldVariants = cva(
-  'flex w-full border-[1px] outline-none bg-transparent border-none px-[1rem] min-h-[5rem] pt-[0.7rem]'
+  'flex w-full rounded-lg border-[1px] outline-none bg-transparent border-none px-[1rem] min-h-[5rem] pt-[0.7rem]',
 );
 
 interface TextAreaFieldProps
@@ -20,7 +20,7 @@ const TextAreaField = ({
       className={Utils.cn(
         textAreaFieldVariants({
           className,
-        })
+        }),
       )}
       {...props}
     >

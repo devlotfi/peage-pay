@@ -31,6 +31,7 @@ import { HighwaySearchFields } from './highway/graphql/highway-search-fields.gql
 import { TollNetworkSearchFields } from './toll-network/graphql/toll-network-search-fields.gql';
 import { TollSearchFields } from './toll/graphql/toll-search-fields.gql';
 import { SubscriptionSearchFields } from './subscription/graphql/subscription-search-fields.gql';
+import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { SubscriptionSearchFields } from './subscription/graphql/subscription-se
           TollNetworkSearchFields,
           TollSearchFields,
           SubscriptionSearchFields,
+          WilayaSearchFields,
         ],
       },
       context: ({ req, res }) => ({ req, res }),

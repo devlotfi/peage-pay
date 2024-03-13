@@ -12,6 +12,6 @@ export class EditSubscriptionInput {
   @Length(1, 256)
   public name?: string;
 
-  @Field(() => VehicleTypeType)
+  @Field(() => VehicleTypeType, { nullable: true })
   public vehicleType: VehicleTypeType;
 }

@@ -11,11 +11,11 @@ import { HighwayType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteHighwayModal from './delete-highway-modal.component';
 
-interface HighwatItemProps {
+interface HighwatListItemProps {
   highway: HighwayType;
 }
 
-const HighwayItem = ({ highway }: HighwatItemProps): JSX.Element => {
+const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -73,4 +73,4 @@ const HighwayItem = ({ highway }: HighwatItemProps): JSX.Element => {
   );
 };
 
-export default HighwayItem;
+export default HighwayListItem;

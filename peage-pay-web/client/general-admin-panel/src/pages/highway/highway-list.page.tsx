@@ -3,7 +3,7 @@ import { HIGHWAY_LIST } from '../../graphql/queries';
 import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { HighwaySearchFields } from '../../__generated__/graphql';
-import HighwayItem from '../../components/highway/highway-item.component';
+import HighwayListItem from '../../components/highway/highway-list-item.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,28 +32,29 @@ const HighwayListPage = (): JSX.Element => {
     fetchPolicy: 'network-only',
   });
 
+  const renderFieldOptions = () => {
+    return (
+      <>
+        {Object.keys(HighwaySearchFields).map((key) => {
+          const keyValue =
+            HighwaySearchFields[key as keyof typeof HighwaySearchFields];
+          return (
+            <option key={keyValue} value={keyValue}>
+              {keyValue}
+            </option>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <ListPageLayout>
       <SearchForm
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={HighwaySearchFields.NameSearch}
-        fieldSelectOptions={
-          <>
-            {Object.keys(HighwaySearchFields).map((key) => (
-              <option
-                key={
-                  HighwaySearchFields[key as keyof typeof HighwaySearchFields]
-                }
-                value={
-                  HighwaySearchFields[key as keyof typeof HighwaySearchFields]
-                }
-              >
-                {HighwaySearchFields[key as keyof typeof HighwaySearchFields]}
-              </option>
-            ))}
-          </>
-        }
+        fieldSelectOptions={renderFieldOptions()}
       ></SearchForm>
 
       <Heading className="text-[20pt] mb-[1rem]">
@@ -80,10 +81,10 @@ const HighwayListPage = (): JSX.Element => {
                 </Table.Head>
                 <Table.Body>
                   {data?.highwayList.map((highway) => (
-                    <HighwayItem
+                    <HighwayListItem
                       key={highway.id}
                       highway={highway}
-                    ></HighwayItem>
+                    ></HighwayListItem>
                   ))}
                 </Table.Body>
               </Table>

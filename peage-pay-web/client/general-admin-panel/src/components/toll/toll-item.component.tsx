@@ -1,10 +1,4 @@
-import {
-  faEllipsisH,
-  faList,
-  faPen,
-  faPlus,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
@@ -45,27 +39,7 @@ const TollItem = ({ toll }: TollItemProps): JSX.Element => {
               toll={toll}
             ></DeleteTollModal>
             <MenuItem
-              onClick={() => navigate(`/dashboard/toll/list/${toll.id}`)}
-              className="w-full mb-[0.5rem]"
-              variant={'base-100'}
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>Toll list</MenuItem.Text>
-            </MenuItem>
-            <MenuItem
-              onClick={() => navigate(`/dashboard/toll/add/${toll.id}`)}
-              className="w-full mb-[0.5rem]"
-              variant={'base-100'}
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>Add toll</MenuItem.Text>
-            </MenuItem>
-            <MenuItem
-              onClick={() => navigate(`/dashboard/highway/edit/${toll.id}`)}
+              onClick={() => navigate(`/dashboard/toll/edit/${toll.id}`)}
               className="w-full mb-[0.5rem]"
               variant={'base-100'}
             >

@@ -56,14 +56,17 @@ export const TOLL_LIST = gql(`
       longitude
       latitude
       wilaya {
+        id
         name
         code
       }
       highway {
+        id
         name
         code
       }
       tollNetwork {
+        id
         name
       }
       createdAt
@@ -81,14 +84,17 @@ export const TOLL_BY_ID = gql(`
       longitude
       latitude
       wilaya {
+        id
         name
         code
       }
       highway {
+        id
         name
         code
       }
       tollNetwork {
+        id
         name
       }
       createdAt
@@ -115,6 +121,26 @@ export const TOLL_NETWORK_BY_ID = gql(`
       name
       createdAt
       updatedAt
+    }
+  }
+`);
+
+export const WILAYA_LIST = gql(`
+  query WILAYA_LIST($wilayaListInput: WilayaListInput!) {
+    wilayaList(wilayaListInput: $wilayaListInput) {
+      id
+      name
+      code
+    }
+  }
+`);
+
+export const WILAYA_BY_ID = gql(`
+  query WILAYA_BY_ID($wilayaByIdInput: WilayaByIdInput!) {
+    wilayaById(wilayaByIdInput: $wilayaByIdInput) {
+      id
+      name
+      code
     }
   }
 `);

@@ -9,7 +9,6 @@ import IconButtonOutline from './lib/components/elements/icon-button/icon-button
 import IconButton from './lib/components/elements/icon-button/icon-button.component';
 import CustomLink from './lib/components/elements/link/link.component';
 import LoaderDots from './lib/components/elements/loader-dots/loader-dots.component';
-import LocationPicker from './lib/components/elements/location-picker/location-picker.component';
 import MenuDropdown from './lib/components/elements/menu-dropdown/menu-dropdown.component';
 import MenuItem from './lib/components/elements/menu-item/menu-item.component';
 import Modal from './lib/components/elements/modal/modal.component';
@@ -53,5 +52,4 @@ export {
   Table,
   ListPageLayout,
   FormPageLayout,
-  LocationPicker,
 };
