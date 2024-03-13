@@ -144,3 +144,13 @@ export const WILAYA_BY_ID = gql(`
     }
   }
 `);
+
+export const GRAPH_TOLL_DISTANCE_LIST = gql(`
+  query GRAPH_TOLL_DISTANCE_LIST($graphTollDistanceListInput: GraphTollDistanceListInput!) {
+    graphTollDistanceList(graphTollDistanceListInput: $graphTollDistanceListInput) {
+      fromTollId
+      toTollId
+      distance
+    }
+  }
+`);

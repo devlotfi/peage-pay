@@ -5,8 +5,8 @@ import { useAuthGuard } from '@peage-pay-web/auth';
 import AddHighwayPage from '../pages/highway/add-highway.page';
 import HighwayListPage from '../pages/highway/highway-list.page';
 import EditHighwayPage from '../pages/highway/edit-highway.page';
-import AdjacentTollDistanceListPage from '../pages/adjacent-toll-distance/adjacent-toll-distance-list.page';
-import AddAdjacentTollDistancePage from '../pages/adjacent-toll-distance/add-adjacent-toll-distance.page';
+import GraphTollDistanceListPage from '../pages/graph-toll-distance/graph-toll-distance-list.page';
+import AddGraphTollDistancePage from '../pages/graph-toll-distance/add-graph-toll-distance.page';
 import SubscriptionListPage from '../pages/subscription/subscription-list.page';
 import AddSubscriptionPage from '../pages/subscription/add-subscription.page';
 import EditSubscriptionPage from '../pages/subscription/edit-subscription.page';
@@ -73,14 +73,12 @@ const useRouter = () => {
         },
 
         {
-          path: '/dashboard/adjacent-toll-distance/list',
-          element: (
-            <AdjacentTollDistanceListPage></AdjacentTollDistanceListPage>
-          ),
+          path: '/dashboard/graph-toll-distance/list/:tollId',
+          element: <GraphTollDistanceListPage></GraphTollDistanceListPage>,
         },
         {
-          path: '/dashboard/adjacent-toll-distance/add',
-          element: <AddAdjacentTollDistancePage></AddAdjacentTollDistancePage>,
+          path: '/dashboard/graph-toll-distance/add/:tollId',
+          element: <AddGraphTollDistancePage></AddGraphTollDistancePage>,
         },
 
         {

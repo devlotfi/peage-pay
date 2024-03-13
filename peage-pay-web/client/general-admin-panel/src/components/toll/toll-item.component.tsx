@@ -1,4 +1,10 @@
-import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsisH,
+  faList,
+  faPen,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
@@ -38,6 +44,31 @@ const TollItem = ({ toll }: TollItemProps): JSX.Element => {
               modalRef={deleteModalRef}
               toll={toll}
             ></DeleteTollModal>
+            <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/graph-toll-distance/add/${toll.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add graph toll distance</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/graph-toll-distance/list/${toll.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Graph toll diatnce list</MenuItem.Text>
+            </MenuItem>
+
             <MenuItem
               onClick={() => navigate(`/dashboard/toll/edit/${toll.id}`)}
               className="w-full mb-[0.5rem]"

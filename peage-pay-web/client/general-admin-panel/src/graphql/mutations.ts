@@ -149,3 +149,13 @@ export const DELETE_TOLL_NETWORK = gql(`
     deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)
   }
 `);
+
+export const ADD_GRAPH_TOLL_DISTANCE = gql(`
+  mutation ADD_GRAPH_TOLL_DISTANCE($addGraphTollDistanceInput: AddGraphTollDistanceInput!) {
+    addGraphTollDistance(addGraphTollDistanceInput: $addGraphTollDistanceInput) {
+      fromTollId
+      toTollId
+      distance
+    }
+  }
+`);
