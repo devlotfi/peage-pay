@@ -14,8 +14,9 @@ export class WilayaListInput {
   public nameSearch?: string;
 
   @Field({ nullable: true })
+  @MaxLength(1024)
   @IsOptional()
-  public codeSearch?: number;
+  public codeSearch?: string;
 
   @Field()
   @IsNumber()

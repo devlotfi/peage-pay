@@ -9,5 +9,5 @@ export class WilayaType {
   public name: string;
 
   @Field()
-  public code: number;
+  public code: string;
 }

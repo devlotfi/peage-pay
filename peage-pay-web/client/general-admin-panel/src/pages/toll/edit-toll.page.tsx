@@ -104,7 +104,7 @@ const EditTollPage = (): JSX.Element => {
         }
       },
       fetchPolicy: 'network-only',
-      skip: tollLoading,
+      skip: tollLoading || tollError !== undefined,
     },
   );
   const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
@@ -116,7 +116,7 @@ const EditTollPage = (): JSX.Element => {
         },
       },
       fetchPolicy: 'network-only',
-      skip: tollLoading,
+      skip: tollLoading || tollError !== undefined,
     },
   );
   const { loading: wilayaLoading, error: wilayaError } = useQuery(
@@ -133,7 +133,7 @@ const EditTollPage = (): JSX.Element => {
         }
       },
       fetchPolicy: 'network-only',
-      skip: tollLoading,
+      skip: tollLoading || tollError !== undefined,
     },
   );
   const [editToll, { loading: editLoading, error: editError, data: editData }] =
@@ -207,7 +207,7 @@ const EditTollPage = (): JSX.Element => {
 
   const handleWilayaChange = (wilaya: WilayaType | null) => {
     if (wilaya) {
-      setFieldValue('wilayaId', wilaya?.id);
+      setFieldValue('wilayaId', wilaya.id);
       setSelectedWilaya(wilaya);
     } else {
       setFieldValue('wilayaId', '');
@@ -217,7 +217,7 @@ const EditTollPage = (): JSX.Element => {
 
   const handleHighwayChange = (highway: HighwayType | null) => {
     if (highway) {
-      setFieldValue('highwayId', highway?.id);
+      setFieldValue('highwayId', highway.id);
       setSelectedHighway(highway);
     } else {
       setFieldValue('highwayId', '');
@@ -251,17 +251,19 @@ const EditTollPage = (): JSX.Element => {
           <FormPageLayout.Error
             error={tollError || wilayaError || highwayError || tollNetworkError}
           >
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit toll</Heading.Text>
-            </Heading>
-            <Heading className="text-[15pt] mb-[2rem]">
-              <Heading.Text className="opacity-70">
-                Toll: {tollData?.tollById?.name}
-              </Heading.Text>
-            </Heading>
+            <div className="flex flex-col md:flex-row md:justify-between items-start">
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit toll</Heading.Text>
+              </Heading>
+              <Heading className="text-[15pt] mb-[2rem]">
+                <Heading.Text className="opacity-70">
+                  Toll: {tollData?.tollById?.name}
+                </Heading.Text>
+              </Heading>
+            </div>
 
             <TextInput
               variant={errors.name && touched.name ? 'error' : 'edge-100'}

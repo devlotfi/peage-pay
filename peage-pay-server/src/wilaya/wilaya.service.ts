@@ -31,7 +31,8 @@ export class WilayaService {
             },
             {
               code: {
-                equals: wilayaListInput.codeSearch,
+                contains: wilayaListInput.codeSearch,
+                mode: 'insensitive',
               },
             },
           ],

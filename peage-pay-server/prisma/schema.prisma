@@ -173,7 +173,7 @@ model Wilaya {
 
   id   String @id @default(uuid())
   name String @unique
-  code Int    @unique
+  code String @unique
 }
 
 model Highway {

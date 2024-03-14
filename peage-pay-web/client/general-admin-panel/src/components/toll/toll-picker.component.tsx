@@ -9,41 +9,48 @@ import {
   Table,
   Button,
 } from '@peage-pay-web/ui';
-import { WilayaSearchFields, WilayaType } from '../../__generated__/graphql';
+import {
+  TollNetworkType,
+  TollSearchFields,
+  TollType,
+} from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
-import { WILAYA_LIST } from '../../graphql/queries';
-import WilayaItem from './wilaya-item.component';
+import { TOLL_LIST } from '../../graphql/queries';
+import TollPickerItem from './toll-picker-item.component';
 
-interface WilayaListSearchValues {
+interface TollListSearchValues {
   search: string;
-  field: WilayaSearchFields;
+  field: TollSearchFields;
   page: number;
 }
 
-const initialValues: WilayaListSearchValues = {
+const initialValues: TollListSearchValues = {
   search: '',
-  field: WilayaSearchFields.NameSearch,
+  field: TollSearchFields.NameSearch,
   page: 1,
 };
 
-interface WilayaPickerProps {
-  value: WilayaType | null;
-  onChange?: (wilaya: WilayaType | null) => void;
+interface TollPickerProps {
+  value: TollType | null;
+  onChange?: (toll: TollType | null) => void;
   modalRef: React.RefObject<HTMLDialogElement>;
+  tollNetwork: TollNetworkType;
 }
 
-const WilayaPicker = ({
+const TollPicker = ({
   onChange,
   modalRef,
   value,
-}: WilayaPickerProps): JSX.Element => {
+  tollNetwork,
+}: TollPickerProps): JSX.Element => {
   const [searchData, setSearchData] = React.useState(initialValues);
-  const { data, loading, error } = useQuery(WILAYA_LIST, {
+  const { data, loading, error } = useQuery(TOLL_LIST, {
     variables: {
-      wilayaListInput: {
+      tollListInput: {
         take: 10,
         skip: 10 * (searchData.page - 1),
         [searchData.field]: searchData.search,
+        tollNetworkId: tollNetwork.id,
       },
     },
     fetchPolicy: 'network-only',
@@ -51,9 +58,9 @@ const WilayaPicker = ({
   const renderFieldOptions = () => {
     return (
       <>
-        {Object.keys(WilayaSearchFields).map((key) => {
+        {Object.keys(TollSearchFields).map((key) => {
           const keyValue =
-            WilayaSearchFields[key as keyof typeof WilayaSearchFields];
+            TollSearchFields[key as keyof typeof TollSearchFields];
           return (
             <option key={keyValue} value={keyValue}>
               {keyValue}
@@ -63,14 +70,12 @@ const WilayaPicker = ({
       </>
     );
   };
-  const handleWilayaSelected = (wilaya: WilayaType) => {
+  const handleTollSelected = (toll: TollType) => {
     if (onChange) {
-      console.log(wilaya);
-
-      onChange(wilaya);
+      onChange(toll);
     }
   };
-  const handleWilayaUnselected = () => {
+  const handleTollUnselected = () => {
     if (onChange) {
       onChange(null);
     }
@@ -81,7 +86,7 @@ const WilayaPicker = ({
       <Modal.Window className="overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Pick a wilaya</div>
+            <div className="flex">Pick a toll</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -98,7 +103,7 @@ const WilayaPicker = ({
             <SearchForm
               className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
-              initialFieldSearch={WilayaSearchFields.NameSearch}
+              initialFieldSearch={TollSearchFields.NameSearch}
               fieldSelectOptions={renderFieldOptions()}
             ></SearchForm>
 
@@ -106,12 +111,12 @@ const WilayaPicker = ({
               <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </Heading.Icon>
-              <Heading.Text>Wilaya list</Heading.Text>
+              <Heading.Text>Toll list</Heading.Text>
             </Heading>
 
             <ListPageLayout.Loading loading={loading}>
               <ListPageLayout.Error error={error}>
-                <ListPageLayout.Empty list={data?.wilayaList}>
+                <ListPageLayout.Empty list={data?.tollList}>
                   <Table.Container className="h-full">
                     <Table>
                       <Table.Head>
@@ -119,18 +124,23 @@ const WilayaPicker = ({
                           <Table.Head.Th></Table.Head.Th>
                           <Table.Head.Th>Id</Table.Head.Th>
                           <Table.Head.Th>Name</Table.Head.Th>
-                          <Table.Head.Th>Code</Table.Head.Th>
+                          <Table.Head.Th>Wilaya</Table.Head.Th>
+                          <Table.Head.Th>Wilaya code</Table.Head.Th>
+                          <Table.Head.Th>Highway</Table.Head.Th>
+                          <Table.Head.Th>Highway code</Table.Head.Th>
+                          <Table.Head.Th>Created at</Table.Head.Th>
+                          <Table.Head.Th>Updated at</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>
-                        {data?.wilayaList.map((wilaya) => (
-                          <WilayaItem
-                            key={wilaya.id}
-                            wilaya={wilaya}
-                            selectedWilaya={value}
-                            onWilayaSelected={handleWilayaSelected}
-                            onWilayaUnselected={handleWilayaUnselected}
-                          ></WilayaItem>
+                        {data?.tollList.map((toll) => (
+                          <TollPickerItem
+                            key={toll.id}
+                            toll={toll as TollType}
+                            selectedToll={value}
+                            onTollSelected={handleTollSelected}
+                            onTollUnselected={handleTollUnselected}
+                          ></TollPickerItem>
                         ))}
                       </Table.Body>
                     </Table>
@@ -145,4 +155,4 @@ const WilayaPicker = ({
   );
 };
 
-export default WilayaPicker;
+export default TollPicker;

@@ -12,7 +12,7 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { GraphTollDistanceType } from './graphql/graph-toll-distance.gql';
-import { GraphTollDistanceListInput } from './input/graph-toll-distance-list.input.gql';
+import { GraphTollDistanceListForTollInput } from './input/graph-toll-distance-list.input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { AddGraphTollDistanceInput } from './input/add-graph-toll-distance.input.gql';
 import { DeleteGraphTollDistanceInput } from './input/delete-graph-toll-distance.input.gql';
@@ -25,12 +25,12 @@ export class GraphTollDistanceResolver {
 
   @Query(() => [GraphTollDistanceType])
   @UseGuards(AuthGuard)
-  public async graphTollDistanceList(
-    @Args('graphTollDistanceListInput')
-    graphTollDistanceListInput: GraphTollDistanceListInput,
+  public async graphTollDistanceListForToll(
+    @Args('graphTollDistanceListForTollInput')
+    graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput,
   ): Promise<GraphTollDistanceType[]> {
-    return (await this.graphTollDistanceService.graphTollDistanceList(
-      graphTollDistanceListInput,
+    return (await this.graphTollDistanceService.graphTollDistanceListForToll(
+      graphTollDistanceListForTollInput,
     )) as any;
   }
 
@@ -46,13 +46,13 @@ export class GraphTollDistanceResolver {
     )) as any;
   }
 
-  @Mutation(() => GraphTollDistanceType)
+  @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteGraphTollDistance(
     @Args('deleteGraphTollDistanceInput')
     deleteGraphTollDistanceInput: DeleteGraphTollDistanceInput,
-  ): Promise<GraphTollDistanceType> {
+  ): Promise<boolean> {
     return (await this.graphTollDistanceService.deleteGraphTollDistance(
       deleteGraphTollDistanceInput,
     )) as any;

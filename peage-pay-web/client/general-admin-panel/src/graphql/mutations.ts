@@ -159,3 +159,9 @@ export const ADD_GRAPH_TOLL_DISTANCE = gql(`
     }
   }
 `);
+
+export const DELETE_GRAPH_TOLL_DISTANCE = gql(`
+  mutation DELETE_GRAPH_TOLL_DISTANCE($deleteGraphTollDistanceInput: DeleteGraphTollDistanceInput!) {
+    deleteGraphTollDistance(deleteGraphTollDistanceInput: $deleteGraphTollDistanceInput)
+  }
+`);

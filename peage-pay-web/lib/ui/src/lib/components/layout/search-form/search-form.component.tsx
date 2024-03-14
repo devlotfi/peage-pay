@@ -26,9 +26,10 @@ interface SearchValues<T> {
 interface SearchFormProps<T>
   extends FormHTMLAttributes<HTMLFormElement>,
     VariantProps<typeof searchFormVariants> {
-  initialFieldSearch: T;
+  initialFieldSearch?: T;
   handleSearch?: (searchData: SearchValues<T>) => void;
   fieldSelectOptions?: JSX.Element;
+  pageOnly?: boolean;
 }
 
 const SearchForm = <T,>({
@@ -37,11 +38,12 @@ const SearchForm = <T,>({
   initialFieldSearch,
   handleSearch,
   fieldSelectOptions,
+  pageOnly,
   ...props
 }: SearchFormProps<T>): JSX.Element => {
   const initialValues: SearchValues<T> = {
     search: '',
-    field: initialFieldSearch,
+    field: initialFieldSearch as T,
     page: 1,
   };
 
@@ -72,37 +74,41 @@ const SearchForm = <T,>({
       {...props}
     >
       <div className="flex mb-[1rem] xl:mb-0 w-full">
-        <TextInput className="mr-[0.5rem] w-full">
-          <TextInput.Main>
-            <TextInput.Label>Search</TextInput.Label>
-            <TextInput.Icon position={'left'}>
-              <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-            </TextInput.Icon>
-            <TextInput.Field
-              name="search"
-              value={values.search}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="text"
-            ></TextInput.Field>
-          </TextInput.Main>
-        </TextInput>
-        <Select className="mr-[0.5rem] w-[50%]">
-          <Select.Main>
-            <Select.Label>Field</Select.Label>
-            <Select.Icon position={'left'}>
-              <FontAwesomeIcon icon={faTableList}></FontAwesomeIcon>
-            </Select.Icon>
-            <Select.Field
-              name="field"
-              value={values.field as string}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            >
-              {fieldSelectOptions}
-            </Select.Field>
-          </Select.Main>
-        </Select>
+        {!pageOnly ? (
+          <>
+            <TextInput className="mr-[0.5rem] w-full">
+              <TextInput.Main>
+                <TextInput.Label>Search</TextInput.Label>
+                <TextInput.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                </TextInput.Icon>
+                <TextInput.Field
+                  name="search"
+                  value={values.search}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="text"
+                ></TextInput.Field>
+              </TextInput.Main>
+            </TextInput>
+            <Select className="mr-[0.5rem] w-[50%]">
+              <Select.Main>
+                <Select.Label>Field</Select.Label>
+                <Select.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faTableList}></FontAwesomeIcon>
+                </Select.Icon>
+                <Select.Field
+                  name="field"
+                  value={values.field as string}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {fieldSelectOptions}
+                </Select.Field>
+              </Select.Main>
+            </Select>
+          </>
+        ) : null}
       </div>
 
       <div className="flex mb-[1rem] xl:mb-0 w-full xl:w-auto">
@@ -112,7 +118,7 @@ const SearchForm = <T,>({
           </IconButton>
           <TextInput className="mx-[0.2rem] min-w-[5rem] w-full xl:w-auto">
             <TextInput.Main>
-              <TextInput.Label>Items</TextInput.Label>
+              <TextInput.Label>Page</TextInput.Label>
               <TextInput.Icon position={'left'}>
                 <FontAwesomeIcon icon={faListOl}></FontAwesomeIcon>
               </TextInput.Icon>
@@ -129,12 +135,14 @@ const SearchForm = <T,>({
           </IconButton>
         </div>
       </div>
-      <Button type="submit" className="xl:ml-[0.5rem]" variant={'primary'}>
-        <Button.Icon position={'left'}>
-          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-        </Button.Icon>
-        <Button.Content>Search</Button.Content>
-      </Button>
+      {!pageOnly ? (
+        <Button type="submit" className="xl:ml-[0.5rem]" variant={'primary'}>
+          <Button.Icon position={'left'}>
+            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>Search</Button.Content>
+        </Button>
+      ) : null}
     </form>
   );
 };

@@ -42,42 +42,42 @@ export class TollService {
               },
             },
             {
-              status: {
-                equals: tollListInput.statusSearch,
+              wilaya: {
+                OR: [
+                  {
+                    name: {
+                      contains: tollListInput.wilayaNameSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    code: {
+                      contains: tollListInput.wilayaCodeSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              highway: {
+                OR: [
+                  {
+                    name: {
+                      contains: tollListInput.highwayNameSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    code: {
+                      contains: tollListInput.highwayCodeSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                ],
               },
             },
           ],
-          wilaya: {
-            OR: [
-              {
-                name: {
-                  contains: tollListInput.wilayaNameSearch,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                code: {
-                  equals: tollListInput.wilayaCodeSearch,
-                },
-              },
-            ],
-          },
-          highway: {
-            OR: [
-              {
-                name: {
-                  contains: tollListInput.highwayNameSearch,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                code: {
-                  contains: tollListInput.highwayCodeSearch,
-                  mode: 'insensitive',
-                },
-              },
-            ],
-          },
         },
         take: tollListInput.take,
         skip: tollListInput.skip,

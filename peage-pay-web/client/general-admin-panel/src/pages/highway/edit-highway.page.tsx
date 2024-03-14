@@ -50,8 +50,6 @@ const EditHighwayPage = (): JSX.Element => {
     fetchPolicy: 'network-only',
     onCompleted(data) {
       if (data.highwaybyId) {
-        console.log(data);
-
         setValues({
           name: data.highwaybyId.name,
           code: data.highwaybyId.code,
@@ -94,17 +92,19 @@ const EditHighwayPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <FormPageLayout.Loading loading={highwayLoading}>
           <FormPageLayout.Error error={highwayError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit highway</Heading.Text>
-            </Heading>
-            <Heading className="text-[15pt] mb-[2rem]">
-              <Heading.Text className="opacity-70">
-                Highway: {highwayData?.highwaybyId?.name}
-              </Heading.Text>
-            </Heading>
+            <div className="flex flex-col md:flex-row md:justify-between items-start">
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit highway</Heading.Text>
+              </Heading>
+              <Heading className="text-[15pt] mb-[2rem]">
+                <Heading.Text className="opacity-70">
+                  Highway: {highwayData?.highwaybyId?.name}
+                </Heading.Text>
+              </Heading>
+            </div>
 
             <TextInput
               variant={errors.name && touched.name ? 'error' : 'edge-100'}

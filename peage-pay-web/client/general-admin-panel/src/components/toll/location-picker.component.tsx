@@ -64,16 +64,15 @@ const LocationPicker = ({
   };
 
   useEffect(() => {
-    if (!locationPickerMap) {
-      const map = new google.maps.Map(getMapMount(), {
-        center: { lat: 28.76, lng: 2.89 },
-        zoom: 5,
-        mapId: '4504f8b37365c3d0',
-      });
+    const map = new google.maps.Map(getMapMount(), {
+      center: { lat: 28.76, lng: 2.89 },
+      zoom: 5,
+      mapId: '4504f8b37365c3d0',
+    });
 
-      map.addListener('click', handleMapClick);
-      locationPickerMap = map;
-    }
+    map.addListener('click', handleMapClick);
+    locationPickerMap = map;
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

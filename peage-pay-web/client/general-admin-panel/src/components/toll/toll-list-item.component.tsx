@@ -17,11 +17,11 @@ import { TollType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteTollModal from './delete-toll-modal.component';
 
-interface TollItemProps {
+interface TollListItemProps {
   toll: TollType;
 }
 
-const TollItem = ({ toll }: TollItemProps): JSX.Element => {
+const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -97,10 +97,14 @@ const TollItem = ({ toll }: TollItemProps): JSX.Element => {
       </Table.Body.Td>
       <Table.Body.Td>{toll.id}</Table.Body.Td>
       <Table.Body.Td>{toll.name}</Table.Body.Td>
+      <Table.Body.Td>{toll.wilaya.name}</Table.Body.Td>
+      <Table.Body.Td>{toll.wilaya.code}</Table.Body.Td>
+      <Table.Body.Td>{toll.highway.name}</Table.Body.Td>
+      <Table.Body.Td>{toll.highway.code}</Table.Body.Td>
       <Table.Body.Td>{toll.createdAt}</Table.Body.Td>
       <Table.Body.Td>{toll.updatedAt}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };
 
-export default TollItem;
+export default TollListItem;

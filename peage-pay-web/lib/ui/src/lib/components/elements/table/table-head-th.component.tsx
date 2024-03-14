@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const tableHeadThVariants = cva(
-  'first:pl-[1rem] pr-[1rem] py-[0.5rem] font-bold text-left',
+  'first:pl-[1rem] pr-[1rem] py-[0.5rem] font-bold text-left whitespace-nowrap',
 );
 
 interface TableHeadThProps

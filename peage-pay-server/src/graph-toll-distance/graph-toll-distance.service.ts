@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GraphTollDistance, Prisma, Toll, TollDistance } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
-import { GraphTollDistanceListInput } from './input/graph-toll-distance-list.input.gql';
+import { GraphTollDistanceListForTollInput } from './input/graph-toll-distance-list.input.gql';
 import { GraphQLError } from 'graphql';
 import { AddGraphTollDistanceInput } from './input/add-graph-toll-distance.input.gql';
 import { DeleteGraphTollDistanceInput } from './input/delete-graph-toll-distance.input.gql';
@@ -11,8 +11,8 @@ import { GraphTollDistanceErrors } from './graphql/graph-toll-distance-errors.gq
 export class GraphTollDistanceService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
-  public async graphTollDistanceList(
-    graphTollDistanceListInput: GraphTollDistanceListInput,
+  public async graphTollDistanceListForToll(
+    graphTollDistanceListInput: GraphTollDistanceListForTollInput,
   ): Promise<TollDistance[]> {
     return await this.databaseService.graphTollDistance.findMany({
       where: {
@@ -21,6 +21,8 @@ export class GraphTollDistanceService {
             fromToll: {
               id: graphTollDistanceListInput.tollId,
             },
+          },
+          {
             toToll: {
               id: graphTollDistanceListInput.tollId,
             },
@@ -46,7 +48,7 @@ export class GraphTollDistanceService {
             },
             toToll: {
               connect: {
-                id: addGraphTollDistanceInput.fromTollId,
+                id: addGraphTollDistanceInput.toTollId,
               },
             },
             distance: addGraphTollDistanceInput.distance,

@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const tableBodyTr = cva(
-  'h-[4.3rem] min-h-[3rem] even:bg-base-200 border-edge-200 border-b-[1px] last:border-b-0',
+  'even:bg-base-200 border-edge-200 border-b-[1px] last:border-b-0',
 );
 
 interface TableBodyTr

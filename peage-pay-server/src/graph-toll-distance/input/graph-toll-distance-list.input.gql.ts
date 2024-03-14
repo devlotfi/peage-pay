@@ -1,19 +1,21 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, IsPositive, IsUUID, Max } from 'class-validator';
+import { IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
 
 @InputType()
-export class GraphTollDistanceListInput {
-  @Field({ nullable: true })
+export class GraphTollDistanceListForTollInput {
+  @Field()
   @IsUUID()
   public tollId: string;
 
   @Field()
+  @IsNumber()
   @Max(10)
-  @IsPositive()
+  @Min(0)
   public take: number;
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsPositive()
+  @IsNumber()
+  @Min(0)
   public skip?: number;
 }

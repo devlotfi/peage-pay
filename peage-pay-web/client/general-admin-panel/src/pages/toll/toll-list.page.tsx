@@ -3,7 +3,7 @@ import { TOLL_LIST, TOLL_NETWORK_BY_ID } from '../../graphql/queries';
 import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { TollSearchFields, TollType } from '../../__generated__/graphql';
-import TollItem from '../../components/toll/toll-item.component';
+import TollListItem from '../../components/toll/toll-list-item.component';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
@@ -48,6 +48,7 @@ const TollListPage = (): JSX.Element => {
         tollNetworkId: tollNetworkId as string,
       },
     },
+    skip: tollNetworkLoading || tollNetworkError !== undefined,
     fetchPolicy: 'network-only',
   });
 
@@ -78,17 +79,19 @@ const TollListPage = (): JSX.Element => {
             fieldSelectOptions={renderFieldOptions()}
           ></SearchForm>
 
-          <Heading className="text-[20pt]">
-            <Heading.Icon position={'left'}>
-              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-            </Heading.Icon>
-            <Heading.Text>Toll list</Heading.Text>
-          </Heading>
-          <Heading className="text-[15pt] mb-[2rem]">
-            <Heading.Text className="opacity-70">
-              Toll network: {tollNetworkData?.tollNetworkById.name}
-            </Heading.Text>
-          </Heading>
+          <div className="flex flex-col md:flex-row md:justify-between items-start">
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={'left'}>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Toll list</Heading.Text>
+            </Heading>
+            <Heading className="text-[15pt] mb-[2rem]">
+              <Heading.Text className="opacity-70">
+                Toll network: {tollNetworkData?.tollNetworkById.name}
+              </Heading.Text>
+            </Heading>
+          </div>
 
           <ListPageLayout.Loading loading={listLoading}>
             <ListPageLayout.Error error={listError}>
@@ -100,16 +103,20 @@ const TollListPage = (): JSX.Element => {
                         <Table.Head.Th></Table.Head.Th>
                         <Table.Head.Th>Id</Table.Head.Th>
                         <Table.Head.Th>Name</Table.Head.Th>
+                        <Table.Head.Th>Wilaya</Table.Head.Th>
+                        <Table.Head.Th>Wilaya code</Table.Head.Th>
+                        <Table.Head.Th>Highway</Table.Head.Th>
+                        <Table.Head.Th>Highway code</Table.Head.Th>
                         <Table.Head.Th>Created at</Table.Head.Th>
                         <Table.Head.Th>Updated at</Table.Head.Th>
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>
                       {listData?.tollList.map((toll) => (
-                        <TollItem
+                        <TollListItem
                           key={toll.id}
                           toll={toll as TollType}
-                        ></TollItem>
+                        ></TollListItem>
                       ))}
                     </Table.Body>
                   </Table>

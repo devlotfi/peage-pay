@@ -3,6 +3,7 @@ import {
   faCheck,
   faExclamationCircle,
   faPlus,
+  faRoadBarrier,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,8 +19,9 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { TOLL_BY_ID, TOLL_NETWORK_BY_ID } from '../../graphql/queries';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { TollType } from '../../__generated__/graphql';
+import TollPicker from '../../components/toll/toll-picker.component';
 
 interface AddGraphTollDistanceValues {
   fromTollId: string;
@@ -42,7 +44,7 @@ const addGraphTollDistanceValidationSchema = yup.object({
 const AddGraphTollDistancePage = (): JSX.Element => {
   const { tollId } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [fromToll, setFromToll] = useState<TollType | null>(null);
+  const [toToll, setToToll] = useState<TollType | null>(null);
   const {
     data: tollData,
     loading: tollLoading,
@@ -56,7 +58,6 @@ const AddGraphTollDistancePage = (): JSX.Element => {
     onCompleted(data) {
       if (data.tollById) {
         setFieldValue('fromTollId', data.tollById.id);
-        setFromToll(data.tollById as TollType);
       }
     },
   });
@@ -100,49 +101,79 @@ const AddGraphTollDistancePage = (): JSX.Element => {
     },
   });
 
+  const tollPickerModalRef = useRef<HTMLDialogElement>(null);
+
+  const handleTollChange = (toll: TollType | null) => {
+    if (toll) {
+      setFieldValue('toTollId', toll.id);
+      setToToll(toll);
+    } else {
+      setFieldValue('toTollId', '');
+      setToToll(null);
+    }
+  };
+
   return (
     <FormPageLayout>
+      {tollNetworkData ? (
+        <TollPicker
+          value={toToll}
+          onChange={handleTollChange}
+          modalRef={tollPickerModalRef}
+          tollNetwork={tollNetworkData.tollNetworkById}
+        ></TollPicker>
+      ) : null}
+
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <FormPageLayout.Loading loading={tollLoading || tollNetworkLoading}>
           <FormPageLayout.Error error={tollError || tollNetworkError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit highway</Heading.Text>
-            </Heading>
-            <Heading className="text-[15pt] mb-[2rem]">
-              <Heading.Text className="opacity-70">
-                <div className="flex">
-                  From toll: {tollData?.tollById?.name}
-                </div>
-                <div className="flex">
-                  Toll network: {tollNetworkData?.tollNetworkById.name}
-                </div>
-              </Heading.Text>
-            </Heading>
+            <div className="flex flex-col md:flex-row md:justify-between items-start">
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Add toll distance</Heading.Text>
+              </Heading>
+              <Heading className="text-[15pt] mb-[2rem]">
+                <Heading.Text className="opacity-70">
+                  <div className="flex">
+                    From toll: {tollData?.tollById?.name}
+                  </div>
+                  <div className="flex">
+                    Toll network: {tollNetworkData?.tollNetworkById.name}
+                  </div>
+                </Heading.Text>
+              </Heading>
+            </div>
 
             <TextInput
               variant={
                 errors.toTollId && touched.toTollId ? 'error' : 'edge-100'
               }
-              className="w-full mb-[1.3rem]"
+              className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
-                <TextInput.Field
-                  name="toTollId"
-                  value={values.toTollId}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter highway name"
-                  type="text"
-                ></TextInput.Field>
+                <TextInput.Label>Destination toll</TextInput.Label>
+                <div className="flex items-center ml-[1rem]">
+                  {toToll?.name} {toToll?.id}
+                </div>
               </TextInput.Main>
               {errors.toTollId && touched.toTollId ? (
                 <TextInput.InfoMessage>{errors.toTollId}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
+            <Button
+              className="mb-[1.3rem]"
+              variant={'base-200'}
+              type="button"
+              onClick={() => tollPickerModalRef.current?.showModal()}
+            >
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Set toll</Button.Content>
+            </Button>
+
             <TextInput
               variant={
                 errors.distance && touched.distance ? 'error' : 'edge-100'
@@ -157,7 +188,7 @@ const AddGraphTollDistancePage = (): JSX.Element => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter distance"
-                  type="text"
+                  type="number"
                 ></TextInput.Field>
               </TextInput.Main>
               {errors.distance && touched.distance ? (
@@ -170,7 +201,7 @@ const AddGraphTollDistancePage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Highway updated</Alert.Content>
+                <Alert.Content>Toll distance created</Alert.Content>
               </Alert>
             ) : null}
 
@@ -193,7 +224,7 @@ const AddGraphTollDistancePage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit highway</Button.Content>
+                  <Button.Content>Add toll distance</Button.Content>
                 </>
               )}
             </Button>

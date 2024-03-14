@@ -26,8 +26,9 @@ export class TollListInput {
   public wilayaNameSearch?: string;
 
   @Field({ nullable: true })
+  @MaxLength(1024)
   @IsOptional()
-  public wilayaCodeSearch?: number;
+  public wilayaCodeSearch?: string;
 
   @Field({ nullable: true })
   @MaxLength(1024)

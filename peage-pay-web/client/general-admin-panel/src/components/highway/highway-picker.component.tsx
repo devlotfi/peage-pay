@@ -76,7 +76,7 @@ const HighwayPicker = ({
 
   return (
     <Modal modalRef={modalRef} className="h-screen w-screen">
-      <Modal.Window className="h-full overflow-y-auto">
+      <Modal.Window className="flex overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
             <div className="flex">Pick a highway</div>
