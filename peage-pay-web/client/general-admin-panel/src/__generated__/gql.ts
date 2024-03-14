@@ -27,8 +27,10 @@ const documents = {
     "\n  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {\n    deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)\n  }\n": types.Delete_Toll_NetworkDocument,
     "\n  mutation ADD_GRAPH_TOLL_DISTANCE($addGraphTollDistanceInput: AddGraphTollDistanceInput!) {\n    addGraphTollDistance(addGraphTollDistanceInput: $addGraphTollDistanceInput) {\n      fromTollId\n      toTollId\n      distance\n    }\n  }\n": types.Add_Graph_Toll_DistanceDocument,
     "\n  mutation DELETE_GRAPH_TOLL_DISTANCE($deleteGraphTollDistanceInput: DeleteGraphTollDistanceInput!) {\n    deleteGraphTollDistance(deleteGraphTollDistanceInput: $deleteGraphTollDistanceInput)\n  }\n": types.Delete_Graph_Toll_DistanceDocument,
+    "\n  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput!) {\n    addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)\n  }\n": types.Add_Human_Ressources_Admin_RoleDocument,
+    "\n  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {\n    removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)\n  }\n": types.Remove_Human_Ressources_Admin_RoleDocument,
     "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_ListDocument,
-    "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
+    "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
     "\n  query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {\n    subscriptionList(subscriptionListInput: $subscriptionListInput) {\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Subscription_ListDocument,
     "\n  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {\n    subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {\n      id\n      name\n      vehicleType\n      createdAt\n      updatedAt\n    }\n  }\n": types.Subscription_By_IdDocument,
     "\n  query FULL_TOLL_LIST($fullTollListInput: FullTollListInput!) {\n    fullTollList(fullTollListInput: $fullTollListInput) {\n      id\n      name\n      status\n      longitude\n      latitude\n      wilaya {\n        id\n        name\n        code\n      }\n      highway {\n        id\n        name\n        code\n      }\n      tollNetwork {\n        id\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Full_Toll_ListDocument,
@@ -40,6 +42,7 @@ const documents = {
     "\n  query WILAYA_BY_ID($wilayaByIdInput: WilayaByIdInput!) {\n    wilayaById(wilayaByIdInput: $wilayaByIdInput) {\n      id\n      name\n      code\n    }\n  }\n": types.Wilaya_By_IdDocument,
     "\n  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK($graphTollDistanceListForTollInput: GraphTollDistanceListForTollNetworkInput!) {\n    graphTollDistanceListForTollNetwork(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {\n      distance\n      fromToll {\n        id\n        name\n        latitude\n        longitude\n      }\n      toToll {\n        id\n        name\n        latitude\n        longitude\n      }\n    }\n  }\n": types.Graph_Toll_Distance_List_For_Toll_NetworkDocument,
     "\n  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL($graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput!) {\n    graphTollDistanceListForToll(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {\n      distance\n      fromToll {\n        id\n        name\n      }\n      toToll {\n        id\n        name\n      }\n    }\n  }\n": types.Graph_Toll_Distance_List_For_TollDocument,
+    "\n  query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {\n    baseUserList(baseUserListInput: $baseUserListInput) {\n      id\n      firstName\n      lastName\n      createdAt\n      updatedAt\n      roles\n    }\n  }\n": types.Base_User_ListDocument,
 };
 
 /**
@@ -115,11 +118,19 @@ export function gql(source: "\n  mutation DELETE_GRAPH_TOLL_DISTANCE($deleteGrap
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput!) {\n    addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)\n  }\n"): (typeof documents)["\n  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput!) {\n    addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {\n    removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)\n  }\n"): (typeof documents)["\n  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {\n    removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      id\n      name\n      code\n      createdAt\n      updatedAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwaybyId(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
+export function gql(source: "\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -164,6 +175,10 @@ export function gql(source: "\n  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL($graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput!) {\n    graphTollDistanceListForToll(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {\n      distance\n      fromToll {\n        id\n        name\n      }\n      toToll {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL($graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput!) {\n    graphTollDistanceListForToll(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {\n      distance\n      fromToll {\n        id\n        name\n      }\n      toToll {\n        id\n        name\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {\n    baseUserList(baseUserListInput: $baseUserListInput) {\n      id\n      firstName\n      lastName\n      createdAt\n      updatedAt\n      roles\n    }\n  }\n"): (typeof documents)["\n  query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {\n    baseUserList(baseUserListInput: $baseUserListInput) {\n      id\n      firstName\n      lastName\n      createdAt\n      updatedAt\n      roles\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

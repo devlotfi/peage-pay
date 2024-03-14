@@ -43,7 +43,7 @@ export class TokenAuthService {
     const accessToken = await this.tokenService.generateAccessToken(userId);
     const roles = await this.baseUserService.getUserRolesList(userId);
     const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
-      baseUser,
+      baseUser as any,
       accessToken,
       roles,
     );
@@ -78,7 +78,7 @@ export class TokenAuthService {
     const accessToken = await this.tokenService.generateAccessToken(userId);
     const roles = await this.baseUserService.getUserRolesList(userId);
     const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
-      baseUser,
+      baseUser as any,
       accessToken,
       roles,
     );

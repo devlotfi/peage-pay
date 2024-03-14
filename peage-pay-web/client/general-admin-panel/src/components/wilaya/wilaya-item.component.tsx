@@ -20,7 +20,11 @@ const WilayaItem = ({
     if (selectedWilaya) {
       if (wilaya.id === selectedWilaya.id) {
         return (
-          <Button onClick={onWilayaUnselected} variant={'error'}>
+          <Button
+            className="min-h-[2rem] h-[2rem]"
+            onClick={onWilayaUnselected}
+            variant={'error'}
+          >
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
@@ -30,7 +34,11 @@ const WilayaItem = ({
       }
     } else {
       return (
-        <Button onClick={() => onWilayaSelected(wilaya)} variant={'primary'}>
+        <Button
+          className="min-h-[2rem] h-[2rem]"
+          onClick={() => onWilayaSelected(wilaya)}
+          variant={'primary'}
+        >
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           </Button.Icon>

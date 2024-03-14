@@ -49,10 +49,10 @@ const EditHighwayPage = (): JSX.Element => {
     },
     fetchPolicy: 'network-only',
     onCompleted(data) {
-      if (data.highwaybyId) {
+      if (data.highwayById) {
         setValues({
-          name: data.highwaybyId.name,
-          code: data.highwaybyId.code,
+          name: data.highwayById.name,
+          code: data.highwayById.code,
         });
       }
     },
@@ -101,7 +101,7 @@ const EditHighwayPage = (): JSX.Element => {
               </Heading>
               <Heading className="text-[15pt] mb-[2rem]">
                 <Heading.Text className="opacity-70">
-                  Highway: {highwayData?.highwaybyId?.name}
+                  Highway: {highwayData?.highwayById?.name}
                 </Heading.Text>
               </Heading>
             </div>

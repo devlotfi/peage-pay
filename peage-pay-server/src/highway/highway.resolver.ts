@@ -25,7 +25,7 @@ export class HighwayResolver {
 
   @Query(() => HighwayType, { nullable: true })
   @UseGuards(AuthGuard)
-  public async highwaybyId(
+  public async highwayById(
     @Args('highwayByIdInput') highwayByIdInput: HighwayByIdInput,
   ): Promise<HighwayType | null> {
     return await this.highwayService.highwayById(highwayByIdInput);

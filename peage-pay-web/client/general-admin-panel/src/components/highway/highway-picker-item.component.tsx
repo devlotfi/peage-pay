@@ -20,7 +20,11 @@ const HighwayPickerItem = ({
     if (selectedHighway) {
       if (highway.id === selectedHighway.id) {
         return (
-          <Button onClick={onHighwayUnselected} variant={'error'}>
+          <Button
+            className="min-h-[2rem] h-[2rem]"
+            onClick={onHighwayUnselected}
+            variant={'error'}
+          >
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
@@ -30,7 +34,11 @@ const HighwayPickerItem = ({
       }
     } else {
       return (
-        <Button onClick={() => onHighwaySelected(highway)} variant={'primary'}>
+        <Button
+          className="min-h-[2rem] h-[2rem]"
+          onClick={() => onHighwaySelected(highway)}
+          variant={'primary'}
+        >
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           </Button.Icon>

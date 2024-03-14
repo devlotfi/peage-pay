@@ -99,8 +99,8 @@ const EditTollPage = (): JSX.Element => {
         },
       },
       onCompleted(data) {
-        if (data.highwaybyId) {
-          setSelectedHighway(data.highwaybyId);
+        if (data.highwayById) {
+          setSelectedHighway(data.highwayById);
         }
       },
       fetchPolicy: 'network-only',

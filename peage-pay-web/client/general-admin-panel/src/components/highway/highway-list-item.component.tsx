@@ -26,7 +26,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
           mainElement={
             <Dropdown.Main>
               {
-                <IconButtonOutline>
+                <IconButtonOutline className="min-h-[2rem] min-w-[2rem] h-[2rem] w-[2rem]">
                   <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
                 </IconButtonOutline>
               }

@@ -13,7 +13,7 @@ import EditSubscriptionPage from '../pages/subscription/edit-subscription.page';
 import TollListPage from '../pages/toll/toll-list.page';
 import AddTollPage from '../pages/toll/add-toll.page';
 import EditTollPage from '../pages/toll/edit-toll.page';
-import UserListPage from '../pages/user/user-list.page';
+import BaseUserListPage from '../pages/user/base-user-list.page';
 import EditUserPage from '../pages/user/edit-user.page';
 import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
 import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
@@ -140,7 +140,7 @@ const useRouter = () => {
 
         {
           path: '/dashboard/user/list',
-          element: <UserListPage></UserListPage>,
+          element: <BaseUserListPage></BaseUserListPage>,
         },
         {
           path: '/dashboard/user/edit/:userId',

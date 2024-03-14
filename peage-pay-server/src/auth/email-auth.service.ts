@@ -294,7 +294,7 @@ export class EmailAuthService {
       emailAuthMethod.authMethod.userId,
     );
     const signInResult = new SignInResult(
-      emailAuthMethod.authMethod.baseUser,
+      emailAuthMethod.authMethod.baseUser as any,
       accessToken,
       roles,
       refreshTokenMode === RefreshTokenMode.PLAIN_TEXT

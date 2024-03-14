@@ -14,7 +14,7 @@ export const HIGHWAY_LIST = gql(`
 
 export const HIGHWAY_BY_ID = gql(`
   query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {
-    highwaybyId(highwayByIdInput: $highwayByIdInput) {
+    highwayById(highwayByIdInput: $highwayByIdInput) {
       code
       id
       name
@@ -205,6 +205,19 @@ export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL = gql(`
         id
         name
       }
+    }
+  }
+`);
+
+export const BASE_USER_LIST = gql(`
+  query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {
+    baseUserList(baseUserListInput: $baseUserListInput) {
+      id
+      firstName
+      lastName
+      createdAt
+      updatedAt
+      roles
     }
   }
 `);

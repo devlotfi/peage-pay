@@ -209,7 +209,6 @@ model Toll {
   toTollDistances        TollDistance[]      @relation("toTollDistance")
   fromGraphTollDistances GraphTollDistance[] @relation("fromGraphTollDistance")
   toGraphTollDistances   GraphTollDistance[] @relation("toGraphTollDistance")
-  lanes                  Lane[]
   automaticGates         AutomaticGate[]
   entryTollsTrip         Trip[]              @relation("entryTollTrip")
   exitTollsTrip          Trip[]              @relation("exitTollTrip")
@@ -264,18 +263,6 @@ enum LaneStatus {
   OUT_OF_SERVICE
 }
 
-model Lane {
-  toll Toll @relation(fields: [tollId], references: [id])
-
-  id            String        @id @default(uuid())
-  tollId        String
-  number        Int           @unique
-  paymentMethod PaymentMethod
-  status        LaneStatus
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
 model AutomaticGate {
   toll Toll @relation(fields: [tollId], references: [id])
 
@@ -317,14 +304,6 @@ model Ticket {
   distance       Decimal
 }
 
-enum PriceType {
-  OVERRIDE
-  ADD
-  SUBSCTRACT
-  ADD_PERCENTAGE
-  SUBSCTRACT_PERCENTAGE
-}
-
 model Price {
   toll         Toll?         @relation(fields: [tollId], references: [id])
   dailyPrice   DailyPrice?
@@ -333,21 +312,30 @@ model Price {
   yearlyPrice  YearlyPrice?
   customPrice  CustomPrice?
 
-  id             String    @id @default(uuid())
+  id             String   @id @default(uuid())
   tollId         String?
   value          Decimal
   startTimestamp DateTime
   endTimestamp   DateTime
-  priceType      PriceType
   priority       Int
-  createdAt      DateTime  @default(now())
-  pdatedAt       DateTime  @updatedAt
+  createdAt      DateTime @default(now())
+  pdatedAt       DateTime @updatedAt
 }
 
 model DailyPrice {
   price Price @relation(fields: [priceId], references: [id])
 
   priceId String @id
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
 
 model WeeklyPrice {

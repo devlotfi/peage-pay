@@ -165,3 +165,15 @@ export const DELETE_GRAPH_TOLL_DISTANCE = gql(`
     deleteGraphTollDistance(deleteGraphTollDistanceInput: $deleteGraphTollDistanceInput)
   }
 `);
+
+export const ADD_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
+  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput!) {
+    addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)
+  }
+`);
+
+export const REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
+  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {
+    removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)
+  }
+`);

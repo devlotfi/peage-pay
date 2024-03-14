@@ -20,7 +20,11 @@ const TollPickerItem = ({
     if (selectedToll) {
       if (toll.id === selectedToll.id) {
         return (
-          <Button onClick={onTollUnselected} variant={'error'}>
+          <Button
+            className="min-h-[2rem] h-[2rem]"
+            onClick={onTollUnselected}
+            variant={'error'}
+          >
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
@@ -30,7 +34,11 @@ const TollPickerItem = ({
       }
     } else {
       return (
-        <Button onClick={() => onTollSelected(toll)} variant={'primary'}>
+        <Button
+          className="min-h-[2rem] h-[2rem]"
+          onClick={() => onTollSelected(toll)}
+          variant={'primary'}
+        >
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           </Button.Icon>

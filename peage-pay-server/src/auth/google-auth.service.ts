@@ -97,7 +97,7 @@ export class GoogleAuthService {
         googleAuthMethod.authMethod.userId,
       );
       const signInResult = new SignInResult(
-        googleAuthMethod.authMethod.baseUser,
+        googleAuthMethod.authMethod.baseUser as any,
         accessToken,
         roles,
         refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
