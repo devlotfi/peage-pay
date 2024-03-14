@@ -1,6 +1,7 @@
 import {
   faEllipsisH,
   faList,
+  faNetworkWired,
   faPen,
   faPlus,
   faTrash,
@@ -65,6 +66,18 @@ const TollNetworkItem = ({
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>Add toll</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/toll-network/graph/${tollNetwork.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Graph</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() =>

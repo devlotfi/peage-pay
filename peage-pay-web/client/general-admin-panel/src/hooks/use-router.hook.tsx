@@ -18,6 +18,7 @@ import EditUserPage from '../pages/user/edit-user.page';
 import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
 import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
 import EditTollNetworkPage from '../pages/toll-network/edit-toll-network.page';
+import TollNetworkGraphPage from '../pages/toll-network/toll-network-graph.page';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -105,6 +106,10 @@ const useRouter = () => {
         {
           path: '/dashboard/toll-network/edit/:tollNetworkId',
           element: <EditTollNetworkPage></EditTollNetworkPage>,
+        },
+        {
+          path: '/dashboard/toll-network/graph/:tollNetworkId',
+          element: <TollNetworkGraphPage></TollNetworkGraphPage>,
         },
 
         {

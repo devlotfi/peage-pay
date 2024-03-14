@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
-const tableHeadTrVariants = cva('border-edge-200 border-b-[1px]');
+const tableHeadTrVariants = cva('border-edge-100 border-b-[1px]');
 
 interface TableHeadTrProps
   extends BaseHTMLAttributes<HTMLDivElement>,

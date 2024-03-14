@@ -12,10 +12,11 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { GraphTollDistanceType } from './graphql/graph-toll-distance.gql';
-import { GraphTollDistanceListForTollInput } from './input/graph-toll-distance-list.input.gql';
+import { GraphTollDistanceListForTollInput } from './input/graph-toll-distance-list-for-toll.input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { AddGraphTollDistanceInput } from './input/add-graph-toll-distance.input.gql';
 import { DeleteGraphTollDistanceInput } from './input/delete-graph-toll-distance.input.gql';
+import { GraphTollDistanceListForTollNetworkInput } from './input/graph-toll-distance-list-for-toll-network.input.gql';
 
 @Resolver(() => GraphTollDistanceType)
 export class GraphTollDistanceResolver {
@@ -31,6 +32,17 @@ export class GraphTollDistanceResolver {
   ): Promise<GraphTollDistanceType[]> {
     return (await this.graphTollDistanceService.graphTollDistanceListForToll(
       graphTollDistanceListForTollInput,
+    )) as any;
+  }
+
+  @Query(() => [GraphTollDistanceType])
+  @UseGuards(AuthGuard)
+  public async graphTollDistanceListForTollNetwork(
+    @Args('graphTollDistanceListForTollInput')
+    graphTollDistanceListForTollNetworkInput: GraphTollDistanceListForTollNetworkInput,
+  ): Promise<GraphTollDistanceType[]> {
+    return (await this.graphTollDistanceService.graphTollDistanceListForTollNetwork(
+      graphTollDistanceListForTollNetworkInput,
     )) as any;
   }
 

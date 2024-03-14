@@ -227,10 +227,16 @@ const EditTollPage = (): JSX.Element => {
 
   return (
     <FormPageLayout>
-      <LocationPicker
-        onChange={handleMapChange}
-        modalRef={locationPickerModalRef}
-      ></LocationPicker>
+      {tollData ? (
+        <LocationPicker
+          initialValue={{
+            lat: tollData.tollById.latitude,
+            lng: tollData.tollById.longitude,
+          }}
+          onChange={handleMapChange}
+          modalRef={locationPickerModalRef}
+        ></LocationPicker>
+      ) : null}
       <WilayaPicker
         value={selectedWilaya}
         onChange={handleWilayaChange}

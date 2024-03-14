@@ -47,6 +47,34 @@ export const SUBSCRIPTION_BY_ID = gql(`
   }
 `);
 
+export const FULL_TOLL_LIST = gql(`
+  query FULL_TOLL_LIST($fullTollListInput: FullTollListInput!) {
+    fullTollList(fullTollListInput: $fullTollListInput) {
+      id
+      name
+      status
+      longitude
+      latitude
+      wilaya {
+        id
+        name
+        code
+      }
+      highway {
+        id
+        name
+        code
+      }
+      tollNetwork {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
 export const TOLL_LIST = gql(`
   query TOLL_LIST($tollListInput: TollListInput!) {
     tollList(tollListInput: $tollListInput) {
@@ -141,6 +169,26 @@ export const WILAYA_BY_ID = gql(`
       id
       name
       code
+    }
+  }
+`);
+
+export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK = gql(`
+  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK($graphTollDistanceListForTollInput: GraphTollDistanceListForTollNetworkInput!) {
+    graphTollDistanceListForTollNetwork(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {
+      distance
+      fromToll {
+        id
+        name
+        latitude
+        longitude
+      }
+      toToll {
+        id
+        name
+        latitude
+        longitude
+      }
     }
   }
 `);

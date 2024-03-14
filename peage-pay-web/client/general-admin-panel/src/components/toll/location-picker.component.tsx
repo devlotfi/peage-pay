@@ -11,6 +11,7 @@ import { RefObject, useEffect, useState } from 'react';
 
 interface LocationPickerProps {
   onChange?: (latLng: google.maps.LatLng | null) => void;
+  initialValue?: { lat: number; lng: number };
   modalRef: RefObject<HTMLDialogElement>;
 }
 
@@ -21,9 +22,17 @@ let locationPickerMarker: google.maps.marker.AdvancedMarkerElement | null =
 const LocationPicker = ({
   onChange,
   modalRef,
+  initialValue,
 }: LocationPickerProps): JSX.Element => {
   const [selectedLocation, setSelectedLocation] =
-    useState<google.maps.LatLng | null>(null);
+    useState<google.maps.LatLng | null>(
+      initialValue
+        ? new google.maps.LatLng({
+            lat: initialValue.lat,
+            lng: initialValue.lng,
+          })
+        : null,
+    );
 
   const getMapMount = (): HTMLElement => {
     return document.getElementById('location-picker-map') as HTMLElement;
@@ -69,6 +78,23 @@ const LocationPicker = ({
       zoom: 5,
       mapId: '4504f8b37365c3d0',
     });
+
+    if (initialValue) {
+      const pinView = new google.maps.marker.PinElement({
+        glyphColor: '#FFFFFF',
+        background: '#2AA8EE',
+        borderColor: '#2AA8EE',
+      });
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        map: map,
+        position: new google.maps.LatLng({
+          lat: initialValue.lat,
+          lng: initialValue.lng,
+        }),
+        content: pinView.element,
+      });
+      locationPickerMarker = marker;
+    }
 
     map.addListener('click', handleMapClick);
     locationPickerMap = map;

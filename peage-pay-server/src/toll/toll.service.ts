@@ -8,10 +8,23 @@ import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { GraphQLError } from 'graphql';
 import { TollErrors } from './graphql/toll-errors.gql';
 import { TollByIdInput } from './input/toll-by-id.input.gql';
+import { FullTollListInput } from './input/full-toll-list.input.gql';
 
 @Injectable()
 export class TollService {
   public constructor(private readonly databaseService: DatabaseService) {}
+
+  public async fullTollList(
+    fullTollListInput: FullTollListInput,
+  ): Promise<Toll[]> {
+    return await this.databaseService.toll.findMany({
+      where: {
+        tollNetwork: {
+          id: fullTollListInput.tollNetworkId,
+        },
+      },
+    });
+  }
 
   public async tollList(tollListInput: TollListInput): Promise<Toll[]> {
     if (

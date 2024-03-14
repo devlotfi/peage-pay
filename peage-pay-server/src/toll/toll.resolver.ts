@@ -20,10 +20,19 @@ import { EditTollInput } from './input/edit-toll.input.gql';
 import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
 import { TollByIdInput } from './input/toll-by-id.input.gql';
+import { FullTollListInput } from './input/full-toll-list.input.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
   public constructor(private readonly tollService: TollService) {}
+
+  @Query(() => [TollType])
+  @UseGuards(AuthGuard)
+  public async fullTollList(
+    @Args('fullTollListInput') fullTollListInput: FullTollListInput,
+  ): Promise<TollType[]> {
+    return (await this.tollService.fullTollList(fullTollListInput)) as any;
+  }
 
   @Query(() => [TollType])
   @UseGuards(AuthGuard)

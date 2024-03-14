@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const tableContainer = cva(
-  'overflow-x-auto rounded-xl border-edge-200 border-[1px]',
+  'overflow-x-auto rounded-xl border-edge-100 border-[1px]',
 );
 
 interface TableContainer
