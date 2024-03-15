@@ -3,11 +3,14 @@ import { gql } from '../__generated__';
 export const HIGHWAY_LIST = gql(`
   query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {
     highwayList(highwayListInput: $highwayListInput) {
-      id
-      name
-      code
-      createdAt
-      updatedAt
+      count
+      list {
+        id
+        name
+        code
+        createdAt
+        updatedAt
+      }
     }
   }
 `);
@@ -27,10 +30,15 @@ export const HIGHWAY_BY_ID = gql(`
 export const SUBSCRIPTION_LIST = gql(`
   query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {
     subscriptionList(subscriptionListInput: $subscriptionListInput) {
-      id
-      name
-      createdAt
-      updatedAt
+      count
+      list {
+        id
+        name
+        days
+        price
+        createdAt
+        updatedAt
+      }
     }
   }
 `);
@@ -40,7 +48,8 @@ export const SUBSCRIPTION_BY_ID = gql(`
     subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {
       id
       name
-      vehicleType
+      days
+      price
       createdAt
       updatedAt
     }
@@ -78,27 +87,30 @@ export const FULL_TOLL_LIST = gql(`
 export const TOLL_LIST = gql(`
   query TOLL_LIST($tollListInput: TollListInput!) {
     tollList(tollListInput: $tollListInput) {
-      id
-      name
-      status
-      longitude
-      latitude
-      wilaya {
+      count
+      list {
         id
         name
-        code
+        status
+        longitude
+        latitude
+        wilaya {
+          id
+          name
+          code
+        }
+        highway {
+          id
+          name
+          code
+        }
+        tollNetwork {
+          id
+          name
+        }
+        createdAt
+        updatedAt
       }
-      highway {
-        id
-        name
-        code
-      }
-      tollNetwork {
-        id
-        name
-      }
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -134,10 +146,13 @@ export const TOLL_BY_ID = gql(`
 export const TOLL_NETWORK_LIST = gql(`
   query TOLL_NETWORK_LIST($tollNetworkListInput: TollNetworkListInput!) {
     tollNetworkList(tollNetworkListInput: $tollNetworkListInput) {
-      id
-      name
-      createdAt
-      updatedAt
+      count
+      list {
+        id
+        name
+        createdAt
+        updatedAt
+      }
     }
   }
 `);
@@ -156,9 +171,12 @@ export const TOLL_NETWORK_BY_ID = gql(`
 export const WILAYA_LIST = gql(`
   query WILAYA_LIST($wilayaListInput: WilayaListInput!) {
     wilayaList(wilayaListInput: $wilayaListInput) {
-      id
-      name
-      code
+      count
+      list {
+        id
+        name
+        code
+      }
     }
   }
 `);
@@ -196,14 +214,17 @@ export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK = gql(`
 export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL = gql(`
   query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL($graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput!) {
     graphTollDistanceListForToll(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {
-      distance
-      fromToll {
-        id
-        name
-      }
-      toToll {
-        id
-        name
+      count
+      list {
+        distance
+        fromToll {
+          id
+          name
+        }
+        toToll {
+          id
+          name
+        }
       }
     }
   }
@@ -212,12 +233,15 @@ export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL = gql(`
 export const BASE_USER_LIST = gql(`
   query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {
     baseUserList(baseUserListInput: $baseUserListInput) {
-      id
-      firstName
-      lastName
-      createdAt
-      updatedAt
-      roles
+      count
+      list {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+        roles
+      }
     }
   }
 `);

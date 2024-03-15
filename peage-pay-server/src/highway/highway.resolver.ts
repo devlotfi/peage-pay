@@ -10,16 +10,17 @@ import { EditHighwayInput } from './input/edit-highway.input.gql';
 import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
 import { HighwayByIdInput } from './input/highway-by-id.input.gql';
+import { HighwayListResult } from './result/highway-list.result.gql';
 
 @Resolver()
 export class HighwayResolver {
   public constructor(private readonly highwayService: HighwayService) {}
 
-  @Query(() => [HighwayType])
+  @Query(() => HighwayListResult)
   @UseGuards(AuthGuard)
   public async highwayList(
     @Args('highwayListInput') highwayListInput: HighwayListInput,
-  ): Promise<HighwayType[]> {
+  ): Promise<HighwayListResult> {
     return await this.highwayService.highwayList(highwayListInput);
   }
 

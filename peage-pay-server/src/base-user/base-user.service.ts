@@ -8,6 +8,7 @@ import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
 import { AddHumanRessourcesAdminRoleInput } from './input/add-human-ressources-admin-role.input.gql';
 import { GraphQLError } from 'graphql';
 import { RemoveHumanRessourcesAdminRoleInput } from './input/remove-human-ressources-admin-role.input.gql';
+import { BaseUserListResult } from './result/base-user-list.result.gql';
 
 @Injectable()
 export class BaseUserService {
@@ -15,13 +16,13 @@ export class BaseUserService {
 
   public async baseUserList(
     baseUserListInput: BaseUserListInput,
-  ): Promise<BaseUser[]> {
+  ): Promise<BaseUserListResult> {
     if (
       baseUserListInput.idSearch ||
       baseUserListInput.firstNameSearch ||
       baseUserListInput.lastNameSearch
     ) {
-      return await this.databaseService.baseUser.findMany({
+      const baseUserList = await this.databaseService.baseUser.findMany({
         where: {
           OR: [
             {
@@ -47,11 +48,45 @@ export class BaseUserService {
         take: baseUserListInput.take,
         skip: baseUserListInput.skip,
       });
+      const baseUserCount = await this.databaseService.baseUser.count({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: baseUserListInput.idSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              firstName: {
+                contains: baseUserListInput.firstNameSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              lastName: {
+                contains: baseUserListInput.lastNameSearch,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      });
+
+      const baseUserListResult = new BaseUserListResult();
+      baseUserListResult.list = baseUserList as any[];
+      baseUserListResult.count = baseUserCount;
+      return baseUserListResult;
     } else {
-      return await this.databaseService.baseUser.findMany({
+      const baseUserList = await this.databaseService.baseUser.findMany({
         take: baseUserListInput.take,
         skip: baseUserListInput.skip,
       });
+
+      const baseUserListResult = new BaseUserListResult();
+      baseUserListResult.list = baseUserList as any[];
+      baseUserListResult.count = baseUserList.length;
+      return baseUserListResult;
     }
   }
 

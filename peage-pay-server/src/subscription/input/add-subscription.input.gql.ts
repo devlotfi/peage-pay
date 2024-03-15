@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { Length } from 'class-validator';
-import { VehicleTypeType } from '../graphql/vehicle-type.gql';
+import { IsPositive, Length } from 'class-validator';
 
 @InputType()
 export class AddSubscriptionInput {
@@ -8,6 +7,11 @@ export class AddSubscriptionInput {
   @Length(1, 256)
   public name: string;
 
-  @Field(() => VehicleTypeType)
-  public vehicleType: VehicleTypeType;
+  @Field()
+  @IsPositive()
+  public days: number;
+
+  @Field()
+  @IsPositive()
+  public price: number;
 }

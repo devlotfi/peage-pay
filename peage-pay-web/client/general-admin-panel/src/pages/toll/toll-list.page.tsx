@@ -1,6 +1,13 @@
 import { useQuery } from '@apollo/client';
 import { TOLL_LIST, TOLL_NETWORK_BY_ID } from '../../graphql/queries';
-import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
+import {
+  Heading,
+  ListPageLayout,
+  Pagination,
+  SearchForm,
+  SearchValues,
+  Table,
+} from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { TollSearchFields, TollType } from '../../__generated__/graphql';
 import TollListItem from '../../components/toll/toll-list-item.component';
@@ -8,21 +15,16 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
 
-interface TollListSearchValues {
-  search: string;
-  field: TollSearchFields;
-  page: number;
-}
-
-const initialValues: TollListSearchValues = {
+const initialValues: SearchValues<TollSearchFields> = {
   search: '',
   field: TollSearchFields.NameSearch,
-  page: 1,
 };
 
 const TollListPage = (): JSX.Element => {
   const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
   const { tollNetworkId } = useParams();
+
   const {
     data: tollNetworkData,
     loading: tollNetworkLoading,
@@ -43,7 +45,7 @@ const TollListPage = (): JSX.Element => {
     variables: {
       tollListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
         tollNetworkId: tollNetworkId as string,
       },
@@ -95,7 +97,7 @@ const TollListPage = (): JSX.Element => {
 
           <ListPageLayout.Loading loading={listLoading}>
             <ListPageLayout.Error error={listError}>
-              <ListPageLayout.Empty list={listData?.tollList}>
+              <ListPageLayout.Empty list={listData?.tollList.list}>
                 <Table.Container className="h-full">
                   <Table>
                     <Table.Head>
@@ -112,7 +114,7 @@ const TollListPage = (): JSX.Element => {
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>
-                      {listData?.tollList.map((toll) => (
+                      {listData?.tollList.list.map((toll) => (
                         <TollListItem
                           key={toll.id}
                           toll={toll as TollType}
@@ -123,6 +125,17 @@ const TollListPage = (): JSX.Element => {
                 </Table.Container>
               </ListPageLayout.Empty>
             </ListPageLayout.Error>
+            <div className="flex justify-center mt-[0.5rem]">
+              <div className="overflow-x-auto">
+                {listData ? (
+                  <Pagination
+                    value={page}
+                    maxPages={Math.ceil(listData.tollList.count / 10)}
+                    handlePageChange={(page) => setPage(page)}
+                  ></Pagination>
+                ) : null}
+              </div>
+            </div>
           </ListPageLayout.Loading>
         </ListPageLayout.Error>
       </ListPageLayout.Loading>

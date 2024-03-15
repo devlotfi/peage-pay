@@ -8,6 +8,7 @@ import { GraphQLError } from 'graphql';
 import { HighwayErrors } from './graphql/highway-errors.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
 import { HighwayByIdInput } from './input/highway-by-id.input.gql';
+import { HighwayListResult } from './result/highway-list.result.gql';
 
 @Injectable()
 export class HighwayService {
@@ -15,13 +16,13 @@ export class HighwayService {
 
   public async highwayList(
     highwayListInput: HighwayListInput,
-  ): Promise<Highway[]> {
+  ): Promise<HighwayListResult> {
     if (
       highwayListInput.idSearch ||
       highwayListInput.nameSearch ||
       highwayListInput.codeSearch
     ) {
-      return await this.databaseService.highway.findMany({
+      const highwayList = await this.databaseService.highway.findMany({
         where: {
           OR: [
             {
@@ -47,11 +48,44 @@ export class HighwayService {
         take: highwayListInput.take,
         skip: highwayListInput.skip,
       });
+      const highwayCount = await this.databaseService.highway.count({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: highwayListInput.idSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              name: {
+                contains: highwayListInput.nameSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              code: {
+                contains: highwayListInput.codeSearch,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      });
+      const highwayListResult = new HighwayListResult();
+      highwayListResult.list = highwayList as any[];
+      highwayListResult.count = highwayCount;
+      return highwayListResult;
     } else {
-      return await this.databaseService.highway.findMany({
+      const highwayList = await this.databaseService.highway.findMany({
         take: highwayListInput.take,
         skip: highwayListInput.skip,
       });
+      const highwayCount = await this.databaseService.highway.count();
+      const highwayListResult = new HighwayListResult();
+      highwayListResult.list = highwayList as any[];
+      highwayListResult.count = highwayCount;
+      return highwayListResult;
     }
   }
 

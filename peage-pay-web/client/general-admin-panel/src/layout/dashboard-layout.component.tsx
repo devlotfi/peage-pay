@@ -204,7 +204,7 @@ const DashboardLayout = (): JSX.Element => {
             <NavbarDropdown></NavbarDropdown>
           </AdminDashboardLayout.Navbar.RightContent>
         </AdminDashboardLayout.Navbar>
-        <AdminDashboardLayout.Content className="p-[1rem]">
+        <AdminDashboardLayout.Content className="p-[0.5rem]">
           <Outlet></Outlet>
         </AdminDashboardLayout.Content>
       </AdminDashboardLayout.Main>

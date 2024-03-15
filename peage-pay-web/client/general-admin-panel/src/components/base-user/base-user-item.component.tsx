@@ -9,7 +9,7 @@ interface BaseUserItemProps {
 
 const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
   return (
-    <Table.Body.Tr>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -28,7 +28,19 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
         </Dropdown>
       </Table.Body.Td>
       <Table.Body.Td>{baseUser.id}</Table.Body.Td>
-      <Table.Body.Td>{JSON.stringify(baseUser.roles)}</Table.Body.Td>
+      <Table.Body.Td>
+        <Table.Container>
+          <Table>
+            <Table.Body>
+              {baseUser.roles.map((role) => (
+                <Table.Body.Tr key={role}>
+                  <Table.Body.Td>{role}</Table.Body.Td>
+                </Table.Body.Tr>
+              ))}
+            </Table.Body>
+          </Table>
+        </Table.Container>
+      </Table.Body.Td>
       <Table.Body.Td>{baseUser.firstName}</Table.Body.Td>
       <Table.Body.Td>{baseUser.lastName}</Table.Body.Td>
       <Table.Body.Td>{baseUser.createdAt}</Table.Body.Td>

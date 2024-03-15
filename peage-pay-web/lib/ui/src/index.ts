@@ -22,7 +22,10 @@ import AdminDashboardLayout from './lib/components/layout/admin-dashboard/admin-
 import FormPageLayout from './lib/components/layout/form-page-layout/form-page-layout.component';
 import ListPageLayout from './lib/components/layout/list-page-layout/list-page-layout.component';
 import MinimalNavbar from './lib/components/layout/minimal-navbar/minimal-navbar.component';
-import SearchForm from './lib/components/layout/search-form/search-form.component';
+import Pagination from './lib/components/layout/pagination/pagination.component';
+import SearchForm, {
+  SearchValues,
+} from './lib/components/layout/search-form/search-form.component';
 import ErrorPage from './lib/components/pages/error-page/error.page';
 
 export {
@@ -52,4 +55,7 @@ export {
   Table,
   ListPageLayout,
   FormPageLayout,
+  Pagination,
 };
+
+export type { SearchValues };

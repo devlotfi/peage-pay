@@ -3,7 +3,14 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const tableBodyTr = cva(
-  'even:bg-base-200 border-edge-200 border-b-[1px] last:border-b-0',
+  'border-edge-200 border-b-[1px] last:border-b-0 font-normal',
+  {
+    variants: {
+      variant: {
+        zebra: 'even:bg-base-200',
+      },
+    },
+  },
 );
 
 interface TableBodyTr
@@ -13,10 +20,11 @@ interface TableBodyTr
 const TableBodyTr = ({
   className,
   children,
+  variant,
   ...props
 }: TableBodyTr): JSX.Element => {
   return (
-    <tr className={Utils.cn(tableBodyTr({ className }))} {...props}>
+    <tr className={Utils.cn(tableBodyTr({ className, variant }))} {...props}>
       {children}
     </tr>
   );

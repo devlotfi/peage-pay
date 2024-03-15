@@ -55,9 +55,8 @@ export class TollListInput {
   @Min(0)
   public take: number;
 
-  @Field({ nullable: true })
-  @IsOptional()
+  @Field()
   @IsNumber()
   @Min(0)
-  public skip?: number;
+  public skip: number;
 }

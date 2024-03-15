@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -8,22 +7,18 @@ import {
   SearchForm,
   Table,
   Button,
+  Pagination,
+  SearchValues,
 } from '@peage-pay-web/ui';
 import { HighwaySearchFields, HighwayType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
 import { HIGHWAY_LIST } from '../../graphql/queries';
 import HighwayPickerItem from './highway-picker-item.component';
+import { useState } from 'react';
 
-interface HighwayListSearchValues {
-  search: string;
-  field: HighwaySearchFields;
-  page: number;
-}
-
-const initialValues: HighwayListSearchValues = {
+const initialValues: SearchValues<HighwaySearchFields> = {
   search: '',
   field: HighwaySearchFields.NameSearch,
-  page: 1,
 };
 
 interface HighwayPickerProps {
@@ -37,12 +32,14 @@ const HighwayPicker = ({
   modalRef,
   value,
 }: HighwayPickerProps): JSX.Element => {
-  const [searchData, setSearchData] = React.useState(initialValues);
+  const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
   const { data, loading, error } = useQuery(HIGHWAY_LIST, {
     variables: {
       highwayListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
       },
     },
@@ -109,7 +106,7 @@ const HighwayPicker = ({
 
             <ListPageLayout.Loading loading={loading}>
               <ListPageLayout.Error error={error}>
-                <ListPageLayout.Empty list={data?.highwayList}>
+                <ListPageLayout.Empty list={data?.highwayList.list}>
                   <Table.Container className="h-full">
                     <Table>
                       <Table.Head>
@@ -123,7 +120,7 @@ const HighwayPicker = ({
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>
-                        {data?.highwayList.map((highway) => (
+                        {data?.highwayList.list.map((highway) => (
                           <HighwayPickerItem
                             key={highway.id}
                             highway={highway}
@@ -137,6 +134,17 @@ const HighwayPicker = ({
                   </Table.Container>
                 </ListPageLayout.Empty>
               </ListPageLayout.Error>
+              <div className="flex justify-center mt-[0.5rem]">
+                <div className="overflow-x-auto">
+                  {data ? (
+                    <Pagination
+                      value={page}
+                      maxPages={Math.ceil(data.highwayList.count / 10)}
+                      handlePageChange={(page) => setPage(page)}
+                    ></Pagination>
+                  ) : null}
+                </div>
+              </div>
             </ListPageLayout.Loading>
           </ListPageLayout>
         </Modal.Content>

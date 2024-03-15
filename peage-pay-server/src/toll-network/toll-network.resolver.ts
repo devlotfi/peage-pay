@@ -10,16 +10,17 @@ import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
 import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
+import { TollNetworkListResult } from './result/toll-network-list.result.gql';
 
 @Resolver()
 export class TollNetworkResolver {
   public constructor(private readonly tollNetworkService: TollNetworkService) {}
 
-  @Query(() => [TollNetworkType])
+  @Query(() => TollNetworkListResult)
   @UseGuards(AuthGuard)
   public async tollNetworkList(
     @Args('tollNetworkListInput') tollNetworkListInput: TollNetworkListInput,
-  ): Promise<TollNetworkType[]> {
+  ): Promise<TollNetworkListResult> {
     return await this.tollNetworkService.tollNetworkList(tollNetworkListInput);
   }
 

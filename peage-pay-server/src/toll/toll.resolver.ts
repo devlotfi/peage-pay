@@ -21,6 +21,7 @@ import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
 import { TollByIdInput } from './input/toll-by-id.input.gql';
 import { FullTollListInput } from './input/full-toll-list.input.gql';
+import { TollListResult } from './result/toll-list.result.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -34,12 +35,12 @@ export class TollResolver {
     return (await this.tollService.fullTollList(fullTollListInput)) as any;
   }
 
-  @Query(() => [TollType])
+  @Query(() => TollListResult)
   @UseGuards(AuthGuard)
   public async tollList(
     @Args('tollListInput') tollListInput: TollListInput,
-  ): Promise<TollType[]> {
-    return (await this.tollService.tollList(tollListInput)) as any;
+  ): Promise<TollListResult> {
+    return await this.tollService.tollList(tollListInput);
   }
 
   @Query(() => TollType)

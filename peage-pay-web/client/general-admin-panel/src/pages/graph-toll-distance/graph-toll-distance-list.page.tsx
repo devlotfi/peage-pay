@@ -3,7 +3,7 @@ import {
   GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL,
   TOLL_BY_ID,
 } from '../../graphql/queries';
-import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
+import { Heading, ListPageLayout, Table } from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { GraphTollDistanceType } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,13 +53,6 @@ const GraphTollDistanceListPage = (): JSX.Element => {
     <ListPageLayout>
       <ListPageLayout.Loading loading={tollLoading}>
         <ListPageLayout.Error error={tollError}>
-          <SearchForm
-            pageOnly
-            className="flex items-start mb-[1rem]"
-            initialFieldSearch={{}}
-            handleSearch={(searchData) => setSearchData(searchData)}
-          ></SearchForm>
-
           <div className="flex flex-col md:flex-row md:justify-between items-start">
             <Heading className="text-[20pt]">
               <Heading.Icon position={'left'}>
@@ -77,7 +70,7 @@ const GraphTollDistanceListPage = (): JSX.Element => {
           <ListPageLayout.Loading loading={listLoading}>
             <ListPageLayout.Error error={listError}>
               <ListPageLayout.Empty
-                list={listData?.graphTollDistanceListForToll}
+                list={listData?.graphTollDistanceListForToll.list}
               >
                 <Table.Container className="h-full">
                   <Table>
@@ -90,7 +83,7 @@ const GraphTollDistanceListPage = (): JSX.Element => {
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>
-                      {listData?.graphTollDistanceListForToll.map(
+                      {listData?.graphTollDistanceListForToll.list.map(
                         (graphTollDistance) => (
                           <GraphTollDistanceItem
                             key={`${graphTollDistance.fromToll.id}-${graphTollDistance.toToll.id}`}

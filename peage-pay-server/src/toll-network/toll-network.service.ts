@@ -8,6 +8,7 @@ import { TollNetworkErrors } from './graphql/toll-network-errors.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
 import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
+import { TollNetworkListResult } from './result/toll-network-list.result.gql';
 
 @Injectable()
 export class TollNetworkService {
@@ -15,9 +16,9 @@ export class TollNetworkService {
 
   public async tollNetworkList(
     tollNetworkListInput: TollNetworkListInput,
-  ): Promise<TollNetwork[]> {
+  ): Promise<TollNetworkListResult> {
     if (tollNetworkListInput.idSearch || tollNetworkListInput.nameSearch) {
-      return await this.databaseService.tollNetwork.findMany({
+      const tollNetworkList = await this.databaseService.tollNetwork.findMany({
         where: {
           OR: [
             {
@@ -38,11 +39,37 @@ export class TollNetworkService {
         take: tollNetworkListInput.take,
         skip: tollNetworkListInput.skip,
       });
+      const tollNetworkCount = await this.databaseService.tollNetwork.count({
+        where: {
+          OR: [
+            {
+              id: {
+                contains: tollNetworkListInput.idSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              name: {
+                contains: tollNetworkListInput.nameSearch,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      });
+      const tollNetworkListResult = new TollNetworkListResult();
+      tollNetworkListResult.list = tollNetworkList as any[];
+      tollNetworkListResult.count = tollNetworkCount;
+      return tollNetworkListResult;
     } else {
-      return await this.databaseService.tollNetwork.findMany({
+      const tollNetworkList = await this.databaseService.tollNetwork.findMany({
         take: tollNetworkListInput.take,
         skip: tollNetworkListInput.skip,
       });
+      const tollNetworkListResult = new TollNetworkListResult();
+      tollNetworkListResult.list = tollNetworkList as any[];
+      tollNetworkListResult.count = tollNetworkList.length;
+      return tollNetworkListResult;
     }
   }
 

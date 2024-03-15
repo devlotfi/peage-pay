@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -8,22 +7,18 @@ import {
   SearchForm,
   Table,
   Button,
+  Pagination,
+  SearchValues,
 } from '@peage-pay-web/ui';
 import { WilayaSearchFields, WilayaType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
 import { WILAYA_LIST } from '../../graphql/queries';
 import WilayaItem from './wilaya-item.component';
+import { useState } from 'react';
 
-interface WilayaListSearchValues {
-  search: string;
-  field: WilayaSearchFields;
-  page: number;
-}
-
-const initialValues: WilayaListSearchValues = {
+const initialValues: SearchValues<WilayaSearchFields> = {
   search: '',
   field: WilayaSearchFields.NameSearch,
-  page: 1,
 };
 
 interface WilayaPickerProps {
@@ -37,12 +32,14 @@ const WilayaPicker = ({
   modalRef,
   value,
 }: WilayaPickerProps): JSX.Element => {
-  const [searchData, setSearchData] = React.useState(initialValues);
+  const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
   const { data, loading, error } = useQuery(WILAYA_LIST, {
     variables: {
       wilayaListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
       },
     },
@@ -65,8 +62,6 @@ const WilayaPicker = ({
   };
   const handleWilayaSelected = (wilaya: WilayaType) => {
     if (onChange) {
-      console.log(wilaya);
-
       onChange(wilaya);
     }
   };
@@ -111,7 +106,7 @@ const WilayaPicker = ({
 
             <ListPageLayout.Loading loading={loading}>
               <ListPageLayout.Error error={error}>
-                <ListPageLayout.Empty list={data?.wilayaList}>
+                <ListPageLayout.Empty list={data?.wilayaList.list}>
                   <Table.Container className="h-full">
                     <Table>
                       <Table.Head>
@@ -123,7 +118,7 @@ const WilayaPicker = ({
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>
-                        {data?.wilayaList.map((wilaya) => (
+                        {data?.wilayaList.list.map((wilaya) => (
                           <WilayaItem
                             key={wilaya.id}
                             wilaya={wilaya}
@@ -137,6 +132,17 @@ const WilayaPicker = ({
                   </Table.Container>
                 </ListPageLayout.Empty>
               </ListPageLayout.Error>
+              <div className="flex justify-center mt-[0.5rem]">
+                <div className="overflow-x-auto">
+                  {data ? (
+                    <Pagination
+                      value={page}
+                      maxPages={Math.ceil(data.wilayaList.count / 10)}
+                      handlePageChange={(page) => setPage(page)}
+                    ></Pagination>
+                  ) : null}
+                </div>
+              </div>
             </ListPageLayout.Loading>
           </ListPageLayout>
         </Modal.Content>

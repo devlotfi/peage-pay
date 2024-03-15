@@ -7,6 +7,7 @@ import { AddGraphTollDistanceInput } from './input/add-graph-toll-distance.input
 import { DeleteGraphTollDistanceInput } from './input/delete-graph-toll-distance.input.gql';
 import { GraphTollDistanceErrors } from './graphql/graph-toll-distance-errors.gql';
 import { GraphTollDistanceListForTollNetworkInput } from './input/graph-toll-distance-list-for-toll-network.input.gql';
+import { GraphTollDistanceListResult } from './result/graph-toll-distance-list.result.gql';
 
 @Injectable()
 export class GraphTollDistanceService {
@@ -14,25 +15,47 @@ export class GraphTollDistanceService {
 
   public async graphTollDistanceListForToll(
     graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput,
-  ): Promise<TollDistance[]> {
-    return await this.databaseService.graphTollDistance.findMany({
-      where: {
-        OR: [
-          {
-            fromToll: {
-              id: graphTollDistanceListForTollInput.tollId,
+  ): Promise<GraphTollDistanceListResult> {
+    const graphTollDistanceList =
+      await this.databaseService.graphTollDistance.findMany({
+        where: {
+          OR: [
+            {
+              fromToll: {
+                id: graphTollDistanceListForTollInput.tollId,
+              },
             },
-          },
-          {
-            toToll: {
-              id: graphTollDistanceListForTollInput.tollId,
+            {
+              toToll: {
+                id: graphTollDistanceListForTollInput.tollId,
+              },
             },
-          },
-        ],
-      },
-      take: graphTollDistanceListForTollInput.take,
-      skip: graphTollDistanceListForTollInput.skip,
-    });
+          ],
+        },
+        take: graphTollDistanceListForTollInput.take,
+        skip: graphTollDistanceListForTollInput.skip,
+      });
+    const graphTollDistanceCount =
+      await this.databaseService.graphTollDistance.count({
+        where: {
+          OR: [
+            {
+              fromToll: {
+                id: graphTollDistanceListForTollInput.tollId,
+              },
+            },
+            {
+              toToll: {
+                id: graphTollDistanceListForTollInput.tollId,
+              },
+            },
+          ],
+        },
+      });
+    const graphTollDistanceListResult = new GraphTollDistanceListResult();
+    graphTollDistanceListResult.list = graphTollDistanceList as any[];
+    graphTollDistanceListResult.count = graphTollDistanceCount;
+    return graphTollDistanceListResult;
   }
 
   public async graphTollDistanceListForTollNetwork(

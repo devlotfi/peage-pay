@@ -35,7 +35,8 @@ export const ADD_SUBSCRIPTION = gql(`
     addSubscription(addSubscriptionInput: $addSubscriptionInput) {
       id
       name
-      vehicleType
+      days
+      price
       createdAt
       updatedAt
     }
@@ -47,7 +48,8 @@ export const EDIT_SUBSCRIPTION = gql(`
     editSubscription(editSubscriptionInput: $editSubscriptionInput) {
       id
       name
-      vehicleType
+      days
+      price
       createdAt
       updatedAt
     }

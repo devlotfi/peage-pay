@@ -16,12 +16,13 @@ import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
 import { AddHumanRessourcesAdminRoleInput } from './input/add-human-ressources-admin-role.input.gql';
 import { RemoveHumanRessourcesAdminRoleInput } from './input/remove-human-ressources-admin-role.input.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
+import { BaseUserListResult } from './result/base-user-list.result.gql';
 
 @Resolver(() => BaseUserType)
 export class BaseUserResolver {
   public constructor(private readonly baseUserService: BaseUserService) {}
 
-  @Query(() => [BaseUserType])
+  @Query(() => BaseUserListResult)
   @AllowRoles([
     BaseUserRolesType.GENERAL_ADMIN,
     BaseUserRolesType.HUMAN_RESSOURCES_ADMIN,
@@ -30,12 +31,16 @@ export class BaseUserResolver {
   @UseGuards(AuthGuard)
   public async baseUserList(
     @Args('baseUserListInput') baseUserListInput: BaseUserListInput,
-  ): Promise<BaseUserType[]> {
-    return (await this.baseUserService.baseUserList(baseUserListInput)) as any;
+  ): Promise<BaseUserListResult> {
+    return await this.baseUserService.baseUserList(baseUserListInput);
   }
 
   @Query(() => BaseUserType, { nullable: true })
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([
+    BaseUserRolesType.GENERAL_ADMIN,
+    BaseUserRolesType.HUMAN_RESSOURCES_ADMIN,
+    BaseUserRolesType.MODERATOR,
+  ])
   @UseGuards(AuthGuard)
   public async baseUserById(
     @Args('baseUserByIdInput') baseUserByIdInput: BaseUserByIdInput,

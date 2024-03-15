@@ -8,6 +8,7 @@ import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
 import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
+import { SubscriptionListResult } from './result/subscription-list.result.gql';
 
 @Injectable()
 export class SubscriptionService {
@@ -15,9 +16,31 @@ export class SubscriptionService {
 
   public async subscriptionList(
     subscriptionListInput: SubscriptionListInput,
-  ): Promise<Subscription[]> {
+  ): Promise<SubscriptionListResult> {
     if (subscriptionListInput.idSearch || subscriptionListInput.nameSearch) {
-      return await this.databaseService.subscription.findMany({
+      const subscriptionList = await this.databaseService.subscription.findMany(
+        {
+          where: {
+            OR: [
+              {
+                id: {
+                  contains: subscriptionListInput.idSearch,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                name: {
+                  contains: subscriptionListInput.nameSearch,
+                  mode: 'insensitive',
+                },
+              },
+            ],
+          },
+          take: subscriptionListInput.take,
+          skip: subscriptionListInput.skip,
+        },
+      );
+      const subscriptionCount = await this.databaseService.subscription.count({
         where: {
           OR: [
             {
@@ -34,14 +57,22 @@ export class SubscriptionService {
             },
           ],
         },
-        take: subscriptionListInput.take,
-        skip: subscriptionListInput.skip,
       });
+      const subscriptionListResult = new SubscriptionListResult();
+      subscriptionListResult.list = subscriptionList as any[];
+      subscriptionListResult.count = subscriptionCount;
+      return subscriptionListResult;
     } else {
-      return await this.databaseService.subscription.findMany({
-        take: subscriptionListInput.take,
-        skip: subscriptionListInput.skip,
-      });
+      const subscriptionList = await this.databaseService.subscription.findMany(
+        {
+          take: subscriptionListInput.take,
+          skip: subscriptionListInput.skip,
+        },
+      );
+      const subscriptionListResult = new SubscriptionListResult();
+      subscriptionListResult.list = subscriptionList as any[];
+      subscriptionListResult.count = subscriptionList.length;
+      return subscriptionListResult;
     }
   }
 
@@ -62,7 +93,8 @@ export class SubscriptionService {
       const subscription = await this.databaseService.subscription.create({
         data: {
           name: addSubscriptionInput.name,
-          vehicleType: addSubscriptionInput.vehicleType,
+          days: addSubscriptionInput.days,
+          price: addSubscriptionInput.price,
         },
       });
       return subscription;
@@ -83,7 +115,8 @@ export class SubscriptionService {
       const subscription = await this.databaseService.subscription.update({
         data: {
           name: editSubscriptionInput.name,
-          vehicleType: editSubscriptionInput.vehicleType,
+          days: editSubscriptionInput.days,
+          price: editSubscriptionInput.price,
         },
         where: {
           id: editSubscriptionInput.subscriptionId,

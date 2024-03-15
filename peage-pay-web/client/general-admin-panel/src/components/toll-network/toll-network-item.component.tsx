@@ -29,16 +29,14 @@ const TollNetworkItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
             <Dropdown.Main>
-              {
-                <IconButtonOutline className="min-h-[2rem] min-w-[2rem] h-[2rem] w-[2rem]">
-                  <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
-                </IconButtonOutline>
-              }
+              <IconButtonOutline className="min-h-[2rem] min-w-[2rem] h-[2rem] w-[2rem]">
+                <FontAwesomeIcon icon={faEllipsisH}></FontAwesomeIcon>
+              </IconButtonOutline>
             </Dropdown.Main>
           }
         >

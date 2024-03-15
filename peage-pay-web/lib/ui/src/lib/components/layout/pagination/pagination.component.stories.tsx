@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import SearchForm from './search-form.component';
+import Pagination from './pagination.component';
 import { ThemeProvider } from '@peage-pay-web/tailwind-config';
 import { ComponentProps } from 'react';
 
@@ -7,11 +7,11 @@ interface Props {
   theme: 'LIGHT' | 'DARK';
 }
 
-type StorybookProps = ComponentProps<typeof SearchForm> & Props;
+type StorybookProps = ComponentProps<typeof Pagination> & Props;
 
 const meta: Meta<StorybookProps> = {
-  component: SearchForm,
-  title: 'SearchForm',
+  component: Pagination,
+  title: 'Pagination',
   argTypes: {
     theme: {
       control: 'select',
@@ -30,10 +30,7 @@ export const LeftIcon: Story = {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
-          <SearchForm<string>
-            handleSearch={(search) => console.log(search)}
-            initialFieldSearch={''}
-          ></SearchForm>
+          <Pagination maxPages={10} value={1}></Pagination>
         </ThemeProvider>
       </div>
     );

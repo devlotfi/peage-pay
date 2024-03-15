@@ -20,7 +20,7 @@ const GraphTollDistanceItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={

@@ -1,31 +1,33 @@
 import { useQuery } from '@apollo/client';
 import { TOLL_NETWORK_LIST } from '../../graphql/queries';
-import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
+import {
+  Heading,
+  ListPageLayout,
+  Pagination,
+  SearchForm,
+  SearchValues,
+  Table,
+} from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { TollNetworkSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
 
-interface TollNetworkListSearchValues {
-  search: string;
-  field: TollNetworkSearchFields;
-  page: number;
-}
-
-const initialValues: TollNetworkListSearchValues = {
+const initialValues: SearchValues<TollNetworkSearchFields> = {
   search: '',
   field: TollNetworkSearchFields.NameSearch,
-  page: 1,
 };
 
 const TollNetworkListPage = (): JSX.Element => {
   const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
   const { data, loading, error } = useQuery(TOLL_NETWORK_LIST, {
     variables: {
       tollNetworkListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
       },
     },
@@ -68,7 +70,7 @@ const TollNetworkListPage = (): JSX.Element => {
 
       <ListPageLayout.Loading loading={loading}>
         <ListPageLayout.Error error={error}>
-          <ListPageLayout.Empty list={data?.tollNetworkList}>
+          <ListPageLayout.Empty list={data?.tollNetworkList.list}>
             <Table.Container className="h-full">
               <Table>
                 <Table.Head>
@@ -81,7 +83,7 @@ const TollNetworkListPage = (): JSX.Element => {
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
-                  {data?.tollNetworkList.map((tollNetwork) => (
+                  {data?.tollNetworkList.list.map((tollNetwork) => (
                     <TollNetworkItem
                       key={tollNetwork.id}
                       tollNetwork={tollNetwork}
@@ -92,6 +94,17 @@ const TollNetworkListPage = (): JSX.Element => {
             </Table.Container>
           </ListPageLayout.Empty>
         </ListPageLayout.Error>
+        <div className="flex justify-center mt-[0.5rem]">
+          <div className="overflow-x-auto">
+            {data ? (
+              <Pagination
+                value={page}
+                maxPages={Math.ceil(data.tollNetworkList.count / 10)}
+                handlePageChange={(page) => setPage(page)}
+              ></Pagination>
+            ) : null}
+          </div>
+        </div>
       </ListPageLayout.Loading>
     </ListPageLayout>
   );

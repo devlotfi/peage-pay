@@ -1,31 +1,33 @@
 import { useQuery } from '@apollo/client';
 import { BASE_USER_LIST } from '../../graphql/queries';
-import { Heading, ListPageLayout, SearchForm, Table } from '@peage-pay-web/ui';
+import {
+  Heading,
+  ListPageLayout,
+  Pagination,
+  SearchForm,
+  SearchValues,
+  Table,
+} from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { BaseUserSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import BaseUserItem from '../../components/base-user/base-user-item.component';
 
-interface HighwayListSearchValues {
-  search: string;
-  field: BaseUserSearchFields;
-  page: number;
-}
-
-const initialValues: HighwayListSearchValues = {
+const initialValues: SearchValues<BaseUserSearchFields> = {
   search: '',
   field: BaseUserSearchFields.FirstNameSearch,
-  page: 1,
 };
 
 const HighwayListPage = (): JSX.Element => {
   const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
   const { data, loading, error } = useQuery(BASE_USER_LIST, {
     variables: {
       baseUserListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
       },
     },
@@ -66,7 +68,7 @@ const HighwayListPage = (): JSX.Element => {
 
       <ListPageLayout.Loading loading={loading}>
         <ListPageLayout.Error error={error}>
-          <ListPageLayout.Empty list={data?.baseUserList}>
+          <ListPageLayout.Empty list={data?.baseUserList.list}>
             <Table.Container className="h-full">
               <Table>
                 <Table.Head>
@@ -81,7 +83,7 @@ const HighwayListPage = (): JSX.Element => {
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
-                  {data?.baseUserList.map((baseUser) => (
+                  {data?.baseUserList.list.map((baseUser) => (
                     <BaseUserItem
                       key={baseUser.id}
                       baseUser={baseUser}
@@ -92,6 +94,17 @@ const HighwayListPage = (): JSX.Element => {
             </Table.Container>
           </ListPageLayout.Empty>
         </ListPageLayout.Error>
+        <div className="flex justify-center mt-[0.5rem]">
+          <div className="overflow-x-auto">
+            {data ? (
+              <Pagination
+                value={page}
+                maxPages={Math.ceil(data.baseUserList.count / 10)}
+                handlePageChange={(page) => setPage(page)}
+              ></Pagination>
+            ) : null}
+          </div>
+        </div>
       </ListPageLayout.Loading>
     </ListPageLayout>
   );

@@ -142,6 +142,7 @@ const AddGraphTollDistancePage = (): JSX.Element => {
                   <div className="flex">
                     Toll network: {tollNetworkData?.tollNetworkById.name}
                   </div>
+                  <div className="flex">Toll: {tollData?.tollById.name}</div>
                 </Heading.Text>
               </Heading>
             </div>

@@ -49,7 +49,7 @@ const HighwayPickerItem = ({
   };
 
   return (
-    <Table.Body.Tr>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
       <Table.Body.Td>{highway.id}</Table.Body.Td>
       <Table.Body.Td>{highway.name}</Table.Body.Td>

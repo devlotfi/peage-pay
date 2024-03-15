@@ -10,6 +10,7 @@ import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
 import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
+import { SubscriptionListResult } from './result/subscription-list.result.gql';
 
 @Resolver()
 export class SubscriptionResolver {
@@ -17,14 +18,14 @@ export class SubscriptionResolver {
     private readonly subscriptionService: SubscriptionService,
   ) {}
 
-  @Query(() => [SubscriptionType])
+  @Query(() => SubscriptionListResult)
   @UseGuards(AuthGuard)
   public async subscriptionList(
     @Args('subscriptionListInput') subscriptionListInput: SubscriptionListInput,
-  ): Promise<SubscriptionType[]> {
-    return (await this.subscriptionService.subscriptionList(
+  ): Promise<SubscriptionListResult> {
+    return await this.subscriptionService.subscriptionList(
       subscriptionListInput,
-    )) as any;
+    );
   }
 
   @Query(() => SubscriptionType, { nullable: true })

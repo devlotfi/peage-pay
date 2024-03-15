@@ -17,6 +17,7 @@ import { TollType } from 'src/toll/graphql/toll.gql';
 import { AddGraphTollDistanceInput } from './input/add-graph-toll-distance.input.gql';
 import { DeleteGraphTollDistanceInput } from './input/delete-graph-toll-distance.input.gql';
 import { GraphTollDistanceListForTollNetworkInput } from './input/graph-toll-distance-list-for-toll-network.input.gql';
+import { GraphTollDistanceListResult } from './result/graph-toll-distance-list.result.gql';
 
 @Resolver(() => GraphTollDistanceType)
 export class GraphTollDistanceResolver {
@@ -24,15 +25,15 @@ export class GraphTollDistanceResolver {
     private readonly graphTollDistanceService: GraphTollDistanceService,
   ) {}
 
-  @Query(() => [GraphTollDistanceType])
+  @Query(() => GraphTollDistanceListResult)
   @UseGuards(AuthGuard)
   public async graphTollDistanceListForToll(
     @Args('graphTollDistanceListForTollInput')
     graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput,
-  ): Promise<GraphTollDistanceType[]> {
-    return (await this.graphTollDistanceService.graphTollDistanceListForToll(
+  ): Promise<GraphTollDistanceListResult> {
+    return await this.graphTollDistanceService.graphTollDistanceListForToll(
       graphTollDistanceListForTollInput,
-    )) as any;
+    );
   }
 
   @Query(() => [GraphTollDistanceType])

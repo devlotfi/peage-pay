@@ -9,6 +9,7 @@ import { GraphQLError } from 'graphql';
 import { TollErrors } from './graphql/toll-errors.gql';
 import { TollByIdInput } from './input/toll-by-id.input.gql';
 import { FullTollListInput } from './input/full-toll-list.input.gql';
+import { TollListResult } from './result/toll-list.result.gql';
 
 @Injectable()
 export class TollService {
@@ -26,7 +27,7 @@ export class TollService {
     });
   }
 
-  public async tollList(tollListInput: TollListInput): Promise<Toll[]> {
+  public async tollList(tollListInput: TollListInput): Promise<TollListResult> {
     if (
       tollListInput.idSearch ||
       tollListInput.nameSearch ||
@@ -36,7 +37,7 @@ export class TollService {
       tollListInput.highwayNameSearch ||
       tollListInput.highwayCodeSearch
     ) {
-      return await this.databaseService.toll.findMany({
+      const tollList = await this.databaseService.toll.findMany({
         where: {
           tollNetwork: {
             id: tollListInput.tollNetworkId,
@@ -95,8 +96,69 @@ export class TollService {
         take: tollListInput.take,
         skip: tollListInput.skip,
       });
+      const tollCount = await this.databaseService.toll.count({
+        where: {
+          tollNetwork: {
+            id: tollListInput.tollNetworkId,
+          },
+          OR: [
+            {
+              id: {
+                contains: tollListInput.idSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              name: {
+                contains: tollListInput.nameSearch,
+                mode: 'insensitive',
+              },
+            },
+            {
+              wilaya: {
+                OR: [
+                  {
+                    name: {
+                      contains: tollListInput.wilayaNameSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    code: {
+                      contains: tollListInput.wilayaCodeSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              highway: {
+                OR: [
+                  {
+                    name: {
+                      contains: tollListInput.highwayNameSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    code: {
+                      contains: tollListInput.highwayCodeSearch,
+                      mode: 'insensitive',
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      });
+      const tollListResult = new TollListResult();
+      tollListResult.list = tollList as any[];
+      tollListResult.count = tollCount;
+      return tollListResult;
     } else {
-      return await this.databaseService.toll.findMany({
+      const tollList = await this.databaseService.toll.findMany({
         where: {
           tollNetwork: {
             id: tollListInput.tollNetworkId,
@@ -105,6 +167,10 @@ export class TollService {
         take: tollListInput.take,
         skip: tollListInput.skip,
       });
+      const tollListResult = new TollListResult();
+      tollListResult.list = tollList as any[];
+      tollListResult.count = tollList.length;
+      return tollListResult;
     }
   }
 

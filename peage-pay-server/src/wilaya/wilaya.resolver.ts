@@ -5,16 +5,17 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { WilayaListInput } from './input/wilaya-list.input.gql';
 import { WilayaByIdInput } from './input/wilaya-by-id.input.gql';
+import { WilayaListResult } from './result/wilaya-list.result.gql';
 
 @Resolver(() => WilayaType)
 export class WilayaResolver {
   public constructor(private readonly wilayaService: WilayaService) {}
 
-  @Query(() => [WilayaType])
+  @Query(() => WilayaListResult)
   @UseGuards(AuthGuard)
   public async wilayaList(
     @Args('wilayaListInput') wilayaListInput: WilayaListInput,
-  ): Promise<WilayaType[]> {
+  ): Promise<WilayaListResult> {
     return await this.wilayaService.wilayaList(wilayaListInput);
   }
 

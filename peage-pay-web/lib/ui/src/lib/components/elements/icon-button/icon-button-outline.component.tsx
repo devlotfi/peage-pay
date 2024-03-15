@@ -11,6 +11,8 @@ const iconButtonOutlineVariants = cva(
         success: 'border-success-100 text-success-100',
         error: 'border-error-100 text-error-100',
         warning: 'border-warning-100 text-warning-100',
+        'edge-100': 'border-edge-100 text-edge-100',
+        'edge-200': 'border-edge-200 text-edge-200',
       },
     },
     defaultVariants: {

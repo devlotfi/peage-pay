@@ -22,7 +22,6 @@ model AuthMethod {
   userId           String            @unique
   emailAuthMethod  EmailAuthMethod?
   googleAuthMethod GoogleAuthMethod?
-  phoneAuthMethod  PhoneAuthMethod?
 }
 
 model EmailAuthMethod {
@@ -40,13 +39,6 @@ model GoogleAuthMethod {
   authMethodId String @id
   googleId     String @unique
   email        String @unique
-}
-
-model PhoneAuthMethod {
-  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
-
-  authMethodId String @id
-  phoneNumber  String @unique
 }
 
 model VerificationToken {
@@ -69,17 +61,11 @@ model RefreshToken {
   createdAt DateTime @default(now())
 }
 
-enum VehicleType {
-  LIGHTWEIGHT
-  TRUCK
-  BUS
-  TAXI
-}
-
 model RfidTag {
-  userSubscription UserSubscription?
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
 
   id                 String   @id @default(uuid())
+  baseUserId         String
   rfid               String   @unique
   registrationNumber String
   createdAt          DateTime @default(now())
@@ -89,23 +75,22 @@ model RfidTag {
 model Subscription {
   userSubscriptions UserSubscription[]
 
-  id          String      @id @default(uuid())
-  name        String      @unique
-  vehicleType VehicleType
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id        String   @id @default(uuid())
+  name      String   @unique
+  days      Int
+  price     Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserSubscription {
   baseUser     BaseUser     @relation(fields: [baseUserId], references: [id])
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
-  rfidTag      RfidTag      @relation(fields: [rfidTagId], references: [id])
 
   baseUserId     String
   subscriptionId String
-  rfidTagId      String @unique
 
-  @@id([baseUserId, subscriptionId, rfidTagId])
+  @@id([baseUserId, subscriptionId])
 }
 
 model BaseUser {
@@ -118,14 +103,17 @@ model BaseUser {
   gateAdmin            GateAdmin?
   verificationToken    VerificationToken?
   refreshToken         RefreshToken?
-  trips                Trip[]
+  trips                Trip[]                @relation("Trips")
   userSubscriptions    UserSubscription[]
+  rfidTags             RfidTag[]
+  currentTrip          Trip?                 @relation(fields: [currentTripId], references: [id])
 
-  id        String   @id @default(uuid())
-  firstName String
-  lastName  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(uuid())
+  currentTripId String?  @unique
+  firstName     String
+  lastName      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model User {
@@ -275,9 +263,10 @@ model AutomaticGate {
 }
 
 model Trip {
-  entryToll Toll     @relation("entryTollTrip", fields: [entryTollId], references: [id])
-  exitToll  Toll     @relation("exitTollTrip", fields: [exitTollId], references: [id])
-  baseUser  BaseUser @relation(fields: [baseUserId], references: [id])
+  entryToll       Toll      @relation("entryTollTrip", fields: [entryTollId], references: [id])
+  exitToll        Toll      @relation("exitTollTrip", fields: [exitTollId], references: [id])
+  baseUser        BaseUser  @relation("Trips", fields: [baseUserId], references: [id])
+  currentBaseUser BaseUser?
 
   id             String   @id @default(uuid())
   entryTollId    String
@@ -328,32 +317,28 @@ model DailyPrice {
   priceId String @id
 }
 
-enum DayOfWeek {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
-  SUNDAY
-}
-
 model WeeklyPrice {
   price Price @relation(fields: [priceId], references: [id])
 
   priceId String @id
+  days    Int[]
 }
 
 model MonthlyPrice {
   price Price @relation(fields: [priceId], references: [id])
 
-  priceId String @id
+  priceId  String @id
+  startDay Int
+  endDay   Int
 }
 
 model YearlyPrice {
   price Price @relation(fields: [priceId], references: [id])
 
-  priceId String @id
+  priceId  String @id
+  months   Int[]
+  startDay Int
+  endDay   Int
 }
 
 model CustomPrice {

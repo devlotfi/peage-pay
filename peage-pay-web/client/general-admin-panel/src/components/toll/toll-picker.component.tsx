@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -8,6 +7,8 @@ import {
   SearchForm,
   Table,
   Button,
+  SearchValues,
+  Pagination,
 } from '@peage-pay-web/ui';
 import {
   TollNetworkType,
@@ -17,23 +18,17 @@ import {
 import { useQuery } from '@apollo/client';
 import { TOLL_LIST } from '../../graphql/queries';
 import TollPickerItem from './toll-picker-item.component';
+import { RefObject, useState } from 'react';
 
-interface TollListSearchValues {
-  search: string;
-  field: TollSearchFields;
-  page: number;
-}
-
-const initialValues: TollListSearchValues = {
+const initialValues: SearchValues<TollSearchFields> = {
   search: '',
   field: TollSearchFields.NameSearch,
-  page: 1,
 };
 
 interface TollPickerProps {
   value: TollType | null;
   onChange?: (toll: TollType | null) => void;
-  modalRef: React.RefObject<HTMLDialogElement>;
+  modalRef: RefObject<HTMLDialogElement>;
   tollNetwork: TollNetworkType;
 }
 
@@ -43,12 +38,14 @@ const TollPicker = ({
   value,
   tollNetwork,
 }: TollPickerProps): JSX.Element => {
-  const [searchData, setSearchData] = React.useState(initialValues);
+  const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
   const { data, loading, error } = useQuery(TOLL_LIST, {
     variables: {
       tollListInput: {
         take: 10,
-        skip: 10 * (searchData.page - 1),
+        skip: 10 * (page - 1),
         [searchData.field]: searchData.search,
         tollNetworkId: tollNetwork.id,
       },
@@ -116,7 +113,7 @@ const TollPicker = ({
 
             <ListPageLayout.Loading loading={loading}>
               <ListPageLayout.Error error={error}>
-                <ListPageLayout.Empty list={data?.tollList}>
+                <ListPageLayout.Empty list={data?.tollList.list}>
                   <Table.Container className="h-full">
                     <Table>
                       <Table.Head>
@@ -133,7 +130,7 @@ const TollPicker = ({
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>
-                        {data?.tollList.map((toll) => (
+                        {data?.tollList.list.map((toll) => (
                           <TollPickerItem
                             key={toll.id}
                             toll={toll as TollType}
@@ -147,6 +144,17 @@ const TollPicker = ({
                   </Table.Container>
                 </ListPageLayout.Empty>
               </ListPageLayout.Error>
+              <div className="flex justify-center mt-[0.5rem]">
+                <div className="overflow-x-auto">
+                  {data ? (
+                    <Pagination
+                      value={page}
+                      maxPages={Math.ceil(data.tollList.count / 10)}
+                      handlePageChange={(page) => setPage(page)}
+                    ></Pagination>
+                  ) : null}
+                </div>
+              </div>
             </ListPageLayout.Loading>
           </ListPageLayout>
         </Modal.Content>
