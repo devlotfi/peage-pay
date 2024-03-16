@@ -19,6 +19,7 @@ import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
 import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
 import EditTollNetworkPage from '../pages/toll-network/edit-toll-network.page';
 import TollNetworkGraphPage from '../pages/toll-network/toll-network-graph.page';
+import PriceLayout from '../layout/price-layout.component';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -145,6 +146,57 @@ const useRouter = () => {
         {
           path: '/dashboard/user/edit/:userId',
           element: <EditUserPage></EditUserPage>,
+        },
+
+        {
+          path: '/dashboard/price',
+          element: <PriceLayout></PriceLayout>,
+          children: [
+            {
+              path: '/dashboard/price/daily/add',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/daily/list',
+              element: <h1>lol</h1>,
+            },
+
+            {
+              path: '/dashboard/price/weekly/add',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/weekly/list',
+              element: <h1>lol</h1>,
+            },
+
+            {
+              path: '/dashboard/price/monthly/add',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/monthly/list',
+              element: <h1>lol</h1>,
+            },
+
+            {
+              path: '/dashboard/price/yearly/add',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/yearly/list',
+              element: <h1>lol</h1>,
+            },
+
+            {
+              path: '/dashboard/price/custom/add',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/custom/list',
+              element: <h1>lol</h1>,
+            },
+          ],
         },
       ],
     },

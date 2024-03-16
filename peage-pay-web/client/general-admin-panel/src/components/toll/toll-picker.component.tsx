@@ -52,21 +52,6 @@ const TollPicker = ({
     },
     fetchPolicy: 'network-only',
   });
-  const renderFieldOptions = () => {
-    return (
-      <>
-        {Object.keys(TollSearchFields).map((key) => {
-          const keyValue =
-            TollSearchFields[key as keyof typeof TollSearchFields];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
   const handleTollSelected = (toll: TollType) => {
     if (onChange) {
       onChange(toll);
@@ -101,7 +86,9 @@ const TollPicker = ({
               className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={TollSearchFields.NameSearch}
-              fieldSelectOptions={renderFieldOptions()}
+              fieldSelectOptions={ListPageLayout.renderFieldOptions(
+                TollSearchFields,
+              )}
             ></SearchForm>
 
             <Heading className="text-[20pt] mb-[1rem]">

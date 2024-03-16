@@ -53,23 +53,6 @@ const TollListPage = (): JSX.Element => {
     skip: tollNetworkLoading || tollNetworkError !== undefined,
     fetchPolicy: 'network-only',
   });
-
-  const renderFieldOptions = () => {
-    return (
-      <>
-        {Object.keys(TollSearchFields).map((key) => {
-          const keyValue =
-            TollSearchFields[key as keyof typeof TollSearchFields];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <ListPageLayout>
       <ListPageLayout.Loading loading={tollNetworkLoading}>
@@ -78,7 +61,9 @@ const TollListPage = (): JSX.Element => {
             className="mb-[1rem]"
             handleSearch={(searchData) => setSearchData(searchData)}
             initialFieldSearch={TollSearchFields.NameSearch}
-            fieldSelectOptions={renderFieldOptions()}
+            fieldSelectOptions={ListPageLayout.renderFieldOptions(
+              TollSearchFields,
+            )}
           ></SearchForm>
 
           <div className="flex flex-col md:flex-row md:justify-between items-start">

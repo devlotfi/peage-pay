@@ -62,7 +62,7 @@ const Pagination = ({
         <IconButtonOutline
           key={i}
           onClick={() => setPage(i)}
-          className="mr-[0.5rem] last:mr-0 rounded-full"
+          className="h-[2rem] w-[2rem] min-h-[2rem] min-w-[2rem] mr-[0.5rem] last:mr-0 rounded-full"
           variant={i === value ? 'primary' : 'edge-100'}
         >
           {i}
@@ -77,14 +77,14 @@ const Pagination = ({
       <IconButton
         onClick={setFirstPage}
         variant={'base-200'}
-        className="mr-[0.5rem]"
+        className="h-[2rem] w-[2rem] min-h-[2rem] min-w-[2rem] mr-[0.5rem]"
       >
         <FontAwesomeIcon icon={faAngleDoubleLeft}></FontAwesomeIcon>
       </IconButton>
       <IconButton
         onClick={setPreviousPage}
         variant={'base-200'}
-        className="mr-[0.5rem]"
+        className="h-[2rem] w-[2rem] min-h-[2rem] min-w-[2rem] mr-[0.5rem]"
       >
         <FontAwesomeIcon icon={faCaretLeft}></FontAwesomeIcon>
       </IconButton>
@@ -92,14 +92,14 @@ const Pagination = ({
       <IconButton
         onClick={setNextPage}
         variant={'base-200'}
-        className="ml-[0.5rem]"
+        className="h-[2rem] w-[2rem] min-h-[2rem] min-w-[2rem] ml-[0.5rem]"
       >
         <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
       </IconButton>
       <IconButton
         onClick={setLastPage}
         variant={'base-200'}
-        className="ml-[0.5rem]"
+        className="h-[2rem] w-[2rem] min-h-[2rem] min-w-[2rem] ml-[0.5rem]"
       >
         <FontAwesomeIcon icon={faAngleDoubleRight}></FontAwesomeIcon>
       </IconButton>

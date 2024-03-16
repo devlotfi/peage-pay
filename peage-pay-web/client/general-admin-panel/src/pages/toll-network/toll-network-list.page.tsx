@@ -33,32 +33,15 @@ const TollNetworkListPage = (): JSX.Element => {
     },
     fetchPolicy: 'network-only',
   });
-
-  const renderFieldOptions = () => {
-    return (
-      <>
-        {Object.keys(TollNetworkSearchFields).map((key) => {
-          const keyValue =
-            TollNetworkSearchFields[
-              key as keyof typeof TollNetworkSearchFields
-            ];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <ListPageLayout>
       <SearchForm
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={TollNetworkSearchFields.NameSearch}
-        fieldSelectOptions={renderFieldOptions()}
+        fieldSelectOptions={ListPageLayout.renderFieldOptions(
+          TollNetworkSearchFields,
+        )}
       ></SearchForm>
 
       <Heading className="text-[20pt] mb-[1rem]">

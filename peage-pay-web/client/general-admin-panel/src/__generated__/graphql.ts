@@ -124,7 +124,7 @@ export type DeleteHighwayInput = {
 };
 
 export type DeleteSubscriptionInput = {
-  id: Scalars['String']['input'];
+  subscriptionId: Scalars['String']['input'];
 };
 
 export type DeleteTollInput = {

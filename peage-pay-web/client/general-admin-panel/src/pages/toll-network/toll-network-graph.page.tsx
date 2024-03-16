@@ -143,7 +143,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
               <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </Heading.Icon>
-              <Heading.Text>Edit toll network</Heading.Text>
+              <Heading.Text>Toll network map</Heading.Text>
             </Heading>
             <Heading className="text-[15pt]">
               <Heading.Text className="opacity-70">

@@ -45,21 +45,6 @@ const WilayaPicker = ({
     },
     fetchPolicy: 'network-only',
   });
-  const renderFieldOptions = () => {
-    return (
-      <>
-        {Object.keys(WilayaSearchFields).map((key) => {
-          const keyValue =
-            WilayaSearchFields[key as keyof typeof WilayaSearchFields];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
   const handleWilayaSelected = (wilaya: WilayaType) => {
     if (onChange) {
       onChange(wilaya);
@@ -94,7 +79,9 @@ const WilayaPicker = ({
               className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={WilayaSearchFields.NameSearch}
-              fieldSelectOptions={renderFieldOptions()}
+              fieldSelectOptions={ListPageLayout.renderFieldOptions(
+                WilayaSearchFields,
+              )}
             ></SearchForm>
 
             <Heading className="text-[20pt] mb-[1rem]">

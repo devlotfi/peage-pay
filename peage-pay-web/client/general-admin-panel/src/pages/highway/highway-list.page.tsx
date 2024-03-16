@@ -33,30 +33,15 @@ const HighwayListPage = (): JSX.Element => {
     },
     fetchPolicy: 'network-only',
   });
-
-  const renderFieldOptions = () => {
-    return (
-      <>
-        {Object.keys(HighwaySearchFields).map((key) => {
-          const keyValue =
-            HighwaySearchFields[key as keyof typeof HighwaySearchFields];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <ListPageLayout>
       <SearchForm
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={HighwaySearchFields.NameSearch}
-        fieldSelectOptions={renderFieldOptions()}
+        fieldSelectOptions={ListPageLayout.renderFieldOptions(
+          HighwaySearchFields,
+        )}
       ></SearchForm>
 
       <Heading className="text-[20pt] mb-[1rem]">

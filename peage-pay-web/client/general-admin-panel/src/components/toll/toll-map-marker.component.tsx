@@ -20,7 +20,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
         <div className="flex text-[11pt]">{toll.name}</div>
       </div>
       <div className="hidden group-hover:flex text-[10pt]">
-        Highway name: {toll.highway.name} {toll.highway.code}
+        Highway: {toll.highway.name} {toll.highway.code}
       </div>
       <div className="hidden group-hover:flex text-[10pt]">
         Wilaya: {toll.wilaya.name}

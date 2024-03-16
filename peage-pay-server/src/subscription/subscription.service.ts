@@ -138,7 +138,7 @@ export class SubscriptionService {
   ): Promise<boolean> {
     await this.databaseService.subscription.delete({
       where: {
-        id: deleteSubscriptionInput.id,
+        id: deleteSubscriptionInput.subscriptionId,
       },
     });
     return true;

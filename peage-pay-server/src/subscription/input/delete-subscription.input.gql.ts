@@ -5,5 +5,5 @@ import { IsUUID } from 'class-validator';
 export class DeleteSubscriptionInput {
   @Field()
   @IsUUID()
-  public id: string;
+  public subscriptionId: string;
 }

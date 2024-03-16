@@ -2,34 +2,40 @@ import { useMutation } from '@apollo/client';
 import {
   faExclamationCircle,
   faTimes,
-  faTrash,
+  faUserMinus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Button, Alert, LoaderDots } from '@peage-pay-web/ui';
 import { RefObject } from 'react';
-import { DELETE_HIGHWAY } from '../../graphql/mutations';
-import { HighwayType } from '../../__generated__/graphql';
-import { HIGHWAY_LIST } from '../../graphql/queries';
+import { REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE } from '../../graphql/mutations';
+import { BaseUserType } from '../../__generated__/graphql';
+import { BASE_USER_LIST } from '../../graphql/queries';
 
-interface DeleteHighwayModalProps {
+interface RemoveHumanRessourcesAdminRoleModalProps {
   modalRef: RefObject<HTMLDialogElement>;
-  highway: HighwayType;
+  baseUser: BaseUserType;
 }
 
-const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
-  const [deleteHighway, { loading, error }] = useMutation(DELETE_HIGHWAY, {
-    onCompleted(data, clientOptions) {
-      modalRef.current?.close();
+const RemoveHumanRessourcesAdminRoleModal = ({
+  modalRef,
+  baseUser,
+}: RemoveHumanRessourcesAdminRoleModalProps) => {
+  const [removeHumanRessourcesAdminRole, { loading, error }] = useMutation(
+    REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE,
+    {
+      onCompleted(data, clientOptions) {
+        modalRef.current?.close();
+      },
+      refetchQueries: [BASE_USER_LIST],
+      awaitRefetchQueries: true,
     },
-    refetchQueries: [HIGHWAY_LIST],
-    awaitRefetchQueries: true,
-  });
+  );
 
   const handleDelete = () => {
-    deleteHighway({
+    removeHumanRessourcesAdminRole({
       variables: {
-        deleteHighwayInput: {
-          highwayId: highway.id,
+        removeHumanRessoucesAdminRoleInput: {
+          baseUserId: baseUser.id,
         },
       },
     });
@@ -38,9 +44,10 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete highway</Modal.Header>
+        <Modal.Header>Remove role</Modal.Header>
         <Modal.Content>
-          Are you sure you want to dete this highway
+          Are you sure you want to remove the "Human ressources admin" role to
+          this user
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
               <Alert.Icon position={'left'}>
@@ -63,16 +70,16 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
           <Button
             className="ml-[0.5rem]"
             onClick={handleDelete}
-            variant={'error'}
+            variant={'primary'}
           >
             {loading ? (
               <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
             ) : (
               <>
                 <Button.Icon position={'left'}>
-                  <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Delete</Button.Content>
+                <Button.Content>Remove</Button.Content>
               </>
             )}
           </Button>
@@ -82,4 +89,4 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
   );
 };
 
-export default DeleteHighwayModal;
+export default RemoveHumanRessourcesAdminRoleModal;

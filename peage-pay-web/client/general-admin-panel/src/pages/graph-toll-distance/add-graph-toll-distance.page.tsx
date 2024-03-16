@@ -191,6 +191,7 @@ const AddGraphTollDistancePage = (): JSX.Element => {
                   placeholder="Enter distance"
                   type="number"
                 ></TextInput.Field>
+                <TextInput.Icon position={'right'}>km</TextInput.Icon>
               </TextInput.Main>
               {errors.distance && touched.distance ? (
                 <TextInput.InfoMessage>{errors.distance}</TextInput.InfoMessage>

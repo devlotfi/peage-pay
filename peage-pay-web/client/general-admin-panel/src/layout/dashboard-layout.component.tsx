@@ -3,6 +3,7 @@ import {
   faFileSignature,
   faHome,
   faList,
+  faMoneyBill1Wave,
   faPlus,
   faRoad,
   faUser,
@@ -192,6 +193,49 @@ const DashboardLayout = (): JSX.Element => {
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+          </MenuDropdown>
+
+          <MenuDropdown
+            opened={true}
+            mainElement={
+              <MenuDropdown.Main className="mb-[0.5rem]">
+                <MenuItem className="w-full" variant={'base-200'}>
+                  <MenuItem.Icon>
+                    <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
+                  </MenuItem.Icon>
+                  <MenuItem.Text>Prices</MenuItem.Text>
+                </MenuItem>
+              </MenuDropdown.Main>
+            }
+          >
+            <MenuItem
+              onClick={() => navigate('/dashboard/price/daily/list')}
+              variant={
+                location.pathname === '/dashboard/price/daily/list'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>List</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate('/dashboard/price/daily/add')}
+              variant={
+                location.pathname === '/dashboard/price/daily/add'
+                  ? 'primary'
+                  : 'base-200'
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
         </AdminDashboardLayout.Sidebar.Main>
