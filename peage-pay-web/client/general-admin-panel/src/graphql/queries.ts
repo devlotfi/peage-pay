@@ -191,10 +191,11 @@ export const WILAYA_BY_ID = gql(`
   }
 `);
 
-export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK = gql(`
-  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK($graphTollDistanceListForTollInput: GraphTollDistanceListForTollNetworkInput!) {
-    graphTollDistanceListForTollNetwork(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {
+export const SECTION_LIST_FOR_TOLL_NETWORK = gql(`
+  query SECTION_LIST_FOR_TOLL_NETWORK($sectionListForTollNetworkInput: SectionListForTollNetworkInput!) {
+    sectionListForTollNetwork(sectionListForTollNetworkInput: $sectionListForTollNetworkInput) {
       distance
+      status
       fromToll {
         id
         name
@@ -211,12 +212,13 @@ export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK = gql(`
   }
 `);
 
-export const GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL = gql(`
-  query GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL($graphTollDistanceListForTollInput: GraphTollDistanceListForTollInput!) {
-    graphTollDistanceListForToll(graphTollDistanceListForTollInput: $graphTollDistanceListForTollInput) {
+export const SECTION_LIST_FOR_TOLL = gql(`
+  query SECTION_LIST_FOR_TOLL($sectionListForTollInput: SectionListForTollInput!) {
+    sectionListForToll(sectionListForTollInput: $sectionListForTollInput) {
       count
       list {
         distance
+        status
         fromToll {
           id
           name

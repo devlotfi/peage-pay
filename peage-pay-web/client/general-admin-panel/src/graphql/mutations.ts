@@ -152,19 +152,31 @@ export const DELETE_TOLL_NETWORK = gql(`
   }
 `);
 
-export const ADD_GRAPH_TOLL_DISTANCE = gql(`
-  mutation ADD_GRAPH_TOLL_DISTANCE($addGraphTollDistanceInput: AddGraphTollDistanceInput!) {
-    addGraphTollDistance(addGraphTollDistanceInput: $addGraphTollDistanceInput) {
+export const ADD_SECTION = gql(`
+  mutation ADD_SECTION($addSectionInput: AddSectionInput!) {
+    addSection(addSectionInput: $addSectionInput) {
       fromTollId
       toTollId
       distance
+      status
     }
   }
 `);
 
-export const DELETE_GRAPH_TOLL_DISTANCE = gql(`
-  mutation DELETE_GRAPH_TOLL_DISTANCE($deleteGraphTollDistanceInput: DeleteGraphTollDistanceInput!) {
-    deleteGraphTollDistance(deleteGraphTollDistanceInput: $deleteGraphTollDistanceInput)
+export const EDIT_SECTION = gql(`
+  mutation EDIT_SECTION($editSectionInput: EditSectionInput!) {
+    editSection(editSectionInput: $editSectionInput) {
+      fromTollId
+      toTollId
+      distance
+      status
+    }
+  }
+`);
+
+export const DELETE_SECTION = gql(`
+  mutation DELETE_SECTION($deleteSectionInput: DeleteSectionInput!) {
+    deleteSection(deleteSectionInput: $deleteSectionInput)
   }
 `);
 

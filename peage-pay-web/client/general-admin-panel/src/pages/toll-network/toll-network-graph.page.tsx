@@ -6,14 +6,18 @@ import { Heading, ListPageLayout } from '@peage-pay-web/ui';
 import { useEffect } from 'react';
 import {
   FULL_TOLL_LIST,
-  GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK,
+  SECTION_LIST_FOR_TOLL_NETWORK,
   TOLL_NETWORK_BY_ID,
 } from '../../graphql/queries';
 import { useParams } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
 import TollMapMarker from '../../components/toll/toll-map-marker.component';
-import { GraphTollDistanceType, TollType } from '../../__generated__/graphql';
-import GraphTollDistanceMapMarker from '../../components/graph-toll-distance/graph-toll-distance-map-marker.component';
+import {
+  SectionStatusType,
+  SectionType,
+  TollType,
+} from '../../__generated__/graphql';
+import SectionMapMarker from '../../components/section/section-map-marker.component';
 
 const TollNetworkGraphPage = (): JSX.Element => {
   const { tollNetworkId } = useParams();
@@ -43,12 +47,12 @@ const TollNetworkGraphPage = (): JSX.Element => {
     skip: tollNetworkLoading || tollNetworkError !== undefined,
   });
   const {
-    data: graphTollDistanceListData,
-    loading: graphTollDistanceListLoading,
-    error: graphTollDistanceListError,
-  } = useQuery(GRAPH_TOLL_DISTANCE_LIST_FOR_TOLL_NETWORK, {
+    data: sectionListData,
+    loading: sectionListLoading,
+    error: sectionListError,
+  } = useQuery(SECTION_LIST_FOR_TOLL_NETWORK, {
     variables: {
-      graphTollDistanceListForTollInput: {
+      sectionListForTollNetworkInput: {
         tollNetworkId: tollNetworkId as string,
       },
     },
@@ -60,7 +64,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (tollListData && tollNetworkData && graphTollDistanceListData) {
+    if (tollListData && tollNetworkData && sectionListData) {
       const map = new google.maps.Map(getMapMount(), {
         center: { lat: 28.76, lng: 2.89 },
         zoom: 5,
@@ -82,40 +86,54 @@ const TollNetworkGraphPage = (): JSX.Element => {
         });
       }
 
-      for (const graphTollDistance of graphTollDistanceListData.graphTollDistanceListForTollNetwork) {
+      for (const section of sectionListData.sectionListForTollNetwork) {
+        let polylineColor = '#FFFFFF';
+        switch (section.status) {
+          case SectionStatusType.NormalTraffic:
+            polylineColor = '#22c55e';
+            break;
+          case SectionStatusType.ModerateTraffic:
+            polylineColor = '#facc15';
+            break;
+          case SectionStatusType.HighTraffic:
+            polylineColor = '#f97316';
+            break;
+          case SectionStatusType.Blocked:
+            polylineColor = '#ef4444';
+            break;
+          default:
+            break;
+        }
+
         new google.maps.Polyline({
           map,
           path: [
             {
-              lat: graphTollDistance.fromToll.latitude,
-              lng: graphTollDistance.fromToll.longitude,
+              lat: section.fromToll.latitude,
+              lng: section.fromToll.longitude,
             },
             {
-              lat: graphTollDistance.toToll.latitude,
-              lng: graphTollDistance.toToll.longitude,
+              lat: section.toToll.latitude,
+              lng: section.toToll.longitude,
             },
           ],
-          strokeColor: '#FFFFFF',
+          strokeColor: polylineColor,
           strokeOpacity: 1.0,
-          strokeWeight: 4,
+          strokeWeight: 5,
         });
 
         const distanceMarker = document.createElement('div');
         const root = ReactDOM.createRoot(distanceMarker);
         root.render(
-          <GraphTollDistanceMapMarker
-            graphTollDistance={graphTollDistance as GraphTollDistanceType}
-          ></GraphTollDistanceMapMarker>,
+          <SectionMapMarker
+            section={section as SectionType}
+          ></SectionMapMarker>,
         );
 
         const latitude =
-          (graphTollDistance.fromToll.latitude +
-            graphTollDistance.toToll.latitude) /
-          2;
+          (section.fromToll.latitude + section.toToll.latitude) / 2;
         const longitude =
-          (graphTollDistance.fromToll.longitude +
-            graphTollDistance.toToll.longitude) /
-          2;
+          (section.fromToll.longitude + section.toToll.longitude) / 2;
         new google.maps.marker.AdvancedMarkerElement({
           map: map,
           position: {
@@ -126,16 +144,14 @@ const TollNetworkGraphPage = (): JSX.Element => {
         });
       }
     }
-  }, [tollListData, tollNetworkData, graphTollDistanceListData]);
+  }, [tollListData, tollNetworkData, sectionListData]);
 
   return (
     <ListPageLayout.Loading
-      loading={
-        tollNetworkLoading || tollListLoading || graphTollDistanceListLoading
-      }
+      loading={tollNetworkLoading || tollListLoading || sectionListLoading}
     >
       <ListPageLayout.Error
-        error={tollNetworkError || tollListError || graphTollDistanceListError}
+        error={tollNetworkError || tollListError || sectionListError}
       >
         <div className="flex flex-col h-full">
           <div className="flex flex-col md:flex-row md:justify-between items-start">

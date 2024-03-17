@@ -37,6 +37,7 @@ import {
 import HighwayPicker from '../../components/highway/highway-picker.component';
 import LocationPicker from '../../components/toll/location-picker.component';
 import WilayaPicker from '../../components/wilaya/wilaya-picker.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface EditTollValues {
   name: string;
@@ -49,7 +50,7 @@ interface EditTollValues {
 
 const initialValues: EditTollValues = {
   name: '',
-  status: TollStatusType.Active,
+  status: TollStatusType.NormalTraffic,
   latitude: 0,
   longitude: 0,
   wilayaId: '',
@@ -169,21 +170,6 @@ const EditTollPage = (): JSX.Element => {
     },
   });
 
-  const renderTollStatusOptions = () => {
-    return (
-      <>
-        {Object.keys(TollStatusType).map((key) => {
-          const keyValue = TollStatusType[key as keyof typeof TollStatusType];
-          return (
-            <option key={keyValue} value={keyValue}>
-              {keyValue}
-            </option>
-          );
-        })}
-      </>
-    );
-  };
-
   const [selectedWilaya, setSelectedWilaya] = useState<WilayaType | null>(null);
   const [selectedHighway, setSelectedHighway] = useState<HighwayType | null>(
     null,
@@ -302,7 +288,7 @@ const EditTollPage = (): JSX.Element => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 >
-                  {renderTollStatusOptions()}
+                  {Utils.renderFieldOptions(TollStatusType)}
                 </Select.Field>
               </Select.Main>
               {errors.status && touched.status ? (

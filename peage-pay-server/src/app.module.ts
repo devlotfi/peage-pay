@@ -23,16 +23,15 @@ import { TollModule } from './toll/toll.module';
 import { BaseUserModule } from './base-user/base-user.module';
 import { WilayaModule } from './wilaya/wilaya.module';
 import { TollErrors } from './toll/graphql/toll-errors.gql';
-import { GraphTollDistanceModule } from './graph-toll-distance/graph-toll-distance.module';
 import { PriceModule } from './price/price.module';
 import { TollNetworkModule } from './toll-network/toll-network.module';
-import { TollDistanceModule } from './toll-distance/toll-distance.module';
 import { HighwaySearchFields } from './highway/graphql/highway-search-fields.gql';
 import { TollNetworkSearchFields } from './toll-network/graphql/toll-network-search-fields.gql';
 import { TollSearchFields } from './toll/graphql/toll-search-fields.gql';
 import { SubscriptionSearchFields } from './subscription/graphql/subscription-search-fields.gql';
 import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
 import { BaseUserSearchFields } from './base-user/graphql/base-user-search-fields.gql';
+import { SectionModule } from './section/section.module';
 
 @Module({
   imports: [
@@ -91,10 +90,9 @@ import { BaseUserSearchFields } from './base-user/graphql/base-user-search-field
     TollModule,
     BaseUserModule,
     WilayaModule,
-    GraphTollDistanceModule,
+    SectionModule,
     PriceModule,
     TollNetworkModule,
-    TollDistanceModule,
   ],
 })
 export class AppModule {}

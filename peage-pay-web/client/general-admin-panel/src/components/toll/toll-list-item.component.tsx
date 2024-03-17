@@ -43,28 +43,24 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               toll={toll}
             ></DeleteTollModal>
             <MenuItem
-              onClick={() =>
-                navigate(`/dashboard/graph-toll-distance/add/${toll.id}`)
-              }
+              onClick={() => navigate(`/dashboard/section/add/${toll.id}`)}
               className="w-full mb-[0.5rem]"
               variant={'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add graph toll distance</MenuItem.Text>
+              <MenuItem.Text>Add section</MenuItem.Text>
             </MenuItem>
             <MenuItem
-              onClick={() =>
-                navigate(`/dashboard/graph-toll-distance/list/${toll.id}`)
-              }
+              onClick={() => navigate(`/dashboard/section/list/${toll.id}`)}
               className="w-full mb-[0.5rem]"
               variant={'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Graph toll diatnce list</MenuItem.Text>
+              <MenuItem.Text>Section list</MenuItem.Text>
             </MenuItem>
 
             <MenuItem

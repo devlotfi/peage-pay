@@ -15,6 +15,7 @@ import { useQuery } from '@apollo/client';
 import { WILAYA_LIST } from '../../graphql/queries';
 import WilayaItem from './wilaya-item.component';
 import { useState } from 'react';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<WilayaSearchFields> = {
   search: '',
@@ -79,9 +80,7 @@ const WilayaPicker = ({
               className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={WilayaSearchFields.NameSearch}
-              fieldSelectOptions={ListPageLayout.renderFieldOptions(
-                WilayaSearchFields,
-              )}
+              fieldSelectOptions={Utils.renderFieldOptions(WilayaSearchFields)}
             ></SearchForm>
 
             <Heading className="text-[20pt] mb-[1rem]">

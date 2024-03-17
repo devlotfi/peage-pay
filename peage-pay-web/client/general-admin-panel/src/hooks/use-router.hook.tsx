@@ -1,28 +1,60 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ErrorPage } from '@peage-pay-web/ui';
-import DashboardLayout from '../layout/dashboard-layout.component';
-import { useAuthGuard } from '@peage-pay-web/auth';
-import AddHighwayPage from '../pages/highway/add-highway.page';
-import HighwayListPage from '../pages/highway/highway-list.page';
-import EditHighwayPage from '../pages/highway/edit-highway.page';
-import GraphTollDistanceListPage from '../pages/graph-toll-distance/graph-toll-distance-list.page';
-import AddGraphTollDistancePage from '../pages/graph-toll-distance/add-graph-toll-distance.page';
-import SubscriptionListPage from '../pages/subscription/subscription-list.page';
-import AddSubscriptionPage from '../pages/subscription/add-subscription.page';
-import EditSubscriptionPage from '../pages/subscription/edit-subscription.page';
-import TollListPage from '../pages/toll/toll-list.page';
-import AddTollPage from '../pages/toll/add-toll.page';
-import EditTollPage from '../pages/toll/edit-toll.page';
-import BaseUserListPage from '../pages/user/base-user-list.page';
-import EditUserPage from '../pages/user/edit-user.page';
-import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
-import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
-import EditTollNetworkPage from '../pages/toll-network/edit-toll-network.page';
-import TollNetworkGraphPage from '../pages/toll-network/toll-network-graph.page';
-import PriceLayout from '../layout/price-layout.component';
+import {
+  SendPasswordResetEmailPage,
+  SignInPage,
+  SignUpPage,
+  useAuthGuard,
+} from '@peage-pay-web/auth';
+import { lazy } from 'react';
+
+const DashboardLayout = lazy(
+  () => import('../layout/dashboard-layout.component'),
+);
+const PriceLayout = lazy(() => import('../layout/price-layout.component'));
+
+const AddHighwayPage = lazy(() => import('../pages/highway/add-highway.page'));
+const HighwayListPage = lazy(
+  () => import('../pages/highway/highway-list.page'),
+);
+const EditHighwayPage = lazy(
+  () => import('../pages/highway/edit-highway.page'),
+);
+const SectionListPage = lazy(
+  () => import('../pages/section/section-list.page'),
+);
+const AddSectionPage = lazy(() => import('../pages/section/add-section.page'));
+const SubscriptionListPage = lazy(
+  () => import('../pages/subscription/subscription-list.page'),
+);
+const AddSubscriptionPage = lazy(
+  () => import('../pages/subscription/add-subscription.page'),
+);
+const EditSubscriptionPage = lazy(
+  () => import('../pages/subscription/edit-subscription.page'),
+);
+const TollListPage = lazy(() => import('../pages/toll/toll-list.page'));
+const AddTollPage = lazy(() => import('../pages/toll/add-toll.page'));
+const EditTollPage = lazy(() => import('../pages/toll/edit-toll.page'));
+const BaseUserListPage = lazy(
+  () => import('../pages/user/base-user-list.page'),
+);
+const EditUserPage = lazy(() => import('../pages/user/edit-user.page'));
+const TollNetworkListPage = lazy(
+  () => import('../pages/toll-network/toll-network-list.page'),
+);
+const AddTollNetworkPage = lazy(
+  () => import('../pages/toll-network/add-toll-network.page'),
+);
+const EditTollNetworkPage = lazy(
+  () => import('../pages/toll-network/edit-toll-network.page'),
+);
+const TollNetworkGraphPage = lazy(
+  () => import('../pages/toll-network/toll-network-graph.page'),
+);
 
 const useRouter = () => {
-  const { authGuard, notAuthGuard } = useAuthGuard();
+  const { authGuard } = useAuthGuard();
 
   const router = createBrowserRouter([
     {
@@ -32,38 +64,15 @@ const useRouter = () => {
     },
     {
       path: '/sign-in',
-      async lazy() {
-        const { SignInPage } = await import('@peage-pay-web/auth');
-        return {
-          element: notAuthGuard(
-            <SignInPage title="General admin"></SignInPage>,
-          ),
-        };
-      },
+      element: <SignInPage title="Genral administration"></SignInPage>,
     },
     {
       path: '/sign-up',
-      async lazy() {
-        const { SignUpPage } = await import('@peage-pay-web/auth');
-        return {
-          element: notAuthGuard(
-            <SignUpPage title="General admin"></SignUpPage>,
-          ),
-        };
-      },
+      element: <SignUpPage title="Genral administration"></SignUpPage>,
     },
     {
       path: '/send-password-reset-email',
-      async lazy() {
-        const { SendPasswordResetEmailPage } = await import(
-          '@peage-pay-web/auth'
-        );
-        return {
-          element: notAuthGuard(
-            <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
-          ),
-        };
-      },
+      element: <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
     },
     {
       path: '/dashboard',
@@ -75,12 +84,12 @@ const useRouter = () => {
         },
 
         {
-          path: '/dashboard/graph-toll-distance/list/:tollId',
-          element: <GraphTollDistanceListPage></GraphTollDistanceListPage>,
+          path: '/dashboard/section/list/:tollId',
+          element: <SectionListPage></SectionListPage>,
         },
         {
-          path: '/dashboard/graph-toll-distance/add/:tollId',
-          element: <AddGraphTollDistancePage></AddGraphTollDistancePage>,
+          path: '/dashboard/section/add/:tollId',
+          element: <AddSectionPage></AddSectionPage>,
         },
 
         {

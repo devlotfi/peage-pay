@@ -1,6 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes } from 'react';
+import { BaseHTMLAttributes, Suspense } from 'react';
 import { Utils } from '@peage-pay-web/utils';
+import AdminDashboardLayoutLoading from './admin-dashboard-layout-loading.component';
 
 const adminDashboardLayoutContentVariants = cva(
   'flex flex-col h-full overflow-y-auto overflow-x-hidden',
@@ -20,7 +21,11 @@ const AdminDashboardLayoutContent = ({
       className={Utils.cn(adminDashboardLayoutContentVariants({ className }))}
       {...props}
     >
-      {children}
+      <Suspense
+        fallback={<AdminDashboardLayoutLoading></AdminDashboardLayoutLoading>}
+      >
+        {children}
+      </Suspense>
     </div>
   );
 };

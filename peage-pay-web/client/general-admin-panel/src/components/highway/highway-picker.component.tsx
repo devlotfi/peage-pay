@@ -15,6 +15,7 @@ import { useQuery } from '@apollo/client';
 import { HIGHWAY_LIST } from '../../graphql/queries';
 import HighwayPickerItem from './highway-picker-item.component';
 import { useState } from 'react';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<HighwaySearchFields> = {
   search: '',
@@ -79,9 +80,7 @@ const HighwayPicker = ({
               className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={HighwaySearchFields.NameSearch}
-              fieldSelectOptions={ListPageLayout.renderFieldOptions(
-                HighwaySearchFields,
-              )}
+              fieldSelectOptions={Utils.renderFieldOptions(HighwaySearchFields)}
             ></SearchForm>
 
             <Heading className="text-[20pt] mb-[1rem]">

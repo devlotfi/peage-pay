@@ -13,6 +13,7 @@ import { TollNetworkSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<TollNetworkSearchFields> = {
   search: '',
@@ -39,9 +40,7 @@ const TollNetworkListPage = (): JSX.Element => {
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={TollNetworkSearchFields.NameSearch}
-        fieldSelectOptions={ListPageLayout.renderFieldOptions(
-          TollNetworkSearchFields,
-        )}
+        fieldSelectOptions={Utils.renderFieldOptions(TollNetworkSearchFields)}
       ></SearchForm>
 
       <Heading className="text-[20pt] mb-[1rem]">

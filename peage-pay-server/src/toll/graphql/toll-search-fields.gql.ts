@@ -6,7 +6,6 @@ export enum TollSearchFields {
   wilayaCodeSearch = 'wilayaCodeSearch',
   highwayNameSearch = 'highwayNameSearch',
   highwayCodeSearch = 'highwayCodeSearch',
-  tollNetworkNameSearch = 'tollNetworkNameSearch',
   nameSearch = 'nameSearch',
 }
 registerEnumType(TollSearchFields, {

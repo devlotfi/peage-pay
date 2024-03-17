@@ -4,7 +4,6 @@ import { Utils } from '@peage-pay-web/utils';
 import ListPageLayoutLoading from './list-page-layout-loading.component';
 import ListPageLayoutEmpty from './list-page-layout-empty.component';
 import ListPageLayoutError from './list-page-layout-error.component';
-import { renderFieldOptions } from './render-field-options';
 
 const listPageLayoutVariants = cva('flex flex-col h-full');
 
@@ -26,5 +25,4 @@ const ListPageLayout = ({
 ListPageLayout.Loading = ListPageLayoutLoading;
 ListPageLayout.Empty = ListPageLayoutEmpty;
 ListPageLayout.Error = ListPageLayoutError;
-ListPageLayout.renderFieldOptions = renderFieldOptions;
 export default ListPageLayout;

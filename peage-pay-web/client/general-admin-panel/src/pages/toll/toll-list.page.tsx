@@ -14,6 +14,7 @@ import TollListItem from '../../components/toll/toll-list-item.component';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<TollSearchFields> = {
   search: '',
@@ -61,9 +62,7 @@ const TollListPage = (): JSX.Element => {
             className="mb-[1rem]"
             handleSearch={(searchData) => setSearchData(searchData)}
             initialFieldSearch={TollSearchFields.NameSearch}
-            fieldSelectOptions={ListPageLayout.renderFieldOptions(
-              TollSearchFields,
-            )}
+            fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
           ></SearchForm>
 
           <div className="flex flex-col md:flex-row md:justify-between items-start">

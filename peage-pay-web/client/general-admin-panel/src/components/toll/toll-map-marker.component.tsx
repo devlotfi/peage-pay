@@ -12,8 +12,9 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
         <div
           className={Utils.cn(
             'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
-            toll.status === TollStatusType.Active && 'bg-green-500',
-            toll.status === TollStatusType.Overload && 'bg-orange-400',
+            toll.status === TollStatusType.NormalTraffic && 'bg-green-500',
+            toll.status === TollStatusType.ModerateTraffic && 'bg-yellow-500',
+            toll.status === TollStatusType.HighTraffic && 'bg-orange-400',
             toll.status === TollStatusType.OutOfService && 'bg-red-500',
           )}
         ></div>

@@ -184,27 +184,28 @@ model TollNetwork {
 }
 
 enum TollStatus {
-  ACTIVE
-  OVERLOAD
+  NORMAL_TRAFFIC
+  MODERATE_TRAFFIC
+  HIGH_TRAFFIC
   OUT_OF_SERVICE
 }
 
 model Toll {
-  wilaya                 Wilaya              @relation(fields: [wilayaId], references: [id])
-  highway                Highway             @relation(fields: [highwayId], references: [id])
-  tollNetwork            TollNetwork         @relation(fields: [tollNetworkId], references: [id])
-  fromTollDistances      TollDistance[]      @relation("fromTollDistance")
-  toTollDistances        TollDistance[]      @relation("toTollDistance")
-  fromGraphTollDistances GraphTollDistance[] @relation("fromGraphTollDistance")
-  toGraphTollDistances   GraphTollDistance[] @relation("toGraphTollDistance")
-  automaticGates         AutomaticGate[]
-  entryTollsTrip         Trip[]              @relation("entryTollTrip")
-  exitTollsTrip          Trip[]              @relation("exitTollTrip")
-  entryTollsTicket       Ticket[]            @relation("entryTollTicket")
-  exitTollsTicket        Ticket[]            @relation("exitTollTicket")
-  prices                 Price[]
-  tollAdmins             TollAdmin[]
-  gateAdmins             GateAdmin[]
+  wilaya            Wilaya          @relation(fields: [wilayaId], references: [id])
+  highway           Highway         @relation(fields: [highwayId], references: [id])
+  tollNetwork       TollNetwork     @relation(fields: [tollNetworkId], references: [id])
+  fromTollDistances TollDistance[]  @relation("fromTollDistance")
+  toTollDistances   TollDistance[]  @relation("toTollDistance")
+  fromSections      Section[]       @relation("fromSection")
+  toSections        Section[]       @relation("toSection")
+  automaticGates    AutomaticGate[]
+  entryTollsTrip    Trip[]          @relation("entryTollTrip")
+  exitTollsTrip     Trip[]          @relation("exitTollTrip")
+  entryTollsTicket  Ticket[]        @relation("entryTollTicket")
+  exitTollsTicket   Ticket[]        @relation("exitTollTicket")
+  prices            Price[]
+  tollAdmins        TollAdmin[]
+  gateAdmins        GateAdmin[]
 
   id            String     @id @default(uuid())
   wilayaId      String
@@ -218,12 +219,20 @@ model Toll {
   updatedAt     DateTime   @updatedAt
 }
 
-model GraphTollDistance {
-  fromToll Toll @relation("fromGraphTollDistance", fields: [fromTollId], references: [id])
-  toToll   Toll @relation("toGraphTollDistance", fields: [toTollId], references: [id])
+enum SectionStatus {
+  NORMAL_TRAFFIC
+  MODERATE_TRAFFIC
+  HIGH_TRAFFIC
+  BLOCKED
+}
+
+model Section {
+  fromToll Toll @relation("fromSection", fields: [fromTollId], references: [id])
+  toToll   Toll @relation("toSection", fields: [toTollId], references: [id])
 
   fromTollId String
   toTollId   String
+  status     SectionStatus
   distance   Decimal
 
   @@id([fromTollId, toTollId])

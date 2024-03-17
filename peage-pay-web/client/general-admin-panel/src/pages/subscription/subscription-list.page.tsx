@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { SubscriptionSearchFields } from '../../__generated__/graphql';
 import SubscriptionListItem from '../../components/subscription/subscription-item.component';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<SubscriptionSearchFields> = {
   search: '',
@@ -39,9 +40,7 @@ const SubscriptionListPage = (): JSX.Element => {
         className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={SubscriptionSearchFields.NameSearch}
-        fieldSelectOptions={ListPageLayout.renderFieldOptions(
-          SubscriptionSearchFields,
-        )}
+        fieldSelectOptions={Utils.renderFieldOptions(SubscriptionSearchFields)}
       ></SearchForm>
 
       <Heading className="text-[20pt] mb-[1rem]">
