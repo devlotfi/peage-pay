@@ -11,7 +11,12 @@ import { lazy } from 'react';
 const DashboardLayout = lazy(
   () => import('../layout/dashboard-layout.component'),
 );
-const PriceLayout = lazy(() => import('../layout/price-layout.component'));
+const AddPriceLayout = lazy(
+  () => import('../layout/add-price-layout.component'),
+);
+const PriceListLayout = lazy(
+  () => import('../layout/price-list-layout.component'),
+);
 
 const AddHighwayPage = lazy(() => import('../pages/highway/add-highway.page'));
 const HighwayListPage = lazy(
@@ -54,7 +59,7 @@ const TollNetworkGraphPage = lazy(
 );
 
 const useRouter = () => {
-  const { authGuard } = useAuthGuard();
+  const { authGuard, notAuthGuard } = useAuthGuard();
 
   const router = createBrowserRouter([
     {
@@ -64,15 +69,21 @@ const useRouter = () => {
     },
     {
       path: '/sign-in',
-      element: <SignInPage title="Genral administration"></SignInPage>,
+      element: notAuthGuard(
+        <SignInPage title="Genral administration"></SignInPage>,
+      ),
     },
     {
       path: '/sign-up',
-      element: <SignUpPage title="Genral administration"></SignUpPage>,
+      element: notAuthGuard(
+        <SignUpPage title="Genral administration"></SignUpPage>,
+      ),
     },
     {
       path: '/send-password-reset-email',
-      element: <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
+      element: notAuthGuard(
+        <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
+      ),
     },
     {
       path: '/dashboard',
@@ -158,51 +169,54 @@ const useRouter = () => {
         },
 
         {
-          path: '/dashboard/price',
-          element: <PriceLayout></PriceLayout>,
+          path: '/dashboard/price/add',
+          element: <AddPriceLayout></AddPriceLayout>,
           children: [
             {
-              path: '/dashboard/price/daily/add',
+              path: '/dashboard/price/add/daily',
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/daily/list',
+              path: '/dashboard/price/add/weekly',
               element: <h1>lol</h1>,
             },
+            {
+              path: '/dashboard/price/add/monthly',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/add/yearly',
+              element: <h1>lol</h1>,
+            },
+            {
+              path: '/dashboard/price/add/custom',
+              element: <h1>lol</h1>,
+            },
+          ],
+        },
 
+        {
+          path: '/dashboard/price/list',
+          element: <PriceListLayout></PriceListLayout>,
+          children: [
             {
-              path: '/dashboard/price/weekly/add',
+              path: '/dashboard/price/list/daily',
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/weekly/list',
-              element: <h1>lol</h1>,
-            },
-
-            {
-              path: '/dashboard/price/monthly/add',
+              path: '/dashboard/price/list/weekly',
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/monthly/list',
-              element: <h1>lol</h1>,
-            },
-
-            {
-              path: '/dashboard/price/yearly/add',
+              path: '/dashboard/price/list/monthly',
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/yearly/list',
-              element: <h1>lol</h1>,
-            },
-
-            {
-              path: '/dashboard/price/custom/add',
+              path: '/dashboard/price/list/yearly',
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/custom/list',
+              path: '/dashboard/price/list/custom',
               element: <h1>lol</h1>,
             },
           ],

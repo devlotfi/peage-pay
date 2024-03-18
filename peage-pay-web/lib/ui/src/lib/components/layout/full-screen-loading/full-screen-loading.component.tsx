@@ -1,7 +1,7 @@
 import { LoaderDots } from '@peage-pay-web/ui';
 import { PeagePayLogo } from '@peage-pay-web/assets';
 
-const AuthLoading = (): JSX.Element => {
+const FullScreenLoading = (): JSX.Element => {
   return (
     <div className="flex fixed h-screen w-screen bg-base-100 justify-center items-center">
       <div className="flex flex-col">
@@ -14,4 +14,4 @@ const AuthLoading = (): JSX.Element => {
   );
 };
 
-export default AuthLoading;
+export default FullScreenLoading;

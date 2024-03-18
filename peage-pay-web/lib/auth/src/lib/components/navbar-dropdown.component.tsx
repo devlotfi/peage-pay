@@ -9,7 +9,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ThemeContext, ThemesEnum } from '@peage-pay-web/tailwind-config';
-import { Button, Dropdown, MenuDropdown, MenuItem } from '@peage-pay-web/ui';
+import {
+  Button,
+  ButtonOutline,
+  Dropdown,
+  MenuDropdown,
+  MenuItem,
+} from '@peage-pay-web/ui';
 import { useContext, useRef } from 'react';
 import { AuthContext } from '@peage-pay-web/auth';
 import { Utils } from '@peage-pay-web/utils';
@@ -47,25 +53,30 @@ const NavbarDropdown = (): JSX.Element => {
       <Dropdown
         mainElement={
           <Dropdown.Main>
-            <Button variant={'base-200'} className="min-h-[2.5rem]">
-              <NavbarDropdownArrow></NavbarDropdownArrow>
-              {authData ? (
-                <Button.Content>
-                  <div className="flex mx-[0.2rem]">
-                    {authData.baseUser.firstName}
-                  </div>
-                  <div className="flex mx-[0.2rem]">
-                    {authData.baseUser.lastName}
-                  </div>
-                </Button.Content>
-              ) : null}
-              <Button.Icon position={'right'}>
+            <ButtonOutline
+              variant={'edge-100'}
+              className="min-h-[3.5rem] w-full mb-[1rem] justify-between"
+            >
+              <div className="flex">
+                <NavbarDropdownArrow></NavbarDropdownArrow>
+                {authData ? (
+                  <ButtonOutline.Content>
+                    <div className="flex mx-[0.2rem]">
+                      {authData.baseUser.firstName}
+                    </div>
+                    <div className="flex mx-[0.2rem]">
+                      {authData.baseUser.lastName}
+                    </div>
+                  </ButtonOutline.Content>
+                ) : null}
+              </div>
+              <ButtonOutline.Icon position={'right'}>
                 <FontAwesomeIcon
                   className="text-[20pt] text-primary-100"
                   icon={faUserCircle}
                 ></FontAwesomeIcon>
-              </Button.Icon>
-            </Button>
+              </ButtonOutline.Icon>
+            </ButtonOutline>
           </Dropdown.Main>
         }
       >

@@ -20,6 +20,7 @@ import TextInput from './lib/components/elements/text-input/text-input.component
 import Tooltip from './lib/components/elements/tooltip/tooltip.component';
 import AdminDashboardLayout from './lib/components/layout/admin-dashboard/admin-dashboard-layout/admin-dashboard-layout.component';
 import FormPageLayout from './lib/components/layout/form-page-layout/form-page-layout.component';
+import FullScreenLoading from './lib/components/layout/full-screen-loading/full-screen-loading.component';
 import ListPageLayout from './lib/components/layout/list-page-layout/list-page-layout.component';
 import MinimalNavbar from './lib/components/layout/minimal-navbar/minimal-navbar.component';
 import Pagination from './lib/components/layout/pagination/pagination.component';
@@ -56,6 +57,7 @@ export {
   ListPageLayout,
   FormPageLayout,
   Pagination,
+  FullScreenLoading,
 };
 
 export type { SearchValues };

@@ -15,16 +15,20 @@ import {
   MenuDropdown,
   MenuItem,
 } from '@peage-pay-web/ui';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const addPriceMatch = useMatch('/dashboard/price/add/*');
+  const priceListMatch = useMatch('/dashboard/price/list/*');
+
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
         <AdminDashboardLayout.Sidebar.Main title="General admin">
+          <NavbarDropdown></NavbarDropdown>
           <MenuItem
             onClick={() => navigate('/dashboard')}
             variant={
@@ -210,12 +214,8 @@ const DashboardLayout = (): JSX.Element => {
             }
           >
             <MenuItem
-              onClick={() => navigate('/dashboard/price/daily/list')}
-              variant={
-                location.pathname === '/dashboard/price/daily/list'
-                  ? 'primary'
-                  : 'base-200'
-              }
+              onClick={() => navigate('/dashboard/price/list/daily')}
+              variant={priceListMatch ? 'primary' : 'base-200'}
               className="w-full mb-[0.5rem]"
             >
               <MenuItem.Icon>
@@ -224,12 +224,8 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Text>List</MenuItem.Text>
             </MenuItem>
             <MenuItem
-              onClick={() => navigate('/dashboard/price/daily/add')}
-              variant={
-                location.pathname === '/dashboard/price/daily/add'
-                  ? 'primary'
-                  : 'base-200'
-              }
+              onClick={() => navigate('/dashboard/price/add/daily')}
+              variant={addPriceMatch ? 'primary' : 'base-200'}
               className="w-full mb-[0.5rem]"
             >
               <MenuItem.Icon>
@@ -244,11 +240,9 @@ const DashboardLayout = (): JSX.Element => {
       <AdminDashboardLayout.Main>
         <AdminDashboardLayout.Navbar>
           <AdminDashboardLayout.Navbar.LeftContent></AdminDashboardLayout.Navbar.LeftContent>
-          <AdminDashboardLayout.Navbar.RightContent>
-            <NavbarDropdown></NavbarDropdown>
-          </AdminDashboardLayout.Navbar.RightContent>
+          <AdminDashboardLayout.Navbar.RightContent></AdminDashboardLayout.Navbar.RightContent>
         </AdminDashboardLayout.Navbar>
-        <AdminDashboardLayout.Content className="p-[0.5rem]">
+        <AdminDashboardLayout.Content className="p-[0.5rem] pt-[1rem]">
           <Outlet></Outlet>
         </AdminDashboardLayout.Content>
       </AdminDashboardLayout.Main>

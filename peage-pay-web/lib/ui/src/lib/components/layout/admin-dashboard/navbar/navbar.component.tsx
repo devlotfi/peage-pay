@@ -5,7 +5,7 @@ import NavbarRightContent from './navbar-right-content.component';
 import NavbarLeftContent from './navbar-left-content.component';
 
 const navbarVariants = cva(
-  'flex min-h-[3.5rem] items-center justify-between border-edge-200 border-b-[1px] bg-base-100',
+  'flex lg:hidden min-h-[3.5rem] items-center justify-between border-edge-200 border-b-[1px] bg-base-100',
 );
 
 interface NavbarProps

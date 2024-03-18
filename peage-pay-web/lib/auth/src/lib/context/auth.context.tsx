@@ -1,11 +1,11 @@
 import { PropsWithChildren, createContext, useState } from 'react';
 import { BaseUserRolesType, BaseUserType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
-import AuthLoading from '../components/auth-loading.component';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
 import PermissionErrorPage from '../pages/permission-error.page';
+import { FullScreenLoading } from '@peage-pay-web/ui';
 
 type AuthData = {
   baseUser: BaseUserType;
@@ -84,7 +84,7 @@ export const AuthProvider = ({
 
   const renderContent = () => {
     if (authLoading) {
-      return <AuthLoading></AuthLoading>;
+      return <FullScreenLoading></FullScreenLoading>;
     } else {
       if (
         (authData && checkRoles(allowedRoles, authData.userRoles)) ||
