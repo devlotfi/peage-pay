@@ -17,7 +17,6 @@ import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
 import { HighwayErrors } from './highway/graphql/highway-errors.gql';
 import { SubscriptionModule } from './subscription/subscription.module';
-import { HumanRessourcesAdminModule } from './human-ressources-admin/human-ressources-admin.module';
 import { TokenErrors } from './token/graphql/token-errors.gql';
 import { TollModule } from './toll/toll.module';
 import { BaseUserModule } from './base-user/base-user.module';
@@ -41,17 +40,11 @@ import { SectionModule } from './section/section.module';
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+
       useFactory(...args) {
         const configService: ConfigService<Env> = args[0];
         return {
-          redis: {
-            username: configService.getOrThrow<string>('REDIS_USERNAME'),
-            password: configService.getOrThrow<string>('REDIS_PASSWORD'),
-            host: configService.getOrThrow<string>('REDIS_HOST'),
-            port: configService.getOrThrow<string>('REDIS_PORT'),
-          },
+          url: configService.getOrThrow<string>('REDIS_URL'),
         };
       },
     }),
@@ -86,7 +79,6 @@ import { SectionModule } from './section/section.module';
     TokenModule,
     HighwayModule,
     SubscriptionModule,
-    HumanRessourcesAdminModule,
     TollModule,
     BaseUserModule,
     WilayaModule,

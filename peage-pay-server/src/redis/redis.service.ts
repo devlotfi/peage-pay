@@ -15,12 +15,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(RedisService.name);
 
   private _client = createClient({
-    username: this.configService.getOrThrow<string>('REDIS_USERNAME'),
-    password: this.configService.getOrThrow<string>('REDIS_PASSWORD'),
-    socket: {
-      host: this.configService.getOrThrow<string>('REDIS_HOST'),
-      port: this.configService.getOrThrow<number>('REDIS_PORT'),
-    },
+    url: this.configService.getOrThrow<string>('REDIS_URL'),
   });
 
   public get client() {

@@ -24,16 +24,7 @@ export class Env {
   public SHADOW_DATABASE_URL: string;
 
   @IsString()
-  public REDIS_USERNAME: string;
-
-  @IsString()
-  public REDIS_PASSWORD: string;
-
-  @IsString()
-  public REDIS_HOST: string;
-
-  @IsNumber()
-  public REDIS_PORT: number;
+  public REDIS_URL: string;
 
   @IsString()
   public SMTP_HOST: string;
