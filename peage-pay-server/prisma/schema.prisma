@@ -249,17 +249,6 @@ model TollDistance {
   @@id([fromTollId, toTollId])
 }
 
-enum PaymentMethod {
-  CASH
-  MOBILE_APP
-  TOLL_BADGE
-}
-
-enum LaneStatus {
-  ACTIVE
-  OUT_OF_SERVICE
-}
-
 model AutomaticGate {
   toll Toll @relation(fields: [tollId], references: [id])
 

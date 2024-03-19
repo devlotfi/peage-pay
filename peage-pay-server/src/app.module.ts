@@ -31,6 +31,7 @@ import { SubscriptionSearchFields } from './subscription/graphql/subscription-se
 import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
 import { BaseUserSearchFields } from './base-user/graphql/base-user-search-fields.gql';
 import { SectionModule } from './section/section.module';
+import { TollDistanceModule } from './toll-distance/toll-distance.module';
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { SectionModule } from './section/section.module';
     SectionModule,
     PriceModule,
     TollNetworkModule,
+    TollDistanceModule,
   ],
 })
 export class AppModule {}

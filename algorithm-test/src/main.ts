@@ -1,155 +1,210 @@
-class PointEntity {
-  constructor(id: string, name: string) {
-    this.id = id;
-    this.name = name;
+class GraphToll {
+  public constructor(toll: any) {
+    this.id = toll.id;
+    this.name = toll.name;
+    this.status = toll.status;
+    this.latitude = toll.latitude;
+    this.longitude = toll.longitude;
+    this.wilayaId = toll.wilayaId;
+    this.highwayId = toll.highwayId;
+    this.tollNetworkId = toll.tollNetworkId;
+    this.createdAt = toll.createdAt;
+    this.updatedAt = toll.updatedAt;
   }
 
   public id: string;
   public name: string;
+  public status: any;
+  public latitude: number;
+  public longitude: number;
+  public wilayaId: string;
+  public highwayId: string;
+  public tollNetworkId: string;
+  public createdAt: Date;
+  public updatedAt: Date;
+
+  public connectedSections: GraphSection[] = [];
 }
 
-class PointLinkEntity {
-  constructor(point1Id: string, point2Id: string, distance: number) {
-    this.point1Id = point1Id;
-    this.point2Id = point2Id;
-    this.distance = distance;
+class GraphSection {
+  public constructor(
+    section: any,
+    fromGraphToll: GraphToll,
+    toGraphToll: GraphToll
+  ) {
+    this.fromTollId = section.fromTollId;
+    this.toTollId = section.toTollId;
+    this.distance = section.distance;
+    this.status = section.status;
+
+    this.fromGraphToll = fromGraphToll;
+    this.toGraphToll = toGraphToll;
   }
 
-  public point1Id: string;
-  public point2Id: string;
+  public fromTollId: string;
+  public toTollId: string;
   public distance: number;
+  public status: any;
+
+  public fromGraphToll: GraphToll;
+  public toGraphToll: GraphToll;
 }
 
-class PointLinkReference {
-  constructor(
-    point1Id: string,
-    point2Id: string,
-    referencePointId: string,
+class GraphTollDistance {
+  public constructor(
+    fromGraphToll: GraphToll,
+    toGraphToll: GraphToll,
     distance: number
   ) {
-    this.point1Id = point1Id;
-    this.point2Id = point2Id;
-    this.referencePointId = referencePointId;
+    this.fromGraphToll = fromGraphToll;
+    this.toGraphToll = toGraphToll;
     this.distance = distance;
   }
 
-  public point1Id: string;
-  public point2Id: string;
-  public referencePointId: string;
+  public fromGraphToll: GraphToll;
+  public toGraphToll: GraphToll;
   public distance: number;
 }
 
-class Point {
-  constructor(id: string, name: string) {
-    this.name = name;
-    this.id = id;
-    this.nextConnections = [];
+async function generateTollDistances(): Promise<boolean> {
+  const tolls = [
+    {
+      id: "881d9903-91bc-4e30-a20f-a15f0e748c73",
+      wilayaId: "69bd2260-00ed-47a7-8e78-9b5a1faa1a61",
+      tollNetworkId: "3f05e7b8-a5ab-4efc-8ff6-265465090aaa",
+      highwayId: "7cc03430-8b78-4e1c-b6c2-77e699b43a1d",
+      name: "Bouira",
+      status: "OUT_OF_SERVICE",
+      longitude: 3.938152856056352,
+      latitude: 36.33293066034896,
+    },
+    {
+      id: "41ec7023-09b2-4274-b1ce-1284557cd434",
+      wilayaId: "69bd2260-00ed-47a7-8e78-9b5a1faa1a62",
+      tollNetworkId: "3f05e7b8-a5ab-4efc-8ff6-265465090aaa",
+      highwayId: "991c8089-ed2d-4a7b-9918-2544aafb3e5c",
+      name: "Alger",
+      status: "NORMAL_TRAFFIC",
+      longitude: 3.349993107215021,
+      latitude: 36.65098346402815,
+    },
+    {
+      id: "c681a8fb-6dac-435d-afab-57f5c8d758a5",
+      wilayaId: "69bd2260-00ed-47a7-8e78-9b5a1faa1a63",
+      tollNetworkId: "3f05e7b8-a5ab-4efc-8ff6-265465090aaa",
+      highwayId: "4171965a-b663-4107-ba04-caa666567bb7",
+      name: "Toll 1",
+      status: "OUT_OF_SERVICE",
+      longitude: 5.407771190581165,
+      latitude: 36.20313158461936,
+    },
+  ];
+  const sections = [
+    {
+      fromTollId: "41ec7023-09b2-4274-b1ce-1284557cd434",
+      toTollId: "881d9903-91bc-4e30-a20f-a15f0e748c73",
+      status: "NORMAL_TRAFFIC",
+      distance: 30,
+    },
+    {
+      fromTollId: "c681a8fb-6dac-435d-afab-57f5c8d758a5",
+      toTollId: "881d9903-91bc-4e30-a20f-a15f0e748c73",
+      status: "MODERATE_TRAFFIC",
+      distance: 70,
+    },
+  ];
+  const graphTolls = new Map<string, GraphToll>();
+  for (const toll of tolls) {
+    const graphToll = new GraphToll(toll);
+    graphTolls.set(toll.id, graphToll);
   }
 
-  public name: string;
-  public id: string;
-  public nextConnections: Distance[];
-
-  public addConnectionIfIdNotExist(distance: Distance) {
-    if (!this.nextConnections.find((p) => p.point.id === distance.point.id)) {
-      this.nextConnections.push(distance);
+  const graphSections: GraphSection[] = sections.map((section) => {
+    const fromGraphToll = graphTolls.get(section.fromTollId);
+    const toGraphToll = graphTolls.get(section.toTollId);
+    if (!fromGraphToll || !toGraphToll) {
+      throw new Error();
     }
-  }
+    const graphSection = new GraphSection(section, fromGraphToll, toGraphToll);
+    return graphSection;
+  });
 
-  public static createFromPointEntity(pointEntity: PointEntity) {
-    const point = new Point(pointEntity.id, pointEntity.name);
-    return point;
-  }
-}
-
-class Distance {
-  constructor(value: number, point: Point) {
-    this.value = value;
-    this.point = point;
-  }
-
-  public value: number;
-  public point: Point;
-}
-
-const pointEntities: PointEntity[] = [
-  new PointEntity("1", "péage 1"),
-  new PointEntity("2", "péage 2"),
-  new PointEntity("3", "péage 3"),
-  new PointEntity("4", "péage 4"),
-  new PointEntity("5", "péage 5"),
-  new PointEntity("6", "péage 6"),
-  new PointEntity("7", "péage 7"),
-];
-const pointLinkEntities: PointLinkEntity[] = [
-  new PointLinkEntity("1", "2", 25),
-  new PointLinkEntity("2", "3", 53),
-  new PointLinkEntity("2", "4", 47),
-  new PointLinkEntity("4", "7", 19),
-  new PointLinkEntity("3", "5", 16),
-  new PointLinkEntity("3", "6", 35),
-];
-
-const points: Point[] = [];
-
-for (const pointEntity of pointEntities) {
-  points.push(Point.createFromPointEntity(pointEntity));
-}
-
-for (const pointLinkEntity of pointLinkEntities) {
-  const point1 = points.find((point) => point.id === pointLinkEntity.point1Id);
-  const point2 = points.find((point) => point.id === pointLinkEntity.point2Id);
-  if (!point1 || !point2) {
-    throw new Error("error");
-  }
-
-  point1.addConnectionIfIdNotExist(
-    new Distance(pointLinkEntity.distance, point2)
-  );
-  point2.addConnectionIfIdNotExist(
-    new Distance(pointLinkEntity.distance, point1)
-  );
-}
-
-function calculateAllLinksForPoint(
-  referencePoint: Point,
-  currentPoint: Point,
-  currentDistance: number,
-  allLinks: PointLinkReference[]
-) {
-  for (const nextConnection of currentPoint.nextConnections) {
-    const existingPointLinkEntity = allLinks.find(
-      (pointLinkEntity) =>
-        (pointLinkEntity.point1Id === nextConnection.point.id &&
-          pointLinkEntity.point2Id === currentPoint.id) ||
-        (pointLinkEntity.point2Id === nextConnection.point.id &&
-          pointLinkEntity.point1Id === currentPoint.id)
+  for (const [, graphToll] of graphTolls) {
+    const connectedSections = graphSections.filter(
+      (graphSection) =>
+        graphSection.fromGraphToll === graphToll ||
+        graphSection.toGraphToll === graphToll
     );
-    if (!existingPointLinkEntity) {
-      allLinks.push(
-        new PointLinkReference(
-          currentPoint.id,
-          nextConnection.point.id,
-          referencePoint.id,
-          currentDistance + nextConnection.value
-        )
-      );
-      calculateAllLinksForPoint(
-        referencePoint,
-        nextConnection.point,
-        currentDistance + nextConnection.value,
-        allLinks
-      );
+    graphToll.connectedSections = connectedSections;
+  }
+
+  async function traverseFromNode(
+    referenceNode: GraphToll,
+    currentNode: GraphToll,
+    savedSectionsSet: Set<GraphSection>,
+    graphTollDistancesMap: Map<string, GraphTollDistance>,
+    currentDistance: number = 0
+  ) {
+    for (const section of currentNode.connectedSections) {
+      const savedSection = savedSectionsSet.has(section);
+      if (!savedSection) {
+        savedSectionsSet.add(section);
+
+        const nextNode =
+          section.fromGraphToll !== currentNode
+            ? section.fromGraphToll
+            : section.toGraphToll;
+
+        const existingGraphTollDistance =
+          graphTollDistancesMap.get(`${referenceNode.id}||${nextNode.id}`) ||
+          graphTollDistancesMap.get(`${nextNode.id}||${referenceNode.id}`);
+        console.log(
+          new GraphTollDistance(
+            referenceNode,
+            nextNode,
+            currentDistance + section.distance
+          )
+        );
+        if (!existingGraphTollDistance) {
+          graphTollDistancesMap.set(
+            `${referenceNode.id}||${nextNode.id}`,
+            new GraphTollDistance(
+              referenceNode,
+              nextNode,
+              currentDistance + section.distance
+            )
+          );
+        }
+
+        traverseFromNode(
+          referenceNode,
+          nextNode,
+          savedSectionsSet,
+          graphTollDistancesMap,
+          currentDistance + section.distance
+        );
+      }
     }
   }
+
+  let index = 0;
+  const graphTollDistancesMap = new Map<string, GraphTollDistance>();
+  for (const [, graphToll] of graphTolls) {
+    console.log("testa");
+    const savedSections = new Set<GraphSection>();
+    traverseFromNode(
+      graphToll,
+      graphToll,
+      savedSections,
+      graphTollDistancesMap
+    );
+
+    index++;
+  }
+
+  console.log(graphTollDistancesMap);
+
+  return true;
 }
 
-console.log(points);
-
-const allLinks: PointLinkReference[] = [];
-
-for (const point of points) {
-  calculateAllLinksForPoint(point, point, 0, allLinks);
-}
-
-console.log(allLinks);
+generateTollDistances();
