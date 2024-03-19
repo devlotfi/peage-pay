@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "master"
-  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -68,5 +65,6 @@
         "cacheableOperations": ["build-storybook"]
       }
     }
-  }
+  },
+  "defaultBase": "master"
 }
