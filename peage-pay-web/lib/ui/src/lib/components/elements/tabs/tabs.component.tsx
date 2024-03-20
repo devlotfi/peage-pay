@@ -15,7 +15,7 @@ const tabsVariants = cva(
     defaultVariants: {
       variant: 'base-100',
     },
-  }
+  },
 );
 
 interface TabsProps
@@ -44,11 +44,13 @@ const Tabs = ({
         variant: variant || initialValue.variant,
       }}
     >
-      <div
-        className={Utils.cn(tabsVariants({ variant, className }))}
-        {...props}
-      >
-        {children}
+      <div>
+        <div
+          className={Utils.cn(tabsVariants({ variant, className }))}
+          {...props}
+        >
+          {children}
+        </div>
       </div>
     </TabsContext.Provider>
   );

@@ -22,7 +22,9 @@ const AdminDashboardLayoutContent = ({
       {...props}
     >
       <Suspense
-        fallback={<AdminDashboardLayoutLoading></AdminDashboardLayoutLoading>}
+        fallback={
+          <AdminDashboardLayoutLoading loading></AdminDashboardLayoutLoading>
+        }
       >
         {children}
       </Suspense>

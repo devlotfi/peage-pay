@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { TOLL_NETWORK_LIST } from '../../graphql/queries';
 import {
+  AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
@@ -50,8 +51,8 @@ const TollNetworkListPage = (): JSX.Element => {
         <Heading.Text>Toll network list</Heading.Text>
       </Heading>
 
-      <ListPageLayout.Loading loading={loading}>
-        <ListPageLayout.Error error={error}>
+      <AdminDashboardLayout.Loading loading={loading}>
+        <AdminDashboardLayout.Error error={error}>
           <ListPageLayout.Empty list={data?.tollNetworkList.list}>
             <Table.Container className="h-full">
               <Table>
@@ -75,7 +76,7 @@ const TollNetworkListPage = (): JSX.Element => {
               </Table>
             </Table.Container>
           </ListPageLayout.Empty>
-        </ListPageLayout.Error>
+        </AdminDashboardLayout.Error>
         <div className="flex justify-center mt-[0.5rem]">
           <div className="overflow-x-auto">
             {data ? (
@@ -87,7 +88,7 @@ const TollNetworkListPage = (): JSX.Element => {
             ) : null}
           </div>
         </div>
-      </ListPageLayout.Loading>
+      </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );
 };

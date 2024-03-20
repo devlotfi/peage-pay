@@ -1,6 +1,12 @@
 import { useQuery } from '@apollo/client';
 import { SECTION_LIST_FOR_TOLL, TOLL_BY_ID } from '../../graphql/queries';
-import { Heading, ListPageLayout, Pagination, Table } from '@peage-pay-web/ui';
+import {
+  AdminDashboardLayout,
+  Heading,
+  ListPageLayout,
+  Pagination,
+  Table,
+} from '@peage-pay-web/ui';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
@@ -41,8 +47,8 @@ const SectionListPage = (): JSX.Element => {
 
   return (
     <ListPageLayout>
-      <ListPageLayout.Loading loading={tollLoading}>
-        <ListPageLayout.Error error={tollError}>
+      <AdminDashboardLayout.Loading loading={tollLoading}>
+        <AdminDashboardLayout.Error error={tollError}>
           <div className="flex flex-col md:flex-row md:justify-between items-start">
             <Heading className="text-[20pt]">
               <Heading.Icon position={'left'}>
@@ -57,8 +63,8 @@ const SectionListPage = (): JSX.Element => {
             </Heading>
           </div>
 
-          <ListPageLayout.Loading loading={listLoading}>
-            <ListPageLayout.Error error={listError}>
+          <AdminDashboardLayout.Loading loading={listLoading}>
+            <AdminDashboardLayout.Error error={listError}>
               <ListPageLayout.Empty list={listData?.sectionListForToll.list}>
                 <Table.Container className="h-full">
                   <Table>
@@ -81,8 +87,8 @@ const SectionListPage = (): JSX.Element => {
                   </Table>
                 </Table.Container>
               </ListPageLayout.Empty>
-            </ListPageLayout.Error>
-          </ListPageLayout.Loading>
+            </AdminDashboardLayout.Error>
+          </AdminDashboardLayout.Loading>
           <div className="flex justify-center mt-[0.5rem]">
             <div className="overflow-x-auto">
               {listData ? (
@@ -94,8 +100,8 @@ const SectionListPage = (): JSX.Element => {
               ) : null}
             </div>
           </div>
-        </ListPageLayout.Error>
-      </ListPageLayout.Loading>
+        </AdminDashboardLayout.Error>
+      </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );
 };

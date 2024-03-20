@@ -7,6 +7,9 @@ import {
   useAuthGuard,
 } from '@peage-pay-web/auth';
 import { lazy } from 'react';
+import HighwayLayout from '../layout/highway-layout.component';
+import TollNetworkLayout from '../layout/toll-network-layout.component';
+import SubscriptionLayout from '../layout/subscription-layout.component';
 
 const DashboardLayout = lazy(
   () => import('../layout/dashboard-layout.component'),
@@ -104,46 +107,64 @@ const useRouter = () => {
         },
 
         {
-          path: '/dashboard/highway/list',
-          element: <HighwayListPage></HighwayListPage>,
-        },
-        {
-          path: '/dashboard/highway/add',
-          element: <AddHighwayPage></AddHighwayPage>,
-        },
-        {
-          path: '/dashboard/highway/edit/:highwayId',
-          element: <EditHighwayPage></EditHighwayPage>,
-        },
-
-        {
-          path: '/dashboard/toll-network/list',
-          element: <TollNetworkListPage></TollNetworkListPage>,
-        },
-        {
-          path: '/dashboard/toll-network/add',
-          element: <AddTollNetworkPage></AddTollNetworkPage>,
-        },
-        {
-          path: '/dashboard/toll-network/edit/:tollNetworkId',
-          element: <EditTollNetworkPage></EditTollNetworkPage>,
-        },
-        {
-          path: '/dashboard/toll-network/graph/:tollNetworkId',
-          element: <TollNetworkGraphPage></TollNetworkGraphPage>,
+          path: '/dashboard/highway',
+          element: <HighwayLayout></HighwayLayout>,
+          children: [
+            {
+              path: '/dashboard/highway/list',
+              element: <HighwayListPage></HighwayListPage>,
+            },
+            {
+              path: '/dashboard/highway/add',
+              element: <AddHighwayPage></AddHighwayPage>,
+            },
+            {
+              path: '/dashboard/highway/edit/:highwayId',
+              element: <EditHighwayPage></EditHighwayPage>,
+            },
+          ],
         },
 
         {
-          path: '/dashboard/subscription/list',
-          element: <SubscriptionListPage></SubscriptionListPage>,
+          path: '/dashboard/toll-network',
+          element: <TollNetworkLayout></TollNetworkLayout>,
+          children: [
+            {
+              path: '/dashboard/toll-network/list',
+              element: <TollNetworkListPage></TollNetworkListPage>,
+            },
+            {
+              path: '/dashboard/toll-network/add',
+              element: <AddTollNetworkPage></AddTollNetworkPage>,
+            },
+            {
+              path: '/dashboard/toll-network/edit/:tollNetworkId',
+              element: <EditTollNetworkPage></EditTollNetworkPage>,
+            },
+            {
+              path: '/dashboard/toll-network/graph/:tollNetworkId',
+              element: <TollNetworkGraphPage></TollNetworkGraphPage>,
+            },
+          ],
         },
+
         {
-          path: '/dashboard/subscription/add',
-          element: <AddSubscriptionPage></AddSubscriptionPage>,
-        },
-        {
-          path: '/dashboard/subscription/edit/:subscriptionId',
-          element: <EditSubscriptionPage></EditSubscriptionPage>,
+          path: '/dashboard/subscription',
+          element: <SubscriptionLayout></SubscriptionLayout>,
+          children: [
+            {
+              path: '/dashboard/subscription/list',
+              element: <SubscriptionListPage></SubscriptionListPage>,
+            },
+            {
+              path: '/dashboard/subscription/add',
+              element: <AddSubscriptionPage></AddSubscriptionPage>,
+            },
+            {
+              path: '/dashboard/subscription/edit/:subscriptionId',
+              element: <EditSubscriptionPage></EditSubscriptionPage>,
+            },
+          ],
         },
 
         {

@@ -9,6 +9,7 @@ import {
   Button,
   Pagination,
   SearchValues,
+  AdminDashboardLayout,
 } from '@peage-pay-web/ui';
 import { HighwaySearchFields, HighwayType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
@@ -90,8 +91,8 @@ const HighwayPicker = ({
               <Heading.Text>Highway list</Heading.Text>
             </Heading>
 
-            <ListPageLayout.Loading loading={loading}>
-              <ListPageLayout.Error error={error}>
+            <AdminDashboardLayout.Loading loading={loading}>
+              <AdminDashboardLayout.Error error={error}>
                 <ListPageLayout.Empty list={data?.highwayList.list}>
                   <Table.Container className="h-full">
                     <Table>
@@ -119,7 +120,7 @@ const HighwayPicker = ({
                     </Table>
                   </Table.Container>
                 </ListPageLayout.Empty>
-              </ListPageLayout.Error>
+              </AdminDashboardLayout.Error>
               <div className="flex justify-center mt-[0.5rem]">
                 <div className="overflow-x-auto">
                   {data ? (
@@ -131,7 +132,7 @@ const HighwayPicker = ({
                   ) : null}
                 </div>
               </div>
-            </ListPageLayout.Loading>
+            </AdminDashboardLayout.Loading>
           </ListPageLayout>
         </Modal.Content>
       </Modal.Window>

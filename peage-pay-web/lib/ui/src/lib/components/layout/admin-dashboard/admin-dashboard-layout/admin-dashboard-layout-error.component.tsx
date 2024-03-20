@@ -3,27 +3,29 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { PageError } from '@peage-pay-web/assets';
 
-const listPageLayoutErrorVariants = cva(
+const adminDashboardLayoutLayoutErrorVariants = cva(
   'flex justify-center items-center h-full',
 );
 
-interface ListPageLayoutErrorProps
+interface AdminDashboardLayoutErrorProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof listPageLayoutErrorVariants> {
+    VariantProps<typeof adminDashboardLayoutLayoutErrorVariants> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
 }
 
-const ListPageLayoutError = ({
+const AdminDashboardLayoutError = ({
   className,
   error,
   children,
   ...props
-}: ListPageLayoutErrorProps) => {
+}: AdminDashboardLayoutErrorProps) => {
   if (error) {
     return (
       <div
-        className={Utils.cn(listPageLayoutErrorVariants({ className }))}
+        className={Utils.cn(
+          adminDashboardLayoutLayoutErrorVariants({ className }),
+        )}
         {...props}
       >
         <div className="flex flex-col items-center">
@@ -36,4 +38,4 @@ const ListPageLayoutError = ({
     return children;
   }
 };
-export default ListPageLayoutError;
+export default AdminDashboardLayoutError;

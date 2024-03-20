@@ -9,6 +9,7 @@ import {
   Button,
   Pagination,
   SearchValues,
+  AdminDashboardLayout,
 } from '@peage-pay-web/ui';
 import { WilayaSearchFields, WilayaType } from '../../__generated__/graphql';
 import { useQuery } from '@apollo/client';
@@ -90,8 +91,8 @@ const WilayaPicker = ({
               <Heading.Text>Wilaya list</Heading.Text>
             </Heading>
 
-            <ListPageLayout.Loading loading={loading}>
-              <ListPageLayout.Error error={error}>
+            <AdminDashboardLayout.Loading loading={loading}>
+              <AdminDashboardLayout.Error error={error}>
                 <ListPageLayout.Empty list={data?.wilayaList.list}>
                   <Table.Container className="h-full">
                     <Table>
@@ -117,7 +118,7 @@ const WilayaPicker = ({
                     </Table>
                   </Table.Container>
                 </ListPageLayout.Empty>
-              </ListPageLayout.Error>
+              </AdminDashboardLayout.Error>
               <div className="flex justify-center mt-[0.5rem]">
                 <div className="overflow-x-auto">
                   {data ? (
@@ -129,7 +130,7 @@ const WilayaPicker = ({
                   ) : null}
                 </div>
               </div>
-            </ListPageLayout.Loading>
+            </AdminDashboardLayout.Loading>
           </ListPageLayout>
         </Modal.Content>
       </Modal.Window>

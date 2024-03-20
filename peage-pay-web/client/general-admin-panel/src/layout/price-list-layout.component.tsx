@@ -1,7 +1,7 @@
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Tabs } from '@peage-pay-web/ui';
-import { Outlet, useMatch, useNavigate } from 'react-router-dom';
+import { AdminDashboardLayout, Tabs } from '@peage-pay-web/ui';
+import { useMatch, useNavigate } from 'react-router-dom';
 
 const PriceListLayout = (): JSX.Element => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const PriceListLayout = (): JSX.Element => {
   const listCustomPriceMatch = useMatch('/dashboard/price/list/custom');
 
   return (
-    <div className="flex flex-col">
+    <AdminDashboardLayout.Tabs>
       <Tabs>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/list/daily')}
@@ -60,8 +60,7 @@ const PriceListLayout = (): JSX.Element => {
           <Tabs.Item.Content>Custom price</Tabs.Item.Content>
         </Tabs.Item>
       </Tabs>
-      <Outlet></Outlet>
-    </div>
+    </AdminDashboardLayout.Tabs>
   );
 };
 

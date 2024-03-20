@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { HIGHWAY_LIST } from '../../graphql/queries';
 import {
+  AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
@@ -50,8 +51,8 @@ const HighwayListPage = (): JSX.Element => {
         <Heading.Text>Highway list</Heading.Text>
       </Heading>
 
-      <ListPageLayout.Loading loading={loading}>
-        <ListPageLayout.Error error={error}>
+      <AdminDashboardLayout.Loading loading={loading}>
+        <AdminDashboardLayout.Error error={error}>
           <ListPageLayout.Empty list={data?.highwayList.list}>
             <Table.Container className="h-full">
               <Table>
@@ -76,7 +77,7 @@ const HighwayListPage = (): JSX.Element => {
               </Table>
             </Table.Container>
           </ListPageLayout.Empty>
-        </ListPageLayout.Error>
+        </AdminDashboardLayout.Error>
         <div className="flex justify-center mt-[0.5rem]">
           <div className="overflow-x-auto">
             {data ? (
@@ -88,7 +89,7 @@ const HighwayListPage = (): JSX.Element => {
             ) : null}
           </div>
         </div>
-      </ListPageLayout.Loading>
+      </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );
 };

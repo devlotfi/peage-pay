@@ -2,7 +2,7 @@
 import { useQuery } from '@apollo/client';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Heading, ListPageLayout } from '@peage-pay-web/ui';
+import { AdminDashboardLayout, Heading } from '@peage-pay-web/ui';
 import { useEffect } from 'react';
 import {
   FULL_TOLL_LIST,
@@ -147,10 +147,10 @@ const TollNetworkGraphPage = (): JSX.Element => {
   }, [tollListData, tollNetworkData, sectionListData]);
 
   return (
-    <ListPageLayout.Loading
+    <AdminDashboardLayout.Loading
       loading={tollNetworkLoading || tollListLoading || sectionListLoading}
     >
-      <ListPageLayout.Error
+      <AdminDashboardLayout.Error
         error={tollNetworkError || tollListError || sectionListError}
       >
         <div className="flex flex-col h-full">
@@ -172,8 +172,8 @@ const TollNetworkGraphPage = (): JSX.Element => {
             id="toll-network-graph-map"
           ></div>
         </div>
-      </ListPageLayout.Error>
-    </ListPageLayout.Loading>
+      </AdminDashboardLayout.Error>
+    </AdminDashboardLayout.Loading>
   );
 };
 

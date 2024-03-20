@@ -10,26 +10,34 @@ const adminDashboardLayoutLoadingVariants = cva(
 
 interface AdminDashboardLayoutLoadingProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof adminDashboardLayoutLoadingVariants> {}
+    VariantProps<typeof adminDashboardLayoutLoadingVariants> {
+  loading: boolean;
+}
 
 const AdminDashboardLayoutLoading = ({
   className,
+  loading,
+  children,
   ...props
 }: AdminDashboardLayoutLoadingProps) => {
-  return (
-    <div
-      className={Utils.cn(adminDashboardLayoutLoadingVariants({ className }))}
-      {...props}
-    >
-      <div className="flex flex-col">
-        <img
-          className="h-[3rem] mb-[0.5rem]"
-          src={PeagePayLogo}
-          alt="PeagePayLogo"
-        />
-        <LoaderDots dotProps={{ variant: 'primary' }}></LoaderDots>
+  if (loading) {
+    return (
+      <div
+        className={Utils.cn(adminDashboardLayoutLoadingVariants({ className }))}
+        {...props}
+      >
+        <div className="flex flex-col">
+          <img
+            className="h-[3rem] mb-[0.5rem]"
+            src={PeagePayLogo}
+            alt="PeagePayLogo"
+          />
+          <LoaderDots dotProps={{ variant: 'primary' }}></LoaderDots>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return children;
+  }
 };
 export default AdminDashboardLayoutLoading;

@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { TOLL_LIST, TOLL_NETWORK_BY_ID } from '../../graphql/queries';
 import {
+  AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
@@ -56,8 +57,8 @@ const TollListPage = (): JSX.Element => {
   });
   return (
     <ListPageLayout>
-      <ListPageLayout.Loading loading={tollNetworkLoading}>
-        <ListPageLayout.Error error={tollNetworkError}>
+      <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
+        <AdminDashboardLayout.Error error={tollNetworkError}>
           <SearchForm
             className="mb-[1rem]"
             handleSearch={(searchData) => setSearchData(searchData)}
@@ -79,8 +80,8 @@ const TollListPage = (): JSX.Element => {
             </Heading>
           </div>
 
-          <ListPageLayout.Loading loading={listLoading}>
-            <ListPageLayout.Error error={listError}>
+          <AdminDashboardLayout.Loading loading={listLoading}>
+            <AdminDashboardLayout.Error error={listError}>
               <ListPageLayout.Empty list={listData?.tollList.list}>
                 <Table.Container className="h-full">
                   <Table>
@@ -108,7 +109,7 @@ const TollListPage = (): JSX.Element => {
                   </Table>
                 </Table.Container>
               </ListPageLayout.Empty>
-            </ListPageLayout.Error>
+            </AdminDashboardLayout.Error>
             <div className="flex justify-center mt-[0.5rem]">
               <div className="overflow-x-auto">
                 {listData ? (
@@ -120,9 +121,9 @@ const TollListPage = (): JSX.Element => {
                 ) : null}
               </div>
             </div>
-          </ListPageLayout.Loading>
-        </ListPageLayout.Error>
-      </ListPageLayout.Loading>
+          </AdminDashboardLayout.Loading>
+        </AdminDashboardLayout.Error>
+      </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );
 };
