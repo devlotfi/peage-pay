@@ -1,0 +1,8 @@
+{
+  "name": "@peage-pay-web/apollo-client",
+  "main": "src/index.ts",
+  "packageManager": "yarn@4.1.1",
+  "dependencies": {
+    "@peage-pay-web/constants": "workspace:*"
+  }
+}

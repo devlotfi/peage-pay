@@ -1,0 +1,13 @@
+{
+  "name": "@peage-pay-web/ui",
+  "main": "src/index.ts",
+  "packageManager": "yarn@4.1.1",
+  "dependencies": {
+    "@peage-pay-web/assets": "workspace:*"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1"
+  }
+}

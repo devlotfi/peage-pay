@@ -1,0 +1,13 @@
+{
+  "name": "@peage-pay-web/tailwind-config",
+  "main": "src/index.ts",
+  "packageManager": "yarn@4.1.1",
+  "dependencies": {
+    "@peage-pay-web/constants": "workspace:*"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1"
+  }
+}

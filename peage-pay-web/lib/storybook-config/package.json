@@ -1,0 +1,5 @@
+{
+  "name": "@peage-pay-web/storybook-config",
+  "main": "src/index.ts",
+  "packageManager": "yarn@4.1.1"
+}
