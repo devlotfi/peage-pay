@@ -45,10 +45,10 @@ const SignUpWithEmailForm = (): JSX.Element => {
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_UP_WITH_EMAIL,
     {
-      onCompleted(data, clientOptions) {
+      onCompleted() {
         verifyEmailModalRef.current?.showModal();
       },
-      onError(error, clientOptions) {
+      onError(error) {
         switch (error.message) {
           case AuthErrors.VerificationRequestPending:
             verifyEmailModalRef.current?.showModal();
@@ -63,7 +63,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
     useFormik({
       validationSchema: signUpWithEmailValidationSchema,
       initialValues,
-      onSubmit(values, formikHelpers) {
+      onSubmit(values) {
         signInWithEmail({
           variables: {
             signUpWithEmailInput: {

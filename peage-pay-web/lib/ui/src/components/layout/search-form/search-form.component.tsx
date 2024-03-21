@@ -38,7 +38,7 @@ const SearchForm = <T,>({
 
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
-    onSubmit(values, formikHelpers) {
+    onSubmit(values) {
       if (handleSearch) {
         handleSearch(values);
       }

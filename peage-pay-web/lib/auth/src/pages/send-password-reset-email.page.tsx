@@ -30,10 +30,7 @@ const SendPasswordResetEmailPage = (): JSX.Element => {
   const [sendPasswordResetEmail, { loading, data }] = useMutation(
     SEND_PASSWORD_RESET_EMAIL,
     {
-      onCompleted(data, clientOptions) {
-        return;
-      },
-      onError(error, clientOptions) {
+      onError(error) {
         switch (error.message) {
           case BaseUserErrors.BaseUserNotFound:
             setFieldError(
@@ -66,7 +63,7 @@ const SendPasswordResetEmailPage = (): JSX.Element => {
   } = useFormik({
     validationSchema: sendPasswordResetEmailValidationSchema,
     initialValues,
-    onSubmit(values, formikHelpers) {
+    onSubmit(values) {
       sendPasswordResetEmail({
         variables: {
           sendPasswordResetEmailInput: {

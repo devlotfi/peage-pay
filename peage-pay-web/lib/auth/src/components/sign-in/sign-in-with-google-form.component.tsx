@@ -10,14 +10,15 @@ import { RefreshTokenMode } from "../../__generated__/graphql";
 const SignInWithGoogleForm = (): JSX.Element => {
   const { setAccessToken, setAuthData } = useContext(AuthContext);
   const [signInWithGoogle, { loading }] = useMutation(SIGN_IN_WITH_GOOGLE, {
-    onCompleted(data, clientOptions) {
+    onCompleted(data) {
       setAuthData({
+        // @ts-ignore
         baseUser: data.signInWithGoogle.baseUser,
         userRoles: data.signInWithGoogle.roles,
       });
       setAccessToken(data.signInWithGoogle.accessToken);
     },
-    onError(error, clientOptions) {
+    onError(error) {
       console.log(error);
     },
   });

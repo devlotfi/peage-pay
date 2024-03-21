@@ -52,6 +52,7 @@ export const AuthProvider = ({
   useQuery(SIGN_IN_WITH_REFRESH_TOKEN_COOKIE, {
     onCompleted(data) {
       setAuthData({
+        // @ts-ignore
         baseUser: data.signInWithRefreshTokenCookie.baseUser,
         userRoles: data.signInWithRefreshTokenCookie.roles,
       });
