@@ -306,7 +306,7 @@ model Price {
   endTimestamp   DateTime
   priority       Int
   createdAt      DateTime @default(now())
-  pdatedAt       DateTime @updatedAt
+  updatedAt      DateTime @updatedAt
 }
 
 model DailyPrice {
