@@ -1,64 +1,58 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom';
-import { ErrorPage } from '@peage-pay-web/ui';
+import { Navigate, createBrowserRouter } from "react-router-dom";
+import { ErrorPage } from "@peage-pay-web/ui";
 import {
   SendPasswordResetEmailPage,
   SignInPage,
   SignUpPage,
   useAuthGuard,
-} from '@peage-pay-web/auth';
-import { lazy } from 'react';
-import HighwayLayout from '../layout/highway-layout.component';
-import TollNetworkLayout from '../layout/toll-network-layout.component';
-import SubscriptionLayout from '../layout/subscription-layout.component';
+} from "@peage-pay-web/auth";
+import { lazy } from "react";
+import HighwayLayout from "../layout/highway.layout";
+import TollNetworkLayout from "../layout/toll-network.layout";
+import SubscriptionLayout from "../layout/subscription.layout";
+import TollLayout from "../layout/toll.layout";
 
-const DashboardLayout = lazy(
-  () => import('../layout/dashboard-layout.component'),
-);
-const AddPriceLayout = lazy(
-  () => import('../layout/add-price-layout.component'),
-);
-const PriceListLayout = lazy(
-  () => import('../layout/price-list-layout.component'),
-);
+const DashboardLayout = lazy(() => import("../layout/dashboard-layout.layout"));
+const AddPriceLayout = lazy(() => import("../layout/add-price.layout"));
+const PriceListLayout = lazy(() => import("../layout/price-list.layout"));
 
-const AddHighwayPage = lazy(() => import('../pages/highway/add-highway.page'));
+const AddHighwayPage = lazy(() => import("../pages/highway/add-highway.page"));
 const HighwayListPage = lazy(
-  () => import('../pages/highway/highway-list.page'),
+  () => import("../pages/highway/highway-list.page")
 );
 const EditHighwayPage = lazy(
-  () => import('../pages/highway/edit-highway.page'),
+  () => import("../pages/highway/edit-highway.page")
 );
 const SectionListPage = lazy(
-  () => import('../pages/section/section-list.page'),
+  () => import("../pages/section/section-list.page")
 );
-const AddSectionPage = lazy(() => import('../pages/section/add-section.page'));
+const AddSectionPage = lazy(() => import("../pages/section/add-section.page"));
 const SubscriptionListPage = lazy(
-  () => import('../pages/subscription/subscription-list.page'),
+  () => import("../pages/subscription/subscription-list.page")
 );
 const AddSubscriptionPage = lazy(
-  () => import('../pages/subscription/add-subscription.page'),
+  () => import("../pages/subscription/add-subscription.page")
 );
 const EditSubscriptionPage = lazy(
-  () => import('../pages/subscription/edit-subscription.page'),
+  () => import("../pages/subscription/edit-subscription.page")
 );
-const TollListPage = lazy(() => import('../pages/toll/toll-list.page'));
-const AddTollPage = lazy(() => import('../pages/toll/add-toll.page'));
-const EditTollPage = lazy(() => import('../pages/toll/edit-toll.page'));
+const TollListPage = lazy(() => import("../pages/toll/toll-list.page"));
+const AddTollPage = lazy(() => import("../pages/toll/add-toll.page"));
+const EditTollPage = lazy(() => import("../pages/toll/edit-toll.page"));
 const BaseUserListPage = lazy(
-  () => import('../pages/user/base-user-list.page'),
+  () => import("../pages/user/base-user-list.page")
 );
-const EditUserPage = lazy(() => import('../pages/user/edit-user.page'));
 const TollNetworkListPage = lazy(
-  () => import('../pages/toll-network/toll-network-list.page'),
+  () => import("../pages/toll-network/toll-network-list.page")
 );
 const AddTollNetworkPage = lazy(
-  () => import('../pages/toll-network/add-toll-network.page'),
+  () => import("../pages/toll-network/add-toll-network.page")
 );
 const EditTollNetworkPage = lazy(
-  () => import('../pages/toll-network/edit-toll-network.page'),
+  () => import("../pages/toll-network/edit-toll-network.page")
 );
 const TollNetworkGraphPage = lazy(
-  () => import('../pages/toll-network/toll-network-graph.page'),
+  () => import("../pages/toll-network/toll-network-graph.page")
 );
 
 const useRouter = () => {
@@ -66,178 +60,184 @@ const useRouter = () => {
 
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <Navigate to={'/sign-in'}></Navigate>,
+      path: "/",
+      element: <Navigate to={"/sign-in"}></Navigate>,
       errorElement: <ErrorPage></ErrorPage>,
     },
     {
-      path: '/sign-in',
+      path: "/sign-in",
       element: notAuthGuard(
-        <SignInPage title="Genral administration"></SignInPage>,
+        <SignInPage title="Genral administration"></SignInPage>
       ),
     },
     {
-      path: '/sign-up',
+      path: "/sign-up",
       element: notAuthGuard(
-        <SignUpPage title="Genral administration"></SignUpPage>,
+        <SignUpPage title="Genral administration"></SignUpPage>
       ),
     },
     {
-      path: '/send-password-reset-email',
+      path: "/send-password-reset-email",
       element: notAuthGuard(
-        <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
+        <SendPasswordResetEmailPage></SendPasswordResetEmailPage>
       ),
     },
     {
-      path: '/dashboard',
+      path: "/dashboard",
       element: authGuard(<DashboardLayout></DashboardLayout>),
       children: [
         {
-          path: '/dashboard',
+          path: "/dashboard",
           element: <h1>home</h1>,
         },
 
         {
-          path: '/dashboard/section/list/:tollId',
+          path: "/dashboard/section/list/:tollId",
           element: <SectionListPage></SectionListPage>,
         },
         {
-          path: '/dashboard/section/add/:tollId',
+          path: "/dashboard/section/add/:tollId",
+          element: <AddSectionPage></AddSectionPage>,
+        },
+        {
+          path: "/dashboard/section/edit/:fromTollId/:toTollId",
           element: <AddSectionPage></AddSectionPage>,
         },
 
         {
-          path: '/dashboard/highway',
+          path: "/dashboard/highway",
           element: <HighwayLayout></HighwayLayout>,
           children: [
             {
-              path: '/dashboard/highway/list',
+              path: "/dashboard/highway/list",
               element: <HighwayListPage></HighwayListPage>,
             },
             {
-              path: '/dashboard/highway/add',
+              path: "/dashboard/highway/add",
               element: <AddHighwayPage></AddHighwayPage>,
             },
             {
-              path: '/dashboard/highway/edit/:highwayId',
+              path: "/dashboard/highway/edit/:highwayId",
               element: <EditHighwayPage></EditHighwayPage>,
             },
           ],
         },
 
         {
-          path: '/dashboard/toll-network',
+          path: "/dashboard/toll-network",
           element: <TollNetworkLayout></TollNetworkLayout>,
           children: [
             {
-              path: '/dashboard/toll-network/list',
+              path: "/dashboard/toll-network/list",
               element: <TollNetworkListPage></TollNetworkListPage>,
             },
             {
-              path: '/dashboard/toll-network/add',
+              path: "/dashboard/toll-network/add",
               element: <AddTollNetworkPage></AddTollNetworkPage>,
             },
             {
-              path: '/dashboard/toll-network/edit/:tollNetworkId',
+              path: "/dashboard/toll-network/edit/:tollNetworkId",
               element: <EditTollNetworkPage></EditTollNetworkPage>,
             },
             {
-              path: '/dashboard/toll-network/graph/:tollNetworkId',
+              path: "/dashboard/toll-network/graph/:tollNetworkId",
               element: <TollNetworkGraphPage></TollNetworkGraphPage>,
             },
           ],
         },
 
         {
-          path: '/dashboard/subscription',
+          path: "/dashboard/subscription",
           element: <SubscriptionLayout></SubscriptionLayout>,
           children: [
             {
-              path: '/dashboard/subscription/list',
+              path: "/dashboard/subscription/list",
               element: <SubscriptionListPage></SubscriptionListPage>,
             },
             {
-              path: '/dashboard/subscription/add',
+              path: "/dashboard/subscription/add",
               element: <AddSubscriptionPage></AddSubscriptionPage>,
             },
             {
-              path: '/dashboard/subscription/edit/:subscriptionId',
+              path: "/dashboard/subscription/edit/:subscriptionId",
               element: <EditSubscriptionPage></EditSubscriptionPage>,
             },
           ],
         },
 
         {
-          path: '/dashboard/toll/list/:tollNetworkId',
-          element: <TollListPage></TollListPage>,
-        },
-        {
-          path: '/dashboard/toll/add/:tollNetworkId',
-          element: <AddTollPage></AddTollPage>,
-        },
-        {
-          path: '/dashboard/toll/edit/:tollId',
-          element: <EditTollPage></EditTollPage>,
+          path: "/dashboard/toll",
+          element: <TollLayout></TollLayout>,
+          children: [
+            {
+              path: "/dashboard/toll/list/:tollNetworkId",
+              element: <TollListPage></TollListPage>,
+            },
+            {
+              path: "/dashboard/toll/add/:tollNetworkId",
+              element: <AddTollPage></AddTollPage>,
+            },
+            {
+              path: "/dashboard/toll/edit/:tollNetworkId/:tollId",
+              element: <EditTollPage></EditTollPage>,
+            },
+          ],
         },
 
         {
-          path: '/dashboard/user/list',
+          path: "/dashboard/user/list",
           element: <BaseUserListPage></BaseUserListPage>,
         },
-        {
-          path: '/dashboard/user/edit/:userId',
-          element: <EditUserPage></EditUserPage>,
-        },
 
         {
-          path: '/dashboard/price/add',
+          path: "/dashboard/price/add",
           element: <AddPriceLayout></AddPriceLayout>,
           children: [
             {
-              path: '/dashboard/price/add/daily',
+              path: "/dashboard/price/add/daily",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/add/weekly',
+              path: "/dashboard/price/add/weekly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/add/monthly',
+              path: "/dashboard/price/add/monthly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/add/yearly',
+              path: "/dashboard/price/add/yearly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/add/custom',
+              path: "/dashboard/price/add/custom",
               element: <h1>lol</h1>,
             },
           ],
         },
 
         {
-          path: '/dashboard/price/list',
+          path: "/dashboard/price/list",
           element: <PriceListLayout></PriceListLayout>,
           children: [
             {
-              path: '/dashboard/price/list/daily',
+              path: "/dashboard/price/list/daily",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/list/weekly',
+              path: "/dashboard/price/list/weekly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/list/monthly',
+              path: "/dashboard/price/list/monthly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/list/yearly',
+              path: "/dashboard/price/list/yearly",
               element: <h1>lol</h1>,
             },
             {
-              path: '/dashboard/price/list/custom',
+              path: "/dashboard/price/list/custom",
               element: <h1>lol</h1>,
             },
           ],

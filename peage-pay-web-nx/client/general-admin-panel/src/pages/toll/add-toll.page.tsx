@@ -152,8 +152,8 @@ const AddTollPage = (): JSX.Element => {
       ></HighwayPicker>
 
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={tollNetworkLoading}>
-          <FormPageLayout.Error error={tollNetworkError}>
+        <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
+          <AdminDashboardLayout.Error error={tollNetworkError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
                 <Heading.Icon position={'left'}>
@@ -337,8 +337,8 @@ const AddTollPage = (): JSX.Element => {
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

@@ -235,12 +235,12 @@ const EditTollPage = (): JSX.Element => {
       ></HighwayPicker>
 
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading
+        <AdminDashboardLayout.Loading
           loading={
             tollLoading || wilayaLoading || highwayLoading || tollNetworkLoading
           }
         >
-          <FormPageLayout.Error
+          <AdminDashboardLayout.Error
             error={tollError || wilayaError || highwayError || tollNetworkError}
           >
             <div className="flex flex-col md:flex-row md:justify-between items-start">
@@ -445,8 +445,8 @@ const EditTollPage = (): JSX.Element => {
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

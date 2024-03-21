@@ -1,24 +1,25 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
 import {
   faCheck,
   faExclamationCircle,
   faPen,
   faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  AdminDashboardLayout,
   Alert,
   Button,
   FormPageLayout,
   Heading,
   LoaderDots,
   TextInput,
-} from '@peage-pay-web/ui';
-import { EDIT_HIGHWAY } from '../../graphql/mutations';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
-import { HIGHWAY_BY_ID } from '../../graphql/queries';
+} from "@peage-pay-web/ui";
+import { EDIT_HIGHWAY } from "../../graphql/mutations";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useParams } from "react-router-dom";
+import { HIGHWAY_BY_ID } from "../../graphql/queries";
 
 interface EditHighwayValues {
   name: string;
@@ -26,8 +27,8 @@ interface EditHighwayValues {
 }
 
 const initialValues: EditHighwayValues = {
-  name: '',
-  code: '',
+  name: "",
+  code: "",
 };
 
 const editHighwayValidationSchema = yup.object({
@@ -47,7 +48,7 @@ const EditHighwayPage = (): JSX.Element => {
         highwayId: highwayId as string,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     onCompleted(data) {
       if (data.highwayById) {
         setValues({
@@ -72,7 +73,7 @@ const EditHighwayPage = (): JSX.Element => {
   } = useFormik({
     initialValues,
     validationSchema: editHighwayValidationSchema,
-    onSubmit(values, formikHelpers) {
+    onSubmit(values) {
       if (highwayId) {
         editHighway({
           variables: {
@@ -90,11 +91,11 @@ const EditHighwayPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={highwayLoading}>
-          <FormPageLayout.Error error={highwayError}>
+        <AdminDashboardLayout.Loading loading={highwayLoading}>
+          <AdminDashboardLayout.Error error={highwayError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
-                <Heading.Icon position={'left'}>
+                <Heading.Icon position={"left"}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Edit highway</Heading.Text>
@@ -107,7 +108,7 @@ const EditHighwayPage = (): JSX.Element => {
             </div>
 
             <TextInput
-              variant={errors.name && touched.name ? 'error' : 'edge-100'}
+              variant={errors.name && touched.name ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -126,7 +127,7 @@ const EditHighwayPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <TextInput
-              variant={errors.code && touched.code ? 'error' : 'edge-100'}
+              variant={errors.code && touched.code ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -146,8 +147,8 @@ const EditHighwayPage = (): JSX.Element => {
             </TextInput>
 
             {editData ? (
-              <Alert variant={'success'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"success"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Highway updated</Alert.Content>
@@ -155,30 +156,30 @@ const EditHighwayPage = (): JSX.Element => {
             ) : null}
 
             {editError ? (
-              <Alert variant={'error'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"error"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
+            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
               {editLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: 'color-content' }}
+                  dotProps={{ variant: "color-content" }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={'left'}>
+                  <Button.Icon position={"left"}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Edit highway</Button.Content>
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

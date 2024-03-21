@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import {
   faCheck,
   faExclamationCircle,
   faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Alert,
   Button,
@@ -12,10 +12,10 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from '@peage-pay-web/ui';
-import { ADD_HIGHWAY } from '../../graphql/mutations';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+} from "@peage-pay-web/ui";
+import { ADD_HIGHWAY } from "../../graphql/mutations";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 interface AddHighwayValues {
   name: string;
@@ -23,8 +23,8 @@ interface AddHighwayValues {
 }
 
 const initialValues: AddHighwayValues = {
-  name: '',
-  code: '',
+  name: "",
+  code: "",
 };
 
 const addHighwayValidationSchema = yup.object({
@@ -38,7 +38,7 @@ const AddHighwayPage = (): JSX.Element => {
     useFormik({
       initialValues,
       validationSchema: addHighwayValidationSchema,
-      onSubmit(values, formikHelpers) {
+      onSubmit(values) {
         addHighway({
           variables: {
             addHighwayInput: {
@@ -54,14 +54,14 @@ const AddHighwayPage = (): JSX.Element => {
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <Heading className="text-[20pt] mb-[1rem]">
-          <Heading.Icon position={'left'}>
+          <Heading.Icon position={"left"}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>Add highway</Heading.Text>
         </Heading>
 
         <TextInput
-          variant={errors.name && touched.name ? 'error' : 'edge-100'}
+          variant={errors.name && touched.name ? "error" : "edge-100"}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
@@ -80,7 +80,7 @@ const AddHighwayPage = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.code && touched.code ? 'error' : 'edge-100'}
+          variant={errors.code && touched.code ? "error" : "edge-100"}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
@@ -100,8 +100,8 @@ const AddHighwayPage = (): JSX.Element => {
         </TextInput>
 
         {data ? (
-          <Alert variant={'success'} className="mb-[0.5rem]">
-            <Alert.Icon position={'left'}>
+          <Alert variant={"success"} className="mb-[0.5rem]">
+            <Alert.Icon position={"left"}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>Highway created</Alert.Content>
@@ -109,20 +109,20 @@ const AddHighwayPage = (): JSX.Element => {
         ) : null}
 
         {error ? (
-          <Alert variant={'error'} className="mb-[0.5rem]">
-            <Alert.Icon position={'left'}>
+          <Alert variant={"error"} className="mb-[0.5rem]">
+            <Alert.Icon position={"left"}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
+        <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
           {loading ? (
-            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
+            <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
           ) : (
             <>
-              <Button.Icon position={'left'}>
+              <Button.Icon position={"left"}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Add highway</Button.Content>

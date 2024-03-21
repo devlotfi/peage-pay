@@ -128,8 +128,8 @@ const AddSectionPage = (): JSX.Element => {
       ) : null}
 
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={tollLoading || tollNetworkLoading}>
-          <FormPageLayout.Error error={tollError || tollNetworkError}>
+        <AdminDashboardLayout.Loading loading={tollLoading || tollNetworkLoading}>
+          <AdminDashboardLayout.Error error={tollError || tollNetworkError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
                 <Heading.Icon position={'left'}>
@@ -252,8 +252,8 @@ const AddSectionPage = (): JSX.Element => {
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

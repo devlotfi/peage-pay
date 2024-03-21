@@ -1,4 +1,4 @@
-import { gql } from '../__generated__';
+import { gql } from "../__generated__";
 
 export const HIGHWAY_LIST = gql(`
   query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {
@@ -64,16 +64,19 @@ export const FULL_TOLL_LIST = gql(`
       status
       longitude
       latitude
+      wilayaId
       wilaya {
         id
         name
         code
       }
+      highwayId
       highway {
         id
         name
         code
       }
+      tollNetworkId
       tollNetwork {
         id
         name
@@ -94,16 +97,19 @@ export const TOLL_LIST = gql(`
         status
         longitude
         latitude
+        wilayaId
         wilaya {
           id
           name
           code
         }
+        highwayId
         highway {
           id
           name
           code
         }
+        tollNetworkId
         tollNetwork {
           id
           name
@@ -123,16 +129,19 @@ export const TOLL_BY_ID = gql(`
       status
       longitude
       latitude
+      wilayaId
       wilaya {
         id
         name
         code
       }
+      highwayId
       highway {
         id
         name
         code
       }
+      tollNetworkId
       tollNetwork {
         id
         name

@@ -1,24 +1,26 @@
-import { faEllipsisH, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from '@peage-pay-web/ui';
-import { useRef } from 'react';
-import DeleteSectionModal from './delete-section-modal.component';
-import { SectionType } from '../../__generated__/graphql';
+} from "@peage-pay-web/ui";
+import { useRef } from "react";
+import DeleteSectionModal from "./delete-section-modal.component";
+import { SectionType } from "../../__generated__/graphql";
+import { useNavigate } from "react-router-dom";
 
 interface SectionItemProps {
   section: SectionType;
 }
 
 const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
+  const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -31,15 +33,29 @@ const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={'bottom-left'}>
+          <Dropdown.Content position={"bottom-left"}>
             <DeleteSectionModal
               modalRef={deleteModalRef}
               section={section}
             ></DeleteSectionModal>
             <MenuItem
+              onClick={() =>
+                navigate(
+                  `/dashboard/section/edit/${section.fromToll}/${section.toToll}`
+                )
+              }
+              className="w-full mb-[0.5rem]"
+              variant={"base-100"}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Edit</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon

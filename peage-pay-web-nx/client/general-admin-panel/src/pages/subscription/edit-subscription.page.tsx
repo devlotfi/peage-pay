@@ -95,8 +95,8 @@ const EditSubscriptionPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={subscriptionLoading}>
-          <FormPageLayout.Error error={subscriptionError}>
+        <AdminDashboardLayout.Loading loading={subscriptionLoading}>
+          <AdminDashboardLayout.Error error={subscriptionError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
                 <Heading.Icon position={'left'}>
@@ -204,8 +204,8 @@ const EditSubscriptionPage = (): JSX.Element => {
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

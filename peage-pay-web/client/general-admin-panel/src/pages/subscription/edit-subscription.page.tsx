@@ -1,24 +1,25 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
 import {
   faCheck,
   faExclamationCircle,
   faPen,
   faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  AdminDashboardLayout,
   Alert,
   Button,
   FormPageLayout,
   Heading,
   LoaderDots,
   TextInput,
-} from '@peage-pay-web/ui';
-import { EDIT_SUBSCRIPTION } from '../../graphql/mutations';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
-import { SUBSCRIPTION_BY_ID } from '../../graphql/queries';
+} from "@peage-pay-web/ui";
+import { EDIT_SUBSCRIPTION } from "../../graphql/mutations";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useParams } from "react-router-dom";
+import { SUBSCRIPTION_BY_ID } from "../../graphql/queries";
 
 interface EditSubscriptionValues {
   name: string;
@@ -27,7 +28,7 @@ interface EditSubscriptionValues {
 }
 
 const initialValues: EditSubscriptionValues = {
-  name: '',
+  name: "",
   days: 1,
   price: 1,
 };
@@ -50,7 +51,7 @@ const EditSubscriptionPage = (): JSX.Element => {
         subscriptionId: subscriptionId as string,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     onCompleted(data) {
       if (data.subscriptionById) {
         setValues({
@@ -76,7 +77,7 @@ const EditSubscriptionPage = (): JSX.Element => {
   } = useFormik({
     initialValues,
     validationSchema: editSubscriptionValidationSchema,
-    onSubmit(values, formikHelpers) {
+    onSubmit(values) {
       if (subscriptionId) {
         editSubscription({
           variables: {
@@ -95,11 +96,11 @@ const EditSubscriptionPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={subscriptionLoading}>
-          <FormPageLayout.Error error={subscriptionError}>
+        <AdminDashboardLayout.Loading loading={subscriptionLoading}>
+          <AdminDashboardLayout.Error error={subscriptionError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
-                <Heading.Icon position={'left'}>
+                <Heading.Icon position={"left"}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Edit subscription</Heading.Text>
@@ -112,7 +113,7 @@ const EditSubscriptionPage = (): JSX.Element => {
             </div>
 
             <TextInput
-              variant={errors.name && touched.name ? 'error' : 'edge-100'}
+              variant={errors.name && touched.name ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -131,7 +132,7 @@ const EditSubscriptionPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <TextInput
-              variant={errors.days && touched.days ? 'error' : 'edge-100'}
+              variant={errors.days && touched.days ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -151,7 +152,7 @@ const EditSubscriptionPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <TextInput
-              variant={errors.price && touched.price ? 'error' : 'edge-100'}
+              variant={errors.price && touched.price ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -165,7 +166,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                   type="number"
                   min={1}
                 ></TextInput.Field>
-                <TextInput.Icon position={'right'}>dzd</TextInput.Icon>
+                <TextInput.Icon position={"right"}>dzd</TextInput.Icon>
               </TextInput.Main>
               {errors.price && touched.price ? (
                 <TextInput.InfoMessage>{errors.price}</TextInput.InfoMessage>
@@ -173,8 +174,8 @@ const EditSubscriptionPage = (): JSX.Element => {
             </TextInput>
 
             {editData ? (
-              <Alert variant={'success'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"success"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Subscription updated</Alert.Content>
@@ -182,30 +183,30 @@ const EditSubscriptionPage = (): JSX.Element => {
             ) : null}
 
             {editError ? (
-              <Alert variant={'error'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"error"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
+            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
               {editLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: 'color-content' }}
+                  dotProps={{ variant: "color-content" }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={'left'}>
+                  <Button.Icon position={"left"}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Edit highway</Button.Content>
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

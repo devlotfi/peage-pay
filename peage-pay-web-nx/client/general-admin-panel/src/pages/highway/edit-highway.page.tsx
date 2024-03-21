@@ -90,8 +90,8 @@ const EditHighwayPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={highwayLoading}>
-          <FormPageLayout.Error error={highwayError}>
+        <AdminDashboardLayout.Loading loading={highwayLoading}>
+          <AdminDashboardLayout.Error error={highwayError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
                 <Heading.Icon position={'left'}>
@@ -177,8 +177,8 @@ const EditHighwayPage = (): JSX.Element => {
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

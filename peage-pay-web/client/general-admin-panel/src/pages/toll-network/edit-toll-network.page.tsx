@@ -1,31 +1,32 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
 import {
   faCheck,
   faExclamationCircle,
   faPen,
   faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  AdminDashboardLayout,
   Alert,
   Button,
   FormPageLayout,
   Heading,
   LoaderDots,
   TextInput,
-} from '@peage-pay-web/ui';
-import { EDIT_TOLL_NETWORK } from '../../graphql/mutations';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
-import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
+} from "@peage-pay-web/ui";
+import { EDIT_TOLL_NETWORK } from "../../graphql/mutations";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useParams } from "react-router-dom";
+import { TOLL_NETWORK_BY_ID } from "../../graphql/queries";
 
 interface EditTollNetworkValues {
   name: string;
 }
 
 const initialValues: EditTollNetworkValues = {
-  name: '',
+  name: "",
 };
 
 const editTollNetworkValidationSchema = yup.object({
@@ -44,7 +45,7 @@ const EditTollNetworkPage = (): JSX.Element => {
         tollNetworkId: tollNetworkId as string,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     onCompleted(data) {
       if (data.tollNetworkById) {
         setValues({
@@ -68,7 +69,7 @@ const EditTollNetworkPage = (): JSX.Element => {
   } = useFormik({
     initialValues,
     validationSchema: editTollNetworkValidationSchema,
-    onSubmit(values, formikHelpers) {
+    onSubmit(values) {
       if (tollNetworkId) {
         editTollNetwork({
           variables: {
@@ -85,11 +86,11 @@ const EditTollNetworkPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <FormPageLayout.Loading loading={tollNetworkLoading}>
-          <FormPageLayout.Error error={tollNetworkError}>
+        <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
+          <AdminDashboardLayout.Error error={tollNetworkError}>
             <div className="flex flex-col md:flex-row md:justify-between items-start">
               <Heading className="text-[20pt]">
-                <Heading.Icon position={'left'}>
+                <Heading.Icon position={"left"}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Edit toll network</Heading.Text>
@@ -102,7 +103,7 @@ const EditTollNetworkPage = (): JSX.Element => {
             </div>
 
             <TextInput
-              variant={errors.name && touched.name ? 'error' : 'edge-100'}
+              variant={errors.name && touched.name ? "error" : "edge-100"}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -122,8 +123,8 @@ const EditTollNetworkPage = (): JSX.Element => {
             </TextInput>
 
             {editData ? (
-              <Alert variant={'success'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"success"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Toll network updated</Alert.Content>
@@ -131,30 +132,30 @@ const EditTollNetworkPage = (): JSX.Element => {
             ) : null}
 
             {editError ? (
-              <Alert variant={'error'} className="mb-[0.5rem]">
-                <Alert.Icon position={'left'}>
+              <Alert variant={"error"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
+            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
               {editLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: 'color-content' }}
+                  dotProps={{ variant: "color-content" }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={'left'}>
+                  <Button.Icon position={"left"}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Edit toll network</Button.Content>
                 </>
               )}
             </Button>
-          </FormPageLayout.Error>
-        </FormPageLayout.Loading>
+          </AdminDashboardLayout.Error>
+        </AdminDashboardLayout.Loading>
       </FormPageLayout.Form>
     </FormPageLayout>
   );

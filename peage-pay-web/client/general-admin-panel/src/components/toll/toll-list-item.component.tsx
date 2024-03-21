@@ -4,18 +4,18 @@ import {
   faPen,
   faPlus,
   faTrash,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from '@peage-pay-web/ui';
-import { useRef } from 'react';
-import { TollType } from '../../__generated__/graphql';
-import { useNavigate } from 'react-router-dom';
-import DeleteTollModal from './delete-toll-modal.component';
+} from "@peage-pay-web/ui";
+import { useRef } from "react";
+import { TollType } from "../../__generated__/graphql";
+import { useNavigate } from "react-router-dom";
+import DeleteTollModal from "./delete-toll-modal.component";
 
 interface TollListItemProps {
   toll: TollType;
@@ -26,7 +26,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -37,7 +37,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={'bottom-left'}>
+          <Dropdown.Content position={"bottom-left"}>
             <DeleteTollModal
               modalRef={deleteModalRef}
               toll={toll}
@@ -45,7 +45,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => navigate(`/dashboard/section/add/${toll.id}`)}
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
@@ -55,7 +55,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => navigate(`/dashboard/section/list/${toll.id}`)}
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
@@ -64,9 +64,13 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             </MenuItem>
 
             <MenuItem
-              onClick={() => navigate(`/dashboard/toll/edit/${toll.id}`)}
+              onClick={() =>
+                navigate(
+                  `/dashboard/toll/edit/${toll.tollNetworkId}/${toll.id}`
+                )
+              }
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
@@ -76,7 +80,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon
