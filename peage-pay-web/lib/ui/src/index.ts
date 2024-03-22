@@ -23,6 +23,7 @@ import FormPageLayout from "./components/layout/form-page-layout/form-page-layou
 import FullScreenLoading from "./components/layout/full-screen-loading/full-screen-loading.component";
 import ListPageLayout from "./components/layout/list-page-layout/list-page-layout.component";
 import MinimalNavbar from "./components/layout/minimal-navbar/minimal-navbar.component";
+import MonthPicker from "./components/layout/month-picker/month-picker.component";
 import Pagination from "./components/layout/pagination/pagination.component";
 import SearchForm, {
   SearchValues,
@@ -58,6 +59,7 @@ export {
   FormPageLayout,
   Pagination,
   FullScreenLoading,
+  MonthPicker,
 };
 
 export type { SearchValues };

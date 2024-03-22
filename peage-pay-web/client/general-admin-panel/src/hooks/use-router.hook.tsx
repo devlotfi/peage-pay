@@ -11,6 +11,16 @@ import HighwayLayout from "../layout/highway.layout";
 import TollNetworkLayout from "../layout/toll-network.layout";
 import SubscriptionLayout from "../layout/subscription.layout";
 import TollLayout from "../layout/toll.layout";
+import AddGlobalWeeklyPricePage from "../pages/price/add/add-global-weekly-price.page";
+import AddGlobalMonthlyPricePage from "../pages/price/add/add-global-monthly-price.page";
+import AddGlobalYearlyPricePage from "../pages/price/add/add-global-yearly-price.page";
+import AddGlobalCustomPricePage from "../pages/price/add/add-global-custom-price.page";
+import DailyPriceGlobalListPage from "../pages/price/list/daily-price-global-list.page";
+import WeeklyPriceGlobalListPage from "../pages/price/list/weekly-price-global-list.page";
+import MonthlyPriceGlobalListPage from "../pages/price/list/monthly-price-global-list.page";
+import YearlyPriceGlobalListPage from "../pages/price/list/yearly-price-global-list.page";
+import CustomPriceGlobalListPage from "../pages/price/list/custom-price-global-list.page";
+import AddGlobalDailyPricePage from "../pages/price/add/add-global-daily-price.page";
 
 const DashboardLayout = lazy(() => import("../layout/dashboard-layout.layout"));
 const AddPriceLayout = lazy(() => import("../layout/add-price.layout"));
@@ -195,23 +205,23 @@ const useRouter = () => {
           children: [
             {
               path: "/dashboard/price/add/daily",
-              element: <h1>lol</h1>,
+              element: <AddGlobalDailyPricePage></AddGlobalDailyPricePage>,
             },
             {
               path: "/dashboard/price/add/weekly",
-              element: <h1>lol</h1>,
+              element: <AddGlobalWeeklyPricePage></AddGlobalWeeklyPricePage>,
             },
             {
               path: "/dashboard/price/add/monthly",
-              element: <h1>lol</h1>,
+              element: <AddGlobalMonthlyPricePage></AddGlobalMonthlyPricePage>,
             },
             {
               path: "/dashboard/price/add/yearly",
-              element: <h1>lol</h1>,
+              element: <AddGlobalYearlyPricePage></AddGlobalYearlyPricePage>,
             },
             {
               path: "/dashboard/price/add/custom",
-              element: <h1>lol</h1>,
+              element: <AddGlobalCustomPricePage></AddGlobalCustomPricePage>,
             },
           ],
         },
@@ -222,23 +232,25 @@ const useRouter = () => {
           children: [
             {
               path: "/dashboard/price/list/daily",
-              element: <h1>lol</h1>,
+              element: <DailyPriceGlobalListPage></DailyPriceGlobalListPage>,
             },
             {
               path: "/dashboard/price/list/weekly",
-              element: <h1>lol</h1>,
+              element: <WeeklyPriceGlobalListPage></WeeklyPriceGlobalListPage>,
             },
             {
               path: "/dashboard/price/list/monthly",
-              element: <h1>lol</h1>,
+              element: (
+                <MonthlyPriceGlobalListPage></MonthlyPriceGlobalListPage>
+              ),
             },
             {
               path: "/dashboard/price/list/yearly",
-              element: <h1>lol</h1>,
+              element: <YearlyPriceGlobalListPage></YearlyPriceGlobalListPage>,
             },
             {
               path: "/dashboard/price/list/custom",
-              element: <h1>lol</h1>,
+              element: <CustomPriceGlobalListPage></CustomPriceGlobalListPage>,
             },
           ],
         },

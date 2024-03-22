@@ -256,3 +256,109 @@ export const BASE_USER_LIST = gql(`
     }
   }
 `);
+
+export const DAILY_PRICE_GLOBAL_LIST = gql(`
+  query DAILY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+    dailyPriceGlobalList(priceListInput: $priceListInput) {
+      count
+      list {
+        priceId
+        price {
+          id
+          value
+          priority
+          startTimestamp
+          endTimestamp
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`);
+
+export const WEEKLY_PRICE_GLOBAL_LIST = gql(`
+  query WEEKLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+    weeklyPriceGlobalList(priceListInput: $priceListInput) {
+      count
+      list {
+        days
+        priceId
+        price {
+          id
+          value
+          priority
+          startTimestamp
+          endTimestamp
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`);
+
+export const MONTHLY_PRICE_GLOBAL_LIST = gql(`
+  query MONTHLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+    monthlyPriceGlobalList(priceListInput: $priceListInput) {
+      count
+      list {
+        startDay
+        endDay
+        priceId
+        price {
+          id
+          value
+          priority
+          startTimestamp
+          endTimestamp
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`);
+
+export const YEARLY_PRICE_GLOBAL_LIST = gql(`
+  query YEARLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+    yearlyPriceGlobalList(priceListInput: $priceListInput) {
+      count
+      list {
+        startDay
+        endDay
+        months
+        priceId
+        price {
+          id
+          value
+          priority
+          startTimestamp
+          endTimestamp
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`);
+
+export const CUSTOM_PRICE_GLOBAL_LIST = gql(`
+  query CUSTOM_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+    customPriceGlobalList(priceListInput: $priceListInput) {
+      count
+      list {
+        priceId
+        price {
+          id
+          value
+          priority
+          startTimestamp
+          endTimestamp
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`);

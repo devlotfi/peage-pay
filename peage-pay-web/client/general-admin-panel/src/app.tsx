@@ -1,7 +1,7 @@
-import { RouterProvider } from 'react-router-dom';
-import useRouter from '../hooks/use-router.hook';
-import { Suspense } from 'react';
-import { FullScreenLoading } from '@peage-pay-web/ui';
+import { RouterProvider } from "react-router-dom";
+import useRouter from "./hooks/use-router.hook";
+import { Suspense } from "react";
+import { FullScreenLoading } from "@peage-pay-web/ui";
 
 const App = (): JSX.Element => {
   const { router } = useRouter();

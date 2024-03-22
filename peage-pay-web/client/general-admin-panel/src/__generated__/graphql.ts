@@ -18,6 +18,20 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AddCustomPriceInput = {
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddDailyPriceInput = {
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
 export type AddHighwayInput = {
   code: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -25,6 +39,23 @@ export type AddHighwayInput = {
 
 export type AddHumanRessourcesAdminRoleInput = {
   baseUserId: Scalars['String']['input'];
+};
+
+export type AddMonthlyPriceInput = {
+  endDay: Scalars['Float']['input'];
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startDay: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddPriceInput = {
+  addCustomPriceInput?: InputMaybe<AddCustomPriceInput>;
+  addDailyPriceInput?: InputMaybe<AddDailyPriceInput>;
+  addMonthlyPriceInput?: InputMaybe<AddMonthlyPriceInput>;
+  addWeeklyPriceInput?: InputMaybe<AddWeeklyPriceInput>;
+  addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
 };
 
 export type AddSectionInput = {
@@ -51,6 +82,24 @@ export type AddTollInput = {
 
 export type AddTollNetworkInput = {
   name: Scalars['String']['input'];
+};
+
+export type AddWeeklyPriceInput = {
+  days: Array<DayOfWeekType>;
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddYearlyPriceInput = {
+  endDay: Scalars['Float']['input'];
+  endTimestamp: Scalars['DateTime']['input'];
+  months: Array<Scalars['Int']['input']>;
+  priority: Scalars['Float']['input'];
+  startDay: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
 };
 
 export enum AuthErrors {
@@ -115,8 +164,46 @@ export type BaseUserType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type CustomPriceListResult = {
+  __typename?: 'CustomPriceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<CustomPriceType>;
+};
+
+export type CustomPriceType = {
+  __typename?: 'CustomPriceType';
+  price: PriceType;
+  priceId: Scalars['ID']['output'];
+};
+
+export type DailyPriceListResult = {
+  __typename?: 'DailyPriceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<DailyPriceType>;
+};
+
+export type DailyPriceType = {
+  __typename?: 'DailyPriceType';
+  price: PriceType;
+  priceId: Scalars['ID']['output'];
+};
+
+export enum DayOfWeekType {
+  Friday = 'FRIDAY',
+  Monday = 'MONDAY',
+  Saturday = 'SATURDAY',
+  Sunday = 'SUNDAY',
+  Thursday = 'THURSDAY',
+  Tuesday = 'TUESDAY',
+  Wednesday = 'WEDNESDAY'
+}
+
 export type DeleteHighwayInput = {
   highwayId: Scalars['String']['input'];
+};
+
+export type DeletePriceInput = {
+  priceId: Scalars['String']['input'];
 };
 
 export type DeleteSectionInput = {
@@ -216,15 +303,33 @@ export type HighwayType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type MonthlyPriceListResult = {
+  __typename?: 'MonthlyPriceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<MonthlyPriceType>;
+};
+
+export type MonthlyPriceType = {
+  __typename?: 'MonthlyPriceType';
+  endDay: Scalars['Int']['output'];
+  price: PriceType;
+  priceId: Scalars['ID']['output'];
+  startDay: Scalars['Int']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  addGlobalPrice: Scalars['Boolean']['output'];
   addHighway: HighwayType;
   addHumanRessoucesAdminRole: Scalars['Boolean']['output'];
+  addLocalPrice: Scalars['Boolean']['output'];
   addSection: SectionType;
   addSubscription: SubscriptionType;
   addToll: TollType;
   addTollNetwork: TollNetworkType;
+  deleteGlobalPrice: Scalars['Boolean']['output'];
   deleteHighway: Scalars['Boolean']['output'];
+  deleteLocalPrice: Scalars['Boolean']['output'];
   deleteSection: Scalars['Boolean']['output'];
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
@@ -248,6 +353,11 @@ export type Mutation = {
 };
 
 
+export type MutationAddGlobalPriceArgs = {
+  addPriceInput: AddPriceInput;
+};
+
+
 export type MutationAddHighwayArgs = {
   addHighwayInput: AddHighwayInput;
 };
@@ -255,6 +365,11 @@ export type MutationAddHighwayArgs = {
 
 export type MutationAddHumanRessoucesAdminRoleArgs = {
   addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput;
+};
+
+
+export type MutationAddLocalPriceArgs = {
+  addPriceInput: AddPriceInput;
 };
 
 
@@ -278,8 +393,18 @@ export type MutationAddTollNetworkArgs = {
 };
 
 
+export type MutationDeleteGlobalPriceArgs = {
+  deletePriceInput: DeletePriceInput;
+};
+
+
 export type MutationDeleteHighwayArgs = {
   deleteHighwayInput: DeleteHighwayInput;
+};
+
+
+export type MutationDeleteLocalPriceArgs = {
+  deletePriceInput: DeletePriceInput;
 };
 
 
@@ -374,14 +499,44 @@ export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
 };
 
+export enum PriceErrors {
+  CannotDeleteGlobalPrice = 'CANNOT_DELETE_GLOBAL_PRICE',
+  CannotDeleteLocalPrice = 'CANNOT_DELETE_LOCAL_PRICE',
+  PriceNotFound = 'PRICE_NOT_FOUND',
+  TollNotManaged = 'TOLL_NOT_MANAGED'
+}
+
+export type PriceListInput = {
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type PriceType = {
+  __typename?: 'PriceType';
+  createdAt: Scalars['DateTime']['output'];
+  endTimestamp: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  priority: Scalars['Float']['output'];
+  startTimestamp: Scalars['DateTime']['output'];
+  tollId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  value: Scalars['Float']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   baseUserById?: Maybe<BaseUserType>;
   baseUserList: BaseUserListResult;
+  customPriceGlobalList: CustomPriceListResult;
+  customPriceLocalList: CustomPriceListResult;
+  dailyPriceGlobalList: DailyPriceListResult;
+  dailyPriceLocalList: DailyPriceListResult;
   fullTollList: Array<TollType>;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
   lol: Scalars['String']['output'];
+  monthlyPriceGlobalList: MonthlyPriceListResult;
+  monthlyPriceLocalList: MonthlyPriceListResult;
   sectionListForToll: SectionListResult;
   sectionListForTollNetwork: Array<SectionType>;
   signInWithRefreshToken: SignInWithRefreshTokenResult;
@@ -392,8 +547,12 @@ export type Query = {
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
+  weeklyPriceGlobalList: WeeklyPriceListResult;
+  weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
   wilayaList: WilayaListResult;
+  yearlyPriceGlobalList: YearlyPriceListResult;
+  yearlyPriceLocalList: YearlyPriceListResult;
 };
 
 
@@ -404,6 +563,26 @@ export type QueryBaseUserByIdArgs = {
 
 export type QueryBaseUserListArgs = {
   baseUserListInput: BaseUserListInput;
+};
+
+
+export type QueryCustomPriceGlobalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryCustomPriceLocalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryDailyPriceGlobalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryDailyPriceLocalListArgs = {
+  priceListInput: PriceListInput;
 };
 
 
@@ -419,6 +598,16 @@ export type QueryHighwayByIdArgs = {
 
 export type QueryHighwayListArgs = {
   highwayListInput: HighwayListInput;
+};
+
+
+export type QueryMonthlyPriceGlobalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryMonthlyPriceLocalListArgs = {
+  priceListInput: PriceListInput;
 };
 
 
@@ -467,6 +656,16 @@ export type QueryTollNetworkListArgs = {
 };
 
 
+export type QueryWeeklyPriceGlobalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryWeeklyPriceLocalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
 export type QueryWilayaByIdArgs = {
   wilayaByIdInput: WilayaByIdInput;
 };
@@ -474,6 +673,16 @@ export type QueryWilayaByIdArgs = {
 
 export type QueryWilayaListArgs = {
   wilayaListInput: WilayaListInput;
+};
+
+
+export type QueryYearlyPriceGlobalListArgs = {
+  priceListInput: PriceListInput;
+};
+
+
+export type QueryYearlyPriceLocalListArgs = {
+  priceListInput: PriceListInput;
 };
 
 export enum RefreshTokenMode {
@@ -490,6 +699,10 @@ export type ResetPasswordInput = {
   token: Scalars['String']['input'];
   userId: Scalars['String']['input'];
 };
+
+export enum SectionErrors {
+  SectionExists = 'SECTION_EXISTS'
+}
 
 export type SectionListForTollInput = {
   skip?: InputMaybe<Scalars['Float']['input']>;
@@ -578,6 +791,10 @@ export type SubscriptionByIdInput = {
   subscriptionId: Scalars['String']['input'];
 };
 
+export enum SubscriptionErrors {
+  SubscriptionExists = 'SUBSCRIPTION_EXISTS'
+}
+
 export type SubscriptionListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
@@ -622,7 +839,8 @@ export type TollByIdInput = {
 };
 
 export enum TollErrors {
-  TollExists = 'TOLL_EXISTS'
+  TollExists = 'TOLL_EXISTS',
+  TollNotFound = 'TOLL_NOT_FOUND'
 }
 
 export type TollListInput = {
@@ -647,6 +865,10 @@ export type TollListResult = {
 export type TollNetworkByIdInput = {
   tollNetworkId: Scalars['String']['input'];
 };
+
+export enum TollNetworkErrors {
+  TollNetworkExists = 'TOLL_NETWORK_EXISTS'
+}
 
 export type TollNetworkListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -712,6 +934,19 @@ export type VerifyEmailInput = {
   userId: Scalars['String']['input'];
 };
 
+export type WeeklyPriceListResult = {
+  __typename?: 'WeeklyPriceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<WeeklyPriceType>;
+};
+
+export type WeeklyPriceType = {
+  __typename?: 'WeeklyPriceType';
+  days: Array<DayOfWeekType>;
+  price: PriceType;
+  priceId: Scalars['ID']['output'];
+};
+
 export type WilayaByIdInput = {
   wilayaId: Scalars['String']['input'];
 };
@@ -741,6 +976,21 @@ export type WilayaType = {
   code: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+};
+
+export type YearlyPriceListResult = {
+  __typename?: 'YearlyPriceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<YearlyPriceType>;
+};
+
+export type YearlyPriceType = {
+  __typename?: 'YearlyPriceType';
+  endDay: Scalars['Int']['output'];
+  months: Array<Scalars['Int']['output']>;
+  price: PriceType;
+  priceId: Scalars['ID']['output'];
+  startDay: Scalars['Int']['output'];
 };
 
 export type Add_HighwayMutationVariables = Exact<{
@@ -862,6 +1112,20 @@ export type Remove_Human_Ressources_Admin_RoleMutationVariables = Exact<{
 
 export type Remove_Human_Ressources_Admin_RoleMutation = { __typename?: 'Mutation', removeHumanRessoucesAdminRole: boolean };
 
+export type Add_Global_PriceMutationVariables = Exact<{
+  addPriceInput: AddPriceInput;
+}>;
+
+
+export type Add_Global_PriceMutation = { __typename?: 'Mutation', addGlobalPrice: boolean };
+
+export type Delete_Global_PriceMutationVariables = Exact<{
+  deletePriceInput: DeletePriceInput;
+}>;
+
+
+export type Delete_Global_PriceMutation = { __typename?: 'Mutation', deleteGlobalPrice: boolean };
+
 export type Highway_ListQueryVariables = Exact<{
   highwayListInput: HighwayListInput;
 }>;
@@ -960,6 +1224,41 @@ export type Base_User_ListQueryVariables = Exact<{
 
 export type Base_User_ListQuery = { __typename?: 'Query', baseUserList: { __typename?: 'BaseUserListResult', count: number, list: Array<{ __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any, roles: Array<BaseUserRolesType> }> } };
 
+export type Daily_Price_Global_ListQueryVariables = Exact<{
+  priceListInput: PriceListInput;
+}>;
+
+
+export type Daily_Price_Global_ListQuery = { __typename?: 'Query', dailyPriceGlobalList: { __typename?: 'DailyPriceListResult', count: number, list: Array<{ __typename?: 'DailyPriceType', priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+
+export type Weekly_Price_Global_ListQueryVariables = Exact<{
+  priceListInput: PriceListInput;
+}>;
+
+
+export type Weekly_Price_Global_ListQuery = { __typename?: 'Query', weeklyPriceGlobalList: { __typename?: 'WeeklyPriceListResult', count: number, list: Array<{ __typename?: 'WeeklyPriceType', days: Array<DayOfWeekType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+
+export type Monthly_Price_Global_ListQueryVariables = Exact<{
+  priceListInput: PriceListInput;
+}>;
+
+
+export type Monthly_Price_Global_ListQuery = { __typename?: 'Query', monthlyPriceGlobalList: { __typename?: 'MonthlyPriceListResult', count: number, list: Array<{ __typename?: 'MonthlyPriceType', startDay: number, endDay: number, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+
+export type Yearly_Price_Global_ListQueryVariables = Exact<{
+  priceListInput: PriceListInput;
+}>;
+
+
+export type Yearly_Price_Global_ListQuery = { __typename?: 'Query', yearlyPriceGlobalList: { __typename?: 'YearlyPriceListResult', count: number, list: Array<{ __typename?: 'YearlyPriceType', startDay: number, endDay: number, months: Array<number>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+
+export type Custom_Price_Global_ListQueryVariables = Exact<{
+  priceListInput: PriceListInput;
+}>;
+
+
+export type Custom_Price_Global_ListQuery = { __typename?: 'Query', customPriceGlobalList: { __typename?: 'CustomPriceListResult', count: number, list: Array<{ __typename?: 'CustomPriceType', priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+
 
 export const Add_HighwayDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_HIGHWAY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddHighwayInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addHighway"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addHighwayInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_HighwayMutation, Add_HighwayMutationVariables>;
 export const Edit_HighwayDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_HIGHWAY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editHighwayInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditHighwayInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editHighway"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editHighwayInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editHighwayInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Edit_HighwayMutation, Edit_HighwayMutationVariables>;
@@ -978,6 +1277,8 @@ export const Edit_SectionDocument = {"kind":"Document","definitions":[{"kind":"O
 export const Delete_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteSectionInput"}}}]}]}}]} as unknown as DocumentNode<Delete_SectionMutation, Delete_SectionMutationVariables>;
 export const Add_Human_Ressources_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_HUMAN_RESSOURCES_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddHumanRessourcesAdminRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addHumanRessoucesAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Add_Human_Ressources_Admin_RoleMutation, Add_Human_Ressources_Admin_RoleMutationVariables>;
 export const Remove_Human_Ressources_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveHumanRessourcesAdminRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeHumanRessoucesAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Human_Ressources_Admin_RoleMutation, Remove_Human_Ressources_Admin_RoleMutationVariables>;
+export const Add_Global_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_GLOBAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddPriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addGlobalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addPriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}}}]}]}}]} as unknown as DocumentNode<Add_Global_PriceMutation, Add_Global_PriceMutationVariables>;
+export const Delete_Global_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_GLOBAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeletePriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteGlobalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deletePriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Global_PriceMutation, Delete_Global_PriceMutationVariables>;
 export const Highway_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HIGHWAY_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"highwayListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"HighwayListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"highwayListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"highwayListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Highway_ListQuery, Highway_ListQueryVariables>;
 export const Highway_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HIGHWAY_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"HighwayByIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"highwayByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Highway_By_IdQuery, Highway_By_IdQueryVariables>;
 export const Subscription_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SUBSCRIPTION_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"subscriptionListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Subscription_ListQuery, Subscription_ListQueryVariables>;
@@ -992,3 +1293,8 @@ export const Wilaya_By_IdDocument = {"kind":"Document","definitions":[{"kind":"O
 export const Section_List_For_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionListForTollNetworkInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_Toll_NetworkQuery, Section_List_For_Toll_NetworkQueryVariables>;
 export const Section_List_For_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionListForTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_TollQuery, Section_List_For_TollQueryVariables>;
 export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
+export const Daily_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DAILY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Daily_Price_Global_ListQuery, Daily_Price_Global_ListQueryVariables>;
+export const Weekly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WEEKLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Weekly_Price_Global_ListQuery, Weekly_Price_Global_ListQueryVariables>;
+export const Monthly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MONTHLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monthlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Monthly_Price_Global_ListQuery, Monthly_Price_Global_ListQueryVariables>;
+export const Yearly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"YEARLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yearlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"months"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Yearly_Price_Global_ListQuery, Yearly_Price_Global_ListQueryVariables>;
+export const Custom_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CUSTOM_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Custom_Price_Global_ListQuery, Custom_Price_Global_ListQueryVariables>;

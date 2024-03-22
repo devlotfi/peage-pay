@@ -1,4 +1,4 @@
-import { gql } from '../__generated__';
+import { gql } from "../__generated__";
 
 export const ADD_HIGHWAY = gql(`
   mutation ADD_HIGHWAY($addHighwayInput: AddHighwayInput!) {
@@ -189,5 +189,17 @@ export const ADD_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
 export const REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
   mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {
     removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)
+  }
+`);
+
+export const ADD_GLOBAL_PRICE = gql(`
+  mutation ADD_GLOBAL_PRICE($addPriceInput: AddPriceInput!) {
+    addGlobalPrice(addPriceInput: $addPriceInput)
+  }
+`);
+
+export const DELETE_GLOBAL_PRICE = gql(`
+  mutation DELETE_GLOBAL_PRICE($deletePriceInput: DeletePriceInput!) {
+    deleteGlobalPrice(deletePriceInput: $deletePriceInput)
   }
 `);

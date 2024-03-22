@@ -291,6 +291,21 @@ model Ticket {
   distance       Decimal
 }
 
+enum Month {
+  JANUARY
+  FEBRUARY
+  MARCH
+  APRIL
+  MAY
+  JUNE
+  JULY
+  AUGUST
+  SEPTEMBER
+  OCTOBER
+  NOVEMBER
+  DECEMBER
+}
+
 enum DayOfWeek {
   SUNDAY
   MONDAY
@@ -343,8 +358,8 @@ model MonthlyPrice {
 model YearlyPrice {
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  priceId  String @id
-  months   Int[]
+  priceId  String  @id
+  months   Month[]
   startDay Int
   endDay   Int
 }

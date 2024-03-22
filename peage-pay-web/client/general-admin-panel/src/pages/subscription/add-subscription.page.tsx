@@ -32,7 +32,7 @@ const initialValues: AddSubscriptionValues = {
 const addSubscriptionValidationSchema = yup.object({
   name: yup.string().max(256).required(),
   days: yup.number().integer().positive(),
-  price: yup.number().integer().positive(),
+  price: yup.number().positive(),
 });
 
 const AddSubscriptionPage = (): JSX.Element => {
