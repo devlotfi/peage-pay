@@ -310,20 +310,20 @@ model Price {
 }
 
 model DailyPrice {
-  price Price @relation(fields: [priceId], references: [id])
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
   priceId String @id
 }
 
 model WeeklyPrice {
-  price Price @relation(fields: [priceId], references: [id])
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
   priceId String @id
   days    Int[]
 }
 
 model MonthlyPrice {
-  price Price @relation(fields: [priceId], references: [id])
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
   priceId  String @id
   startDay Int
@@ -331,7 +331,7 @@ model MonthlyPrice {
 }
 
 model YearlyPrice {
-  price Price @relation(fields: [priceId], references: [id])
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
   priceId  String @id
   months   Int[]
@@ -340,7 +340,7 @@ model YearlyPrice {
 }
 
 model CustomPrice {
-  price Price @relation(fields: [priceId], references: [id])
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
   priceId String @id
 }

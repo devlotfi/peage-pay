@@ -4835,6 +4835,10 @@ __metadata:
 "auth-common-client@workspace:client/auth-common-client":
   version: 0.0.0-use.local
   resolution: "auth-common-client@workspace:client/auth-common-client"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
   languageName: unknown
   linkType: soft
 

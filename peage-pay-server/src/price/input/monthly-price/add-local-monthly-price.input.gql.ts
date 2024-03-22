@@ -2,7 +2,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import {
   IsDate,
   IsNumber,
-  IsUUID,
   Max,
   Min,
   ValidateIf,
@@ -11,10 +10,6 @@ import {
 
 @InputType()
 export class AddLocalMonthlyPriceInput {
-  @Field()
-  @IsUUID()
-  public tollId: string;
-
   @Field()
   @Min(0)
   public value: number;

@@ -3,7 +3,6 @@ import {
   IsArray,
   IsDate,
   IsInt,
-  IsUUID,
   Max,
   Min,
   ValidateIf,
@@ -12,10 +11,6 @@ import {
 
 @InputType()
 export class AddLocalWeeklyPriceInput {
-  @Field()
-  @IsUUID()
-  public tollId: string;
-
   @Field()
   @Min(0)
   public value: number;

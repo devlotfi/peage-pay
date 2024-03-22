@@ -32,6 +32,10 @@ import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
 import { BaseUserSearchFields } from './base-user/graphql/base-user-search-fields.gql';
 import { SectionModule } from './section/section.module';
 import { TollDistanceModule } from './toll-distance/toll-distance.module';
+import { SectionErrors } from './section/graphql/section-errors.gql';
+import { PriceErrors } from './price/graphql/price-errors.gql';
+import { TollNetworkErrors } from './toll-network/graphql/toll-network-errors.gql';
+import { SubscriptionErrors } from './subscription/graphql/subscription-errors.gql';
 
 @Module({
   imports: [
@@ -60,6 +64,10 @@ import { TollDistanceModule } from './toll-distance/toll-distance.module';
           HighwayErrors,
           TokenErrors,
           TollErrors,
+          SectionErrors,
+          PriceErrors,
+          TollNetworkErrors,
+          SubscriptionErrors,
 
           HighwaySearchFields,
           TollNetworkSearchFields,

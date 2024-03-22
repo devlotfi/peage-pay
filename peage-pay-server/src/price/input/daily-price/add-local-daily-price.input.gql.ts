@@ -1,18 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  IsDate,
-  IsUUID,
-  Min,
-  ValidateIf,
-  ValidateNested,
-} from 'class-validator';
+import { IsDate, Min, ValidateIf, ValidateNested } from 'class-validator';
 
 @InputType()
 export class AddLocalDailyPriceInput {
-  @Field()
-  @IsUUID()
-  public tollId: string;
-
   @Field()
   @Min(0)
   public value: number;
