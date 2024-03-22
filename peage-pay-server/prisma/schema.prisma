@@ -291,6 +291,16 @@ model Ticket {
   distance       Decimal
 }
 
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
 model Price {
   toll         Toll?         @relation(fields: [tollId], references: [id])
   dailyPrice   DailyPrice?
@@ -318,8 +328,8 @@ model DailyPrice {
 model WeeklyPrice {
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  priceId String @id
-  days    Int[]
+  priceId String      @id
+  days    DayOfWeek[]
 }
 
 model MonthlyPrice {

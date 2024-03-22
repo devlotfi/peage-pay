@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsDate, Min, ValidateIf, ValidateNested } from 'class-validator';
+import { IsDate, Min } from 'class-validator';
+import { IsAfterFieldDate } from 'src/shared/validation/is-after-field-date';
 
 @InputType()
-export class AddGlobalDailyPriceInput {
+export class AddDailyPriceInput {
   @Field()
   @Min(0)
   public value: number;
@@ -16,8 +17,7 @@ export class AddGlobalDailyPriceInput {
   public startTimestamp: Date;
 
   @Field(() => Date)
-  @ValidateIf((object) => object.startTimestamp < object.endTimestamp)
-  @ValidateNested()
+  @IsAfterFieldDate('startTimestamp')
   @IsDate()
   public endTimestamp: Date;
 }
