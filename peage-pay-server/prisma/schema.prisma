@@ -350,7 +350,8 @@ model WeeklyPrice {
 model MonthlyPrice {
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  priceId  String @id
+  priceId  String  @id
+  months   Month[]
   startDay Int
   endDay   Int
 }
@@ -358,16 +359,18 @@ model MonthlyPrice {
 model YearlyPrice {
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  priceId  String  @id
-  months   Month[]
-  startDay Int
-  endDay   Int
+  priceId   String   @id
+  months    Month[]
+  startDate DateTime
+  endDate   DateTime
 }
 
 model CustomPrice {
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  priceId String @id
+  priceId   String   @id
+  startDate DateTime
+  endDate   DateTime
 }
 
 model DefaultPrice {

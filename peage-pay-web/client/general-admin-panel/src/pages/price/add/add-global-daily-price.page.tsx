@@ -57,8 +57,12 @@ const AddGlobalDailyPricePage = (): JSX.Element => {
               addDailyPriceInput: {
                 value: values.value,
                 priority: values.priority,
-                startTimestamp: Utils.createDateFromTime(values.startTimestamp),
-                endTimestamp: Utils.createDateFromTime(values.endTimestamp),
+                startTimestamp: Utils.createDateFromTimeString(
+                  values.startTimestamp
+                ),
+                endTimestamp: Utils.createDateFromTimeString(
+                  values.endTimestamp
+                ),
               },
             },
           },

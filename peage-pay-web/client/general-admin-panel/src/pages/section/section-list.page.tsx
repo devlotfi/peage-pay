@@ -1,18 +1,18 @@
-import { useQuery } from '@apollo/client';
-import { SECTION_LIST_FOR_TOLL, TOLL_BY_ID } from '../../graphql/queries';
+import { useQuery } from "@apollo/client";
+import { SECTION_LIST_FOR_TOLL, TOLL_BY_ID } from "../../graphql/queries";
 import {
   AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
   Table,
-} from '@peage-pay-web/ui';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
-import SectionItem from '../../components/section/section-item.component';
-import { SectionType } from '../../__generated__/graphql';
+} from "@peage-pay-web/ui";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
+import SectionItem from "../../components/section/section-item.component";
+import { SectionType } from "../../__generated__/graphql";
 
 const SectionListPage = (): JSX.Element => {
   const { tollId } = useParams();
@@ -42,26 +42,31 @@ const SectionListPage = (): JSX.Element => {
       },
     },
     skip: tollLoading || tollError !== undefined,
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
 
   return (
     <ListPageLayout>
       <AdminDashboardLayout.Loading loading={tollLoading}>
         <AdminDashboardLayout.Error error={tollError}>
-          <div className="flex flex-col md:flex-row md:justify-between items-start">
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Graph links list</Heading.Text>
-            </Heading>
-            <Heading className="text-[15pt]">
-              <Heading.Text className="opacity-70">
-                Toll: {tollData?.tollById.name}
-              </Heading.Text>
-            </Heading>
-          </div>
+          <Heading className="text-[20pt]">
+            <Heading.Icon position={"left"}>
+              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+            </Heading.Icon>
+            <Heading.Text>Graph links list</Heading.Text>
+          </Heading>
+          <Table.Container className="mb-[2rem]">
+            <Table>
+              <Table.Body>
+                <Table.Body.Tr>
+                  <Table.Body.Td className="text-primary-100 font-bold">
+                    Toll:
+                  </Table.Body.Td>
+                  <Table.Body.Td>{tollData?.tollById.name}</Table.Body.Td>
+                </Table.Body.Tr>
+              </Table.Body>
+            </Table>
+          </Table.Container>
 
           <AdminDashboardLayout.Loading loading={listLoading}>
             <AdminDashboardLayout.Error error={listError}>

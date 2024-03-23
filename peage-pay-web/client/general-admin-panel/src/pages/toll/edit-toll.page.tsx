@@ -17,6 +17,7 @@ import {
   Heading,
   LoaderDots,
   Select,
+  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { EDIT_TOLL } from "../../graphql/mutations";
@@ -244,19 +245,24 @@ const EditTollPage = (): JSX.Element => {
           <AdminDashboardLayout.Error
             error={tollError || wilayaError || highwayError || tollNetworkError}
           >
-            <div className="flex flex-col md:flex-row md:justify-between items-start">
-              <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
-                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-                </Heading.Icon>
-                <Heading.Text>Edit toll</Heading.Text>
-              </Heading>
-              <Heading className="text-[15pt] mb-[2rem]">
-                <Heading.Text className="opacity-70">
-                  Toll: {tollData?.tollById?.name}
-                </Heading.Text>
-              </Heading>
-            </div>
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={"left"}>
+                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Edit toll</Heading.Text>
+            </Heading>
+            <Table.Container className="mb-[2rem]">
+              <Table>
+                <Table.Body>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll:
+                    </Table.Body.Td>
+                    <Table.Body.Td>{tollData?.tollById?.name}</Table.Body.Td>
+                  </Table.Body.Tr>
+                </Table.Body>
+              </Table>
+            </Table.Container>
 
             <TextInput
               variant={errors.name && touched.name ? "error" : "edge-100"}

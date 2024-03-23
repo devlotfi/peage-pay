@@ -1,8 +1,267 @@
-const AddGlobalYearlyPricePage = () => {
+import { useMutation } from "@apollo/client";
+import {
+  faCaretRight,
+  faCheck,
+  faExclamationCircle,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Alert,
+  Button,
+  FormPageLayout,
+  Heading,
+  LoaderDots,
+  TextInput,
+} from "@peage-pay-web/ui";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { ADD_GLOBAL_PRICE } from "../../../graphql/mutations";
+import { Utils } from "@peage-pay-web/utils";
+
+interface AddGlobalYearlyPriceValues {
+  value: number;
+  priority: number;
+  startTimestamp: string;
+  endTimestamp: string;
+  startDate: string;
+  endDate: string;
+}
+
+const initialValues: AddGlobalYearlyPriceValues = {
+  value: 1,
+  priority: 1,
+  startTimestamp: "",
+  endTimestamp: "",
+  startDate: "",
+  endDate: "",
+};
+
+const addGlobalYearlyPriceValidationSchema = yup.object({
+  value: yup.string().max(256).required(),
+  priority: yup.string().max(10).required(),
+  startTimestamp: yup.string().required(),
+  endTimestamp: yup
+    .string()
+    .test((value, ctx) => Utils.isLaterTime(value, ctx.parent.startTimestamp))
+    .required(),
+  startDate: yup.string().required(),
+  endDate: yup
+    .string()
+    .test((value, ctx) => Utils.isLaterOrEqualDate(value, ctx.parent.startDate))
+    .required(),
+});
+
+const AddGlobalYearlyPricePage = (): JSX.Element => {
+  const [addGlobalPrice, { loading, error, data }] =
+    useMutation(ADD_GLOBAL_PRICE);
+  const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
+    useFormik({
+      initialValues,
+      validationSchema: addGlobalYearlyPriceValidationSchema,
+      onSubmit(values) {
+        addGlobalPrice({
+          variables: {
+            addPriceInput: {
+              addYearlyPriceInput: {
+                value: values.value,
+                priority: values.priority,
+                startTimestamp: Utils.createDateFromTimeString(
+                  values.startTimestamp
+                ),
+                endTimestamp: Utils.createDateFromTimeString(
+                  values.endTimestamp
+                ),
+                startDate: Utils.createDateFromDateString(values.startDate),
+                endDate: Utils.createDateFromDateString(values.endDate),
+              },
+            },
+          },
+        });
+      },
+    });
+
   return (
-    <div className="flex">
-      <h1>add global yearly</h1>
-    </div>
+    <FormPageLayout>
+      <FormPageLayout.Form onSubmit={handleSubmit}>
+        <Heading className="text-[20pt] mb-[1rem]">
+          <Heading.Icon position={"left"}>
+            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Add global yearly price</Heading.Text>
+        </Heading>
+
+        <TextInput
+          variant={errors.value && touched.value ? "error" : "edge-100"}
+          className="w-full mb-[1.3rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Field
+              name="value"
+              value={values.value}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter value"
+              type="number"
+              step={0.01}
+              min={0}
+            ></TextInput.Field>
+            <TextInput.Icon position={"right"}>dzd</TextInput.Icon>
+          </TextInput.Main>
+          {errors.value && touched.value ? (
+            <TextInput.InfoMessage>{errors.value}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+        <TextInput
+          variant={errors.value && touched.value ? "error" : "edge-100"}
+          className="w-full mb-[1.3rem]"
+        >
+          <TextInput.Main>
+            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Field
+              name="priority"
+              value={values.priority}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter priority"
+              type="number"
+              min={0}
+            ></TextInput.Field>
+          </TextInput.Main>
+          {errors.priority && touched.priority ? (
+            <TextInput.InfoMessage>{errors.priority}</TextInput.InfoMessage>
+          ) : null}
+        </TextInput>
+
+        <div className="flex items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+          <TextInput
+            variant={
+              errors.startTimestamp && touched.startTimestamp
+                ? "error"
+                : "edge-100"
+            }
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Field
+                name="startTimestamp"
+                value={values.startTimestamp}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="time"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.startTimestamp && touched.startTimestamp ? (
+              <TextInput.InfoMessage>
+                {errors.startTimestamp}
+              </TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+          <div className="flex h-[2.7rem] justify-center items-center rotate-90 my-[0.5rem] sm:rotate-0 mx-[1rem] sm:my-0 text-[20pt]">
+            <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
+          </div>
+          <TextInput
+            variant={
+              errors.endTimestamp && touched.endTimestamp ? "error" : "edge-100"
+            }
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Field
+                name="endTimestamp"
+                value={values.endTimestamp}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="time"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.endTimestamp && touched.endTimestamp ? (
+              <TextInput.InfoMessage>
+                {errors.endTimestamp}
+              </TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+        </div>
+
+        <div className="flex items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+          <TextInput
+            variant={
+              errors.startDate && touched.startDate ? "error" : "edge-100"
+            }
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>Start date</TextInput.Label>
+              <TextInput.Field
+                name="startDate"
+                value={values.startDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="date"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.startDate && touched.startDate ? (
+              <TextInput.InfoMessage>{errors.startDate}</TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+          <div className="flex h-[2.7rem] justify-center items-center rotate-90 my-[0.5rem] sm:rotate-0 mx-[1rem] sm:my-0 text-[20pt]">
+            <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
+          </div>
+          <TextInput
+            variant={errors.endDate && touched.endDate ? "error" : "edge-100"}
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>End date</TextInput.Label>
+              <TextInput.Field
+                name="endDate"
+                value={values.endDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="date"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.endDate && touched.endDate ? (
+              <TextInput.InfoMessage>{errors.endDate}</TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+        </div>
+
+        {data ? (
+          <Alert variant={"success"} className="mb-[0.5rem]">
+            <Alert.Icon position={"left"}>
+              <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>Global yearly price created</Alert.Content>
+          </Alert>
+        ) : null}
+
+        {error ? (
+          <Alert variant={"error"} className="mb-[0.5rem]">
+            <Alert.Icon position={"left"}>
+              <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+            </Alert.Icon>
+            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+          </Alert>
+        ) : null}
+
+        <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+          {loading ? (
+            <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+          ) : (
+            <>
+              <Button.Icon position={"left"}>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Add global daily price</Button.Content>
+            </>
+          )}
+        </Button>
+      </FormPageLayout.Form>
+    </FormPageLayout>
   );
 };
 

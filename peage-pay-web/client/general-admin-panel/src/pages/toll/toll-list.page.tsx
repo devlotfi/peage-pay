@@ -1,5 +1,5 @@
-import { useQuery } from '@apollo/client';
-import { TOLL_LIST, TOLL_NETWORK_BY_ID } from '../../graphql/queries';
+import { useQuery } from "@apollo/client";
+import { TOLL_LIST, TOLL_NETWORK_BY_ID } from "../../graphql/queries";
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,17 +8,17 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from '@peage-pay-web/ui';
-import { useState } from 'react';
-import { TollSearchFields, TollType } from '../../__generated__/graphql';
-import TollListItem from '../../components/toll/toll-list-item.component';
-import { faList } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useParams } from 'react-router-dom';
-import { Utils } from '@peage-pay-web/utils';
+} from "@peage-pay-web/ui";
+import { useState } from "react";
+import { TollSearchFields, TollType } from "../../__generated__/graphql";
+import TollListItem from "../../components/toll/toll-list-item.component";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<TollSearchFields> = {
-  search: '',
+  search: "",
   field: TollSearchFields.NameSearch,
 };
 
@@ -37,7 +37,7 @@ const TollListPage = (): JSX.Element => {
         tollNetworkId: tollNetworkId as string,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   const {
     data: listData,
@@ -53,7 +53,7 @@ const TollListPage = (): JSX.Element => {
       },
     },
     skip: tollNetworkLoading || tollNetworkError !== undefined,
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   return (
     <ListPageLayout>
@@ -66,19 +66,26 @@ const TollListPage = (): JSX.Element => {
             fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
           ></SearchForm>
 
-          <div className="flex flex-col md:flex-row md:justify-between items-start">
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Toll list</Heading.Text>
-            </Heading>
-            <Heading className="text-[15pt] mb-[2rem]">
-              <Heading.Text className="opacity-70">
-                Toll network: {tollNetworkData?.tollNetworkById.name}
-              </Heading.Text>
-            </Heading>
-          </div>
+          <Heading className="text-[20pt]">
+            <Heading.Icon position={"left"}>
+              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+            </Heading.Icon>
+            <Heading.Text>Toll list</Heading.Text>
+          </Heading>
+          <Table.Container className="mb-[2rem]">
+            <Table>
+              <Table.Body>
+                <Table.Body.Tr>
+                  <Table.Body.Td className="text-primary-100 font-bold">
+                    Toll network:
+                  </Table.Body.Td>
+                  <Table.Body.Td>
+                    {tollNetworkData?.tollNetworkById.name}
+                  </Table.Body.Td>
+                </Table.Body.Tr>
+              </Table.Body>
+            </Table>
+          </Table.Container>
 
           <AdminDashboardLayout.Loading loading={listLoading}>
             <AdminDashboardLayout.Error error={listError}>

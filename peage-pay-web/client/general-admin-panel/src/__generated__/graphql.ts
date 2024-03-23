@@ -19,8 +19,10 @@ export type Scalars = {
 };
 
 export type AddCustomPriceInput = {
+  endDate: Scalars['DateTime']['input'];
   endTimestamp: Scalars['DateTime']['input'];
   priority: Scalars['Float']['input'];
+  startDate: Scalars['DateTime']['input'];
   startTimestamp: Scalars['DateTime']['input'];
   value: Scalars['Float']['input'];
 };
@@ -44,6 +46,7 @@ export type AddHumanRessourcesAdminRoleInput = {
 export type AddMonthlyPriceInput = {
   endDay: Scalars['Float']['input'];
   endTimestamp: Scalars['DateTime']['input'];
+  months: Array<MonthType>;
   priority: Scalars['Float']['input'];
   startDay: Scalars['Float']['input'];
   startTimestamp: Scalars['DateTime']['input'];
@@ -93,11 +96,10 @@ export type AddWeeklyPriceInput = {
 };
 
 export type AddYearlyPriceInput = {
-  endDay: Scalars['Float']['input'];
+  endDate: Scalars['DateTime']['input'];
   endTimestamp: Scalars['DateTime']['input'];
-  months: Array<Scalars['Int']['input']>;
   priority: Scalars['Float']['input'];
-  startDay: Scalars['Float']['input'];
+  startDate: Scalars['DateTime']['input'];
   startTimestamp: Scalars['DateTime']['input'];
   value: Scalars['Float']['input'];
 };
@@ -172,8 +174,10 @@ export type CustomPriceListResult = {
 
 export type CustomPriceType = {
   __typename?: 'CustomPriceType';
+  endDate: Scalars['DateTime']['output'];
   price: PriceType;
   priceId: Scalars['ID']['output'];
+  startDate: Scalars['DateTime']['output'];
 };
 
 export type DailyPriceListResult = {
@@ -303,6 +307,21 @@ export type HighwayType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export enum MonthType {
+  April = 'APRIL',
+  August = 'AUGUST',
+  December = 'DECEMBER',
+  February = 'FEBRUARY',
+  January = 'JANUARY',
+  July = 'JULY',
+  June = 'JUNE',
+  March = 'MARCH',
+  May = 'MAY',
+  November = 'NOVEMBER',
+  October = 'OCTOBER',
+  September = 'SEPTEMBER'
+}
+
 export type MonthlyPriceListResult = {
   __typename?: 'MonthlyPriceListResult';
   count: Scalars['Float']['output'];
@@ -312,6 +331,7 @@ export type MonthlyPriceListResult = {
 export type MonthlyPriceType = {
   __typename?: 'MonthlyPriceType';
   endDay: Scalars['Int']['output'];
+  months: Array<MonthType>;
   price: PriceType;
   priceId: Scalars['ID']['output'];
   startDay: Scalars['Int']['output'];
@@ -986,11 +1006,10 @@ export type YearlyPriceListResult = {
 
 export type YearlyPriceType = {
   __typename?: 'YearlyPriceType';
-  endDay: Scalars['Int']['output'];
-  months: Array<Scalars['Int']['output']>;
+  endDate: Scalars['DateTime']['output'];
   price: PriceType;
   priceId: Scalars['ID']['output'];
-  startDay: Scalars['Int']['output'];
+  startDate: Scalars['DateTime']['output'];
 };
 
 export type Add_HighwayMutationVariables = Exact<{
@@ -1243,21 +1262,21 @@ export type Monthly_Price_Global_ListQueryVariables = Exact<{
 }>;
 
 
-export type Monthly_Price_Global_ListQuery = { __typename?: 'Query', monthlyPriceGlobalList: { __typename?: 'MonthlyPriceListResult', count: number, list: Array<{ __typename?: 'MonthlyPriceType', startDay: number, endDay: number, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Monthly_Price_Global_ListQuery = { __typename?: 'Query', monthlyPriceGlobalList: { __typename?: 'MonthlyPriceListResult', count: number, list: Array<{ __typename?: 'MonthlyPriceType', startDay: number, endDay: number, months: Array<MonthType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
 
 export type Yearly_Price_Global_ListQueryVariables = Exact<{
   priceListInput: PriceListInput;
 }>;
 
 
-export type Yearly_Price_Global_ListQuery = { __typename?: 'Query', yearlyPriceGlobalList: { __typename?: 'YearlyPriceListResult', count: number, list: Array<{ __typename?: 'YearlyPriceType', startDay: number, endDay: number, months: Array<number>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Yearly_Price_Global_ListQuery = { __typename?: 'Query', yearlyPriceGlobalList: { __typename?: 'YearlyPriceListResult', count: number, list: Array<{ __typename?: 'YearlyPriceType', startDate: any, endDate: any, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
 
 export type Custom_Price_Global_ListQueryVariables = Exact<{
   priceListInput: PriceListInput;
 }>;
 
 
-export type Custom_Price_Global_ListQuery = { __typename?: 'Query', customPriceGlobalList: { __typename?: 'CustomPriceListResult', count: number, list: Array<{ __typename?: 'CustomPriceType', priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Custom_Price_Global_ListQuery = { __typename?: 'Query', customPriceGlobalList: { __typename?: 'CustomPriceListResult', count: number, list: Array<{ __typename?: 'CustomPriceType', priceId: string, startDate: any, endDate: any, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
 
 
 export const Add_HighwayDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_HIGHWAY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddHighwayInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addHighway"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addHighwayInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_HighwayMutation, Add_HighwayMutationVariables>;
@@ -1295,6 +1314,6 @@ export const Section_List_For_TollDocument = {"kind":"Document","definitions":[{
 export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
 export const Daily_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DAILY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Daily_Price_Global_ListQuery, Daily_Price_Global_ListQueryVariables>;
 export const Weekly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WEEKLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Weekly_Price_Global_ListQuery, Weekly_Price_Global_ListQueryVariables>;
-export const Monthly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MONTHLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monthlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Monthly_Price_Global_ListQuery, Monthly_Price_Global_ListQueryVariables>;
-export const Yearly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"YEARLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yearlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"months"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Yearly_Price_Global_ListQuery, Yearly_Price_Global_ListQueryVariables>;
-export const Custom_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CUSTOM_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Custom_Price_Global_ListQuery, Custom_Price_Global_ListQueryVariables>;
+export const Monthly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MONTHLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monthlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"months"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Monthly_Price_Global_ListQuery, Monthly_Price_Global_ListQueryVariables>;
+export const Yearly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"YEARLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yearlyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Yearly_Price_Global_ListQuery, Yearly_Price_Global_ListQueryVariables>;
+export const Custom_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CUSTOM_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Custom_Price_Global_ListQuery, Custom_Price_Global_ListQueryVariables>;

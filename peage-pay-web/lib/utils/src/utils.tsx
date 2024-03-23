@@ -6,12 +6,22 @@ export class Utils {
     return twMerge(clsx(inputs));
   }
 
-  public static createDateFromTime(time: string): Date {
+  public static createDateFromTimeString(time: string): Date {
     const [hours, minutes] = time.split(":").map(Number);
 
     const date = new Date();
     date.setHours(hours);
     date.setMinutes(minutes);
+
+    return date;
+  }
+
+  public static createDateFromDateString(dateString: string): Date {
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
 
     return date;
   }
@@ -36,6 +46,26 @@ export class Utils {
     date2.setMinutes(minutes2);
 
     return date1 > date2;
+  }
+
+  public static isLaterOrEqualDate(
+    date1: string | undefined,
+    date2: string | undefined
+  ): boolean {
+    if (!date1 || !date2) {
+      return false;
+    }
+
+    const firstDate = new Date(date1);
+    const secondDate = new Date(date2);
+
+    // Check if either date is invalid
+    if (isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) {
+      throw new Error("Invalid date format");
+    }
+
+    // Compare the dates
+    return firstDate.getTime() >= secondDate.getTime();
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */

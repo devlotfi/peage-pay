@@ -50,7 +50,7 @@ const TollListPage = lazy(() => import("../pages/toll/toll-list.page"));
 const AddTollPage = lazy(() => import("../pages/toll/add-toll.page"));
 const EditTollPage = lazy(() => import("../pages/toll/edit-toll.page"));
 const BaseUserListPage = lazy(
-  () => import("../pages/user/base-user-list.page")
+  () => import("../pages/base-user/base-user-list.page")
 );
 const TollNetworkListPage = lazy(
   () => import("../pages/toll-network/toll-network-list.page")
@@ -110,7 +110,7 @@ const useRouter = () => {
           element: <AddSectionPage></AddSectionPage>,
         },
         {
-          path: "/dashboard/section/edit/:fromTollId/:toTollId",
+          path: "/dashboard/section/edit/:tollId",
           element: <AddSectionPage></AddSectionPage>,
         },
 

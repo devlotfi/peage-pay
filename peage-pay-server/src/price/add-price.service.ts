@@ -85,11 +85,13 @@ export class AddPriceService {
         endTimestamp,
         startDay,
         endDay,
+        months,
       } = addPriceInput.addMonthlyPriceInput;
       await this.databaseService.monthlyPrice.create({
         data: {
           startDay,
           endDay,
+          months,
           price: {
             create: {
               value,
@@ -113,15 +115,13 @@ export class AddPriceService {
         priority,
         startTimestamp,
         endTimestamp,
-        startDay,
-        endDay,
-        months,
+        startDate,
+        endDate,
       } = addPriceInput.addYearlyPriceInput;
       await this.databaseService.yearlyPrice.create({
         data: {
-          startDay,
-          endDay,
-          months,
+          startDate,
+          endDate,
           price: {
             create: {
               value,
@@ -140,10 +140,18 @@ export class AddPriceService {
         },
       });
     } else if (addPriceInput.addCustomPriceInput) {
-      const { value, priority, startTimestamp, endTimestamp } =
-        addPriceInput.addCustomPriceInput;
+      const {
+        value,
+        priority,
+        startTimestamp,
+        endTimestamp,
+        startDate,
+        endDate,
+      } = addPriceInput.addCustomPriceInput;
       await this.databaseService.customPrice.create({
         data: {
+          startDate,
+          endDate,
           price: {
             create: {
               value,

@@ -41,7 +41,7 @@ const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
             <MenuItem
               onClick={() =>
                 navigate(
-                  `/dashboard/section/edit/${section.fromToll}/${section.toToll}`
+                  `/dashboard/section/edit/${section.fromToll.id}/${section.toToll.id}`
                 )
               }
               className="w-full mb-[0.5rem]"

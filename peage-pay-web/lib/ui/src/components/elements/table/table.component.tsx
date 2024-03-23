@@ -1,11 +1,11 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { TableHTMLAttributes } from 'react';
-import { Utils } from '@peage-pay-web/utils';
-import TableContainer from './table-container.component';
-import TableHead from './table-head.component';
-import TableBody from './table-body.component';
+import { VariantProps, cva } from "class-variance-authority";
+import { TableHTMLAttributes } from "react";
+import { Utils } from "@peage-pay-web/utils";
+import TableContainer from "./table-container.component";
+import TableHead from "./table-head.component";
+import TableBody from "./table-body.component";
 
-const tableVariants = cva('w-full border-collapse');
+const tableVariants = cva("w-full border-collapse");
 
 interface TableProps
   extends TableHTMLAttributes<HTMLTableElement>,

@@ -1,16 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  ArrayMaxSize,
-  ArrayMinSize,
-  ArrayUnique,
-  IsDate,
-  IsNumber,
-  Max,
-  Min,
-} from 'class-validator';
-import { MonthType } from 'src/price/graphql/month.gql';
+import { IsDate, Min } from 'class-validator';
 import { IsAfterFieldDate } from 'src/shared/validation/is-after-field-date';
-import { IsSuperiorToFieldValue } from 'src/shared/validation/is-superior-to-field-value';
+import { IsAfterOrEqualFieldDate } from 'src/shared/validation/is-after-or-equal-field-date';
 
 @InputType()
 export class AddYearlyPriceInput {
@@ -31,22 +22,12 @@ export class AddYearlyPriceInput {
   @IsDate()
   public endTimestamp: Date;
 
-  @Field(() => [MonthType])
-  @ArrayMinSize(1)
-  @ArrayMaxSize(7)
-  @ArrayUnique((value) => value)
-  public months: MonthType[];
+  @Field(() => Date)
+  @IsDate()
+  public startDate: Date;
 
-  @Field()
-  @IsNumber()
-  @Min(1)
-  @Max(31)
-  public startDay: number;
-
-  @Field()
-  @IsNumber()
-  @IsSuperiorToFieldValue('startDay')
-  @Min(1)
-  @Max(31)
-  public endDay: number;
+  @Field(() => Date)
+  @IsAfterOrEqualFieldDate('startDate')
+  @IsDate()
+  public endDate: Date;
 }

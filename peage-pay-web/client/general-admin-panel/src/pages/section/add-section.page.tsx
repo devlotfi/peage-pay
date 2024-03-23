@@ -14,6 +14,7 @@ import {
   Heading,
   LoaderDots,
   Select,
+  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { useFormik } from "formik";
@@ -133,25 +134,32 @@ const AddSectionPage = (): JSX.Element => {
           loading={tollLoading || tollNetworkLoading}
         >
           <AdminDashboardLayout.Error error={tollError || tollNetworkError}>
-            <div className="flex flex-col md:flex-row md:justify-between items-start">
-              <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
-                  <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-                </Heading.Icon>
-                <Heading.Text>Add toll distance</Heading.Text>
-              </Heading>
-              <Heading className="text-[15pt] mb-[2rem]">
-                <Heading.Text className="opacity-70">
-                  <div className="flex">
-                    From toll: {tollData?.tollById?.name}
-                  </div>
-                  <div className="flex">
-                    Toll network: {tollNetworkData?.tollNetworkById.name}
-                  </div>
-                  <div className="flex">Toll: {tollData?.tollById.name}</div>
-                </Heading.Text>
-              </Heading>
-            </div>
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={"left"}>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Add toll distance</Heading.Text>
+            </Heading>
+            <Table.Container className="mb-[2rem]">
+              <Table>
+                <Table.Body>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll:
+                    </Table.Body.Td>
+                    <Table.Body.Td>{tollData?.tollById?.name}</Table.Body.Td>
+                  </Table.Body.Tr>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll network:
+                    </Table.Body.Td>
+                    <Table.Body.Td>
+                      {tollNetworkData?.tollNetworkById.name}
+                    </Table.Body.Td>
+                  </Table.Body.Tr>
+                </Table.Body>
+              </Table>
+            </Table.Container>
 
             <TextInput
               variant={

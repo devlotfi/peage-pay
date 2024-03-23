@@ -1,29 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ComponentProps } from 'react';
-import { ThemeProvider } from '@peage-pay-web/tailwind-config';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAt } from '@fortawesome/free-solid-svg-icons';
-import Button from '../button/button.component';
+import type { Meta, StoryObj } from "@storybook/react";
+import { ComponentProps } from "react";
+import { ThemeProvider } from "@peage-pay-web/tailwind-config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAt } from "@fortawesome/free-solid-svg-icons";
+import Button from "../button/button.component";
+import IconButton from "./icon-button.component";
 
 interface Props {
   buttonContent: string;
   icon: JSX.Element;
-  theme: 'LIGHT' | 'DARK';
+  theme: "LIGHT" | "DARK";
 }
 
 type StorybookProps = ComponentProps<typeof Button> & Props;
 
 const meta: Meta<StorybookProps> = {
   component: Button,
-  title: 'IconButton',
+  title: "IconButton",
   argTypes: {
     theme: {
-      control: 'select',
-      options: ['LIGHT', 'DARK'],
+      control: "select",
+      options: ["LIGHT", "DARK"],
     },
     variant: {
-      control: 'select',
-      options: ['primary', 'success', 'error', 'warning'],
+      control: "select",
+      options: ["primary", "success", "error", "warning"],
     },
   },
 };
@@ -32,16 +33,16 @@ type Story = StoryObj<StorybookProps>;
 
 export const Base: Story = {
   args: {
-    buttonContent: 'test',
-    variant: 'primary',
+    buttonContent: "test",
+    variant: "primary",
     icon: <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>,
-    theme: 'LIGHT',
+    theme: "LIGHT",
   },
   render: ({ variant, icon, theme }) => {
     return (
       <div id="theme-provider" data-theme={theme}>
         <ThemeProvider>
-          <Button variant={variant}>{icon}</Button>
+          <IconButton variant={variant}>{icon}</IconButton>
         </ThemeProvider>
       </div>
     );

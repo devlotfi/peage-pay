@@ -8,7 +8,7 @@ import { faSearch, faTableList } from "@fortawesome/free-solid-svg-icons";
 import Select from "../../elements/select/select.component";
 import Button from "../../elements/button/button.component";
 
-const searchFormVariants = cva("flex flex-col xl:flex-row w-full mt-[0.5rem]");
+const searchFormVariants = cva("flex flex-col lg:flex-row w-full mt-[0.5rem]");
 
 export interface SearchValues<T> {
   search: string;
@@ -51,7 +51,7 @@ const SearchForm = <T,>({
       className={Utils.cn(searchFormVariants({ className }))}
       {...props}
     >
-      <div className="flex mb-[1rem] xl:mb-0 w-full">
+      <div className="flex mb-[1rem] lg:mb-0 w-full">
         <TextInput className="mr-[0.5rem] w-full">
           <TextInput.Main>
             <TextInput.Label>Search</TextInput.Label>
@@ -85,7 +85,7 @@ const SearchForm = <T,>({
         </Select>
       </div>
 
-      <Button type="submit" className="xl:ml-[0.5rem]" variant={"primary"}>
+      <Button type="submit" className="lg:ml-[0.5rem]" variant={"primary"}>
         <Button.Icon position={"left"}>
           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
         </Button.Icon>

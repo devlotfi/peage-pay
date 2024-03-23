@@ -1,27 +1,49 @@
 import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes } from "react";
+import { BaseHTMLAttributes, useContext } from "react";
 import { Utils } from "@peage-pay-web/utils";
-import Checkbox from "../../elements/checkbox/checkbox.component";
+import { DayOfWeekPickerContext } from "./day-of-week-picker.component";
 import { DayOfWeekType } from "../../../__generated__/graphql";
+import Checkbox from "../checkbox/checkbox.component";
 
-const dayOfWeekPickerVariants = cva(
-  "grid grid-cols-2 lg:grid-cols-4 min-h-[2.7rem] border-[1px] border-edge-100 rounded-lg relative focus-within:outline outline-[3px]"
+const dayOfWeekPickerMainVariants = cva(
+  "grid grid-cols-2 relative lg:grid-cols-4 min-h-[2.7rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]",
+  {
+    variants: {
+      variant: {
+        primary: "border-primary-100 outline-primary-transparent",
+        success: "border-success-100 outline-success-transparent",
+        error: "border-error-100 outline-error-transparent",
+        warning: "border-warning-100 outline-warning-transparent",
+        "edge-100": "border-edge-100 outline-primary-transparent",
+        "edge-200": "border-edge-200 outline-primary-transparent",
+      },
+      active: {
+        active: "outline outline-[2px] outline-offset-[2px]",
+      },
+    },
+    defaultVariants: {
+      variant: "edge-100",
+    },
+  }
 );
 
-interface DayOfWeekPickerProps
+interface DayOfWeekPickerMainProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof dayOfWeekPickerVariants> {
+    VariantProps<typeof dayOfWeekPickerMainVariants> {
   value?: DayOfWeekType[];
-  handleChange?: (selectedMonths: DayOfWeekType[]) => void;
+  handleChange?: (selectedDayOfWeek: DayOfWeekType[]) => void;
 }
 
-const DayOfWeekPicker = ({
+const DayOfWeekPickerMain = ({
+  variant,
   className,
   children,
   value,
   handleChange,
   ...props
-}: DayOfWeekPickerProps): JSX.Element => {
+}: DayOfWeekPickerMainProps): JSX.Element => {
+  const { variant: globalVariant } = useContext(DayOfWeekPickerContext);
+
   const handleDaySelected = (month: DayOfWeekType) => {
     if (handleChange && value) {
       handleChange([...value, month]);
@@ -65,14 +87,18 @@ const DayOfWeekPicker = ({
 
   return (
     <div
-      className={Utils.cn(dayOfWeekPickerVariants({ className }))}
+      className={Utils.cn(
+        dayOfWeekPickerMainVariants({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          variant: variant || (globalVariant as any),
+          className,
+        })
+      )}
       {...props}
     >
-      <div className="flex text-[11pt] absolute top-[-1rem] left-[1rem] bg-base-100 px-[0.5rem]">
-        Select days of week
-      </div>
+      {children}
       {renderDays()}
     </div>
   );
 };
-export default DayOfWeekPicker;
+export default DayOfWeekPickerMain;

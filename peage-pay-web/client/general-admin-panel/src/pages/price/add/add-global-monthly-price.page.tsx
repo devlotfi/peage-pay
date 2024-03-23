@@ -12,28 +12,36 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
+  MonthPicker,
   TextInput,
 } from "@peage-pay-web/ui";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ADD_GLOBAL_PRICE } from "../../../graphql/mutations";
 import { Utils } from "@peage-pay-web/utils";
+import { MonthType } from "../../../__generated__/graphql";
 
-interface AddGlobalDailyPriceValues {
+interface AddGlobalMonthlyPriceValues {
   value: number;
   priority: number;
   startTimestamp: string;
   endTimestamp: string;
+  startDay: number;
+  endDay: number;
+  months: MonthType[];
 }
 
-const initialValues: AddGlobalDailyPriceValues = {
+const initialValues: AddGlobalMonthlyPriceValues = {
   value: 1,
   priority: 1,
   startTimestamp: "",
   endTimestamp: "",
+  startDay: 1,
+  endDay: 10,
+  months: [],
 };
 
-const addGlobalDailyPriceValidationSchema = yup.object({
+const addGlobalMonthlyPriceValidationSchema = yup.object({
   value: yup.string().max(256).required(),
   priority: yup.string().max(10).required(),
   startTimestamp: yup.string().required(),
@@ -41,30 +49,58 @@ const addGlobalDailyPriceValidationSchema = yup.object({
     .string()
     .test((value, ctx) => Utils.isLaterTime(value, ctx.parent.startTimestamp))
     .required(),
+  startDay: yup.number().integer().min(1).max(31).required(),
+  endDay: yup
+    .number()
+    .integer()
+    .min(1)
+    .max(31)
+    .test((value, ctx) =>
+      value && value >= ctx.parent.startDay ? true : false
+    )
+    .required(),
+  months: yup
+    .array()
+    .of(yup.string().oneOf(Object.values(MonthType)))
+    .min(1)
+    .max(12)
+    .required(),
 });
 
 const AddGlobalMonthlyPricePage = (): JSX.Element => {
   const [addGlobalPrice, { loading, error, data }] =
     useMutation(ADD_GLOBAL_PRICE);
-  const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
-    useFormik({
-      initialValues,
-      validationSchema: addGlobalDailyPriceValidationSchema,
-      onSubmit(values) {
-        addGlobalPrice({
-          variables: {
-            addPriceInput: {
-              addDailyPriceInput: {
-                value: values.value,
-                priority: values.priority,
-                startTimestamp: Utils.createDateFromTime(values.startTimestamp),
-                endTimestamp: Utils.createDateFromTime(values.endTimestamp),
-              },
+  const {
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: addGlobalMonthlyPriceValidationSchema,
+    onSubmit(values) {
+      addGlobalPrice({
+        variables: {
+          addPriceInput: {
+            addMonthlyPriceInput: {
+              value: values.value,
+              priority: values.priority,
+              startTimestamp: Utils.createDateFromTimeString(
+                values.startTimestamp
+              ),
+              endTimestamp: Utils.createDateFromTimeString(values.endTimestamp),
+              startDay: values.startDay,
+              endDay: values.endDay,
+              months: values.months,
             },
           },
-        });
-      },
-    });
+        },
+      });
+    },
+  });
 
   return (
     <FormPageLayout>
@@ -73,7 +109,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           <Heading.Icon position={"left"}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Add global daily price</Heading.Text>
+          <Heading.Text>Add global monthly price</Heading.Text>
         </Heading>
 
         <TextInput
@@ -119,7 +155,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <div className="flex items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+        <div className="flex sm:items-start flex-col sm:flex-row mb-[1.3rem] sm:mb-[0.5rem]">
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
@@ -144,8 +180,11 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               </TextInput.InfoMessage>
             ) : null}
           </TextInput>
-          <div className="flex h-[2.7rem] justify-center items-center rotate-90 my-[0.5rem] sm:rotate-0 mx-[1rem] sm:my-0 text-[20pt]">
-            <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
+          <div className="flex h-[1.7rem] sm:h-[2.7rem] justify-center items-center mx-[1rem] sm:my-0 text-[20pt]">
+            <FontAwesomeIcon
+              className="rotate-90 sm:rotate-0"
+              icon={faCaretRight}
+            ></FontAwesomeIcon>
           </div>
           <TextInput
             variant={
@@ -171,12 +210,74 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           </TextInput>
         </div>
 
+        <div className="flex mt-[1rem] sm:items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+          <TextInput
+            variant={errors.startDay && touched.startDay ? "error" : "edge-100"}
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>Start day</TextInput.Label>
+              <TextInput.Field
+                name="startDay"
+                value={values.startDay}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="number"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.startDay && touched.startDay ? (
+              <TextInput.InfoMessage>{errors.startDay}</TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+          <div className="flex h-[1.7rem] sm:h-[2.7rem] justify-center items-center mx-[1rem] sm:my-0 text-[20pt]">
+            <FontAwesomeIcon
+              className="rotate-90 sm:rotate-0"
+              icon={faCaretRight}
+            ></FontAwesomeIcon>
+          </div>
+          <TextInput
+            variant={errors.endDay && touched.endDay ? "error" : "edge-100"}
+            className="w-full"
+          >
+            <TextInput.Main>
+              <TextInput.Label>End day</TextInput.Label>
+              <TextInput.Field
+                name="endDay"
+                value={values.endDay}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                type="number"
+              ></TextInput.Field>
+            </TextInput.Main>
+            {errors.endDay && touched.endDay ? (
+              <TextInput.InfoMessage>{errors.endDay}</TextInput.InfoMessage>
+            ) : null}
+          </TextInput>
+        </div>
+
+        <MonthPicker
+          className="mb-[1rem]"
+          variant={errors.months && touched.months ? "error" : "edge-100"}
+        >
+          <MonthPicker.Main
+            value={values.months}
+            handleChange={(selectedMonths) =>
+              setFieldValue("months", selectedMonths)
+            }
+          >
+            <MonthPicker.Label>Select months</MonthPicker.Label>
+          </MonthPicker.Main>
+          {errors.months && touched.months ? (
+            <MonthPicker.InfoMessage>{errors.months}</MonthPicker.InfoMessage>
+          ) : null}
+        </MonthPicker>
+
         {data ? (
           <Alert variant={"success"} className="mb-[0.5rem]">
             <Alert.Icon position={"left"}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Global daily price created</Alert.Content>
+            <Alert.Content>Global monthly price created</Alert.Content>
           </Alert>
         ) : null}
 
@@ -197,7 +298,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               <Button.Icon position={"left"}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add global daily price</Button.Content>
+              <Button.Content>Add global monthly price</Button.Content>
             </>
           )}
         </Button>

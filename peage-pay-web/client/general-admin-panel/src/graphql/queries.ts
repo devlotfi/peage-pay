@@ -305,6 +305,7 @@ export const MONTHLY_PRICE_GLOBAL_LIST = gql(`
       list {
         startDay
         endDay
+        months
         priceId
         price {
           id
@@ -325,9 +326,8 @@ export const YEARLY_PRICE_GLOBAL_LIST = gql(`
     yearlyPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {
-        startDay
-        endDay
-        months
+        startDate
+        endDate
         priceId
         price {
           id
@@ -349,6 +349,8 @@ export const CUSTOM_PRICE_GLOBAL_LIST = gql(`
       count
       list {
         priceId
+        startDate
+        endDate
         price {
           id
           value

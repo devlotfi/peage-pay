@@ -185,7 +185,6 @@ export class TollDistanceService {
     const graphTollDistancesMap = new Map<string, GraphTollDistance>();
 
     for (const [, graphToll] of graphTolls) {
-      console.log('testa');
       const savedSections = new Set<GraphSection>();
 
       traverseFromNode(
