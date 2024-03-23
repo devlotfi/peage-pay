@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "code-gen": "graphql-codegen"
-  }
-}

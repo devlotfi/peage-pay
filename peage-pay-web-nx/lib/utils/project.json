@@ -1,8 +1,0 @@
-{
-  "name": "utils",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "lib/utils/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {}
-}

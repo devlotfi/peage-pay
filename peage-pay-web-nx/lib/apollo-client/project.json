@@ -1,8 +1,0 @@
-{
-  "name": "apollo-client",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "lib/apollo-client/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {}
-}
