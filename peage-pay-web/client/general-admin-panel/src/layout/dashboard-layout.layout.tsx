@@ -106,7 +106,7 @@ const DashboardLayout = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Prices</MenuItem.Text>
+                  <MenuItem.Text>Global prices</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }

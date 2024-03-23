@@ -165,7 +165,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                   type="number"
                   min={1}
                 ></TextInput.Field>
-                <TextInput.Icon position={'right'}>dzd</TextInput.Icon>
+                <TextInput.Icon position={'right'}>dzd/km</TextInput.Icon>
               </TextInput.Main>
               {errors.price && touched.price ? (
                 <TextInput.InfoMessage>{errors.price}</TextInput.InfoMessage>

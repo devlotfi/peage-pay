@@ -69,7 +69,7 @@ const SubscriptionListItem = ({
       <Table.Body.Td>{subscription.id}</Table.Body.Td>
       <Table.Body.Td>{subscription.name}</Table.Body.Td>
       <Table.Body.Td>{subscription.days} days</Table.Body.Td>
-      <Table.Body.Td>{subscription.price} dzd</Table.Body.Td>
+      <Table.Body.Td>{subscription.price} dzd/km</Table.Body.Td>
       <Table.Body.Td>{subscription.createdAt}</Table.Body.Td>
       <Table.Body.Td>{subscription.updatedAt}</Table.Body.Td>
     </Table.Body.Tr>

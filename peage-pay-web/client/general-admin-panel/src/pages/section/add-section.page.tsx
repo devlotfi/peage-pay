@@ -77,7 +77,7 @@ const AddSectionPage = (): JSX.Element => {
         tollNetworkId: tollData?.tollById.tollNetwork.id as string,
       },
     },
-    skip: tollLoading,
+    skip: tollLoading || tollError !== undefined,
   });
   const [addSection, { loading: addLoading, error: addError, data: addData }] =
     useMutation(ADD_SECTION);

@@ -112,7 +112,7 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
               step={0.01}
               min={0}
             ></TextInput.Field>
-            <TextInput.Icon position={"right"}>dzd</TextInput.Icon>
+            <TextInput.Icon position={"right"}>dzd/km</TextInput.Icon>
           </TextInput.Main>
           {errors.value && touched.value ? (
             <TextInput.InfoMessage>{errors.value}</TextInput.InfoMessage>

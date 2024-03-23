@@ -2,8 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   faCheck,
   faExclamationCircle,
-  faPlus,
-  faRoadBarrier,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,16 +13,19 @@ import {
   Heading,
   LoaderDots,
   Select,
+  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useParams } from "react-router-dom";
-import { TOLL_BY_ID, TOLL_NETWORK_BY_ID } from "../../graphql/queries";
-import { useRef, useState } from "react";
-import { SectionStatusType, TollType } from "../../__generated__/graphql";
-import TollPicker from "../../components/toll/toll-picker.component";
-import { ADD_SECTION } from "../../graphql/mutations";
+import {
+  SECTION_BY_IDS,
+  TOLL_BY_ID,
+  TOLL_NETWORK_BY_ID,
+} from "../../graphql/queries";
+import { SectionStatusType } from "../../__generated__/graphql";
+import { EDIT_SECTION } from "../../graphql/mutations";
 import { Utils } from "@peage-pay-web/utils";
 
 interface EditSectionValues {
@@ -46,18 +48,16 @@ const editSectionValidationSchema = yup.object({
   distance: yup.number().min(0).required(),
 });
 
-const AddSectionPage = (): JSX.Element => {
-  const { tollId } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [toToll, setToToll] = useState<TollType | null>(null);
+const EditSectionPage = (): JSX.Element => {
+  const { fromTollId, toTollId } = useParams();
   const {
-    data: tollData,
-    loading: tollLoading,
-    error: tollError,
+    data: fromTollData,
+    loading: fromTollLoading,
+    error: fromTollError,
   } = useQuery(TOLL_BY_ID, {
     variables: {
       tollByIdInput: {
-        tollId: tollId as string,
+        tollId: fromTollId as string,
       },
     },
     onCompleted(data) {
@@ -67,19 +67,62 @@ const AddSectionPage = (): JSX.Element => {
     },
   });
   const {
+    data: toTollData,
+    loading: toTollLoading,
+    error: toTollError,
+  } = useQuery(TOLL_BY_ID, {
+    variables: {
+      tollByIdInput: {
+        tollId: toTollId as string,
+      },
+    },
+    onCompleted(data) {
+      if (data.tollById) {
+        setFieldValue("toTollId", data.tollById.id);
+      }
+    },
+  });
+
+  const { loading: sectionLoading, error: sectionError } = useQuery(
+    SECTION_BY_IDS,
+    {
+      variables: {
+        sectionByIdsInput: {
+          fromTollId: fromTollData?.tollById.id as string,
+          toTollId: toTollData?.tollById.id as string,
+        },
+      },
+      onCompleted(data) {
+        setFieldValue("distance", data.sectionByIds?.distance);
+        setFieldValue("status", data.sectionByIds?.status);
+      },
+      skip:
+        fromTollLoading ||
+        toTollLoading ||
+        fromTollError !== undefined ||
+        toTollError !== undefined,
+    }
+  );
+  const {
     data: tollNetworkData,
     loading: tollNetworkLoading,
     error: tollNetworkError,
   } = useQuery(TOLL_NETWORK_BY_ID, {
     variables: {
       tollNetworkByIdInput: {
-        tollNetworkId: tollData?.tollById.tollNetwork.id as string,
+        tollNetworkId: fromTollData?.tollById.tollNetwork.id as string,
       },
     },
-    skip: tollLoading,
+    skip:
+      fromTollLoading ||
+      toTollLoading ||
+      sectionLoading ||
+      fromTollError !== undefined ||
+      toTollError !== undefined ||
+      sectionError !== undefined,
   });
-  const [addSection, { loading: addLoading, error: addError, data: addData }] =
-    useMutation(ADD_SECTION);
+  const [editSection, { loading: addLoading, error: addError, data: addData }] =
+    useMutation(EDIT_SECTION);
   const {
     errors,
     touched,
@@ -92,9 +135,9 @@ const AddSectionPage = (): JSX.Element => {
     initialValues,
     validationSchema: editSectionValidationSchema,
     onSubmit(values) {
-      addSection({
+      editSection({
         variables: {
-          addSectionInput: {
+          editSectionInput: {
             fromTollId: values.fromTollId,
             toTollId: values.toTollId,
             distance: values.distance,
@@ -105,81 +148,56 @@ const AddSectionPage = (): JSX.Element => {
     },
   });
 
-  const tollPickerModalRef = useRef<HTMLDialogElement>(null);
-
-  const handleTollChange = (toll: TollType | null) => {
-    if (toll) {
-      setFieldValue("toTollId", toll.id);
-      setToToll(toll);
-    } else {
-      setFieldValue("toTollId", "");
-      setToToll(null);
-    }
-  };
-
   return (
     <FormPageLayout>
-      {tollNetworkData ? (
-        <TollPicker
-          value={toToll}
-          onChange={handleTollChange}
-          modalRef={tollPickerModalRef}
-          tollNetwork={tollNetworkData.tollNetworkById}
-        ></TollPicker>
-      ) : null}
-
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <AdminDashboardLayout.Loading
-          loading={tollLoading || tollNetworkLoading}
+          loading={
+            fromTollLoading ||
+            toTollLoading ||
+            tollNetworkLoading ||
+            sectionLoading
+          }
         >
-          <AdminDashboardLayout.Error error={tollError || tollNetworkError}>
-            <div className="flex flex-col md:flex-row md:justify-between items-start">
-              <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
-                  <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-                </Heading.Icon>
-                <Heading.Text>Add toll distance</Heading.Text>
-              </Heading>
-              <Heading className="text-[15pt] mb-[2rem]">
-                <Heading.Text className="opacity-70">
-                  <div className="flex">
-                    From toll: {tollData?.tollById?.name}
-                  </div>
-                  <div className="flex">
-                    Toll network: {tollNetworkData?.tollNetworkById.name}
-                  </div>
-                  <div className="flex">Toll: {tollData?.tollById.name}</div>
-                </Heading.Text>
-              </Heading>
-            </div>
-
-            <TextInput
-              variant={
-                errors.toTollId && touched.toTollId ? "error" : "edge-100"
-              }
-              className="w-full mb-[0.5rem]"
-            >
-              <TextInput.Main>
-                <TextInput.Label>Destination toll</TextInput.Label>
-                <div className="flex items-center ml-[1rem]">
-                  {toToll?.name} {toToll?.id}
-                </div>
-              </TextInput.Main>
-              {errors.toTollId && touched.toTollId ? (
-                <TextInput.InfoMessage>{errors.toTollId}</TextInput.InfoMessage>
-              ) : null}
-            </TextInput>
-            <Button
-              className="mb-[1.3rem]"
-              variant={"base-200"}
-              type="button"
-              onClick={() => tollPickerModalRef.current?.showModal()}
-            >
-              <Button.Icon position={"left"}>
-                <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
-              </Button.Icon>
-              <Button.Content>Set toll</Button.Content>
-            </Button>
+          <AdminDashboardLayout.Error
+            error={
+              fromTollError || toTollError || tollNetworkError || sectionError
+            }
+          >
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={"left"}>
+                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Add toll distance</Heading.Text>
+            </Heading>
+            <Table.Container className="mb-[2rem]">
+              <Table>
+                <Table.Body>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll 1:
+                    </Table.Body.Td>
+                    <Table.Body.Td>
+                      {fromTollData?.tollById?.name}
+                    </Table.Body.Td>
+                  </Table.Body.Tr>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll 2:
+                    </Table.Body.Td>
+                    <Table.Body.Td>{toTollData?.tollById?.name}</Table.Body.Td>
+                  </Table.Body.Tr>
+                  <Table.Body.Tr>
+                    <Table.Body.Td className="text-primary-100 font-bold">
+                      Toll network:
+                    </Table.Body.Td>
+                    <Table.Body.Td>
+                      {tollNetworkData?.tollNetworkById.name}
+                    </Table.Body.Td>
+                  </Table.Body.Tr>
+                </Table.Body>
+              </Table>
+            </Table.Container>
 
             <TextInput
               variant={
@@ -241,6 +259,7 @@ const AddSectionPage = (): JSX.Element => {
               </Alert>
             ) : null}
 
+            {JSON.stringify(values)}
             <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
               {addLoading ? (
                 <LoaderDots
@@ -249,9 +268,9 @@ const AddSectionPage = (): JSX.Element => {
               ) : (
                 <>
                   <Button.Icon position={"left"}>
-                    <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Add toll distance</Button.Content>
+                  <Button.Content>Update toll distance</Button.Content>
                 </>
               )}
             </Button>
@@ -262,4 +281,4 @@ const AddSectionPage = (): JSX.Element => {
   );
 };
 
-export default AddSectionPage;
+export default EditSectionPage;

@@ -19,6 +19,7 @@ import { DeleteSectionInput } from './input/delete-section.input.gql';
 import { SectionListForTollNetworkInput } from './input/section-list-for-toll-network.input.gql';
 import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
+import { SectionByIdsInput } from './input/section-by-ids.input.gql';
 
 @Resolver(() => SectionType)
 export class SectionResolver {
@@ -44,6 +45,15 @@ export class SectionResolver {
     return (await this.sectionService.sectionListForTollNetwork(
       sectionListForTollNetworkInput,
     )) as any;
+  }
+
+  @Query(() => SectionType, { nullable: true })
+  @UseGuards(AuthGuard)
+  public async sectionByIds(
+    @Args('sectionByIdsInput')
+    sectionByIdsInput: SectionByIdsInput,
+  ): Promise<SectionType | null> {
+    return (await this.sectionService.sectionByIds(sectionByIdsInput)) as any;
   }
 
   @Mutation(() => SectionType)

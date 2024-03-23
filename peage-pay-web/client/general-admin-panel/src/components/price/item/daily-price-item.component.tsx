@@ -58,12 +58,16 @@ const DailyPriceListItem = ({
       <Table.Body.Td>{dailyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{dailyPrice.price.priority}</Table.Body.Td>
       <Table.Body.Td>
-        {new Date(dailyPrice.price.startTimestamp).getHours()}:
-        {new Date(dailyPrice.price.startTimestamp).getMinutes()}
+        {(() => {
+          const date = new Date(dailyPrice.price.startTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
       </Table.Body.Td>
       <Table.Body.Td>
-        {new Date(dailyPrice.price.endTimestamp).getHours()}:
-        {new Date(dailyPrice.price.endTimestamp).getMinutes()}
+        {(() => {
+          const date = new Date(dailyPrice.price.endTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
       </Table.Body.Td>
     </Table.Body.Tr>
   );

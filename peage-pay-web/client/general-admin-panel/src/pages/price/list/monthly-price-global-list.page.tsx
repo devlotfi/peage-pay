@@ -53,7 +53,7 @@ const MonthlyPriceGlobalListPage = (): JSX.Element => {
                     <Table.Head.Th>Start day</Table.Head.Th>
                     <Table.Head.Th>End day</Table.Head.Th>
                     <Table.Head.Th>Months</Table.Head.Th>
-                    <Table.Head.Th>Price</Table.Head.Th>
+                    <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
                     <Table.Head.Th>Priority</Table.Head.Th>
                     <Table.Head.Th>Start time</Table.Head.Th>
                     <Table.Head.Th>End time</Table.Head.Th>

@@ -241,6 +241,23 @@ export const SECTION_LIST_FOR_TOLL = gql(`
   }
 `);
 
+export const SECTION_BY_IDS = gql(`
+  query SECTION_BY_IDS($sectionByIdsInput: SectionByIdsInput!) {
+    sectionByIds(sectionByIdsInput: $sectionByIdsInput) {
+      distance
+      status
+      fromToll {
+        id
+        name
+      }
+      toToll {
+        id
+        name
+      }
+    }
+  }
+`);
+
 export const BASE_USER_LIST = gql(`
   query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {
     baseUserList(baseUserListInput: $baseUserListInput) {

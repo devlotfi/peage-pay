@@ -50,7 +50,7 @@ const DailyPriceGlobalListPage = (): JSX.Element => {
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
                     <Table.Head.Th>Id</Table.Head.Th>
-                    <Table.Head.Th>Price</Table.Head.Th>
+                    <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
                     <Table.Head.Th>Priority</Table.Head.Th>
                     <Table.Head.Th>Start time</Table.Head.Th>
                     <Table.Head.Th>End time</Table.Head.Th>

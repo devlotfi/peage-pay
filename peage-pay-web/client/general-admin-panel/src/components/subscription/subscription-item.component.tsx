@@ -1,15 +1,15 @@
-import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from '@peage-pay-web/ui';
-import { useRef } from 'react';
-import { SubscriptionType } from '../../__generated__/graphql';
-import { useNavigate } from 'react-router-dom';
-import DeleteSubscriptionModal from './delete-subscription-modal.component';
+} from "@peage-pay-web/ui";
+import { useRef } from "react";
+import { SubscriptionType } from "../../__generated__/graphql";
+import { useNavigate } from "react-router-dom";
+import DeleteSubscriptionModal from "./delete-subscription-modal.component";
 
 interface SubscriptionListItemProps {
   subscription: SubscriptionType;
@@ -22,7 +22,7 @@ const SubscriptionListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -33,7 +33,7 @@ const SubscriptionListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={'bottom-left'}>
+          <Dropdown.Content position={"bottom-left"}>
             <DeleteSubscriptionModal
               modalRef={deleteModalRef}
               subscription={subscription}
@@ -43,7 +43,7 @@ const SubscriptionListItem = ({
                 navigate(`/dashboard/subscription/edit/${subscription.id}`)
               }
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
@@ -53,7 +53,7 @@ const SubscriptionListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon
@@ -69,7 +69,7 @@ const SubscriptionListItem = ({
       <Table.Body.Td>{subscription.id}</Table.Body.Td>
       <Table.Body.Td>{subscription.name}</Table.Body.Td>
       <Table.Body.Td>{subscription.days} days</Table.Body.Td>
-      <Table.Body.Td>{subscription.price} dzd</Table.Body.Td>
+      <Table.Body.Td>{subscription.price} dzd/km</Table.Body.Td>
       <Table.Body.Td>{subscription.createdAt}</Table.Body.Td>
       <Table.Body.Td>{subscription.updatedAt}</Table.Body.Td>
     </Table.Body.Tr>

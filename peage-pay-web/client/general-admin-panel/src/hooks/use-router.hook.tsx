@@ -21,6 +21,7 @@ import MonthlyPriceGlobalListPage from "../pages/price/list/monthly-price-global
 import YearlyPriceGlobalListPage from "../pages/price/list/yearly-price-global-list.page";
 import CustomPriceGlobalListPage from "../pages/price/list/custom-price-global-list.page";
 import AddGlobalDailyPricePage from "../pages/price/add/add-global-daily-price.page";
+import EditSectionPage from "../pages/section/edit-section.page";
 
 const DashboardLayout = lazy(() => import("../layout/dashboard-layout.layout"));
 const AddPriceLayout = lazy(() => import("../layout/add-price.layout"));
@@ -110,8 +111,8 @@ const useRouter = () => {
           element: <AddSectionPage></AddSectionPage>,
         },
         {
-          path: "/dashboard/section/edit/:tollId",
-          element: <AddSectionPage></AddSectionPage>,
+          path: "/dashboard/section/edit/:fromTollId/:toTollId",
+          element: <EditSectionPage></EditSectionPage>,
         },
 
         {

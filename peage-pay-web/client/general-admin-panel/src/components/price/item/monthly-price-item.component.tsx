@@ -72,8 +72,18 @@ const MonthlyPriceListItem = ({
       </Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.price.priority}</Table.Body.Td>
-      <Table.Body.Td>{monthlyPrice.price.startTimestamp}</Table.Body.Td>
-      <Table.Body.Td>{monthlyPrice.price.endTimestamp}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(monthlyPrice.price.startTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(monthlyPrice.price.endTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

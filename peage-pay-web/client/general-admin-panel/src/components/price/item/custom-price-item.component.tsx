@@ -55,12 +55,32 @@ const CustomPriceListItem = ({
         </Dropdown>
       </Table.Body.Td>
       <Table.Body.Td>{customPrice.price.id}</Table.Body.Td>
-      <Table.Body.Td>{customPrice.startDate}</Table.Body.Td>
-      <Table.Body.Td>{customPrice.endDate}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(customPrice.startDate);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(customPrice.endDate);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+        })()}
+      </Table.Body.Td>
       <Table.Body.Td>{customPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{customPrice.price.priority}</Table.Body.Td>
-      <Table.Body.Td>{customPrice.price.startTimestamp}</Table.Body.Td>
-      <Table.Body.Td>{customPrice.price.endTimestamp}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(customPrice.price.startTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(customPrice.price.endTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

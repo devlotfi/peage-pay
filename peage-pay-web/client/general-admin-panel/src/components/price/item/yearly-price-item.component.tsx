@@ -55,12 +55,32 @@ const YearlyPriceListItem = ({
         </Dropdown>
       </Table.Body.Td>
       <Table.Body.Td>{yearlyPrice.price.id}</Table.Body.Td>
-      <Table.Body.Td>{yearlyPrice.startDate}</Table.Body.Td>
-      <Table.Body.Td>{yearlyPrice.endDate}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(yearlyPrice.startDate);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(yearlyPrice.endDate);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+        })()}
+      </Table.Body.Td>
       <Table.Body.Td>{yearlyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{yearlyPrice.price.priority}</Table.Body.Td>
-      <Table.Body.Td>{yearlyPrice.price.startTimestamp}</Table.Body.Td>
-      <Table.Body.Td>{yearlyPrice.price.endTimestamp}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(yearlyPrice.price.startTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(yearlyPrice.price.endTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

@@ -52,7 +52,7 @@ const CustomPriceGlobalListPage = (): JSX.Element => {
                     <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Start date</Table.Head.Th>
                     <Table.Head.Th>End date</Table.Head.Th>
-                    <Table.Head.Th>Price</Table.Head.Th>
+                    <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
                     <Table.Head.Th>Priority</Table.Head.Th>
                     <Table.Head.Th>Start time</Table.Head.Th>
                     <Table.Head.Th>End time</Table.Head.Th>

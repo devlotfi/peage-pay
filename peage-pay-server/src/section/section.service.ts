@@ -9,6 +9,7 @@ import { SectionErrors } from './graphql/section-errors.gql';
 import { SectionListForTollNetworkInput } from './input/section-list-for-toll-network.input.gql';
 import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
+import { SectionByIdsInput } from './input/section-by-ids.input.gql';
 
 @Injectable()
 export class SectionService {
@@ -78,6 +79,19 @@ export class SectionService {
             },
           },
         ],
+      },
+    });
+  }
+
+  public async sectionByIds(
+    sectionByIdsInput: SectionByIdsInput,
+  ): Promise<Section | null> {
+    return await this.databaseService.section.findUnique({
+      where: {
+        fromTollId_toTollId: {
+          fromTollId: sectionByIdsInput.fromTollId,
+          toTollId: sectionByIdsInput.toTollId,
+        },
       },
     });
   }

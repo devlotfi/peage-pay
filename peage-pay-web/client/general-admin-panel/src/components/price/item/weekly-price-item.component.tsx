@@ -72,8 +72,18 @@ const WeeklyPriceListItem = ({
       </Table.Body.Td>
       <Table.Body.Td>{weeklyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{weeklyPrice.price.priority}</Table.Body.Td>
-      <Table.Body.Td>{weeklyPrice.price.startTimestamp}</Table.Body.Td>
-      <Table.Body.Td>{weeklyPrice.price.endTimestamp}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(weeklyPrice.price.startTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(weeklyPrice.price.endTimestamp);
+          return `${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };
