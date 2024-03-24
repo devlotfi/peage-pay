@@ -7548,6 +7548,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"human-ressources-admin-panel@workspace:client/human-ressources-admin-panel":
+  version: 0.0.0-use.local
+  resolution: "human-ressources-admin-panel@workspace:client/human-ressources-admin-panel"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
+  languageName: unknown
+  linkType: soft
+
 "human-signals@npm:^2.1.0":
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"

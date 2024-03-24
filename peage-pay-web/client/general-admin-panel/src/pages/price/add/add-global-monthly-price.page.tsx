@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import {
-  faCaretRight,
   faCheck,
   faExclamationCircle,
   faPlus,
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Alert,
   Button,
+  DirectionalInputs,
   FormPageLayout,
   Heading,
   LoaderDots,
@@ -105,12 +105,14 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <Heading className="text-[20pt] mb-[1rem]">
-          <Heading.Icon position={"left"}>
-            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-          </Heading.Icon>
-          <Heading.Text>Add global monthly price</Heading.Text>
-        </Heading>
+        <FormPageLayout.Title>
+          <Heading className="text-[20pt]">
+            <Heading.Icon position={"left"}>
+              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+            </Heading.Icon>
+            <Heading.Text>Add global monthly price</Heading.Text>
+          </Heading>
+        </FormPageLayout.Title>
 
         <TextInput
           variant={errors.value && touched.value ? "error" : "edge-100"}
@@ -155,7 +157,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <div className="flex sm:items-start flex-col sm:flex-row mb-[1.3rem] sm:mb-[0.5rem]">
+        <DirectionalInputs>
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
@@ -180,12 +182,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               </TextInput.InfoMessage>
             ) : null}
           </TextInput>
-          <div className="flex h-[1.7rem] sm:h-[2.7rem] justify-center items-center mx-[1rem] sm:my-0 text-[20pt]">
-            <FontAwesomeIcon
-              className="rotate-90 sm:rotate-0"
-              icon={faCaretRight}
-            ></FontAwesomeIcon>
-          </div>
+          <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={
               errors.endTimestamp && touched.endTimestamp ? "error" : "edge-100"
@@ -208,9 +205,9 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               </TextInput.InfoMessage>
             ) : null}
           </TextInput>
-        </div>
+        </DirectionalInputs>
 
-        <div className="flex mt-[1rem] sm:items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+        <DirectionalInputs>
           <TextInput
             variant={errors.startDay && touched.startDay ? "error" : "edge-100"}
             className="w-full"
@@ -229,12 +226,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               <TextInput.InfoMessage>{errors.startDay}</TextInput.InfoMessage>
             ) : null}
           </TextInput>
-          <div className="flex h-[1.7rem] sm:h-[2.7rem] justify-center items-center mx-[1rem] sm:my-0 text-[20pt]">
-            <FontAwesomeIcon
-              className="rotate-90 sm:rotate-0"
-              icon={faCaretRight}
-            ></FontAwesomeIcon>
-          </div>
+          <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={errors.endDay && touched.endDay ? "error" : "edge-100"}
             className="w-full"
@@ -253,7 +245,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
               <TextInput.InfoMessage>{errors.endDay}</TextInput.InfoMessage>
             ) : null}
           </TextInput>
-        </div>
+        </DirectionalInputs>
 
         <MonthPicker
           className="mb-[1rem]"

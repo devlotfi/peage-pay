@@ -1,5 +1,5 @@
-import { useQuery } from '@apollo/client';
-import { SUBSCRIPTION_LIST } from '../../graphql/queries';
+import { useQuery } from "@apollo/client";
+import { SUBSCRIPTION_LIST } from "../../graphql/queries";
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,16 +8,16 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from '@peage-pay-web/ui';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
-import { SubscriptionSearchFields } from '../../__generated__/graphql';
-import SubscriptionListItem from '../../components/subscription/subscription-item.component';
-import { Utils } from '@peage-pay-web/utils';
+} from "@peage-pay-web/ui";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { SubscriptionSearchFields } from "../../__generated__/graphql";
+import SubscriptionListItem from "../../components/subscription/subscription-item.component";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<SubscriptionSearchFields> = {
-  search: '',
+  search: "",
   field: SubscriptionSearchFields.NameSearch,
 };
 
@@ -33,23 +33,24 @@ const SubscriptionListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   return (
     <ListPageLayout>
       <SearchForm
-        className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={SubscriptionSearchFields.NameSearch}
         fieldSelectOptions={Utils.renderFieldOptions(SubscriptionSearchFields)}
       ></SearchForm>
 
-      <Heading className="text-[20pt] mb-[1rem]">
-        <Heading.Icon position={'left'}>
-          <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-        </Heading.Icon>
-        <Heading.Text>Subscription list</Heading.Text>
-      </Heading>
+      <ListPageLayout.Title>
+        <Heading className="text-[20pt]">
+          <Heading.Icon position={"left"}>
+            <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Subscription list</Heading.Text>
+        </Heading>
+      </ListPageLayout.Title>
 
       <AdminDashboardLayout.Loading loading={loading}>
         <AdminDashboardLayout.Error error={error}>
@@ -79,17 +80,15 @@ const SubscriptionListPage = (): JSX.Element => {
             </Table.Container>
           </ListPageLayout.Empty>
         </AdminDashboardLayout.Error>
-        <div className="flex justify-center mt-[0.5rem]">
-          <div className="overflow-x-auto">
-            {data ? (
-              <Pagination
-                value={page}
-                maxPages={Math.ceil(data.subscriptionList.count / 10)}
-                handlePageChange={(page) => setPage(page)}
-              ></Pagination>
-            ) : null}
-          </div>
-        </div>
+        <ListPageLayout.Footer>
+          {data ? (
+            <Pagination
+              value={page}
+              maxPages={Math.ceil(data.subscriptionList.count / 10)}
+              handlePageChange={(page) => setPage(page)}
+            ></Pagination>
+          ) : null}
+        </ListPageLayout.Footer>
       </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );

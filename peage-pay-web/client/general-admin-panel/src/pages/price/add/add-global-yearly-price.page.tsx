@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import {
-  faCaretRight,
   faCheck,
   faExclamationCircle,
   faPlus,
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Alert,
   Button,
+  DirectionalInputs,
   FormPageLayout,
   Heading,
   LoaderDots,
@@ -84,12 +84,14 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <Heading className="text-[20pt] mb-[1rem]">
-          <Heading.Icon position={"left"}>
-            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-          </Heading.Icon>
-          <Heading.Text>Add global yearly price</Heading.Text>
-        </Heading>
+        <FormPageLayout.Title>
+          <Heading className="text-[20pt]">
+            <Heading.Icon position={"left"}>
+              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+            </Heading.Icon>
+            <Heading.Text>Add global yearly price</Heading.Text>
+          </Heading>
+        </FormPageLayout.Title>
 
         <TextInput
           variant={errors.value && touched.value ? "error" : "edge-100"}
@@ -134,7 +136,7 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <div className="flex items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+        <DirectionalInputs>
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
@@ -159,9 +161,7 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
               </TextInput.InfoMessage>
             ) : null}
           </TextInput>
-          <div className="flex h-[2.7rem] justify-center items-center rotate-90 my-[0.5rem] sm:rotate-0 mx-[1rem] sm:my-0 text-[20pt]">
-            <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
-          </div>
+          <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={
               errors.endTimestamp && touched.endTimestamp ? "error" : "edge-100"
@@ -184,9 +184,9 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
               </TextInput.InfoMessage>
             ) : null}
           </TextInput>
-        </div>
+        </DirectionalInputs>
 
-        <div className="flex items-start flex-col sm:flex-row sm:mb-[1.3rem]">
+        <DirectionalInputs>
           <TextInput
             variant={
               errors.startDate && touched.startDate ? "error" : "edge-100"
@@ -207,9 +207,7 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
               <TextInput.InfoMessage>{errors.startDate}</TextInput.InfoMessage>
             ) : null}
           </TextInput>
-          <div className="flex h-[2.7rem] justify-center items-center rotate-90 my-[0.5rem] sm:rotate-0 mx-[1rem] sm:my-0 text-[20pt]">
-            <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
-          </div>
+          <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={errors.endDate && touched.endDate ? "error" : "edge-100"}
             className="w-full"
@@ -228,7 +226,7 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
               <TextInput.InfoMessage>{errors.endDate}</TextInput.InfoMessage>
             ) : null}
           </TextInput>
-        </div>
+        </DirectionalInputs>
 
         {data ? (
           <Alert variant={"success"} className="mb-[0.5rem]">

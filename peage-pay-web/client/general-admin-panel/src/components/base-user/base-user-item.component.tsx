@@ -2,18 +2,18 @@ import {
   faEllipsisH,
   faUserMinus,
   faUserPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from '@peage-pay-web/ui';
-import { BaseUserRolesType, BaseUserType } from '../../__generated__/graphql';
-import AddHumanRessourcesAdminRoleModal from './add-human-ressources-admin-role-modal.component';
-import { useRef } from 'react';
-import RemoveHumanRessourcesAdminRoleModal from './remove-human-ressources-admin-role-modal.component';
+} from "@peage-pay-web/ui";
+import { BaseUserRolesType, BaseUserType } from "../../__generated__/graphql";
+import AddHumanRessourcesAdminRoleModal from "./add-human-ressources-admin-role-modal.component";
+import { useRef } from "react";
+import RemoveHumanRessourcesAdminRoleModal from "./remove-human-ressources-admin-role-modal.component";
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
@@ -25,7 +25,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
     useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -36,7 +36,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={'bottom-left'}>
+          <Dropdown.Content position={"bottom-left"}>
             <AddHumanRessourcesAdminRoleModal
               modalRef={addHumanRessourcesAdminRoleModalRef}
               baseUser={baseUser}
@@ -46,14 +46,14 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               baseUser={baseUser}
             ></RemoveHumanRessourcesAdminRoleModal>
             {!baseUser.roles.includes(
-              BaseUserRolesType.HumanRessourcesAdmin,
+              BaseUserRolesType.HumanRessourcesAdmin
             ) ? (
               <MenuItem
                 onClick={() =>
                   addHumanRessourcesAdminRoleModalRef.current?.showModal()
                 }
                 className="w-full"
-                variant={'base-100'}
+                variant={"base-100"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -67,7 +67,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                   removeHumanRessourcesAdminRoleModalRef.current?.showModal()
                 }
                 className="w-full"
-                variant={'base-100'}
+                variant={"base-100"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

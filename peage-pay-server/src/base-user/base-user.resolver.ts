@@ -17,10 +17,14 @@ import { AddHumanRessourcesAdminRoleInput } from './input/add-human-ressources-a
 import { RemoveHumanRessourcesAdminRoleInput } from './input/remove-human-ressources-admin-role.input.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
+import { HumanRessourceAdminService } from './human-ressources-admin.service';
 
 @Resolver(() => BaseUserType)
 export class BaseUserResolver {
-  public constructor(private readonly baseUserService: BaseUserService) {}
+  public constructor(
+    private readonly baseUserService: BaseUserService,
+    private readonly humanRessourcesAdminService: HumanRessourceAdminService,
+  ) {}
 
   @Query(() => BaseUserListResult)
   @AllowRoles([
@@ -55,7 +59,7 @@ export class BaseUserResolver {
     @Args('addHumanRessoucesAdminRoleInput')
     addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput,
   ): Promise<boolean> {
-    return (await this.baseUserService.addHumanRessoucesAdminRole(
+    return (await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
       addHumanRessoucesAdminRoleInput,
     )) as any;
   }
@@ -66,7 +70,7 @@ export class BaseUserResolver {
     @Args('removeHumanRessoucesAdminRoleInput')
     removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput,
   ): Promise<boolean> {
-    return (await this.baseUserService.removeHumanRessoucesAdminRole(
+    return (await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
       removeHumanRessoucesAdminRoleInput,
     )) as any;
   }

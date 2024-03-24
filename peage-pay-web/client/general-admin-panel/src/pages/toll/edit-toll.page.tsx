@@ -245,12 +245,14 @@ const EditTollPage = (): JSX.Element => {
           <AdminDashboardLayout.Error
             error={tollError || wilayaError || highwayError || tollNetworkError}
           >
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit toll</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit toll</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

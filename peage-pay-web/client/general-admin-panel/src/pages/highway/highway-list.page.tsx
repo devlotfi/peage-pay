@@ -1,5 +1,5 @@
-import { useQuery } from '@apollo/client';
-import { HIGHWAY_LIST } from '../../graphql/queries';
+import { useQuery } from "@apollo/client";
+import { HIGHWAY_LIST } from "../../graphql/queries";
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,16 +8,16 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from '@peage-pay-web/ui';
-import { useState } from 'react';
-import { HighwaySearchFields } from '../../__generated__/graphql';
-import HighwayListItem from '../../components/highway/highway-list-item.component';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
-import { Utils } from '@peage-pay-web/utils';
+} from "@peage-pay-web/ui";
+import { useState } from "react";
+import { HighwaySearchFields } from "../../__generated__/graphql";
+import HighwayListItem from "../../components/highway/highway-list-item.component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<HighwaySearchFields> = {
-  search: '',
+  search: "",
   field: HighwaySearchFields.NameSearch,
 };
 
@@ -33,23 +33,24 @@ const HighwayListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   return (
     <ListPageLayout>
       <SearchForm
-        className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={HighwaySearchFields.NameSearch}
         fieldSelectOptions={Utils.renderFieldOptions(HighwaySearchFields)}
       ></SearchForm>
 
-      <Heading className="text-[20pt] mb-[1rem]">
-        <Heading.Icon position={'left'}>
-          <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-        </Heading.Icon>
-        <Heading.Text>Highway list</Heading.Text>
-      </Heading>
+      <ListPageLayout.Title>
+        <Heading className="text-[20pt]">
+          <Heading.Icon position={"left"}>
+            <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Highway list</Heading.Text>
+        </Heading>
+      </ListPageLayout.Title>
 
       <AdminDashboardLayout.Loading loading={loading}>
         <AdminDashboardLayout.Error error={error}>
@@ -78,17 +79,16 @@ const HighwayListPage = (): JSX.Element => {
             </Table.Container>
           </ListPageLayout.Empty>
         </AdminDashboardLayout.Error>
-        <div className="flex justify-center mt-[0.5rem]">
-          <div className="overflow-x-auto">
-            {data ? (
-              <Pagination
-                value={page}
-                maxPages={Math.ceil(data.highwayList.count / 10)}
-                handlePageChange={(page) => setPage(page)}
-              ></Pagination>
-            ) : null}
-          </div>
-        </div>
+
+        <ListPageLayout.Footer>
+          {data ? (
+            <Pagination
+              value={page}
+              maxPages={Math.ceil(data.highwayList.count / 10)}
+              handlePageChange={(page) => setPage(page)}
+            ></Pagination>
+          ) : null}
+        </ListPageLayout.Footer>
       </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );

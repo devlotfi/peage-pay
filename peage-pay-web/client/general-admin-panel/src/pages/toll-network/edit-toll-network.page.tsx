@@ -89,12 +89,14 @@ const EditTollNetworkPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
           <AdminDashboardLayout.Error error={tollNetworkError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit toll network</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit toll network</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

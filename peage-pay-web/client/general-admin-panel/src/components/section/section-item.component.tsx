@@ -70,7 +70,8 @@ const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
       </Table.Body.Td>
       <Table.Body.Td>{section.fromToll.name}</Table.Body.Td>
       <Table.Body.Td>{section.toToll.name}</Table.Body.Td>
-      <Table.Body.Td>{section.distance} km</Table.Body.Td>
+      <Table.Body.Td>{section.distance}</Table.Body.Td>
+      <Table.Body.Td>{section.status}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

@@ -1,9 +1,10 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext, useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
-import MenuDropdownMain from './menu-dropdown-main.component';
+import { VariantProps, cva } from "class-variance-authority";
+import { BaseHTMLAttributes, createContext, useState } from "react";
+import { Utils } from "@peage-pay-web/utils";
+import MenuDropdownMain from "./menu-dropdown-main.component";
+import "./menu-dropdown.css";
 
-const menuDropdownVariants = cva('flex flex-col');
+const menuDropdownVariants = cva("flex flex-col");
 
 interface MenuDropdownProps
   extends BaseHTMLAttributes<HTMLDivElement>,
@@ -19,7 +20,7 @@ interface MenuDropdownContext {
 }
 
 const initialValue: MenuDropdownContext = {
-  variant: 'base-100',
+  variant: "base-100",
   open: false,
   setOpen: () => {
     return;
@@ -36,13 +37,13 @@ const MenuDropdown = ({
   ...props
 }: MenuDropdownProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(
-    opened !== undefined ? opened : false,
+    opened !== undefined ? opened : false
   );
 
   return (
     <MenuDropdownContext.Provider
       value={{
-        variant: 'base-100',
+        variant: "base-100",
         open,
         setOpen,
       }}
@@ -50,7 +51,7 @@ const MenuDropdown = ({
       <div className={Utils.cn(menuDropdownVariants({ className }))} {...props}>
         {mainElement}
         {open ? (
-          <div className="flex w-full">
+          <div className="menu-dropdown flex w-full">
             <div className="flex min-w-[1px] my-[0.5rem] mx-[0.5rem] bg-edge-100"></div>
             <div className="flex flex-col w-full">{children}</div>
           </div>

@@ -1,5 +1,5 @@
-import { useQuery } from '@apollo/client';
-import { TOLL_NETWORK_LIST } from '../../graphql/queries';
+import { useQuery } from "@apollo/client";
+import { TOLL_NETWORK_LIST } from "../../graphql/queries";
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,16 +8,16 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from '@peage-pay-web/ui';
-import { useState } from 'react';
-import { TollNetworkSearchFields } from '../../__generated__/graphql';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
-import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
-import { Utils } from '@peage-pay-web/utils';
+} from "@peage-pay-web/ui";
+import { useState } from "react";
+import { TollNetworkSearchFields } from "../../__generated__/graphql";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import TollNetworkItem from "../../components/toll-network/toll-network-item.component";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<TollNetworkSearchFields> = {
-  search: '',
+  search: "",
   field: TollNetworkSearchFields.NameSearch,
 };
 
@@ -33,23 +33,24 @@ const TollNetworkListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   return (
     <ListPageLayout>
       <SearchForm
-        className="mb-[1rem]"
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={TollNetworkSearchFields.NameSearch}
         fieldSelectOptions={Utils.renderFieldOptions(TollNetworkSearchFields)}
       ></SearchForm>
 
-      <Heading className="text-[20pt] mb-[1rem]">
-        <Heading.Icon position={'left'}>
-          <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-        </Heading.Icon>
-        <Heading.Text>Toll network list</Heading.Text>
-      </Heading>
+      <ListPageLayout.Title>
+        <Heading className="text-[20pt]">
+          <Heading.Icon position={"left"}>
+            <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Toll network list</Heading.Text>
+        </Heading>
+      </ListPageLayout.Title>
 
       <AdminDashboardLayout.Loading loading={loading}>
         <AdminDashboardLayout.Error error={error}>
@@ -77,17 +78,15 @@ const TollNetworkListPage = (): JSX.Element => {
             </Table.Container>
           </ListPageLayout.Empty>
         </AdminDashboardLayout.Error>
-        <div className="flex justify-center mt-[0.5rem]">
-          <div className="overflow-x-auto">
-            {data ? (
-              <Pagination
-                value={page}
-                maxPages={Math.ceil(data.tollNetworkList.count / 10)}
-                handlePageChange={(page) => setPage(page)}
-              ></Pagination>
-            ) : null}
-          </div>
-        </div>
+        <ListPageLayout.Footer>
+          {data ? (
+            <Pagination
+              value={page}
+              maxPages={Math.ceil(data.tollNetworkList.count / 10)}
+              handlePageChange={(page) => setPage(page)}
+            ></Pagination>
+          ) : null}
+        </ListPageLayout.Footer>
       </AdminDashboardLayout.Loading>
     </ListPageLayout>
   );

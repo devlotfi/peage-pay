@@ -105,11 +105,14 @@ const EditSubscriptionPage = (): JSX.Element => {
               </Heading.Icon>
               <Heading.Text>Edit subscription</Heading.Text>
             </Heading>
-            <Heading className="text-[15pt] mb-[2rem]">
-              <Heading.Text className="opacity-70">
-                Subscription: {subscriptionData?.subscriptionById?.name}
-              </Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit subscription</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

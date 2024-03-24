@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   Modal,
   Heading,
@@ -10,20 +10,20 @@ import {
   SearchValues,
   Pagination,
   AdminDashboardLayout,
-} from '@peage-pay-web/ui';
+} from "@peage-pay-web/ui";
 import {
   TollNetworkType,
   TollSearchFields,
   TollType,
-} from '../../__generated__/graphql';
-import { useQuery } from '@apollo/client';
-import { TOLL_LIST } from '../../graphql/queries';
-import TollPickerItem from './toll-picker-item.component';
-import { RefObject, useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
+} from "../../__generated__/graphql";
+import { useQuery } from "@apollo/client";
+import { TOLL_LIST } from "../../graphql/queries";
+import TollPickerItem from "./toll-picker-item.component";
+import { RefObject, useState } from "react";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<TollSearchFields> = {
-  search: '',
+  search: "",
   field: TollSearchFields.NameSearch,
 };
 
@@ -52,7 +52,7 @@ const TollPicker = ({
         tollNetworkId: tollNetwork.id,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   const handleTollSelected = (toll: TollType) => {
     if (onChange) {
@@ -73,9 +73,9 @@ const TollPicker = ({
             <div className="flex">Pick a toll</div>
             <Button
               onClick={() => modalRef.current?.close()}
-              variant={'base-200'}
+              variant={"base-200"}
             >
-              <Button.Icon position={'left'}>
+              <Button.Icon position={"left"}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Close</Button.Content>
@@ -85,18 +85,19 @@ const TollPicker = ({
         <Modal.Content>
           <ListPageLayout>
             <SearchForm
-              className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={TollSearchFields.NameSearch}
               fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
             ></SearchForm>
 
-            <Heading className="text-[20pt] mb-[1rem]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Toll list</Heading.Text>
-            </Heading>
+            <ListPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Toll list</Heading.Text>
+              </Heading>
+            </ListPageLayout.Title>
 
             <AdminDashboardLayout.Loading loading={loading}>
               <AdminDashboardLayout.Error error={error}>
@@ -131,17 +132,15 @@ const TollPicker = ({
                   </Table.Container>
                 </ListPageLayout.Empty>
               </AdminDashboardLayout.Error>
-              <div className="flex justify-center mt-[0.5rem]">
-                <div className="overflow-x-auto">
-                  {data ? (
-                    <Pagination
-                      value={page}
-                      maxPages={Math.ceil(data.tollList.count / 10)}
-                      handlePageChange={(page) => setPage(page)}
-                    ></Pagination>
-                  ) : null}
-                </div>
-              </div>
+              <ListPageLayout.Footer>
+                {data ? (
+                  <Pagination
+                    value={page}
+                    maxPages={Math.ceil(data.tollList.count / 10)}
+                    handlePageChange={(page) => setPage(page)}
+                  ></Pagination>
+                ) : null}
+              </ListPageLayout.Footer>
             </AdminDashboardLayout.Loading>
           </ListPageLayout>
         </Modal.Content>

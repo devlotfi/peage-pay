@@ -1,26 +1,27 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes } from 'react';
-import { Utils } from '@peage-pay-web/utils';
+import { VariantProps, cva } from "class-variance-authority";
+import { BaseHTMLAttributes } from "react";
+import { Utils } from "@peage-pay-web/utils";
+import "./dropdown-content.css";
 
 const dropdownContentVariants = cva(
-  'flex flex-col z-10 bg-base-100 absolute p-[0.3rem] min-w-[15rem] rounded-xl shadow-xl border-[1px] border-edge-200 overflow-y-auto',
+  "dropdown-content flex flex-col z-10 bg-base-100 absolute p-[0.3rem] min-w-[15rem] rounded-xl shadow-xl border-[1px] border-edge-200 overflow-y-auto",
   {
     variants: {
       position: {
-        'bottom-left': 'top-[calc(100%+0.5rem)] left-0',
-        'bottom-right': 'top-[calc(100%+0.5rem)] right-0',
+        "bottom-left": "top-[calc(100%+0.5rem)] left-0",
+        "bottom-right": "top-[calc(100%+0.5rem)] right-0",
 
-        'top-left': 'bottom-[calc(100%+0.5rem)] left-0',
-        'top-right': 'bottom-[calc(100%+0.5rem)] right-0',
+        "top-left": "bottom-[calc(100%+0.5rem)] left-0",
+        "top-right": "bottom-[calc(100%+0.5rem)] right-0",
 
-        'left-bottom': 'right-[calc(100%+0.5rem)] bottom-0',
-        'left-top': 'right-[calc(100%+0.5rem)] top-0',
+        "left-bottom": "right-[calc(100%+0.5rem)] bottom-0",
+        "left-top": "right-[calc(100%+0.5rem)] top-0",
 
-        'right-bottom': 'left-[calc(100%+0.5rem)] bottom-0',
-        'right-top': 'left-[calc(100%+0.5rem)] top-0',
+        "right-bottom": "left-[calc(100%+0.5rem)] bottom-0",
+        "right-top": "left-[calc(100%+0.5rem)] top-0",
       },
     },
-  },
+  }
 );
 
 interface DropdownContentProps
@@ -40,7 +41,7 @@ const DropdownContent = ({
         dropdownContentVariants({
           className,
           position,
-        }),
+        })
       )}
       {...props}
     >

@@ -1,5 +1,5 @@
 {
-  "name": "general-admin-panel",
+  "name": "@peage-pay-web/general-admin-panel",
   "private": true,
   "version": "0.0.0",
   "type": "module",

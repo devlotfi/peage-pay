@@ -94,12 +94,14 @@ const EditHighwayPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <AdminDashboardLayout.Loading loading={highwayLoading}>
           <AdminDashboardLayout.Error error={highwayError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit highway</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit highway</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

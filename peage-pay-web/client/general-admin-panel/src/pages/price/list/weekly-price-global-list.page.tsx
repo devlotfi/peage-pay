@@ -32,14 +32,14 @@ const WeeklyPriceGlobalListPage = (): JSX.Element => {
 
   return (
     <ListPageLayout>
-      <div className="flex flex-col md:flex-row md:justify-between items-start">
+      <ListPageLayout.Title>
         <Heading className="text-[20pt]">
           <Heading.Icon position={"left"}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>Weekly price global list</Heading.Text>
         </Heading>
-      </div>
+      </ListPageLayout.Title>
 
       <AdminDashboardLayout.Loading loading={listLoading}>
         <AdminDashboardLayout.Error error={listError}>
@@ -70,17 +70,15 @@ const WeeklyPriceGlobalListPage = (): JSX.Element => {
           </ListPageLayout.Empty>
         </AdminDashboardLayout.Error>
       </AdminDashboardLayout.Loading>
-      <div className="flex justify-center mt-[0.5rem]">
-        <div className="overflow-x-auto">
-          {listData ? (
-            <Pagination
-              value={page}
-              maxPages={Math.ceil(listData.weeklyPriceGlobalList.count / 10)}
-              handlePageChange={(page) => setPage(page)}
-            ></Pagination>
-          ) : null}
-        </div>
-      </div>
+      <ListPageLayout.Footer>
+        {listData ? (
+          <Pagination
+            value={page}
+            maxPages={Math.ceil(listData.weeklyPriceGlobalList.count / 10)}
+            handlePageChange={(page) => setPage(page)}
+          ></Pagination>
+        ) : null}
+      </ListPageLayout.Footer>
     </ListPageLayout>
   );
 };

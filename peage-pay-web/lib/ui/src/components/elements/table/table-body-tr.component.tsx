@@ -2,13 +2,16 @@ import { VariantProps, cva } from "class-variance-authority";
 import { BaseHTMLAttributes } from "react";
 import { Utils } from "@peage-pay-web/utils";
 
-const tableBodyTr = cva("border-edge-200 border-b-[1px] font-normal", {
-  variants: {
-    variant: {
-      zebra: "even:bg-base-200",
+const tableBodyTr = cva(
+  "border-edge-200 border-b-[1px] font-normal last:border-b-[0px]",
+  {
+    variants: {
+      variant: {
+        zebra: "even:bg-base-200",
+      },
     },
-  },
-});
+  }
+);
 
 interface TableBodyTr
   extends BaseHTMLAttributes<HTMLDivElement>,

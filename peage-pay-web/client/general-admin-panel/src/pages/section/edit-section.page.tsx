@@ -164,12 +164,14 @@ const EditSectionPage = (): JSX.Element => {
               fromTollError || toTollError || tollNetworkError || sectionError
             }
           >
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Add toll distance</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Edit section</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

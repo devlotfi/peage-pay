@@ -156,12 +156,14 @@ const AddTollPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
           <AdminDashboardLayout.Error error={tollNetworkError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Add toll</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Add toll</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

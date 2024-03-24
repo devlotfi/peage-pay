@@ -85,7 +85,11 @@ const SearchForm = <T,>({
         </Select>
       </div>
 
-      <Button type="submit" className="lg:ml-[0.5rem]" variant={"primary"}>
+      <Button
+        type="submit"
+        className="lg:ml-[0.5rem] min-h-[2.5rem]"
+        variant={"primary"}
+      >
         <Button.Icon position={"left"}>
           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
         </Button.Icon>

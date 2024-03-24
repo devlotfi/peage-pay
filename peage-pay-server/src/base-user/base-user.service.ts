@@ -3,11 +3,8 @@ import { DatabaseService } from 'src/database/database.service';
 import { BaseUserRolesType } from './graphql/base-user-roles.gql';
 import { BaseUserErrors } from './graphql/base-user-errors.gql';
 import { BaseUserListInput } from './input/base-user-list.input.gql';
-import { BaseUser, Prisma } from '@prisma/client';
+import { BaseUser } from '@prisma/client';
 import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
-import { AddHumanRessourcesAdminRoleInput } from './input/add-human-ressources-admin-role.input.gql';
-import { GraphQLError } from 'graphql';
-import { RemoveHumanRessourcesAdminRoleInput } from './input/remove-human-ressources-admin-role.input.gql';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
 
 @Injectable()
@@ -98,39 +95,6 @@ export class BaseUserService {
         id: baseUserByIdInput.baseUserId,
       },
     });
-  }
-
-  public async addHumanRessoucesAdminRole(
-    addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput,
-  ): Promise<boolean> {
-    try {
-      await this.databaseService.humanRessourcesAdmin.create({
-        data: {
-          baseUserId: addHumanRessoucesAdminRoleInput.baseUserId,
-        },
-      });
-      return true;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(
-            BaseUserErrors.HUMAN_RESSOURCES_ADMIN_ROLE_ALREADY_ASSIGNED,
-          );
-        }
-      }
-      throw error;
-    }
-  }
-
-  public async removeHumanRessoucesAdminRole(
-    removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput,
-  ): Promise<boolean> {
-    await this.databaseService.humanRessourcesAdmin.delete({
-      where: {
-        baseUserId: removeHumanRessoucesAdminRoleInput.baseUserId,
-      },
-    });
-    return true;
   }
 
   public async getUserRolesList(userId: string): Promise<BaseUserRolesType[]> {

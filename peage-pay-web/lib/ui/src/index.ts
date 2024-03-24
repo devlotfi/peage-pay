@@ -21,6 +21,7 @@ import TextArea from "./components/elements/text-area/text-area.component";
 import TextInput from "./components/elements/text-input/text-input.component";
 import Tooltip from "./components/elements/tooltip/tooltip.component";
 import AdminDashboardLayout from "./components/layout/admin-dashboard/admin-dashboard-layout/admin-dashboard-layout.component";
+import DirectionalInputs from "./components/layout/directional-inputs/directional-inputs.component";
 import FormPageLayout from "./components/layout/form-page-layout/form-page-layout.component";
 import FullScreenLoading from "./components/layout/full-screen-loading/full-screen-loading.component";
 import ListPageLayout from "./components/layout/list-page-layout/list-page-layout.component";
@@ -62,6 +63,7 @@ export {
   FullScreenLoading,
   MonthPicker,
   DayOfWeekPicker,
+  DirectionalInputs,
 };
 
 export type { SearchValues };

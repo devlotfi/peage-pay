@@ -134,12 +134,14 @@ const AddSectionPage = (): JSX.Element => {
           loading={tollLoading || tollNetworkLoading}
         >
           <AdminDashboardLayout.Error error={tollError || tollNetworkError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Add toll distance</Heading.Text>
-            </Heading>
+            <FormPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Add section</Heading.Text>
+              </Heading>
+            </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
               <Table>
                 <Table.Body>

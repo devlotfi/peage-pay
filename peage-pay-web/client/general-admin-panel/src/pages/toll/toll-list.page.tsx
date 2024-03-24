@@ -60,19 +60,20 @@ const TollListPage = (): JSX.Element => {
       <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
         <AdminDashboardLayout.Error error={tollNetworkError}>
           <SearchForm
-            className="mb-[1rem]"
             handleSearch={(searchData) => setSearchData(searchData)}
             initialFieldSearch={TollSearchFields.NameSearch}
             fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
           ></SearchForm>
 
-          <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
-              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-            </Heading.Icon>
-            <Heading.Text>Toll list</Heading.Text>
-          </Heading>
-          <Table.Container className="mb-[2rem]">
+          <ListPageLayout.Title>
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={"left"}>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Toll list</Heading.Text>
+            </Heading>
+          </ListPageLayout.Title>
+          <Table.Container className="mb-[2rem] overflow-hidden">
             <Table>
               <Table.Body>
                 <Table.Body.Tr>
@@ -117,17 +118,15 @@ const TollListPage = (): JSX.Element => {
                 </Table.Container>
               </ListPageLayout.Empty>
             </AdminDashboardLayout.Error>
-            <div className="flex justify-center mt-[0.5rem]">
-              <div className="overflow-x-auto">
-                {listData ? (
-                  <Pagination
-                    value={page}
-                    maxPages={Math.ceil(listData.tollList.count / 10)}
-                    handlePageChange={(page) => setPage(page)}
-                  ></Pagination>
-                ) : null}
-              </div>
-            </div>
+            <ListPageLayout.Footer>
+              {listData ? (
+                <Pagination
+                  value={page}
+                  maxPages={Math.ceil(listData.tollList.count / 10)}
+                  handlePageChange={(page) => setPage(page)}
+                ></Pagination>
+              ) : null}
+            </ListPageLayout.Footer>
           </AdminDashboardLayout.Loading>
         </AdminDashboardLayout.Error>
       </AdminDashboardLayout.Loading>

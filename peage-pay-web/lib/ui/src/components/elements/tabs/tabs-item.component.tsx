@@ -15,7 +15,7 @@ const tabsItemVariants = cva(
       },
       isActive: {
         active: "rounded-b-none text-primary-100 bg-base-200 pb-[0.2rem]",
-        notActive: "mb-[0.2rem]",
+        notActive: "",
       },
     },
     defaultVariants: {
@@ -56,7 +56,7 @@ const TabsItem = ({
       <div
         className={Utils.cn(
           "flex absolute w-[70%] h-[0.2rem] rounded-t-lg bg-primary-100 bottom-0 duration-300 ease",
-          isActive !== "active" && "w-[1rem] bg-base-content rounded-full"
+          isActive !== "active" && "w-[0rem] bg-base-content rounded-full"
         )}
       ></div>
     </button>

@@ -49,13 +49,15 @@ const SectionListPage = (): JSX.Element => {
     <ListPageLayout>
       <AdminDashboardLayout.Loading loading={tollLoading}>
         <AdminDashboardLayout.Error error={tollError}>
-          <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
-              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-            </Heading.Icon>
-            <Heading.Text>Graph links list</Heading.Text>
-          </Heading>
-          <Table.Container className="mb-[2rem]">
+          <ListPageLayout.Title>
+            <Heading className="text-[20pt]">
+              <Heading.Icon position={"left"}>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </Heading.Icon>
+              <Heading.Text>Section list</Heading.Text>
+            </Heading>
+          </ListPageLayout.Title>
+          <Table.Container className="mb-[2rem] overflow-hidden">
             <Table>
               <Table.Body>
                 <Table.Body.Tr>
@@ -78,7 +80,8 @@ const SectionListPage = (): JSX.Element => {
                         <Table.Head.Th></Table.Head.Th>
                         <Table.Head.Th>From toll</Table.Head.Th>
                         <Table.Head.Th>To toll</Table.Head.Th>
-                        <Table.Head.Th>Distance</Table.Head.Th>
+                        <Table.Head.Th>Distance (km)</Table.Head.Th>
+                        <Table.Head.Th>Status</Table.Head.Th>
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>
@@ -94,17 +97,15 @@ const SectionListPage = (): JSX.Element => {
               </ListPageLayout.Empty>
             </AdminDashboardLayout.Error>
           </AdminDashboardLayout.Loading>
-          <div className="flex justify-center mt-[0.5rem]">
-            <div className="overflow-x-auto">
-              {listData ? (
-                <Pagination
-                  value={page}
-                  maxPages={Math.ceil(listData.sectionListForToll.count / 10)}
-                  handlePageChange={(page) => setPage(page)}
-                ></Pagination>
-              ) : null}
-            </div>
-          </div>
+          <ListPageLayout.Footer>
+            {listData ? (
+              <Pagination
+                value={page}
+                maxPages={Math.ceil(listData.sectionListForToll.count / 10)}
+                handlePageChange={(page) => setPage(page)}
+              ></Pagination>
+            ) : null}
+          </ListPageLayout.Footer>
         </AdminDashboardLayout.Error>
       </AdminDashboardLayout.Loading>
     </ListPageLayout>

@@ -2,6 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import FormPageLayoutForm from './form-page-layout-form.component';
+import FormPageLayoutTitle from './form-page-layout-title.component';
 
 const formPageLayoutVariants = cva('flex flex-col w-full h-full items-center');
 
@@ -21,4 +22,5 @@ const FormPageLayout = ({
   );
 };
 FormPageLayout.Form = FormPageLayoutForm;
+FormPageLayout.Title = FormPageLayoutTitle;
 export default FormPageLayout;

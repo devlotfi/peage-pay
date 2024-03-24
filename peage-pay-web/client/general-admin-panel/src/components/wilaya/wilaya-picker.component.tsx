@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   Modal,
   Heading,
@@ -10,16 +10,16 @@ import {
   Pagination,
   SearchValues,
   AdminDashboardLayout,
-} from '@peage-pay-web/ui';
-import { WilayaSearchFields, WilayaType } from '../../__generated__/graphql';
-import { useQuery } from '@apollo/client';
-import { WILAYA_LIST } from '../../graphql/queries';
-import WilayaItem from './wilaya-item.component';
-import { useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
+} from "@peage-pay-web/ui";
+import { WilayaSearchFields, WilayaType } from "../../__generated__/graphql";
+import { useQuery } from "@apollo/client";
+import { WILAYA_LIST } from "../../graphql/queries";
+import WilayaItem from "./wilaya-item.component";
+import { useState } from "react";
+import { Utils } from "@peage-pay-web/utils";
 
 const initialValues: SearchValues<WilayaSearchFields> = {
-  search: '',
+  search: "",
   field: WilayaSearchFields.NameSearch,
 };
 
@@ -45,7 +45,7 @@ const WilayaPicker = ({
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   const handleWilayaSelected = (wilaya: WilayaType) => {
     if (onChange) {
@@ -66,9 +66,9 @@ const WilayaPicker = ({
             <div className="flex">Pick a wilaya</div>
             <Button
               onClick={() => modalRef.current?.close()}
-              variant={'base-200'}
+              variant={"base-200"}
             >
-              <Button.Icon position={'left'}>
+              <Button.Icon position={"left"}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Close</Button.Content>
@@ -78,18 +78,19 @@ const WilayaPicker = ({
         <Modal.Content>
           <ListPageLayout>
             <SearchForm
-              className="mb-[1rem]"
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={WilayaSearchFields.NameSearch}
               fieldSelectOptions={Utils.renderFieldOptions(WilayaSearchFields)}
             ></SearchForm>
 
-            <Heading className="text-[20pt] mb-[1rem]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Wilaya list</Heading.Text>
-            </Heading>
+            <ListPageLayout.Title>
+              <Heading className="text-[20pt]">
+                <Heading.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>Wilaya list</Heading.Text>
+              </Heading>
+            </ListPageLayout.Title>
 
             <AdminDashboardLayout.Loading loading={loading}>
               <AdminDashboardLayout.Error error={error}>
@@ -119,17 +120,15 @@ const WilayaPicker = ({
                   </Table.Container>
                 </ListPageLayout.Empty>
               </AdminDashboardLayout.Error>
-              <div className="flex justify-center mt-[0.5rem]">
-                <div className="overflow-x-auto">
-                  {data ? (
-                    <Pagination
-                      value={page}
-                      maxPages={Math.ceil(data.wilayaList.count / 10)}
-                      handlePageChange={(page) => setPage(page)}
-                    ></Pagination>
-                  ) : null}
-                </div>
-              </div>
+              <ListPageLayout.Footer>
+                {data ? (
+                  <Pagination
+                    value={page}
+                    maxPages={Math.ceil(data.wilayaList.count / 10)}
+                    handlePageChange={(page) => setPage(page)}
+                  ></Pagination>
+                ) : null}
+              </ListPageLayout.Footer>
             </AdminDashboardLayout.Loading>
           </ListPageLayout>
         </Modal.Content>

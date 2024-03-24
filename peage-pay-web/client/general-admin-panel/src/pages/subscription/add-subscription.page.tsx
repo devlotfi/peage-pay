@@ -58,12 +58,14 @@ const AddSubscriptionPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <Heading className="text-[20pt] mb-[1rem]">
-          <Heading.Icon position={"left"}>
-            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-          </Heading.Icon>
-          <Heading.Text>Add subscription</Heading.Text>
-        </Heading>
+        <FormPageLayout.Title>
+          <Heading className="text-[20pt]">
+            <Heading.Icon position={"left"}>
+              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+            </Heading.Icon>
+            <Heading.Text>Add subscription</Heading.Text>
+          </Heading>
+        </FormPageLayout.Title>
 
         <TextInput
           variant={errors.name && touched.name ? "error" : "edge-100"}
