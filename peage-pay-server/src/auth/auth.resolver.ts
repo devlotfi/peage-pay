@@ -8,7 +8,6 @@ import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-toke
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input.gql';
 import { EmailAuthService } from './email-auth.service';
 import { GoogleAuthService } from './google-auth.service';
-import { PhoneAuthService } from './phone-auth.service';
 import { TokenAuthService } from './token-auth.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input.gql';
 import { ResetPasswordInput } from './input/reset-password.input.gql';
@@ -20,15 +19,12 @@ import { GraphqlResponse } from 'src/shared/decorators/graphql-response.decorato
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
 import { AccessTokenPayload } from './types/access-token-payload.type';
 import { SignInWithGoogleInput } from './input/sign-in-with-google.input.gql';
-import { SignUpWithPhoneResult } from './result/sign-up-with-phone.result.gql';
-import { SignUpWithPhoneInput } from './input/sign-up-with-phone.input.gql';
 
 @Resolver()
 export class AuthResolver {
   public constructor(
     private readonly emailAuthService: EmailAuthService,
     private readonly googleAuthService: GoogleAuthService,
-    private readonly phoneAuthService: PhoneAuthService,
     private readonly tokenAuthService: TokenAuthService,
   ) {}
 
@@ -140,13 +136,5 @@ export class AuthResolver {
       req,
       res,
     );
-  }
-
-  @Mutation(() => SignUpWithPhoneResult)
-  public async signUpWithPhone(
-    @Args('signUpWithPhoneInput')
-    signUpWithPhoneInput: SignUpWithPhoneInput,
-  ): Promise<SignUpWithPhoneResult> {
-    return await this.phoneAuthService.signUpWithPhone(signUpWithPhoneInput);
   }
 }

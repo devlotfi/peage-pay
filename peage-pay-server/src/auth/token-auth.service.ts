@@ -8,8 +8,8 @@ import { AccessTokenPayload } from './types/access-token-payload.type';
 import { Request, Response } from 'express';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { BaseUserService } from 'src/base-user/base-user.service';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
+import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 
 @Injectable()
 export class TokenAuthService {
@@ -37,7 +37,7 @@ export class TokenAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
 
     const accessToken = await this.tokenService.generateAccessToken(userId);
@@ -72,7 +72,7 @@ export class TokenAuthService {
       },
     });
     if (!baseUser) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
 
     const accessToken = await this.tokenService.generateAccessToken(userId);

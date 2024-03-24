@@ -8,7 +8,6 @@ import { AuthRedisService } from './auth-redis.service';
 import { EmailAuthService } from './email-auth.service';
 import { TokenAuthService } from './token-auth.service';
 import { GoogleAuthService } from './google-auth.service';
-import { PhoneAuthService } from './phone-auth.service';
 import { SmsModule } from 'src/sms/sms.module';
 import { BaseUserModule } from 'src/base-user/base-user.module';
 
@@ -25,7 +24,6 @@ import { BaseUserModule } from 'src/base-user/base-user.module';
     AuthResolver,
     EmailAuthService,
     GoogleAuthService,
-    PhoneAuthService,
     TokenAuthService,
     AuthRedisService,
   ],

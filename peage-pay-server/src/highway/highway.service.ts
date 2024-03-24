@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Highway, Prisma } from '@prisma/client';
+import { Highway } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddHighwayInput } from './input/add-highway.input.gql';
 import { EditHighwayInput } from './input/edit-highway.input.gql';
 import { DeleteHighwayInput } from './input/delete-highway.input.gql';
-import { GraphQLError } from 'graphql';
-import { HighwayErrors } from './graphql/highway-errors.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
 import { HighwayByIdInput } from './input/highway-by-id.input.gql';
 import { HighwayListResult } from './result/highway-list.result.gql';
@@ -100,48 +98,28 @@ export class HighwayService {
   }
 
   public async addHighway(addHighwayInput: AddHighwayInput): Promise<Highway> {
-    try {
-      const highway = await this.databaseService.highway.create({
-        data: {
-          name: addHighwayInput.name,
-          code: addHighwayInput.code,
-        },
-      });
-
-      return highway;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(HighwayErrors.HIGHWAY_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const highway = await this.databaseService.highway.create({
+      data: {
+        name: addHighwayInput.name,
+        code: addHighwayInput.code,
+      },
+    });
+    return highway;
   }
 
   public async editHighway(
     editHighwayInput: EditHighwayInput,
   ): Promise<Highway> {
-    try {
-      const highway = await this.databaseService.highway.update({
-        data: {
-          name: editHighwayInput.name,
-          code: editHighwayInput.code,
-        },
-        where: {
-          id: editHighwayInput.highwayId,
-        },
-      });
-
-      return highway;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(HighwayErrors.HIGHWAY_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const highway = await this.databaseService.highway.update({
+      data: {
+        name: editHighwayInput.name,
+        code: editHighwayInput.code,
+      },
+      where: {
+        id: editHighwayInput.highwayId,
+      },
+    });
+    return highway;
   }
 
   public async deleteHighway(

@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { Highway, Prisma, Toll, TollNetwork, Wilaya } from '@prisma/client';
+import { Highway, Toll, TollNetwork, Wilaya } from '@prisma/client';
 import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
 import { DeleteTollInput } from './input/delete-toll.input.gql';
-import { GraphQLError } from 'graphql';
-import { TollErrors } from './graphql/toll-errors.gql';
 import { TollByIdInput } from './input/toll-by-id.input.gql';
 import { FullTollListInput } from './input/full-toll-list.input.gql';
 import { TollListResult } from './result/toll-list.result.gql';
@@ -183,73 +181,55 @@ export class TollService {
   }
 
   public async addToll(addTollInput: AddTollInput) {
-    try {
-      const toll = await this.databaseService.toll.create({
-        data: {
-          name: addTollInput.name,
-          longitude: addTollInput.longitude,
-          latitude: addTollInput.latitude,
-          wilaya: {
-            connect: {
-              id: addTollInput.wilayaId,
-            },
-          },
-          highway: {
-            connect: {
-              id: addTollInput.highwayId,
-            },
-          },
-          tollNetwork: {
-            connect: {
-              id: addTollInput.tollNetworkId,
-            },
+    const toll = await this.databaseService.toll.create({
+      data: {
+        name: addTollInput.name,
+        longitude: addTollInput.longitude,
+        latitude: addTollInput.latitude,
+        wilaya: {
+          connect: {
+            id: addTollInput.wilayaId,
           },
         },
-      });
-      return toll;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(TollErrors.TOLL_EXISTS);
-        }
-      }
-      throw error;
-    }
+        highway: {
+          connect: {
+            id: addTollInput.highwayId,
+          },
+        },
+        tollNetwork: {
+          connect: {
+            id: addTollInput.tollNetworkId,
+          },
+        },
+      },
+    });
+    return toll;
   }
 
   public async editToll(editTollInput: EditTollInput): Promise<Toll> {
-    try {
-      const toll = await this.databaseService.toll.update({
-        data: {
-          name: editTollInput.name,
-          status: editTollInput.status,
-          longitude: editTollInput.longitude,
-          latitude: editTollInput.latitude,
-          wilaya: {
-            connect: {
-              id: editTollInput.wilayaId,
-            },
-          },
-          highway: {
-            connect: {
-              id: editTollInput.highwayId,
-            },
+    const toll = await this.databaseService.toll.update({
+      data: {
+        name: editTollInput.name,
+        status: editTollInput.status,
+        longitude: editTollInput.longitude,
+        latitude: editTollInput.latitude,
+        wilaya: {
+          connect: {
+            id: editTollInput.wilayaId,
           },
         },
-        where: {
-          id: editTollInput.tollId,
+        highway: {
+          connect: {
+            id: editTollInput.highwayId,
+          },
         },
-      });
+      },
+      where: {
+        id: editTollInput.tollId,
+      },
+    });
 
-      return toll;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(TollErrors.TOLL_EXISTS);
-        }
-      }
-      throw error;
-    }
+    return toll;
   }
 
   public async deleteToll(deleteTollInput: DeleteTollInput): Promise<boolean> {

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { BaseUserRolesType } from './graphql/base-user-roles.gql';
-import { BaseUserErrors } from './graphql/base-user-errors.gql';
 import { BaseUserListInput } from './input/base-user-list.input.gql';
 import { BaseUser } from '@prisma/client';
 import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
+import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 
 @Injectable()
 export class BaseUserService {
@@ -112,7 +112,7 @@ export class BaseUserService {
       },
     });
     if (!baseUser) {
-      throw new Error(BaseUserErrors.BASE_USER_NOT_FOUND);
+      throw new Error(PrismaErrors.NOT_FOUND);
     }
 
     const roleList: BaseUserRolesType[] = [];

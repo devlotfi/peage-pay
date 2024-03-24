@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Section, Toll, TollDistance } from '@prisma/client';
+import { Section, Toll, TollDistance } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
-import { GraphQLError } from 'graphql';
 import { AddSectionInput } from './input/add-section.input.gql';
 import { DeleteSectionInput } from './input/delete-section.input.gql';
-import { SectionErrors } from './graphql/section-errors.gql';
 import { SectionListForTollNetworkInput } from './input/section-list-for-toll-network.input.gql';
 import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
@@ -97,59 +95,41 @@ export class SectionService {
   }
 
   public async addSection(addSectionInput: AddSectionInput): Promise<Section> {
-    try {
-      const graphTollDistance = await this.databaseService.section.create({
-        data: {
-          fromToll: {
-            connect: {
-              id: addSectionInput.fromTollId,
-            },
+    const graphTollDistance = await this.databaseService.section.create({
+      data: {
+        fromToll: {
+          connect: {
+            id: addSectionInput.fromTollId,
           },
-          toToll: {
-            connect: {
-              id: addSectionInput.toTollId,
-            },
-          },
-          status: addSectionInput.status,
-          distance: addSectionInput.distance,
         },
-      });
-      return graphTollDistance;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(SectionErrors.SECTION_EXISTS);
-        }
-      }
-      throw error;
-    }
+        toToll: {
+          connect: {
+            id: addSectionInput.toTollId,
+          },
+        },
+        status: addSectionInput.status,
+        distance: addSectionInput.distance,
+      },
+    });
+    return graphTollDistance;
   }
 
   public async editSection(
     editSectionInput: EditSectionInput,
   ): Promise<Section> {
-    try {
-      const graphTollDistance = await this.databaseService.section.update({
-        data: {
-          status: editSectionInput.status,
-          distance: editSectionInput.distance,
+    const graphTollDistance = await this.databaseService.section.update({
+      data: {
+        status: editSectionInput.status,
+        distance: editSectionInput.distance,
+      },
+      where: {
+        fromTollId_toTollId: {
+          fromTollId: editSectionInput.fromTollId,
+          toTollId: editSectionInput.toTollId,
         },
-        where: {
-          fromTollId_toTollId: {
-            fromTollId: editSectionInput.fromTollId,
-            toTollId: editSectionInput.toTollId,
-          },
-        },
-      });
-      return graphTollDistance;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(SectionErrors.SECTION_EXISTS);
-        }
-      }
-      throw error;
-    }
+      },
+    });
+    return graphTollDistance;
   }
 
   public async deleteSection(

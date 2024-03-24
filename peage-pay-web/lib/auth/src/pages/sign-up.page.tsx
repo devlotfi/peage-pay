@@ -1,6 +1,5 @@
 import { ButtonOutline, Heading, MinimalNavbar } from "@peage-pay-web/ui";
 import { useState } from "react";
-import SignInWithPhoneForm from "../components/sign-in/sign-in-with-phone-form.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { Toll } from "@peage-pay-web/assets";
@@ -21,8 +20,6 @@ const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
     switch (tab) {
       case SignUpTabsEnum.EMAIL:
         return <SignUpWithEmailForm></SignUpWithEmailForm>;
-      case SignUpTabsEnum.PHONE:
-        return <SignInWithPhoneForm></SignInWithPhoneForm>;
     }
   };
 

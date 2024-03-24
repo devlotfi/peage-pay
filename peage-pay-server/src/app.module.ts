@@ -15,13 +15,11 @@ import { Env } from './shared/config/env.type';
 import { BaseUserErrors } from './base-user/graphql/base-user-errors.gql';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
-import { HighwayErrors } from './highway/graphql/highway-errors.gql';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { TokenErrors } from './token/graphql/token-errors.gql';
 import { TollModule } from './toll/toll.module';
 import { BaseUserModule } from './base-user/base-user.module';
 import { WilayaModule } from './wilaya/wilaya.module';
-import { TollErrors } from './toll/graphql/toll-errors.gql';
 import { PriceModule } from './price/price.module';
 import { TollNetworkModule } from './toll-network/toll-network.module';
 import { HighwaySearchFields } from './highway/graphql/highway-search-fields.gql';
@@ -32,10 +30,8 @@ import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
 import { BaseUserSearchFields } from './base-user/graphql/base-user-search-fields.gql';
 import { SectionModule } from './section/section.module';
 import { TollDistanceModule } from './toll-distance/toll-distance.module';
-import { SectionErrors } from './section/graphql/section-errors.gql';
 import { PriceErrors } from './price/graphql/price-errors.gql';
-import { TollNetworkErrors } from './toll-network/graphql/toll-network-errors.gql';
-import { SubscriptionErrors } from './subscription/graphql/subscription-errors.gql';
+import { PrismaErrors } from './shared/graphql/prisma-errors.gql';
 
 @Module({
   imports: [
@@ -61,13 +57,9 @@ import { SubscriptionErrors } from './subscription/graphql/subscription-errors.g
         orphanedTypes: [
           AuthErrors,
           BaseUserErrors,
-          HighwayErrors,
           TokenErrors,
-          TollErrors,
-          SectionErrors,
           PriceErrors,
-          TollNetworkErrors,
-          SubscriptionErrors,
+          PrismaErrors,
 
           HighwaySearchFields,
           TollNetworkSearchFields,

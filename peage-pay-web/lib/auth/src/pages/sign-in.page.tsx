@@ -5,7 +5,6 @@ import SignInPageTabs, {
 import { useState } from "react";
 import SignInWithEmailForm from "../components/sign-in/sign-in-with-email-form.component";
 import SignInWithGoogleForm from "../components/sign-in/sign-in-with-google-form.component";
-import SignInWithPhoneForm from "../components/sign-in/sign-in-with-phone-form.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { Toll } from "@peage-pay-web/assets";
@@ -24,8 +23,6 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
         return <SignInWithEmailForm></SignInWithEmailForm>;
       case SignInTabsEnum.GOOGLE:
         return <SignInWithGoogleForm></SignInWithGoogleForm>;
-      case SignInTabsEnum.PHONE:
-        return <SignInWithPhoneForm></SignInWithPhoneForm>;
     }
   };
 

@@ -119,7 +119,8 @@ model BaseUser {
 model User {
   baseUser BaseUser @relation(fields: [baseUserId], references: [id])
 
-  baseUserId String @id
+  baseUserId String  @id
+  balance    Decimal @default(0)
 }
 
 model GeneralAdmin {

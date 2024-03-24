@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Subscription } from '@prisma/client';
+import { Subscription } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddSubscriptionInput } from './input/add-subscription.input.gql';
-import { GraphQLError } from 'graphql';
-import { SubscriptionErrors } from './graphql/subscription-errors.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
@@ -89,48 +87,30 @@ export class SubscriptionService {
   public async addSubscription(
     addSubscriptionInput: AddSubscriptionInput,
   ): Promise<Subscription> {
-    try {
-      const subscription = await this.databaseService.subscription.create({
-        data: {
-          name: addSubscriptionInput.name,
-          days: addSubscriptionInput.days,
-          price: addSubscriptionInput.price,
-        },
-      });
-      return subscription;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(SubscriptionErrors.SUBSCRIPTION_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const subscription = await this.databaseService.subscription.create({
+      data: {
+        name: addSubscriptionInput.name,
+        days: addSubscriptionInput.days,
+        price: addSubscriptionInput.price,
+      },
+    });
+    return subscription;
   }
 
   public async editSubscription(
     editSubscriptionInput: EditSubscriptionInput,
   ): Promise<Subscription> {
-    try {
-      const subscription = await this.databaseService.subscription.update({
-        data: {
-          name: editSubscriptionInput.name,
-          days: editSubscriptionInput.days,
-          price: editSubscriptionInput.price,
-        },
-        where: {
-          id: editSubscriptionInput.subscriptionId,
-        },
-      });
-      return subscription;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(SubscriptionErrors.SUBSCRIPTION_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const subscription = await this.databaseService.subscription.update({
+      data: {
+        name: editSubscriptionInput.name,
+        days: editSubscriptionInput.days,
+        price: editSubscriptionInput.price,
+      },
+      where: {
+        id: editSubscriptionInput.subscriptionId,
+      },
+    });
+    return subscription;
   }
 
   public async deleteSubscription(

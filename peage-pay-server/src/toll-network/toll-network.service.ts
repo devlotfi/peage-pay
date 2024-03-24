@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { TollNetworkListInput } from './input/toll-network-list.input.gql';
-import { Prisma, TollNetwork } from '@prisma/client';
+import { TollNetwork } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
-import { GraphQLError } from 'graphql';
-import { TollNetworkErrors } from './graphql/toll-network-errors.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
 import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
@@ -86,46 +84,26 @@ export class TollNetworkService {
   public async addTollNetwork(
     addTollNetworkInput: AddTollNetworkInput,
   ): Promise<TollNetwork> {
-    try {
-      const tollNetwork = await this.databaseService.tollNetwork.create({
-        data: {
-          name: addTollNetworkInput.name,
-        },
-      });
-
-      return tollNetwork;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(TollNetworkErrors.TOLL_NETWORK_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const tollNetwork = await this.databaseService.tollNetwork.create({
+      data: {
+        name: addTollNetworkInput.name,
+      },
+    });
+    return tollNetwork;
   }
 
   public async editTollNetwork(
     editTollNetworkInput: EditTollNetworkInput,
   ): Promise<TollNetwork> {
-    try {
-      const tollNetwork = await this.databaseService.tollNetwork.update({
-        data: {
-          name: editTollNetworkInput.name,
-        },
-        where: {
-          id: editTollNetworkInput.tollNetworkId,
-        },
-      });
-
-      return tollNetwork;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(TollNetworkErrors.TOLL_NETWORK_EXISTS);
-        }
-      }
-      throw error;
-    }
+    const tollNetwork = await this.databaseService.tollNetwork.update({
+      data: {
+        name: editTollNetworkInput.name,
+      },
+      where: {
+        id: editTollNetworkInput.tollNetworkId,
+      },
+    });
+    return tollNetwork;
   }
 
   public async deleteTollNetwork(

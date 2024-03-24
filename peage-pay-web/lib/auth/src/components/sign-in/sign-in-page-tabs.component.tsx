@@ -1,12 +1,11 @@
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faAt, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Tabs } from '@peage-pay-web/ui';
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faAt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tabs } from "@peage-pay-web/ui";
 
 export enum SignInTabsEnum {
-  EMAIL = 'EMAIL',
-  PHONE = 'PHONE',
-  GOOGLE = 'GOOGLE',
+  EMAIL = "EMAIL",
+  GOOGLE = "GOOGLE",
 }
 
 interface Props {
@@ -20,9 +19,9 @@ const SignInPageTabs = ({ onChange, value }: Props): JSX.Element => {
       <Tabs.Item
         className="flex-1"
         onClick={() => onChange(SignInTabsEnum.EMAIL)}
-        isActive={value === SignInTabsEnum.EMAIL ? 'active' : 'notActive'}
+        isActive={value === SignInTabsEnum.EMAIL ? "active" : "notActive"}
       >
-        <Tabs.Item.Icon position={'left'}>
+        <Tabs.Item.Icon position={"left"}>
           <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
         </Tabs.Item.Icon>
         <Tabs.Item.Content>E-mail</Tabs.Item.Content>
@@ -30,22 +29,12 @@ const SignInPageTabs = ({ onChange, value }: Props): JSX.Element => {
       <Tabs.Item
         className="flex-1"
         onClick={() => onChange(SignInTabsEnum.GOOGLE)}
-        isActive={value === SignInTabsEnum.GOOGLE ? 'active' : 'notActive'}
+        isActive={value === SignInTabsEnum.GOOGLE ? "active" : "notActive"}
       >
-        <Tabs.Item.Icon position={'left'}>
+        <Tabs.Item.Icon position={"left"}>
           <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
         </Tabs.Item.Icon>
         <Tabs.Item.Content>Google</Tabs.Item.Content>
-      </Tabs.Item>
-      <Tabs.Item
-        className="flex-1"
-        onClick={() => onChange(SignInTabsEnum.PHONE)}
-        isActive={value === SignInTabsEnum.PHONE ? 'active' : 'notActive'}
-      >
-        <Tabs.Item.Icon position={'left'}>
-          <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>
-        </Tabs.Item.Icon>
-        <Tabs.Item.Content>Phone</Tabs.Item.Content>
       </Tabs.Item>
     </Tabs>
   );

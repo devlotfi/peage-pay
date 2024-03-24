@@ -13,11 +13,10 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { BaseUserListInput } from './input/base-user-list.input.gql';
 import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
-import { AddHumanRessourcesAdminRoleInput } from './input/add-human-ressources-admin-role.input.gql';
-import { RemoveHumanRessourcesAdminRoleInput } from './input/remove-human-ressources-admin-role.input.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
 import { HumanRessourceAdminService } from './human-ressources-admin.service';
+import { ChangeRoleInput } from './input/change-role.input.gql';
 
 @Resolver(() => BaseUserType)
 export class BaseUserResolver {
@@ -57,21 +56,22 @@ export class BaseUserResolver {
   @UseGuards(AuthGuard)
   public async addHumanRessoucesAdminRole(
     @Args('addHumanRessoucesAdminRoleInput')
-    addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput,
+    changeRoleInput: ChangeRoleInput,
   ): Promise<boolean> {
     return (await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
-      addHumanRessoucesAdminRoleInput,
+      changeRoleInput,
     )) as any;
   }
 
   @Mutation(() => Boolean)
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async removeHumanRessoucesAdminRole(
     @Args('removeHumanRessoucesAdminRoleInput')
-    removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput,
+    changeRoleInput: ChangeRoleInput,
   ): Promise<boolean> {
     return (await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
-      removeHumanRessoucesAdminRoleInput,
+      changeRoleInput,
     )) as any;
   }
 

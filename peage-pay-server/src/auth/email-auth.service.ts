@@ -6,7 +6,6 @@ import { compare } from 'bcrypt';
 import { EmailService } from 'src/email/email.service';
 import { AuthErrors } from './graphql/auth-errors.gql';
 import { VerifyEmailInput } from './input/verify-email.input.gql';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
 import { Utils } from 'src/shared/utils';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input.gql';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
@@ -17,8 +16,8 @@ import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input.gql';
 import { Request, Response } from 'express';
 import { BaseUserService } from 'src/base-user/base-user.service';
-import { Prisma } from '@prisma/client';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
+import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 
 @Injectable()
 export class EmailAuthService {
@@ -37,50 +36,39 @@ export class EmailAuthService {
       signUpWithEmailInput.password,
     );
 
-    try {
-      const baseUser = await this.databaseService.baseUser.create({
-        data: {
-          firstName: signUpWithEmailInput.firstName,
-          lastName: signUpWithEmailInput.lastName,
-          user: {
-            create: {},
-          },
-          authMethod: {
-            create: {
-              emailAuthMethod: {
-                create: {
-                  email: signUpWithEmailInput.email,
-                  passwordHash: hashedPassword,
-                },
+    const baseUser = await this.databaseService.baseUser.create({
+      data: {
+        firstName: signUpWithEmailInput.firstName,
+        lastName: signUpWithEmailInput.lastName,
+        user: {
+          create: {},
+        },
+        authMethod: {
+          create: {
+            emailAuthMethod: {
+              create: {
+                email: signUpWithEmailInput.email,
+                passwordHash: hashedPassword,
               },
             },
           },
         },
-        include: {
-          authMethod: {
-            include: {
-              emailAuthMethod: true,
-            },
+      },
+      include: {
+        authMethod: {
+          include: {
+            emailAuthMethod: true,
           },
         },
-      });
+      },
+    });
 
-      console.log(baseUser);
+    await this.emailService.sendVerificationEmail(
+      baseUser.id,
+      baseUser.authMethod?.emailAuthMethod?.email as any,
+    );
 
-      await this.emailService.sendVerificationEmail(
-        baseUser.id,
-        baseUser.authMethod?.emailAuthMethod?.email as any,
-      );
-
-      return true;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new GraphQLError(BaseUserErrors.BASE_USER_WITH_EMAIL_EXISTS);
-        }
-      }
-      throw error;
-    }
+    return true;
   }
 
   public async verifyEmail(
@@ -99,14 +87,13 @@ export class EmailAuthService {
         },
       },
     });
-    if (!baseUser) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
-    }
-    if (!baseUser.verificationToken) {
-      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
-    }
-    if (!baseUser.authMethod || !baseUser.authMethod.emailAuthMethod) {
-      throw new GraphQLError(AuthErrors.EMAIL_AUTH_NOT_FOUND);
+    if (
+      !baseUser ||
+      !baseUser.verificationToken ||
+      !baseUser.authMethod ||
+      !baseUser.authMethod.emailAuthMethod
+    ) {
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
     if (baseUser.authMethod.emailAuthMethod.verifiedAt) {
       throw new GraphQLError(AuthErrors.EMAIL_ALREADY_VERIFIED);
@@ -150,7 +137,7 @@ export class EmailAuthService {
         },
       });
     if (!emailAuthMethod) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
 
     const passwordResetAttempts =
@@ -187,14 +174,16 @@ export class EmailAuthService {
         },
       },
     });
-    if (!baseUser) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
+    if (
+      !baseUser ||
+      !baseUser.verificationToken ||
+      !baseUser.authMethod ||
+      !baseUser.authMethod.emailAuthMethod
+    ) {
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
-    if (!baseUser.verificationToken) {
-      throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_NOT_FOUND);
-    }
-    if (!baseUser.authMethod || !baseUser.authMethod.emailAuthMethod) {
-      throw new GraphQLError(AuthErrors.EMAIL_AUTH_NOT_FOUND);
+    if (baseUser.authMethod.emailAuthMethod.verifiedAt) {
+      throw new GraphQLError(AuthErrors.EMAIL_ALREADY_VERIFIED);
     }
     if (new Date() > baseUser.verificationToken.expiresAt) {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
@@ -241,7 +230,7 @@ export class EmailAuthService {
         },
       });
     if (!emailAuthMethod) {
-      throw new GraphQLError(BaseUserErrors.BASE_USER_NOT_FOUND);
+      throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
 
     const signInWithEmailAttempts =
