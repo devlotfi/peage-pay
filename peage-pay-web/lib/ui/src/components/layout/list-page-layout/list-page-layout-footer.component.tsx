@@ -3,7 +3,7 @@ import { BaseHTMLAttributes } from "react";
 import { Utils } from "@peage-pay-web/utils";
 
 const listPageLayoutFooterVariants = cva(
-  "mt-auto flex justify-center py-[0.5rem]"
+  "mt-auto flex justify-center pt-[0.5rem]"
 );
 
 interface ListPageLayoutFooterProps

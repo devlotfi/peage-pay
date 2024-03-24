@@ -4,7 +4,7 @@ import { Utils } from "@peage-pay-web/utils";
 import DirectionalInputsArrow from "./directional-inputs-arrow.component";
 
 const directionalInputsVariants = cva(
-  "flex sm:items-start flex-col sm:flex-row mb-[1.3rem] sm:mb-[0.5rem]"
+  "flex sm:items-start flex-col sm:flex-row"
 );
 
 interface DirectionalInputsProps

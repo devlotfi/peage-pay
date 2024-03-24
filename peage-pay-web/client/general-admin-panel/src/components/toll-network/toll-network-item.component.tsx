@@ -5,18 +5,18 @@ import {
   faPen,
   faPlus,
   faTrash,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from '@peage-pay-web/ui';
-import { useRef } from 'react';
-import { TollNetworkType } from '../../__generated__/graphql';
-import { useNavigate } from 'react-router-dom';
-import DeleteTollNetworkModal from './delete-toll-network-modal.component';
+} from "@peage-pay-web/ui";
+import { useRef } from "react";
+import { TollNetworkType } from "../../__generated__/graphql";
+import { useNavigate } from "react-router-dom";
+import DeleteTollNetworkModal from "./delete-toll-network-modal.component";
 
 interface TollNetworkItemProps {
   tollNetwork: TollNetworkType;
@@ -29,7 +29,7 @@ const TollNetworkItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -40,7 +40,7 @@ const TollNetworkItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={'bottom-left'}>
+          <Dropdown.Content position={"bottom-left"}>
             <DeleteTollNetworkModal
               modalRef={deleteModalRef}
               tollNetwork={tollNetwork}
@@ -48,7 +48,7 @@ const TollNetworkItem = ({
             <MenuItem
               onClick={() => navigate(`/dashboard/toll/list/${tollNetwork.id}`)}
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
@@ -58,7 +58,7 @@ const TollNetworkItem = ({
             <MenuItem
               onClick={() => navigate(`/dashboard/toll/add/${tollNetwork.id}`)}
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
@@ -70,7 +70,7 @@ const TollNetworkItem = ({
                 navigate(`/dashboard/toll-network/graph/${tollNetwork.id}`)
               }
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
@@ -82,7 +82,7 @@ const TollNetworkItem = ({
                 navigate(`/dashboard/toll-network/edit/${tollNetwork.id}`)
               }
               className="w-full mb-[0.5rem]"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
@@ -92,7 +92,7 @@ const TollNetworkItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={'base-100'}
+              variant={"base-100"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon
@@ -107,8 +107,18 @@ const TollNetworkItem = ({
       </Table.Body.Td>
       <Table.Body.Td>{tollNetwork.id}</Table.Body.Td>
       <Table.Body.Td>{tollNetwork.name}</Table.Body.Td>
-      <Table.Body.Td>{tollNetwork.createdAt}</Table.Body.Td>
-      <Table.Body.Td>{tollNetwork.updatedAt}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(tollNetwork.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(tollNetwork.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

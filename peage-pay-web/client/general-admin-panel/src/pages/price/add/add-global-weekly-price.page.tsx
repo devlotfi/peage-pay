@@ -141,7 +141,7 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <DirectionalInputs>
+        <DirectionalInputs className="w-full mb-[1.3rem]">
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
@@ -192,7 +192,7 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
         </DirectionalInputs>
 
         <DayOfWeekPicker
-          className="mb-[1rem]"
+          className="w-full mb-[1.3rem]"
           variant={errors.days && touched.days ? "error" : "edge-100"}
         >
           <DayOfWeekPicker.Main

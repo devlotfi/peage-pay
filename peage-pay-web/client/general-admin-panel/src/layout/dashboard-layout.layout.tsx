@@ -140,7 +140,7 @@ const DashboardLayout = (): JSX.Element => {
           <AdminDashboardLayout.Navbar.LeftContent></AdminDashboardLayout.Navbar.LeftContent>
           <AdminDashboardLayout.Navbar.RightContent></AdminDashboardLayout.Navbar.RightContent>
         </AdminDashboardLayout.Navbar>
-        <AdminDashboardLayout.Content className="p-[0.5rem] pt-[1rem]">
+        <AdminDashboardLayout.Content className="p-[0.7rem] pt-[1rem]">
           <Outlet></Outlet>
         </AdminDashboardLayout.Content>
       </AdminDashboardLayout.Main>

@@ -1,7 +1,7 @@
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Table, Button } from '@peage-pay-web/ui';
-import { HighwayType } from '../../__generated__/graphql';
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Table, Button } from "@peage-pay-web/ui";
+import { HighwayType } from "../../__generated__/graphql";
 
 interface HighwatPickerItemProps {
   highway: HighwayType;
@@ -23,9 +23,9 @@ const HighwayPickerItem = ({
           <Button
             className="min-h-[2rem] h-[2rem]"
             onClick={onHighwayUnselected}
-            variant={'error'}
+            variant={"error"}
           >
-            <Button.Icon position={'left'}>
+            <Button.Icon position={"left"}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
             <Button.Content>Unselect</Button.Content>
@@ -37,9 +37,9 @@ const HighwayPickerItem = ({
         <Button
           className="min-h-[2rem] h-[2rem]"
           onClick={() => onHighwaySelected(highway)}
-          variant={'primary'}
+          variant={"primary"}
         >
-          <Button.Icon position={'left'}>
+          <Button.Icon position={"left"}>
             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           </Button.Icon>
           <Button.Content>Select</Button.Content>
@@ -49,13 +49,23 @@ const HighwayPickerItem = ({
   };
 
   return (
-    <Table.Body.Tr variant={'zebra'}>
+    <Table.Body.Tr variant={"zebra"}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
       <Table.Body.Td>{highway.id}</Table.Body.Td>
       <Table.Body.Td>{highway.name}</Table.Body.Td>
       <Table.Body.Td>{highway.code}</Table.Body.Td>
-      <Table.Body.Td>{highway.createdAt}</Table.Body.Td>
-      <Table.Body.Td>{highway.updatedAt}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(highway.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(highway.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

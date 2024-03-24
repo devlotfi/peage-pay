@@ -96,8 +96,18 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
       </Table.Body.Td>
       <Table.Body.Td>{baseUser.firstName}</Table.Body.Td>
       <Table.Body.Td>{baseUser.lastName}</Table.Body.Td>
-      <Table.Body.Td>{baseUser.createdAt}</Table.Body.Td>
-      <Table.Body.Td>{baseUser.updatedAt}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(baseUser.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(baseUser.updatedAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

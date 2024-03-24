@@ -125,7 +125,7 @@ const AddGlobalDailyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <DirectionalInputs>
+        <DirectionalInputs className="w-full mb-[1.3rem]">
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp

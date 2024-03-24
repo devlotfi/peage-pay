@@ -99,12 +99,6 @@ const EditSubscriptionPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <AdminDashboardLayout.Loading loading={subscriptionLoading}>
           <AdminDashboardLayout.Error error={subscriptionError}>
-            <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
-                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>Edit subscription</Heading.Text>
-            </Heading>
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
                 <Heading.Icon position={"left"}>

@@ -70,8 +70,18 @@ const SubscriptionListItem = ({
       <Table.Body.Td>{subscription.name}</Table.Body.Td>
       <Table.Body.Td>{subscription.days} days</Table.Body.Td>
       <Table.Body.Td>{subscription.price} dzd/km</Table.Body.Td>
-      <Table.Body.Td>{subscription.createdAt}</Table.Body.Td>
-      <Table.Body.Td>{subscription.updatedAt}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(subscription.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(subscription.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

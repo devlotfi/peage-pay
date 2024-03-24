@@ -99,8 +99,18 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
       <Table.Body.Td>{toll.wilaya.code}</Table.Body.Td>
       <Table.Body.Td>{toll.highway.name}</Table.Body.Td>
       <Table.Body.Td>{toll.highway.code}</Table.Body.Td>
-      <Table.Body.Td>{toll.createdAt}</Table.Body.Td>
-      <Table.Body.Td>{toll.updatedAt}</Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(toll.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
+      <Table.Body.Td>
+        {(() => {
+          const date = new Date(toll.createdAt);
+          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+        })()}
+      </Table.Body.Td>
     </Table.Body.Tr>
   );
 };

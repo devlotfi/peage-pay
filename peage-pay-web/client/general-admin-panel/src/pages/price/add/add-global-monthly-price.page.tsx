@@ -157,7 +157,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           ) : null}
         </TextInput>
 
-        <DirectionalInputs>
+        <DirectionalInputs className="w-full mb-[1.3rem]">
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
@@ -207,7 +207,7 @@ const AddGlobalMonthlyPricePage = (): JSX.Element => {
           </TextInput>
         </DirectionalInputs>
 
-        <DirectionalInputs>
+        <DirectionalInputs className="w-full mb-[1.3rem]">
           <TextInput
             variant={errors.startDay && touched.startDay ? "error" : "edge-100"}
             className="w-full"

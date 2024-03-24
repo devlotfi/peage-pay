@@ -1,23 +1,23 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, useContext } from 'react';
-import { Utils } from '@peage-pay-web/utils';
-import { HeadingContext } from './heading.component';
+import { VariantProps, cva } from "class-variance-authority";
+import { BaseHTMLAttributes, useContext } from "react";
+import { Utils } from "@peage-pay-web/utils";
+import { HeadingContext } from "./heading.component";
 
-const headingIconVariants = cva('flex justify-center items-center', {
+const headingIconVariants = cva("flex justify-center items-center", {
   variants: {
     variant: {
-      primary: 'text-primary-100',
-      success: 'text-success-100',
-      error: 'text-error-100',
-      warning: 'text-warning-100',
+      primary: "text-primary-100",
+      success: "text-success-100",
+      error: "text-error-100",
+      warning: "text-warning-100",
     },
     position: {
-      left: 'mr-[0.5rem]',
-      right: 'ml-[0.5rem]',
+      left: "mr-[0.5rem]",
+      right: "ml-[0.5rem]",
     },
   },
   defaultVariants: {
-    variant: 'primary',
+    variant: "primary",
   },
 });
 
@@ -42,7 +42,7 @@ const HeadingIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        }),
+        })
       )}
       {...props}
     >
