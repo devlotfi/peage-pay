@@ -11,8 +11,8 @@ import BaseUserListPage from "../pages/base-user/base-user-list.page";
 import TollAdminListPage from "../pages/toll-admin/toll-admin-list.page";
 import GateAdminListPage from "../pages/gate-admin/gate-admin-list.page";
 import ModeratorListPage from "../pages/moderator/moderator-list.page";
-import EditGateAdmin from "../pages/gate-admin/edit-gate-admin.page";
 import EditTollAdmin from "../pages/toll-admin/edit-toll-admin.page";
+import EditGateAdminPage from "../pages/gate-admin/edit-gate-admin.page";
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -67,7 +67,7 @@ const useRouter = () => {
         },
         {
           path: "/dashboard/gate-admin/edit/:baseUserId",
-          element: <EditGateAdmin></EditGateAdmin>,
+          element: <EditGateAdminPage></EditGateAdminPage>,
         },
         {
           path: "/dashboard/moderator/list",

@@ -38,6 +38,25 @@ export const TOLL_ADMIN_LIST = gql(`
   }
 `);
 
+export const TOLL_ADMIN_BY_ID = gql(`
+  query TOLL_ADMIN_BY_ID($tollAdminByIdInput: IdInput!) {
+    tollAdminById(tollAdminByIdInput: $tollAdminByIdInput) {
+      toll {
+        id
+        name
+      }
+      baseUserId
+      baseUser {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`);
+
 export const GATE_ADMIN_LIST = gql(`
   query GATE_ADMIN_LIST($gateAdminListInput: GateAdminListInput!) {
     gateAdminList(gateAdminListInput: $gateAdminListInput) {
@@ -55,6 +74,25 @@ export const GATE_ADMIN_LIST = gql(`
           createdAt
           updatedAt
         }
+      }
+    }
+  }
+`);
+
+export const GATE_ADMIN_BY_ID = gql(`
+  query GATE_ADMIN_BY_ID($gateAdminByIdInput: IdInput!) {
+    gateAdminById(gateAdminByIdInput: $gateAdminByIdInput) {
+      toll {
+        id
+        name
+      }
+      baseUserId
+      baseUser {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
       }
     }
   }

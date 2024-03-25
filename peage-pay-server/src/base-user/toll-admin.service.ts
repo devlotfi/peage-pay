@@ -119,11 +119,7 @@ export class TollAdminService {
   ): Promise<boolean> {
     await this.databaseService.tollAdmin.update({
       data: {
-        toll: {
-          connect: {
-            id: changeTollAdminTollInput.tollId,
-          },
-        },
+        tollId: changeTollAdminTollInput.tollId,
       },
       where: {
         baseUserId: changeTollAdminTollInput.baseUserId,

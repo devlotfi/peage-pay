@@ -119,11 +119,7 @@ export class GateAdminService {
   ): Promise<boolean> {
     await this.databaseService.gateAdmin.update({
       data: {
-        toll: {
-          connect: {
-            id: changeGateAdminTollInput.tollId,
-          },
-        },
+        tollId: changeGateAdminTollInput.tollId,
       },
       where: {
         baseUserId: changeGateAdminTollInput.baseUserId,

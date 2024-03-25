@@ -18,12 +18,15 @@ import { BaseUserType } from './graphql/base-user.gql';
 import { TollAdminListResult } from './result/toll-admin-list.result.gql';
 import { TollAdminListInput } from './input/toll-admin-list.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { TollType } from 'src/toll/graphql/toll.gql';
+import { TollService } from './toll.service';
 
 @Resolver(() => TollAdminType)
 export class TollAdminResolver {
   public constructor(
     private readonly tollAdminService: TollAdminService,
     private readonly baseUserService: BaseUserService,
+    private readonly tollService: TollService,
   ) {}
 
   @Query(() => TollAdminListResult)
@@ -79,8 +82,13 @@ export class TollAdminResolver {
 
   @ResolveField(() => BaseUserType)
   public async baseUser(
-    @Parent() gateAdmin: TollAdminType,
+    @Parent() tollAdmin: TollAdminType,
   ): Promise<BaseUserType> {
-    return (await this.baseUserService.baseUser(gateAdmin.baseUserId)) as any;
+    return (await this.baseUserService.baseUser(tollAdmin.baseUserId)) as any;
+  }
+
+  @ResolveField(() => TollType)
+  public async toll(@Parent() tollAdmin: TollAdminType): Promise<BaseUserType> {
+    return (await this.tollService.toll(tollAdmin.tollId)) as any;
   }
 }

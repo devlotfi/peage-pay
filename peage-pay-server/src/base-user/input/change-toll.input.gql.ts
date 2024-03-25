@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsUUID } from 'class-validator';
+import { IsUUID, ValidateIf } from 'class-validator';
 
 @InputType()
 export class ChangeTollInput {
@@ -7,7 +7,8 @@ export class ChangeTollInput {
   @IsUUID()
   public baseUserId: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
+  @ValidateIf((object, value) => value !== null)
   @IsUUID()
-  public tollId: string;
+  public tollId: string | null;
 }
