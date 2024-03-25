@@ -1,8 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--base-300);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--base-100);
+  border-radius: 10px;
+  border: 1px solid var(--edge-200);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--base-200);
+}
 
 html {
   --primary-100: #2aa8ee;
@@ -24,7 +47,7 @@ html {
   --color-content: #ffffff;
 }
 
-#theme-provider[data-theme='LIGHT'] {
+#theme-provider[data-theme="LIGHT"] {
   --base-100: #ffffff;
   --base-200: #eaeef2;
   --base-300: #d4d8dd;
@@ -35,7 +58,7 @@ html {
   --edge-300: #838383;
 }
 
-#theme-provider[data-theme='DARK'] {
+#theme-provider[data-theme="DARK"] {
   --base-100: #384255;
   --base-200: #202732;
   --base-300: #161e22;
@@ -48,6 +71,6 @@ html {
 
 #theme-provider {
   color: var(--base-content);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-weight: 500;
 }

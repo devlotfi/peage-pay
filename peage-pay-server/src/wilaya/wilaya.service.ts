@@ -67,19 +67,20 @@ export class WilayaService {
           ],
         },
       });
-      const wilayaListResult = new WilayaListResult();
-      wilayaListResult.list = wilayaList as any[];
-      wilayaListResult.count = wilayaCount;
-      return wilayaListResult;
+      return {
+        count: wilayaCount,
+        list: wilayaList as any,
+      };
     } else {
       const wilayaList = await this.databaseService.wilaya.findMany({
         take: wilayaListInput.take,
         skip: wilayaListInput.skip,
       });
-      const wilayaListResult = new WilayaListResult();
-      wilayaListResult.list = wilayaList as any[];
-      wilayaListResult.count = wilayaList.length;
-      return wilayaListResult;
+      const wilayaCount = await this.databaseService.wilaya.count();
+      return {
+        count: wilayaCount,
+        list: wilayaList as any,
+      };
     }
   }
 

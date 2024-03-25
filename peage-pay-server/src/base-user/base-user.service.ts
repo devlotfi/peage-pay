@@ -6,6 +6,7 @@ import { BaseUser } from '@prisma/client';
 import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
+import { BaseUserType } from './graphql/base-user.gql';
 
 @Injectable()
 export class BaseUserService {
@@ -70,20 +71,21 @@ export class BaseUserService {
         },
       });
 
-      const baseUserListResult = new BaseUserListResult();
-      baseUserListResult.list = baseUserList as any[];
-      baseUserListResult.count = baseUserCount;
-      return baseUserListResult;
+      return {
+        count: baseUserCount,
+        list: baseUserList as any,
+      };
     } else {
       const baseUserList = await this.databaseService.baseUser.findMany({
         take: baseUserListInput.take,
         skip: baseUserListInput.skip,
       });
+      const baseUserCount = await this.databaseService.baseUser.count();
 
-      const baseUserListResult = new BaseUserListResult();
-      baseUserListResult.list = baseUserList as any[];
-      baseUserListResult.count = baseUserList.length;
-      return baseUserListResult;
+      return {
+        count: baseUserCount,
+        list: baseUserList as any,
+      };
     }
   }
 
@@ -124,5 +126,13 @@ export class BaseUserService {
     baseUser.gateAdmin && roleList.push(BaseUserRolesType.GATE_ADMIN);
     baseUser.moderator && roleList.push(BaseUserRolesType.MODERATOR);
     return roleList;
+  }
+
+  public async baseUser(baseUserId: string): Promise<BaseUserType | null> {
+    return (await this.databaseService.baseUser.findUnique({
+      where: {
+        id: baseUserId,
+      },
+    })) as any;
   }
 }

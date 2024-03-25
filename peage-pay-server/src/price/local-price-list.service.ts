@@ -34,7 +34,13 @@ export class LocalPriceListService {
       take: priceListInput.take,
       skip: priceListInput.skip,
     });
-    const count = await this.databaseService.dailyPrice.count();
+    const count = await this.databaseService.dailyPrice.count({
+      where: {
+        price: {
+          tollId: tollAdminData.tollAdmin?.toll?.id,
+        },
+      },
+    });
     return {
       count,
       list: list as any,
@@ -59,7 +65,13 @@ export class LocalPriceListService {
       take: priceListInput.take,
       skip: priceListInput.skip,
     });
-    const count = await this.databaseService.weeklyPrice.count();
+    const count = await this.databaseService.weeklyPrice.count({
+      where: {
+        price: {
+          tollId: tollAdminData.tollAdmin?.toll?.id,
+        },
+      },
+    });
     return {
       count,
       list: list as any,
@@ -84,7 +96,13 @@ export class LocalPriceListService {
       take: priceListInput.take,
       skip: priceListInput.skip,
     });
-    const count = await this.databaseService.monthlyPrice.count();
+    const count = await this.databaseService.monthlyPrice.count({
+      where: {
+        price: {
+          tollId: tollAdminData.tollAdmin?.toll?.id,
+        },
+      },
+    });
     return {
       count,
       list: list as any,
@@ -109,7 +127,13 @@ export class LocalPriceListService {
       take: priceListInput.take,
       skip: priceListInput.skip,
     });
-    const count = await this.databaseService.yearlyPrice.count();
+    const count = await this.databaseService.yearlyPrice.count({
+      where: {
+        price: {
+          tollId: tollAdminData.tollAdmin?.toll?.id,
+        },
+      },
+    });
     return {
       count,
       list: list as any,
@@ -134,7 +158,13 @@ export class LocalPriceListService {
       take: priceListInput.take,
       skip: priceListInput.skip,
     });
-    const count = await this.databaseService.customPrice.count();
+    const count = await this.databaseService.customPrice.count({
+      where: {
+        price: {
+          tollId: tollAdminData.tollAdmin?.toll?.id,
+        },
+      },
+    });
     return {
       count,
       list: list as any,

@@ -70,20 +70,20 @@ export class HighwayService {
           ],
         },
       });
-      const highwayListResult = new HighwayListResult();
-      highwayListResult.list = highwayList as any[];
-      highwayListResult.count = highwayCount;
-      return highwayListResult;
+      return {
+        count: highwayCount,
+        list: highwayList as any,
+      };
     } else {
       const highwayList = await this.databaseService.highway.findMany({
         take: highwayListInput.take,
         skip: highwayListInput.skip,
       });
       const highwayCount = await this.databaseService.highway.count();
-      const highwayListResult = new HighwayListResult();
-      highwayListResult.list = highwayList as any[];
-      highwayListResult.count = highwayCount;
-      return highwayListResult;
+      return {
+        count: highwayCount,
+        list: highwayList as any,
+      };
     }
   }
 

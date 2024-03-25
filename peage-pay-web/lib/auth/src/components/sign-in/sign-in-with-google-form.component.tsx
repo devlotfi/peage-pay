@@ -23,7 +23,6 @@ const SignInWithGoogleForm = (): JSX.Element => {
     },
   });
   const googleLogin = useGoogleLogin({
-    scope: "https://www.googleapis.com/auth/user.birthday.read",
     onSuccess(tokenResponse) {
       signInWithGoogle({
         variables: {

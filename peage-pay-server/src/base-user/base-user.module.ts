@@ -6,6 +6,8 @@ import { TollAdminResolver } from './toll-admin.resolver';
 import { TollAdminService } from './toll-admin.service';
 import { GateAdminService } from './gate-admin.service';
 import { ModeratorService } from './moderator.service';
+import { GateAdminResolver } from './gate-admin.resolver';
+import { ModeratorResolver } from './moderator.resolver';
 
 @Module({
   providers: [
@@ -16,6 +18,8 @@ import { ModeratorService } from './moderator.service';
     ModeratorService,
     BaseUserResolver,
     TollAdminResolver,
+    GateAdminResolver,
+    ModeratorResolver,
   ],
   exports: [BaseUserService],
 })

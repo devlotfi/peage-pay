@@ -151,10 +151,10 @@ export class TollService {
           ],
         },
       });
-      const tollListResult = new TollListResult();
-      tollListResult.list = tollList as any[];
-      tollListResult.count = tollCount;
-      return tollListResult;
+      return {
+        count: tollCount,
+        list: tollList as any,
+      };
     } else {
       const tollList = await this.databaseService.toll.findMany({
         where: {
@@ -165,10 +165,11 @@ export class TollService {
         take: tollListInput.take,
         skip: tollListInput.skip,
       });
-      const tollListResult = new TollListResult();
-      tollListResult.list = tollList as any[];
-      tollListResult.count = tollList.length;
-      return tollListResult;
+      const tollCount = await this.databaseService.toll.count();
+      return {
+        count: tollCount,
+        list: tollList as any,
+      };
     }
   }
 

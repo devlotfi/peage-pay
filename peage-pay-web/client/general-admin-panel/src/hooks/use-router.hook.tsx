@@ -196,7 +196,7 @@ const useRouter = () => {
         },
 
         {
-          path: "/dashboard/user/list",
+          path: "/dashboard/base-user/list",
           element: <BaseUserListPage></BaseUserListPage>,
         },
 

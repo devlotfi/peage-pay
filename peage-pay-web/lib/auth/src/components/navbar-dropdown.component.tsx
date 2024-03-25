@@ -54,7 +54,7 @@ const NavbarDropdown = (): JSX.Element => {
         mainElement={
           <Dropdown.Main>
             <ButtonOutline
-              variant={"edge-100"}
+              variant={"edge-200"}
               className="min-h-[2.7rem] w-full rounded-lg hover:bg-base-100 mb-[1rem] justify-between"
             >
               <div className="flex">
@@ -80,7 +80,10 @@ const NavbarDropdown = (): JSX.Element => {
           </Dropdown.Main>
         }
       >
-        <Dropdown.Content className="w-full" position={"bottom-right"}>
+        <Dropdown.Content
+          className="w-full static mb-[1rem] shadow-none"
+          position={"bottom-right"}
+        >
           <MenuDropdown
             mainElement={
               <MenuDropdown.Main className="mb-[0.5rem]">

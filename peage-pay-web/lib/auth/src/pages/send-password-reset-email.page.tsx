@@ -1,5 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { faAt, faCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAt,
+  faCheck,
+  faEnvelope,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Alert,
@@ -12,7 +17,6 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { SEND_PASSWORD_RESET_EMAIL } from "../graphql/mutations";
-import { AuthErrors, BaseUserErrors } from "../__generated__/graphql";
 
 const sendPasswordResetEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -27,52 +31,24 @@ const initialValues: SendPasswordResetEmailValues = {
 };
 
 const SendPasswordResetEmailPage = (): JSX.Element => {
-  const [sendPasswordResetEmail, { loading, data }] = useMutation(
-    SEND_PASSWORD_RESET_EMAIL,
-    {
-      onError(error) {
-        switch (error.message) {
-          case BaseUserErrors.BaseUserNotFound:
-            setFieldError(
-              "email",
-              `auth:errors.${BaseUserErrors.BaseUserNotFound}`
-            );
-            break;
-          case AuthErrors.PasswordResetAttemptsExceeded:
-            setFieldError(
-              "email",
-              `auth:errors.${AuthErrors.PasswordResetAttemptsExceeded}`
-            );
-            break;
-
-          default:
-            break;
-        }
-      },
-    }
+  const [sendPasswordResetEmail, { loading, data, error }] = useMutation(
+    SEND_PASSWORD_RESET_EMAIL
   );
 
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    errors,
-    values,
-    touched,
-    setFieldError,
-  } = useFormik({
-    validationSchema: sendPasswordResetEmailValidationSchema,
-    initialValues,
-    onSubmit(values) {
-      sendPasswordResetEmail({
-        variables: {
-          sendPasswordResetEmailInput: {
-            email: values.email,
+  const { handleSubmit, handleChange, handleBlur, errors, values, touched } =
+    useFormik({
+      validationSchema: sendPasswordResetEmailValidationSchema,
+      initialValues,
+      onSubmit(values) {
+        sendPasswordResetEmail({
+          variables: {
+            sendPasswordResetEmailInput: {
+              email: values.email,
+            },
           },
-        },
-      });
-    },
-  });
+        });
+      },
+    });
 
   return (
     <div className="h-screen w-screen flex flex-col bg-base-200">
@@ -89,6 +65,15 @@ const SendPasswordResetEmailPage = (): JSX.Element => {
               </Heading.Icon>
               <Heading.Text>Send password reset email</Heading.Text>
             </Heading>
+
+            {error ? (
+              <Alert variant={"error"} className="mb-[0.5rem]">
+                <Alert.Icon position={"left"}>
+                  <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
+                </Alert.Icon>
+                <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+              </Alert>
+            ) : null}
 
             {data ? (
               <Alert variant={"success"} className="mb-[2rem]">

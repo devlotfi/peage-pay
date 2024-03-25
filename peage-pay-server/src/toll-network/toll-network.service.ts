@@ -55,19 +55,20 @@ export class TollNetworkService {
           ],
         },
       });
-      const tollNetworkListResult = new TollNetworkListResult();
-      tollNetworkListResult.list = tollNetworkList as any[];
-      tollNetworkListResult.count = tollNetworkCount;
-      return tollNetworkListResult;
+      return {
+        count: tollNetworkCount,
+        list: tollNetworkList as any,
+      };
     } else {
       const tollNetworkList = await this.databaseService.tollNetwork.findMany({
         take: tollNetworkListInput.take,
         skip: tollNetworkListInput.skip,
       });
-      const tollNetworkListResult = new TollNetworkListResult();
-      tollNetworkListResult.list = tollNetworkList as any[];
-      tollNetworkListResult.count = tollNetworkList.length;
-      return tollNetworkListResult;
+      const tollNetworkCount = await this.databaseService.tollNetwork.count();
+      return {
+        count: tollNetworkCount,
+        list: tollNetworkList as any,
+      };
     }
   }
 

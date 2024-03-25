@@ -16,7 +16,7 @@ export class SectionService {
   public async sectionListForToll(
     sectionListForTollInput: SectionListForTollInput,
   ): Promise<SectionListResult> {
-    const graphTollDistanceList = await this.databaseService.section.findMany({
+    const sectionList = await this.databaseService.section.findMany({
       where: {
         OR: [
           {
@@ -34,7 +34,7 @@ export class SectionService {
       take: sectionListForTollInput.take,
       skip: sectionListForTollInput.skip,
     });
-    const graphTollDistanceCount = await this.databaseService.section.count({
+    const sectionCount = await this.databaseService.section.count({
       where: {
         OR: [
           {
@@ -50,10 +50,10 @@ export class SectionService {
         ],
       },
     });
-    const sectionListResult = new SectionListResult();
-    sectionListResult.list = graphTollDistanceList as any[];
-    sectionListResult.count = graphTollDistanceCount;
-    return sectionListResult;
+    return {
+      count: sectionCount,
+      list: sectionList as any,
+    };
   }
 
   public async sectionListForTollNetwork(

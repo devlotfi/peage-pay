@@ -6,6 +6,6 @@ export class ModeratorType {
   @Field()
   public baseUserId: string;
 
-  @Field(() => BaseUserType, { nullable: true })
-  public baseUser?: BaseUserType;
+  @Field(() => BaseUserType)
+  public baseUser: BaseUserType;
 }

@@ -84,9 +84,9 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Toll networks</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/user/list")}
+            onClick={() => navigate("/dashboard/base-user/list")}
             variant={
-              location.pathname === "/dashboard/user/list"
+              location.pathname === "/dashboard/base-user/list"
                 ? "primary"
                 : "base-200"
             }
@@ -140,7 +140,7 @@ const DashboardLayout = (): JSX.Element => {
           <AdminDashboardLayout.Navbar.LeftContent></AdminDashboardLayout.Navbar.LeftContent>
           <AdminDashboardLayout.Navbar.RightContent></AdminDashboardLayout.Navbar.RightContent>
         </AdminDashboardLayout.Navbar>
-        <AdminDashboardLayout.Content className="p-[0.7rem] pt-[1rem]">
+        <AdminDashboardLayout.Content className="p-[1rem]">
           <Outlet></Outlet>
         </AdminDashboardLayout.Content>
       </AdminDashboardLayout.Main>

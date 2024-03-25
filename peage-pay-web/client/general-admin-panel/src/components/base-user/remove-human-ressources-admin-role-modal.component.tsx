@@ -31,7 +31,7 @@ const RemoveHumanRessourcesAdminRoleModal = ({
     }
   );
 
-  const handleDelete = () => {
+  const handleRemove = () => {
     removeHumanRessourcesAdminRole({
       variables: {
         removeHumanRessoucesAdminRoleInput: {
@@ -69,7 +69,7 @@ const RemoveHumanRessourcesAdminRoleModal = ({
           </Button>
           <Button
             className="ml-[0.5rem]"
-            onClick={handleDelete}
+            onClick={handleRemove}
             variant={"primary"}
           >
             {loading ? (

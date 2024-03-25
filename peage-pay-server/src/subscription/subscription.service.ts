@@ -56,10 +56,10 @@ export class SubscriptionService {
           ],
         },
       });
-      const subscriptionListResult = new SubscriptionListResult();
-      subscriptionListResult.list = subscriptionList as any[];
-      subscriptionListResult.count = subscriptionCount;
-      return subscriptionListResult;
+      return {
+        count: subscriptionCount,
+        list: subscriptionList as any,
+      };
     } else {
       const subscriptionList = await this.databaseService.subscription.findMany(
         {
@@ -67,10 +67,11 @@ export class SubscriptionService {
           skip: subscriptionListInput.skip,
         },
       );
-      const subscriptionListResult = new SubscriptionListResult();
-      subscriptionListResult.list = subscriptionList as any[];
-      subscriptionListResult.count = subscriptionList.length;
-      return subscriptionListResult;
+      const subscriptionCount = await this.databaseService.subscription.count();
+      return {
+        count: subscriptionCount,
+        list: subscriptionList as any,
+      };
     }
   }
 

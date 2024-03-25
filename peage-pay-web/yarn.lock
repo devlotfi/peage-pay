@@ -2697,12 +2697,36 @@ __metadata:
 "@peage-pay-web/auth@workspace:lib/auth":
   version: 0.0.0-use.local
   resolution: "@peage-pay-web/auth@workspace:lib/auth"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
   languageName: unknown
   linkType: soft
 
 "@peage-pay-web/constants@workspace:*, @peage-pay-web/constants@workspace:lib/constants":
   version: 0.0.0-use.local
   resolution: "@peage-pay-web/constants@workspace:lib/constants"
+  languageName: unknown
+  linkType: soft
+
+"@peage-pay-web/general-admin-panel@workspace:client/general-admin-panel":
+  version: 0.0.0-use.local
+  resolution: "@peage-pay-web/general-admin-panel@workspace:client/general-admin-panel"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
+  languageName: unknown
+  linkType: soft
+
+"@peage-pay-web/human-ressources-admin-panel@workspace:client/human-ressources-admin-panel":
+  version: 0.0.0-use.local
+  resolution: "@peage-pay-web/human-ressources-admin-panel@workspace:client/human-ressources-admin-panel"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
   languageName: unknown
   linkType: soft
 
@@ -7071,16 +7095,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"general-admin-panel@workspace:client/general-admin-panel":
-  version: 0.0.0-use.local
-  resolution: "general-admin-panel@workspace:client/general-admin-panel"
-  dependencies:
-    autoprefixer: "npm:^10.4.19"
-    postcss: "npm:^8.4.38"
-    tailwindcss: "npm:^3.4.1"
-  languageName: unknown
-  linkType: soft
-
 "gensync@npm:^1.0.0-beta.2":
   version: 1.0.0-beta.2
   resolution: "gensync@npm:1.0.0-beta.2"
@@ -7547,16 +7561,6 @@ __metadata:
   checksum: 10c0/bc4f7c38da32a5fc622450b6cb49a24ff596f9bd48dcedb52d2da3fa1c1a80e100fb506bd59b326c012f21c863c69b275c23de1a01d0b84db396822fdf25e52b
   languageName: node
   linkType: hard
-
-"human-ressources-admin-panel@workspace:client/human-ressources-admin-panel":
-  version: 0.0.0-use.local
-  resolution: "human-ressources-admin-panel@workspace:client/human-ressources-admin-panel"
-  dependencies:
-    autoprefixer: "npm:^10.4.19"
-    postcss: "npm:^8.4.38"
-    tailwindcss: "npm:^3.4.1"
-  languageName: unknown
-  linkType: soft
 
 "human-signals@npm:^2.1.0":
   version: 2.1.0
