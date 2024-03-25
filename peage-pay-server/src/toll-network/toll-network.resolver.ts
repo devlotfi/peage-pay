@@ -8,9 +8,8 @@ import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
-import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
-import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
 import { TollNetworkListResult } from './result/toll-network-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver()
 export class TollNetworkResolver {
@@ -27,7 +26,7 @@ export class TollNetworkResolver {
   @Query(() => TollNetworkType)
   @UseGuards(AuthGuard)
   public async tollNetworkById(
-    @Args('tollNetworkByIdInput') tollNetworkByIdInput: TollNetworkByIdInput,
+    @Args('tollNetworkByIdInput') tollNetworkByIdInput: IdInput,
   ): Promise<TollNetworkType | null> {
     return await this.tollNetworkService.tollNetworkById(tollNetworkByIdInput);
   }
@@ -59,7 +58,7 @@ export class TollNetworkResolver {
   @UseGuards(AuthGuard)
   public async deleteTollNetwork(
     @Args('deleteTollNetworkInput')
-    deleteTollNetworkInput: DeleteTollNetworkInput,
+    deleteTollNetworkInput: IdInput,
   ): Promise<boolean> {
     return await this.tollNetworkService.deleteTollNetwork(
       deleteTollNetworkInput,

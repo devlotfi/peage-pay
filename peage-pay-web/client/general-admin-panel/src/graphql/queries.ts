@@ -16,7 +16,7 @@ export const HIGHWAY_LIST = gql(`
 `);
 
 export const HIGHWAY_BY_ID = gql(`
-  query HIGHWAY_BY_ID($highwayByIdInput: HighwayByIdInput!) {
+  query HIGHWAY_BY_ID($highwayByIdInput: IdInput!) {
     highwayById(highwayByIdInput: $highwayByIdInput) {
       code
       id
@@ -44,7 +44,7 @@ export const SUBSCRIPTION_LIST = gql(`
 `);
 
 export const SUBSCRIPTION_BY_ID = gql(`
-  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: SubscriptionByIdInput!) {
+  query SUBSCRIPTION_BY_ID($subscriptionByIdInput: IdInput!) {
     subscriptionById(subscriptionByIdInput: $subscriptionByIdInput) {
       id
       name
@@ -57,7 +57,7 @@ export const SUBSCRIPTION_BY_ID = gql(`
 `);
 
 export const FULL_TOLL_LIST = gql(`
-  query FULL_TOLL_LIST($fullTollListInput: FullTollListInput!) {
+  query FULL_TOLL_LIST($fullTollListInput: IdInput!) {
     fullTollList(fullTollListInput: $fullTollListInput) {
       id
       name
@@ -122,7 +122,7 @@ export const TOLL_LIST = gql(`
 `);
 
 export const TOLL_BY_ID = gql(`
-  query TOLL_BY_ID($tollByIdInput: TollByIdInput!) {
+  query TOLL_BY_ID($tollByIdInput: IdInput!) {
     tollById(tollByIdInput: $tollByIdInput) {
       id
       name
@@ -167,7 +167,7 @@ export const TOLL_NETWORK_LIST = gql(`
 `);
 
 export const TOLL_NETWORK_BY_ID = gql(`
-  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: TollNetworkByIdInput!) {
+  query TOLL_NETWORK_BY_ID($tollNetworkByIdInput: IdInput!) {
     tollNetworkById(tollNetworkByIdInput: $tollNetworkByIdInput) {
       id
       name
@@ -191,7 +191,7 @@ export const WILAYA_LIST = gql(`
 `);
 
 export const WILAYA_BY_ID = gql(`
-  query WILAYA_BY_ID($wilayaByIdInput: WilayaByIdInput!) {
+  query WILAYA_BY_ID($wilayaByIdInput: IdInput!) {
     wilayaById(wilayaByIdInput: $wilayaByIdInput) {
       id
       name
@@ -201,7 +201,7 @@ export const WILAYA_BY_ID = gql(`
 `);
 
 export const SECTION_LIST_FOR_TOLL_NETWORK = gql(`
-  query SECTION_LIST_FOR_TOLL_NETWORK($sectionListForTollNetworkInput: SectionListForTollNetworkInput!) {
+  query SECTION_LIST_FOR_TOLL_NETWORK($sectionListForTollNetworkInput: IdInput!) {
     sectionListForTollNetwork(sectionListForTollNetworkInput: $sectionListForTollNetworkInput) {
       distance
       status
@@ -275,7 +275,7 @@ export const BASE_USER_LIST = gql(`
 `);
 
 export const DAILY_PRICE_GLOBAL_LIST = gql(`
-  query DAILY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+  query DAILY_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {
     dailyPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {
@@ -295,7 +295,7 @@ export const DAILY_PRICE_GLOBAL_LIST = gql(`
 `);
 
 export const WEEKLY_PRICE_GLOBAL_LIST = gql(`
-  query WEEKLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+  query WEEKLY_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {
     weeklyPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {
@@ -316,7 +316,7 @@ export const WEEKLY_PRICE_GLOBAL_LIST = gql(`
 `);
 
 export const MONTHLY_PRICE_GLOBAL_LIST = gql(`
-  query MONTHLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+  query MONTHLY_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {
     monthlyPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {
@@ -339,7 +339,7 @@ export const MONTHLY_PRICE_GLOBAL_LIST = gql(`
 `);
 
 export const YEARLY_PRICE_GLOBAL_LIST = gql(`
-  query YEARLY_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+  query YEARLY_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {
     yearlyPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {
@@ -361,7 +361,7 @@ export const YEARLY_PRICE_GLOBAL_LIST = gql(`
 `);
 
 export const CUSTOM_PRICE_GLOBAL_LIST = gql(`
-  query CUSTOM_PRICE_GLOBAL_LIST($priceListInput: PriceListInput!) {
+  query CUSTOM_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {
     customPriceGlobalList(priceListInput: $priceListInput) {
       count
       list {

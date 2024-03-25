@@ -53,15 +53,12 @@ const SubscriptionListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
-                <FontAwesomeIcon
-                  className="text-error-100"
-                  icon={faTrash}
-                ></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text className="text-error-100">Delete</MenuItem.Text>
+              <MenuItem.Text>Delete</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

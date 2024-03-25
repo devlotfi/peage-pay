@@ -36,8 +36,8 @@ const AddTollAdminRoleModal = ({
   const handleAdd = () => {
     addTollAdminRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        addTollAdminRoleInput: {
+          id: baseUser.id,
         },
       },
     });

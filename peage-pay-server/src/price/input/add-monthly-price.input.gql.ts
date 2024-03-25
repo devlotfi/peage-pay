@@ -3,34 +3,16 @@ import {
   ArrayMaxSize,
   ArrayMinSize,
   ArrayUnique,
-  IsDate,
   IsNumber,
   Max,
   Min,
 } from 'class-validator';
 import { MonthType } from 'src/price/graphql/month.gql';
-import { IsAfterFieldDate } from 'src/shared/validation/is-after-field-date';
 import { IsSuperiorOrEqualToFieldValue } from 'src/shared/validation/is-superior-or-equal-to-field-value';
+import { AddPriceBaseInput } from './add-price-base.input.gql';
 
 @InputType()
-export class AddMonthlyPriceInput {
-  @Field()
-  @Min(0)
-  public value: number;
-
-  @Field()
-  @Min(0)
-  public priority: number;
-
-  @Field(() => Date)
-  @IsDate()
-  public startTimestamp: Date;
-
-  @Field(() => Date)
-  @IsAfterFieldDate('startTimestamp')
-  @IsDate()
-  public endTimestamp: Date;
-
+export class AddMonthlyPriceInput extends AddPriceBaseInput {
   @Field(() => [MonthType])
   @ArrayMinSize(1)
   @ArrayMaxSize(7)

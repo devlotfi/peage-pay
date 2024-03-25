@@ -109,10 +109,6 @@ export enum AuthErrors {
   VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING'
 }
 
-export type BaseUserByIdInput = {
-  baseUserId: Scalars['String']['input'];
-};
-
 export enum BaseUserErrors {
   InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES'
 }
@@ -156,10 +152,6 @@ export type BaseUserType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type ChangeRoleInput = {
-  baseUserId: Scalars['String']['input'];
-};
-
 export type ChangeTollInput = {
   baseUserId: Scalars['String']['input'];
   tollId?: InputMaybe<Scalars['String']['input']>;
@@ -201,29 +193,9 @@ export enum DayOfWeekType {
   Wednesday = 'WEDNESDAY'
 }
 
-export type DeleteHighwayInput = {
-  highwayId: Scalars['String']['input'];
-};
-
-export type DeletePriceInput = {
-  priceId: Scalars['String']['input'];
-};
-
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
-};
-
-export type DeleteSubscriptionInput = {
-  subscriptionId: Scalars['String']['input'];
-};
-
-export type DeleteTollInput = {
-  tollId: Scalars['String']['input'];
-};
-
-export type DeleteTollNetworkInput = {
-  tollNetworkId: Scalars['String']['input'];
 };
 
 export type EditHighwayInput = {
@@ -261,10 +233,6 @@ export type EditTollNetworkInput = {
   tollNetworkId: Scalars['String']['input'];
 };
 
-export type FullTollListInput = {
-  tollNetworkId: Scalars['String']['input'];
-};
-
 export type GateAdminListInput = {
   firstNameSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -290,10 +258,6 @@ export type GateAdminType = {
 
 export type GenerateTollDistancesInput = {
   tollNetworkId: Scalars['String']['input'];
-};
-
-export type HighwayByIdInput = {
-  highwayId: Scalars['String']['input'];
 };
 
 export type HighwayListInput = {
@@ -323,6 +287,10 @@ export type HighwayType = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type IdInput = {
+  id: Scalars['String']['input'];
 };
 
 export type ModeratorListInput = {
@@ -419,7 +387,7 @@ export type Mutation = {
 
 
 export type MutationAddGateAdminRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  addGateAdminRoleInput: IdInput;
 };
 
 
@@ -434,7 +402,7 @@ export type MutationAddHighwayArgs = {
 
 
 export type MutationAddHumanRessoucesAdminRoleArgs = {
-  addHumanRessoucesAdminRoleInput: ChangeRoleInput;
+  addHumanRessoucesAdminRoleInput: IdInput;
 };
 
 
@@ -444,7 +412,7 @@ export type MutationAddLocalPriceArgs = {
 
 
 export type MutationAddModeratorRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  addModeratorRoleInput: IdInput;
 };
 
 
@@ -464,7 +432,7 @@ export type MutationAddTollArgs = {
 
 
 export type MutationAddTollAdminRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  addTollAdminRoleInput: IdInput;
 };
 
 
@@ -474,27 +442,27 @@ export type MutationAddTollNetworkArgs = {
 
 
 export type MutationChangeGateAdminTollArgs = {
-  changeTollInput: ChangeTollInput;
+  changeGateAdminTollInput: ChangeTollInput;
 };
 
 
 export type MutationChangeTollAdminTollArgs = {
-  changeTollInput: ChangeTollInput;
+  changeTollAdminTollInput: ChangeTollInput;
 };
 
 
 export type MutationDeleteGlobalPriceArgs = {
-  deletePriceInput: DeletePriceInput;
+  deletePriceInput: IdInput;
 };
 
 
 export type MutationDeleteHighwayArgs = {
-  deleteHighwayInput: DeleteHighwayInput;
+  deleteHighwayInput: IdInput;
 };
 
 
 export type MutationDeleteLocalPriceArgs = {
-  deletePriceInput: DeletePriceInput;
+  deletePriceInput: IdInput;
 };
 
 
@@ -504,17 +472,17 @@ export type MutationDeleteSectionArgs = {
 
 
 export type MutationDeleteSubscriptionArgs = {
-  deleteSubscriptionInput: DeleteSubscriptionInput;
+  deleteSubscriptionInput: IdInput;
 };
 
 
 export type MutationDeleteTollArgs = {
-  deleteTollInput: DeleteTollInput;
+  deleteTollInput: IdInput;
 };
 
 
 export type MutationDeleteTollNetworkArgs = {
-  deleteTollNetworkInput: DeleteTollNetworkInput;
+  deleteTollNetworkInput: IdInput;
 };
 
 
@@ -549,22 +517,22 @@ export type MutationGenerateTollDistancesArgs = {
 
 
 export type MutationRemoveGateAdminRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  removeGateAdminRoleInput: IdInput;
 };
 
 
 export type MutationRemoveHumanRessoucesAdminRoleArgs = {
-  removeHumanRessoucesAdminRoleInput: ChangeRoleInput;
+  removeHumanRessoucesAdminRoleInput: IdInput;
 };
 
 
 export type MutationRemoveModeratorRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  removeModeratorRoleInput: IdInput;
 };
 
 
 export type MutationRemoveTollAdminRoleArgs = {
-  changeTollInput: ChangeRoleInput;
+  removeTollAdminRoleInput: IdInput;
 };
 
 
@@ -599,17 +567,17 @@ export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
 };
 
+export type PaginationInput = {
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
 export enum PriceErrors {
   CannotDeleteGlobalPrice = 'CANNOT_DELETE_GLOBAL_PRICE',
   CannotDeleteLocalPrice = 'CANNOT_DELETE_LOCAL_PRICE',
   PriceNotFound = 'PRICE_NOT_FOUND',
   TollNotManaged = 'TOLL_NOT_MANAGED'
 }
-
-export type PriceListInput = {
-  skip?: InputMaybe<Scalars['Float']['input']>;
-  take: Scalars['Float']['input'];
-};
 
 export type PriceType = {
   __typename?: 'PriceType';
@@ -639,6 +607,7 @@ export type Query = {
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
   fullTollList: Array<TollType>;
+  gateAdminById?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
@@ -653,6 +622,7 @@ export type Query = {
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
+  tollAdminById?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
   tollById: TollType;
   tollList: TollListResult;
@@ -668,7 +638,7 @@ export type Query = {
 
 
 export type QueryBaseUserByIdArgs = {
-  baseUserByIdInput: BaseUserByIdInput;
+  userByIdInput: IdInput;
 };
 
 
@@ -678,27 +648,32 @@ export type QueryBaseUserListArgs = {
 
 
 export type QueryCustomPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryCustomPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryDailyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryDailyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryFullTollListArgs = {
-  fullTollListInput: FullTollListInput;
+  fullTollListInput: IdInput;
+};
+
+
+export type QueryGateAdminByIdArgs = {
+  gateAdminByIdInput: IdInput;
 };
 
 
@@ -708,7 +683,7 @@ export type QueryGateAdminListArgs = {
 
 
 export type QueryHighwayByIdArgs = {
-  highwayByIdInput: HighwayByIdInput;
+  highwayByIdInput: IdInput;
 };
 
 
@@ -723,12 +698,12 @@ export type QueryModeratorListArgs = {
 
 
 export type QueryMonthlyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryMonthlyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
@@ -743,7 +718,7 @@ export type QuerySectionListForTollArgs = {
 
 
 export type QuerySectionListForTollNetworkArgs = {
-  sectionListForTollNetworkInput: SectionListForTollNetworkInput;
+  sectionListForTollNetworkInput: IdInput;
 };
 
 
@@ -753,12 +728,17 @@ export type QuerySignInWithRefreshTokenArgs = {
 
 
 export type QuerySubscriptionByIdArgs = {
-  subscriptionByIdInput: SubscriptionByIdInput;
+  subscriptionByIdInput: IdInput;
 };
 
 
 export type QuerySubscriptionListArgs = {
   subscriptionListInput: SubscriptionListInput;
+};
+
+
+export type QueryTollAdminByIdArgs = {
+  tollAdminByIdInput: IdInput;
 };
 
 
@@ -768,7 +748,7 @@ export type QueryTollAdminListArgs = {
 
 
 export type QueryTollByIdArgs = {
-  tollByIdInput: TollByIdInput;
+  tollByIdInput: IdInput;
 };
 
 
@@ -778,7 +758,7 @@ export type QueryTollListArgs = {
 
 
 export type QueryTollNetworkByIdArgs = {
-  tollNetworkByIdInput: TollNetworkByIdInput;
+  tollNetworkByIdInput: IdInput;
 };
 
 
@@ -788,17 +768,17 @@ export type QueryTollNetworkListArgs = {
 
 
 export type QueryWeeklyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryWeeklyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryWilayaByIdArgs = {
-  wilayaByIdInput: WilayaByIdInput;
+  wilayaByIdInput: IdInput;
 };
 
 
@@ -808,12 +788,12 @@ export type QueryWilayaListArgs = {
 
 
 export type QueryYearlyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryYearlyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 export enum RefreshTokenMode {
@@ -833,13 +813,9 @@ export type SectionByIdsInput = {
 };
 
 export type SectionListForTollInput = {
+  id: Scalars['String']['input'];
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
-  tollId: Scalars['String']['input'];
-};
-
-export type SectionListForTollNetworkInput = {
-  tollNetworkId: Scalars['String']['input'];
 };
 
 export type SectionListResult = {
@@ -904,10 +880,6 @@ export type SigninWithEmailInput = {
   password: Scalars['String']['input'];
 };
 
-export type SubscriptionByIdInput = {
-  subscriptionId: Scalars['String']['input'];
-};
-
 export type SubscriptionListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
@@ -969,19 +941,15 @@ export type TollAdminType = {
   tollId?: Maybe<Scalars['String']['output']>;
 };
 
-export type TollByIdInput = {
-  tollId: Scalars['String']['input'];
-};
-
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
   highwayNameSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
-  skip: Scalars['Float']['input'];
+  skip?: InputMaybe<Scalars['Float']['input']>;
   statusSearch?: InputMaybe<TollStatusType>;
   take: Scalars['Float']['input'];
-  tollNetworkId: Scalars['String']['input'];
+  tollNetworkId?: InputMaybe<Scalars['String']['input']>;
   wilayaCodeSearch?: InputMaybe<Scalars['String']['input']>;
   wilayaNameSearch?: InputMaybe<Scalars['String']['input']>;
 };
@@ -990,10 +958,6 @@ export type TollListResult = {
   __typename?: 'TollListResult';
   count: Scalars['Float']['output'];
   list: Array<TollType>;
-};
-
-export type TollNetworkByIdInput = {
-  tollNetworkId: Scalars['String']['input'];
 };
 
 export type TollNetworkListInput = {
@@ -1073,10 +1037,6 @@ export type WeeklyPriceType = {
   priceId: Scalars['ID']['output'];
 };
 
-export type WilayaByIdInput = {
-  wilayaId: Scalars['String']['input'];
-};
-
 export type WilayaListInput = {
   codeSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1119,56 +1079,56 @@ export type YearlyPriceType = {
 };
 
 export type Add_Toll_Admin_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  addTollAdminRoleInput: IdInput;
 }>;
 
 
 export type Add_Toll_Admin_RoleMutation = { __typename?: 'Mutation', addTollAdminRole: boolean };
 
 export type Remove_Toll_Admin_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  removeTollAdminRoleInput: IdInput;
 }>;
 
 
 export type Remove_Toll_Admin_RoleMutation = { __typename?: 'Mutation', removeTollAdminRole: boolean };
 
 export type Change_Toll_Admin_TollMutationVariables = Exact<{
-  changeTollInput: ChangeTollInput;
+  changeTollAdminTollInput: ChangeTollInput;
 }>;
 
 
 export type Change_Toll_Admin_TollMutation = { __typename?: 'Mutation', changeTollAdminToll: boolean };
 
 export type Add_Gate_Admin_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  addGateAdminRoleInput: IdInput;
 }>;
 
 
 export type Add_Gate_Admin_RoleMutation = { __typename?: 'Mutation', addGateAdminRole: boolean };
 
 export type Remove_Gate_Admin_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  removeGateAdminRoleInput: IdInput;
 }>;
 
 
 export type Remove_Gate_Admin_RoleMutation = { __typename?: 'Mutation', removeGateAdminRole: boolean };
 
 export type Change_Gate_Admin_TollMutationVariables = Exact<{
-  changeTollInput: ChangeTollInput;
+  changeGateAdminTollInput: ChangeTollInput;
 }>;
 
 
 export type Change_Gate_Admin_TollMutation = { __typename?: 'Mutation', changeGateAdminToll: boolean };
 
 export type Add_Moderator_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  addModeratorRoleInput: IdInput;
 }>;
 
 
 export type Add_Moderator_RoleMutation = { __typename?: 'Mutation', addModeratorRole: boolean };
 
 export type Remove_Moderator_RoleMutationVariables = Exact<{
-  changeTollInput: ChangeRoleInput;
+  removeModeratorRoleInput: IdInput;
 }>;
 
 
@@ -1202,16 +1162,24 @@ export type Moderator_ListQueryVariables = Exact<{
 
 export type Moderator_ListQuery = { __typename?: 'Query', moderatorList: { __typename?: 'ModeratorListResult', count: number, list: Array<{ __typename?: 'ModeratorType', baseUserId: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } }> } };
 
+export type Toll_ListQueryVariables = Exact<{
+  tollListInput: TollListInput;
+}>;
 
-export const Add_Toll_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_TOLL_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addTollAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Add_Toll_Admin_RoleMutation, Add_Toll_Admin_RoleMutationVariables>;
-export const Remove_Toll_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_TOLL_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeTollAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Toll_Admin_RoleMutation, Remove_Toll_Admin_RoleMutationVariables>;
-export const Change_Toll_Admin_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CHANGE_TOLL_ADMIN_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeTollAdminToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Change_Toll_Admin_TollMutation, Change_Toll_Admin_TollMutationVariables>;
-export const Add_Gate_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_GATE_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addGateAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Add_Gate_Admin_RoleMutation, Add_Gate_Admin_RoleMutationVariables>;
-export const Remove_Gate_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_GATE_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeGateAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Gate_Admin_RoleMutation, Remove_Gate_Admin_RoleMutationVariables>;
-export const Change_Gate_Admin_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CHANGE_GATE_ADMIN_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeGateAdminToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Change_Gate_Admin_TollMutation, Change_Gate_Admin_TollMutationVariables>;
-export const Add_Moderator_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_MODERATOR_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addModeratorRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Add_Moderator_RoleMutation, Add_Moderator_RoleMutationVariables>;
-export const Remove_Moderator_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_MODERATOR_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeRoleInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeModeratorRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Moderator_RoleMutation, Remove_Moderator_RoleMutationVariables>;
+
+export type Toll_ListQuery = { __typename?: 'Query', tollList: { __typename?: 'TollListResult', count: number, list: Array<{ __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } }> } };
+
+
+export const Add_Toll_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_TOLL_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addTollAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addTollAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addTollAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addTollAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Add_Toll_Admin_RoleMutation, Add_Toll_Admin_RoleMutationVariables>;
+export const Remove_Toll_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_TOLL_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeTollAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeTollAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeTollAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeTollAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Toll_Admin_RoleMutation, Remove_Toll_Admin_RoleMutationVariables>;
+export const Change_Toll_Admin_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CHANGE_TOLL_ADMIN_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollAdminTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeTollAdminToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollAdminTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollAdminTollInput"}}}]}]}}]} as unknown as DocumentNode<Change_Toll_Admin_TollMutation, Change_Toll_Admin_TollMutationVariables>;
+export const Add_Gate_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_GATE_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addGateAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addGateAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addGateAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addGateAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Add_Gate_Admin_RoleMutation, Add_Gate_Admin_RoleMutationVariables>;
+export const Remove_Gate_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_GATE_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeGateAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeGateAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeGateAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeGateAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Gate_Admin_RoleMutation, Remove_Gate_Admin_RoleMutationVariables>;
+export const Change_Gate_Admin_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CHANGE_GATE_ADMIN_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeGateAdminTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeGateAdminToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeGateAdminTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeGateAdminTollInput"}}}]}]}}]} as unknown as DocumentNode<Change_Gate_Admin_TollMutation, Change_Gate_Admin_TollMutationVariables>;
+export const Add_Moderator_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_MODERATOR_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addModeratorRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addModeratorRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addModeratorRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addModeratorRoleInput"}}}]}]}}]} as unknown as DocumentNode<Add_Moderator_RoleMutation, Add_Moderator_RoleMutationVariables>;
+export const Remove_Moderator_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_MODERATOR_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeModeratorRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeModeratorRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeModeratorRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeModeratorRoleInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Moderator_RoleMutation, Remove_Moderator_RoleMutationVariables>;
 export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
 export const Toll_Admin_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_ADMIN_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollAdminListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollAdminListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollAdminList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollAdminListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollAdminListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Toll_Admin_ListQuery, Toll_Admin_ListQueryVariables>;
 export const Gate_Admin_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GATE_ADMIN_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"gateAdminListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GateAdminListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gateAdminList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"gateAdminListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"gateAdminListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Gate_Admin_ListQuery, Gate_Admin_ListQueryVariables>;
 export const Moderator_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MODERATOR_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"moderatorListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ModeratorListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"moderatorList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"moderatorListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"moderatorListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Moderator_ListQuery, Moderator_ListQueryVariables>;
+export const Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Toll_ListQuery, Toll_ListQueryVariables>;

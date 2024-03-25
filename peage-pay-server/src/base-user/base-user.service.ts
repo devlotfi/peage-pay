@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { BaseUserRolesType } from './graphql/base-user-roles.gql';
 import { BaseUserListInput } from './input/base-user-list.input.gql';
-import { BaseUser } from '@prisma/client';
-import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
+import { BaseUser, Prisma } from '@prisma/client';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 import { BaseUserType } from './graphql/base-user.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class BaseUserService {
@@ -20,55 +20,35 @@ export class BaseUserService {
       baseUserListInput.firstNameSearch ||
       baseUserListInput.lastNameSearch
     ) {
+      const whereQuery: Prisma.BaseUserWhereInput = {
+        OR: [
+          {
+            id: {
+              contains: baseUserListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            firstName: {
+              contains: baseUserListInput.firstNameSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            lastName: {
+              contains: baseUserListInput.lastNameSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      };
       const baseUserList = await this.databaseService.baseUser.findMany({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: baseUserListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              firstName: {
-                contains: baseUserListInput.firstNameSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              lastName: {
-                contains: baseUserListInput.lastNameSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
         take: baseUserListInput.take,
         skip: baseUserListInput.skip,
       });
       const baseUserCount = await this.databaseService.baseUser.count({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: baseUserListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              firstName: {
-                contains: baseUserListInput.firstNameSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              lastName: {
-                contains: baseUserListInput.lastNameSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
 
       return {
@@ -89,12 +69,10 @@ export class BaseUserService {
     }
   }
 
-  public async baseUserById(
-    baseUserByIdInput: BaseUserByIdInput,
-  ): Promise<BaseUser | null> {
+  public async baseUserById(userByIdInput: IdInput): Promise<BaseUser | null> {
     return await this.databaseService.baseUser.findUnique({
       where: {
-        id: baseUserByIdInput.baseUserId,
+        id: userByIdInput.id,
       },
     });
   }

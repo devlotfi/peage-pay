@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { DailyPriceListResult } from './result/daily-price-list.result.gql';
-import { PriceListInput } from './input/price-list.input.gql';
 import { WeeklyPriceListResult } from './result/weekly-price-list.result.gql';
 import { MonthlyPriceListResult } from './result/monthly-price-list.result.gql';
 import { YearlyPriceListResult } from './result/yearly-price-list.result.gql';
 import { CustomPriceListResult } from './result/custom-price-list.result.gql';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @Injectable()
 export class GlobalPriceListService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
   public async dailyPriceGlobalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
   ): Promise<DailyPriceListResult> {
     const list = await this.databaseService.dailyPrice.findMany({
       where: {
@@ -34,7 +34,7 @@ export class GlobalPriceListService {
   }
 
   public async weeklyPriceGlobalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
   ): Promise<WeeklyPriceListResult> {
     const list = await this.databaseService.weeklyPrice.findMany({
       where: {
@@ -56,7 +56,7 @@ export class GlobalPriceListService {
   }
 
   public async monthlyPriceGlobalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
   ): Promise<MonthlyPriceListResult> {
     const list = await this.databaseService.monthlyPrice.findMany({
       where: {
@@ -78,7 +78,7 @@ export class GlobalPriceListService {
   }
 
   public async yearlyPriceGlobalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
   ): Promise<YearlyPriceListResult> {
     const list = await this.databaseService.yearlyPrice.findMany({
       where: {
@@ -100,7 +100,7 @@ export class GlobalPriceListService {
   }
 
   public async customPriceGlobalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
   ): Promise<CustomPriceListResult> {
     const list = await this.databaseService.customPrice.findMany({
       where: {

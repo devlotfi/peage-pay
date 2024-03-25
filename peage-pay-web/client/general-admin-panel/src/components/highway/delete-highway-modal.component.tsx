@@ -29,7 +29,7 @@ const DeleteHighwayModal = ({ modalRef, highway }: DeleteHighwayModalProps) => {
     deleteHighway({
       variables: {
         deleteHighwayInput: {
-          highwayId: highway.id,
+          id: highway.id,
         },
       },
     });

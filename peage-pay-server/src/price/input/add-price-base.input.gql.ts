@@ -3,7 +3,7 @@ import { IsDate, Min } from 'class-validator';
 import { IsAfterFieldDate } from 'src/shared/validation/is-after-field-date';
 
 @InputType()
-export class AddDailyPriceInput {
+export class AddPriceBaseInput {
   @Field()
   @Min(0)
   public value: number;

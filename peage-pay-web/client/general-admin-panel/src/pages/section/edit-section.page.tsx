@@ -57,7 +57,7 @@ const EditSectionPage = (): JSX.Element => {
   } = useQuery(TOLL_BY_ID, {
     variables: {
       tollByIdInput: {
-        tollId: fromTollId as string,
+        id: fromTollId as string,
       },
     },
     onCompleted(data) {
@@ -73,7 +73,7 @@ const EditSectionPage = (): JSX.Element => {
   } = useQuery(TOLL_BY_ID, {
     variables: {
       tollByIdInput: {
-        tollId: toTollId as string,
+        id: toTollId as string,
       },
     },
     onCompleted(data) {
@@ -110,7 +110,7 @@ const EditSectionPage = (): JSX.Element => {
   } = useQuery(TOLL_NETWORK_BY_ID, {
     variables: {
       tollNetworkByIdInput: {
-        tollNetworkId: fromTollData?.tollById.tollNetwork.id as string,
+        id: fromTollData?.tollById.tollNetwork.id as string,
       },
     },
     skip:

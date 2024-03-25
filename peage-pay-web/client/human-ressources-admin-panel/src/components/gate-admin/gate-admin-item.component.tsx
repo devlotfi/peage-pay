@@ -40,7 +40,7 @@ const GateAdminItem = ({ gateAdmin }: GateAdminItemProps): JSX.Element => {
             <MenuItem
               onClick={() => removeGateAdminRoleModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Highway } from '@prisma/client';
+import { Highway, Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddHighwayInput } from './input/add-highway.input.gql';
 import { EditHighwayInput } from './input/edit-highway.input.gql';
-import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
-import { HighwayByIdInput } from './input/highway-by-id.input.gql';
 import { HighwayListResult } from './result/highway-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class HighwayService {
@@ -20,55 +19,35 @@ export class HighwayService {
       highwayListInput.nameSearch ||
       highwayListInput.codeSearch
     ) {
+      const whereQuery: Prisma.HighwayWhereInput = {
+        OR: [
+          {
+            id: {
+              contains: highwayListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: highwayListInput.nameSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            code: {
+              contains: highwayListInput.codeSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      };
       const highwayList = await this.databaseService.highway.findMany({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: highwayListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: highwayListInput.nameSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              code: {
-                contains: highwayListInput.codeSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
         take: highwayListInput.take,
         skip: highwayListInput.skip,
       });
       const highwayCount = await this.databaseService.highway.count({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: highwayListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: highwayListInput.nameSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              code: {
-                contains: highwayListInput.codeSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
       return {
         count: highwayCount,
@@ -87,12 +66,10 @@ export class HighwayService {
     }
   }
 
-  public async highwayById(
-    highwayByIdInput: HighwayByIdInput,
-  ): Promise<Highway | null> {
+  public async highwayById(highwayByIdInput: IdInput): Promise<Highway | null> {
     return await this.databaseService.highway.findUnique({
       where: {
-        id: highwayByIdInput.highwayId,
+        id: highwayByIdInput.id,
       },
     });
   }
@@ -122,12 +99,10 @@ export class HighwayService {
     return highway;
   }
 
-  public async deleteHighway(
-    deleteHighwayInput: DeleteHighwayInput,
-  ): Promise<boolean> {
+  public async deleteHighway(deleteHighwayInput: IdInput): Promise<boolean> {
     await this.databaseService.highway.delete({
       where: {
-        id: deleteHighwayInput.highwayId,
+        id: deleteHighwayInput.id,
       },
     });
     return true;

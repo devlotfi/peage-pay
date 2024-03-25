@@ -96,7 +96,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeTollAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={"error"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -121,7 +121,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeGateAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={"error"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -146,7 +146,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeModeratorRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={"error"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

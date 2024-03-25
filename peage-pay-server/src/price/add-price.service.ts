@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { AddPriceInput } from './input/add/add-price.input.gql';
+import { AddPriceInput } from './input/add-price.input.gql';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
 import { TollAdminService } from './toll-admin.service';
 

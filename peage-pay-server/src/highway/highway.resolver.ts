@@ -7,10 +7,9 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { EditHighwayInput } from './input/edit-highway.input.gql';
-import { DeleteHighwayInput } from './input/delete-highway.input.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
-import { HighwayByIdInput } from './input/highway-by-id.input.gql';
 import { HighwayListResult } from './result/highway-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver()
 export class HighwayResolver {
@@ -27,7 +26,7 @@ export class HighwayResolver {
   @Query(() => HighwayType, { nullable: true })
   @UseGuards(AuthGuard)
   public async highwayById(
-    @Args('highwayByIdInput') highwayByIdInput: HighwayByIdInput,
+    @Args('highwayByIdInput') highwayByIdInput: IdInput,
   ): Promise<HighwayType | null> {
     return await this.highwayService.highwayById(highwayByIdInput);
   }
@@ -58,7 +57,7 @@ export class HighwayResolver {
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteHighway(
-    @Args('deleteHighwayInput') deleteHighwayInput: DeleteHighwayInput,
+    @Args('deleteHighwayInput') deleteHighwayInput: IdInput,
   ): Promise<boolean> {
     return await this.highwayService.deleteHighway(deleteHighwayInput);
   }

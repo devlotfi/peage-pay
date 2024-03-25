@@ -36,8 +36,8 @@ const AddGateAdminRoleModal = ({
   const handleAdd = () => {
     addGateAdminRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        addGateAdminRoleInput: {
+          id: baseUser.id,
         },
       },
     });

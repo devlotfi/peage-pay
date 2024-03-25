@@ -15,7 +15,6 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
-  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { ADD_TOLL } from "../../graphql/mutations";
@@ -55,18 +54,17 @@ const addTollValidationSchema = yup.object({
 
 const AddTollPage = (): JSX.Element => {
   const { tollNetworkId } = useParams();
-  const {
-    loading: tollNetworkLoading,
-    error: tollNetworkError,
-    data: tollNetworkData,
-  } = useQuery(TOLL_NETWORK_BY_ID, {
-    variables: {
-      tollNetworkByIdInput: {
-        tollNetworkId: tollNetworkId as string,
+  const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
+    TOLL_NETWORK_BY_ID,
+    {
+      variables: {
+        tollNetworkByIdInput: {
+          id: tollNetworkId as string,
+        },
       },
-    },
-    fetchPolicy: "network-only",
-  });
+      fetchPolicy: "network-only",
+    }
+  );
   const [addToll, { loading: addLoading, error: addError, data: addData }] =
     useMutation(ADD_TOLL);
   const {
@@ -164,20 +162,6 @@ const AddTollPage = (): JSX.Element => {
                 <Heading.Text>Add toll</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
-            <Table.Container className="mb-[2rem]">
-              <Table>
-                <Table.Body>
-                  <Table.Body.Tr>
-                    <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll network:
-                    </Table.Body.Td>
-                    <Table.Body.Td>
-                      {tollNetworkData?.tollNetworkById?.name}
-                    </Table.Body.Td>
-                  </Table.Body.Tr>
-                </Table.Body>
-              </Table>
-            </Table.Container>
 
             <TextInput
               variant={errors.name && touched.name ? "error" : "edge-100"}

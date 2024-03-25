@@ -4,38 +4,36 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { TollAdminType } from './graphql/toll-admin.gql';
-import { TollAdminService } from './toll-admin.service';
-import { ChangeTollInput } from './input/change-toll.input.gql';
-import { ChangeRoleInput } from './input/change-role.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { HumanRessourcesAdminService } from './human-ressources-admin.service';
 
 @Resolver(() => TollAdminType)
-export class TollAdminResolver {
-  public constructor(private readonly tollAdminService: TollAdminService) {}
+export class HumanRessourcesAdminResolver {
+  public constructor(
+    private readonly humanRessourcesAdminService: HumanRessourcesAdminService,
+  ) {}
 
   @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
-  public async addTollAdminRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+  public async addHumanRessoucesAdminRole(
+    @Args('addHumanRessoucesAdminRoleInput')
+    changeRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.tollAdminService.addTollAdminRole(changeTollInput);
+    return (await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
+      changeRoleInput,
+    )) as any;
   }
 
   @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
-  public async removeTollAdminRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+  public async removeHumanRessoucesAdminRole(
+    @Args('removeHumanRessoucesAdminRoleInput')
+    changeRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.tollAdminService.removeTollAdminRole(changeTollInput);
-  }
-
-  @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
-  @UseGuards(AuthGuard)
-  public async changeTollAdminToll(
-    @Args('changeTollInput') changeTollInput: ChangeTollInput,
-  ): Promise<boolean> {
-    return await this.tollAdminService.changeTollAdminToll(changeTollInput);
+    return (await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
+      changeRoleInput,
+    )) as any;
   }
 }

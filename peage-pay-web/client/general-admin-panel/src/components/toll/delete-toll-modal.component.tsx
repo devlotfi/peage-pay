@@ -29,7 +29,7 @@ const DeleteTollModal = ({ modalRef, toll }: DeleteTollModalProps) => {
     deleteToll({
       variables: {
         deleteTollInput: {
-          tollId: toll.id,
+          id: toll.id,
         },
       },
     });

@@ -36,8 +36,8 @@ const AddModeratorRoleModal = ({
   const handleAdd = () => {
     addModeratorRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        addModeratorRoleInput: {
+          id: baseUser.id,
         },
       },
     });

@@ -67,7 +67,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                   removeHumanRessourcesAdminRoleModalRef.current?.showModal()
                 }
                 className="w-full"
-                variant={"base-100"}
+                variant={"error"}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

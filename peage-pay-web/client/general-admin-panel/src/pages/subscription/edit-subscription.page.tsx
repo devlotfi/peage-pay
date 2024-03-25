@@ -49,7 +49,7 @@ const EditSubscriptionPage = (): JSX.Element => {
   } = useQuery(SUBSCRIPTION_BY_ID, {
     variables: {
       subscriptionByIdInput: {
-        subscriptionId: subscriptionId as string,
+        id: subscriptionId as string,
       },
     },
     fetchPolicy: "network-only",

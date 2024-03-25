@@ -14,13 +14,12 @@ import {
   Heading,
   LoaderDots,
   Select,
-  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useParams } from "react-router-dom";
-import { TOLL_BY_ID, TOLL_NETWORK_BY_ID } from "../../graphql/queries";
+import { TOLL_NETWORK_BY_ID } from "../../graphql/queries";
 import { useRef, useState } from "react";
 import { SectionStatusType, TollType } from "../../__generated__/graphql";
 import TollPicker from "../../components/toll/toll-picker.component";
@@ -48,25 +47,9 @@ const addSectionValidationSchema = yup.object({
 });
 
 const AddSectionPage = (): JSX.Element => {
-  const { tollId } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { tollNetworkId } = useParams();
+  const [fromToll, setFromToll] = useState<TollType | null>(null);
   const [toToll, setToToll] = useState<TollType | null>(null);
-  const {
-    data: tollData,
-    loading: tollLoading,
-    error: tollError,
-  } = useQuery(TOLL_BY_ID, {
-    variables: {
-      tollByIdInput: {
-        tollId: tollId as string,
-      },
-    },
-    onCompleted(data) {
-      if (data.tollById) {
-        setFieldValue("fromTollId", data.tollById.id);
-      }
-    },
-  });
   const {
     data: tollNetworkData,
     loading: tollNetworkLoading,
@@ -74,10 +57,9 @@ const AddSectionPage = (): JSX.Element => {
   } = useQuery(TOLL_NETWORK_BY_ID, {
     variables: {
       tollNetworkByIdInput: {
-        tollNetworkId: tollData?.tollById.tollNetwork.id as string,
+        id: tollNetworkId as string,
       },
     },
-    skip: tollLoading || tollError !== undefined,
   });
   const [addSection, { loading: addLoading, error: addError, data: addData }] =
     useMutation(ADD_SECTION);
@@ -106,9 +88,20 @@ const AddSectionPage = (): JSX.Element => {
     },
   });
 
-  const tollPickerModalRef = useRef<HTMLDialogElement>(null);
+  const fromTollPickerModalRef = useRef<HTMLDialogElement>(null);
+  const toTollPickerModalRef = useRef<HTMLDialogElement>(null);
 
-  const handleTollChange = (toll: TollType | null) => {
+  const handleFromTollChange = (toll: TollType | null) => {
+    if (toll) {
+      setFieldValue("fromTollId", toll.id);
+      setFromToll(toll);
+    } else {
+      setFieldValue("fromTollId", "");
+      setFromToll(null);
+    }
+  };
+
+  const handleToTollChange = (toll: TollType | null) => {
     if (toll) {
       setFieldValue("toTollId", toll.id);
       setToToll(toll);
@@ -121,19 +114,25 @@ const AddSectionPage = (): JSX.Element => {
   return (
     <FormPageLayout>
       {tollNetworkData ? (
-        <TollPicker
-          value={toToll}
-          onChange={handleTollChange}
-          modalRef={tollPickerModalRef}
-          tollNetwork={tollNetworkData.tollNetworkById}
-        ></TollPicker>
+        <>
+          <TollPicker
+            value={fromToll}
+            onChange={handleFromTollChange}
+            modalRef={fromTollPickerModalRef}
+            tollNetwork={tollNetworkData.tollNetworkById}
+          ></TollPicker>
+          <TollPicker
+            value={toToll}
+            onChange={handleToTollChange}
+            modalRef={toTollPickerModalRef}
+            tollNetwork={tollNetworkData.tollNetworkById}
+          ></TollPicker>
+        </>
       ) : null}
 
       <FormPageLayout.Form onSubmit={handleSubmit}>
-        <AdminDashboardLayout.Loading
-          loading={tollLoading || tollNetworkLoading}
-        >
-          <AdminDashboardLayout.Error error={tollError || tollNetworkError}>
+        <AdminDashboardLayout.Loading loading={tollNetworkLoading}>
+          <AdminDashboardLayout.Error error={tollNetworkError}>
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
                 <Heading.Icon position={"left"}>
@@ -142,26 +141,36 @@ const AddSectionPage = (): JSX.Element => {
                 <Heading.Text>Add section</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
-            <Table.Container className="mb-[2rem]">
-              <Table>
-                <Table.Body>
-                  <Table.Body.Tr>
-                    <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll:
-                    </Table.Body.Td>
-                    <Table.Body.Td>{tollData?.tollById?.name}</Table.Body.Td>
-                  </Table.Body.Tr>
-                  <Table.Body.Tr>
-                    <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll network:
-                    </Table.Body.Td>
-                    <Table.Body.Td>
-                      {tollNetworkData?.tollNetworkById.name}
-                    </Table.Body.Td>
-                  </Table.Body.Tr>
-                </Table.Body>
-              </Table>
-            </Table.Container>
+
+            <TextInput
+              variant={
+                errors.fromTollId && touched.fromTollId ? "error" : "edge-100"
+              }
+              className="w-full mb-[0.5rem]"
+            >
+              <TextInput.Main>
+                <TextInput.Label>Destination toll</TextInput.Label>
+                <div className="flex items-center ml-[1rem]">
+                  {fromToll?.name} {fromToll?.id}
+                </div>
+              </TextInput.Main>
+              {errors.fromTollId && touched.fromTollId ? (
+                <TextInput.InfoMessage>
+                  {errors.fromTollId}
+                </TextInput.InfoMessage>
+              ) : null}
+            </TextInput>
+            <Button
+              className="mb-[1.3rem]"
+              variant={"base-200"}
+              type="button"
+              onClick={() => fromTollPickerModalRef.current?.showModal()}
+            >
+              <Button.Icon position={"left"}>
+                <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
+              </Button.Icon>
+              <Button.Content>Set toll</Button.Content>
+            </Button>
 
             <TextInput
               variant={
@@ -183,7 +192,7 @@ const AddSectionPage = (): JSX.Element => {
               className="mb-[1.3rem]"
               variant={"base-200"}
               type="button"
-              onClick={() => tollPickerModalRef.current?.showModal()}
+              onClick={() => toTollPickerModalRef.current?.showModal()}
             >
               <Button.Icon position={"left"}>
                 <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>

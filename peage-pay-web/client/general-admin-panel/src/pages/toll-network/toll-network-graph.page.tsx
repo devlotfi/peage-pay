@@ -2,7 +2,7 @@
 import { useQuery } from "@apollo/client";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AdminDashboardLayout, Heading, Table } from "@peage-pay-web/ui";
+import { AdminDashboardLayout, Heading } from "@peage-pay-web/ui";
 import { useEffect } from "react";
 import {
   FULL_TOLL_LIST,
@@ -28,7 +28,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
   } = useQuery(TOLL_NETWORK_BY_ID, {
     variables: {
       tollNetworkByIdInput: {
-        tollNetworkId: tollNetworkId as string,
+        id: tollNetworkId as string,
       },
     },
     fetchPolicy: "network-only",
@@ -40,7 +40,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
   } = useQuery(FULL_TOLL_LIST, {
     variables: {
       fullTollListInput: {
-        tollNetworkId: tollNetworkId as string,
+        id: tollNetworkId as string,
       },
     },
     fetchPolicy: "network-only",
@@ -53,7 +53,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
   } = useQuery(SECTION_LIST_FOR_TOLL_NETWORK, {
     variables: {
       sectionListForTollNetworkInput: {
-        tollNetworkId: tollNetworkId as string,
+        id: tollNetworkId as string,
       },
     },
     fetchPolicy: "network-only",
@@ -158,20 +158,6 @@ const TollNetworkGraphPage = (): JSX.Element => {
             </Heading.Icon>
             <Heading.Text>Toll network map</Heading.Text>
           </Heading>
-          <Table.Container className="mb-[2rem]">
-            <Table>
-              <Table.Body>
-                <Table.Body.Tr>
-                  <Table.Body.Td className="text-primary-100 font-bold">
-                    Toll network:
-                  </Table.Body.Td>
-                  <Table.Body.Td>
-                    {tollNetworkData?.tollNetworkById.name}
-                  </Table.Body.Td>
-                </Table.Body.Tr>
-              </Table.Body>
-            </Table>
-          </Table.Container>
           <div
             className="flex h-full rounded-lg"
             id="toll-network-graph-map"

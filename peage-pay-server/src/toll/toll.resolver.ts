@@ -17,11 +17,9 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
-import { DeleteTollInput } from './input/delete-toll.input.gql';
 import { TollNetworkType } from 'src/toll-network/graphql/toll-network.gql';
-import { TollByIdInput } from './input/toll-by-id.input.gql';
-import { FullTollListInput } from './input/full-toll-list.input.gql';
 import { TollListResult } from './result/toll-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -30,7 +28,7 @@ export class TollResolver {
   @Query(() => [TollType])
   @UseGuards(AuthGuard)
   public async fullTollList(
-    @Args('fullTollListInput') fullTollListInput: FullTollListInput,
+    @Args('fullTollListInput') fullTollListInput: IdInput,
   ): Promise<TollType[]> {
     return (await this.tollService.fullTollList(fullTollListInput)) as any;
   }
@@ -46,7 +44,7 @@ export class TollResolver {
   @Query(() => TollType)
   @UseGuards(AuthGuard)
   public async tollById(
-    @Args('tollByIdInput') tollByIdInput: TollByIdInput,
+    @Args('tollByIdInput') tollByIdInput: IdInput,
   ): Promise<TollType[]> {
     return (await this.tollService.tollById(tollByIdInput)) as any;
   }
@@ -73,7 +71,7 @@ export class TollResolver {
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteToll(
-    @Args('deleteTollInput') deleteTollInput: DeleteTollInput,
+    @Args('deleteTollInput') deleteTollInput: IdInput,
   ): Promise<boolean> {
     return await this.tollService.deleteToll(deleteTollInput);
   }

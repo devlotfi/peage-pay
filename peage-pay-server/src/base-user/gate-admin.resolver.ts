@@ -11,13 +11,13 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { ChangeTollInput } from './input/change-toll.input.gql';
-import { ChangeRoleInput } from './input/change-role.input.gql';
 import { GateAdminType } from './graphql/gate-admin.gql';
 import { BaseUserType } from './graphql/base-user.gql';
 import { BaseUserService } from './base-user.service';
 import { GateAdminService } from './gate-admin.service';
 import { GateAdminListResult } from './result/gate-admin-list.result.gql';
 import { GateAdminListInput } from './input/gate-admin-list.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver(() => GateAdminType)
 export class GateAdminResolver {
@@ -35,31 +35,46 @@ export class GateAdminResolver {
     return await this.gateAdminService.gateAdminList(gateAdminListInput);
   }
 
+  @Query(() => GateAdminType, { nullable: true })
+  @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
+  @UseGuards(AuthGuard)
+  public async gateAdminById(
+    @Args('gateAdminByIdInput') gateAdminByIdInput: IdInput,
+  ): Promise<GateAdminType | null> {
+    return (await this.gateAdminService.gateAdminById(
+      gateAdminByIdInput,
+    )) as any;
+  }
+
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
   @UseGuards(AuthGuard)
   public async addGateAdminRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+    @Args('addGateAdminRoleInput') addGateAdminRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.gateAdminService.addGateAdminRole(changeTollInput);
+    return await this.gateAdminService.addGateAdminRole(addGateAdminRoleInput);
   }
 
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
   @UseGuards(AuthGuard)
   public async removeGateAdminRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+    @Args('removeGateAdminRoleInput') removeGateAdminRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.gateAdminService.removeGateAdminRole(changeTollInput);
+    return await this.gateAdminService.removeGateAdminRole(
+      removeGateAdminRoleInput,
+    );
   }
 
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
   @UseGuards(AuthGuard)
   public async changeGateAdminToll(
-    @Args('changeTollInput') changeTollInput: ChangeTollInput,
+    @Args('changeGateAdminTollInput') changeGateAdminTollInput: ChangeTollInput,
   ): Promise<boolean> {
-    return await this.gateAdminService.changeGateAdminToll(changeTollInput);
+    return await this.gateAdminService.changeGateAdminToll(
+      changeGateAdminTollInput,
+    );
   }
 
   @ResolveField(() => BaseUserType)

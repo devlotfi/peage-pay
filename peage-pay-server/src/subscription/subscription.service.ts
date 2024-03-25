@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Subscription } from '@prisma/client';
+import { Prisma, Subscription } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddSubscriptionInput } from './input/add-subscription.input.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
-import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
-import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
 import { SubscriptionListResult } from './result/subscription-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class SubscriptionService {
@@ -16,45 +15,31 @@ export class SubscriptionService {
     subscriptionListInput: SubscriptionListInput,
   ): Promise<SubscriptionListResult> {
     if (subscriptionListInput.idSearch || subscriptionListInput.nameSearch) {
+      const whereQuery: Prisma.SubscriptionWhereInput = {
+        OR: [
+          {
+            id: {
+              contains: subscriptionListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: subscriptionListInput.nameSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      };
       const subscriptionList = await this.databaseService.subscription.findMany(
         {
-          where: {
-            OR: [
-              {
-                id: {
-                  contains: subscriptionListInput.idSearch,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                name: {
-                  contains: subscriptionListInput.nameSearch,
-                  mode: 'insensitive',
-                },
-              },
-            ],
-          },
+          where: whereQuery,
           take: subscriptionListInput.take,
           skip: subscriptionListInput.skip,
         },
       );
       const subscriptionCount = await this.databaseService.subscription.count({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: subscriptionListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: subscriptionListInput.nameSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
       return {
         count: subscriptionCount,
@@ -76,11 +61,11 @@ export class SubscriptionService {
   }
 
   public async subscriptionById(
-    subscriptionByIdInput: SubscriptionByIdInput,
+    subscriptionByIdInput: IdInput,
   ): Promise<Subscription | null> {
     return await this.databaseService.subscription.findUnique({
       where: {
-        id: subscriptionByIdInput.subscriptionId,
+        id: subscriptionByIdInput.id,
       },
     });
   }
@@ -115,11 +100,11 @@ export class SubscriptionService {
   }
 
   public async deleteSubscription(
-    deleteSubscriptionInput: DeleteSubscriptionInput,
+    deleteSubscriptionInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.subscription.delete({
       where: {
-        id: deleteSubscriptionInput.subscriptionId,
+        id: deleteSubscriptionInput.id,
       },
     });
     return true;

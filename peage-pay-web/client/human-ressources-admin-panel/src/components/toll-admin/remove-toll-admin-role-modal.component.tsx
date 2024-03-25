@@ -36,8 +36,8 @@ const RemoveTollAdminRoleModal = ({
   const handleAdd = () => {
     removeTollAdminRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        removeTollAdminRoleInput: {
+          id: baseUser.id,
         },
       },
     });

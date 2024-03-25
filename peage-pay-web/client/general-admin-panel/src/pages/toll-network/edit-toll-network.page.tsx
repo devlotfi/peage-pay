@@ -13,7 +13,6 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
-  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { EDIT_TOLL_NETWORK } from "../../graphql/mutations";
@@ -36,25 +35,24 @@ const editTollNetworkValidationSchema = yup.object({
 
 const EditTollNetworkPage = (): JSX.Element => {
   const { tollNetworkId } = useParams();
-  const {
-    loading: tollNetworkLoading,
-    error: tollNetworkError,
-    data: tollNetworkData,
-  } = useQuery(TOLL_NETWORK_BY_ID, {
-    variables: {
-      tollNetworkByIdInput: {
-        tollNetworkId: tollNetworkId as string,
+  const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
+    TOLL_NETWORK_BY_ID,
+    {
+      variables: {
+        tollNetworkByIdInput: {
+          id: tollNetworkId as string,
+        },
       },
-    },
-    fetchPolicy: "network-only",
-    onCompleted(data) {
-      if (data.tollNetworkById) {
-        setValues({
-          name: data.tollNetworkById.name,
-        });
-      }
-    },
-  });
+      fetchPolicy: "network-only",
+      onCompleted(data) {
+        if (data.tollNetworkById) {
+          setValues({
+            name: data.tollNetworkById.name,
+          });
+        }
+      },
+    }
+  );
   const [
     editTollNetwork,
     { loading: editLoading, error: editError, data: editData },
@@ -97,20 +95,6 @@ const EditTollNetworkPage = (): JSX.Element => {
                 <Heading.Text>Edit toll network</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
-            <Table.Container className="mb-[2rem]">
-              <Table>
-                <Table.Body>
-                  <Table.Body.Tr>
-                    <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll network:
-                    </Table.Body.Td>
-                    <Table.Body.Td>
-                      {tollNetworkData?.tollNetworkById?.name}
-                    </Table.Body.Td>
-                  </Table.Body.Tr>
-                </Table.Body>
-              </Table>
-            </Table.Container>
 
             <TextInput
               variant={errors.name && touched.name ? "error" : "edge-100"}

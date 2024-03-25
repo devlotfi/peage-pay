@@ -36,8 +36,8 @@ const RemoveGateAdminRoleModal = ({
   const handleRemove = () => {
     removeGateAdminRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        removeGateAdminRoleInput: {
+          id: baseUser.id,
         },
       },
     });

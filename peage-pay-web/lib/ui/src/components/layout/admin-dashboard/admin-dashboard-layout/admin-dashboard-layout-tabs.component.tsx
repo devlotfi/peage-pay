@@ -8,13 +8,30 @@ const adminDashboardLayoutTabsVariants = cva("flex flex-col h-full");
 
 interface AdminDashboardLayoutTablProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof adminDashboardLayoutTabsVariants> {}
+    VariantProps<typeof adminDashboardLayoutTabsVariants> {
+  loading?: boolean;
+  error?: any;
+}
 
 const AdminDashboardLayoutTabs = ({
   className,
   children,
+  loading,
+  error,
   ...props
 }: AdminDashboardLayoutTablProps): JSX.Element => {
+  if (loading) {
+    return (
+      <AdminDashboardLayout.Loading loading></AdminDashboardLayout.Loading>
+    );
+  }
+
+  if (error) {
+    return (
+      <AdminDashboardLayout.Error error={error}></AdminDashboardLayout.Error>
+    );
+  }
+
   return (
     <div
       className={Utils.cn(adminDashboardLayoutTabsVariants({ className }))}

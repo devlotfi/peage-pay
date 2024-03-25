@@ -35,7 +35,7 @@ const AddHumanRessourcesAdminRoleModal = ({
     addHumanRessourcesAdminRole({
       variables: {
         addHumanRessoucesAdminRoleInput: {
-          baseUserId: baseUser.id,
+          id: baseUser.id,
         },
       },
     });

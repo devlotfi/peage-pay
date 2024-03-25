@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNumber, IsOptional, Max, MaxLength, Min } from 'class-validator';
+import { IsOptional, MaxLength } from 'class-validator';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @InputType()
-export class TollAdminListInput {
+export class TollAdminListInput extends PaginationInput {
   @Field({ nullable: true })
   @MaxLength(1024)
   @IsOptional()
@@ -22,16 +23,4 @@ export class TollAdminListInput {
   @MaxLength(1024)
   @IsOptional()
   public tollNameSearch?: string;
-
-  @Field()
-  @IsNumber()
-  @Max(10)
-  @Min(0)
-  public take: number;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  public skip?: number;
 }

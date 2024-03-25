@@ -35,7 +35,7 @@ const DeleteTollNetworkModal = ({
     deleteTollNetwork({
       variables: {
         deleteTollNetworkInput: {
-          tollNetworkId: tollNetwork.id,
+          id: tollNetwork.id,
         },
       },
     });

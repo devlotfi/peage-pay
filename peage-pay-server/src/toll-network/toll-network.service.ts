@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { TollNetworkListInput } from './input/toll-network-list.input.gql';
-import { TollNetwork } from '@prisma/client';
+import { Prisma, TollNetwork } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
-import { DeleteTollNetworkInput } from './input/delete-toll-network.input.gql';
-import { TollNetworkByIdInput } from './input/toll-network-by-id.input.gql';
 import { TollNetworkListResult } from './result/toll-network-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class TollNetworkService {
@@ -16,44 +15,29 @@ export class TollNetworkService {
     tollNetworkListInput: TollNetworkListInput,
   ): Promise<TollNetworkListResult> {
     if (tollNetworkListInput.idSearch || tollNetworkListInput.nameSearch) {
+      const whereQuery: Prisma.TollNetworkWhereInput = {
+        OR: [
+          {
+            id: {
+              contains: tollNetworkListInput.idSearch,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: tollNetworkListInput.nameSearch,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      };
       const tollNetworkList = await this.databaseService.tollNetwork.findMany({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: tollNetworkListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: tollNetworkListInput.nameSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
-
+        where: whereQuery,
         take: tollNetworkListInput.take,
         skip: tollNetworkListInput.skip,
       });
       const tollNetworkCount = await this.databaseService.tollNetwork.count({
-        where: {
-          OR: [
-            {
-              id: {
-                contains: tollNetworkListInput.idSearch,
-                mode: 'insensitive',
-              },
-            },
-            {
-              name: {
-                contains: tollNetworkListInput.nameSearch,
-                mode: 'insensitive',
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
       return {
         count: tollNetworkCount,
@@ -73,11 +57,11 @@ export class TollNetworkService {
   }
 
   public async tollNetworkById(
-    tollNetworkByIdInput: TollNetworkByIdInput,
+    tollNetworkByIdInput: IdInput,
   ): Promise<TollNetwork | null> {
     return await this.databaseService.tollNetwork.findUnique({
       where: {
-        id: tollNetworkByIdInput.tollNetworkId,
+        id: tollNetworkByIdInput.id,
       },
     });
   }
@@ -108,11 +92,11 @@ export class TollNetworkService {
   }
 
   public async deleteTollNetwork(
-    deleteTollNetworkInput: DeleteTollNetworkInput,
+    deleteTollNetworkInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.tollNetwork.delete({
       where: {
-        id: deleteTollNetworkInput.tollNetworkId,
+        id: deleteTollNetworkInput.id,
       },
     });
     return true;

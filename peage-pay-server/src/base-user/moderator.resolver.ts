@@ -10,13 +10,13 @@ import { BaseUserRolesType } from './graphql/base-user-roles.gql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
-import { ChangeRoleInput } from './input/change-role.input.gql';
 import { ModeratorType } from './graphql/moderator.gql';
 import { BaseUserType } from './graphql/base-user.gql';
 import { ModeratorService } from './moderator.service';
 import { BaseUserService } from './base-user.service';
 import { ModeratorListResult } from './result/moderator-list.result.gql';
 import { ModeratorListInput } from './input/moderator-list.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver(() => ModeratorType)
 export class ModeratorResolver {
@@ -40,18 +40,20 @@ export class ModeratorResolver {
   @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
   @UseGuards(AuthGuard)
   public async addModeratorRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+    @Args('addModeratorRoleInput') addModeratorRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.moderatorService.addModeratorRole(changeTollInput);
+    return await this.moderatorService.addModeratorRole(addModeratorRoleInput);
   }
 
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.HUMAN_RESSOURCES_ADMIN])
   @UseGuards(AuthGuard)
   public async removeModeratorRole(
-    @Args('changeTollInput') changeTollInput: ChangeRoleInput,
+    @Args('removeModeratorRoleInput') removeModeratorRoleInput: IdInput,
   ): Promise<boolean> {
-    return await this.moderatorService.removeModeratorRole(changeTollInput);
+    return await this.moderatorService.removeModeratorRole(
+      removeModeratorRoleInput,
+    );
   }
 
   @ResolveField(() => BaseUserType)

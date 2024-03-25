@@ -1,19 +1,14 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  IsNumber,
-  IsOptional,
-  IsUUID,
-  Max,
-  MaxLength,
-  Min,
-} from 'class-validator';
+import { IsOptional, IsUUID, MaxLength } from 'class-validator';
 import { TollStatusType } from '../graphql/toll-status.gql';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @InputType()
-export class TollListInput {
-  @Field()
+export class TollListInput extends PaginationInput {
+  @Field({ nullable: true })
   @IsUUID()
-  public tollNetworkId: string;
+  @IsOptional()
+  public tollNetworkId?: string;
 
   @Field({ nullable: true })
   @MaxLength(1024)
@@ -48,15 +43,4 @@ export class TollListInput {
   @Field(() => TollStatusType, { nullable: true })
   @IsOptional()
   public statusSearch?: TollStatusType;
-
-  @Field()
-  @IsNumber()
-  @Max(10)
-  @Min(0)
-  public take: number;
-
-  @Field()
-  @IsNumber()
-  @Min(0)
-  public skip: number;
 }

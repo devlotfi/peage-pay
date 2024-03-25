@@ -25,7 +25,7 @@ export const EDIT_HIGHWAY = gql(`
 `);
 
 export const DELETE_HIGHWAY = gql(`
-  mutation DELETE_HIGHWAY($deleteHighwayInput: DeleteHighwayInput!) {
+  mutation DELETE_HIGHWAY($deleteHighwayInput: IdInput!) {
     deleteHighway(deleteHighwayInput: $deleteHighwayInput)
   }
 `);
@@ -57,7 +57,7 @@ export const EDIT_SUBSCRIPTION = gql(`
 `);
 
 export const DELETE_SUBSCRIPTION = gql(`
-  mutation DELETE_SUBSCRIPTION($deleteSubscriptionInput: DeleteSubscriptionInput!) {
+  mutation DELETE_SUBSCRIPTION($deleteSubscriptionInput: IdInput!) {
     deleteSubscription(deleteSubscriptionInput: $deleteSubscriptionInput)
   }
 `);
@@ -119,7 +119,7 @@ export const EDIT_TOLL = gql(`
 `);
 
 export const DELETE_TOLL = gql(`
-  mutation DELETE_TOLL($deleteTollInput: DeleteTollInput!) {
+  mutation DELETE_TOLL($deleteTollInput: IdInput!) {
     deleteToll(deleteTollInput: $deleteTollInput)
   }
 `);
@@ -147,7 +147,7 @@ export const EDIT_TOLL_NETWORK = gql(`
 `);
 
 export const DELETE_TOLL_NETWORK = gql(`
-  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: DeleteTollNetworkInput!) {
+  mutation DELETE_TOLL_NETWORK($deleteTollNetworkInput: IdInput!) {
     deleteTollNetwork(deleteTollNetworkInput: $deleteTollNetworkInput)
   }
 `);
@@ -181,13 +181,13 @@ export const DELETE_SECTION = gql(`
 `);
 
 export const ADD_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
-  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput!) {
+  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: IdInput!) {
     addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)
   }
 `);
 
 export const REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
-  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput!) {
+  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: IdInput!) {
     removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)
   }
 `);
@@ -199,7 +199,7 @@ export const ADD_GLOBAL_PRICE = gql(`
 `);
 
 export const DELETE_GLOBAL_PRICE = gql(`
-  mutation DELETE_GLOBAL_PRICE($deletePriceInput: DeletePriceInput!) {
+  mutation DELETE_GLOBAL_PRICE($deletePriceInput: IdInput!) {
     deleteGlobalPrice(deletePriceInput: $deletePriceInput)
   }
 `);

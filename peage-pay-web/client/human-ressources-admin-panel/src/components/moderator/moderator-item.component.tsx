@@ -40,7 +40,7 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
             <MenuItem
               onClick={() => removeModeratorRoleModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

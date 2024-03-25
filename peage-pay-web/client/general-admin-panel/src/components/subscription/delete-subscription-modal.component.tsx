@@ -35,7 +35,7 @@ const DeleteSubscriptionModal = ({
     deleteSubscription({
       variables: {
         deleteSubscriptionInput: {
-          subscriptionId: subscription.id,
+          id: subscription.id,
         },
       },
     });

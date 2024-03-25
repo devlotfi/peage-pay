@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { DailyPriceListResult } from './result/daily-price-list.result.gql';
-import { PriceListInput } from './input/price-list.input.gql';
 import { WeeklyPriceListResult } from './result/weekly-price-list.result.gql';
 import { MonthlyPriceListResult } from './result/monthly-price-list.result.gql';
 import { YearlyPriceListResult } from './result/yearly-price-list.result.gql';
 import { CustomPriceListResult } from './result/custom-price-list.result.gql';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
 import { TollAdminService } from './toll-admin.service';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @Injectable()
 export class LocalPriceListService {
@@ -17,7 +17,7 @@ export class LocalPriceListService {
   ) {}
 
   public async dailyPriceLocalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
     accessTokenPayload: AccessTokenPayload,
   ): Promise<DailyPriceListResult> {
     const tollAdminData =
@@ -48,7 +48,7 @@ export class LocalPriceListService {
   }
 
   public async weeklyPriceLocalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
     accessTokenPayload: AccessTokenPayload,
   ): Promise<WeeklyPriceListResult> {
     const tollAdminData =
@@ -79,7 +79,7 @@ export class LocalPriceListService {
   }
 
   public async monthlyPriceLocalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
     accessTokenPayload: AccessTokenPayload,
   ): Promise<MonthlyPriceListResult> {
     const tollAdminData =
@@ -110,7 +110,7 @@ export class LocalPriceListService {
   }
 
   public async yearlyPriceLocalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
     accessTokenPayload: AccessTokenPayload,
   ): Promise<YearlyPriceListResult> {
     const tollAdminData =
@@ -141,7 +141,7 @@ export class LocalPriceListService {
   }
 
   public async customPriceLocalList(
-    priceListInput: PriceListInput,
+    priceListInput: PaginationInput,
     accessTokenPayload: AccessTokenPayload,
   ): Promise<CustomPriceListResult> {
     const tollAdminData =

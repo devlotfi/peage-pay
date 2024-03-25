@@ -2,8 +2,8 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsUUID } from 'class-validator';
 
 @InputType()
-export class FullTollListInput {
+export class IdInput {
   @Field()
   @IsUUID()
-  public tollNetworkId: string;
+  public id: string;
 }

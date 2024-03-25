@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { ChangeRoleInput } from './input/change-role.input.gql';
 import { ChangeTollInput } from './input/change-toll.input.gql';
 import { GateAdminListInput } from './input/gate-admin-list.input.gql';
 import { GateAdminListResult } from './result/gate-admin-list.result.gql';
+import { GateAdmin, Prisma } from '@prisma/client';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class GateAdminService {
@@ -18,83 +19,49 @@ export class GateAdminService {
       gateAdminListInput.lastNameSearch ||
       gateAdminListInput.tollNameSearch
     ) {
-      const gateAdminList = await this.databaseService.gateAdmin.findMany({
-        where: {
-          OR: [
-            {
-              toll: {
-                name: {
-                  contains: gateAdminListInput.tollNameSearch,
-                  mode: 'insensitive',
+      const whereQuery: Prisma.GateAdminWhereInput = {
+        OR: [
+          {
+            toll: {
+              name: {
+                contains: gateAdminListInput.tollNameSearch,
+                mode: 'insensitive',
+              },
+            },
+          },
+          {
+            baseUser: {
+              OR: [
+                {
+                  id: {
+                    contains: gateAdminListInput.idSearch,
+                    mode: 'insensitive',
+                  },
                 },
-              },
+                {
+                  firstName: {
+                    contains: gateAdminListInput.firstNameSearch,
+                    mode: 'insensitive',
+                  },
+                },
+                {
+                  lastName: {
+                    contains: gateAdminListInput.lastNameSearch,
+                    mode: 'insensitive',
+                  },
+                },
+              ],
             },
-            {
-              baseUser: {
-                OR: [
-                  {
-                    id: {
-                      contains: gateAdminListInput.idSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    firstName: {
-                      contains: gateAdminListInput.firstNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    lastName: {
-                      contains: gateAdminListInput.lastNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
+          },
+        ],
+      };
+      const gateAdminList = await this.databaseService.gateAdmin.findMany({
+        where: whereQuery,
         take: gateAdminListInput.take,
         skip: gateAdminListInput.skip,
       });
       const gateAdminCount = await this.databaseService.gateAdmin.count({
-        where: {
-          OR: [
-            {
-              toll: {
-                name: {
-                  contains: gateAdminListInput.tollNameSearch,
-                  mode: 'insensitive',
-                },
-              },
-            },
-            {
-              baseUser: {
-                OR: [
-                  {
-                    id: {
-                      contains: gateAdminListInput.idSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    firstName: {
-                      contains: gateAdminListInput.firstNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    lastName: {
-                      contains: gateAdminListInput.lastNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
 
       return {
@@ -115,41 +82,51 @@ export class GateAdminService {
     }
   }
 
+  public async gateAdminById(
+    ugateAdminByIdInput: IdInput,
+  ): Promise<GateAdmin | null> {
+    return await this.databaseService.gateAdmin.findUnique({
+      where: {
+        baseUserId: ugateAdminByIdInput.id,
+      },
+    });
+  }
+
   public async addGateAdminRole(
-    changeRoleInput: ChangeRoleInput,
+    addGateAdminRoleInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.gateAdmin.create({
       data: {
-        baseUserId: changeRoleInput.baseUserId,
+        baseUserId: addGateAdminRoleInput.id,
       },
     });
     return true;
   }
 
   public async removeGateAdminRole(
-    changeRoleInput: ChangeRoleInput,
+    removeGateAdminRoleInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.gateAdmin.delete({
       where: {
-        baseUserId: changeRoleInput.baseUserId,
+        baseUserId: removeGateAdminRoleInput.id,
       },
     });
     return true;
   }
 
   public async changeGateAdminToll(
-    changeTollInput: ChangeTollInput,
+    changeGateAdminTollInput: ChangeTollInput,
   ): Promise<boolean> {
     await this.databaseService.gateAdmin.update({
       data: {
         toll: {
           connect: {
-            id: changeTollInput.tollId,
+            id: changeGateAdminTollInput.tollId,
           },
         },
       },
       where: {
-        baseUserId: changeTollInput.baseUserId,
+        baseUserId: changeGateAdminTollInput.baseUserId,
       },
     });
     return true;

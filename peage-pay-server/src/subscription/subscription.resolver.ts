@@ -7,10 +7,9 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
-import { DeleteSubscriptionInput } from './input/delete-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
-import { SubscriptionByIdInput } from './input/subscription-by-id.input.gql';
 import { SubscriptionListResult } from './result/subscription-list.result.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver()
 export class SubscriptionResolver {
@@ -31,7 +30,7 @@ export class SubscriptionResolver {
   @Query(() => SubscriptionType, { nullable: true })
   @UseGuards(AuthGuard)
   public async subscriptionById(
-    @Args('subscriptionByIdInput') subscriptionByIdInput: SubscriptionByIdInput,
+    @Args('subscriptionByIdInput') subscriptionByIdInput: IdInput,
   ): Promise<SubscriptionType | null> {
     return (await this.subscriptionService.subscriptionById(
       subscriptionByIdInput,
@@ -65,7 +64,7 @@ export class SubscriptionResolver {
   @UseGuards(AuthGuard)
   public async deleteSubscription(
     @Args('deleteSubscriptionInput')
-    deleteSubscriptionInput: DeleteSubscriptionInput,
+    deleteSubscriptionInput: IdInput,
   ): Promise<boolean> {
     return await this.subscriptionService.deleteSubscription(
       deleteSubscriptionInput,

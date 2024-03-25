@@ -1,4 +1,8 @@
-import { faEllipsisH, faUserMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisH,
+  faPen,
+  faUserMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Table,
@@ -10,12 +14,14 @@ import { TollAdminType } from "../../__generated__/graphql";
 import { useRef } from "react";
 import { TOLL_ADMIN_LIST } from "../../graphql/queries";
 import RemoveTollAdminRoleModal from "./remove-toll-admin-role-modal.component";
+import { useNavigate } from "react-router-dom";
 
 interface TollAdminItemProps {
   tollAdmin: TollAdminType;
 }
 
 const TollAdminItem = ({ tollAdmin }: TollAdminItemProps): JSX.Element => {
+  const navigate = useNavigate();
   const removeTollAdminRoleModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -38,9 +44,21 @@ const TollAdminItem = ({ tollAdmin }: TollAdminItemProps): JSX.Element => {
             ></RemoveTollAdminRoleModal>
 
             <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/toll-admin/edit/${tollAdmin.baseUser.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={"base-100"}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Edit</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
               onClick={() => removeTollAdminRoleModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>

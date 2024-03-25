@@ -22,6 +22,7 @@ import YearlyPriceGlobalListPage from "../pages/price/list/yearly-price-global-l
 import CustomPriceGlobalListPage from "../pages/price/list/custom-price-global-list.page";
 import AddGlobalDailyPricePage from "../pages/price/add/add-global-daily-price.page";
 import EditSectionPage from "../pages/section/edit-section.page";
+import SectionLayout from "../layout/section.layout";
 
 const DashboardLayout = lazy(() => import("../layout/dashboard-layout.layout"));
 const AddPriceLayout = lazy(() => import("../layout/add-price.layout"));
@@ -103,13 +104,20 @@ const useRouter = () => {
         },
 
         {
-          path: "/dashboard/section/list/:tollId",
-          element: <SectionListPage></SectionListPage>,
+          path: "/dashboard/toll",
+          element: <SectionLayout></SectionLayout>,
+          children: [
+            {
+              path: "/dashboard/toll/section/list/:tollId",
+              element: <SectionListPage></SectionListPage>,
+            },
+            {
+              path: "/dashboard/toll/edit/:tollNetworkId/:tollId",
+              element: <EditTollPage></EditTollPage>,
+            },
+          ],
         },
-        {
-          path: "/dashboard/section/add/:tollId",
-          element: <AddSectionPage></AddSectionPage>,
-        },
+
         {
           path: "/dashboard/section/edit/:fromTollId/:toTollId",
           element: <EditSectionPage></EditSectionPage>,
@@ -145,14 +153,6 @@ const useRouter = () => {
             {
               path: "/dashboard/toll-network/add",
               element: <AddTollNetworkPage></AddTollNetworkPage>,
-            },
-            {
-              path: "/dashboard/toll-network/edit/:tollNetworkId",
-              element: <EditTollNetworkPage></EditTollNetworkPage>,
-            },
-            {
-              path: "/dashboard/toll-network/graph/:tollNetworkId",
-              element: <TollNetworkGraphPage></TollNetworkGraphPage>,
             },
           ],
         },
@@ -191,6 +191,18 @@ const useRouter = () => {
             {
               path: "/dashboard/toll/edit/:tollNetworkId/:tollId",
               element: <EditTollPage></EditTollPage>,
+            },
+            {
+              path: "/dashboard/toll/toll-network/edit/:tollNetworkId",
+              element: <EditTollNetworkPage></EditTollNetworkPage>,
+            },
+            {
+              path: "/dashboard/toll/toll-network/graph/:tollNetworkId",
+              element: <TollNetworkGraphPage></TollNetworkGraphPage>,
+            },
+            {
+              path: "/dashboard/toll/section/add/:tollNetworkId",
+              element: <AddSectionPage></AddSectionPage>,
             },
           ],
         },

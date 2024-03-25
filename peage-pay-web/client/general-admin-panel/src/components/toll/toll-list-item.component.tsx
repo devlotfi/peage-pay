@@ -43,7 +43,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               toll={toll}
             ></DeleteTollModal>
             <MenuItem
-              onClick={() => navigate(`/dashboard/section/add/${toll.id}`)}
+              onClick={() => navigate(`/dashboard/toll/section/add/${toll.id}`)}
               className="w-full mb-[0.5rem]"
               variant={"base-100"}
             >
@@ -53,7 +53,9 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               <MenuItem.Text>Add section</MenuItem.Text>
             </MenuItem>
             <MenuItem
-              onClick={() => navigate(`/dashboard/section/list/${toll.id}`)}
+              onClick={() =>
+                navigate(`/dashboard/toll/section/list/${toll.id}`)
+              }
               className="w-full mb-[0.5rem]"
               variant={"base-100"}
             >
@@ -80,15 +82,12 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
-                <FontAwesomeIcon
-                  className="text-error-100"
-                  icon={faTrash}
-                ></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text className="text-error-100">Delete</MenuItem.Text>
+              <MenuItem.Text>Delete</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

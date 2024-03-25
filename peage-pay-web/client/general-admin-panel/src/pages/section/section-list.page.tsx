@@ -18,14 +18,10 @@ const SectionListPage = (): JSX.Element => {
   const { tollId } = useParams();
   const [page, setPage] = useState<number>(1);
 
-  const {
-    data: tollData,
-    loading: tollLoading,
-    error: tollError,
-  } = useQuery(TOLL_BY_ID, {
+  const { loading: tollLoading, error: tollError } = useQuery(TOLL_BY_ID, {
     variables: {
       tollByIdInput: {
-        tollId: tollId as string,
+        id: tollId as string,
       },
     },
   });
@@ -38,7 +34,7 @@ const SectionListPage = (): JSX.Element => {
       sectionListForTollInput: {
         take: 10,
         skip: 10 * (page - 1),
-        tollId: tollId as string,
+        id: tollId as string,
       },
     },
     skip: tollLoading || tollError !== undefined,
@@ -57,18 +53,6 @@ const SectionListPage = (): JSX.Element => {
               <Heading.Text>Section list</Heading.Text>
             </Heading>
           </ListPageLayout.Title>
-          <Table.Container className="mb-[2rem] overflow-hidden">
-            <Table>
-              <Table.Body>
-                <Table.Body.Tr>
-                  <Table.Body.Td className="text-primary-100 font-bold">
-                    Toll:
-                  </Table.Body.Td>
-                  <Table.Body.Td>{tollData?.tollById.name}</Table.Body.Td>
-                </Table.Body.Tr>
-              </Table.Body>
-            </Table>
-          </Table.Container>
 
           <AdminDashboardLayout.Loading loading={listLoading}>
             <AdminDashboardLayout.Error error={listError}>

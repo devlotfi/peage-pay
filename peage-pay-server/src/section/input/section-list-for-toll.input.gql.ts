@@ -1,21 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
+import { IsUUID } from 'class-validator';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @InputType()
-export class SectionListForTollInput {
+export class SectionListForTollInput extends PaginationInput {
   @Field()
   @IsUUID()
-  public tollId: string;
-
-  @Field()
-  @IsNumber()
-  @Max(10)
-  @Min(0)
-  public take: number;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  public skip?: number;
+  public id: string;
 }

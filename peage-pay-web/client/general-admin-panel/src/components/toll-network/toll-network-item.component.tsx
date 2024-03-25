@@ -67,6 +67,18 @@ const TollNetworkItem = ({
             </MenuItem>
             <MenuItem
               onClick={() =>
+                navigate(`/dashboard/toll/section/add/${tollNetwork.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={"base-100"}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>Add section</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
                 navigate(`/dashboard/toll-network/graph/${tollNetwork.id}`)
               }
               className="w-full mb-[0.5rem]"
@@ -79,7 +91,7 @@ const TollNetworkItem = ({
             </MenuItem>
             <MenuItem
               onClick={() =>
-                navigate(`/dashboard/toll-network/edit/${tollNetwork.id}`)
+                navigate(`/dashboard/toll/toll-network/edit/${tollNetwork.id}`)
               }
               className="w-full mb-[0.5rem]"
               variant={"base-100"}
@@ -92,15 +104,12 @@ const TollNetworkItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"base-100"}
+              variant={"error"}
             >
               <MenuItem.Icon>
-                <FontAwesomeIcon
-                  className="text-error-100"
-                  icon={faTrash}
-                ></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text className="text-error-100">Delete</MenuItem.Text>
+              <MenuItem.Text>Delete</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

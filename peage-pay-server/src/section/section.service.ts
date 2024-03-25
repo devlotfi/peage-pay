@@ -4,10 +4,10 @@ import { DatabaseService } from 'src/database/database.service';
 import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
 import { AddSectionInput } from './input/add-section.input.gql';
 import { DeleteSectionInput } from './input/delete-section.input.gql';
-import { SectionListForTollNetworkInput } from './input/section-list-for-toll-network.input.gql';
 import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
 import { SectionByIdsInput } from './input/section-by-ids.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class SectionService {
@@ -21,12 +21,12 @@ export class SectionService {
         OR: [
           {
             fromToll: {
-              id: sectionListForTollInput.tollId,
+              id: sectionListForTollInput.id,
             },
           },
           {
             toToll: {
-              id: sectionListForTollInput.tollId,
+              id: sectionListForTollInput.id,
             },
           },
         ],
@@ -39,12 +39,12 @@ export class SectionService {
         OR: [
           {
             fromToll: {
-              id: sectionListForTollInput.tollId,
+              id: sectionListForTollInput.id,
             },
           },
           {
             toToll: {
-              id: sectionListForTollInput.tollId,
+              id: sectionListForTollInput.id,
             },
           },
         ],
@@ -57,7 +57,7 @@ export class SectionService {
   }
 
   public async sectionListForTollNetwork(
-    sectionListForTollNetworkInput: SectionListForTollNetworkInput,
+    sectionListForTollNetworkInput: IdInput,
   ): Promise<TollDistance[]> {
     return await this.databaseService.section.findMany({
       where: {
@@ -65,14 +65,14 @@ export class SectionService {
           {
             fromToll: {
               tollNetwork: {
-                id: sectionListForTollNetworkInput.tollNetworkId,
+                id: sectionListForTollNetworkInput.id,
               },
             },
           },
           {
             toToll: {
               tollNetwork: {
-                id: sectionListForTollNetworkInput.tollNetworkId,
+                id: sectionListForTollNetworkInput.id,
               },
             },
           },

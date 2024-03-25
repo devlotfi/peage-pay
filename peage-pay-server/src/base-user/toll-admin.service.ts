@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { ChangeRoleInput } from './input/change-role.input.gql';
 import { ChangeTollInput } from './input/change-toll.input.gql';
 import { TollAdminListInput } from './input/toll-admin-list.input.gql';
 import { TollAdminListResult } from './result/toll-admin-list.result.gql';
+import { Prisma, TollAdmin } from '@prisma/client';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
 export class TollAdminService {
@@ -18,83 +19,49 @@ export class TollAdminService {
       tollAdminListInput.lastNameSearch ||
       tollAdminListInput.tollNameSearch
     ) {
-      const tollAdminList = await this.databaseService.tollAdmin.findMany({
-        where: {
-          OR: [
-            {
-              toll: {
-                name: {
-                  contains: tollAdminListInput.tollNameSearch,
-                  mode: 'insensitive',
+      const whereQuery: Prisma.TollAdminWhereInput = {
+        OR: [
+          {
+            toll: {
+              name: {
+                contains: tollAdminListInput.tollNameSearch,
+                mode: 'insensitive',
+              },
+            },
+          },
+          {
+            baseUser: {
+              OR: [
+                {
+                  id: {
+                    contains: tollAdminListInput.idSearch,
+                    mode: 'insensitive',
+                  },
                 },
-              },
+                {
+                  firstName: {
+                    contains: tollAdminListInput.firstNameSearch,
+                    mode: 'insensitive',
+                  },
+                },
+                {
+                  lastName: {
+                    contains: tollAdminListInput.lastNameSearch,
+                    mode: 'insensitive',
+                  },
+                },
+              ],
             },
-            {
-              baseUser: {
-                OR: [
-                  {
-                    id: {
-                      contains: tollAdminListInput.idSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    firstName: {
-                      contains: tollAdminListInput.firstNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    lastName: {
-                      contains: tollAdminListInput.lastNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
+          },
+        ],
+      };
+      const tollAdminList = await this.databaseService.tollAdmin.findMany({
+        where: whereQuery,
         take: tollAdminListInput.take,
         skip: tollAdminListInput.skip,
       });
       const tollAdminCount = await this.databaseService.tollAdmin.count({
-        where: {
-          OR: [
-            {
-              toll: {
-                name: {
-                  contains: tollAdminListInput.tollNameSearch,
-                  mode: 'insensitive',
-                },
-              },
-            },
-            {
-              baseUser: {
-                OR: [
-                  {
-                    id: {
-                      contains: tollAdminListInput.idSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    firstName: {
-                      contains: tollAdminListInput.firstNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    lastName: {
-                      contains: tollAdminListInput.lastNameSearch,
-                      mode: 'insensitive',
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
+        where: whereQuery,
       });
 
       return {
@@ -115,41 +82,51 @@ export class TollAdminService {
     }
   }
 
+  public async tollAdminById(
+    tollAdminByIdInput: IdInput,
+  ): Promise<TollAdmin | null> {
+    return await this.databaseService.tollAdmin.findUnique({
+      where: {
+        baseUserId: tollAdminByIdInput.id,
+      },
+    });
+  }
+
   public async addTollAdminRole(
-    changeRoleInput: ChangeRoleInput,
+    addTollAdminRoleInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.tollAdmin.create({
       data: {
-        baseUserId: changeRoleInput.baseUserId,
+        baseUserId: addTollAdminRoleInput.id,
       },
     });
     return true;
   }
 
   public async removeTollAdminRole(
-    changeRoleInput: ChangeRoleInput,
+    removeTollAdminRoleInput: IdInput,
   ): Promise<boolean> {
     await this.databaseService.tollAdmin.delete({
       where: {
-        baseUserId: changeRoleInput.baseUserId,
+        baseUserId: removeTollAdminRoleInput.id,
       },
     });
     return true;
   }
 
   public async changeTollAdminToll(
-    changeTollInput: ChangeTollInput,
+    changeTollAdminTollInput: ChangeTollInput,
   ): Promise<boolean> {
     await this.databaseService.tollAdmin.update({
       data: {
         toll: {
           connect: {
-            id: changeTollInput.tollId,
+            id: changeTollAdminTollInput.tollId,
           },
         },
       },
       where: {
-        baseUserId: changeTollInput.baseUserId,
+        baseUserId: changeTollAdminTollInput.baseUserId,
       },
     });
     return true;

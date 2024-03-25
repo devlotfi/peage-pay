@@ -1,29 +1,17 @@
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { BaseUserService } from './base-user.service';
 import { BaseUserRolesType } from './graphql/base-user-roles.gql';
 import { BaseUserType } from './graphql/base-user.gql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { BaseUserListInput } from './input/base-user-list.input.gql';
-import { BaseUserByIdInput } from './input/base-user-by-id.input.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { BaseUserListResult } from './result/base-user-list.result.gql';
-import { HumanRessourceAdminService } from './human-ressources-admin.service';
-import { ChangeRoleInput } from './input/change-role.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Resolver(() => BaseUserType)
 export class BaseUserResolver {
-  public constructor(
-    private readonly baseUserService: BaseUserService,
-    private readonly humanRessourcesAdminService: HumanRessourceAdminService,
-  ) {}
+  public constructor(private readonly baseUserService: BaseUserService) {}
 
   @Query(() => BaseUserListResult)
   @AllowRoles([
@@ -46,33 +34,9 @@ export class BaseUserResolver {
   ])
   @UseGuards(AuthGuard)
   public async baseUserById(
-    @Args('baseUserByIdInput') baseUserByIdInput: BaseUserByIdInput,
+    @Args('userByIdInput') userByIdInput: IdInput,
   ): Promise<BaseUserType | null> {
-    return (await this.baseUserService.baseUserById(baseUserByIdInput)) as any;
-  }
-
-  @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
-  @UseGuards(AuthGuard)
-  public async addHumanRessoucesAdminRole(
-    @Args('addHumanRessoucesAdminRoleInput')
-    changeRoleInput: ChangeRoleInput,
-  ): Promise<boolean> {
-    return (await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
-      changeRoleInput,
-    )) as any;
-  }
-
-  @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
-  @UseGuards(AuthGuard)
-  public async removeHumanRessoucesAdminRole(
-    @Args('removeHumanRessoucesAdminRoleInput')
-    changeRoleInput: ChangeRoleInput,
-  ): Promise<boolean> {
-    return (await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
-      changeRoleInput,
-    )) as any;
+    return (await this.baseUserService.baseUserById(userByIdInput)) as any;
   }
 
   @ResolveField(() => [BaseUserRolesType])

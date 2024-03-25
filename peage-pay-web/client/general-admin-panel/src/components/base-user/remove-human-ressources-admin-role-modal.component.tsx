@@ -35,7 +35,7 @@ const RemoveHumanRessourcesAdminRoleModal = ({
     removeHumanRessourcesAdminRole({
       variables: {
         removeHumanRessoucesAdminRoleInput: {
-          baseUserId: baseUser.id,
+          id: baseUser.id,
         },
       },
     });

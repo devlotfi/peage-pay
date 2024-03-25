@@ -36,8 +36,8 @@ const RemoveModeratorRoleModal = ({
   const handleAdd = () => {
     removeModeratorRole({
       variables: {
-        changeTollInput: {
-          baseUserId: baseUser.id,
+        removeModeratorRoleInput: {
+          id: baseUser.id,
         },
       },
     });

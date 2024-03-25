@@ -5,7 +5,6 @@ import {
   faExclamationCircle,
   faMapMarked,
   faPen,
-  faPlus,
   faRoad,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +16,6 @@ import {
   Heading,
   LoaderDots,
   Select,
-  Table,
   TextInput,
 } from "@peage-pay-web/ui";
 import { EDIT_TOLL } from "../../graphql/mutations";
@@ -76,7 +74,7 @@ const EditTollPage = (): JSX.Element => {
   } = useQuery(TOLL_BY_ID, {
     variables: {
       tollByIdInput: {
-        tollId: tollId as string,
+        id: tollId as string,
       },
     },
     fetchPolicy: "network-only",
@@ -98,7 +96,7 @@ const EditTollPage = (): JSX.Element => {
     {
       variables: {
         highwayByIdInput: {
-          highwayId: tollData?.tollById.highway.id as string,
+          id: tollData?.tollById.highway.id as string,
         },
       },
       onCompleted(data) {
@@ -115,7 +113,7 @@ const EditTollPage = (): JSX.Element => {
     {
       variables: {
         tollNetworkByIdInput: {
-          tollNetworkId: tollData?.tollById.tollNetwork.id as string,
+          id: tollData?.tollById.tollNetwork.id as string,
         },
       },
       fetchPolicy: "network-only",
@@ -127,7 +125,7 @@ const EditTollPage = (): JSX.Element => {
     {
       variables: {
         wilayaByIdInput: {
-          wilayaId: tollData?.tollById.wilaya.id as string,
+          id: tollData?.tollById.wilaya.id as string,
         },
       },
       onCompleted(data) {
@@ -253,18 +251,6 @@ const EditTollPage = (): JSX.Element => {
                 <Heading.Text>Edit toll</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
-            <Table.Container className="mb-[2rem]">
-              <Table>
-                <Table.Body>
-                  <Table.Body.Tr>
-                    <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll:
-                    </Table.Body.Td>
-                    <Table.Body.Td>{tollData?.tollById?.name}</Table.Body.Td>
-                  </Table.Body.Tr>
-                </Table.Body>
-              </Table>
-            </Table.Container>
 
             <TextInput
               variant={errors.name && touched.name ? "error" : "edge-100"}
@@ -448,7 +434,7 @@ const EditTollPage = (): JSX.Element => {
               ) : (
                 <>
                   <Button.Icon position={"left"}>
-                    <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Edit toll</Button.Content>
                 </>

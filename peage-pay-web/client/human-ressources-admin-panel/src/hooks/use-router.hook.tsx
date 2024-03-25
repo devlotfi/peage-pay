@@ -59,7 +59,7 @@ const useRouter = () => {
         },
         {
           path: "/dashboard/toll-admin/edit/:baseUserId",
-          element: <EditGateAdmin></EditGateAdmin>,
+          element: <EditTollAdmin></EditTollAdmin>,
         },
         {
           path: "/dashboard/gate-admin/list",
@@ -67,7 +67,7 @@ const useRouter = () => {
         },
         {
           path: "/dashboard/gate-admin/edit/:baseUserId",
-          element: <EditTollAdmin></EditTollAdmin>,
+          element: <EditGateAdmin></EditGateAdmin>,
         },
         {
           path: "/dashboard/moderator/list",

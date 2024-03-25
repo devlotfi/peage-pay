@@ -12,14 +12,14 @@ import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { SectionType } from './graphql/section.gql';
-import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { AddSectionInput } from './input/add-section.input.gql';
 import { DeleteSectionInput } from './input/delete-section.input.gql';
-import { SectionListForTollNetworkInput } from './input/section-list-for-toll-network.input.gql';
 import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
 import { SectionByIdsInput } from './input/section-by-ids.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
 
 @Resolver(() => SectionType)
 export class SectionResolver {
@@ -40,7 +40,7 @@ export class SectionResolver {
   @UseGuards(AuthGuard)
   public async sectionListForTollNetwork(
     @Args('sectionListForTollNetworkInput')
-    sectionListForTollNetworkInput: SectionListForTollNetworkInput,
+    sectionListForTollNetworkInput: IdInput,
   ): Promise<SectionType[]> {
     return (await this.sectionService.sectionListForTollNetwork(
       sectionListForTollNetworkInput,

@@ -37,7 +37,7 @@ const DeleteGlobalPriceModal = ({
     deleteGlobalPrice({
       variables: {
         deletePriceInput: {
-          priceId: price.id,
+          id: price.id,
         },
       },
     });

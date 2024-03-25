@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsNumber, IsOptional, Max, Min } from 'class-validator';
 
 @InputType()
-export class PriceListInput {
+export class PaginationInput {
   @Field()
   @IsNumber()
   @Max(10)

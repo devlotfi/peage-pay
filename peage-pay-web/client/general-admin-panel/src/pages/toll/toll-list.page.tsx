@@ -27,18 +27,17 @@ const TollListPage = (): JSX.Element => {
   const [page, setPage] = useState<number>(1);
   const { tollNetworkId } = useParams();
 
-  const {
-    data: tollNetworkData,
-    loading: tollNetworkLoading,
-    error: tollNetworkError,
-  } = useQuery(TOLL_NETWORK_BY_ID, {
-    variables: {
-      tollNetworkByIdInput: {
-        tollNetworkId: tollNetworkId as string,
+  const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
+    TOLL_NETWORK_BY_ID,
+    {
+      variables: {
+        tollNetworkByIdInput: {
+          id: tollNetworkId as string,
+        },
       },
-    },
-    fetchPolicy: "network-only",
-  });
+      fetchPolicy: "network-only",
+    }
+  );
   const {
     data: listData,
     loading: listLoading,
@@ -73,20 +72,6 @@ const TollListPage = (): JSX.Element => {
               <Heading.Text>Toll list</Heading.Text>
             </Heading>
           </ListPageLayout.Title>
-          <Table.Container className="mb-[2rem] overflow-hidden">
-            <Table>
-              <Table.Body>
-                <Table.Body.Tr>
-                  <Table.Body.Td className="text-primary-100 font-bold">
-                    Toll network:
-                  </Table.Body.Td>
-                  <Table.Body.Td>
-                    {tollNetworkData?.tollNetworkById.name}
-                  </Table.Body.Td>
-                </Table.Body.Tr>
-              </Table.Body>
-            </Table>
-          </Table.Container>
 
           <AdminDashboardLayout.Loading loading={listLoading}>
             <AdminDashboardLayout.Error error={listError}>

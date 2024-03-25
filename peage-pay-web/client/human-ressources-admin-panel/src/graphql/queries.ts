@@ -77,3 +77,37 @@ export const MODERATOR_LIST = gql(`
     }
   }
 `);
+
+export const TOLL_LIST = gql(`
+  query TOLL_LIST($tollListInput: TollListInput!) {
+    tollList(tollListInput: $tollListInput) {
+      count
+      list {
+        id
+        name
+        status
+        longitude
+        latitude
+        wilayaId
+        wilaya {
+          id
+          name
+          code
+        }
+        highwayId
+        highway {
+          id
+          name
+          code
+        }
+        tollNetworkId
+        tollNetwork {
+          id
+          name
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`);

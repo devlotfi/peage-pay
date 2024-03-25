@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNumber, IsOptional, Max, MaxLength, Min } from 'class-validator';
+import { IsOptional, MaxLength } from 'class-validator';
+import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @InputType()
-export class ModeratorListInput {
+export class ModeratorListInput extends PaginationInput {
   @Field({ nullable: true })
   @MaxLength(1024)
   @IsOptional()
@@ -17,16 +18,4 @@ export class ModeratorListInput {
   @MaxLength(1024)
   @IsOptional()
   public lastNameSearch?: string;
-
-  @Field()
-  @IsNumber()
-  @Max(10)
-  @Min(0)
-  public take: number;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  public skip?: number;
 }

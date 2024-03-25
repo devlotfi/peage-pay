@@ -46,7 +46,7 @@ const EditHighwayPage = (): JSX.Element => {
   } = useQuery(HIGHWAY_BY_ID, {
     variables: {
       highwayByIdInput: {
-        highwayId: highwayId as string,
+        id: highwayId as string,
       },
     },
     fetchPolicy: "network-only",
