@@ -72,25 +72,25 @@ const makeStyles = (theme: AppTheme, variant: Variants) =>
       alignItems: "center",
       borderRadius: 7,
       flexDirection: "row",
+      borderWidth: 1,
     },
     primary: {
       borderColor: theme["primary-100"],
-      borderWidth: 1,
     },
     success: {
-      backgroundColor: theme["success-100"],
+      borderColor: theme["success-100"],
     },
     error: {
-      backgroundColor: theme["error-100"],
+      borderColor: theme["error-100"],
     },
     warning: {
-      backgroundColor: theme["warning-100"],
+      borderColor: theme["warning-100"],
     },
-    "base-100": {
-      backgroundColor: theme["base-100"],
+    "edge-100": {
+      borderColor: theme["edge-100"],
     },
-    "base-200": {
-      backgroundColor: theme["base-200"],
+    "edge-200": {
+      borderColor: theme["edge-200"],
     },
     pressed: {
       backgroundColor: theme["base-200"],

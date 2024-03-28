@@ -1,5 +1,5 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, RefObject } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 
 const textInputFieldVariants = cva(
@@ -8,11 +8,14 @@ const textInputFieldVariants = cva(
 
 interface TextInputFieldProps
   extends InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof textInputFieldVariants> {}
+    VariantProps<typeof textInputFieldVariants> {
+  fieldRef?: RefObject<HTMLInputElement>;
+}
 
 const TextInputField = ({
   className,
   children,
+  fieldRef,
   ...props
 }: TextInputFieldProps): JSX.Element => {
   return (
@@ -22,6 +25,7 @@ const TextInputField = ({
           className,
         }),
       )}
+      ref={fieldRef}
       {...props}
     >
       {children}

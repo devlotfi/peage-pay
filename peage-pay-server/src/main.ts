@@ -18,6 +18,7 @@ async function bootstrap() {
       configService.getOrThrow<string>('TOLL_ADMIN_PANEL_URL'),
       configService.getOrThrow<string>('GATE_ADMIN_PANEL_URL'),
       configService.getOrThrow<string>('AUTH_COMMON_CLIENT_URL'),
+      configService.getOrThrow<string>('MODERATOR_BADGE_READER_URL'),
     ],
   });
   app.use(cookieParser());

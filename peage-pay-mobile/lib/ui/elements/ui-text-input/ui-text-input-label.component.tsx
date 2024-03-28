@@ -1,41 +1,53 @@
 import {
-  PressableProps,
   StyleProp,
   StyleSheet,
   Text,
   TextProps,
   TextStyle,
 } from "react-native";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
 import { AppTheme } from "../../../theme/types/app-theme.type";
-import UIText from "../ui-text/ui-text.component";
+import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
+import { UITextInputContext } from "./text-input.context";
 import { useContext } from "react";
-import { UITextInputContext } from "./ui-text-input.component";
 
-interface UIButtonTextProps extends TextProps {
+type Variants =
+  | "primary"
+  | "success"
+  | "error"
+  | "warning"
+  | "edge-100"
+  | "edge-200";
+
+interface UITextInputLabelProps extends TextProps {
   style?: StyleProp<TextStyle>;
+  variant?: Variants;
 }
 
-const UIButtonText = ({
+const UITextInputLabel = ({
   children,
   style,
   ...props
-}: UIButtonTextProps): JSX.Element => {
+}: UITextInputLabelProps): JSX.Element => {
   const { theme } = useAppTheme();
-  const styles = makeStyles(theme);
   const { variant } = useContext(UITextInputContext);
+  const styles = makeStyles(theme, variant);
 
   return (
-    <UIText style={[styles.base, styles[variant], style]} {...props}>
+    <Text style={[styles.base, styles[variant], style]} {...props}>
       {children}
-    </UIText>
+    </Text>
   );
 };
 
-const makeStyles = (theme: AppTheme) =>
+const makeStyles = (theme: AppTheme, variant: Variants) =>
   StyleSheet.create({
     base: {
-      fontSize: 17,
+      fontSize: 15,
+      position: "absolute",
+      top: -15,
+      left: 13,
+      backgroundColor: theme["base-100"],
+      paddingHorizontal: 5,
     },
     primary: {
       color: theme["primary-100"],
@@ -57,4 +69,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default UIButtonText;
+export default UITextInputLabel;

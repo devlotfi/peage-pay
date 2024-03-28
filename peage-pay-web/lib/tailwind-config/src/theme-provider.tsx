@@ -1,10 +1,10 @@
-import { PropsWithChildren, createContext, useState } from "react";
-import { LocalStorageKeys } from "@peage-pay-web/constants";
-import "./global.css";
+import { PropsWithChildren, createContext, useState } from 'react';
+import { LocalStorageKeys } from '@peage-pay-web/constants';
+import './global.css';
 
 export enum ThemesEnum {
-  LIGHT = "LIGHT",
-  DARK = "DARK",
+  LIGHT = 'LIGHT',
+  DARK = 'DARK',
 }
 
 interface ThemeContext {
@@ -27,7 +27,7 @@ const initialValue: ThemeContext = {
 
 const setThemeDom = (theme: ThemesEnum) => {
   const htmlTag: HTMLBaseElement | null =
-    document.querySelector("#theme-provider");
+    document.querySelector('#theme-provider');
 
   if (htmlTag) {
     htmlTag.dataset.theme = theme;
@@ -36,7 +36,7 @@ const setThemeDom = (theme: ThemesEnum) => {
 
 const initTheme = (): ThemesEnum | undefined => {
   const themeLocal: ThemesEnum | null = localStorage.getItem(
-    LocalStorageKeys.THEME
+    LocalStorageKeys.THEME,
   ) as ThemesEnum;
 
   if (themeLocal) {
@@ -44,12 +44,13 @@ const initTheme = (): ThemesEnum | undefined => {
     return themeLocal;
   } else {
     const htmlTag: HTMLBaseElement | null =
-      document.querySelector("#theme-provider");
+      document.querySelector('#theme-provider');
 
     if (htmlTag) {
       return htmlTag.dataset.theme as ThemesEnum;
     }
   }
+  return undefined;
 };
 
 export const ThemeContext = createContext(initialValue);

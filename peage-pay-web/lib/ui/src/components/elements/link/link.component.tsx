@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 
@@ -7,7 +7,7 @@ const customLinkVariants = cva(
 );
 
 interface CustomLinkProps
-  extends AnchorHTMLAttributes<HTMLAnchorElement>,
+  extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof customLinkVariants> {}
 
 const CustomLink = ({
@@ -16,9 +16,9 @@ const CustomLink = ({
   ...props
 }: CustomLinkProps): JSX.Element => {
   return (
-    <a className={Utils.cn(customLinkVariants({ className }))} {...props}>
+    <div className={Utils.cn(customLinkVariants({ className }))} {...props}>
       {children}
-    </a>
+    </div>
   );
 };
 export default CustomLink;

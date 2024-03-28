@@ -12,30 +12,26 @@ import { AppTheme } from "../../../theme/types/app-theme.type";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon, Props } from "@fortawesome/react-native-fontawesome";
 import { useContext } from "react";
-import { UITextInputContext } from "./ui-text-input.component";
+import { UITextInputContext } from "./text-input.context";
 
-type Position = "left" | "right";
-
-interface UIButtonIconProps extends Props {
+interface UITextInputIconProps extends Props {
   style?: StyleProp<ViewProps>;
   icon: IconProp;
-  position?: Position;
 }
 
-const UIButtonIcon = ({
+const UITextInputIcon = ({
   style,
-  position,
   size,
   ...props
-}: UIButtonIconProps): JSX.Element => {
+}: UITextInputIconProps): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
-  const { variant } = useContext(UIButtonOutlineContext);
+  const { variant } = useContext(UITextInputContext);
 
   return (
     <FontAwesomeIcon
-      style={[styles.base, styles[position], styles[variant] as any, style]}
-      size={size || 19}
+      style={[styles.base, styles[variant] as any, style]}
+      size={size || 23}
       {...props}
     ></FontAwesomeIcon>
   );
@@ -45,13 +41,6 @@ const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
       color: theme["color-content"],
-    },
-
-    left: {
-      marginRight: 10,
-    },
-    right: {
-      marginLeft: 10,
     },
 
     primary: {
@@ -74,4 +63,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default UIButtonIcon;
+export default UITextInputIcon;

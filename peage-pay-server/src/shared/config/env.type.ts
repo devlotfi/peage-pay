@@ -16,6 +16,8 @@ export class Env {
   public MODERATOR_ADMIN_PANEL_URL: string;
   @IsString()
   public AUTH_COMMON_CLIENT_URL: string;
+  @IsString()
+  public MODERATOR_BADGE_READER_URL: string;
 
   @IsString()
   public DATABASE_URL: string;

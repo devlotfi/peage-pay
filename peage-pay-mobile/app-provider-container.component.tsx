@@ -1,5 +1,11 @@
 import { PropsWithChildren } from "react";
-import { StyleSheet, View } from "react-native";
+import {
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { AppTheme } from "./lib/theme/types/app-theme.type";
 import { useAppTheme } from "./lib/theme/hooks/use-app-theme.hook";
 import {
@@ -20,14 +26,16 @@ const AppProviderContainer = ({ children }: PropsWithChildren) => {
   const [loadedFugaz] = useFontsFugaz({ FugazOne_400Regular });
 
   return (
-    <View style={styles.container}>
-      {children}
-      <StatusBar
-        translucent={false}
-        backgroundColor={theme["base-100"]}
-        style={theme.type === AppThemesEnum.LIGHT ? "dark" : "light"}
-      ></StatusBar>
-    </View>
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+      <>
+        {children}
+        <StatusBar
+          translucent={false}
+          backgroundColor={theme["base-100"]}
+          style={theme.type === AppThemesEnum.LIGHT ? "dark" : "light"}
+        ></StatusBar>
+      </>
+    </Pressable>
   );
 };
 export default AppProviderContainer;

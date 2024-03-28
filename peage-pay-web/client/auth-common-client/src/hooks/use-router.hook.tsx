@@ -1,5 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ErrorPage } from '@peage-pay-web/ui';
+import {
+  GoogleOAuthWrapper,
+  ResetPasswordPage,
+  SignInWithGoogleExternalPage,
+  VerifyEmailPage,
+} from '@peage-pay-web/auth';
 
 const useRouter = () => {
   const router = createBrowserRouter([
@@ -10,21 +16,19 @@ const useRouter = () => {
     },
     {
       path: '/verify',
-      async lazy() {
-        const { VerifyEmailPage } = await import('@peage-pay-web/auth');
-        return {
-          element: <VerifyEmailPage></VerifyEmailPage>,
-        };
-      },
+      element: <VerifyEmailPage></VerifyEmailPage>,
     },
     {
       path: '/reset',
-      async lazy() {
-        const { ResetPasswordPage } = await import('@peage-pay-web/auth');
-        return {
-          element: <ResetPasswordPage></ResetPasswordPage>,
-        };
-      },
+      element: <ResetPasswordPage></ResetPasswordPage>,
+    },
+    {
+      path: '/badge-reader/google',
+      element: (
+        <GoogleOAuthWrapper>
+          <SignInWithGoogleExternalPage></SignInWithGoogleExternalPage>
+        </GoogleOAuthWrapper>
+      ),
     },
   ]);
 

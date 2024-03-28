@@ -1,6 +1,4 @@
 import {
-  Pressable,
-  PressableProps,
   StyleProp,
   StyleSheet,
   Text,
@@ -8,34 +6,18 @@ import {
   ViewProps,
   ViewStyle,
 } from "react-native";
-import UIButtonText from "./ui-text-input-text.component";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import { createContext } from "react";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import UIButtonIcon from "./ui-text-input-icon.component";
-
-type Variants =
-  | "primary"
-  | "success"
-  | "error"
-  | "warning"
-  | "edge-100"
-  | "edge-200";
+import UITextInputField from "./ui-text-input-field.component";
+import UITextInputIcon from "./ui-text-input-icon.component";
+import UITextInputMain from "./ui-text-input-main.component";
+import UITextInputLabel from "./ui-text-input-label.component";
+import UITextInputIconContainer from "./ui-text-input-icon-container.component";
+import { UITextInputContext, Variants } from "./text-input.context";
+import { useState } from "react";
 
 interface UITextInputProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
   variant?: Variants;
 }
-
-interface UITextInpuContext {
-  variant: Variants;
-}
-
-const initialValue: UITextInpuContext = {
-  variant: "primary",
-};
-
-export const UITextInputContext = createContext(initialValue);
 
 const UITextInput = ({
   children,
@@ -43,25 +25,28 @@ const UITextInput = ({
   variant = "primary",
   ...props
 }: UITextInputProps): JSX.Element => {
-  const { theme } = useAppTheme();
   const styles = makeStyles();
+  const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <UITextInputContext.Provider value={{ variant }}>
+    <UITextInputContext.Provider value={{ variant, focused, setFocused }}>
       <View style={[styles.base, styles[variant], style]} {...props}>
         {children}
       </View>
+      <Text>{focused}lol</Text>
     </UITextInputContext.Provider>
   );
 };
-UITextInput.Text = UIButtonText;
-UITextInput.Icon = UIButtonIcon;
+UITextInput.Field = UITextInputField;
+UITextInput.Icon = UITextInputIcon;
+UITextInput.IconContainer = UITextInputIconContainer;
+UITextInput.Main = UITextInputMain;
+UITextInput.Label = UITextInputLabel;
 
 const makeStyles = () =>
   StyleSheet.create({
     base: {
       minHeight: 50,
-      paddingHorizontal: 15,
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 7,

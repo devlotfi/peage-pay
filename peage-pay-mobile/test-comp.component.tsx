@@ -10,6 +10,7 @@ import UIButtonOutline from "./lib/ui/elements/ui-button-outline/ui-button-outli
 import UIHeading from "./lib/ui/elements/ui-heading/ui-heading.component";
 import UIAlert from "./lib/ui/elements/ui-alert/ui-alert.component";
 import UILink from "./lib/ui/elements/ui-link/ui-links.component";
+import UITextInput from "./lib/ui/elements/ui-text-input/ui-text-input.component";
 
 export default function TestComp() {
   const { theme, setTheme } = useContext(AppThemeContext);
@@ -50,7 +51,7 @@ export default function TestComp() {
           <UIButton.Icon icon={faUser} position="left"></UIButton.Icon>
           <UIButton.Text>lol</UIButton.Text>
         </UIButton>
-        <UIButtonOutline variant="primary">
+        <UIButtonOutline onPress={() => console.log("lol")} variant="success">
           <UIButtonOutline.Icon
             icon={faUser}
             position="left"
@@ -67,7 +68,19 @@ export default function TestComp() {
             <UIAlert.Text>lol</UIAlert.Text>
           </UIAlert>
           <UILink>lol</UILink>
-          <TextInput placeholder="lol"></TextInput>
+
+          <UITextInput
+            variant="edge-100"
+            style={{ width: "100%", marginTop: 30 }}
+          >
+            <UITextInput.Main>
+              <UITextInput.Label>lol</UITextInput.Label>
+              <UITextInput.IconContainer position="left">
+                <UITextInput.Icon icon={faUser}></UITextInput.Icon>
+              </UITextInput.IconContainer>
+              <UITextInput.Field></UITextInput.Field>
+            </UITextInput.Main>
+          </UITextInput>
         </View>
       </View>
     </View>

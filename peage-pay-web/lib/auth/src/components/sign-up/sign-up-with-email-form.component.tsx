@@ -1,18 +1,18 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faAt,
   faExclamationCircle,
+  faFilePen,
   faKey,
-  faSignIn,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Button, LoaderDots, TextInput } from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { SIGN_UP_WITH_EMAIL } from "../../graphql/mutations";
-import { AuthErrors } from "../../__generated__/graphql";
-import { useRef } from "react";
-import VerifyEmailModal from "../verify-email-modal.component";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert, Button, LoaderDots, TextInput } from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { SIGN_UP_WITH_EMAIL } from '../../graphql/mutations';
+import { AuthErrors } from '../../__generated__/graphql';
+import { useRef } from 'react';
+import VerifyEmailModal from '../verify-email-modal.component';
 
 const signUpWithEmailValidationSchema = yup.object({
   firstName: yup.string().max(50).required(),
@@ -21,7 +21,7 @@ const signUpWithEmailValidationSchema = yup.object({
   password: yup.string().min(7).max(512).required(),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
+    .oneOf([yup.ref('password')], 'Passwords must match')
     .required(),
 });
 
@@ -34,11 +34,11 @@ interface SignUpWithEmailValues {
 }
 
 const initialValues: SignUpWithEmailValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 };
 
 const SignUpWithEmailForm = (): JSX.Element => {
@@ -55,7 +55,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
             break;
         }
       },
-    }
+    },
   );
   const verifyEmailModalRef = useRef<HTMLDialogElement>(null);
 
@@ -86,12 +86,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
 
       <form onSubmit={handleSubmit} className="mt-[2rem]">
         <TextInput
-          variant={errors.firstName && touched.firstName ? "error" : "edge-100"}
+          variant={errors.firstName && touched.firstName ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>First name</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -108,12 +108,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.lastName && touched.lastName ? "error" : "edge-100"}
+          variant={errors.lastName && touched.lastName ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>Last name</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -130,12 +130,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.email && touched.email ? "error" : "edge-100"}
+          variant={errors.email && touched.email ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>E-mail</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -152,12 +152,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.password && touched.password ? "error" : "edge-100"}
+          variant={errors.password && touched.password ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>Password</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -176,14 +176,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
         <TextInput
           variant={
             errors.confirmPassword && touched.confirmPassword
-              ? "error"
-              : "edge-100"
+              ? 'error'
+              : 'edge-100'
           }
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>Confirm password</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -203,23 +203,23 @@ const SignUpWithEmailForm = (): JSX.Element => {
         </TextInput>
 
         {error ? (
-          <Alert variant={"error"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button className="w-full" variant={"primary"} type="submit">
+        <Button className="w-full" variant={'primary'} type="submit">
           {loading ? (
             <Button.Content>
-              <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+              <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
             </Button.Content>
           ) : (
             <>
-              <Button.Icon position={"left"}>
-                <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
+              <Button.Icon position={'left'}>
+                <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Sign up</Button.Content>
             </>

@@ -1,20 +1,30 @@
-import { ButtonOutline, Heading, MinimalNavbar } from "@peage-pay-web/ui";
+import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
 import SignInPageTabs, {
   SignInTabsEnum,
-} from "../components/sign-in/sign-in-page-tabs.component";
-import { useState } from "react";
-import SignInWithEmailForm from "../components/sign-in/sign-in-with-email-form.component";
-import SignInWithGoogleForm from "../components/sign-in/sign-in-with-google-form.component";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn, faUserGear } from "@fortawesome/free-solid-svg-icons";
-import { Toll } from "@peage-pay-web/assets";
-import { Link } from "react-router-dom";
+} from '../components/sign-in/sign-in-page-tabs.component';
+import { useState } from 'react';
+import SignInWithEmailForm from '../components/sign-in/sign-in-with-email-form.component';
+import SignInWithGoogleForm from '../components/sign-in/sign-in-with-google-form.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFilePen,
+  faSignIn,
+  faUserGear,
+} from '@fortawesome/free-solid-svg-icons';
+import { Toll } from '@peage-pay-web/assets';
+import { Link } from 'react-router-dom';
+import SignInWithGoogleFormExternal from '../components/sign-in/sign-in-with-google-form-external.component';
+import GoogleOAuthWrapper from '../components/google-oauth-wrapper.component';
 
 interface SignInPageProps {
   title: string;
+  googleExternalSignInUrl: string;
 }
 
-const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
+const SignInPage = ({
+  title,
+  googleExternalSignInUrl,
+}: SignInPageProps): JSX.Element => {
   const [tab, setTab] = useState<SignInTabsEnum>(SignInTabsEnum.EMAIL);
 
   const renderTabContent = () => {
@@ -22,7 +32,19 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
       case SignInTabsEnum.EMAIL:
         return <SignInWithEmailForm></SignInWithEmailForm>;
       case SignInTabsEnum.GOOGLE:
-        return <SignInWithGoogleForm></SignInWithGoogleForm>;
+        if (googleExternalSignInUrl) {
+          return (
+            <SignInWithGoogleFormExternal
+              url={googleExternalSignInUrl}
+            ></SignInWithGoogleFormExternal>
+          );
+        } else {
+          return (
+            <GoogleOAuthWrapper>
+              <SignInWithGoogleForm></SignInWithGoogleForm>
+            </GoogleOAuthWrapper>
+          );
+        }
     }
   };
 
@@ -37,7 +59,7 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
           <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
               <Heading className="text-[27pt] lg:text-[23pt] mb-[1rem] flex justify-center">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Sign in</Heading.Text>
@@ -53,8 +75,11 @@ const SignInPage = ({ title }: SignInPageProps): JSX.Element => {
                 Or
               </div>
             </div>
-            <Link to={"/sign-up"} className="flex w-full">
-              <ButtonOutline className="flex w-full" variant={"primary"}>
+            <Link to={'/sign-up'} className="flex w-full">
+              <ButtonOutline className="flex w-full" variant={'primary'}>
+                <ButtonOutline.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
+                </ButtonOutline.Icon>
                 <ButtonOutline.Content>Sign up</ButtonOutline.Content>
               </ButtonOutline>
             </Link>

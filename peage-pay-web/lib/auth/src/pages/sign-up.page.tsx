@@ -1,13 +1,17 @@
-import { ButtonOutline, Heading, MinimalNavbar } from "@peage-pay-web/ui";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn, faUserGear } from "@fortawesome/free-solid-svg-icons";
-import { Toll } from "@peage-pay-web/assets";
+import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFilePen,
+  faSignIn,
+  faUserGear,
+} from '@fortawesome/free-solid-svg-icons';
+import { Toll } from '@peage-pay-web/assets';
 import SignUpPageTabs, {
   SignUpTabsEnum,
-} from "../components/sign-up/sign-up-page-tabs.component";
-import { Link } from "react-router-dom";
-import SignUpWithEmailForm from "../components/sign-up/sign-up-with-email-form.component";
+} from '../components/sign-up/sign-up-page-tabs.component';
+import { Link } from 'react-router-dom';
+import SignUpWithEmailForm from '../components/sign-up/sign-up-with-email-form.component';
 
 interface SignUpPageProps {
   title: string;
@@ -33,9 +37,9 @@ const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
         <div className="flex w-full mb-[5rem] p-[1rem] lg:p-[1.5rem] lg:max-w-[55rem] bg-base-100 rounded-none lg:rounded-xl flex-col-reverse justify-end lg:flex-row border-[0px] lg:border-[1px] border-edge-200">
           <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
-              <Heading className="text-[23pt] mb-[1rem]">
-                <Heading.Icon position={"left"}>
-                  <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
+              <Heading className="text-[23pt] mb-[1rem] justify-center">
+                <Heading.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Sign up</Heading.Text>
               </Heading>
@@ -49,8 +53,11 @@ const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
                   Or
                 </div>
               </div>
-              <Link to={"/sign-in"} className="flex w-full">
-                <ButtonOutline className="flex w-full" variant={"primary"}>
+              <Link to={'/sign-in'} className="flex w-full">
+                <ButtonOutline className="flex w-full" variant={'primary'}>
+                  <ButtonOutline.Icon position={'left'}>
+                    <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
+                  </ButtonOutline.Icon>
                   <ButtonOutline.Content>Sign in</ButtonOutline.Content>
                 </ButtonOutline>
               </Link>

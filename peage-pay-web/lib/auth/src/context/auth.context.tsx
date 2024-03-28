@@ -1,11 +1,10 @@
-import { PropsWithChildren, createContext, useState } from "react";
-import { BaseUserRolesType, BaseUserType } from "../__generated__/graphql";
-import { useQuery } from "@apollo/client";
-import { SessionStorageKeys } from "@peage-pay-web/constants";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from "../graphql/queries";
-import PermissionErrorPage from "../pages/permission-error.page";
-import { FullScreenLoading } from "@peage-pay-web/ui";
+import { PropsWithChildren, createContext, useState } from 'react';
+import { BaseUserRolesType, BaseUserType } from '../__generated__/graphql';
+import { useQuery } from '@apollo/client';
+import { SessionStorageKeys } from '@peage-pay-web/constants';
+import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
+import PermissionErrorPage from '../pages/permission-error.page';
+import { FullScreenLoading } from '@peage-pay-web/ui';
 
 type AuthData = {
   baseUser: BaseUserType;
@@ -73,7 +72,7 @@ export const AuthProvider = ({
 
   const checkRoles = (
     allowedRoles: BaseUserRolesType[],
-    userRoles: BaseUserRolesType[]
+    userRoles: BaseUserRolesType[],
   ): boolean => {
     for (const role of allowedRoles) {
       if (userRoles.indexOf(role) !== -1) {
@@ -99,23 +98,16 @@ export const AuthProvider = ({
   };
 
   return (
-    <GoogleOAuthProvider
-      clientId={
-        import.meta.env["VITE_GOOGLE_OAUTH_CLIENT_ID"] ||
-        import.meta.env["RENDERER_VITE_GOOGLE_OAUTH_CLIENT_ID"]
-      }
+    <AuthContext.Provider
+      value={{
+        authData: authData,
+        allowedRoles,
+        setAuthData,
+        setAccessToken,
+        clearAccessToken,
+      }}
     >
-      <AuthContext.Provider
-        value={{
-          authData: authData,
-          allowedRoles,
-          setAuthData,
-          setAccessToken,
-          clearAccessToken,
-        }}
-      >
-        {renderContent()}
-      </AuthContext.Provider>
-    </GoogleOAuthProvider>
+      {renderContent()}
+    </AuthContext.Provider>
   );
 };
