@@ -7,18 +7,23 @@ import { AuthProvider } from '@peage-pay-web/auth';
 import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 import { BaseUserRolesType } from './__generated__/graphql';
 import './assets/main.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
   <StrictMode>
-    <ThemeProvider>
-      <ApplicationApolloClientProvider>
-        <AuthProvider allowedRoles={[BaseUserRolesType.Moderator]}>
-          <App />
-        </AuthProvider>
-      </ApplicationApolloClientProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <ApplicationApolloClientProvider>
+          <AuthProvider allowedRoles={[BaseUserRolesType.Moderator]}>
+            <App />
+          </AuthProvider>
+        </ApplicationApolloClientProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );

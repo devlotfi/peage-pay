@@ -21,6 +21,8 @@ async function bootstrap() {
       configService.getOrThrow<string>('MODERATOR_BADGE_READER_URL'),
     ],
   });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter());

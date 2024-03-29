@@ -101,10 +101,15 @@ export class TokenService {
 
     if (refreshTokenMode === RefreshTokenMode.COOKIE) {
       const cookies = new Cookies(req, res);
+      const currentDate = new Date();
+      const expirationDate = new Date(
+        currentDate.getTime() + 30 * 24 * 60 * 60 * 1000,
+      );
       cookies.set(CookieKeys.REFRESH_TOKEN, refreshToken, {
         httpOnly: true,
         sameSite: 'lax',
         secure: false,
+        expires: expirationDate,
       });
     }
 
