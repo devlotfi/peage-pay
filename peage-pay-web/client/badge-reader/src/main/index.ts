@@ -3,8 +3,9 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { SerialPort } from 'serialport';
+import { CurrentPort } from './current-port';
 
-function createWindow(): void {
+function createWindow(): BrowserWindow {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -34,6 +35,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
+
+  return mainWindow;
 }
 
 // This method will be called when Electron has finished
@@ -50,15 +53,37 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
+  const mainWindow = createWindow();
   // IPC test
   ipcMain.on('ping', () => console.log('pong'));
   ipcMain.handle('SERIAL_PORT_LIST', async () => {
     const serialPortList = await SerialPort.list();
-    throw new Error();
     return serialPortList;
   });
+  ipcMain.handle('CONNECT_TO_SERIAL_PORT', async (_event, path: string) => {
+    const baudRate = +import.meta.env.MAIN_VITE_BAUD_RATE;
+    CurrentPort.instance.connect(path, baudRate);
 
-  createWindow();
+    CurrentPort.instance.port?.on('data', (data: Buffer) => {
+      const dataString = data.toString();
+      const dataArray: string[] = dataString.split(' ');
+
+      if ((dataArray[0] = 'BADGE_DETECTED')) {
+        const rfidWithBrackets = dataString.match(/(?<=\{)(.*?)(?=\})/g);
+        if (rfidWithBrackets) {
+          const rfid = rfidWithBrackets[0]
+            .split('{')
+            .join('')
+            .split('}')
+            .join('');
+          mainWindow.webContents.send('BADGE_DETECTED', rfid);
+        }
+      }
+    });
+  });
+  ipcMain.handle('DISCONNECT_FROM_SERIAL_PORT', async () => {
+    CurrentPort.instance.disconnect();
+  });
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

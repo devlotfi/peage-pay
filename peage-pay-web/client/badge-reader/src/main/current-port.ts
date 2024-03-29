@@ -1,11 +1,10 @@
 import { SerialPort } from 'serialport';
-import { SelectSerialPortInput } from './input/select-serial-port.input';
 
 export class CurrentPort {
   private constructor() {}
 
   private static _instance: CurrentPort;
-  private _port: SerialPort | null = null;
+  public port: SerialPort | null = null;
 
   public static get instance(): CurrentPort {
     if (!CurrentPort._instance) {
@@ -14,18 +13,16 @@ export class CurrentPort {
     return CurrentPort._instance;
   }
 
-  public get port(): SerialPort | null {
-    return this._port;
+  public connect(path: string, baudRate: number): void {
+    this.port = new SerialPort({
+      path,
+      baudRate,
+    });
   }
 
-  public selectPort(selectSerialPortInput: SelectSerialPortInput | null): void {
-    if (selectSerialPortInput) {
-      this._port = new SerialPort({
-        path: selectSerialPortInput.path,
-        baudRate: selectSerialPortInput.baudRate,
-      });
-    } else {
-      this._port = null;
-    }
+  public disconnect(): void {
+    this.port?.removeAllListeners();
+    this.port?.close();
+    this.port = null;
   }
 }

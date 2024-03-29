@@ -8,6 +8,7 @@ import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 import { BaseUserRolesType } from './__generated__/graphql';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { BadgeScannerProvider } from './context/badge-scanner.context';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,9 @@ root.render(
       <ThemeProvider>
         <ApplicationApolloClientProvider>
           <AuthProvider allowedRoles={[BaseUserRolesType.Moderator]}>
-            <App />
+            <BadgeScannerProvider>
+              <App />
+            </BadgeScannerProvider>
           </AuthProvider>
         </ApplicationApolloClientProvider>
       </ThemeProvider>

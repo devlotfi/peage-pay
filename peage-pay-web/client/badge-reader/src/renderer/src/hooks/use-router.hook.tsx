@@ -23,7 +23,7 @@ const useRouter = (): any => {
       element: notAuthGuard(
         <SignInPage
           title="Genral administration"
-          googleExternalSignInUrl={`${import.meta.env.VITE_AUTH_COMMON_CLIENT_URL}/badge-reader/google`}
+          googleExternalSignInUrl={`${import.meta.env.RENDERER_VITE_AUTH_COMMON_CLIENT_URL}/badge-reader/google`}
         ></SignInPage>,
       ),
     },
