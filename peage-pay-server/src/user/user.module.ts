@@ -27,4 +27,4 @@ import { TollService } from './toll.service';
   ],
   exports: [BaseUserService],
 })
-export class BaseUserModule {}
+export class UserModule {}

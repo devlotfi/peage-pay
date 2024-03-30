@@ -12,13 +12,11 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { AuthErrors } from './auth/graphql/auth-errors.gql';
 import { BullModule } from '@nestjs/bull';
 import { Env } from './shared/config/env.type';
-import { BaseUserErrors } from './base-user/graphql/base-user-errors.gql';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { TokenErrors } from './token/graphql/token-errors.gql';
 import { TollModule } from './toll/toll.module';
-import { BaseUserModule } from './base-user/base-user.module';
 import { WilayaModule } from './wilaya/wilaya.module';
 import { PriceModule } from './price/price.module';
 import { TollNetworkModule } from './toll-network/toll-network.module';
@@ -27,11 +25,13 @@ import { TollNetworkSearchFields } from './toll-network/graphql/toll-network-sea
 import { TollSearchFields } from './toll/graphql/toll-search-fields.gql';
 import { SubscriptionSearchFields } from './subscription/graphql/subscription-search-fields.gql';
 import { WilayaSearchFields } from './wilaya/graphql/wilaya-search-fields.gql';
-import { BaseUserSearchFields } from './base-user/graphql/base-user-search-fields.gql';
 import { SectionModule } from './section/section.module';
 import { TollDistanceModule } from './toll-distance/toll-distance.module';
 import { PriceErrors } from './price/graphql/price-errors.gql';
 import { PrismaErrors } from './shared/graphql/prisma-errors.gql';
+import { BaseUserErrors } from './user/graphql/base-user-errors.gql';
+import { BaseUserSearchFields } from './user/graphql/base-user-search-fields.gql';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -81,7 +81,7 @@ import { PrismaErrors } from './shared/graphql/prisma-errors.gql';
     HighwayModule,
     SubscriptionModule,
     TollModule,
-    BaseUserModule,
+    UserModule,
     WilayaModule,
     SectionModule,
     PriceModule,
