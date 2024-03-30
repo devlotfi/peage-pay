@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { DropdownContext } from './dropdown.component';
+import { DropdownContext } from './dropdown.context';
 
 const dropdownMainVariants = cva('flex items-center');
 
@@ -30,7 +30,7 @@ const DropdownMain = ({
       className={Utils.cn(
         dropdownMainVariants({
           className,
-        })
+        }),
       )}
       {...props}
     >

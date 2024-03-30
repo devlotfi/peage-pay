@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { LabelHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextAreaContext } from './text-area.component';
+import { TextAreaContext } from './text-area.context';
 
 const textAreaLabelVariants = cva(
   'flex absolute top-[-1rem] left-[1rem] bg-base-100 px-[0.5rem]',
@@ -19,7 +19,7 @@ const textAreaLabelVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextAreaLabelProps
@@ -41,7 +41,7 @@ const TextAreaLabel = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

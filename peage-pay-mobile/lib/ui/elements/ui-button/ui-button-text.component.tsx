@@ -1,16 +1,9 @@
-import {
-  PressableProps,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-} from "react-native";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import UIText from "../ui-text/ui-text.component";
-import { useContext } from "react";
-import { UIButtonContext } from "./ui-button.component";
+import { StyleProp, StyleSheet, TextProps, TextStyle } from 'react-native';
+import { useAppTheme } from '../../../theme/hooks/use-app-theme.hook';
+import { AppTheme } from '../../../theme/types/app-theme.type';
+import UIText from '../ui-text/ui-text.component';
+import { useContext } from 'react';
+import { UIButtonContext } from './ui-button.context';
 
 interface UIButtonTextProps extends TextProps {
   style?: StyleProp<TextStyle>;
@@ -38,22 +31,22 @@ const makeStyles = (theme: AppTheme) =>
       fontSize: 17,
     },
     primary: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     success: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     error: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     warning: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
-    "base-100": {
-      color: theme["base-content"],
+    'base-100': {
+      color: theme['base-content'],
     },
-    "base-200": {
-      color: theme["base-content"],
+    'base-200': {
+      color: theme['base-content'],
     },
   });
 

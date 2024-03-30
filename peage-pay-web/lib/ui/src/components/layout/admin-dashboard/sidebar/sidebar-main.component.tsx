@@ -2,7 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Button, IconButton } from '@peage-pay-web/ui';
 import { Utils } from '@peage-pay-web/utils';
-import { PeagePayLogo } from '@peage-pay-web/assets';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -54,8 +54,8 @@ const SidebarMain = ({
             <div className="flex flex-col my-[0.3rem]">
               <div className="flex items-center">
                 <img
-                  className="w-[1.8rem]"
-                  src={PeagePayLogo}
+                  className="w-[2.3rem]"
+                  src={PeagePayAdminLogo}
                   alt="peage-pay-admin-logo"
                 />
                 <div className="flex font-bold font-logo text-[15pt] ml-[0.7rem]">

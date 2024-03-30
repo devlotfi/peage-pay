@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { SelectContext } from './select.component';
+import { SelectContext } from './select.context';
 
 const selectIconVariants = cva('flex justify-center items-center text-[15pt]', {
   variants: {

@@ -1,18 +1,14 @@
 import {
-  PressableProps,
   StyleProp,
   StyleSheet,
-  Text,
   TextInput,
   TextInputProps,
-  TextProps,
-  TextStyle,
   ViewStyle,
-} from "react-native";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import { useContext } from "react";
-import { UITextInputContext } from "./text-input.context";
+} from 'react-native';
+import { useAppTheme } from '../../../theme/hooks/use-app-theme.hook';
+import { AppTheme } from '../../../theme/types/app-theme.type';
+import { useContext } from 'react';
+import { UITextInputContext } from './ui-text-input.context';
 
 interface UITextInputFieldProps extends TextInputProps {
   style?: StyleProp<ViewStyle>;
@@ -44,10 +40,10 @@ const makeStyles = (theme: AppTheme) =>
     base: {
       borderRadius: 7,
       fontSize: 17,
-      width: "100%",
-      height: "100%",
+      width: '100%',
+      height: '100%',
       paddingHorizontal: 10,
-      color: theme["base-content"],
+      color: theme['base-content'],
     },
   });
 

@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextAreaContext } from './text-area.component';
+import { TextAreaContext } from './text-area.context';
 
 const textAreaMainVariants = cva(
   'flex flex-1 border-[1px] rounded-lg relative focus-within:outline outline-[3px] items-start',
@@ -22,7 +22,7 @@ const textAreaMainVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextAreaMainProps
@@ -44,7 +44,7 @@ const TextAreaMain = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

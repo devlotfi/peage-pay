@@ -4,14 +4,11 @@ import {
   Text,
   TextProps,
   TextStyle,
-  View,
-  ViewProps,
-  ViewStyle,
-} from "react-native";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
+} from 'react-native';
+import { AppTheme } from '../../../theme/types/app-theme.type';
+import { useAppTheme } from '../../../theme/hooks/use-app-theme.hook';
 
-type Variants = "primary" | "success" | "error" | "warning";
+type Variants = 'primary' | 'success' | 'error' | 'warning';
 
 interface UILinkProps extends TextProps {
   style?: StyleProp<TextStyle>;
@@ -21,7 +18,7 @@ interface UILinkProps extends TextProps {
 const UILink = ({
   children,
   style,
-  variant = "primary",
+  variant = 'primary',
   ...props
 }: UILinkProps): JSX.Element => {
   const { theme } = useAppTheme();
@@ -38,20 +35,20 @@ const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
       fontSize: 19,
-      textDecorationLine: "underline",
+      textDecorationLine: 'underline',
     },
 
     primary: {
-      color: theme["primary-100"],
+      color: theme['primary-100'],
     },
     success: {
-      color: theme["success-100"],
+      color: theme['success-100'],
     },
     error: {
-      color: theme["error-100"],
+      color: theme['error-100'],
     },
     warning: {
-      color: theme["warning-100"],
+      color: theme['warning-100'],
     },
   });
 

@@ -1,6 +1,5 @@
-import { DISCONNECT_FROM_SERIAL_PORT } from '@renderer/react-query/mutations';
-import { PropsWithChildren, createContext, useEffect, useState } from 'react';
-import { useMutation as useReactMutation } from 'react-query';
+
+import { PropsWithChildren, createContext, useState } from 'react';
 
 interface BadgeScannerContext {
   path: string | null;
@@ -23,22 +22,6 @@ export const BadgeScannerProvider = ({
 }: PropsWithChildren): JSX.Element => {
   const [path, setPath] = useState<string | null>(null);
   const [rfid, setRfid] = useState<string | null>(null);
-
-  const { mutate: mutateDisconnectToSerialPort } = useReactMutation(
-    DISCONNECT_FROM_SERIAL_PORT,
-    {
-      mutationKey: DISCONNECT_FROM_SERIAL_PORT.name,
-      onSuccess() {
-        setPath(null);
-      },
-    },
-  );
-
-  useEffect(() => {
-    return () => {
-      mutateDisconnectToSerialPort();
-    };
-  }, []);
 
   return (
     <BadgeScannerContext.Provider

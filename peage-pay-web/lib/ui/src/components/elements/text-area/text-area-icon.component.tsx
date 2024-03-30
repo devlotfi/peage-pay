@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextAreaContext } from './text-area.component';
+import { TextAreaContext } from './text-area.context';
 
 const textAreaIconVariants = cva(
   'flex justify-center items-center text-[15pt] mt-[1rem]',
@@ -23,7 +23,7 @@ const textAreaIconVariants = cva(
     defaultVariants: {
       variant: 'edge-100',
     },
-  }
+  },
 );
 
 interface TextAreaIconProps
@@ -47,7 +47,7 @@ const TextAreaIcon = ({
           variant: variant || (globalVariant as any),
           position,
           className,
-        })
+        }),
       )}
       {...props}
     >

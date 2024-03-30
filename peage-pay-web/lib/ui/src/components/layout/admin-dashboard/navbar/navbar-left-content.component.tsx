@@ -5,7 +5,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
-import { PeagePayLogo } from '@peage-pay-web/assets';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 
 const navbarLeftContentVariants = cva('flex ml-[0.5rem]');
 
@@ -35,8 +35,8 @@ const NavbarLeftContent = ({
       <Button variant={'base-100'} className="lg:hidden">
         <Button.Content>
           <img
-            className="w-[1.8rem]"
-            src={PeagePayLogo}
+            className="w-[2.3rem]"
+            src={PeagePayAdminLogo}
             alt="peage-pay-admin-logo"
           />
         </Button.Content>

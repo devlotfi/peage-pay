@@ -1,20 +1,12 @@
-import {
-  PressableProps,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-  ViewProps,
-} from "react-native";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon, Props } from "@fortawesome/react-native-fontawesome";
-import { useContext } from "react";
-import { UIButtonContext } from "./ui-button.component";
+import { StyleProp, StyleSheet, ViewProps } from 'react-native';
+import { useAppTheme } from '../../../theme/hooks/use-app-theme.hook';
+import { AppTheme } from '../../../theme/types/app-theme.type';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon, Props } from '@fortawesome/react-native-fontawesome';
+import { useContext } from 'react';
+import { UIButtonContext } from './ui-button.context';
 
-type Position = "left" | "right";
+type Position = 'left' | 'right';
 
 interface UIButtonIconProps extends Props {
   style?: StyleProp<ViewProps>;
@@ -34,6 +26,7 @@ const UIButtonIcon = ({
 
   return (
     <FontAwesomeIcon
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       style={[styles.base, styles[position], styles[variant] as any, style]}
       size={size || 19}
       {...props}
@@ -44,7 +37,7 @@ const UIButtonIcon = ({
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
 
     left: {
@@ -55,22 +48,22 @@ const makeStyles = (theme: AppTheme) =>
     },
 
     primary: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     success: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     error: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
     warning: {
-      color: theme["color-content"],
+      color: theme['color-content'],
     },
-    "base-100": {
-      color: theme["base-content"],
+    'base-100': {
+      color: theme['base-content'],
     },
-    "base-200": {
-      color: theme["base-content"],
+    'base-200': {
+      color: theme['base-content'],
     },
   });
 

@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { LabelHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextInputContext } from './text-input.component';
+import { TextInputContext } from './text-input.context';
 
 const textInputLabelVariants = cva(
   'flex text-[11pt] absolute top-[-1rem] left-[1rem] bg-base-100 px-[0.5rem]',

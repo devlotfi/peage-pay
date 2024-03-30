@@ -1,8 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import HeadingText from './heading-text.component';
 import HeadingIcon from './heading-icon.component';
+import { HeadingContext } from './heading.context';
 
 const headingVariants = cva('flex', {
   variants: {
@@ -21,16 +22,6 @@ const headingVariants = cva('flex', {
 interface HeadingProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof headingVariants> {}
-
-interface HeadingContext {
-  variant: string;
-}
-
-const initialValue: HeadingContext = {
-  variant: 'primary',
-};
-
-export const HeadingContext = createContext(initialValue);
 
 const Heading = ({
   variant,

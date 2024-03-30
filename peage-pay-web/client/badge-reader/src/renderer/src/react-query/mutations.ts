@@ -1,12 +1,16 @@
+import { IPCMessages } from '@constants/ipc-messages';
+
 export const CONNECT_TO_SERIAL_PORT = async (variables: { path: string }) => {
   await window.electron.ipcRenderer.invoke(
-    'CONNECT_TO_SERIAL_PORT',
+    IPCMessages.CONNECT_TO_SERIAL_PORT,
     variables.path,
   );
   return true;
 };
 
 export const DISCONNECT_FROM_SERIAL_PORT = async () => {
-  await window.electron.ipcRenderer.invoke('DISCONNECT_FROM_SERIAL_PORT');
+  await window.electron.ipcRenderer.invoke(
+    IPCMessages.DISCONNECT_FROM_SERIAL_PORT,
+  );
   return true;
 };

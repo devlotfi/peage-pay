@@ -1,11 +1,12 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import TextAreaMain from './text-area-main.component';
 import TextAreaField from './text-area-field.component';
 import TextAreaIcon from './text-area-icon.component';
 import TextAreaLabel from './text-area-label.component';
 import TextAreaInfoMessage from './text-area-info-message.component';
+import { TextAreaContext } from './text-area.context';
 
 const textAreaVariants = cva('flex flex-col', {
   variants: {
@@ -26,16 +27,6 @@ const textAreaVariants = cva('flex flex-col', {
 interface TextAreaProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof textAreaVariants> {}
-
-interface TextAreaContext {
-  variant: string;
-}
-
-const initialValue: TextAreaContext = {
-  variant: 'edge-100',
-};
-
-export const TextAreaContext = createContext(initialValue);
 
 const TextArea = ({
   variant,

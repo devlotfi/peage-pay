@@ -3,46 +3,35 @@ import {
   PressableProps,
   StyleProp,
   StyleSheet,
-  Text,
   ViewStyle,
-} from "react-native";
-import UIButtonText from "./ui-button-outline-text.component";
-import { AppTheme } from "../../../theme/types/app-theme.type";
-import { createContext } from "react";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import UIButtonIcon from "./ui-button-outline-icon.component";
+} from 'react-native';
+import UIButtonText from './ui-button-outline-text.component';
+import { AppTheme } from '../../../theme/types/app-theme.type';
+import { useAppTheme } from '../../../theme/hooks/use-app-theme.hook';
+import UIButtonIcon from './ui-button-outline-icon.component';
+import { UIButtonOutlineContext } from './ui-button-outline.context';
 
 type Variants =
-  | "primary"
-  | "success"
-  | "error"
-  | "warning"
-  | "edge-100"
-  | "edge-200";
+  | 'primary'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'edge-100'
+  | 'edge-200';
 
 interface UIButtonOutlineProps extends PressableProps {
   style?: StyleProp<ViewStyle>;
   variant?: Variants;
 }
 
-interface UIButtonOutlineContext {
-  variant: Variants;
-}
-
-const initialValue: UIButtonOutlineContext = {
-  variant: "primary",
-};
-
-export const UIButtonOutlineContext = createContext(initialValue);
-
 const UIButtonOutline = ({
   children,
   style,
-  variant = "primary",
+  variant = 'primary',
   ...props
 }: UIButtonOutlineProps): JSX.Element => {
   const { theme } = useAppTheme();
-  const styles = makeStyles(theme, variant);
+  const styles = makeStyles(theme);
 
   return (
     <UIButtonOutlineContext.Provider value={{ variant }}>
@@ -63,37 +52,37 @@ const UIButtonOutline = ({
 UIButtonOutline.Text = UIButtonText;
 UIButtonOutline.Icon = UIButtonIcon;
 
-const makeStyles = (theme: AppTheme, variant: Variants) =>
+const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
       minHeight: 50,
       paddingHorizontal: 15,
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center',
       borderRadius: 7,
-      flexDirection: "row",
+      flexDirection: 'row',
       borderWidth: 1,
     },
     primary: {
-      borderColor: theme["primary-100"],
+      borderColor: theme['primary-100'],
     },
     success: {
-      borderColor: theme["success-100"],
+      borderColor: theme['success-100'],
     },
     error: {
-      borderColor: theme["error-100"],
+      borderColor: theme['error-100'],
     },
     warning: {
-      borderColor: theme["warning-100"],
+      borderColor: theme['warning-100'],
     },
-    "edge-100": {
-      borderColor: theme["edge-100"],
+    'edge-100': {
+      borderColor: theme['edge-100'],
     },
-    "edge-200": {
-      borderColor: theme["edge-200"],
+    'edge-200': {
+      borderColor: theme['edge-200'],
     },
     pressed: {
-      backgroundColor: theme["base-200"],
+      backgroundColor: theme['base-200'],
     },
   });
 

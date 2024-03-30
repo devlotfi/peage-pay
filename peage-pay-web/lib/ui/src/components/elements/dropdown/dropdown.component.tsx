@@ -1,8 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext, useState } from 'react';
+import { BaseHTMLAttributes, useState } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import DropdownMain from './dropdown-main.component';
 import DropdownContent from './dropdown-content.component';
+import { DropdownContext } from './dropdown.context';
 
 const dropdownVariants = cva('flex flex-col relative', {
   variants: {},
@@ -14,22 +15,6 @@ interface dropdownProps
   opened?: boolean;
   mainElement: JSX.Element;
 }
-
-interface dropdownContext {
-  variant: string;
-  open: boolean;
-  setOpen: (value: boolean) => void;
-}
-
-const initialValue: dropdownContext = {
-  variant: 'base-100',
-  open: false,
-  setOpen: () => {
-    return;
-  },
-};
-
-export const DropdownContext = createContext(initialValue);
 
 const Dropdown = ({
   className,

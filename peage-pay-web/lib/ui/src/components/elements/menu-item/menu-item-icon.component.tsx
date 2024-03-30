@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { MenuItemContext } from './menu-item.component';
+import { MenuItemContext } from './menu-item.context';
 
 const menuItemIconVariants = cva(
   'flex justify-center items-center rounded-md min-h-[2rem] min-w-[2rem] text-[15pt] duration-300 ease',
@@ -19,7 +19,7 @@ const menuItemIconVariants = cva(
     defaultVariants: {
       variant: 'base-100',
     },
-  }
+  },
 );
 
 interface MenuItemIconProps
@@ -41,7 +41,7 @@ const MenuItemIcon = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

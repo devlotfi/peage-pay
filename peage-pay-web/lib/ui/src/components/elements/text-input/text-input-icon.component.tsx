@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextInputContext } from './text-input.component';
+import { TextInputContext } from './text-input.context';
 
 const textInputIconVariants = cva(
   'flex justify-center items-center text-[15pt]',

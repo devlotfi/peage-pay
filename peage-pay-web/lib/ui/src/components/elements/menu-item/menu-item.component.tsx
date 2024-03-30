@@ -1,8 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { ButtonHTMLAttributes, createContext } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import MenuItemIcon from './menu-item-icon.component';
 import MenuItemText from './menu-item-text.component';
+import { MenuItemContext } from './menu-item.context';
 
 const menuItemVariants = cva(
   'group flex items-center rounded-lg p-[0.3rem] duration-300 ease active:scale-95',
@@ -26,16 +27,6 @@ const menuItemVariants = cva(
 interface MenuItemProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof menuItemVariants> {}
-
-interface MenuItemContext {
-  variant: string;
-}
-
-const initialValue: MenuItemContext = {
-  variant: 'base-100',
-};
-
-export const MenuItemContext = createContext(initialValue);
 
 const MenuItem = ({
   variant,

@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { TextInputContext } from './text-input.component';
+import { TextInputContext } from './text-input.context';
 
 const textInputInfoMessageVariants = cva('flex ml-[1rem]', {
   variants: {
@@ -38,7 +38,7 @@ const TextInputInfoMessage = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

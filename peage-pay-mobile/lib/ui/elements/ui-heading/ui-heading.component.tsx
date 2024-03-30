@@ -1,18 +1,15 @@
 import {
-  Pressable,
-  PressableProps,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewProps,
   ViewStyle,
-} from "react-native";
-import UIHeadingText from "./ui-heading-text.component";
-import { createContext } from "react";
-import UIHeadingIcon from "./ui-heading-icon.component";
+} from 'react-native';
+import UIHeadingText from './ui-heading-text.component';
+import UIHeadingIcon from './ui-heading-icon.component';
+import { UIHeadingContext } from './ui-heading.context';
 
-type Variants = "primary" | "success" | "error" | "warning";
+type Variants = 'primary' | 'success' | 'error' | 'warning';
 
 interface UIHeadingProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
@@ -20,22 +17,10 @@ interface UIHeadingProps extends ViewProps {
   size?: number;
 }
 
-interface UIHeadingContext {
-  variant: Variants;
-  size: number;
-}
-
-const initialValue: UIHeadingContext = {
-  variant: "primary",
-  size: 19,
-};
-
-export const UIHeadingContext = createContext(initialValue);
-
 const UIHeading = ({
   children,
   style,
-  variant = "primary",
+  variant = 'primary',
   size = 19,
   ...props
 }: UIHeadingProps): JSX.Element => {
@@ -55,8 +40,8 @@ UIHeading.Icon = UIHeadingIcon;
 const makeStyles = () =>
   StyleSheet.create({
     base: {
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
     },
   });
 

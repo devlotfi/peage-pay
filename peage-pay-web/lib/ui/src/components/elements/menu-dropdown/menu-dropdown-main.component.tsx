@@ -1,10 +1,10 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { MenuDropdownContext } from './menu-dropdown.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import MenuItem from '../menu-item/menu-item.component';
+import { MenuDropdownContext } from './menu-dropdown.context';
 
 const menuDropdownMainVariants = cva('flex items-center');
 
@@ -35,7 +35,7 @@ const MenuDropdownMain = ({
       className={Utils.cn(
         menuDropdownMainVariants({
           className,
-        })
+        }),
       )}
       {...props}
     >

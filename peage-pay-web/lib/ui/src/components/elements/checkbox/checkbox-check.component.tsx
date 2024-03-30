@@ -1,29 +1,29 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes, useContext } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import { CheckboxContext } from "./checkbox.component";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes, useContext } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { CheckboxContext } from './checkbox.context';
 
 const checkboxCheckVariants = cva(
-  "flex justify-center items-center text-color-content min-h-[1.5rem] min-w-[1.5rem] h-[1.5rem] w-[1.5rem] rounded-md cursor-pointer border-[2px] border-edge-100",
+  'flex justify-center items-center text-color-content min-h-[1.5rem] min-w-[1.5rem] h-[1.5rem] w-[1.5rem] rounded-md cursor-pointer border-[2px] border-edge-100',
   {
     variants: {
       variant: {
-        primary: "bg-primary-100",
-        success: "bg-success-100",
-        error: "bg-error-100",
-        warning: "bg-warning-100",
+        primary: 'bg-primary-100',
+        success: 'bg-success-100',
+        error: 'bg-error-100',
+        warning: 'bg-warning-100',
       },
       checked: {
-        checked: "border-none",
-        "not-checked": "bg-transparent",
+        checked: 'border-none',
+        'not-checked': 'bg-transparent',
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: 'primary',
     },
-  }
+  },
 );
 
 interface CheckboxCheckProps
@@ -44,9 +44,9 @@ const CheckboxCheck = ({
         checkboxCheckVariants({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
-          checked: globalChecked ? "checked" : "not-checked",
+          checked: globalChecked ? 'checked' : 'not-checked',
           className,
-        })
+        }),
       )}
       {...props}
     >

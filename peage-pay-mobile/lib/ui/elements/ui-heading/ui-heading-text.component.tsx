@@ -1,15 +1,7 @@
-import {
-  PressableProps,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-} from "react-native";
-import { useAppTheme } from "../../../theme/hooks/use-app-theme.hook";
-import UIText from "../ui-text/ui-text.component";
-import { useContext } from "react";
-import { UIHeadingContext } from "./ui-heading.component";
+import { StyleProp, StyleSheet, TextProps, TextStyle } from 'react-native';
+import UIText from '../ui-text/ui-text.component';
+import { useContext } from 'react';
+import { UIHeadingContext } from './ui-heading.context';
 
 interface UIHeadingTextProps extends TextProps {
   style?: StyleProp<TextStyle>;

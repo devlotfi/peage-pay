@@ -1,11 +1,12 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import SelectField from './select-field.component';
 import SelectIcon from './select-icon.component';
 import SelectInfoMessage from './select-info-message.component';
 import SelectLabel from './select-label.component';
 import SelectMain from './select-main.component';
+import { SelectContext } from './select.context';
 
 const selectVariants = cva('flex flex-col', {
   variants: {
@@ -26,16 +27,6 @@ const selectVariants = cva('flex flex-col', {
 interface SelectProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof selectVariants> {}
-
-interface SelectContext {
-  variant: string;
-}
-
-const initialValue: SelectContext = {
-  variant: 'edge-100',
-};
-
-export const SelectContext = createContext(initialValue);
 
 const Select = ({
   variant,

@@ -1,11 +1,12 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import TextInputMain from './text-input-main.component';
 import TextInputField from './text-input-field.component';
 import TextInputIcon from './text-input-icon.component';
 import TextInputLabel from './text-input-label.component';
 import TextInputInfoMessage from './text-input-info-message.component';
+import { TextInputContext } from './text-input.context';
 
 const textInputVariants = cva('flex flex-col', {
   variants: {
@@ -26,16 +27,6 @@ const textInputVariants = cva('flex flex-col', {
 interface TextInputProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof textInputVariants> {}
-
-interface TextInputContext {
-  variant: string;
-}
-
-const initialValue: TextInputContext = {
-  variant: 'edge-100',
-};
-
-export const TextInputContext = createContext(initialValue);
 
 const TextInput = ({
   variant,

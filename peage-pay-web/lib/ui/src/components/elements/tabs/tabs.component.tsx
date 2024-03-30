@@ -1,7 +1,8 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { BaseHTMLAttributes, createContext } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import TabsItem from './tabs-item.component';
+import { TabsContext } from './tabs.context';
 
 const tabsVariants = cva(
   'flex border-b-[1px] border-edge-100 overflow-x-auto',
@@ -22,16 +23,6 @@ interface TabsProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof tabsVariants> {}
 
-interface TabsContext {
-  variant: string;
-}
-
-const initialValue: TabsContext = {
-  variant: 'base-100',
-};
-
-export const TabsContext = createContext(initialValue);
-
 const Tabs = ({
   variant,
   className,
@@ -41,7 +32,7 @@ const Tabs = ({
   return (
     <TabsContext.Provider
       value={{
-        variant: variant || initialValue.variant,
+        variant: variant || 'base-100',
       }}
     >
       <div>

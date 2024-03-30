@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import { MenuItemContext } from './menu-item.component';
+import { MenuItemContext } from './menu-item.context';
 
 const menuItemTextVariants = cva(
   'flex w-full items-center px-[1rem] text-[11pt] font-semibold',
@@ -19,7 +19,7 @@ const menuItemTextVariants = cva(
     defaultVariants: {
       variant: 'base-100',
     },
-  }
+  },
 );
 
 interface menuItemTextProps
@@ -41,7 +41,7 @@ const MenuItemText = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           variant: variant || (globalVariant as any),
           className,
-        })
+        }),
       )}
       {...props}
     >

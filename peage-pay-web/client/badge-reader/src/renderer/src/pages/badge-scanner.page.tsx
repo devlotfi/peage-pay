@@ -1,26 +1,47 @@
-import { faIdBadge, faPlug } from '@fortawesome/free-solid-svg-icons';
+import { IPCMessages } from '@constants/ipc-messages';
+import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Heading } from '@peage-pay-web/ui';
 import ConnectToSerialPortFrom from '@renderer/components/connect-to-serial-port-form.component';
 import { BadgeScannerContext } from '@renderer/context/badge-scanner.context';
+import { DISCONNECT_FROM_SERIAL_PORT } from '@renderer/react-query/mutations';
 import { useContext, useEffect, useRef } from 'react';
+import { useMutation as useReactMutation } from 'react-query';
 
 const BadgeScannerPage = () => {
-  const { rfid, setRfid } = useContext(BadgeScannerContext);
-  const cardDetecetdListenerRef = useRef(false);
+  const { rfid, setRfid, setPath } = useContext(BadgeScannerContext);
+  const listenersRegisteredRef = useRef(false);
+
+  const { mutate: mutateDisconnectToSerialPort } = useReactMutation(
+    DISCONNECT_FROM_SERIAL_PORT,
+    {
+      mutationKey: DISCONNECT_FROM_SERIAL_PORT.name,
+      onSuccess() {
+        setPath(null);
+      },
+    },
+  );
 
   useEffect(() => {
-    if (!cardDetecetdListenerRef.current) {
+    return () => {
+      mutateDisconnectToSerialPort();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!listenersRegisteredRef.current) {
       window.electron.ipcRenderer.on(
-        'BADGE_DETECTED',
+        IPCMessages.BADGE_DETECTED,
         (_event, rfid: string) => {
           console.log(rfid);
           setRfid(rfid);
         },
       );
 
-      cardDetecetdListenerRef.current = true;
+      listenersRegisteredRef.current = true;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -32,6 +53,7 @@ const BadgeScannerPage = () => {
         <Heading.Text>RFID Badge scanner</Heading.Text>
       </Heading>
       <ConnectToSerialPortFrom></ConnectToSerialPortFrom>
+
       <h1>{JSON.stringify(rfid)}</h1>
     </div>
   );
