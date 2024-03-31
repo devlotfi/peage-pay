@@ -23,11 +23,13 @@ import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { WilayaService } from 'src/wilaya/wilaya.service';
 import { HighwayService } from 'src/highway/highway.service';
 import { TollNetworkService } from 'src/toll-network/toll-network.service';
+import { TollPriceService } from './toll-price.service';
 
 @Resolver(() => TollType)
 export class TollResolver {
   public constructor(
     private readonly tollService: TollService,
+    private readonly tollPriceService: TollPriceService,
     private readonly wilayaService: WilayaService,
     private readonly highwayService: HighwayService,
     private readonly tollNetworkService: TollNetworkService,
@@ -72,6 +74,12 @@ export class TollResolver {
   @UseGuards(AuthGuard)
   public async deleteToll(@Args('deleteTollInput') deleteTollInput: IdInput) {
     return await this.tollService.deleteToll(deleteTollInput);
+  }
+
+  @Query(() => Boolean)
+  @UseGuards(AuthGuard)
+  public async tollPrice(@Args('tollPriceInput') tollPriceInput: IdInput) {
+    return await this.tollPriceService.tollPrice(tollPriceInput);
   }
 
   @ResolveField(() => WilayaType)
