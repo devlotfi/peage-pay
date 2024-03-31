@@ -19,7 +19,7 @@ export class HighwayResolver {
   @UseGuards(AuthGuard)
   public async highwayList(
     @Args('highwayListInput') highwayListInput: HighwayListInput,
-  ): Promise<HighwayListResult> {
+  ) {
     return await this.highwayService.highwayList(highwayListInput);
   }
 
@@ -27,7 +27,7 @@ export class HighwayResolver {
   @UseGuards(AuthGuard)
   public async highwayById(
     @Args('highwayByIdInput') highwayByIdInput: IdInput,
-  ): Promise<HighwayType | null> {
+  ) {
     return await this.highwayService.highwayById(highwayByIdInput);
   }
 
@@ -36,10 +36,8 @@ export class HighwayResolver {
   @UseGuards(AuthGuard)
   public async addHighway(
     @Args('addHighwayInput') addHighwayInput: AddHighwayInput,
-  ): Promise<HighwayType> {
-    return (await this.highwayService.addHighway(
-      addHighwayInput,
-    )) as HighwayType;
+  ) {
+    return await this.highwayService.addHighway(addHighwayInput);
   }
 
   @Mutation(() => HighwayType)
@@ -47,10 +45,8 @@ export class HighwayResolver {
   @UseGuards(AuthGuard)
   public async editHighway(
     @Args('editHighwayInput') editHighwayInput: EditHighwayInput,
-  ): Promise<HighwayType> {
-    return (await this.highwayService.editHighway(
-      editHighwayInput,
-    )) as HighwayType;
+  ) {
+    return await this.highwayService.editHighway(editHighwayInput);
   }
 
   @Mutation(() => Boolean)
@@ -58,7 +54,7 @@ export class HighwayResolver {
   @UseGuards(AuthGuard)
   public async deleteHighway(
     @Args('deleteHighwayInput') deleteHighwayInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.highwayService.deleteHighway(deleteHighwayInput);
   }
 }

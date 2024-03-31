@@ -1,19 +1,33 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { TableHTMLAttributes } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import TableContainer from "./table-container.component";
-import TableHead from "./table-head.component";
-import TableBody from "./table-body.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { TableHTMLAttributes } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import TableContainer from './table-container.component';
+import TableHead from './table-head.component';
+import TableBody from './table-body.component';
 
-const tableVariants = cva("w-full border-collapse");
+const tableVariants = cva('border-collapse w-full table leading-[1.5rem]', {
+  variants: {
+    outline: {
+      outline: 'border-[1px] border-edge-100',
+    },
+  },
+});
 
 interface TableProps
   extends TableHTMLAttributes<HTMLTableElement>,
     VariantProps<typeof tableVariants> {}
 
-const Table = ({ className, children, ...props }: TableProps): JSX.Element => {
+const Table = ({
+  className,
+  children,
+  outline,
+  ...props
+}: TableProps): JSX.Element => {
   return (
-    <table className={Utils.cn(tableVariants({ className }))} {...props}>
+    <table
+      className={Utils.cn(tableVariants({ className, outline }))}
+      {...props}
+    >
       {children}
     </table>
   );

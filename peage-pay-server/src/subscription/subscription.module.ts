@@ -4,5 +4,6 @@ import { SubscriptionResolver } from './subscription.resolver';
 
 @Module({
   providers: [SubscriptionService, SubscriptionResolver],
+  exports: [SubscriptionService],
 })
 export class SubscriptionModule {}

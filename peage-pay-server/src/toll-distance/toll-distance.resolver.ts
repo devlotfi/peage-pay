@@ -14,10 +14,11 @@ export class TollDistanceResolver {
 
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @UseGuards(AuthGuard)
   public async generateTollDistances(
     @Args('generateTollDistancesInput')
     generateTollDistancesInput: GenerateTollDistancesInput,
-  ): Promise<boolean> {
+  ) {
     return await this.tollDistanceService.generateTollDistances(
       generateTollDistancesInput,
     );

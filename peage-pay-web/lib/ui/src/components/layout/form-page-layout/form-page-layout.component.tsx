@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import FormPageLayoutForm from './form-page-layout-form.component';
 import FormPageLayoutTitle from './form-page-layout-title.component';
 
-const formPageLayoutVariants = cva('flex flex-col w-full h-full items-center');
+const formPageLayoutVariants = cva('flex flex-col w-full flex-1 items-center');
 
 interface FormPageLayoutProps
   extends BaseHTMLAttributes<HTMLDivElement>,

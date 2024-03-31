@@ -19,7 +19,7 @@ export class TollNetworkResolver {
   @UseGuards(AuthGuard)
   public async tollNetworkList(
     @Args('tollNetworkListInput') tollNetworkListInput: TollNetworkListInput,
-  ): Promise<TollNetworkListResult> {
+  ) {
     return await this.tollNetworkService.tollNetworkList(tollNetworkListInput);
   }
 
@@ -27,7 +27,7 @@ export class TollNetworkResolver {
   @UseGuards(AuthGuard)
   public async tollNetworkById(
     @Args('tollNetworkByIdInput') tollNetworkByIdInput: IdInput,
-  ): Promise<TollNetworkType | null> {
+  ) {
     return await this.tollNetworkService.tollNetworkById(tollNetworkByIdInput);
   }
 
@@ -36,10 +36,8 @@ export class TollNetworkResolver {
   @UseGuards(AuthGuard)
   public async addTollNetwork(
     @Args('addTollNetworkInput') addTollNetworkInput: AddTollNetworkInput,
-  ): Promise<TollNetworkType> {
-    return (await this.tollNetworkService.addTollNetwork(
-      addTollNetworkInput,
-    )) as TollNetworkType;
+  ) {
+    return await this.tollNetworkService.addTollNetwork(addTollNetworkInput);
   }
 
   @Mutation(() => TollNetworkType)
@@ -47,10 +45,8 @@ export class TollNetworkResolver {
   @UseGuards(AuthGuard)
   public async editTollNetwork(
     @Args('editTollNetworkInput') editTollNetworkInput: EditTollNetworkInput,
-  ): Promise<TollNetworkType> {
-    return (await this.tollNetworkService.editTollNetwork(
-      editTollNetworkInput,
-    )) as TollNetworkType;
+  ) {
+    return await this.tollNetworkService.editTollNetwork(editTollNetworkInput);
   }
 
   @Mutation(() => Boolean)
@@ -59,7 +55,7 @@ export class TollNetworkResolver {
   public async deleteTollNetwork(
     @Args('deleteTollNetworkInput')
     deleteTollNetworkInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.tollNetworkService.deleteTollNetwork(
       deleteTollNetworkInput,
     );

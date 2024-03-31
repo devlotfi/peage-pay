@@ -30,9 +30,7 @@ export class ModeratorResolver {
   @UseGuards(AuthGuard)
   public async moderatorList(
     @Args('moderatorListInput') moderatorListInput: ModeratorListInput,
-  ): Promise<ModeratorListResult> {
-    console.log(await this.moderatorService.moderatorList(moderatorListInput));
-
+  ) {
     return await this.moderatorService.moderatorList(moderatorListInput);
   }
 
@@ -41,7 +39,7 @@ export class ModeratorResolver {
   @UseGuards(AuthGuard)
   public async addModeratorRole(
     @Args('addModeratorRoleInput') addModeratorRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.moderatorService.addModeratorRole(addModeratorRoleInput);
   }
 
@@ -50,16 +48,14 @@ export class ModeratorResolver {
   @UseGuards(AuthGuard)
   public async removeModeratorRole(
     @Args('removeModeratorRoleInput') removeModeratorRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.moderatorService.removeModeratorRole(
       removeModeratorRoleInput,
     );
   }
 
   @ResolveField(() => BaseUserType)
-  public async baseUser(
-    @Parent() moderator: ModeratorType,
-  ): Promise<BaseUserType> {
-    return (await this.baseUserService.baseUser(moderator.baseUserId)) as any;
+  public async baseUser(@Parent() moderator: ModeratorType) {
+    return await this.baseUserService.baseUser(moderator.baseUserId);
   }
 }

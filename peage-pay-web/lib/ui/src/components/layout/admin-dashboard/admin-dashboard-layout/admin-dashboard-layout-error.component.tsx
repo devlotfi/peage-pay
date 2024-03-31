@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { PageError } from '@peage-pay-web/assets';
 
 const adminDashboardLayoutLayoutErrorVariants = cva(
-  'flex justify-center items-center h-full',
+  'flex justify-center items-center flex-1',
 );
 
 interface AdminDashboardLayoutErrorProps

@@ -5,7 +5,6 @@ import { RfidTagListResult } from './result/rfid-tag-list.result.gql';
 import { Prisma, RfidTag } from '@prisma/client';
 import { AddRfidTagInput } from './input/add-rfid-tag.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
-import { BaseUserType } from 'src/user/graphql/base-user.gql';
 import { RfidTagByRfidInput } from './input/rfid-tag-by-rfid.input.gql';
 
 @Injectable()
@@ -113,13 +112,5 @@ export class RfidTagService {
       },
     });
     return true;
-  }
-
-  public async baseUser(baseUserId: string): Promise<BaseUserType | null> {
-    return (await this.databaseService.baseUser.findUnique({
-      where: {
-        id: baseUserId,
-      },
-    })) as any;
   }
 }

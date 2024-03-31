@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { Highway, Prisma, Toll, TollNetwork, Wilaya } from '@prisma/client';
+import { Prisma, Toll } from '@prisma/client';
 import { TollListInput } from './input/toll-list.input.gql';
 import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
@@ -183,29 +183,5 @@ export class TollService {
       },
     });
     return true;
-  }
-
-  public async wilaya(wilayaId: string): Promise<Wilaya | null> {
-    return await this.databaseService.wilaya.findUnique({
-      where: {
-        id: wilayaId,
-      },
-    });
-  }
-
-  public async highway(highwayId: string): Promise<Highway | null> {
-    return await this.databaseService.highway.findUnique({
-      where: {
-        id: highwayId,
-      },
-    });
-  }
-
-  public async tollNetwork(tollNetworkId: string): Promise<TollNetwork | null> {
-    return await this.databaseService.tollNetwork.findUnique({
-      where: {
-        id: tollNetworkId,
-      },
-    });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Section, Toll, TollDistance } from '@prisma/client';
+import { Section, TollDistance } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
 import { AddSectionInput } from './input/add-section.input.gql';
@@ -144,13 +144,5 @@ export class SectionService {
       },
     });
     return true;
-  }
-
-  public async toll(tollId: string): Promise<Toll | null> {
-    return await this.databaseService.toll.findUnique({
-      where: {
-        id: tollId,
-      },
-    });
   }
 }

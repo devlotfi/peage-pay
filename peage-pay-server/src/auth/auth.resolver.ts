@@ -36,14 +36,14 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   public async signUpWithEmail(
     @Args('signUpWithEmailInput') signUpWithEmailInput: SignUpWithEmailInput,
-  ): Promise<boolean> {
+  ) {
     return await this.emailAuthService.signUpWithEmail(signUpWithEmailInput);
   }
 
   @Mutation(() => Boolean)
   public async verifyEmail(
     @Args('verifyEmailInput') verifyEmailInput: VerifyEmailInput,
-  ): Promise<boolean> {
+  ) {
     return await this.emailAuthService.verifyEmail(verifyEmailInput);
   }
 
@@ -51,7 +51,7 @@ export class AuthResolver {
   public async sendPasswordResetEmail(
     @Args('sendPasswordResetEmailInput')
     sendPasswordResetEmailInput: SendResetPasswordEmailInput,
-  ): Promise<boolean> {
+  ) {
     return await this.emailAuthService.sendPasswordResetEmail(
       sendPasswordResetEmailInput,
     );
@@ -61,7 +61,7 @@ export class AuthResolver {
   public async resetPassword(
     @Args('resetPasswordInput')
     resetPasswordInput: ResetPasswordInput,
-  ): Promise<boolean> {
+  ) {
     return await this.emailAuthService.resetPassword(resetPasswordInput);
   }
 
@@ -72,7 +72,7 @@ export class AuthResolver {
     refreshTokenMode: RefreshTokenMode,
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
-  ): Promise<SignInResult> {
+  ) {
     return await this.emailAuthService.signInWithEmail(
       signInWithEmailInput,
       refreshTokenMode,
@@ -85,7 +85,7 @@ export class AuthResolver {
   public async signInWithRefreshToken(
     @Args('signInWithRefreshTokenInput')
     signInWithRefreshTokenInput: SignInWithRefreshTokenInput,
-  ): Promise<SignInWithRefreshTokenResult> {
+  ) {
     return await this.tokenAuthService.signInWithRefreshToken(
       signInWithRefreshTokenInput,
     );
@@ -95,7 +95,7 @@ export class AuthResolver {
   public async signInWithRefreshTokenCookie(
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
-  ): Promise<SignInWithRefreshTokenResult> {
+  ) {
     return await this.tokenAuthService.signInWithRefreshTokenCookie(req, res);
   }
 
@@ -103,7 +103,7 @@ export class AuthResolver {
   @UseGuards(AuthGuard)
   public async signOut(
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<boolean> {
+  ) {
     return await this.tokenAuthService.signOut(accessTokenPayload);
   }
 
@@ -113,7 +113,7 @@ export class AuthResolver {
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
-  ): Promise<boolean> {
+  ) {
     return await this.tokenAuthService.signOutWithRefreshTokenCookie(
       accessTokenPayload,
       req,
@@ -129,7 +129,7 @@ export class AuthResolver {
     refreshTokenMode: RefreshTokenMode,
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
-  ): Promise<SignInResult> {
+  ) {
     return await this.googleAuthService.singInWithGoogle(
       signInWithGoogleInput,
       refreshTokenMode,

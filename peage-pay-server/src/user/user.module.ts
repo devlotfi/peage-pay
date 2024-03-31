@@ -9,9 +9,10 @@ import { ModeratorService } from './moderator.service';
 import { GateAdminResolver } from './gate-admin.resolver';
 import { ModeratorResolver } from './moderator.resolver';
 import { HumanRessourcesAdminResolver } from './human-ressources-admin.resolver';
-import { TollService } from './toll.service';
+import { TollModule } from 'src/toll/toll.module';
 
 @Module({
+  imports: [TollModule],
   providers: [
     BaseUserService,
     HumanRessourcesAdminService,
@@ -23,8 +24,13 @@ import { TollService } from './toll.service';
     GateAdminResolver,
     ModeratorResolver,
     HumanRessourcesAdminResolver,
-    TollService,
   ],
-  exports: [BaseUserService],
+  exports: [
+    BaseUserService,
+    HumanRessourcesAdminService,
+    TollAdminService,
+    GateAdminService,
+    ModeratorService,
+  ],
 })
 export class UserModule {}

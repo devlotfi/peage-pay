@@ -21,7 +21,7 @@ export class SubscriptionResolver {
   @UseGuards(AuthGuard)
   public async subscriptionList(
     @Args('subscriptionListInput') subscriptionListInput: SubscriptionListInput,
-  ): Promise<SubscriptionListResult> {
+  ) {
     return await this.subscriptionService.subscriptionList(
       subscriptionListInput,
     );
@@ -31,10 +31,10 @@ export class SubscriptionResolver {
   @UseGuards(AuthGuard)
   public async subscriptionById(
     @Args('subscriptionByIdInput') subscriptionByIdInput: IdInput,
-  ): Promise<SubscriptionType | null> {
-    return (await this.subscriptionService.subscriptionById(
+  ) {
+    return await this.subscriptionService.subscriptionById(
       subscriptionByIdInput,
-    )) as any;
+    );
   }
 
   @Mutation(() => SubscriptionType)
@@ -42,10 +42,8 @@ export class SubscriptionResolver {
   @UseGuards(AuthGuard)
   public async addSubscription(
     @Args('addSubscriptionInput') addSubscriptionInput: AddSubscriptionInput,
-  ): Promise<SubscriptionType> {
-    return (await this.subscriptionService.addSubscription(
-      addSubscriptionInput,
-    )) as any;
+  ) {
+    return await this.subscriptionService.addSubscription(addSubscriptionInput);
   }
 
   @Mutation(() => SubscriptionType)
@@ -53,10 +51,10 @@ export class SubscriptionResolver {
   @UseGuards(AuthGuard)
   public async editSubscription(
     @Args('editSubscriptionInput') editSubscriptionInput: EditSubscriptionInput,
-  ): Promise<SubscriptionType> {
-    return (await this.subscriptionService.editSubscription(
+  ) {
+    return await this.subscriptionService.editSubscription(
       editSubscriptionInput,
-    )) as any;
+    );
   }
 
   @Mutation(() => Boolean)
@@ -65,7 +63,7 @@ export class SubscriptionResolver {
   public async deleteSubscription(
     @Args('deleteSubscriptionInput')
     deleteSubscriptionInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.subscriptionService.deleteSubscription(
       deleteSubscriptionInput,
     );

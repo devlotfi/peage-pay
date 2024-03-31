@@ -32,7 +32,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async addGlobalPrice(
     @Args('addPriceInput') addPriceInput: AddPriceInput,
-  ): Promise<boolean> {
+  ) {
     return await this.addPriceService.addGlobalPrice(addPriceInput);
   }
 
@@ -42,7 +42,7 @@ export class PriceResolver {
   public async addLocalPrice(
     @Args('addPriceInput') addPriceInput: AddPriceInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<boolean> {
+  ) {
     return await this.addPriceService.addLocalPrice(
       addPriceInput,
       accessTokenPayload,
@@ -54,7 +54,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async deleteGlobalPrice(
     @Args('deletePriceInput') deletePriceInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.deletePriceService.deleteGlobalPrice(deletePriceInput);
   }
 
@@ -64,7 +64,7 @@ export class PriceResolver {
   public async deleteLocalPrice(
     @Args('deletePriceInput') deletePriceInput: IdInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<boolean> {
+  ) {
     return await this.deletePriceService.deleteLocalPrice(
       deletePriceInput,
       accessTokenPayload,
@@ -76,7 +76,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async dailyPriceGlobalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-  ): Promise<DailyPriceListResult> {
+  ) {
     return await this.globalPriceListService.dailyPriceGlobalList(
       priceListInput,
     );
@@ -87,7 +87,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async weeklyPriceGlobalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-  ): Promise<WeeklyPriceListResult> {
+  ) {
     return await this.globalPriceListService.weeklyPriceGlobalList(
       priceListInput,
     );
@@ -98,7 +98,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async monthlyPriceGlobalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-  ): Promise<MonthlyPriceListResult> {
+  ) {
     return await this.globalPriceListService.monthlyPriceGlobalList(
       priceListInput,
     );
@@ -109,7 +109,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async yearlyPriceGlobalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-  ): Promise<YearlyPriceListResult> {
+  ) {
     return await this.globalPriceListService.yearlyPriceGlobalList(
       priceListInput,
     );
@@ -120,7 +120,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async customPriceGlobalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-  ): Promise<CustomPriceListResult> {
+  ) {
     return await this.globalPriceListService.customPriceGlobalList(
       priceListInput,
     );
@@ -132,7 +132,7 @@ export class PriceResolver {
   public async dailyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<DailyPriceListResult> {
+  ) {
     return await this.localPriceListService.dailyPriceLocalList(
       priceListInput,
       accessTokenPayload,
@@ -145,7 +145,7 @@ export class PriceResolver {
   public async weeklyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<WeeklyPriceListResult> {
+  ) {
     return await this.localPriceListService.weeklyPriceLocalList(
       priceListInput,
       accessTokenPayload,
@@ -158,7 +158,7 @@ export class PriceResolver {
   public async monthlyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<MonthlyPriceListResult> {
+  ) {
     return await this.localPriceListService.monthlyPriceLocalList(
       priceListInput,
       accessTokenPayload,
@@ -171,7 +171,7 @@ export class PriceResolver {
   public async yearlyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<YearlyPriceListResult> {
+  ) {
     return await this.localPriceListService.yearlyPriceLocalList(
       priceListInput,
       accessTokenPayload,
@@ -184,7 +184,7 @@ export class PriceResolver {
   public async customPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
     @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
-  ): Promise<CustomPriceListResult> {
+  ) {
     return await this.localPriceListService.customPriceLocalList(
       priceListInput,
       accessTokenPayload,

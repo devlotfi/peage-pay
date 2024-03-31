@@ -1,10 +1,10 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes, Suspense } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import AdminDashboardLayoutLoading from "./admin-dashboard-layout-loading.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes, Suspense } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import AdminDashboardLayoutLoading from './admin-dashboard-layout-loading.component';
 
 const adminDashboardLayoutContentVariants = cva(
-  "flex flex-col h-full overflow-y-auto overflow-x-hidden"
+  'flex flex-col flex-1 overflow-y-auto overflow-x-hidden',
 );
 
 interface AdminDashboardLayoutContentProps

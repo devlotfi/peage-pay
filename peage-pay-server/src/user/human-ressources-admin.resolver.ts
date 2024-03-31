@@ -19,10 +19,10 @@ export class HumanRessourcesAdminResolver {
   public async addHumanRessoucesAdminRole(
     @Args('addHumanRessoucesAdminRoleInput')
     changeRoleInput: IdInput,
-  ): Promise<boolean> {
-    return (await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
+  ) {
+    return await this.humanRessourcesAdminService.addHumanRessoucesAdminRole(
       changeRoleInput,
-    )) as any;
+    );
   }
 
   @Mutation(() => Boolean)
@@ -31,9 +31,9 @@ export class HumanRessourcesAdminResolver {
   public async removeHumanRessoucesAdminRole(
     @Args('removeHumanRessoucesAdminRoleInput')
     changeRoleInput: IdInput,
-  ): Promise<boolean> {
-    return (await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
+  ) {
+    return await this.humanRessourcesAdminService.removeHumanRessoucesAdminRole(
       changeRoleInput,
-    )) as any;
+    );
   }
 }

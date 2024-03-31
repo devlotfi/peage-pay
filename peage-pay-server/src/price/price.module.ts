@@ -15,5 +15,13 @@ import { LocalPriceListService } from './local-price-list.service';
     LocalPriceListService,
     PriceResolver,
   ],
+  exports: [
+    AddPriceService,
+    DeletePriceService,
+    TollAdminService,
+    GlobalPriceListService,
+    LocalPriceListService,
+    PriceResolver,
+  ],
 })
 export class PriceModule {}

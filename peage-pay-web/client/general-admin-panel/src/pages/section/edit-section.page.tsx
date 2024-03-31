@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPen,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AdminDashboardLayout,
   Alert,
@@ -15,18 +15,18 @@ import {
   Select,
   Table,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useParams } from "react-router-dom";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
 import {
   SECTION_BY_IDS,
   TOLL_BY_ID,
   TOLL_NETWORK_BY_ID,
-} from "../../graphql/queries";
-import { SectionStatusType } from "../../__generated__/graphql";
-import { EDIT_SECTION } from "../../graphql/mutations";
-import { Utils } from "@peage-pay-web/utils";
+} from '../../graphql/queries';
+import { SectionStatusType } from '../../__generated__/graphql';
+import { EDIT_SECTION } from '../../graphql/mutations';
+import { Utils } from '@peage-pay-web/utils';
 
 interface EditSectionValues {
   fromTollId: string;
@@ -36,8 +36,8 @@ interface EditSectionValues {
 }
 
 const initialValues: EditSectionValues = {
-  fromTollId: "",
-  toTollId: "",
+  fromTollId: '',
+  toTollId: '',
   distance: 0,
   status: SectionStatusType.NormalTraffic,
 };
@@ -62,7 +62,7 @@ const EditSectionPage = (): JSX.Element => {
     },
     onCompleted(data) {
       if (data.tollById) {
-        setFieldValue("fromTollId", data.tollById.id);
+        setFieldValue('fromTollId', data.tollById.id);
       }
     },
   });
@@ -78,7 +78,7 @@ const EditSectionPage = (): JSX.Element => {
     },
     onCompleted(data) {
       if (data.tollById) {
-        setFieldValue("toTollId", data.tollById.id);
+        setFieldValue('toTollId', data.tollById.id);
       }
     },
   });
@@ -93,15 +93,15 @@ const EditSectionPage = (): JSX.Element => {
         },
       },
       onCompleted(data) {
-        setFieldValue("distance", data.sectionByIds?.distance);
-        setFieldValue("status", data.sectionByIds?.status);
+        setFieldValue('distance', data.sectionByIds?.distance);
+        setFieldValue('status', data.sectionByIds?.status);
       },
       skip:
         fromTollLoading ||
         toTollLoading ||
         fromTollError !== undefined ||
         toTollError !== undefined,
-    }
+    },
   );
   const {
     data: tollNetworkData,
@@ -166,7 +166,7 @@ const EditSectionPage = (): JSX.Element => {
           >
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Edit section</Heading.Text>
@@ -203,7 +203,7 @@ const EditSectionPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.distance && touched.distance ? "error" : "edge-100"
+                errors.distance && touched.distance ? 'error' : 'edge-100'
               }
               className="w-full mb-[1.3rem]"
             >
@@ -217,14 +217,14 @@ const EditSectionPage = (): JSX.Element => {
                   placeholder="Enter distance"
                   type="number"
                 ></TextInput.Field>
-                <TextInput.Icon position={"right"}>km</TextInput.Icon>
+                <TextInput.Icon position={'right'}>km</TextInput.Icon>
               </TextInput.Main>
               {errors.distance && touched.distance ? (
                 <TextInput.InfoMessage>{errors.distance}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
             <Select
-              variant={errors.status && touched.status ? "error" : "edge-100"}
+              variant={errors.status && touched.status ? 'error' : 'edge-100'}
               className="w-full mb-[1.3rem]"
             >
               <Select.Main>
@@ -244,8 +244,8 @@ const EditSectionPage = (): JSX.Element => {
             </Select>
 
             {addData ? (
-              <Alert variant={"success"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Toll distance created</Alert.Content>
@@ -253,23 +253,22 @@ const EditSectionPage = (): JSX.Element => {
             ) : null}
 
             {addError ? (
-              <Alert variant={"error"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${addError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            {JSON.stringify(values)}
-            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
               {addLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Update toll distance</Button.Content>

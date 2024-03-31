@@ -3,6 +3,7 @@ import { WilayaService } from './wilaya.service';
 import { WilayaResolver } from './wilaya.resolver';
 
 @Module({
-  providers: [WilayaService, WilayaResolver]
+  providers: [WilayaService, WilayaResolver],
+  exports: [WilayaService],
 })
 export class WilayaModule {}

@@ -15,15 +15,13 @@ export class WilayaResolver {
   @UseGuards(AuthGuard)
   public async wilayaList(
     @Args('wilayaListInput') wilayaListInput: WilayaListInput,
-  ): Promise<WilayaListResult> {
+  ) {
     return await this.wilayaService.wilayaList(wilayaListInput);
   }
 
   @Query(() => WilayaType)
   @UseGuards(AuthGuard)
-  public async wilayaById(
-    @Args('wilayaByIdInput') wilayaByIdInput: IdInput,
-  ): Promise<WilayaType> {
-    return (await this.wilayaService.wilayaById(wilayaByIdInput)) as any;
+  public async wilayaById(@Args('wilayaByIdInput') wilayaByIdInput: IdInput) {
+    return await this.wilayaService.wilayaById(wilayaByIdInput);
   }
 }

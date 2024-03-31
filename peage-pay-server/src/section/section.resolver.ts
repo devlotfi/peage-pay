@@ -20,17 +20,21 @@ import { EditSectionInput } from './input/edit-section-input.gql';
 import { SectionByIdsInput } from './input/section-by-ids.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
+import { TollService } from 'src/toll/toll.service';
 
 @Resolver(() => SectionType)
 export class SectionResolver {
-  public constructor(private readonly sectionService: SectionService) {}
+  public constructor(
+    private readonly sectionService: SectionService,
+    private readonly tollService: TollService,
+  ) {}
 
   @Query(() => SectionListResult)
   @UseGuards(AuthGuard)
   public async sectionListForToll(
     @Args('sectionListForTollInput')
     sectionListForTollInput: SectionListForTollInput,
-  ): Promise<SectionListResult> {
+  ) {
     return await this.sectionService.sectionListForToll(
       sectionListForTollInput,
     );
@@ -41,10 +45,10 @@ export class SectionResolver {
   public async sectionListForTollNetwork(
     @Args('sectionListForTollNetworkInput')
     sectionListForTollNetworkInput: IdInput,
-  ): Promise<SectionType[]> {
-    return (await this.sectionService.sectionListForTollNetwork(
+  ) {
+    return await this.sectionService.sectionListForTollNetwork(
       sectionListForTollNetworkInput,
-    )) as any;
+    );
   }
 
   @Query(() => SectionType, { nullable: true })
@@ -52,8 +56,8 @@ export class SectionResolver {
   public async sectionByIds(
     @Args('sectionByIdsInput')
     sectionByIdsInput: SectionByIdsInput,
-  ): Promise<SectionType | null> {
-    return (await this.sectionService.sectionByIds(sectionByIdsInput)) as any;
+  ) {
+    return await this.sectionService.sectionByIds(sectionByIdsInput);
   }
 
   @Mutation(() => SectionType)
@@ -62,8 +66,8 @@ export class SectionResolver {
   public async addSection(
     @Args('addSectionInput')
     addSectionInput: AddSectionInput,
-  ): Promise<SectionType> {
-    return (await this.sectionService.addSection(addSectionInput)) as any;
+  ) {
+    return await this.sectionService.addSection(addSectionInput);
   }
 
   @Mutation(() => SectionType)
@@ -72,8 +76,8 @@ export class SectionResolver {
   public async editSection(
     @Args('editSectionInput')
     editSectionInput: EditSectionInput,
-  ): Promise<SectionType> {
-    return (await this.sectionService.editSection(editSectionInput)) as any;
+  ) {
+    return await this.sectionService.editSection(editSectionInput);
   }
 
   @Mutation(() => Boolean)
@@ -82,19 +86,17 @@ export class SectionResolver {
   public async deleteSection(
     @Args('deleteSectionInput')
     deleteSectionInput: DeleteSectionInput,
-  ): Promise<boolean> {
-    return (await this.sectionService.deleteSection(deleteSectionInput)) as any;
+  ) {
+    return await this.sectionService.deleteSection(deleteSectionInput);
   }
 
   @ResolveField(() => TollType)
-  public async fromToll(
-    @Parent() tollDistance: SectionType,
-  ): Promise<TollType> {
-    return (await this.sectionService.toll(tollDistance.fromTollId)) as any;
+  public async fromToll(@Parent() tollDistance: SectionType) {
+    return await this.tollService.tollById({ id: tollDistance.fromTollId });
   }
 
   @ResolveField(() => TollType)
-  public async toToll(@Parent() tollDistance: SectionType): Promise<TollType> {
-    return (await this.sectionService.toll(tollDistance.toTollId)) as any;
+  public async toToll(@Parent() tollDistance: SectionType) {
+    return await this.tollService.tollById({ id: tollDistance.toTollId });
   }
 }

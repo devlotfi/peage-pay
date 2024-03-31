@@ -1,11 +1,11 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import { PeagePayLogo } from "@peage-pay-web/assets";
-import LoaderDots from "../../../elements/loader-dots/loader-dots.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import { PeagePayLogo } from '@peage-pay-web/assets';
+import LoaderDots from '../../../elements/loader-dots/loader-dots.component';
 
 const adminDashboardLayoutLoadingVariants = cva(
-  "flex justify-center items-center h-full"
+  'flex justify-center items-center flex-1',
 );
 
 interface AdminDashboardLayoutLoadingProps
@@ -32,7 +32,7 @@ const AdminDashboardLayoutLoading = ({
             src={PeagePayLogo}
             alt="PeagePayLogo"
           />
-          <LoaderDots dotProps={{ variant: "primary" }}></LoaderDots>
+          <LoaderDots dotProps={{ variant: 'primary' }}></LoaderDots>
         </div>
       </div>
     );

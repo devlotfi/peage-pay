@@ -19,7 +19,7 @@ import { TollAdminListResult } from './result/toll-admin-list.result.gql';
 import { TollAdminListInput } from './input/toll-admin-list.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
-import { TollService } from './toll.service';
+import { TollService } from 'src/toll/toll.service';
 
 @Resolver(() => TollAdminType)
 export class TollAdminResolver {
@@ -34,7 +34,7 @@ export class TollAdminResolver {
   @UseGuards(AuthGuard)
   public async tollAdminList(
     @Args('tollAdminListInput') tollAdminListInput: TollAdminListInput,
-  ): Promise<TollAdminListResult> {
+  ) {
     return await this.tollAdminService.tollAdminList(tollAdminListInput);
   }
 
@@ -43,10 +43,8 @@ export class TollAdminResolver {
   @UseGuards(AuthGuard)
   public async tollAdminById(
     @Args('tollAdminByIdInput') tollAdminByIdInput: IdInput,
-  ): Promise<TollAdminType | null> {
-    return (await this.tollAdminService.tollAdminById(
-      tollAdminByIdInput,
-    )) as any;
+  ) {
+    return await this.tollAdminService.tollAdminById(tollAdminByIdInput);
   }
 
   @Mutation(() => Boolean)
@@ -54,7 +52,7 @@ export class TollAdminResolver {
   @UseGuards(AuthGuard)
   public async addTollAdminRole(
     @Args('addTollAdminRoleInput') addTollAdminRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.tollAdminService.addTollAdminRole(addTollAdminRoleInput);
   }
 
@@ -63,7 +61,7 @@ export class TollAdminResolver {
   @UseGuards(AuthGuard)
   public async removeTollAdminRole(
     @Args('removeTollAdminRoleInput') removeTollAdminRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.tollAdminService.removeTollAdminRole(
       removeTollAdminRoleInput,
     );
@@ -74,21 +72,21 @@ export class TollAdminResolver {
   @UseGuards(AuthGuard)
   public async changeTollAdminToll(
     @Args('changeTollAdminTollInput') changeTollAdminTollInput: ChangeTollInput,
-  ): Promise<boolean> {
+  ) {
     return await this.tollAdminService.changeTollAdminToll(
       changeTollAdminTollInput,
     );
   }
 
   @ResolveField(() => BaseUserType)
-  public async baseUser(
-    @Parent() tollAdmin: TollAdminType,
-  ): Promise<BaseUserType> {
-    return (await this.baseUserService.baseUser(tollAdmin.baseUserId)) as any;
+  public async baseUser(@Parent() tollAdmin: TollAdminType) {
+    return await this.baseUserService.baseUser(tollAdmin.baseUserId);
   }
 
   @ResolveField(() => TollType)
-  public async toll(@Parent() tollAdmin: TollAdminType): Promise<BaseUserType> {
-    return (await this.tollService.toll(tollAdmin.tollId)) as any;
+  public async toll(@Parent() tollAdmin: TollAdminType) {
+    if (tollAdmin.tollId) {
+      return await this.tollService.tollById({ id: tollAdmin.tollId });
+    }
   }
 }

@@ -19,7 +19,7 @@ import { GateAdminListResult } from './result/gate-admin-list.result.gql';
 import { GateAdminListInput } from './input/gate-admin-list.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
-import { TollService } from './toll.service';
+import { TollService } from 'src/toll/toll.service';
 
 @Resolver(() => GateAdminType)
 export class GateAdminResolver {
@@ -34,7 +34,7 @@ export class GateAdminResolver {
   @UseGuards(AuthGuard)
   public async gateAdminList(
     @Args('gateAdminListInput') gateAdminListInput: GateAdminListInput,
-  ): Promise<GateAdminListResult> {
+  ) {
     return await this.gateAdminService.gateAdminList(gateAdminListInput);
   }
 
@@ -43,7 +43,7 @@ export class GateAdminResolver {
   @UseGuards(AuthGuard)
   public async gateAdminById(
     @Args('gateAdminByIdInput') gateAdminByIdInput: IdInput,
-  ): Promise<GateAdminType | null> {
+  ) {
     return (await this.gateAdminService.gateAdminById(
       gateAdminByIdInput,
     )) as any;
@@ -54,7 +54,7 @@ export class GateAdminResolver {
   @UseGuards(AuthGuard)
   public async addGateAdminRole(
     @Args('addGateAdminRoleInput') addGateAdminRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.gateAdminService.addGateAdminRole(addGateAdminRoleInput);
   }
 
@@ -63,7 +63,7 @@ export class GateAdminResolver {
   @UseGuards(AuthGuard)
   public async removeGateAdminRole(
     @Args('removeGateAdminRoleInput') removeGateAdminRoleInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.gateAdminService.removeGateAdminRole(
       removeGateAdminRoleInput,
     );
@@ -74,23 +74,21 @@ export class GateAdminResolver {
   @UseGuards(AuthGuard)
   public async changeGateAdminToll(
     @Args('changeGateAdminTollInput') changeGateAdminTollInput: ChangeTollInput,
-  ): Promise<boolean> {
+  ) {
     return await this.gateAdminService.changeGateAdminToll(
       changeGateAdminTollInput,
     );
   }
 
   @ResolveField(() => BaseUserType)
-  public async baseUser(
-    @Parent() gateAdmin: GateAdminType,
-  ): Promise<BaseUserType> {
-    console.log('field', gateAdmin);
-
-    return (await this.baseUserService.baseUser(gateAdmin.baseUserId)) as any;
+  public async baseUser(@Parent() gateAdmin: GateAdminType) {
+    return await this.baseUserService.baseUser(gateAdmin.baseUserId);
   }
 
   @ResolveField(() => TollType)
-  public async toll(@Parent() gateAdmin: GateAdminType): Promise<BaseUserType> {
-    return (await this.tollService.toll(gateAdmin.tollId)) as any;
+  public async toll(@Parent() gateAdmin: GateAdminType) {
+    if (gateAdmin.tollId) {
+      return await this.tollService.tollById({ id: gateAdmin.tollId });
+    }
   }
 }

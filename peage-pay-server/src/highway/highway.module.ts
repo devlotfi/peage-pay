@@ -4,5 +4,6 @@ import { HighwayResolver } from './highway.resolver';
 
 @Module({
   providers: [HighwayService, HighwayResolver],
+  exports: [HighwayService],
 })
 export class HighwayModule {}

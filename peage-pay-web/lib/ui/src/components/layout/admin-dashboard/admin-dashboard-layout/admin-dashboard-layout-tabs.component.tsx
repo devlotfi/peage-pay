@@ -1,10 +1,10 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes, Suspense } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import { Outlet } from "react-router-dom";
-import AdminDashboardLayout from "./admin-dashboard-layout.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes, Suspense } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import { Outlet } from 'react-router-dom';
+import AdminDashboardLayout from './admin-dashboard-layout.component';
 
-const adminDashboardLayoutTabsVariants = cva("flex flex-col h-full");
+const adminDashboardLayoutTabsVariants = cva('flex flex-col flex-1');
 
 interface AdminDashboardLayoutTablProps
   extends BaseHTMLAttributes<HTMLDivElement>,

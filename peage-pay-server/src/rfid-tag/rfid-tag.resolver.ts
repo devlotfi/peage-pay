@@ -18,17 +18,21 @@ import { AddRfidTagInput } from './input/add-rfid-tag.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { BaseUserType } from 'src/user/graphql/base-user.gql';
 import { RfidTagByRfidInput } from './input/rfid-tag-by-rfid.input.gql';
+import { BaseUserService } from 'src/user/base-user.service';
 
 @Resolver(() => RfidTagType)
 export class RfidTagResolver {
-  public constructor(private readonly rfidTagService: RfidTagService) {}
+  public constructor(
+    private readonly rfidTagService: RfidTagService,
+    private readonly baseUserService: BaseUserService,
+  ) {}
 
   @Query(() => RfidTagListResult)
   @AllowRoles([BaseUserRolesType.MODERATOR])
   @UseGuards(AuthGuard)
   public async rfidTagList(
     @Args('rfidTagListInput') rfidTagListInput: RfidTagListInput,
-  ): Promise<RfidTagListResult> {
+  ) {
     return await this.rfidTagService.rfidTagList(rfidTagListInput);
   }
 
@@ -37,8 +41,8 @@ export class RfidTagResolver {
   @UseGuards(AuthGuard)
   public async rfidTagByRfid(
     @Args('rfidTagByRfidInput') rfidTagByRfidInput: RfidTagByRfidInput,
-  ): Promise<RfidTagType | null> {
-    return (await this.rfidTagService.rfidTagByRfid(rfidTagByRfidInput)) as any;
+  ) {
+    return await this.rfidTagService.rfidTagByRfid(rfidTagByRfidInput);
   }
 
   @Mutation(() => RfidTagType)
@@ -46,8 +50,8 @@ export class RfidTagResolver {
   @UseGuards(AuthGuard)
   public async addRfidTag(
     @Args('addRfidTagInput') addRfidTagInput: AddRfidTagInput,
-  ): Promise<RfidTagType> {
-    return (await this.rfidTagService.addRfidTag(addRfidTagInput)) as any;
+  ) {
+    return await this.rfidTagService.addRfidTag(addRfidTagInput);
   }
 
   @Mutation(() => Boolean)
@@ -55,12 +59,12 @@ export class RfidTagResolver {
   @UseGuards(AuthGuard)
   public async deleteRfidTag(
     @Args('deleteRfidTagInput') deleteRfidTagInput: IdInput,
-  ): Promise<boolean> {
+  ) {
     return await this.rfidTagService.deleteRfidTag(deleteRfidTagInput);
   }
 
   @ResolveField(() => BaseUserType)
-  public async baseUser(@Parent() rfidTag: RfidTagType): Promise<BaseUserType> {
-    return (await this.rfidTagService.baseUser(rfidTag.baseUserId)) as any;
+  public async baseUser(@Parent() rfidTag: RfidTagType) {
+    return await this.baseUserService.baseUserById({ id: rfidTag.id });
   }
 }
