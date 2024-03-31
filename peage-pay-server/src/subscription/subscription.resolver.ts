@@ -5,7 +5,7 @@ import { AddSubscriptionInput } from './input/add-subscription.input.gql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { EditSubscriptionInput } from './input/edit-subscription.input.gql';
 import { SubscriptionListInput } from './input/subscription-list.input.gql';
 import { SubscriptionListResult } from './result/subscription-list.result.gql';

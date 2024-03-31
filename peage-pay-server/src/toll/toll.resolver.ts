@@ -11,7 +11,7 @@ import { WilayaType } from 'src/wilaya/graphql/wilaya.gql';
 import { TollService } from './toll.service';
 import { HighwayType } from 'src/highway/graphql/highway.gql';
 import { UseGuards } from '@nestjs/common';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { TollListInput } from './input/toll-list.input.gql';

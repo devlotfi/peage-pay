@@ -5,8 +5,8 @@ import { GraphQLError } from 'graphql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { TokenService } from 'src/token/token.service';
-import { BaseUserErrors } from 'src/base-user/graphql/base-user-errors.gql';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

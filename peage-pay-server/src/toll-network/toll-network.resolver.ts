@@ -5,7 +5,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { TollNetworkListInput } from './input/toll-network-list.input.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { AddTollNetworkInput } from './input/add-toll-network.input.gql';
 import { EditTollNetworkInput } from './input/edit-toll-network.input.gql';
 import { TollNetworkListResult } from './result/toll-network-list.result.gql';

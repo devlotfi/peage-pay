@@ -15,7 +15,7 @@ import { SendResetPasswordEmailInput } from './input/send-reset-password-email.i
 import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input.gql';
 import { Request, Response } from 'express';
-import { BaseUserService } from 'src/base-user/base-user.service';
+import { BaseUserService } from 'src/user/base-user.service';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 

@@ -18,7 +18,7 @@ import GoogleOAuthWrapper from '../components/google-oauth-wrapper.component';
 
 interface SignInPageProps {
   title: string;
-  googleExternalSignInUrl: string;
+  googleExternalSignInUrl?: string;
 }
 
 const SignInPage = ({

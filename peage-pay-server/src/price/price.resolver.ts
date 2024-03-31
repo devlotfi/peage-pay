@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AddPriceService } from './add-price.service';
 import { AddPriceInput } from './input/add-price.input.gql';
 import { UseGuards } from '@nestjs/common';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';

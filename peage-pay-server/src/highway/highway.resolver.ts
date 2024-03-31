@@ -5,7 +5,7 @@ import { HighwayType } from './graphql/highway.gql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
-import { BaseUserRolesType } from 'src/base-user/graphql/base-user-roles.gql';
+import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { EditHighwayInput } from './input/edit-highway.input.gql';
 import { HighwayListInput } from './input/highway-list.input.gql';
 import { HighwayListResult } from './result/highway-list.result.gql';

@@ -1,8 +1,8 @@
-import { faHome, faUser, faUserGear } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavbarDropdown } from "@peage-pay-web/auth";
-import { AdminDashboardLayout, MenuItem } from "@peage-pay-web/ui";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { faHome, faUser, faUserGear } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavbarDropdown } from '@peage-pay-web/auth';
+import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
@@ -11,12 +11,12 @@ const DashboardLayout = (): JSX.Element => {
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="General admin">
+        <AdminDashboardLayout.Sidebar.Main title="Human ressources admin">
           <NavbarDropdown></NavbarDropdown>
           <MenuItem
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate('/dashboard')}
             variant={
-              location.pathname === "/dashboard" ? "primary" : "base-200"
+              location.pathname === '/dashboard' ? 'primary' : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -26,11 +26,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Home</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/base-user/list")}
+            onClick={() => navigate('/dashboard/base-user/list')}
             variant={
-              location.pathname === "/dashboard/base-user/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/base-user/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -40,11 +40,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Global user list</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/toll-admin/list")}
+            onClick={() => navigate('/dashboard/toll-admin/list')}
             variant={
-              location.pathname === "/dashboard/toll-admin/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/toll-admin/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -54,11 +54,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Toll admin list</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/gate-admin/list")}
+            onClick={() => navigate('/dashboard/gate-admin/list')}
             variant={
-              location.pathname === "/dashboard/gate-admin/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/gate-admin/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -68,11 +68,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Gate admin list</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/moderator/list")}
+            onClick={() => navigate('/dashboard/moderator/list')}
             variant={
-              location.pathname === "/dashboard/moderator/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/moderator/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >

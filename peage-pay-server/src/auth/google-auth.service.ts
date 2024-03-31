@@ -6,7 +6,7 @@ import { GraphQLError } from 'graphql';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { Request, Response } from 'express';
-import { BaseUserService } from 'src/base-user/base-user.service';
+import { BaseUserService } from 'src/user/base-user.service';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 @Injectable()

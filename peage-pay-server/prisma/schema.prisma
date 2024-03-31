@@ -16,7 +16,7 @@ datasource db {
 }
 
 model AuthMethod {
-  baseUser BaseUser @relation(fields: [userId], references: [id])
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   id               String            @id @default(uuid())
   userId           String            @unique
@@ -25,7 +25,7 @@ model AuthMethod {
 }
 
 model EmailAuthMethod {
-  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id], onDelete: Cascade)
 
   authMethodId String    @id
   email        String    @unique
@@ -34,7 +34,7 @@ model EmailAuthMethod {
 }
 
 model GoogleAuthMethod {
-  authMethod AuthMethod @relation(fields: [authMethodId], references: [id])
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id], onDelete: Cascade)
 
   authMethodId String @id
   googleId     String @unique
@@ -42,7 +42,7 @@ model GoogleAuthMethod {
 }
 
 model VerificationToken {
-  baseUser BaseUser @relation(fields: [userId], references: [id])
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   id        String   @id @default(uuid())
   userId    String   @unique
@@ -52,7 +52,7 @@ model VerificationToken {
 }
 
 model RefreshToken {
-  baseUser BaseUser @relation(fields: [userId], references: [id])
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   id        String   @id @default(uuid())
   userId    String   @unique
@@ -62,7 +62,7 @@ model RefreshToken {
 }
 
 model RfidTag {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
 
   id                 String   @id @default(uuid())
   baseUserId         String
@@ -84,7 +84,7 @@ model Subscription {
 }
 
 model UserSubscription {
-  baseUser     BaseUser     @relation(fields: [baseUserId], references: [id])
+  baseUser     BaseUser     @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
 
   baseUserId     String
@@ -117,32 +117,32 @@ model BaseUser {
 }
 
 model User {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
 
   baseUserId String  @id
   balance    Decimal @default(0)
 }
 
 model GeneralAdmin {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
 
   baseUserId String @id
 }
 
 model HumanRessourcesAdmin {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
 
   baseUserId String @id
 }
 
 model Moderator {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
 
   baseUserId String @id
 }
 
 model TollAdmin {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
   toll     Toll?    @relation(fields: [tollId], references: [id])
 
   baseUserId String  @id
@@ -150,7 +150,7 @@ model TollAdmin {
 }
 
 model GateAdmin {
-  baseUser BaseUser @relation(fields: [baseUserId], references: [id])
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
   toll     Toll?    @relation(fields: [tollId], references: [id])
 
   baseUserId String  @id
@@ -264,7 +264,7 @@ model AutomaticGate {
 model Trip {
   entryToll       Toll      @relation("entryTollTrip", fields: [entryTollId], references: [id])
   exitToll        Toll      @relation("exitTollTrip", fields: [exitTollId], references: [id])
-  baseUser        BaseUser  @relation("Trips", fields: [baseUserId], references: [id])
+  baseUser        BaseUser  @relation("Trips", fields: [baseUserId], references: [id], onDelete: Cascade)
   currentBaseUser BaseUser?
 
   id             String   @id @default(uuid())

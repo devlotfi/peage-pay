@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -54,6 +55,12 @@ export type AddPriceInput = {
   addMonthlyPriceInput?: InputMaybe<AddMonthlyPriceInput>;
   addWeeklyPriceInput?: InputMaybe<AddWeeklyPriceInput>;
   addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
+};
+
+export type AddRfidTagInput = {
+  baseUserId: Scalars['String']['input'];
+  registrationNumber: Scalars['String']['input'];
+  rfid: Scalars['String']['input'];
 };
 
 export type AddSectionInput = {
@@ -350,6 +357,7 @@ export type Mutation = {
   addHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   addLocalPrice: Scalars['Boolean']['output'];
   addModeratorRole: Scalars['Boolean']['output'];
+  addRfidTag: RfidTagType;
   addSection: SectionType;
   addSubscription: SubscriptionType;
   addToll: TollType;
@@ -357,9 +365,11 @@ export type Mutation = {
   addTollNetwork: TollNetworkType;
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
+  deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
   deleteHighway: Scalars['Boolean']['output'];
   deleteLocalPrice: Scalars['Boolean']['output'];
+  deleteRfidTag: Scalars['Boolean']['output'];
   deleteSection: Scalars['Boolean']['output'];
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
@@ -415,6 +425,11 @@ export type MutationAddModeratorRoleArgs = {
 };
 
 
+export type MutationAddRfidTagArgs = {
+  addRfidTagInput: AddRfidTagInput;
+};
+
+
 export type MutationAddSectionArgs = {
   addSectionInput: AddSectionInput;
 };
@@ -450,6 +465,11 @@ export type MutationChangeTollAdminTollArgs = {
 };
 
 
+export type MutationDeleteBaseUserArgs = {
+  deleteBaseUserInput: IdInput;
+};
+
+
 export type MutationDeleteGlobalPriceArgs = {
   deletePriceInput: IdInput;
 };
@@ -462,6 +482,11 @@ export type MutationDeleteHighwayArgs = {
 
 export type MutationDeleteLocalPriceArgs = {
   deletePriceInput: IdInput;
+};
+
+
+export type MutationDeleteRfidTagArgs = {
+  deleteRfidTagInput: IdInput;
 };
 
 
@@ -614,6 +639,8 @@ export type Query = {
   moderatorList: ModeratorListResult;
   monthlyPriceGlobalList: MonthlyPriceListResult;
   monthlyPriceLocalList: MonthlyPriceListResult;
+  rfidTagByRfid?: Maybe<RfidTagType>;
+  rfidTagList: RfidTagListResult;
   sectionByIds?: Maybe<SectionType>;
   sectionListForToll: SectionListResult;
   sectionListForTollNetwork: Array<SectionType>;
@@ -637,7 +664,7 @@ export type Query = {
 
 
 export type QueryBaseUserByIdArgs = {
-  userByIdInput: IdInput;
+  baseUserByIdInput: IdInput;
 };
 
 
@@ -703,6 +730,16 @@ export type QueryMonthlyPriceGlobalListArgs = {
 
 export type QueryMonthlyPriceLocalListArgs = {
   priceListInput: PaginationInput;
+};
+
+
+export type QueryRfidTagByRfidArgs = {
+  rfidTagByRfidInput: RfidTagByRfidInput;
+};
+
+
+export type QueryRfidTagListArgs = {
+  rfidTagListInput: RfidTagListInput;
 };
 
 
@@ -804,6 +841,42 @@ export type ResetPasswordInput = {
   password: Scalars['String']['input'];
   token: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+export type RfidTagByRfidInput = {
+  rfid: Scalars['String']['input'];
+};
+
+export type RfidTagListInput = {
+  baseUserId: Scalars['String']['input'];
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  registrationNumberSearch?: InputMaybe<Scalars['String']['input']>;
+  rfidSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type RfidTagListResult = {
+  __typename?: 'RfidTagListResult';
+  count: Scalars['Float']['output'];
+  list: Array<RfidTagType>;
+};
+
+export enum RfidTagSearchFields {
+  IdSearch = 'idSearch',
+  RegistrationNumberSearch = 'registrationNumberSearch',
+  RfidSearch = 'rfidSearch'
+}
+
+export type RfidTagType = {
+  __typename?: 'RfidTagType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  registrationNumber: Scalars['String']['output'];
+  rfid: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type SectionByIdsInput = {
@@ -1076,3 +1149,13 @@ export type YearlyPriceType = {
   priceId: Scalars['ID']['output'];
   startDate: Scalars['DateTime']['output'];
 };
+
+export type Rfid_Tag_By_RfidQueryVariables = Exact<{
+  rfidTagByRfidInput: RfidTagByRfidInput;
+}>;
+
+
+export type Rfid_Tag_By_RfidQuery = { __typename?: 'Query', rfidTagByRfid?: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, createdAt: any, updatedAt: any, baseUserId: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } | null };
+
+
+export const Rfid_Tag_By_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_BY_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagByRfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagByRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagByRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_By_RfidQuery, Rfid_Tag_By_RfidQueryVariables>;

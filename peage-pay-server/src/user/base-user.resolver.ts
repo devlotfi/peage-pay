@@ -1,4 +1,11 @@
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { BaseUserService } from './base-user.service';
 import { BaseUserRolesType } from './graphql/base-user-roles.gql';
 import { BaseUserType } from './graphql/base-user.gql';
@@ -34,9 +41,20 @@ export class BaseUserResolver {
   ])
   @UseGuards(AuthGuard)
   public async baseUserById(
-    @Args('userByIdInput') userByIdInput: IdInput,
+    @Args('baseUserByIdInput') baseUserByIdInput: IdInput,
   ): Promise<BaseUserType | null> {
-    return (await this.baseUserService.baseUserById(userByIdInput)) as any;
+    return (await this.baseUserService.baseUserById(baseUserByIdInput)) as any;
+  }
+
+  @Mutation(() => Boolean)
+  @AllowRoles([BaseUserRolesType.MODERATOR])
+  @UseGuards(AuthGuard)
+  public async deleteBaseUser(
+    @Args('deleteBaseUserInput') deleteBaseUserInput: IdInput,
+  ): Promise<boolean> {
+    return (await this.baseUserService.deleteBaseUser(
+      deleteBaseUserInput,
+    )) as any;
   }
 
   @ResolveField(() => [BaseUserRolesType])

@@ -8,7 +8,7 @@ import { CookieKeys } from 'src/shared/constants/cookie-keys';
 import { RefreshTokenMode } from 'src/auth/graphql/refresh-token-mode.gql';
 import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
-import { BaseUserService } from 'src/base-user/base-user.service';
+import { BaseUserService } from 'src/user/base-user.service';
 import { Env } from 'src/shared/config/env.type';
 import { RefreshTokenPayload } from 'src/auth/types/refresh-token-payload.type';
 import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';

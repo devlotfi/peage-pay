@@ -32,6 +32,8 @@ import { PrismaErrors } from './shared/graphql/prisma-errors.gql';
 import { BaseUserErrors } from './user/graphql/base-user-errors.gql';
 import { BaseUserSearchFields } from './user/graphql/base-user-search-fields.gql';
 import { UserModule } from './user/user.module';
+import { RfidTagModule } from './rfid-tag/rfid-tag.module';
+import { RfidTagSearchFields } from './rfid-tag/graphql/rfid-tag-search-fields.gql';
 
 @Module({
   imports: [
@@ -67,6 +69,7 @@ import { UserModule } from './user/user.module';
           SubscriptionSearchFields,
           WilayaSearchFields,
           BaseUserSearchFields,
+          RfidTagSearchFields,
         ],
       },
       context: ({ req, res }) => ({ req, res }),
@@ -87,6 +90,7 @@ import { UserModule } from './user/user.module';
     PriceModule,
     TollNetworkModule,
     TollDistanceModule,
+    RfidTagModule,
   ],
 })
 export class AppModule {}

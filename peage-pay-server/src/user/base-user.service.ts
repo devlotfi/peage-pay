@@ -69,10 +69,12 @@ export class BaseUserService {
     }
   }
 
-  public async baseUserById(userByIdInput: IdInput): Promise<BaseUser | null> {
+  public async baseUserById(
+    baseUserByIdInput: IdInput,
+  ): Promise<BaseUser | null> {
     return await this.databaseService.baseUser.findUnique({
       where: {
-        id: userByIdInput.id,
+        id: baseUserByIdInput.id,
       },
     });
   }
@@ -104,6 +106,15 @@ export class BaseUserService {
     baseUser.gateAdmin && roleList.push(BaseUserRolesType.GATE_ADMIN);
     baseUser.moderator && roleList.push(BaseUserRolesType.MODERATOR);
     return roleList;
+  }
+
+  public async deleteBaseUser(deleteBaseUserInput: IdInput): Promise<boolean> {
+    await this.databaseService.baseUser.delete({
+      where: {
+        id: deleteBaseUserInput.id,
+      },
+    });
+    return true;
   }
 
   public async baseUser(baseUserId: string): Promise<BaseUserType | null> {
