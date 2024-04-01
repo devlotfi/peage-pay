@@ -1,0 +1,96 @@
+import { useQuery } from '@apollo/client';
+import { AUTOMATIC_GATE_LIST } from '../../graphql/queries';
+import {
+  AdminDashboardLayout,
+  Heading,
+  ListPageLayout,
+  Pagination,
+  SearchForm,
+  SearchValues,
+  Table,
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { AutomaticGateSearchFields } from '../../__generated__/graphql';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { Utils } from '@peage-pay-web/utils';
+import AutomaticGateItem from '../../components/automatic-gate/automatic-gate-item.component';
+
+const initialValues: SearchValues<AutomaticGateSearchFields> = {
+  search: '',
+  field: AutomaticGateSearchFields.NameSearch,
+};
+
+const AutomaticGateListPage = (): JSX.Element => {
+  const [searchData, setSearchData] = useState(initialValues);
+  const [page, setPage] = useState<number>(1);
+
+  const { data, loading, error } = useQuery(AUTOMATIC_GATE_LIST, {
+    variables: {
+      automaticGateListInput: {
+        take: 10,
+        skip: 10 * (page - 1),
+        [searchData.field]: searchData.search,
+      },
+    },
+    fetchPolicy: 'network-only',
+  });
+  return (
+    <ListPageLayout>
+      <SearchForm
+        handleSearch={(searchData) => setSearchData(searchData)}
+        initialFieldSearch={AutomaticGateSearchFields.NameSearch}
+        fieldSelectOptions={Utils.renderFieldOptions(AutomaticGateSearchFields)}
+      ></SearchForm>
+
+      <ListPageLayout.Title>
+        <Heading className="text-[20pt]">
+          <Heading.Icon position={'left'}>
+            <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+          </Heading.Icon>
+          <Heading.Text>Automatic gate list</Heading.Text>
+        </Heading>
+      </ListPageLayout.Title>
+
+      <AdminDashboardLayout.Loading loading={loading}>
+        <AdminDashboardLayout.Error error={error}>
+          <ListPageLayout.Empty list={data?.automaticGateList.list}>
+            <Table.Container className="h-full">
+              <Table>
+                <Table.Head>
+                  <Table.Head.Tr>
+                    <Table.Head.Th></Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>Name</Table.Head.Th>
+                    <Table.Head.Th>Created at</Table.Head.Th>
+                    <Table.Head.Th>Updated at</Table.Head.Th>
+                  </Table.Head.Tr>
+                </Table.Head>
+                <Table.Body>
+                  {data?.automaticGateList.list.map((highway) => (
+                    <AutomaticGateItem
+                      key={highway.id}
+                      automaticGate={highway}
+                    ></AutomaticGateItem>
+                  ))}
+                </Table.Body>
+              </Table>
+            </Table.Container>
+          </ListPageLayout.Empty>
+        </AdminDashboardLayout.Error>
+
+        <ListPageLayout.Footer>
+          {data ? (
+            <Pagination
+              value={page}
+              maxPages={Math.ceil(data.automaticGateList.count / 10)}
+              handlePageChange={(page) => setPage(page)}
+            ></Pagination>
+          ) : null}
+        </ListPageLayout.Footer>
+      </AdminDashboardLayout.Loading>
+    </ListPageLayout>
+  );
+};
+
+export default AutomaticGateListPage;

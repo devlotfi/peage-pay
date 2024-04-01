@@ -6,7 +6,7 @@ import AdminDashboardLayout from './admin-dashboard-layout.component';
 
 const adminDashboardLayoutTabsVariants = cva('flex flex-col flex-1');
 
-interface AdminDashboardLayoutTablProps
+interface AdminDashboardLayoutTabsProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof adminDashboardLayoutTabsVariants> {
   loading?: boolean;
@@ -19,7 +19,7 @@ const AdminDashboardLayoutTabs = ({
   loading,
   error,
   ...props
-}: AdminDashboardLayoutTablProps): JSX.Element => {
+}: AdminDashboardLayoutTabsProps): JSX.Element => {
   if (loading) {
     return (
       <AdminDashboardLayout.Loading loading></AdminDashboardLayout.Loading>

@@ -9,6 +9,6 @@ import { AutomaticGateTokenService } from './automatic-gate-token.service';
 @Module({
   imports: [ConfigModule, UserModule, JwtModule.register({})],
   providers: [UserTokenService, AutomaticGateTokenService],
-  exports: [UserTokenService],
+  exports: [UserTokenService, AutomaticGateTokenService],
 })
 export class TokenModule {}

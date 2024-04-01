@@ -20,6 +20,8 @@ import { TollAdminListInput } from './input/toll-admin-list.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { TollService } from 'src/toll/toll.service';
+import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Resolver(() => TollAdminType)
 export class TollAdminResolver {
@@ -36,6 +38,15 @@ export class TollAdminResolver {
     @Args('tollAdminListInput') tollAdminListInput: TollAdminListInput,
   ) {
     return await this.tollAdminService.tollAdminList(tollAdminListInput);
+  }
+
+  @Query(() => TollAdminType, { nullable: true })
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
+  @UseGuards(AuthGuard)
+  public async tollAdminInfo(
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
+  ) {
+    return await this.tollAdminService.tollAdminInfo(accessTokenPayload);
   }
 
   @Query(() => TollAdminType, { nullable: true })

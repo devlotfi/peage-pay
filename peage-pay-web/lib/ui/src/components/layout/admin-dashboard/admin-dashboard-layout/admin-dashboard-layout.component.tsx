@@ -1,16 +1,17 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { BaseHTMLAttributes, createContext, useState } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import AdminDashboardLayoutMain from "./admin-dashboard-layout-main.component";
-import AdminDashboardLayoutContent from "./admin-dashboard-layout-content.component";
-import Navbar from "../navbar/navbar.component";
-import Sidebar from "../sidebar/sidebar.component";
-import AdminDashboardLayoutLoading from "./admin-dashboard-layout-loading.component";
-import AdminDashboardLayoutError from "./admin-dashboard-layout-error.component";
-import AdminDashboardLayoutTabs from "./admin-dashboard-layout-tabs.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { BaseHTMLAttributes, createContext, useState } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import AdminDashboardLayoutMain from './admin-dashboard-layout-main.component';
+import AdminDashboardLayoutContent from './admin-dashboard-layout-content.component';
+import Navbar from '../navbar/navbar.component';
+import Sidebar from '../sidebar/sidebar.component';
+import AdminDashboardLayoutLoading from './admin-dashboard-layout-loading.component';
+import AdminDashboardLayoutError from './admin-dashboard-layout-error.component';
+import AdminDashboardLayoutTabs from './admin-dashboard-layout-tabs.component';
+import AdminDashboardLayoutTollInfo from './admin-dashboard-layout-toll-info.component';
 
 const adminDashboardLayoutVariants = cva(
-  "flex max-h-screen min-h-screen bg-base-200"
+  'flex max-h-screen min-h-screen bg-base-200',
 );
 
 interface AdminDashboardLayoutProps
@@ -59,6 +60,7 @@ AdminDashboardLayout.Content = AdminDashboardLayoutContent;
 AdminDashboardLayout.Loading = AdminDashboardLayoutLoading;
 AdminDashboardLayout.Error = AdminDashboardLayoutError;
 AdminDashboardLayout.Tabs = AdminDashboardLayoutTabs;
+AdminDashboardLayout.TollInfo = AdminDashboardLayoutTollInfo;
 AdminDashboardLayout.Navbar = Navbar;
 AdminDashboardLayout.Sidebar = Sidebar;
 export default AdminDashboardLayout;

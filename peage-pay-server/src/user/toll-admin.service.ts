@@ -5,6 +5,7 @@ import { TollAdminListInput } from './input/toll-admin-list.input.gql';
 import { TollAdminListResult } from './result/toll-admin-list.result.gql';
 import { Prisma, TollAdmin } from '@prisma/client';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Injectable()
 export class TollAdminService {
@@ -90,6 +91,20 @@ export class TollAdminService {
         baseUserId: tollAdminByIdInput.id,
       },
     });
+  }
+
+  public async tollAdminInfo(
+    accessTokenPayload: UserAccessTokenPayload,
+  ): Promise<TollAdmin | null> {
+    const tollAdmin = await this.databaseService.tollAdmin.findUniqueOrThrow({
+      where: {
+        baseUserId: accessTokenPayload.userId,
+      },
+      include: {
+        toll: true,
+      },
+    });
+    return tollAdmin;
   }
 
   public async addTollAdminRole(

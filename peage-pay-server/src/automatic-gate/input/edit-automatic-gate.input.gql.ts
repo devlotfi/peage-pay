@@ -13,7 +13,7 @@ export class EditAutomaticGateInput {
   public name?: string;
 
   @Field({ nullable: true })
-  @Length(1, 50)
+  @Length(7, 50)
   @IsOptional()
   public password?: string;
 }

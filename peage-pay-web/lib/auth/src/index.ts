@@ -7,6 +7,7 @@ import SendPasswordResetEmailPage from './pages/send-password-reset-email.page';
 import SignInWithGoogleExternalPage from './pages/sign-in-with-google-external.page';
 import SignInPage from './pages/sign-in.page';
 import SignUpPage from './pages/sign-up.page';
+import TollNotAssignedErrorPage from './pages/toll-not-assigned-error.page';
 import VerifyEmailPage from './pages/verify-email.page';
 
 export {
@@ -21,4 +22,5 @@ export {
   useAuthGuard,
   SignInWithGoogleExternalPage,
   GoogleOAuthWrapper,
+  TollNotAssignedErrorPage,
 };
