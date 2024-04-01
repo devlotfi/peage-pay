@@ -1,6 +1,6 @@
 import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 
-export class AccessTokenPayload {
+export class UserAccessTokenPayload {
   public userId: string;
   public userRoles: BaseUserRolesType[];
 }

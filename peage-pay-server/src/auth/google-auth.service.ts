@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SignInResult } from './result/sign-in.result.gql';
 import { SignInWithGoogleInput } from './input/sign-in-with-google.input.gql';
-import { TokenService } from 'src/token/token.service';
+import { UserTokenService } from 'src/token/user-token.service';
 import { GraphQLError } from 'graphql';
 import { DatabaseService } from 'src/database/database.service';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
@@ -14,7 +14,7 @@ export class GoogleAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
     private readonly baseUserService: BaseUserService,
-    private readonly tokenService: TokenService,
+    private readonly userTokenService: UserTokenService,
   ) {}
 
   public async singInWithGoogle(
@@ -24,7 +24,7 @@ export class GoogleAuthService {
     res: Response,
   ): Promise<SignInResult> {
     try {
-      const googleProfile = await this.tokenService.getGoogleProfileData(
+      const googleProfile = await this.userTokenService.getGoogleProfileData(
         signInWithGoogleInput.token,
       );
 
@@ -84,28 +84,28 @@ export class GoogleAuthService {
             },
           },
         }))!;
-      const refreshToken = await this.tokenService.generateRefreshToken(
+      const refreshToken = await this.userTokenService.generateRefreshToken(
         googleAuthMethod.authMethod.userId,
         req,
         res,
         refreshTokenMode,
       );
-      const accessToken = await this.tokenService.generateAccessToken(
+      const accessToken = await this.userTokenService.generateAccessToken(
         googleAuthMethod.authMethod.userId,
       );
       const roles = await this.baseUserService.getUserRolesList(
         googleAuthMethod.authMethod.userId,
       );
-      const signInResult = new SignInResult(
-        googleAuthMethod.authMethod.baseUser as any,
+
+      return {
         accessToken,
         roles,
-        refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
-          ? refreshToken
-          : undefined,
-      );
-
-      return signInResult;
+        baseUser: googleAuthMethod.authMethod.baseUser as any,
+        refreshToken:
+          refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
+            ? refreshToken
+            : undefined,
+      };
     } catch (error) {
       throw new GraphQLError(TokenErrors.INVALID_GOOGLE_OAUTH_TOKEN);
     }

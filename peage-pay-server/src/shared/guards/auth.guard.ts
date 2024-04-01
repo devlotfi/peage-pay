@@ -4,7 +4,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { GraphQLError } from 'graphql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
-import { TokenService } from 'src/token/token.service';
+import { UserTokenService } from 'src/token/user-token.service';
 import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
 import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 
@@ -12,7 +12,7 @@ import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 export class AuthGuard implements CanActivate {
   public constructor(
     private readonly reflector: Reflector,
-    private readonly tokenService: TokenService,
+    private readonly tokenService: UserTokenService,
   ) {}
 
   private checkRoles(

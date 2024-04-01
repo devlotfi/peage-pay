@@ -1,28 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
-import { TokenService } from 'src/token/token.service';
+import { UserTokenService } from 'src/token/user-token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result.gql';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input.gql';
-import { AccessTokenPayload } from './types/access-token-payload.type';
+import { UserAccessTokenPayload } from './types/user-access-token-payload.type';
 import { Request, Response } from 'express';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { BaseUserService } from 'src/user/base-user.service';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
-import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 
 @Injectable()
 export class TokenAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
     private readonly baseUserService: BaseUserService,
-    private readonly tokenService: TokenService,
+    private readonly userTokenService: UserTokenService,
   ) {}
 
   public async signInWithRefreshToken(
     signInWithRefreshTokenInput: SignInWithRefreshTokenInput,
   ): Promise<SignInWithRefreshTokenResult> {
-    const { payload, valid } = await this.tokenService.checkRefreshToken(
+    const { payload, valid } = await this.userTokenService.checkRefreshToken(
       signInWithRefreshTokenInput.refreshToken,
     );
     if (!valid || !payload) {
@@ -31,16 +30,13 @@ export class TokenAuthService {
 
     console.log(payload);
     const userId: string = payload.userId;
-    const baseUser = await this.databaseService.baseUser.findUnique({
+    const baseUser = await this.databaseService.baseUser.findUniqueOrThrow({
       where: {
         id: userId,
       },
     });
-    if (!baseUser) {
-      throw new GraphQLError(PrismaErrors.NOT_FOUND);
-    }
 
-    const accessToken = await this.tokenService.generateAccessToken(userId);
+    const accessToken = await this.userTokenService.generateAccessToken(userId);
     const roles = await this.baseUserService.getUserRolesList(userId);
     const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
       baseUser as any,
@@ -56,7 +52,7 @@ export class TokenAuthService {
     res: Response,
   ): Promise<SignInWithRefreshTokenResult> {
     const { payload, valid, refreshToken } =
-      await this.tokenService.checkRefreshTokenCookie(req, res);
+      await this.userTokenService.checkRefreshTokenCookie(req, res);
     if (!refreshToken) {
       throw new GraphQLError(TokenErrors.REFRESH_TOKEN_NOT_PROVIDED);
     }
@@ -64,44 +60,39 @@ export class TokenAuthService {
       throw new GraphQLError(TokenErrors.INVALID_REFRESH_TOKEN);
     }
 
-    console.log(payload);
     const userId: string = payload.userId;
-    const baseUser = await this.databaseService.baseUser.findUnique({
+    const baseUser = await this.databaseService.baseUser.findUniqueOrThrow({
       where: {
         id: userId,
       },
     });
-    if (!baseUser) {
-      throw new GraphQLError(PrismaErrors.NOT_FOUND);
-    }
 
-    const accessToken = await this.tokenService.generateAccessToken(userId);
+    const accessToken = await this.userTokenService.generateAccessToken(userId);
     const roles = await this.baseUserService.getUserRolesList(userId);
-    const signInWithRefreshTokenResult = new SignInWithRefreshTokenResult(
-      baseUser as any,
+
+    return {
       accessToken,
       roles,
-    );
-
-    return signInWithRefreshTokenResult;
+      baseUser: baseUser as any,
+    };
   }
 
   public async signOut(
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<boolean> {
-    await this.tokenService.clearRefreshToken(
+    await this.userTokenService.clearRefreshToken(
       accessTokenPayload.userId,
-      RefreshTokenMode.COOKIE,
+      RefreshTokenMode.PLAIN_TEXT,
     );
     return true;
   }
 
   public async signOutWithRefreshTokenCookie(
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
     req: Request,
     res: Response,
   ): Promise<boolean> {
-    await this.tokenService.clearRefreshToken(
+    await this.userTokenService.clearRefreshToken(
       accessTokenPayload.userId,
       RefreshTokenMode.COOKIE,
       req,

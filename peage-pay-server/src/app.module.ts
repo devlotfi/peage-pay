@@ -34,6 +34,8 @@ import { BaseUserSearchFields } from './user/graphql/base-user-search-fields.gql
 import { UserModule } from './user/user.module';
 import { RfidTagModule } from './rfid-tag/rfid-tag.module';
 import { RfidTagSearchFields } from './rfid-tag/graphql/rfid-tag-search-fields.gql';
+import { AutomaticGateModule } from './automatic-gate/automatic-gate.module';
+import { AutomaticGateSearchFields } from './automatic-gate/graphql/automatic-gate-search-fields.gql';
 
 @Module({
   imports: [
@@ -70,6 +72,7 @@ import { RfidTagSearchFields } from './rfid-tag/graphql/rfid-tag-search-fields.g
           WilayaSearchFields,
           BaseUserSearchFields,
           RfidTagSearchFields,
+          AutomaticGateSearchFields,
         ],
       },
       context: ({ req, res }) => ({ req, res }),
@@ -91,6 +94,7 @@ import { RfidTagSearchFields } from './rfid-tag/graphql/rfid-tag-search-fields.g
     TollNetworkModule,
     TollDistanceModule,
     RfidTagModule,
+    AutomaticGateModule,
   ],
 })
 export class AppModule {}

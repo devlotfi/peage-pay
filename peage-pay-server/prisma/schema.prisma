@@ -51,7 +51,7 @@ model VerificationToken {
   createdAt DateTime @default(now())
 }
 
-model RefreshToken {
+model UserRefreshToken {
   baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   id        String   @id @default(uuid())
@@ -102,7 +102,7 @@ model BaseUser {
   tollAdmin            TollAdmin?
   gateAdmin            GateAdmin?
   verificationToken    VerificationToken?
-  refreshToken         RefreshToken?
+  userRefreshToken     UserRefreshToken?
   trips                Trip[]                @relation("Trips")
   userSubscriptions    UserSubscription[]
   rfidTags             RfidTag[]
@@ -250,8 +250,19 @@ model TollDistance {
   @@id([fromTollId, toTollId])
 }
 
+model AutomaticGateRefreshToken {
+  automaticGate AutomaticGate @relation(fields: [automaticGateId], references: [id], onDelete: Cascade)
+
+  id              String   @id @default(uuid())
+  automaticGateId String   @unique
+  tokenHash       String
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+}
+
 model AutomaticGate {
-  toll Toll @relation(fields: [tollId], references: [id])
+  toll                      Toll                       @relation(fields: [tollId], references: [id])
+  automaticGateRefreshToken AutomaticGateRefreshToken?
 
   id           String   @id @default(uuid())
   tollId       String

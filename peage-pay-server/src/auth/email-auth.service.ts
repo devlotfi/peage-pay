@@ -10,7 +10,7 @@ import { Utils } from 'src/shared/utils';
 import { SigninWithEmailInput } from './input/sign-in-with-email.input.gql';
 import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { SignInResult } from './result/sign-in.result.gql';
-import { TokenService } from 'src/token/token.service';
+import { UserTokenService } from 'src/token/user-token.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input.gql';
 import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input.gql';
@@ -24,7 +24,7 @@ export class EmailAuthService {
   public constructor(
     private readonly databaseService: DatabaseService,
     private readonly emailService: EmailService,
-    private readonly tokenService: TokenService,
+    private readonly userTokenService: UserTokenService,
     private readonly baseUserService: BaseUserService,
     private readonly authRedisService: AuthRedisService,
   ) {}
@@ -74,7 +74,7 @@ export class EmailAuthService {
   public async verifyEmail(
     verifyEmailInput: VerifyEmailInput,
   ): Promise<boolean> {
-    const baseUser = await this.databaseService.baseUser.findUnique({
+    const baseUser = await this.databaseService.baseUser.findUniqueOrThrow({
       where: {
         id: verifyEmailInput.userId,
       },
@@ -102,8 +102,6 @@ export class EmailAuthService {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
     }
 
-    console.log(baseUser);
-
     const result = await compare(
       verifyEmailInput.token,
       baseUser.verificationToken.tokenHash,
@@ -128,7 +126,7 @@ export class EmailAuthService {
     sendPasswordResetEmailInput: SendResetPasswordEmailInput,
   ): Promise<boolean> {
     const emailAuthMethod =
-      await this.databaseService.emailAuthMethod.findUnique({
+      await this.databaseService.emailAuthMethod.findUniqueOrThrow({
         where: {
           email: sendPasswordResetEmailInput.email,
         },
@@ -136,9 +134,6 @@ export class EmailAuthService {
           authMethod: true,
         },
       });
-    if (!emailAuthMethod) {
-      throw new GraphQLError(PrismaErrors.NOT_FOUND);
-    }
 
     const passwordResetAttempts =
       await this.authRedisService.getPasswordResetAttempts(
@@ -189,8 +184,6 @@ export class EmailAuthService {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
     }
 
-    console.log(baseUser);
-
     const result = await compare(
       resetPasswordInput.token,
       baseUser.verificationToken.tokenHash,
@@ -217,7 +210,7 @@ export class EmailAuthService {
     res: Response,
   ): Promise<SignInResult> {
     const emailAuthMethod =
-      await this.databaseService.emailAuthMethod.findUnique({
+      await this.databaseService.emailAuthMethod.findUniqueOrThrow({
         where: {
           email: signInWithEmailInput.email,
         },
@@ -229,9 +222,6 @@ export class EmailAuthService {
           },
         },
       });
-    if (!emailAuthMethod) {
-      throw new GraphQLError(PrismaErrors.NOT_FOUND);
-    }
 
     const signInWithEmailAttempts =
       await this.authRedisService.getSignInWithEmailAttempts(
@@ -270,27 +260,27 @@ export class EmailAuthService {
       throw new GraphQLError(AuthErrors.VERIFICATION_REQUEST_PENDING);
     }
 
-    const refreshToken = await this.tokenService.generateRefreshToken(
+    const refreshToken = await this.userTokenService.generateRefreshToken(
       emailAuthMethod.authMethod.userId,
       req,
       res,
       refreshTokenMode,
     );
-    const accessToken = await this.tokenService.generateAccessToken(
+    const accessToken = await this.userTokenService.generateAccessToken(
       emailAuthMethod.authMethod.userId,
     );
     const roles = await this.baseUserService.getUserRolesList(
       emailAuthMethod.authMethod.userId,
     );
-    const signInResult = new SignInResult(
-      emailAuthMethod.authMethod.baseUser as any,
+
+    return {
       accessToken,
       roles,
-      refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
-        ? refreshToken
-        : undefined,
-    );
-
-    return signInResult;
+      baseUser: emailAuthMethod.authMethod.baseUser as any,
+      refreshToken:
+        refreshTokenMode === RefreshTokenMode.PLAIN_TEXT
+          ? refreshToken
+          : undefined,
+    };
   }
 }

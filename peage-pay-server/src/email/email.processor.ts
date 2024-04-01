@@ -7,7 +7,7 @@ import { SendVerificationEmail } from 'src/shared/jobs/send-verification-email.j
 import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
 import { NodemailerService } from './nodemailer.service';
-import { TokenService } from 'src/token/token.service';
+import { UserTokenService } from 'src/token/user-token.service';
 import { SendResetPasswordEmail } from 'src/shared/jobs/send-reset-password-email.job';
 
 @Processor(BullQueues.EMAIL)
@@ -16,7 +16,7 @@ export class EmailProcessor {
     private readonly configService: ConfigService,
     private readonly databaseService: DatabaseService,
     private readonly nodeMailerService: NodemailerService,
-    private readonly tokenService: TokenService,
+    private readonly tokenService: UserTokenService,
   ) {}
 
   @OnQueueActive()

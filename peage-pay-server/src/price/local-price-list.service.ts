@@ -5,7 +5,7 @@ import { WeeklyPriceListResult } from './result/weekly-price-list.result.gql';
 import { MonthlyPriceListResult } from './result/monthly-price-list.result.gql';
 import { YearlyPriceListResult } from './result/yearly-price-list.result.gql';
 import { CustomPriceListResult } from './result/custom-price-list.result.gql';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { TollAdminService } from './toll-admin.service';
 import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
@@ -18,7 +18,7 @@ export class LocalPriceListService {
 
   public async dailyPriceLocalList(
     priceListInput: PaginationInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<DailyPriceListResult> {
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);
@@ -49,7 +49,7 @@ export class LocalPriceListService {
 
   public async weeklyPriceLocalList(
     priceListInput: PaginationInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<WeeklyPriceListResult> {
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);
@@ -80,7 +80,7 @@ export class LocalPriceListService {
 
   public async monthlyPriceLocalList(
     priceListInput: PaginationInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<MonthlyPriceListResult> {
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);
@@ -111,7 +111,7 @@ export class LocalPriceListService {
 
   public async yearlyPriceLocalList(
     priceListInput: PaginationInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<YearlyPriceListResult> {
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);
@@ -142,7 +142,7 @@ export class LocalPriceListService {
 
   public async customPriceLocalList(
     priceListInput: PaginationInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<CustomPriceListResult> {
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);

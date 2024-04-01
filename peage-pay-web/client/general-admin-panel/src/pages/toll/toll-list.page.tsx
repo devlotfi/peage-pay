@@ -76,7 +76,7 @@ const TollListPage = (): JSX.Element => {
           <AdminDashboardLayout.Loading loading={listLoading}>
             <AdminDashboardLayout.Error error={listError}>
               <ListPageLayout.Empty list={listData?.tollList.list}>
-                <Table.Container>
+                <Table.Container className="flex-1">
                   <Table>
                     <Table.Head>
                       <Table.Head.Tr>

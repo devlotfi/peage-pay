@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { DatabaseService } from 'src/database/database.service';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 
@@ -8,7 +8,7 @@ import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 export class TollAdminService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
-  public async getTollAdminData(accessTokenPayload: AccessTokenPayload) {
+  public async getTollAdminData(accessTokenPayload: UserAccessTokenPayload) {
     const tollAdminData = await this.databaseService.baseUser.findUnique({
       where: {
         id: accessTokenPayload.userId,

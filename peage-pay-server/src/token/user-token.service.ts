@@ -10,12 +10,12 @@ import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
 import { BaseUserService } from 'src/user/base-user.service';
 import { Env } from 'src/shared/config/env.type';
-import { RefreshTokenPayload } from 'src/auth/types/refresh-token-payload.type';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { UserRefreshTokenPayload } from 'src/auth/types/user-refresh-token-payload.type';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { google } from 'googleapis';
 
 @Injectable()
-export class TokenService {
+export class UserTokenService {
   public constructor(
     private readonly configService: ConfigService<Env>,
     private readonly databaseService: DatabaseService,
@@ -70,7 +70,7 @@ export class TokenService {
       {
         expiresIn: '30d',
         secret: this.configService.getOrThrow<string>(
-          'JWT_REFRESH_TOKEN_SECRET',
+          'USER_JWT_REFRESH_TOKEN_SECRET',
         ),
       },
     );
@@ -79,14 +79,14 @@ export class TokenService {
     expirationDate.setDate(expirationDate.getDate() + 30);
 
     await this.databaseService.$transaction(async (prisma) => {
-      await prisma.refreshToken.deleteMany({
+      await prisma.userRefreshToken.deleteMany({
         where: {
           baseUser: {
             id: userId,
           },
         },
       });
-      await prisma.refreshToken.create({
+      await prisma.userRefreshToken.create({
         data: {
           tokenHash: await Utils.hashString(refreshToken),
           expiresAt: expirationDate,
@@ -123,7 +123,7 @@ export class TokenService {
     res?: Response,
   ): Promise<void> {
     try {
-      await this.databaseService.refreshToken.delete({
+      await this.databaseService.userRefreshToken.delete({
         where: {
           userId,
         },
@@ -145,7 +145,7 @@ export class TokenService {
       },
       {
         secret: this.configService.getOrThrow<string>(
-          'JWT_ACCESS_TOKEN_SECRET',
+          'USER_JWT_ACCESS_TOKEN_SECRET',
         ),
         expiresIn: '30min',
       },
@@ -158,14 +158,14 @@ export class TokenService {
     const cookies = new Cookies(req, res);
     const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
     let valid = true;
-    let payload: RefreshTokenPayload | undefined;
+    let payload: UserRefreshTokenPayload | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync<RefreshTokenPayload>(
+        payload = await this.jwtService.verifyAsync<UserRefreshTokenPayload>(
           refreshToken,
           {
             secret: this.configService.getOrThrow<string>(
-              'JWT_REFRESH_TOKEN_SECRET',
+              'USER_JWT_REFRESH_TOKEN_SECRET',
             ),
           },
         );
@@ -183,14 +183,14 @@ export class TokenService {
 
   public async checkRefreshToken(refreshToken: string) {
     let valid = true;
-    let payload: RefreshTokenPayload | undefined;
+    let payload: UserRefreshTokenPayload | undefined;
     if (refreshToken) {
       try {
-        payload = await this.jwtService.verifyAsync<RefreshTokenPayload>(
+        payload = await this.jwtService.verifyAsync<UserRefreshTokenPayload>(
           refreshToken,
           {
             secret: this.configService.getOrThrow<string>(
-              'JWT_REFRESH_TOKEN_SECRET',
+              'USER_JWT_REFRESH_TOKEN_SECRET',
             ),
           },
         );
@@ -207,14 +207,14 @@ export class TokenService {
 
   public async checkAccessToken(accessToken: string) {
     let valid = true;
-    let payload: AccessTokenPayload | undefined;
+    let payload: UserAccessTokenPayload | undefined;
     if (accessToken) {
       try {
-        payload = await this.jwtService.verifyAsync<AccessTokenPayload>(
+        payload = await this.jwtService.verifyAsync<UserAccessTokenPayload>(
           accessToken,
           {
             secret: this.configService.getOrThrow<string>(
-              'JWT_ACCESS_TOKEN_SECRET',
+              'USER_JWT_ACCESS_TOKEN_SECRET',
             ),
           },
         );

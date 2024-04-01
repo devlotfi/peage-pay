@@ -24,6 +24,7 @@ import { WilayaService } from 'src/wilaya/wilaya.service';
 import { HighwayService } from 'src/highway/highway.service';
 import { TollNetworkService } from 'src/toll-network/toll-network.service';
 import { TollPriceService } from './toll-price.service';
+import { ChangeTollStatusInput } from './input/change-toll-status.input.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -70,6 +71,15 @@ export class TollResolver {
   }
 
   @Mutation(() => Boolean)
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
+  @UseGuards(AuthGuard)
+  public async changeTollStatus(
+    @Args('changeTollStatusInput') changeTollStatusInput: ChangeTollStatusInput,
+  ) {
+    return await this.tollService.changeTollStatus(changeTollStatusInput);
+  }
+
+  @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteToll(@Args('deleteTollInput') deleteTollInput: IdInput) {
@@ -77,7 +87,7 @@ export class TollResolver {
   }
 
   @Query(() => Boolean)
-  @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   public async tollPrice(@Args('tollPriceInput') tollPriceInput: IdInput) {
     return await this.tollPriceService.tollPrice(tollPriceInput);
   }

@@ -17,7 +17,7 @@ import { GraphqlRequest } from 'src/shared/decorators/graphql-request.decorator'
 import { Request, Response } from 'express';
 import { GraphqlResponse } from 'src/shared/decorators/graphql-response.decorator';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
-import { AccessTokenPayload } from './types/access-token-payload.type';
+import { UserAccessTokenPayload } from './types/user-access-token-payload.type';
 import { SignInWithGoogleInput } from './input/sign-in-with-google.input.gql';
 
 @Resolver()
@@ -102,7 +102,7 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   @UseGuards(AuthGuard)
   public async signOut(
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.tokenAuthService.signOut(accessTokenPayload);
   }
@@ -110,7 +110,7 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   @UseGuards(AuthGuard)
   public async signOutWithRefreshTokenCookie(
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
     @GraphqlRequest() req: Request,
     @GraphqlResponse() res: Response,
   ) {

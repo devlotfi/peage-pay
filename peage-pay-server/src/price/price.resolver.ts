@@ -6,7 +6,7 @@ import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { DeletePriceService } from './delete-price.service';
 import { DailyPriceListResult } from './result/daily-price-list.result.gql';
 import { GlobalPriceListService } from './global-price-list.service';
@@ -41,7 +41,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async addLocalPrice(
     @Args('addPriceInput') addPriceInput: AddPriceInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.addPriceService.addLocalPrice(
       addPriceInput,
@@ -63,7 +63,7 @@ export class PriceResolver {
   @UseGuards(AuthGuard)
   public async deleteLocalPrice(
     @Args('deletePriceInput') deletePriceInput: IdInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.deletePriceService.deleteLocalPrice(
       deletePriceInput,
@@ -127,11 +127,11 @@ export class PriceResolver {
   }
 
   @Query(() => DailyPriceListResult)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async dailyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.localPriceListService.dailyPriceLocalList(
       priceListInput,
@@ -140,11 +140,11 @@ export class PriceResolver {
   }
 
   @Query(() => WeeklyPriceListResult)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async weeklyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.localPriceListService.weeklyPriceLocalList(
       priceListInput,
@@ -153,11 +153,11 @@ export class PriceResolver {
   }
 
   @Query(() => MonthlyPriceListResult)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async monthlyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.localPriceListService.monthlyPriceLocalList(
       priceListInput,
@@ -166,11 +166,11 @@ export class PriceResolver {
   }
 
   @Query(() => YearlyPriceListResult)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async yearlyPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.localPriceListService.yearlyPriceLocalList(
       priceListInput,
@@ -179,11 +179,11 @@ export class PriceResolver {
   }
 
   @Query(() => CustomPriceListResult)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async customPriceLocalList(
     @Args('priceListInput') priceListInput: PaginationInput,
-    @ContextAccessTokenPayload() accessTokenPayload: AccessTokenPayload,
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.localPriceListService.customPriceLocalList(
       priceListInput,

@@ -50,10 +50,16 @@ export class Env {
   public TWILIO_AUTH_TOKEN: string;
 
   @IsString()
-  public JWT_REFRESH_TOKEN_SECRET: string;
+  public USER_JWT_REFRESH_TOKEN_SECRET: string;
 
   @IsString()
-  public JWT_ACCESS_TOKEN_SECRET: string;
+  public USER_JWT_ACCESS_TOKEN_SECRET: string;
+
+  @IsString()
+  public AUTOMATIC_GATE_JWT_REFRESH_TOKEN_SECRET: string;
+
+  @IsString()
+  public AUTOMATIC_GATE_JWT_ACCESS_TOKEN_SECRET: string;
 
   @IsString()
   public GOOGLE_OAUTH_CLIENT_ID: string;

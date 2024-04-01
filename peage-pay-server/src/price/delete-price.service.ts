@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { GraphQLError } from 'graphql';
 import { PriceErrors } from './graphql/price-errors.gql';
-import { AccessTokenPayload } from 'src/auth/types/access-token-payload.type';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
 import { TollAdminService } from './toll-admin.service';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
@@ -31,7 +31,7 @@ export class DeletePriceService {
 
   public async deleteLocalPrice(
     deletePriceInput: IdInput,
-    accessTokenPayload: AccessTokenPayload,
+    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<boolean> {
     const price = await this.databaseService.price.findUnique({
       where: {

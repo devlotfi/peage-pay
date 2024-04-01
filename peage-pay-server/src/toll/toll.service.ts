@@ -6,6 +6,7 @@ import { AddTollInput } from './input/add-toll.input.gql';
 import { EditTollInput } from './input/edit-toll.input.gql';
 import { TollListResult } from './result/toll-list.result.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { ChangeTollStatusInput } from './input/change-toll-status.input.gql';
 
 @Injectable()
 export class TollService {
@@ -108,7 +109,13 @@ export class TollService {
         take: tollListInput.take,
         skip: tollListInput.skip,
       });
-      const tollCount = await this.databaseService.toll.count();
+      const tollCount = await this.databaseService.toll.count({
+        where: {
+          tollNetwork: {
+            id: tollListInput.tollNetworkId,
+          },
+        },
+      });
       return {
         count: tollCount,
         list: tollList as any,
@@ -174,6 +181,20 @@ export class TollService {
     });
 
     return toll;
+  }
+
+  public async changeTollStatus(
+    changeTollStatusInput: ChangeTollStatusInput,
+  ): Promise<boolean> {
+    await this.databaseService.toll.update({
+      where: {
+        id: changeTollStatusInput.tollId,
+      },
+      data: {
+        status: changeTollStatusInput.status,
+      },
+    });
+    return true;
   }
 
   public async deleteToll(deleteTollInput: IdInput): Promise<boolean> {
