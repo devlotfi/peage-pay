@@ -266,10 +266,12 @@ model AutomaticGate {
 
   id           String   @id @default(uuid())
   tollId       String
-  name         String   @unique
+  name         String
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@unique([name, tollId])
 }
 
 model Trip {

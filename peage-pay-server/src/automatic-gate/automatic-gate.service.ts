@@ -200,7 +200,10 @@ export class AutomaticGateService {
     const automaticGate =
       await this.databaseService.automaticGate.findUniqueOrThrow({
         where: {
-          name: signInAutomaticGateInput.name,
+          name_tollId: {
+            name: signInAutomaticGateInput.name,
+            tollId: signInAutomaticGateInput.tollId,
+          },
         },
       });
     const result = await compare(

@@ -1,8 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { Length } from 'class-validator';
+import { IsUUID, Length } from 'class-validator';
 
 @InputType()
 export class SignInAutomaticGateInput {
+  @Field()
+  @IsUUID()
+  public tollId: string;
+
   @Field()
   @Length(1, 512)
   public name: string;
