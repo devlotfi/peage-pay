@@ -31,11 +31,13 @@ const EditTollPage = (): JSX.Element => {
     { loading: editLoading, error: editError, data: editData },
   ] = useMutation(CHANGE_TOLL_STATUS, {
     refetchQueries: [TOLL_ADMIN_INFO, TOLL_BY_ID],
+    awaitRefetchQueries: true,
   });
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
     useFormik({
       initialValues: {
-        status: tollAdmin.toll?.status,
+        inboundStatus: tollAdmin.toll?.inboundStatus,
+        outboundStatus: tollAdmin.toll?.outboundStatus,
       },
       validationSchema: editTollValidationSchema,
       onSubmit(values) {
@@ -43,7 +45,8 @@ const EditTollPage = (): JSX.Element => {
           changeTollStatus({
             variables: {
               changeTollStatusInput: {
-                status: values.status!,
+                inboundStatus: values.inboundStatus!,
+                outboundStatus: values.outboundStatus!,
                 tollId: tollAdmin.toll.id,
               },
             },
@@ -65,22 +68,47 @@ const EditTollPage = (): JSX.Element => {
         </FormPageLayout.Title>
 
         <Select
-          variant={errors.status && touched.status ? 'error' : 'edge-100'}
+          variant={
+            errors.inboundStatus && touched.inboundStatus ? 'error' : 'edge-100'
+          }
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Status</Select.Label>
+            <Select.Label>Inbound status</Select.Label>
             <Select.Field
-              name="status"
-              value={values.status}
+              name="inboundStatus"
+              value={values.inboundStatus}
               onChange={handleChange}
               onBlur={handleBlur}
             >
               {Utils.renderFieldOptions(TollStatusType)}
             </Select.Field>
           </Select.Main>
-          {errors.status && touched.status ? (
-            <Select.InfoMessage>{errors.status}</Select.InfoMessage>
+          {errors.inboundStatus && touched.inboundStatus ? (
+            <Select.InfoMessage>{errors.inboundStatus}</Select.InfoMessage>
+          ) : null}
+        </Select>
+        <Select
+          variant={
+            errors.outboundStatus && touched.outboundStatus
+              ? 'error'
+              : 'edge-100'
+          }
+          className="w-full mb-[1.3rem]"
+        >
+          <Select.Main>
+            <Select.Label>Inbound status</Select.Label>
+            <Select.Field
+              name="outboundStatus"
+              value={values.outboundStatus}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {Utils.renderFieldOptions(TollStatusType)}
+            </Select.Field>
+          </Select.Main>
+          {errors.outboundStatus && touched.outboundStatus ? (
+            <Select.InfoMessage>{errors.outboundStatus}</Select.InfoMessage>
           ) : null}
         </Select>
 

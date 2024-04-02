@@ -25,7 +25,8 @@ const AdminDashboardLayoutTollInfo = ({
       {...props}
     >
       <div className="flex">Toll: {toll.name}</div>
-      <div className="flex">Status: {toll.status}</div>
+      <div className="flex">Inbound traffic status: {toll.inboundStatus}</div>
+      <div className="flex">Outbound traffic status: {toll.outboundStatus}</div>
     </div>
   );
 };

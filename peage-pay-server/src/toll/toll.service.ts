@@ -26,7 +26,6 @@ export class TollService {
     if (
       tollListInput.idSearch ||
       tollListInput.nameSearch ||
-      tollListInput.statusSearch ||
       tollListInput.wilayaNameSearch ||
       tollListInput.wilayaCodeSearch ||
       tollListInput.highwayNameSearch ||
@@ -161,7 +160,8 @@ export class TollService {
     const toll = await this.databaseService.toll.update({
       data: {
         name: editTollInput.name,
-        status: editTollInput.status,
+        inboundStatus: editTollInput.inboundStatus,
+        outboundStatus: editTollInput.outboundStatus,
         longitude: editTollInput.longitude,
         latitude: editTollInput.latitude,
         wilaya: {
@@ -191,7 +191,8 @@ export class TollService {
         id: changeTollStatusInput.tollId,
       },
       data: {
-        status: changeTollStatusInput.status,
+        inboundStatus: changeTollStatusInput.inboundStatus,
+        outboundStatus: changeTollStatusInput.outboundStatus,
       },
     });
     return true;

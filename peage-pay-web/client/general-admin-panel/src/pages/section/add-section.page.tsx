@@ -1,11 +1,11 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPlus,
   faRoadBarrier,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AdminDashboardLayout,
   Alert,
@@ -13,31 +13,27 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
-  Select,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useParams } from "react-router-dom";
-import { TOLL_NETWORK_BY_ID } from "../../graphql/queries";
-import { useRef, useState } from "react";
-import { SectionStatusType, TollType } from "../../__generated__/graphql";
-import TollPicker from "../../components/toll/toll-picker.component";
-import { ADD_SECTION } from "../../graphql/mutations";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
+import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
+import { useRef, useState } from 'react';
+import { TollType } from '../../__generated__/graphql';
+import TollPicker from '../../components/toll/toll-picker.component';
+import { ADD_SECTION } from '../../graphql/mutations';
 
 interface AddSectionValues {
   fromTollId: string;
   toTollId: string;
   distance: number;
-  status: SectionStatusType;
 }
 
 const initialValues: AddSectionValues = {
-  fromTollId: "",
-  toTollId: "",
+  fromTollId: '',
+  toTollId: '',
   distance: 0,
-  status: SectionStatusType.NormalTraffic,
 };
 
 const addSectionValidationSchema = yup.object({
@@ -81,7 +77,6 @@ const AddSectionPage = (): JSX.Element => {
             fromTollId: values.fromTollId,
             toTollId: values.toTollId,
             distance: values.distance,
-            status: values.status,
           },
         },
       });
@@ -93,20 +88,20 @@ const AddSectionPage = (): JSX.Element => {
 
   const handleFromTollChange = (toll: TollType | null) => {
     if (toll) {
-      setFieldValue("fromTollId", toll.id);
+      setFieldValue('fromTollId', toll.id);
       setFromToll(toll);
     } else {
-      setFieldValue("fromTollId", "");
+      setFieldValue('fromTollId', '');
       setFromToll(null);
     }
   };
 
   const handleToTollChange = (toll: TollType | null) => {
     if (toll) {
-      setFieldValue("toTollId", toll.id);
+      setFieldValue('toTollId', toll.id);
       setToToll(toll);
     } else {
-      setFieldValue("toTollId", "");
+      setFieldValue('toTollId', '');
       setToToll(null);
     }
   };
@@ -135,7 +130,7 @@ const AddSectionPage = (): JSX.Element => {
           <AdminDashboardLayout.Error error={tollNetworkError}>
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Add section</Heading.Text>
@@ -144,7 +139,7 @@ const AddSectionPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.fromTollId && touched.fromTollId ? "error" : "edge-100"
+                errors.fromTollId && touched.fromTollId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
@@ -162,11 +157,11 @@ const AddSectionPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[1.3rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => fromTollPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Set toll</Button.Content>
@@ -174,7 +169,7 @@ const AddSectionPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.toTollId && touched.toTollId ? "error" : "edge-100"
+                errors.toTollId && touched.toTollId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
@@ -190,11 +185,11 @@ const AddSectionPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[1.3rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => toTollPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Set toll</Button.Content>
@@ -202,7 +197,7 @@ const AddSectionPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.distance && touched.distance ? "error" : "edge-100"
+                errors.distance && touched.distance ? 'error' : 'edge-100'
               }
               className="w-full mb-[1.3rem]"
             >
@@ -216,35 +211,16 @@ const AddSectionPage = (): JSX.Element => {
                   placeholder="Enter distance"
                   type="number"
                 ></TextInput.Field>
-                <TextInput.Icon position={"right"}>km</TextInput.Icon>
+                <TextInput.Icon position={'right'}>km</TextInput.Icon>
               </TextInput.Main>
               {errors.distance && touched.distance ? (
                 <TextInput.InfoMessage>{errors.distance}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
-            <Select
-              variant={errors.status && touched.status ? "error" : "edge-100"}
-              className="w-full mb-[1.3rem]"
-            >
-              <Select.Main>
-                <Select.Label>Status</Select.Label>
-                <Select.Field
-                  name="status"
-                  value={values.status}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                >
-                  {Utils.renderFieldOptions(SectionStatusType)}
-                </Select.Field>
-              </Select.Main>
-              {errors.status && touched.status ? (
-                <Select.InfoMessage>{errors.status}</Select.InfoMessage>
-              ) : null}
-            </Select>
 
             {addData ? (
-              <Alert variant={"success"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Toll distance created</Alert.Content>
@@ -252,22 +228,22 @@ const AddSectionPage = (): JSX.Element => {
             ) : null}
 
             {addError ? (
-              <Alert variant={"error"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${addError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
               {addLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Add toll distance</Button.Content>

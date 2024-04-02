@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   faCheck,
   faCity,
@@ -6,8 +6,8 @@ import {
   faMapMarked,
   faPen,
   faRoad,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AdminDashboardLayout,
   Alert,
@@ -17,31 +17,32 @@ import {
   LoaderDots,
   Select,
   TextInput,
-} from "@peage-pay-web/ui";
-import { EDIT_TOLL } from "../../graphql/mutations";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useParams } from "react-router-dom";
+} from '@peage-pay-web/ui';
+import { EDIT_TOLL } from '../../graphql/mutations';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
 import {
   HIGHWAY_BY_ID,
   TOLL_BY_ID,
   TOLL_NETWORK_BY_ID,
   WILAYA_BY_ID,
-} from "../../graphql/queries";
-import { useState, useRef } from "react";
+} from '../../graphql/queries';
+import { useState, useRef } from 'react';
 import {
   WilayaType,
   HighwayType,
   TollStatusType,
-} from "../../__generated__/graphql";
-import HighwayPicker from "../../components/highway/highway-picker.component";
-import LocationPicker from "../../components/toll/location-picker.component";
-import WilayaPicker from "../../components/wilaya/wilaya-picker.component";
-import { Utils } from "@peage-pay-web/utils";
+} from '../../__generated__/graphql';
+import HighwayPicker from '../../components/highway/highway-picker.component';
+import LocationPicker from '../../components/toll/location-picker.component';
+import WilayaPicker from '../../components/wilaya/wilaya-picker.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface EditTollValues {
   name: string;
-  status: TollStatusType;
+  inboundStatus: TollStatusType;
+  outboundStatus: TollStatusType;
   latitude: number;
   longitude: number;
   wilayaId: string;
@@ -49,12 +50,13 @@ interface EditTollValues {
 }
 
 const initialValues: EditTollValues = {
-  name: "",
-  status: TollStatusType.NormalTraffic,
+  name: '',
+  inboundStatus: TollStatusType.NormalTraffic,
+  outboundStatus: TollStatusType.NormalTraffic,
   latitude: 0,
   longitude: 0,
-  wilayaId: "",
-  highwayId: "",
+  wilayaId: '',
+  highwayId: '',
 };
 
 const editTollValidationSchema = yup.object({
@@ -77,12 +79,13 @@ const EditTollPage = (): JSX.Element => {
         id: tollId as string,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
     onCompleted(data) {
       if (data.tollById) {
         setValues({
           name: data.tollById.name,
-          status: data.tollById.status,
+          inboundStatus: data.tollById.inboundStatus,
+          outboundStatus: data.tollById.outboundStatus,
           latitude: data.tollById.latitude,
           longitude: data.tollById.longitude,
           highwayId: data.tollById.highway.id,
@@ -104,9 +107,9 @@ const EditTollPage = (): JSX.Element => {
           setSelectedHighway(data.highwayById);
         }
       },
-      fetchPolicy: "network-only",
+      fetchPolicy: 'network-only',
       skip: tollLoading || tollError !== undefined,
-    }
+    },
   );
   const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
     TOLL_NETWORK_BY_ID,
@@ -116,9 +119,9 @@ const EditTollPage = (): JSX.Element => {
           id: tollData?.tollById.tollNetwork.id as string,
         },
       },
-      fetchPolicy: "network-only",
+      fetchPolicy: 'network-only',
       skip: tollLoading || tollError !== undefined,
-    }
+    },
   );
   const { loading: wilayaLoading, error: wilayaError } = useQuery(
     WILAYA_BY_ID,
@@ -133,9 +136,9 @@ const EditTollPage = (): JSX.Element => {
           setSelectedWilaya(data.wilayaById);
         }
       },
-      fetchPolicy: "network-only",
+      fetchPolicy: 'network-only',
       skip: tollLoading || tollError !== undefined,
-    }
+    },
   );
   const [editToll, { loading: editLoading, error: editError, data: editData }] =
     useMutation(EDIT_TOLL);
@@ -161,7 +164,8 @@ const EditTollPage = (): JSX.Element => {
               longitude: values.longitude,
               wilayaId: values.wilayaId,
               highwayId: values.highwayId,
-              status: values.status,
+              inboundStatus: values.inboundStatus,
+              outboundStatus: values.outboundStatus,
               tollId: tollId,
             },
           },
@@ -172,7 +176,7 @@ const EditTollPage = (): JSX.Element => {
 
   const [selectedWilaya, setSelectedWilaya] = useState<WilayaType | null>(null);
   const [selectedHighway, setSelectedHighway] = useState<HighwayType | null>(
-    null
+    null,
   );
 
   const locationPickerModalRef = useRef<HTMLDialogElement>(null);
@@ -183,30 +187,30 @@ const EditTollPage = (): JSX.Element => {
     const latitude = latLng?.lat();
     const longitude = latLng?.lng();
     if (latitude && longitude) {
-      setFieldValue("latitude", latitude);
-      setFieldValue("longitude", longitude);
+      setFieldValue('latitude', latitude);
+      setFieldValue('longitude', longitude);
     } else {
-      setFieldValue("latitude", 0);
-      setFieldValue("longitude", 0);
+      setFieldValue('latitude', 0);
+      setFieldValue('longitude', 0);
     }
   };
 
   const handleWilayaChange = (wilaya: WilayaType | null) => {
     if (wilaya) {
-      setFieldValue("wilayaId", wilaya.id);
+      setFieldValue('wilayaId', wilaya.id);
       setSelectedWilaya(wilaya);
     } else {
-      setFieldValue("wilayaId", "");
+      setFieldValue('wilayaId', '');
       setSelectedWilaya(null);
     }
   };
 
   const handleHighwayChange = (highway: HighwayType | null) => {
     if (highway) {
-      setFieldValue("highwayId", highway.id);
+      setFieldValue('highwayId', highway.id);
       setSelectedHighway(highway);
     } else {
-      setFieldValue("highwayId", "");
+      setFieldValue('highwayId', '');
       setSelectedHighway(null);
     }
   };
@@ -245,7 +249,7 @@ const EditTollPage = (): JSX.Element => {
           >
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Edit toll</Heading.Text>
@@ -253,7 +257,7 @@ const EditTollPage = (): JSX.Element => {
             </FormPageLayout.Title>
 
             <TextInput
-              variant={errors.name && touched.name ? "error" : "edge-100"}
+              variant={errors.name && touched.name ? 'error' : 'edge-100'}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
@@ -272,27 +276,54 @@ const EditTollPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <Select
-              variant={errors.status && touched.status ? "error" : "edge-100"}
+              variant={
+                errors.inboundStatus && touched.inboundStatus
+                  ? 'error'
+                  : 'edge-100'
+              }
               className="w-full mb-[1.3rem]"
             >
               <Select.Main>
-                <Select.Label>Status</Select.Label>
+                <Select.Label>Inbound Status</Select.Label>
                 <Select.Field
-                  name="status"
-                  value={values.status}
+                  name="inboundStatus"
+                  value={values.inboundStatus}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 >
                   {Utils.renderFieldOptions(TollStatusType)}
                 </Select.Field>
               </Select.Main>
-              {errors.status && touched.status ? (
-                <Select.InfoMessage>{errors.status}</Select.InfoMessage>
+              {errors.inboundStatus && touched.inboundStatus ? (
+                <Select.InfoMessage>{errors.inboundStatus}</Select.InfoMessage>
+              ) : null}
+            </Select>
+            <Select
+              variant={
+                errors.outboundStatus && touched.outboundStatus
+                  ? 'error'
+                  : 'edge-100'
+              }
+              className="w-full mb-[1.3rem]"
+            >
+              <Select.Main>
+                <Select.Label>Inbound Status</Select.Label>
+                <Select.Field
+                  name="Outbound Status"
+                  value={values.outboundStatus}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {Utils.renderFieldOptions(TollStatusType)}
+                </Select.Field>
+              </Select.Main>
+              {errors.outboundStatus && touched.outboundStatus ? (
+                <Select.InfoMessage>{errors.outboundStatus}</Select.InfoMessage>
               ) : null}
             </Select>
             <TextInput
               variant={
-                errors.latitude && touched.latitude ? "error" : "edge-100"
+                errors.latitude && touched.latitude ? 'error' : 'edge-100'
               }
               className="w-full mb-[1.3rem]"
             >
@@ -314,7 +345,7 @@ const EditTollPage = (): JSX.Element => {
             </TextInput>
             <TextInput
               variant={
-                errors.longitude && touched.longitude ? "error" : "edge-100"
+                errors.longitude && touched.longitude ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
@@ -337,12 +368,12 @@ const EditTollPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <Button
-              variant={"base-200"}
+              variant={'base-200'}
               className="mb-[1.3rem]"
               type="button"
               onClick={() => locationPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faMapMarked}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Set location</Button.Content>
@@ -350,14 +381,14 @@ const EditTollPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.wilayaId && touched.wilayaId ? "error" : "edge-100"
+                errors.wilayaId && touched.wilayaId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
                 <TextInput.Label>Wilaya</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedWilaya?.name} {selectedWilaya?.code}{" "}
+                  {selectedWilaya?.name} {selectedWilaya?.code}{' '}
                   {selectedWilaya?.id}
                 </div>
               </TextInput.Main>
@@ -367,11 +398,11 @@ const EditTollPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[1.3rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => wilayaPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faCity}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Set wilaya</Button.Content>
@@ -379,14 +410,14 @@ const EditTollPage = (): JSX.Element => {
 
             <TextInput
               variant={
-                errors.highwayId && touched.highwayId ? "error" : "edge-100"
+                errors.highwayId && touched.highwayId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
                 <TextInput.Label>Highway</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedHighway?.name} {selectedHighway?.code}{" "}
+                  {selectedHighway?.name} {selectedHighway?.code}{' '}
                   {selectedHighway?.id}
                 </div>
               </TextInput.Main>
@@ -398,19 +429,19 @@ const EditTollPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[0.5rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => highwayPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Set highway</Button.Content>
             </Button>
 
             {editData ? (
-              <Alert variant={"success"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Toll updated</Alert.Content>
@@ -418,22 +449,22 @@ const EditTollPage = (): JSX.Element => {
             ) : null}
 
             {editError ? (
-              <Alert variant={"error"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
               {editLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Edit toll</Button.Content>

@@ -17,5 +17,8 @@ export class EditSectionInput {
   public distance: number;
 
   @Field(() => SectionStatusType)
-  public status: SectionStatusType;
+  public fromStatus: SectionStatusType;
+
+  @Field(() => SectionStatusType)
+  public toStatus: SectionStatusType;
 }

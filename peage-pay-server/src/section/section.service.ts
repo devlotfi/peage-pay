@@ -107,7 +107,6 @@ export class SectionService {
             id: addSectionInput.toTollId,
           },
         },
-        status: addSectionInput.status,
         distance: addSectionInput.distance,
       },
     });
@@ -119,7 +118,8 @@ export class SectionService {
   ): Promise<Section> {
     const graphTollDistance = await this.databaseService.section.update({
       data: {
-        status: editSectionInput.status,
+        fromStatus: editSectionInput.fromStatus,
+        toStatus: editSectionInput.toStatus,
         distance: editSectionInput.distance,
       },
       where: {

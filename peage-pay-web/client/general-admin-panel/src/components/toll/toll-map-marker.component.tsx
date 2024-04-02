@@ -15,10 +15,25 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
         <div
           className={Utils.cn(
             'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
-            toll.status === TollStatusType.NormalTraffic && 'bg-green-500',
-            toll.status === TollStatusType.ModerateTraffic && 'bg-yellow-500',
-            toll.status === TollStatusType.HighTraffic && 'bg-orange-400',
-            toll.status === TollStatusType.OutOfService && 'bg-red-500',
+            toll.inboundStatus === TollStatusType.NormalTraffic &&
+              'bg-green-500',
+            toll.inboundStatus === TollStatusType.ModerateTraffic &&
+              'bg-yellow-500',
+            toll.inboundStatus === TollStatusType.HighTraffic &&
+              'bg-orange-400',
+            toll.inboundStatus === TollStatusType.OutOfService && 'bg-red-500',
+          )}
+        ></div>
+        <div
+          className={Utils.cn(
+            'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
+            toll.outboundStatus === TollStatusType.NormalTraffic &&
+              'bg-green-500',
+            toll.outboundStatus === TollStatusType.ModerateTraffic &&
+              'bg-yellow-500',
+            toll.outboundStatus === TollStatusType.HighTraffic &&
+              'bg-orange-400',
+            toll.outboundStatus === TollStatusType.OutOfService && 'bg-red-500',
           )}
         ></div>
         <div className="flex text-[11pt]">{toll.name}</div>
@@ -30,7 +45,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
         Wilaya: {toll.wilaya.name}
       </div>
       <div className="hidden group-hover:flex text-[10pt] group-hover:text-[11pt]">
-        Status: {toll.status}
+        Status: {toll.inboundStatus}
       </div>
 
       <div className="hidden group-hover:flex mt-[0.5rem]">

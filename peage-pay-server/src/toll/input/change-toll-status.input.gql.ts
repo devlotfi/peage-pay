@@ -9,5 +9,8 @@ export class ChangeTollStatusInput {
   public tollId: string;
 
   @Field(() => TollStatusType)
-  public status: TollStatusType;
+  public inboundStatus: TollStatusType;
+
+  @Field(() => TollStatusType)
+  public outboundStatus: TollStatusType;
 }

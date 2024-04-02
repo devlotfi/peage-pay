@@ -1,4 +1,4 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
 
 export const HIGHWAY_LIST = gql(`
   query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {
@@ -61,7 +61,8 @@ export const FULL_TOLL_LIST = gql(`
     fullTollList(fullTollListInput: $fullTollListInput) {
       id
       name
-      status
+      inboundStatus
+      outboundStatus
       longitude
       latitude
       wilayaId
@@ -94,7 +95,8 @@ export const TOLL_LIST = gql(`
       list {
         id
         name
-        status
+        inboundStatus
+        outboundStatus
         longitude
         latitude
         wilayaId
@@ -126,7 +128,8 @@ export const TOLL_BY_ID = gql(`
     tollById(tollByIdInput: $tollByIdInput) {
       id
       name
-      status
+      inboundStatus
+      outboundStatus
       longitude
       latitude
       wilayaId
@@ -204,7 +207,8 @@ export const SECTION_LIST_FOR_TOLL_NETWORK = gql(`
   query SECTION_LIST_FOR_TOLL_NETWORK($sectionListForTollNetworkInput: IdInput!) {
     sectionListForTollNetwork(sectionListForTollNetworkInput: $sectionListForTollNetworkInput) {
       distance
-      status
+      fromStatus
+      toStatus
       fromToll {
         id
         name
@@ -227,7 +231,8 @@ export const SECTION_LIST_FOR_TOLL = gql(`
       count
       list {
         distance
-        status
+        fromStatus
+        toStatus
         fromToll {
           id
           name
@@ -245,7 +250,8 @@ export const SECTION_BY_IDS = gql(`
   query SECTION_BY_IDS($sectionByIdsInput: SectionByIdsInput!) {
     sectionByIds(sectionByIdsInput: $sectionByIdsInput) {
       distance
-      status
+      fromStatus
+      toStatus
       fromToll {
         id
         name

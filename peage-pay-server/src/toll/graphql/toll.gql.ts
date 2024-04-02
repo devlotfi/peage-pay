@@ -31,7 +31,10 @@ export class TollType {
   public name: string;
 
   @Field(() => TollStatusType)
-  public status: TollStatusType;
+  public inboundStatus: TollStatusType;
+
+  @Field(() => TollStatusType)
+  public outboundStatus: TollStatusType;
 
   @Field()
   public longitude: number;

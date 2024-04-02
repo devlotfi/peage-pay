@@ -18,6 +18,11 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AddAutomaticGateInput = {
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type AddCustomPriceInput = {
   endDate: Scalars['DateTime']['input'];
   endTimestamp: Scalars['DateTime']['input'];
@@ -57,10 +62,15 @@ export type AddPriceInput = {
   addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
 };
 
+export type AddRfidTagInput = {
+  baseUserId: Scalars['String']['input'];
+  registrationNumber: Scalars['String']['input'];
+  rfid: Scalars['String']['input'];
+};
+
 export type AddSectionInput = {
   distance: Scalars['Float']['input'];
   fromTollId: Scalars['String']['input'];
-  status: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -109,8 +119,36 @@ export enum AuthErrors {
   VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING'
 }
 
+export type AutomaticGateListInput = {
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  nameSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type AutomaticGateListResult = {
+  __typename?: 'AutomaticGateListResult';
+  count: Scalars['Float']['output'];
+  list: Array<AutomaticGateType>;
+};
+
+export enum AutomaticGateSearchFields {
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch'
+}
+
+export type AutomaticGateType = {
+  __typename?: 'AutomaticGateType';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  tollId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export enum BaseUserErrors {
-  InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES'
+  InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES',
+  TollNotAssigned = 'TOLL_NOT_ASSIGNED'
 }
 
 export type BaseUserListInput = {
@@ -157,6 +195,12 @@ export type ChangeTollInput = {
   tollId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ChangeTollStatusInput = {
+  inboundStatus: TollStatusType;
+  outboundStatus: TollStatusType;
+  tollId: Scalars['String']['input'];
+};
+
 export type CustomPriceListResult = {
   __typename?: 'CustomPriceListResult';
   count: Scalars['Float']['output'];
@@ -198,6 +242,12 @@ export type DeleteSectionInput = {
   toTollId: Scalars['String']['input'];
 };
 
+export type EditAutomaticGateInput = {
+  automaticGateId: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type EditHighwayInput = {
   code?: InputMaybe<Scalars['String']['input']>;
   highwayId: Scalars['String']['input'];
@@ -206,8 +256,9 @@ export type EditHighwayInput = {
 
 export type EditSectionInput = {
   distance: Scalars['Float']['input'];
+  fromStatus: SectionStatusType;
   fromTollId: Scalars['String']['input'];
-  status: SectionStatusType;
+  toStatus: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -220,10 +271,11 @@ export type EditSubscriptionInput = {
 
 export type EditTollInput = {
   highwayId?: InputMaybe<Scalars['String']['input']>;
+  inboundStatus?: InputMaybe<TollStatusType>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<TollStatusType>;
+  outboundStatus?: InputMaybe<TollStatusType>;
   tollId: Scalars['String']['input'];
   wilayaId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -345,12 +397,14 @@ export type MonthlyPriceType = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addAutomaticGate: AutomaticGateType;
   addGateAdminRole: Scalars['Boolean']['output'];
   addGlobalPrice: Scalars['Boolean']['output'];
   addHighway: HighwayType;
   addHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   addLocalPrice: Scalars['Boolean']['output'];
   addModeratorRole: Scalars['Boolean']['output'];
+  addRfidTag: RfidTagType;
   addSection: SectionType;
   addSubscription: SubscriptionType;
   addToll: TollType;
@@ -358,13 +412,18 @@ export type Mutation = {
   addTollNetwork: TollNetworkType;
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
+  changeTollStatus: Scalars['Boolean']['output'];
+  deleteAutomaticGate: Scalars['Boolean']['output'];
+  deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
   deleteHighway: Scalars['Boolean']['output'];
   deleteLocalPrice: Scalars['Boolean']['output'];
+  deleteRfidTag: Scalars['Boolean']['output'];
   deleteSection: Scalars['Boolean']['output'];
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
+  editAutomaticGate: AutomaticGateType;
   editHighway: HighwayType;
   editSection: SectionType;
   editSubscription: SubscriptionType;
@@ -386,8 +445,13 @@ export type Mutation = {
 };
 
 
+export type MutationAddAutomaticGateArgs = {
+  addAutomaticGateInput: AddAutomaticGateInput;
+};
+
+
 export type MutationAddGateAdminRoleArgs = {
-  changeTollInput: IdInput;
+  addGateAdminRoleInput: IdInput;
 };
 
 
@@ -412,7 +476,12 @@ export type MutationAddLocalPriceArgs = {
 
 
 export type MutationAddModeratorRoleArgs = {
-  changeTollInput: IdInput;
+  addModeratorRoleInput: IdInput;
+};
+
+
+export type MutationAddRfidTagArgs = {
+  addRfidTagInput: AddRfidTagInput;
 };
 
 
@@ -432,7 +501,7 @@ export type MutationAddTollArgs = {
 
 
 export type MutationAddTollAdminRoleArgs = {
-  changeTollInput: IdInput;
+  addTollAdminRoleInput: IdInput;
 };
 
 
@@ -442,12 +511,27 @@ export type MutationAddTollNetworkArgs = {
 
 
 export type MutationChangeGateAdminTollArgs = {
-  changeTollInput: ChangeTollInput;
+  changeGateAdminTollInput: ChangeTollInput;
 };
 
 
 export type MutationChangeTollAdminTollArgs = {
-  changeTollInput: ChangeTollInput;
+  changeTollAdminTollInput: ChangeTollInput;
+};
+
+
+export type MutationChangeTollStatusArgs = {
+  changeTollStatusInput: ChangeTollStatusInput;
+};
+
+
+export type MutationDeleteAutomaticGateArgs = {
+  deleteAutomaticGateInput: IdInput;
+};
+
+
+export type MutationDeleteBaseUserArgs = {
+  deleteBaseUserInput: IdInput;
 };
 
 
@@ -463,6 +547,11 @@ export type MutationDeleteHighwayArgs = {
 
 export type MutationDeleteLocalPriceArgs = {
   deletePriceInput: IdInput;
+};
+
+
+export type MutationDeleteRfidTagArgs = {
+  deleteRfidTagInput: IdInput;
 };
 
 
@@ -483,6 +572,11 @@ export type MutationDeleteTollArgs = {
 
 export type MutationDeleteTollNetworkArgs = {
   deleteTollNetworkInput: IdInput;
+};
+
+
+export type MutationEditAutomaticGateArgs = {
+  editAutomaticGateInput: EditAutomaticGateInput;
 };
 
 
@@ -517,7 +611,7 @@ export type MutationGenerateTollDistancesArgs = {
 
 
 export type MutationRemoveGateAdminRoleArgs = {
-  changeTollInput: IdInput;
+  removeGateAdminRoleInput: IdInput;
 };
 
 
@@ -527,12 +621,12 @@ export type MutationRemoveHumanRessoucesAdminRoleArgs = {
 
 
 export type MutationRemoveModeratorRoleArgs = {
-  changeTollInput: IdInput;
+  removeModeratorRoleInput: IdInput;
 };
 
 
 export type MutationRemoveTollAdminRoleArgs = {
-  changeTollInput: IdInput;
+  removeTollAdminRoleInput: IdInput;
 };
 
 
@@ -600,6 +694,8 @@ export enum PrismaErrors {
 
 export type Query = {
   __typename?: 'Query';
+  automaticGateById?: Maybe<AutomaticGateType>;
+  automaticGateList: AutomaticGateListResult;
   baseUserById?: Maybe<BaseUserType>;
   baseUserList: BaseUserListResult;
   customPriceGlobalList: CustomPriceListResult;
@@ -615,6 +711,8 @@ export type Query = {
   moderatorList: ModeratorListResult;
   monthlyPriceGlobalList: MonthlyPriceListResult;
   monthlyPriceLocalList: MonthlyPriceListResult;
+  rfidTagByRfid?: Maybe<RfidTagType>;
+  rfidTagList: RfidTagListResult;
   sectionByIds?: Maybe<SectionType>;
   sectionListForToll: SectionListResult;
   sectionListForTollNetwork: Array<SectionType>;
@@ -623,11 +721,13 @@ export type Query = {
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
   tollAdminById?: Maybe<TollAdminType>;
+  tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
   tollById: TollType;
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
+  tollPrice: Scalars['Boolean']['output'];
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
@@ -637,8 +737,18 @@ export type Query = {
 };
 
 
+export type QueryAutomaticGateByIdArgs = {
+  automaticGateByIdInput: IdInput;
+};
+
+
+export type QueryAutomaticGateListArgs = {
+  automaticGateListInput: AutomaticGateListInput;
+};
+
+
 export type QueryBaseUserByIdArgs = {
-  userByIdInput: IdInput;
+  baseUserByIdInput: IdInput;
 };
 
 
@@ -673,7 +783,7 @@ export type QueryFullTollListArgs = {
 
 
 export type QueryGateAdminByIdArgs = {
-  userByIdInput: IdInput;
+  gateAdminByIdInput: IdInput;
 };
 
 
@@ -704,6 +814,16 @@ export type QueryMonthlyPriceGlobalListArgs = {
 
 export type QueryMonthlyPriceLocalListArgs = {
   priceListInput: PaginationInput;
+};
+
+
+export type QueryRfidTagByRfidArgs = {
+  rfidTagByRfidInput: RfidTagByRfidInput;
+};
+
+
+export type QueryRfidTagListArgs = {
+  rfidTagListInput: RfidTagListInput;
 };
 
 
@@ -738,7 +858,7 @@ export type QuerySubscriptionListArgs = {
 
 
 export type QueryTollAdminByIdArgs = {
-  userByIdInput: IdInput;
+  tollAdminByIdInput: IdInput;
 };
 
 
@@ -764,6 +884,11 @@ export type QueryTollNetworkByIdArgs = {
 
 export type QueryTollNetworkListArgs = {
   tollNetworkListInput: TollNetworkListInput;
+};
+
+
+export type QueryTollPriceArgs = {
+  tollPriceInput: IdInput;
 };
 
 
@@ -807,6 +932,42 @@ export type ResetPasswordInput = {
   userId: Scalars['String']['input'];
 };
 
+export type RfidTagByRfidInput = {
+  rfid: Scalars['String']['input'];
+};
+
+export type RfidTagListInput = {
+  baseUserId: Scalars['String']['input'];
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  registrationNumberSearch?: InputMaybe<Scalars['String']['input']>;
+  rfidSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type RfidTagListResult = {
+  __typename?: 'RfidTagListResult';
+  count: Scalars['Float']['output'];
+  list: Array<RfidTagType>;
+};
+
+export enum RfidTagSearchFields {
+  IdSearch = 'idSearch',
+  RegistrationNumberSearch = 'registrationNumberSearch',
+  RfidSearch = 'rfidSearch'
+}
+
+export type RfidTagType = {
+  __typename?: 'RfidTagType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  registrationNumber: Scalars['String']['output'];
+  rfid: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type SectionByIdsInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
@@ -834,9 +995,10 @@ export enum SectionStatusType {
 export type SectionType = {
   __typename?: 'SectionType';
   distance: Scalars['Float']['output'];
+  fromStatus: SectionStatusType;
   fromToll: TollType;
   fromTollId: Scalars['String']['output'];
-  status: SectionStatusType;
+  toStatus: SectionStatusType;
   toToll: TollType;
   toTollId: Scalars['String']['output'];
 };
@@ -947,7 +1109,6 @@ export type TollListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Float']['input']>;
-  statusSearch?: InputMaybe<TollStatusType>;
   take: Scalars['Float']['input'];
   tollNetworkId?: InputMaybe<Scalars['String']['input']>;
   wilayaCodeSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1008,10 +1169,11 @@ export type TollType = {
   highway: HighwayType;
   highwayId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  inboundStatus: TollStatusType;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   name: Scalars['String']['output'];
-  status: TollStatusType;
+  outboundStatus: TollStatusType;
   tollNetwork: TollNetworkType;
   tollNetworkId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1125,14 +1287,14 @@ export type Add_TollMutationVariables = Exact<{
 }>;
 
 
-export type Add_TollMutation = { __typename?: 'Mutation', addToll: { __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
+export type Add_TollMutation = { __typename?: 'Mutation', addToll: { __typename?: 'TollType', id: string, name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType, longitude: number, latitude: number, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
 
 export type Edit_TollMutationVariables = Exact<{
   editTollInput: EditTollInput;
 }>;
 
 
-export type Edit_TollMutation = { __typename?: 'Mutation', editToll: { __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
+export type Edit_TollMutation = { __typename?: 'Mutation', editToll: { __typename?: 'TollType', id: string, name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType, longitude: number, latitude: number, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
 
 export type Delete_TollMutationVariables = Exact<{
   deleteTollInput: IdInput;
@@ -1167,14 +1329,14 @@ export type Add_SectionMutationVariables = Exact<{
 }>;
 
 
-export type Add_SectionMutation = { __typename?: 'Mutation', addSection: { __typename?: 'SectionType', fromTollId: string, toTollId: string, distance: number, status: SectionStatusType } };
+export type Add_SectionMutation = { __typename?: 'Mutation', addSection: { __typename?: 'SectionType', fromTollId: string, toTollId: string, distance: number, fromStatus: SectionStatusType, toStatus: SectionStatusType } };
 
 export type Edit_SectionMutationVariables = Exact<{
   editSectionInput: EditSectionInput;
 }>;
 
 
-export type Edit_SectionMutation = { __typename?: 'Mutation', editSection: { __typename?: 'SectionType', fromTollId: string, toTollId: string, distance: number, status: SectionStatusType } };
+export type Edit_SectionMutation = { __typename?: 'Mutation', editSection: { __typename?: 'SectionType', fromTollId: string, toTollId: string, fromStatus: SectionStatusType, toStatus: SectionStatusType } };
 
 export type Delete_SectionMutationVariables = Exact<{
   deleteSectionInput: DeleteSectionInput;
@@ -1244,21 +1406,21 @@ export type Full_Toll_ListQueryVariables = Exact<{
 }>;
 
 
-export type Full_Toll_ListQuery = { __typename?: 'Query', fullTollList: Array<{ __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } }> };
+export type Full_Toll_ListQuery = { __typename?: 'Query', fullTollList: Array<{ __typename?: 'TollType', id: string, name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } }> };
 
 export type Toll_ListQueryVariables = Exact<{
   tollListInput: TollListInput;
 }>;
 
 
-export type Toll_ListQuery = { __typename?: 'Query', tollList: { __typename?: 'TollListResult', count: number, list: Array<{ __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } }> } };
+export type Toll_ListQuery = { __typename?: 'Query', tollList: { __typename?: 'TollListResult', count: number, list: Array<{ __typename?: 'TollType', id: string, name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } }> } };
 
 export type Toll_By_IdQueryVariables = Exact<{
   tollByIdInput: IdInput;
 }>;
 
 
-export type Toll_By_IdQuery = { __typename?: 'Query', tollById: { __typename?: 'TollType', id: string, name: string, status: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
+export type Toll_By_IdQuery = { __typename?: 'Query', tollById: { __typename?: 'TollType', id: string, name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType, longitude: number, latitude: number, wilayaId: string, highwayId: string, tollNetworkId: string, createdAt: any, updatedAt: any, wilaya: { __typename?: 'WilayaType', id: string, name: string, code: string }, highway: { __typename?: 'HighwayType', id: string, name: string, code: string }, tollNetwork: { __typename?: 'TollNetworkType', id: string, name: string } } };
 
 export type Toll_Network_ListQueryVariables = Exact<{
   tollNetworkListInput: TollNetworkListInput;
@@ -1293,21 +1455,21 @@ export type Section_List_For_Toll_NetworkQueryVariables = Exact<{
 }>;
 
 
-export type Section_List_For_Toll_NetworkQuery = { __typename?: 'Query', sectionListForTollNetwork: Array<{ __typename?: 'SectionType', distance: number, status: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number }, toToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number } }> };
+export type Section_List_For_Toll_NetworkQuery = { __typename?: 'Query', sectionListForTollNetwork: Array<{ __typename?: 'SectionType', distance: number, fromStatus: SectionStatusType, toStatus: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number }, toToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number } }> };
 
 export type Section_List_For_TollQueryVariables = Exact<{
   sectionListForTollInput: SectionListForTollInput;
 }>;
 
 
-export type Section_List_For_TollQuery = { __typename?: 'Query', sectionListForToll: { __typename?: 'SectionListResult', count: number, list: Array<{ __typename?: 'SectionType', distance: number, status: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string }, toToll: { __typename?: 'TollType', id: string, name: string } }> } };
+export type Section_List_For_TollQuery = { __typename?: 'Query', sectionListForToll: { __typename?: 'SectionListResult', count: number, list: Array<{ __typename?: 'SectionType', distance: number, fromStatus: SectionStatusType, toStatus: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string }, toToll: { __typename?: 'TollType', id: string, name: string } }> } };
 
 export type Section_By_IdsQueryVariables = Exact<{
   sectionByIdsInput: SectionByIdsInput;
 }>;
 
 
-export type Section_By_IdsQuery = { __typename?: 'Query', sectionByIds?: { __typename?: 'SectionType', distance: number, status: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string }, toToll: { __typename?: 'TollType', id: string, name: string } } | null };
+export type Section_By_IdsQuery = { __typename?: 'Query', sectionByIds?: { __typename?: 'SectionType', distance: number, fromStatus: SectionStatusType, toStatus: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string }, toToll: { __typename?: 'TollType', id: string, name: string } } | null };
 
 export type Base_User_ListQueryVariables = Exact<{
   baseUserListInput: BaseUserListInput;
@@ -1358,14 +1520,14 @@ export const Delete_HighwayDocument = {"kind":"Document","definitions":[{"kind":
 export const Add_SubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_SUBSCRIPTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addSubscriptionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddSubscriptionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addSubscription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addSubscriptionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addSubscriptionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_SubscriptionMutation, Add_SubscriptionMutationVariables>;
 export const Edit_SubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_SUBSCRIPTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editSubscriptionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditSubscriptionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editSubscription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editSubscriptionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editSubscriptionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Edit_SubscriptionMutation, Edit_SubscriptionMutationVariables>;
 export const Delete_SubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_SUBSCRIPTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteSubscriptionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteSubscription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteSubscriptionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteSubscriptionInput"}}}]}]}}]} as unknown as DocumentNode<Delete_SubscriptionMutation, Delete_SubscriptionMutationVariables>;
-export const Add_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_TollMutation, Add_TollMutationVariables>;
-export const Edit_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Edit_TollMutation, Edit_TollMutationVariables>;
+export const Add_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_TollMutation, Add_TollMutationVariables>;
+export const Edit_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Edit_TollMutation, Edit_TollMutationVariables>;
 export const Delete_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteTollInput"}}}]}]}}]} as unknown as DocumentNode<Delete_TollMutation, Delete_TollMutationVariables>;
 export const Add_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddTollNetworkInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addTollNetworkInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_Toll_NetworkMutation, Add_Toll_NetworkMutationVariables>;
 export const Edit_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditTollNetworkInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editTollNetworkInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Edit_Toll_NetworkMutation, Edit_Toll_NetworkMutationVariables>;
 export const Delete_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteTollNetworkInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Toll_NetworkMutation, Delete_Toll_NetworkMutationVariables>;
-export const Add_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addSectionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromTollId"}},{"kind":"Field","name":{"kind":"Name","value":"toTollId"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<Add_SectionMutation, Add_SectionMutationVariables>;
-export const Edit_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editSectionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromTollId"}},{"kind":"Field","name":{"kind":"Name","value":"toTollId"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<Edit_SectionMutation, Edit_SectionMutationVariables>;
+export const Add_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addSectionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromTollId"}},{"kind":"Field","name":{"kind":"Name","value":"toTollId"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}}]}}]}}]} as unknown as DocumentNode<Add_SectionMutation, Add_SectionMutationVariables>;
+export const Edit_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editSectionInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromTollId"}},{"kind":"Field","name":{"kind":"Name","value":"toTollId"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}}]}}]}}]} as unknown as DocumentNode<Edit_SectionMutation, Edit_SectionMutationVariables>;
 export const Delete_SectionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_SECTION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteSectionInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteSectionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteSection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteSectionInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteSectionInput"}}}]}]}}]} as unknown as DocumentNode<Delete_SectionMutation, Delete_SectionMutationVariables>;
 export const Add_Human_Ressources_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_HUMAN_RESSOURCES_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addHumanRessoucesAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addHumanRessoucesAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Add_Human_Ressources_Admin_RoleMutation, Add_Human_Ressources_Admin_RoleMutationVariables>;
 export const Remove_Human_Ressources_Admin_RoleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeHumanRessoucesAdminRole"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"removeHumanRessoucesAdminRoleInput"}}}]}]}}]} as unknown as DocumentNode<Remove_Human_Ressources_Admin_RoleMutation, Remove_Human_Ressources_Admin_RoleMutationVariables>;
@@ -1375,16 +1537,16 @@ export const Highway_ListDocument = {"kind":"Document","definitions":[{"kind":"O
 export const Highway_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HIGHWAY_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"highwayByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Highway_By_IdQuery, Highway_By_IdQueryVariables>;
 export const Subscription_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SUBSCRIPTION_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"subscriptionListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Subscription_ListQuery, Subscription_ListQueryVariables>;
 export const Subscription_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SUBSCRIPTION_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"subscriptionByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Subscription_By_IdQuery, Subscription_By_IdQueryVariables>;
-export const Full_Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FULL_TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fullTollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullTollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"fullTollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fullTollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Full_Toll_ListQuery, Full_Toll_ListQueryVariables>;
-export const Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Toll_ListQuery, Toll_ListQueryVariables>;
-export const Toll_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Toll_By_IdQuery, Toll_By_IdQueryVariables>;
+export const Full_Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FULL_TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fullTollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullTollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"fullTollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fullTollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Full_Toll_ListQuery, Full_Toll_ListQueryVariables>;
+export const Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Toll_ListQuery, Toll_ListQueryVariables>;
+export const Toll_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Toll_By_IdQuery, Toll_By_IdQueryVariables>;
 export const Toll_Network_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_NETWORK_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollNetworkListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollNetworkListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollNetworkList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollNetworkListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollNetworkListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Toll_Network_ListQuery, Toll_Network_ListQueryVariables>;
 export const Toll_Network_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_NETWORK_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollNetworkByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollNetworkById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollNetworkByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollNetworkByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Toll_Network_By_IdQuery, Toll_Network_By_IdQueryVariables>;
 export const Wilaya_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WILAYA_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"wilayaListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WilayaListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"wilayaList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"wilayaListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"wilayaListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<Wilaya_ListQuery, Wilaya_ListQueryVariables>;
 export const Wilaya_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WILAYA_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"wilayaByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"wilayaById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"wilayaByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"wilayaByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<Wilaya_By_IdQuery, Wilaya_By_IdQueryVariables>;
-export const Section_List_For_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_Toll_NetworkQuery, Section_List_For_Toll_NetworkQueryVariables>;
-export const Section_List_For_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionListForTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_TollQuery, Section_List_For_TollQueryVariables>;
-export const Section_By_IdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_BY_IDS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionByIdsInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionByIdsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionByIds"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionByIdsInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionByIdsInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Section_By_IdsQuery, Section_By_IdsQueryVariables>;
+export const Section_List_For_Toll_NetworkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL_NETWORK"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForTollNetwork"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollNetworkInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollNetworkInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_Toll_NetworkQuery, Section_List_For_Toll_NetworkQueryVariables>;
+export const Section_List_For_TollDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_LIST_FOR_TOLL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionListForTollInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionListForToll"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionListForTollInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionListForTollInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Section_List_For_TollQuery, Section_List_For_TollQueryVariables>;
+export const Section_By_IdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SECTION_BY_IDS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sectionByIdsInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SectionByIdsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sectionByIds"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sectionByIdsInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sectionByIdsInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Section_By_IdsQuery, Section_By_IdsQueryVariables>;
 export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
 export const Daily_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DAILY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Daily_Price_Global_ListQuery, Daily_Price_Global_ListQueryVariables>;
 export const Weekly_Price_Global_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WEEKLY_PRICE_GLOBAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyPriceGlobalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Weekly_Price_Global_ListQuery, Weekly_Price_Global_ListQueryVariables>;

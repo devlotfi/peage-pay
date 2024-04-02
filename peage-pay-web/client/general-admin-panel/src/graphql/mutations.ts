@@ -1,4 +1,4 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
 
 export const ADD_HIGHWAY = gql(`
   mutation ADD_HIGHWAY($addHighwayInput: AddHighwayInput!) {
@@ -67,7 +67,8 @@ export const ADD_TOLL = gql(`
     addToll(addTollInput: $addTollInput) {
       id
       name
-      status
+      inboundStatus
+      outboundStatus
       longitude
       latitude
       wilaya {
@@ -95,7 +96,8 @@ export const EDIT_TOLL = gql(`
     editToll(editTollInput: $editTollInput) {
       id
       name
-      status
+      inboundStatus
+      outboundStatus
       longitude
       latitude
       wilaya {
@@ -158,7 +160,8 @@ export const ADD_SECTION = gql(`
       fromTollId
       toTollId
       distance
-      status
+      fromStatus
+      toStatus
     }
   }
 `);
@@ -168,8 +171,8 @@ export const EDIT_SECTION = gql(`
     editSection(editSectionInput: $editSectionInput) {
       fromTollId
       toTollId
-      distance
-      status
+      fromStatus
+      toStatus
     }
   }
 `);

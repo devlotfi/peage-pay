@@ -31,7 +31,11 @@ export class EditTollInput {
 
   @Field(() => TollStatusType, { nullable: true })
   @IsOptional()
-  public status?: TollStatusType;
+  public inboundStatus?: TollStatusType;
+
+  @Field(() => TollStatusType, { nullable: true })
+  @IsOptional()
+  public outboundStatus?: TollStatusType;
 
   @Field({ nullable: true })
   @IsLatitude()

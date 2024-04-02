@@ -17,9 +17,16 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AddAutomaticGateInput = {
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type AddCustomPriceInput = {
+  endDate: Scalars['DateTime']['input'];
   endTimestamp: Scalars['DateTime']['input'];
   priority: Scalars['Float']['input'];
+  startDate: Scalars['DateTime']['input'];
   startTimestamp: Scalars['DateTime']['input'];
   value: Scalars['Float']['input'];
 };
@@ -36,13 +43,10 @@ export type AddHighwayInput = {
   name: Scalars['String']['input'];
 };
 
-export type AddHumanRessourcesAdminRoleInput = {
-  baseUserId: Scalars['String']['input'];
-};
-
 export type AddMonthlyPriceInput = {
   endDay: Scalars['Float']['input'];
   endTimestamp: Scalars['DateTime']['input'];
+  months: Array<MonthType>;
   priority: Scalars['Float']['input'];
   startDay: Scalars['Float']['input'];
   startTimestamp: Scalars['DateTime']['input'];
@@ -57,10 +61,15 @@ export type AddPriceInput = {
   addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
 };
 
+export type AddRfidTagInput = {
+  baseUserId: Scalars['String']['input'];
+  registrationNumber: Scalars['String']['input'];
+  rfid: Scalars['String']['input'];
+};
+
 export type AddSectionInput = {
   distance: Scalars['Float']['input'];
   fromTollId: Scalars['String']['input'];
-  status: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -92,36 +101,53 @@ export type AddWeeklyPriceInput = {
 };
 
 export type AddYearlyPriceInput = {
-  endDay: Scalars['Float']['input'];
+  endDate: Scalars['DateTime']['input'];
   endTimestamp: Scalars['DateTime']['input'];
-  months: Array<MonthType>;
   priority: Scalars['Float']['input'];
-  startDay: Scalars['Float']['input'];
+  startDate: Scalars['DateTime']['input'];
   startTimestamp: Scalars['DateTime']['input'];
   value: Scalars['Float']['input'];
 };
 
 export enum AuthErrors {
   EmailAlreadyVerified = 'EMAIL_ALREADY_VERIFIED',
-  EmailAuthNotFound = 'EMAIL_AUTH_NOT_FOUND',
   EmailVerificationAttemptsExceeded = 'EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
   InvalidEmailOrPassword = 'INVALID_EMAIL_OR_PASSWORD',
   PasswordResetAttemptsExceeded = 'PASSWORD_RESET_ATTEMPTS_EXCEEDED',
-  PhoneAuthNotFound = 'PHONE_AUTH_NOT_FOUND',
   SignInWithEmaIlAttemptsExceeded = 'SIGN_IN_WITH_EMAIl_ATTEMPTS_EXCEEDED',
   VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING'
 }
 
-export type BaseUserByIdInput = {
-  baseUserId: Scalars['String']['input'];
+export type AutomaticGateListInput = {
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  nameSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type AutomaticGateListResult = {
+  __typename?: 'AutomaticGateListResult';
+  count: Scalars['Float']['output'];
+  list: Array<AutomaticGateType>;
+};
+
+export enum AutomaticGateSearchFields {
+  IdSearch = 'idSearch',
+  NameSearch = 'nameSearch'
+}
+
+export type AutomaticGateType = {
+  __typename?: 'AutomaticGateType';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  tollId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export enum BaseUserErrors {
-  BaseUserNotFound = 'BASE_USER_NOT_FOUND',
-  BaseUserWithEmailExists = 'BASE_USER_WITH_EMAIL_EXISTS',
-  BaseUserWithPhoneExists = 'BASE_USER_WITH_PHONE_EXISTS',
-  HumanRessourcesAdminRoleAlreadyAssigned = 'HUMAN_RESSOURCES_ADMIN_ROLE_ALREADY_ASSIGNED',
-  InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES'
+  InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES',
+  TollNotAssigned = 'TOLL_NOT_ASSIGNED'
 }
 
 export type BaseUserListInput = {
@@ -163,6 +189,17 @@ export type BaseUserType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type ChangeTollInput = {
+  baseUserId: Scalars['String']['input'];
+  tollId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ChangeTollStatusInput = {
+  inboundStatus: TollStatusType;
+  outboundStatus: TollStatusType;
+  tollId: Scalars['String']['input'];
+};
+
 export type CustomPriceListResult = {
   __typename?: 'CustomPriceListResult';
   count: Scalars['Float']['output'];
@@ -171,8 +208,10 @@ export type CustomPriceListResult = {
 
 export type CustomPriceType = {
   __typename?: 'CustomPriceType';
+  endDate: Scalars['DateTime']['output'];
   price: PriceType;
   priceId: Scalars['ID']['output'];
+  startDate: Scalars['DateTime']['output'];
 };
 
 export type DailyPriceListResult = {
@@ -197,29 +236,15 @@ export enum DayOfWeekType {
   Wednesday = 'WEDNESDAY'
 }
 
-export type DeleteHighwayInput = {
-  highwayId: Scalars['String']['input'];
-};
-
-export type DeletePriceInput = {
-  priceId: Scalars['String']['input'];
-};
-
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
 };
 
-export type DeleteSubscriptionInput = {
-  subscriptionId: Scalars['String']['input'];
-};
-
-export type DeleteTollInput = {
-  tollId: Scalars['String']['input'];
-};
-
-export type DeleteTollNetworkInput = {
-  tollNetworkId: Scalars['String']['input'];
+export type EditAutomaticGateInput = {
+  automaticGateId: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EditHighwayInput = {
@@ -230,8 +255,9 @@ export type EditHighwayInput = {
 
 export type EditSectionInput = {
   distance: Scalars['Float']['input'];
+  fromStatus: SectionStatusType;
   fromTollId: Scalars['String']['input'];
-  status: SectionStatusType;
+  toStatus: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -244,10 +270,11 @@ export type EditSubscriptionInput = {
 
 export type EditTollInput = {
   highwayId?: InputMaybe<Scalars['String']['input']>;
+  inboundStatus?: InputMaybe<TollStatusType>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<TollStatusType>;
+  outboundStatus?: InputMaybe<TollStatusType>;
   tollId: Scalars['String']['input'];
   wilayaId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -257,21 +284,32 @@ export type EditTollNetworkInput = {
   tollNetworkId: Scalars['String']['input'];
 };
 
-export type FullTollListInput = {
-  tollNetworkId: Scalars['String']['input'];
+export type GateAdminListInput = {
+  firstNameSearch?: InputMaybe<Scalars['String']['input']>;
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  lastNameSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+  tollNameSearch?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type GateAdminListResult = {
+  __typename?: 'GateAdminListResult';
+  count: Scalars['Float']['output'];
+  list: Array<GateAdminType>;
+};
+
+export type GateAdminType = {
+  __typename?: 'GateAdminType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+  toll?: Maybe<TollType>;
+  tollId?: Maybe<Scalars['String']['output']>;
 };
 
 export type GenerateTollDistancesInput = {
   tollNetworkId: Scalars['String']['input'];
 };
-
-export type HighwayByIdInput = {
-  highwayId: Scalars['String']['input'];
-};
-
-export enum HighwayErrors {
-  HighwayExists = 'HIGHWAY_EXISTS'
-}
 
 export type HighwayListInput = {
   codeSearch?: InputMaybe<Scalars['String']['input']>;
@@ -302,6 +340,30 @@ export type HighwayType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type IdInput = {
+  id: Scalars['String']['input'];
+};
+
+export type ModeratorListInput = {
+  firstNameSearch?: InputMaybe<Scalars['String']['input']>;
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  lastNameSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type ModeratorListResult = {
+  __typename?: 'ModeratorListResult';
+  count: Scalars['Float']['output'];
+  list: Array<ModeratorType>;
+};
+
+export type ModeratorType = {
+  __typename?: 'ModeratorType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+};
+
 export enum MonthType {
   April = 'APRIL',
   August = 'AUGUST',
@@ -326,6 +388,7 @@ export type MonthlyPriceListResult = {
 export type MonthlyPriceType = {
   __typename?: 'MonthlyPriceType';
   endDay: Scalars['Int']['output'];
+  months: Array<MonthType>;
   price: PriceType;
   priceId: Scalars['ID']['output'];
   startDay: Scalars['Int']['output'];
@@ -333,28 +396,43 @@ export type MonthlyPriceType = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addAutomaticGate: AutomaticGateType;
+  addGateAdminRole: Scalars['Boolean']['output'];
   addGlobalPrice: Scalars['Boolean']['output'];
   addHighway: HighwayType;
   addHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   addLocalPrice: Scalars['Boolean']['output'];
+  addModeratorRole: Scalars['Boolean']['output'];
+  addRfidTag: RfidTagType;
   addSection: SectionType;
   addSubscription: SubscriptionType;
   addToll: TollType;
+  addTollAdminRole: Scalars['Boolean']['output'];
   addTollNetwork: TollNetworkType;
+  changeGateAdminToll: Scalars['Boolean']['output'];
+  changeTollAdminToll: Scalars['Boolean']['output'];
+  changeTollStatus: Scalars['Boolean']['output'];
+  deleteAutomaticGate: Scalars['Boolean']['output'];
+  deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
   deleteHighway: Scalars['Boolean']['output'];
   deleteLocalPrice: Scalars['Boolean']['output'];
+  deleteRfidTag: Scalars['Boolean']['output'];
   deleteSection: Scalars['Boolean']['output'];
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
+  editAutomaticGate: AutomaticGateType;
   editHighway: HighwayType;
   editSection: SectionType;
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
   generateTollDistances: Scalars['Boolean']['output'];
+  removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
+  removeModeratorRole: Scalars['Boolean']['output'];
+  removeTollAdminRole: Scalars['Boolean']['output'];
   resetPassword: Scalars['Boolean']['output'];
   sendPasswordResetEmail: Scalars['Boolean']['output'];
   signInWithEmail: SignInResult;
@@ -362,8 +440,17 @@ export type Mutation = {
   signOut: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
-  signUpWithPhone: SignUpWithPhoneResult;
   verifyEmail: Scalars['Boolean']['output'];
+};
+
+
+export type MutationAddAutomaticGateArgs = {
+  addAutomaticGateInput: AddAutomaticGateInput;
+};
+
+
+export type MutationAddGateAdminRoleArgs = {
+  addGateAdminRoleInput: IdInput;
 };
 
 
@@ -378,12 +465,22 @@ export type MutationAddHighwayArgs = {
 
 
 export type MutationAddHumanRessoucesAdminRoleArgs = {
-  addHumanRessoucesAdminRoleInput: AddHumanRessourcesAdminRoleInput;
+  addHumanRessoucesAdminRoleInput: IdInput;
 };
 
 
 export type MutationAddLocalPriceArgs = {
   addPriceInput: AddPriceInput;
+};
+
+
+export type MutationAddModeratorRoleArgs = {
+  addModeratorRoleInput: IdInput;
+};
+
+
+export type MutationAddRfidTagArgs = {
+  addRfidTagInput: AddRfidTagInput;
 };
 
 
@@ -402,23 +499,58 @@ export type MutationAddTollArgs = {
 };
 
 
+export type MutationAddTollAdminRoleArgs = {
+  addTollAdminRoleInput: IdInput;
+};
+
+
 export type MutationAddTollNetworkArgs = {
   addTollNetworkInput: AddTollNetworkInput;
 };
 
 
+export type MutationChangeGateAdminTollArgs = {
+  changeGateAdminTollInput: ChangeTollInput;
+};
+
+
+export type MutationChangeTollAdminTollArgs = {
+  changeTollAdminTollInput: ChangeTollInput;
+};
+
+
+export type MutationChangeTollStatusArgs = {
+  changeTollStatusInput: ChangeTollStatusInput;
+};
+
+
+export type MutationDeleteAutomaticGateArgs = {
+  deleteAutomaticGateInput: IdInput;
+};
+
+
+export type MutationDeleteBaseUserArgs = {
+  deleteBaseUserInput: IdInput;
+};
+
+
 export type MutationDeleteGlobalPriceArgs = {
-  deletePriceInput: DeletePriceInput;
+  deletePriceInput: IdInput;
 };
 
 
 export type MutationDeleteHighwayArgs = {
-  deleteHighwayInput: DeleteHighwayInput;
+  deleteHighwayInput: IdInput;
 };
 
 
 export type MutationDeleteLocalPriceArgs = {
-  deletePriceInput: DeletePriceInput;
+  deletePriceInput: IdInput;
+};
+
+
+export type MutationDeleteRfidTagArgs = {
+  deleteRfidTagInput: IdInput;
 };
 
 
@@ -428,17 +560,22 @@ export type MutationDeleteSectionArgs = {
 
 
 export type MutationDeleteSubscriptionArgs = {
-  deleteSubscriptionInput: DeleteSubscriptionInput;
+  deleteSubscriptionInput: IdInput;
 };
 
 
 export type MutationDeleteTollArgs = {
-  deleteTollInput: DeleteTollInput;
+  deleteTollInput: IdInput;
 };
 
 
 export type MutationDeleteTollNetworkArgs = {
-  deleteTollNetworkInput: DeleteTollNetworkInput;
+  deleteTollNetworkInput: IdInput;
+};
+
+
+export type MutationEditAutomaticGateArgs = {
+  editAutomaticGateInput: EditAutomaticGateInput;
 };
 
 
@@ -472,8 +609,23 @@ export type MutationGenerateTollDistancesArgs = {
 };
 
 
+export type MutationRemoveGateAdminRoleArgs = {
+  removeGateAdminRoleInput: IdInput;
+};
+
+
 export type MutationRemoveHumanRessoucesAdminRoleArgs = {
-  removeHumanRessoucesAdminRoleInput: RemoveHumanRessourcesAdminRoleInput;
+  removeHumanRessoucesAdminRoleInput: IdInput;
+};
+
+
+export type MutationRemoveModeratorRoleArgs = {
+  removeModeratorRoleInput: IdInput;
+};
+
+
+export type MutationRemoveTollAdminRoleArgs = {
+  removeTollAdminRoleInput: IdInput;
 };
 
 
@@ -504,13 +656,13 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
-export type MutationSignUpWithPhoneArgs = {
-  signUpWithPhoneInput: SignUpWithPhoneInput;
-};
-
-
 export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
+};
+
+export type PaginationInput = {
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
 };
 
 export enum PriceErrors {
@@ -519,11 +671,6 @@ export enum PriceErrors {
   PriceNotFound = 'PRICE_NOT_FOUND',
   TollNotManaged = 'TOLL_NOT_MANAGED'
 }
-
-export type PriceListInput = {
-  skip?: InputMaybe<Scalars['Float']['input']>;
-  take: Scalars['Float']['input'];
-};
 
 export type PriceType = {
   __typename?: 'PriceType';
@@ -537,8 +684,17 @@ export type PriceType = {
   value: Scalars['Float']['output'];
 };
 
+export enum PrismaErrors {
+  ForeignKeyConstraintViolation = 'FOREIGN_KEY_CONSTRAINT_VIOLATION',
+  InternalServerError = 'INTERNAL_SERVER_ERROR',
+  NotFound = 'NOT_FOUND',
+  UniqueConstraintViolation = 'UNIQUE_CONSTRAINT_VIOLATION'
+}
+
 export type Query = {
   __typename?: 'Query';
+  automaticGateById?: Maybe<AutomaticGateType>;
+  automaticGateList: AutomaticGateListResult;
   baseUserById?: Maybe<BaseUserType>;
   baseUserList: BaseUserListResult;
   customPriceGlobalList: CustomPriceListResult;
@@ -546,21 +702,31 @@ export type Query = {
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
   fullTollList: Array<TollType>;
+  gateAdminById?: Maybe<GateAdminType>;
+  gateAdminList: GateAdminListResult;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
   lol: Scalars['String']['output'];
+  moderatorList: ModeratorListResult;
   monthlyPriceGlobalList: MonthlyPriceListResult;
   monthlyPriceLocalList: MonthlyPriceListResult;
+  rfidTagByRfid?: Maybe<RfidTagType>;
+  rfidTagList: RfidTagListResult;
+  sectionByIds?: Maybe<SectionType>;
   sectionListForToll: SectionListResult;
   sectionListForTollNetwork: Array<SectionType>;
   signInWithRefreshToken: SignInWithRefreshTokenResult;
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
+  tollAdminById?: Maybe<TollAdminType>;
+  tollAdminInfo?: Maybe<TollAdminType>;
+  tollAdminList: TollAdminListResult;
   tollById: TollType;
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
+  tollPrice: Scalars['Boolean']['output'];
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
@@ -570,8 +736,18 @@ export type Query = {
 };
 
 
+export type QueryAutomaticGateByIdArgs = {
+  automaticGateByIdInput: IdInput;
+};
+
+
+export type QueryAutomaticGateListArgs = {
+  automaticGateListInput: AutomaticGateListInput;
+};
+
+
 export type QueryBaseUserByIdArgs = {
-  baseUserByIdInput: BaseUserByIdInput;
+  baseUserByIdInput: IdInput;
 };
 
 
@@ -581,32 +757,42 @@ export type QueryBaseUserListArgs = {
 
 
 export type QueryCustomPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryCustomPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryDailyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryDailyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryFullTollListArgs = {
-  fullTollListInput: FullTollListInput;
+  fullTollListInput: IdInput;
+};
+
+
+export type QueryGateAdminByIdArgs = {
+  gateAdminByIdInput: IdInput;
+};
+
+
+export type QueryGateAdminListArgs = {
+  gateAdminListInput: GateAdminListInput;
 };
 
 
 export type QueryHighwayByIdArgs = {
-  highwayByIdInput: HighwayByIdInput;
+  highwayByIdInput: IdInput;
 };
 
 
@@ -615,13 +801,33 @@ export type QueryHighwayListArgs = {
 };
 
 
+export type QueryModeratorListArgs = {
+  moderatorListInput: ModeratorListInput;
+};
+
+
 export type QueryMonthlyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryMonthlyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
+};
+
+
+export type QueryRfidTagByRfidArgs = {
+  rfidTagByRfidInput: RfidTagByRfidInput;
+};
+
+
+export type QueryRfidTagListArgs = {
+  rfidTagListInput: RfidTagListInput;
+};
+
+
+export type QuerySectionByIdsArgs = {
+  sectionByIdsInput: SectionByIdsInput;
 };
 
 
@@ -631,7 +837,7 @@ export type QuerySectionListForTollArgs = {
 
 
 export type QuerySectionListForTollNetworkArgs = {
-  sectionListForTollNetworkInput: SectionListForTollNetworkInput;
+  sectionListForTollNetworkInput: IdInput;
 };
 
 
@@ -641,7 +847,7 @@ export type QuerySignInWithRefreshTokenArgs = {
 
 
 export type QuerySubscriptionByIdArgs = {
-  subscriptionByIdInput: SubscriptionByIdInput;
+  subscriptionByIdInput: IdInput;
 };
 
 
@@ -650,8 +856,18 @@ export type QuerySubscriptionListArgs = {
 };
 
 
+export type QueryTollAdminByIdArgs = {
+  tollAdminByIdInput: IdInput;
+};
+
+
+export type QueryTollAdminListArgs = {
+  tollAdminListInput: TollAdminListInput;
+};
+
+
 export type QueryTollByIdArgs = {
-  tollByIdInput: TollByIdInput;
+  tollByIdInput: IdInput;
 };
 
 
@@ -661,7 +877,7 @@ export type QueryTollListArgs = {
 
 
 export type QueryTollNetworkByIdArgs = {
-  tollNetworkByIdInput: TollNetworkByIdInput;
+  tollNetworkByIdInput: IdInput;
 };
 
 
@@ -670,18 +886,23 @@ export type QueryTollNetworkListArgs = {
 };
 
 
+export type QueryTollPriceArgs = {
+  tollPriceInput: IdInput;
+};
+
+
 export type QueryWeeklyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryWeeklyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryWilayaByIdArgs = {
-  wilayaByIdInput: WilayaByIdInput;
+  wilayaByIdInput: IdInput;
 };
 
 
@@ -691,12 +912,12 @@ export type QueryWilayaListArgs = {
 
 
 export type QueryYearlyPriceGlobalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 
 export type QueryYearlyPriceLocalListArgs = {
-  priceListInput: PriceListInput;
+  priceListInput: PaginationInput;
 };
 
 export enum RefreshTokenMode {
@@ -704,28 +925,57 @@ export enum RefreshTokenMode {
   PlainText = 'PLAIN_TEXT'
 }
 
-export type RemoveHumanRessourcesAdminRoleInput = {
-  baseUserId: Scalars['String']['input'];
-};
-
 export type ResetPasswordInput = {
   password: Scalars['String']['input'];
   token: Scalars['String']['input'];
   userId: Scalars['String']['input'];
 };
 
-export enum SectionErrors {
-  SectionExists = 'SECTION_EXISTS'
-}
-
-export type SectionListForTollInput = {
-  skip?: InputMaybe<Scalars['Float']['input']>;
-  take: Scalars['Float']['input'];
-  tollId: Scalars['String']['input'];
+export type RfidTagByRfidInput = {
+  rfid: Scalars['String']['input'];
 };
 
-export type SectionListForTollNetworkInput = {
-  tollNetworkId: Scalars['String']['input'];
+export type RfidTagListInput = {
+  baseUserId: Scalars['String']['input'];
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  registrationNumberSearch?: InputMaybe<Scalars['String']['input']>;
+  rfidSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type RfidTagListResult = {
+  __typename?: 'RfidTagListResult';
+  count: Scalars['Float']['output'];
+  list: Array<RfidTagType>;
+};
+
+export enum RfidTagSearchFields {
+  IdSearch = 'idSearch',
+  RegistrationNumberSearch = 'registrationNumberSearch',
+  RfidSearch = 'rfidSearch'
+}
+
+export type RfidTagType = {
+  __typename?: 'RfidTagType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  registrationNumber: Scalars['String']['output'];
+  rfid: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type SectionByIdsInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type SectionListForTollInput = {
+  id: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
 };
 
 export type SectionListResult = {
@@ -744,9 +994,10 @@ export enum SectionStatusType {
 export type SectionType = {
   __typename?: 'SectionType';
   distance: Scalars['Float']['output'];
+  fromStatus: SectionStatusType;
   fromToll: TollType;
   fromTollId: Scalars['String']['output'];
-  status: SectionStatusType;
+  toStatus: SectionStatusType;
   toToll: TollType;
   toTollId: Scalars['String']['output'];
 };
@@ -785,29 +1036,10 @@ export type SignUpWithEmailInput = {
   password: Scalars['String']['input'];
 };
 
-export type SignUpWithPhoneInput = {
-  firstName: Scalars['String']['input'];
-  lastName: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
-};
-
-export type SignUpWithPhoneResult = {
-  __typename?: 'SignUpWithPhoneResult';
-  userId: Scalars['String']['output'];
-};
-
 export type SigninWithEmailInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
-
-export type SubscriptionByIdInput = {
-  subscriptionId: Scalars['String']['input'];
-};
-
-export enum SubscriptionErrors {
-  SubscriptionExists = 'SUBSCRIPTION_EXISTS'
-}
 
 export type SubscriptionListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -844,28 +1076,40 @@ export enum TokenErrors {
   InvalidRefreshToken = 'INVALID_REFRESH_TOKEN',
   InvalidVerificationToken = 'INVALID_VERIFICATION_TOKEN',
   RefreshTokenNotProvided = 'REFRESH_TOKEN_NOT_PROVIDED',
-  VerificationTokenExpired = 'VERIFICATION_TOKEN_EXPIRED',
-  VerificationTokenNotFound = 'VERIFICATION_TOKEN_NOT_FOUND'
+  VerificationTokenExpired = 'VERIFICATION_TOKEN_EXPIRED'
 }
 
-export type TollByIdInput = {
-  tollId: Scalars['String']['input'];
+export type TollAdminListInput = {
+  firstNameSearch?: InputMaybe<Scalars['String']['input']>;
+  idSearch?: InputMaybe<Scalars['String']['input']>;
+  lastNameSearch?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+  tollNameSearch?: InputMaybe<Scalars['String']['input']>;
 };
 
-export enum TollErrors {
-  TollExists = 'TOLL_EXISTS',
-  TollNotFound = 'TOLL_NOT_FOUND'
-}
+export type TollAdminListResult = {
+  __typename?: 'TollAdminListResult';
+  count: Scalars['Float']['output'];
+  list: Array<TollAdminType>;
+};
+
+export type TollAdminType = {
+  __typename?: 'TollAdminType';
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
+  toll?: Maybe<TollType>;
+  tollId?: Maybe<Scalars['String']['output']>;
+};
 
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
   highwayNameSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
-  skip: Scalars['Float']['input'];
-  statusSearch?: InputMaybe<TollStatusType>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
-  tollNetworkId: Scalars['String']['input'];
+  tollNetworkId?: InputMaybe<Scalars['String']['input']>;
   wilayaCodeSearch?: InputMaybe<Scalars['String']['input']>;
   wilayaNameSearch?: InputMaybe<Scalars['String']['input']>;
 };
@@ -875,14 +1119,6 @@ export type TollListResult = {
   count: Scalars['Float']['output'];
   list: Array<TollType>;
 };
-
-export type TollNetworkByIdInput = {
-  tollNetworkId: Scalars['String']['input'];
-};
-
-export enum TollNetworkErrors {
-  TollNetworkExists = 'TOLL_NETWORK_EXISTS'
-}
 
 export type TollNetworkListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -932,10 +1168,11 @@ export type TollType = {
   highway: HighwayType;
   highwayId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  inboundStatus: TollStatusType;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   name: Scalars['String']['output'];
-  status: TollStatusType;
+  outboundStatus: TollStatusType;
   tollNetwork: TollNetworkType;
   tollNetworkId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -959,10 +1196,6 @@ export type WeeklyPriceType = {
   days: Array<DayOfWeekType>;
   price: PriceType;
   priceId: Scalars['ID']['output'];
-};
-
-export type WilayaByIdInput = {
-  wilayaId: Scalars['String']['input'];
 };
 
 export type WilayaListInput = {
@@ -1000,9 +1233,8 @@ export type YearlyPriceListResult = {
 
 export type YearlyPriceType = {
   __typename?: 'YearlyPriceType';
-  endDay: Scalars['Int']['output'];
-  months: Array<Scalars['Int']['output']>;
+  endDate: Scalars['DateTime']['output'];
   price: PriceType;
   priceId: Scalars['ID']['output'];
-  startDay: Scalars['Int']['output'];
+  startDate: Scalars['DateTime']['output'];
 };

@@ -1,18 +1,18 @@
-import { useQuery } from "@apollo/client";
-import { SECTION_LIST_FOR_TOLL, TOLL_BY_ID } from "../../graphql/queries";
+import { useQuery } from '@apollo/client';
+import { SECTION_LIST_FOR_TOLL, TOLL_BY_ID } from '../../graphql/queries';
 import {
   AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
   Table,
-} from "@peage-pay-web/ui";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-import SectionItem from "../../components/section/section-item.component";
-import { SectionType } from "../../__generated__/graphql";
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
+import SectionItem from '../../components/section/section-item.component';
+import { SectionType } from '../../__generated__/graphql';
 
 const SectionListPage = (): JSX.Element => {
   const { tollId } = useParams();
@@ -38,7 +38,7 @@ const SectionListPage = (): JSX.Element => {
       },
     },
     skip: tollLoading || tollError !== undefined,
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
 
   return (
@@ -47,7 +47,7 @@ const SectionListPage = (): JSX.Element => {
         <AdminDashboardLayout.Error error={tollError}>
           <ListPageLayout.Title>
             <Heading className="text-[20pt]">
-              <Heading.Icon position={"left"}>
+              <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </Heading.Icon>
               <Heading.Text>Section list</Heading.Text>
@@ -65,7 +65,8 @@ const SectionListPage = (): JSX.Element => {
                         <Table.Head.Th>From toll</Table.Head.Th>
                         <Table.Head.Th>To toll</Table.Head.Th>
                         <Table.Head.Th>Distance (km)</Table.Head.Th>
-                        <Table.Head.Th>Status</Table.Head.Th>
+                        <Table.Head.Th>From Status</Table.Head.Th>
+                        <Table.Head.Th>To Status</Table.Head.Th>
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>

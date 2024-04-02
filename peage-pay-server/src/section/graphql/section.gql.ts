@@ -17,7 +17,10 @@ export class SectionType {
   public toToll: TollType;
 
   @Field(() => SectionStatusType)
-  public status: SectionStatusType;
+  public fromStatus: SectionStatusType;
+
+  @Field(() => SectionStatusType)
+  public toStatus: SectionStatusType;
 
   @Field()
   public distance: number;
