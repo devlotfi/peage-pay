@@ -19,6 +19,7 @@ import { AutomaticGateType } from './graphql/automatic-gate.gql';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { AutomaticGateListInput } from './input/automatic-gate-list.input.gql';
 import { AutomaticGateListResult } from './result/automatic-gate-list.result.gql';
+import { AutomaticGateAccessTokenPayload } from './types/automatic-gate-access-token-payload.type';
 
 @Injectable()
 export class AutomaticGateService {
@@ -199,10 +200,7 @@ export class AutomaticGateService {
     const automaticGate =
       await this.databaseService.automaticGate.findUniqueOrThrow({
         where: {
-          name_tollId: {
-            name: signInAutomaticGateInput.name,
-            tollId: signInAutomaticGateInput.tollId,
-          },
+          id: signInAutomaticGateInput.automaticGateId,
         },
       });
     const result = await compare(
@@ -229,7 +227,7 @@ export class AutomaticGateService {
     };
   }
 
-  public async signInAutomaticRefreshToken(
+  public async signInAutomaticGateRefreshToken(
     req: Request,
     res: Response,
   ): Promise<SignInAutomaticGateResult> {
@@ -241,6 +239,8 @@ export class AutomaticGateService {
     if (!valid || !payload) {
       throw new GraphQLError(TokenErrors.INVALID_REFRESH_TOKEN);
     }
+
+    console.log(payload);
 
     const automaticGateId: string = payload.automaticGateId;
     const automaticGate =
@@ -259,5 +259,16 @@ export class AutomaticGateService {
     };
   }
 
-  public async signOutAutomaticGate() {}
+  public async signOutAutomaticGate(
+    accessTokenPayload: AutomaticGateAccessTokenPayload,
+    req: Request,
+    res: Response,
+  ): Promise<boolean> {
+    await this.automaticGateTokenService.clearRefreshToken(
+      accessTokenPayload.automaticGateId,
+      req,
+      res,
+    );
+    return true;
+  }
 }

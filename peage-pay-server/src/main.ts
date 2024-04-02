@@ -20,10 +20,9 @@ async function bootstrap() {
       configService.getOrThrow<string>('AUTH_COMMON_CLIENT_URL'),
       configService.getOrThrow<string>('MODERATOR_ADMIN_PANEL_URL'),
       configService.getOrThrow<string>('MODERATOR_BADGE_READER_URL'),
+      configService.getOrThrow<string>('TICKET_PRINTER_URL'),
     ],
   });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter());

@@ -24,7 +24,7 @@ export class AutomaticGateTokenService {
     res: Response,
   ): Promise<string> {
     const refreshToken = await this.jwtService.signAsync(
-      { userId: automaticGateId },
+      { automaticGateId: automaticGateId },
       {
         expiresIn: '30d',
         secret: this.configService.getOrThrow<string>(

@@ -2,8 +2,8 @@ import { PropsWithChildren, createContext, useState } from 'react';
 import { AutomaticGateType } from '../__generated__/graphql';
 import { useQuery } from '@apollo/client';
 import { SessionStorageKeys } from '@peage-pay-web/constants';
-import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
 import { FullScreenLoading } from '@peage-pay-web/ui';
+import { SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN } from '../graphql/queries';
 
 type AutomaticGateAuthData = {
   automaticGate: AutomaticGateType;
@@ -35,19 +35,20 @@ const initialValue: AutomaticGateAuthContext = {
 
 export const AutomaticGateAuthContext = createContext(initialValue);
 
-export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const AutomaticGateAuthProvider = ({
+  children,
+}: PropsWithChildren): JSX.Element => {
   const [automaticGateAuthData, setAutomaticGateAuthData] = useState(
     initialValue.automaticGateAuthData,
   );
 
-  const { loading } = useQuery(SIGN_IN_WITH_REFRESH_TOKEN_COOKIE, {
+  const { loading } = useQuery(SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN, {
     onCompleted(data) {
       setAutomaticGateAuthData({
         // @ts-ignore
-        baseUser: data.signInWithRefreshTokenCookie.baseUser,
-        userRoles: data.signInWithRefreshTokenCookie.roles,
+        automaticGate: data.signInAutomaticGateRefreshToken.automaticGate,
       });
-      setAccessToken(data.signInWithRefreshTokenCookie.accessToken);
+      setAccessToken(data.signInAutomaticGateRefreshToken.accessToken);
     },
   });
 

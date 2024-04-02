@@ -1,29 +1,31 @@
-import { useMutation } from "@apollo/client";
-import { Button, LoaderDots, Modal } from "@peage-pay-web/ui";
-import { SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE } from "../graphql/mutations";
-import { RefObject, useContext } from "react";
-import { AuthContext } from "@peage-pay-web/auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPowerOff, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useMutation } from '@apollo/client';
+import { Button, LoaderDots, Modal } from '@peage-pay-web/ui';
+import { RefObject, useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { SIGN_OUT_AUTOMATIC_GATE } from '../graphql/mutations';
+import { AutomaticGateAuthContext } from '../context/automatic-gate-auth.context';
 
 interface SignOutModalProps {
   modalRef: RefObject<HTMLDialogElement>;
 }
 
 const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
-  const { setAuthData, clearAccessToken } = useContext(AuthContext);
+  const { setAutomaticGateAuthData, clearAccessToken } = useContext(
+    AutomaticGateAuthContext,
+  );
   const [signOutWithRefreshTokenCookie, { loading }] = useMutation(
-    SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE,
+    SIGN_OUT_AUTOMATIC_GATE,
     {
       onCompleted() {
-        setAuthData(null);
+        setAutomaticGateAuthData(null);
         clearAccessToken();
       },
       onError(error) {
         console.log(error);
-        setAuthData(null);
+        setAutomaticGateAuthData(null);
       },
-    }
+    },
   );
 
   return (
@@ -34,27 +36,27 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
         <Modal.Footer className="justify-end">
           <Button
             onClick={() => modalRef.current?.close()}
-            variant={"base-200"}
+            variant={'base-200'}
             className="mr-[0.5rem]"
           >
-            <Button.Icon position={"left"}>
+            <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
             <Button.Content>Close</Button.Content>
           </Button>
           <Button
             onClick={() => signOutWithRefreshTokenCookie()}
-            variant={"error"}
+            variant={'error'}
           >
             {loading ? (
               <Button.Content>
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               </Button.Content>
             ) : (
               <>
-                <Button.Icon position={"left"}>
+                <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
                 </Button.Icon>
                 <Button.Content>Sign out</Button.Content>

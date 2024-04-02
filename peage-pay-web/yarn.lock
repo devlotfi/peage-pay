@@ -3034,6 +3034,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@peage-pay-web/automatic-gate-auth@workspace:lib/automatic-gate-auth":
+  version: 0.0.0-use.local
+  resolution: "@peage-pay-web/automatic-gate-auth@workspace:lib/automatic-gate-auth"
+  dependencies:
+    autoprefixer: "npm:^10.4.19"
+    postcss: "npm:^8.4.38"
+    tailwindcss: "npm:^3.4.1"
+  languageName: unknown
+  linkType: soft
+
 "@peage-pay-web/constants@workspace:*, @peage-pay-web/constants@workspace:lib/constants":
   version: 0.0.0-use.local
   resolution: "@peage-pay-web/constants@workspace:lib/constants"
@@ -13901,6 +13911,35 @@ __metadata:
   checksum: 10c0/4b09f3774099de0d4df26d95c5821a62faee32c7e96fb1f4ebd54a2d7c11c57fe88b0a0d49cf375de5fee5ae6bf4eb56dbbf29d07366864e2ee805349970d3cc
   languageName: node
   linkType: hard
+
+"ticker-printer@workspace:client/ticker-printer":
+  version: 0.0.0-use.local
+  resolution: "ticker-printer@workspace:client/ticker-printer"
+  dependencies:
+    "@electron-toolkit/eslint-config-prettier": "npm:^2.0.0"
+    "@electron-toolkit/eslint-config-ts": "npm:^1.0.1"
+    "@electron-toolkit/preload": "npm:^3.0.0"
+    "@electron-toolkit/tsconfig": "npm:^1.0.1"
+    "@electron-toolkit/utils": "npm:^3.0.0"
+    "@types/node": "npm:^18.19.9"
+    "@types/react": "npm:^18.2.48"
+    "@types/react-dom": "npm:^18.2.18"
+    "@vitejs/plugin-react": "npm:^4.2.1"
+    autoprefixer: "npm:^10.4.19"
+    electron: "npm:^28.2.0"
+    electron-builder: "npm:^24.9.1"
+    electron-vite: "npm:^2.0.0"
+    eslint: "npm:^8.56.0"
+    eslint-plugin-react: "npm:^7.33.2"
+    postcss: "npm:^8.4.38"
+    prettier: "npm:^3.2.4"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    tailwindcss: "npm:^3.4.3"
+    typescript: "npm:^5.3.3"
+    vite: "npm:^5.0.12"
+  languageName: unknown
+  linkType: soft
 
 "tiny-case@npm:^1.0.3":
   version: 1.0.3

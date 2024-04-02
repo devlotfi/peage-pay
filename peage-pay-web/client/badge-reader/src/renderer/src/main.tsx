@@ -19,7 +19,7 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <ApplicationApolloClientProvider>
+        <ApplicationApolloClientProvider authType="USER">
           <AuthProvider allowedRoles={[BaseUserRolesType.Moderator]}>
             <BadgeScannerProvider>
               <App />

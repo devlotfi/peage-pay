@@ -2,7 +2,6 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { GraphQLError } from 'graphql';
-import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 
 export const ContextAccessTokenPayload = createParamDecorator(
@@ -16,7 +15,7 @@ export const ContextAccessTokenPayload = createParamDecorator(
 
     const accessToken: string = authorizarion.split(' ')[1];
     const jwtService = new JwtService();
-    const payload = jwtService.decode<UserAccessTokenPayload>(accessToken);
+    const payload = jwtService.decode(accessToken);
 
     return payload;
   },

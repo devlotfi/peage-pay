@@ -45,7 +45,6 @@ export class TollResolver {
   }
 
   @Query(() => TollListResult)
-  @UseGuards(AuthGuard)
   public async tollList(@Args('tollListInput') tollListInput: TollListInput) {
     return await this.tollService.tollList(tollListInput);
   }

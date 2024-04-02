@@ -12,6 +12,13 @@ import { AutomaticGateType } from './graphql/automatic-gate.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { AddAutomaticGateInput } from './input/add-automatic-gate.input.gql';
 import { EditAutomaticGateInput } from './input/edit-automatic-gate.input.gql';
+import { GraphqlRequest } from 'src/shared/decorators/graphql-request.decorator';
+import { GraphqlResponse } from 'src/shared/decorators/graphql-response.decorator';
+import { Request, Response } from 'express';
+import { SignInAutomaticGateInput } from './input/sign-in-automatic-gate.input.gql';
+import { SignInAutomaticGateResult } from './result/sign-in-automatic-gate.result.gql';
+import { AutomaticGateAuthGuard } from 'src/shared/guards/automatic-gate-auth.guard';
+import { AutomaticGateAccessTokenPayload } from './types/automatic-gate-access-token-payload.type';
 
 @Resolver()
 export class AutomaticGateResolver {
@@ -20,8 +27,6 @@ export class AutomaticGateResolver {
   ) {}
 
   @Query(() => AutomaticGateListResult)
-  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
-  @UseGuards(AuthGuard)
   public async automaticGateList(
     @Args('automaticGateListInput')
     automaticGateListInput: AutomaticGateListInput,
@@ -32,7 +37,6 @@ export class AutomaticGateResolver {
   }
 
   @Query(() => AutomaticGateType, { nullable: true })
-  @UseGuards(AuthGuard)
   public async automaticGateById(
     @Args('automaticGateByIdInput') automaticGateByIdInput: IdInput,
   ) {
@@ -78,6 +82,46 @@ export class AutomaticGateResolver {
     return await this.automaticGateService.deleteAutomaticGate(
       deleteAutomaticGateInput,
       accessTokenPayload,
+    );
+  }
+
+  @Mutation(() => SignInAutomaticGateResult)
+  public async signInAutomaticGate(
+    @Args('signInAutomaticGateInput')
+    signInAutomaticGateInput: SignInAutomaticGateInput,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
+  ) {
+    return await this.automaticGateService.signInAutomaticGate(
+      signInAutomaticGateInput,
+      req,
+      res,
+    );
+  }
+
+  @Query(() => SignInAutomaticGateResult)
+  public async signInAutomaticGateRefreshToken(
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
+  ) {
+    return await this.automaticGateService.signInAutomaticGateRefreshToken(
+      req,
+      res,
+    );
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AutomaticGateAuthGuard)
+  public async signOutAutomaticGate(
+    @ContextAccessTokenPayload()
+    accessTokenPayload: AutomaticGateAccessTokenPayload,
+    @GraphqlRequest() req: Request,
+    @GraphqlResponse() res: Response,
+  ) {
+    return await this.automaticGateService.signOutAutomaticGate(
+      accessTokenPayload,
+      req,
+      res,
     );
   }
 }

@@ -9,6 +9,7 @@ import AdminDashboardLayoutLoading from './admin-dashboard-layout-loading.compon
 import AdminDashboardLayoutError from './admin-dashboard-layout-error.component';
 import AdminDashboardLayoutTabs from './admin-dashboard-layout-tabs.component';
 import AdminDashboardLayoutTollInfo from './admin-dashboard-layout-toll-info.component';
+import AdminDashboardLayoutAutomaticGateInfo from './admin-dashboard-layout-automatic-gate-info.component';
 
 const adminDashboardLayoutVariants = cva(
   'flex max-h-screen min-h-screen bg-base-200',
@@ -61,6 +62,7 @@ AdminDashboardLayout.Loading = AdminDashboardLayoutLoading;
 AdminDashboardLayout.Error = AdminDashboardLayoutError;
 AdminDashboardLayout.Tabs = AdminDashboardLayoutTabs;
 AdminDashboardLayout.TollInfo = AdminDashboardLayoutTollInfo;
+AdminDashboardLayout.AutomaticGateInfo = AdminDashboardLayoutAutomaticGateInfo;
 AdminDashboardLayout.Navbar = Navbar;
 AdminDashboardLayout.Sidebar = Sidebar;
 export default AdminDashboardLayout;

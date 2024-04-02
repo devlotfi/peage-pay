@@ -3,7 +3,7 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { initApolloClient } from '../init-apollo-client';
+import { AuthType, initApolloClient } from '../init-apollo-client';
 import { PropsWithChildren, createContext, useState } from 'react';
 
 interface ApplicationApolloClientContext {
@@ -12,7 +12,7 @@ interface ApplicationApolloClientContext {
 }
 
 const initialValue: ApplicationApolloClientContext = {
-  apolloClient: initApolloClient(),
+  apolloClient: null!,
   setApolloClient: () => {
     return;
   },
@@ -20,10 +20,15 @@ const initialValue: ApplicationApolloClientContext = {
 
 export const ApplicationApolloClientContext = createContext(initialValue);
 
+interface ApplicationApolloClientProviderProps {
+  authType: AuthType;
+}
+
 export const ApplicationApolloClientProvider = ({
   children,
-}: PropsWithChildren): JSX.Element => {
-  const [apolloClient, setApolloClient] = useState(initApolloClient());
+  authType,
+}: PropsWithChildren<ApplicationApolloClientProviderProps>): JSX.Element => {
+  const [apolloClient, setApolloClient] = useState(initApolloClient(authType));
 
   return (
     <ApplicationApolloClientContext.Provider

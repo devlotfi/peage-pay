@@ -8,8 +8,8 @@ export class SignInAutomaticGateInput {
   public tollId: string;
 
   @Field()
-  @Length(1, 512)
-  public name: string;
+  @IsUUID()
+  public automaticGateId: string;
 
   @Field()
   @Length(1, 512)

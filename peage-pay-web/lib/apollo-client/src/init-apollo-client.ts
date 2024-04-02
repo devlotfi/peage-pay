@@ -1,19 +1,24 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { SessionStorageKeys } from "@peage-pay-web/constants";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from "./graphql/query";
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { SessionStorageKeys } from '@peage-pay-web/constants';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import {
+  SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN,
+  SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
+} from './graphql/query';
 
 const serverGraphqlEndpoint = `${
-  import.meta.env["VITE_SERVER_URL"] ||
-  import.meta.env["RENDERER_VITE_SERVER_URL"]
+  import.meta.env['VITE_SERVER_URL'] ||
+  import.meta.env['RENDERER_VITE_SERVER_URL']
 }/graphql`;
 
-export const initApolloClient = () => {
+export type AuthType = 'USER' | 'AUTOMATIC_GATE';
+
+export const initApolloClient = (authType: AuthType) => {
   const httpLink = createHttpLink({
     uri: serverGraphqlEndpoint,
-    credentials: "include",
+    credentials: 'include',
   });
 
   const authLink = setContext(async (_, { headers }) => {
@@ -31,34 +36,59 @@ export const initApolloClient = () => {
       expired = timeRemaining <= 30;
     }
     if (expired) {
-      console.log("getting access");
+      console.log('getting access');
 
-      const response = await axios.post<{
-        data: {
-          signInWithRefreshTokenCookie: {
-            accessToken: string;
+      if (authType === 'USER') {
+        const response = await axios.post<{
+          data: {
+            signInWithRefreshTokenCookie: {
+              accessToken: string;
+            };
           };
-        };
-      }>(
-        serverGraphqlEndpoint,
-        {
-          query: SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+        }>(
+          serverGraphqlEndpoint,
+          {
+            query: SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
+          },
+          {
+            withCredentials: true,
+          },
+        );
 
-      accessToken = response.data.data.signInWithRefreshTokenCookie.accessToken;
-      sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+        accessToken =
+          response.data.data.signInWithRefreshTokenCookie.accessToken;
+        sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
 
-      console.log(response);
+        console.log(response);
+      } else {
+        const response = await axios.post<{
+          data: {
+            signInAutomaticGateRefreshToken: {
+              accessToken: string;
+            };
+          };
+        }>(
+          serverGraphqlEndpoint,
+          {
+            query: SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN,
+          },
+          {
+            withCredentials: true,
+          },
+        );
+
+        accessToken =
+          response.data.data.signInAutomaticGateRefreshToken.accessToken;
+        sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+
+        console.log(response);
+      }
     }
 
     return {
       headers: {
         ...headers,
-        Authorization: accessToken ? `Bearer ${accessToken}` : "",
+        Authorization: accessToken ? `Bearer ${accessToken}` : '',
       },
     };
   });

@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ThemeProvider>
-      <ApplicationApolloClientProvider>
+      <ApplicationApolloClientProvider authType="USER">
         <AuthProvider allowedRoles={[BaseUserRolesType.TollAdmin]}>
           <TollAdminInfoProvider>
             <App />

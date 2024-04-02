@@ -9,7 +9,7 @@ import {
 import DashboardLayout from '@renderer/layout/dashboard-layout.layout';
 import BadgeScannerPage from '@renderer/pages/badge-scanner.page';
 
-const useRouter = (): any => {
+const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
 
   const router = createHashRouter([

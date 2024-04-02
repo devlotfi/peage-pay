@@ -13,14 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInput: SignUpWithEmailInput!) {\n    signUpWithEmail(signUpWithEmailInput: $signUpWithEmailInput)\n  }\n": types.Sign_Up_With_EmailDocument,
-    "\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n": types.Verify_EmailDocument,
-    "\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n": types.Send_Password_Reset_EmailDocument,
-    "\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n": types.Reset_PasswordDocument,
-    "\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInput: SigninWithEmailInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithEmail(signInWithEmailInput: $signInWithEmailInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_EmailDocument,
-    "\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_GoogleDocument,
-    "\n  mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {\n    signOutWithRefreshTokenCookie\n  }\n": types.Sign_Out_With_Refresh_Token_CookieDocument,
-    "\n  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {\n    signInWithRefreshTokenCookie {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_Refresh_Token_CookieDocument,
+    "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_GateDocument,
+    "\n  mutation SIGN_OUT_AUTOMATIC_GATE {\n    signOutAutomaticGate\n  }\n": types.Sign_Out_Automatic_GateDocument,
+    "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_Gate_Refresh_TokenDocument,
 };
 
 /**
@@ -40,35 +35,15 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInput: SignUpWithEmailInput!) {\n    signUpWithEmail(signUpWithEmailInput: $signUpWithEmailInput)\n  }\n"): (typeof documents)["\n  mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInput: SignUpWithEmailInput!) {\n    signUpWithEmail(signUpWithEmailInput: $signUpWithEmailInput)\n  }\n"];
+export function gql(source: "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n"): (typeof documents)["\n  mutation VERIFY_EMAIL($verifyEmailInput: VerifyEmailInput!) {\n    verifyEmail(verifyEmailInput: $verifyEmailInput)\n  }\n"];
+export function gql(source: "\n  mutation SIGN_OUT_AUTOMATIC_GATE {\n    signOutAutomaticGate\n  }\n"): (typeof documents)["\n  mutation SIGN_OUT_AUTOMATIC_GATE {\n    signOutAutomaticGate\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n"): (typeof documents)["\n  mutation SEND_PASSWORD_RESET_EMAIL($sendPasswordResetEmailInput: SendResetPasswordEmailInput!) {\n    sendPasswordResetEmail(sendPasswordResetEmailInput: $sendPasswordResetEmailInput)\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n"): (typeof documents)["\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInput: SigninWithEmailInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithEmail(signInWithEmailInput: $signInWithEmailInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInput: SigninWithEmailInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithEmail(signInWithEmailInput: $signInWithEmailInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {\n    signOutWithRefreshTokenCookie\n  }\n"): (typeof documents)["\n  mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {\n    signOutWithRefreshTokenCookie\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {\n    signInWithRefreshTokenCookie {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"): (typeof documents)["\n  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {\n    signInWithRefreshTokenCookie {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n"];
+export function gql(source: "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

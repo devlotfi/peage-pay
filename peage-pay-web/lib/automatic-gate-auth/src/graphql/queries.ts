@@ -1,17 +1,17 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
 
-export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
-  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {
-    signInWithRefreshTokenCookie {
-      baseUser {
+export const SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN = gql(`
+  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {
+    signInAutomaticGateRefreshToken {
+      accessToken
+      automaticGate {
         id
-        firstName
-        lastName
+        name
+        direction
+        tollId
         createdAt
         updatedAt
       }
-      accessToken
-      roles
     }
   }
 `);
