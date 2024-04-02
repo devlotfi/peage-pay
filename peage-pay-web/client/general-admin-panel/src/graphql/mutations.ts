@@ -196,7 +196,7 @@ export const REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE = gql(`
 `);
 
 export const ADD_GLOBAL_PRICE = gql(`
-  mutation ADD_GLOBAL_PRICE($addPriceInput: AddPriceInput!) {
+  mutation ADD_GLOBAL_PRICE($addPriceInput: AddGlobalPriceInput!) {
     addGlobalPrice(addPriceInput: $addPriceInput)
   }
 `);

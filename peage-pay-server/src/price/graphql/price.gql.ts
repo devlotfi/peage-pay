@@ -1,12 +1,10 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { TollPriceType } from './toll-price.gql';
 
 @ObjectType()
 export class PriceType {
   @Field(() => ID)
   public id: string;
-
-  @Field()
-  public tollId: string;
 
   @Field()
   public value: number;
@@ -19,6 +17,9 @@ export class PriceType {
 
   @Field()
   public priority: number;
+
+  @Field(() => TollPriceType, { nullable: true })
+  public tollPrice?: TollPriceType;
 
   @Field(() => Date)
   public createdAt: Date;

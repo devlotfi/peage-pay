@@ -39,9 +39,63 @@ export type AddDailyPriceInput = {
   value: Scalars['Float']['input'];
 };
 
+export type AddGlobalPriceInput = {
+  addCustomPriceInput?: InputMaybe<AddCustomPriceInput>;
+  addDailyPriceInput?: InputMaybe<AddDailyPriceInput>;
+  addMonthlyPriceInput?: InputMaybe<AddMonthlyPriceInput>;
+  addWeeklyPriceInput?: InputMaybe<AddWeeklyPriceInput>;
+  addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
+};
+
 export type AddHighwayInput = {
   code: Scalars['String']['input'];
   name: Scalars['String']['input'];
+};
+
+export type AddLocalDailyPriceInput = {
+  direction: TollDirectionType;
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddLocalMonthlyPriceInput = {
+  direction: TollDirectionType;
+  endDay: Scalars['Float']['input'];
+  endTimestamp: Scalars['DateTime']['input'];
+  months: Array<MonthType>;
+  priority: Scalars['Float']['input'];
+  startDay: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddLocalPriceInput = {
+  addCustomPriceInput?: InputMaybe<AddLocalYearlyPriceInput>;
+  addDailyPriceInput?: InputMaybe<AddLocalDailyPriceInput>;
+  addMonthlyPriceInput?: InputMaybe<AddLocalMonthlyPriceInput>;
+  addWeeklyPriceInput?: InputMaybe<AddLocalWeeklyPriceInput>;
+  addYearlyPriceInput?: InputMaybe<AddLocalYearlyPriceInput>;
+};
+
+export type AddLocalWeeklyPriceInput = {
+  days: Array<DayOfWeekType>;
+  direction: TollDirectionType;
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
+};
+
+export type AddLocalYearlyPriceInput = {
+  direction: TollDirectionType;
+  endDate: Scalars['DateTime']['input'];
+  endTimestamp: Scalars['DateTime']['input'];
+  priority: Scalars['Float']['input'];
+  startDate: Scalars['DateTime']['input'];
+  startTimestamp: Scalars['DateTime']['input'];
+  value: Scalars['Float']['input'];
 };
 
 export type AddMonthlyPriceInput = {
@@ -52,14 +106,6 @@ export type AddMonthlyPriceInput = {
   startDay: Scalars['Float']['input'];
   startTimestamp: Scalars['DateTime']['input'];
   value: Scalars['Float']['input'];
-};
-
-export type AddPriceInput = {
-  addCustomPriceInput?: InputMaybe<AddCustomPriceInput>;
-  addDailyPriceInput?: InputMaybe<AddDailyPriceInput>;
-  addMonthlyPriceInput?: InputMaybe<AddMonthlyPriceInput>;
-  addWeeklyPriceInput?: InputMaybe<AddWeeklyPriceInput>;
-  addYearlyPriceInput?: InputMaybe<AddYearlyPriceInput>;
 };
 
 export type AddRfidTagInput = {
@@ -456,7 +502,7 @@ export type MutationAddGateAdminRoleArgs = {
 
 
 export type MutationAddGlobalPriceArgs = {
-  addPriceInput: AddPriceInput;
+  addPriceInput: AddGlobalPriceInput;
 };
 
 
@@ -471,7 +517,7 @@ export type MutationAddHumanRessoucesAdminRoleArgs = {
 
 
 export type MutationAddLocalPriceArgs = {
-  addPriceInput: AddPriceInput;
+  addPriceInput: AddLocalPriceInput;
 };
 
 
@@ -680,7 +726,7 @@ export type PriceType = {
   id: Scalars['ID']['output'];
   priority: Scalars['Float']['output'];
   startTimestamp: Scalars['DateTime']['output'];
-  tollId: Scalars['String']['output'];
+  tollPrice?: Maybe<TollPriceType>;
   updatedAt: Scalars['DateTime']['output'];
   value: Scalars['Float']['output'];
 };
@@ -1103,6 +1149,11 @@ export type TollAdminType = {
   tollId?: Maybe<Scalars['String']['output']>;
 };
 
+export enum TollDirectionType {
+  Inbound = 'INBOUND',
+  Outbound = 'OUTBOUND'
+}
+
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
   highwayNameSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1145,6 +1196,13 @@ export type TollNetworkType = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TollPriceType = {
+  __typename?: 'TollPriceType';
+  direction: TollDirectionType;
+  priceId: Scalars['String']['output'];
+  tollId: Scalars['String']['output'];
 };
 
 export enum TollSearchFields {
@@ -1241,7 +1299,7 @@ export type YearlyPriceType = {
 };
 
 export type Add_Local_PriceMutationVariables = Exact<{
-  addPriceInput: AddPriceInput;
+  addPriceInput: AddLocalPriceInput;
 }>;
 
 
@@ -1313,38 +1371,38 @@ export type Daily_Price_Local_ListQueryVariables = Exact<{
 }>;
 
 
-export type Daily_Price_Local_ListQuery = { __typename?: 'Query', dailyPriceLocalList: { __typename?: 'DailyPriceListResult', count: number, list: Array<{ __typename?: 'DailyPriceType', priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Daily_Price_Local_ListQuery = { __typename?: 'Query', dailyPriceLocalList: { __typename?: 'DailyPriceListResult', count: number, list: Array<{ __typename?: 'DailyPriceType', priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any, tollPrice?: { __typename?: 'TollPriceType', direction: TollDirectionType } | null } }> } };
 
 export type Weekly_Price_Local_ListQueryVariables = Exact<{
   priceListInput: PaginationInput;
 }>;
 
 
-export type Weekly_Price_Local_ListQuery = { __typename?: 'Query', weeklyPriceLocalList: { __typename?: 'WeeklyPriceListResult', count: number, list: Array<{ __typename?: 'WeeklyPriceType', days: Array<DayOfWeekType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Weekly_Price_Local_ListQuery = { __typename?: 'Query', weeklyPriceLocalList: { __typename?: 'WeeklyPriceListResult', count: number, list: Array<{ __typename?: 'WeeklyPriceType', days: Array<DayOfWeekType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any, tollPrice?: { __typename?: 'TollPriceType', direction: TollDirectionType } | null } }> } };
 
 export type Monthly_Price_Local_ListQueryVariables = Exact<{
   priceListInput: PaginationInput;
 }>;
 
 
-export type Monthly_Price_Local_ListQuery = { __typename?: 'Query', monthlyPriceLocalList: { __typename?: 'MonthlyPriceListResult', count: number, list: Array<{ __typename?: 'MonthlyPriceType', startDay: number, endDay: number, months: Array<MonthType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Monthly_Price_Local_ListQuery = { __typename?: 'Query', monthlyPriceLocalList: { __typename?: 'MonthlyPriceListResult', count: number, list: Array<{ __typename?: 'MonthlyPriceType', startDay: number, endDay: number, months: Array<MonthType>, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any, tollPrice?: { __typename?: 'TollPriceType', direction: TollDirectionType } | null } }> } };
 
 export type Yearly_Price_Local_ListQueryVariables = Exact<{
   priceListInput: PaginationInput;
 }>;
 
 
-export type Yearly_Price_Local_ListQuery = { __typename?: 'Query', yearlyPriceLocalList: { __typename?: 'YearlyPriceListResult', count: number, list: Array<{ __typename?: 'YearlyPriceType', startDate: any, endDate: any, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Yearly_Price_Local_ListQuery = { __typename?: 'Query', yearlyPriceLocalList: { __typename?: 'YearlyPriceListResult', count: number, list: Array<{ __typename?: 'YearlyPriceType', startDate: any, endDate: any, priceId: string, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any, tollPrice?: { __typename?: 'TollPriceType', direction: TollDirectionType } | null } }> } };
 
 export type Custom_Price_Local_ListQueryVariables = Exact<{
   priceListInput: PaginationInput;
 }>;
 
 
-export type Custom_Price_Local_ListQuery = { __typename?: 'Query', customPriceLocalList: { __typename?: 'CustomPriceListResult', count: number, list: Array<{ __typename?: 'CustomPriceType', priceId: string, startDate: any, endDate: any, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any } }> } };
+export type Custom_Price_Local_ListQuery = { __typename?: 'Query', customPriceLocalList: { __typename?: 'CustomPriceListResult', count: number, list: Array<{ __typename?: 'CustomPriceType', priceId: string, startDate: any, endDate: any, price: { __typename?: 'PriceType', id: string, value: number, priority: number, startTimestamp: any, endTimestamp: any, createdAt: any, updatedAt: any, tollPrice?: { __typename?: 'TollPriceType', direction: TollDirectionType } | null } }> } };
 
 
-export const Add_Local_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_LOCAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddPriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addLocalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addPriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}}}]}]}}]} as unknown as DocumentNode<Add_Local_PriceMutation, Add_Local_PriceMutationVariables>;
+export const Add_Local_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_LOCAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddLocalPriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addLocalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addPriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addPriceInput"}}}]}]}}]} as unknown as DocumentNode<Add_Local_PriceMutation, Add_Local_PriceMutationVariables>;
 export const Delete_Local_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_LOCAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteLocalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deletePriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Local_PriceMutation, Delete_Local_PriceMutationVariables>;
 export const Change_Toll_StatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CHANGE_TOLL_STATUS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"changeTollStatusInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChangeTollStatusInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeTollStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"changeTollStatusInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"changeTollStatusInput"}}}]}]}}]} as unknown as DocumentNode<Change_Toll_StatusMutation, Change_Toll_StatusMutationVariables>;
 export const Add_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_AUTOMATIC_GATE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addAutomaticGateInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddAutomaticGateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addAutomaticGate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addAutomaticGateInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addAutomaticGateInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_Automatic_GateMutation, Add_Automatic_GateMutationVariables>;
@@ -1354,8 +1412,8 @@ export const Toll_By_IdDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const Toll_Admin_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_ADMIN_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollAdminInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Toll_Admin_InfoQuery, Toll_Admin_InfoQueryVariables>;
 export const Automatic_Gate_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AUTOMATIC_GATE_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AutomaticGateListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"automaticGateList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"automaticGateListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Automatic_Gate_ListQuery, Automatic_Gate_ListQueryVariables>;
 export const Automatic_Gate_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AUTOMATIC_GATE_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"automaticGateById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"automaticGateByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Automatic_Gate_By_IdQuery, Automatic_Gate_By_IdQueryVariables>;
-export const Daily_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DAILY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Daily_Price_Local_ListQuery, Daily_Price_Local_ListQueryVariables>;
-export const Weekly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WEEKLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Weekly_Price_Local_ListQuery, Weekly_Price_Local_ListQueryVariables>;
-export const Monthly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MONTHLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monthlyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"months"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Monthly_Price_Local_ListQuery, Monthly_Price_Local_ListQueryVariables>;
-export const Yearly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"YEARLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yearlyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Yearly_Price_Local_ListQuery, Yearly_Price_Local_ListQueryVariables>;
-export const Custom_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CUSTOM_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Custom_Price_Local_ListQuery, Custom_Price_Local_ListQueryVariables>;
+export const Daily_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DAILY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dailyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"tollPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Daily_Price_Local_ListQuery, Daily_Price_Local_ListQueryVariables>;
+export const Weekly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WEEKLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"tollPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Weekly_Price_Local_ListQuery, Weekly_Price_Local_ListQueryVariables>;
+export const Monthly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MONTHLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monthlyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDay"}},{"kind":"Field","name":{"kind":"Name","value":"endDay"}},{"kind":"Field","name":{"kind":"Name","value":"months"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"tollPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Monthly_Price_Local_ListQuery, Monthly_Price_Local_ListQueryVariables>;
+export const Yearly_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"YEARLY_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yearlyPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"tollPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Yearly_Price_Local_ListQuery, Yearly_Price_Local_ListQueryVariables>;
+export const Custom_Price_Local_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CUSTOM_PRICE_LOCAL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customPriceLocalList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"priceListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"priceListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priceId"}},{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"startTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"endTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"tollPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"direction"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Custom_Price_Local_ListQuery, Custom_Price_Local_ListQueryVariables>;

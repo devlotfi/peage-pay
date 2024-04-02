@@ -8,7 +8,7 @@ import { ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 @InputType()
-export class AddPriceInput {
+export class AddGlobalPriceInput {
   @Field(() => AddDailyPriceInput, { nullable: true })
   @Type(() => AddDailyPriceInput)
   @ValidateNested()

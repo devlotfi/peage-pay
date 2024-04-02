@@ -13,15 +13,17 @@ import {
   Heading,
   LoaderDots,
   MonthPicker,
+  Select,
   TextInput,
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Utils } from '@peage-pay-web/utils';
-import { MonthType } from '../../../__generated__/graphql';
+import { MonthType, TollDirectionType } from '../../../__generated__/graphql';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
 
 interface AddLocalMonthlyPriceValues {
+  direction: TollDirectionType;
   value: number;
   priority: number;
   startTimestamp: string;
@@ -32,6 +34,7 @@ interface AddLocalMonthlyPriceValues {
 }
 
 const initialValues: AddLocalMonthlyPriceValues = {
+  direction: TollDirectionType.Inbound,
   value: 1,
   priority: 1,
   startTimestamp: '',
@@ -86,6 +89,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
         variables: {
           addPriceInput: {
             addMonthlyPriceInput: {
+              direction: values.direction,
               value: values.value,
               priority: values.priority,
               startTimestamp: Utils.createDateFromTimeString(
@@ -114,6 +118,25 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
           </Heading>
         </FormPageLayout.Title>
 
+        <Select
+          variant={errors.direction && touched.direction ? 'error' : 'edge-100'}
+          className="w-full mb-[1.3rem]"
+        >
+          <Select.Main>
+            <Select.Label>Direction</Select.Label>
+            <Select.Field
+              name="direction"
+              value={values.direction}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {Utils.renderFieldOptions(TollDirectionType)}
+            </Select.Field>
+          </Select.Main>
+          {errors.direction && touched.direction ? (
+            <Select.InfoMessage>{errors.direction}</Select.InfoMessage>
+          ) : null}
+        </Select>
         <TextInput
           variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"

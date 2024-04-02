@@ -30,7 +30,7 @@ const documents = {
     "\n  mutation DELETE_SECTION($deleteSectionInput: DeleteSectionInput!) {\n    deleteSection(deleteSectionInput: $deleteSectionInput)\n  }\n": types.Delete_SectionDocument,
     "\n  mutation ADD_HUMAN_RESSOURCES_ADMIN_ROLE($addHumanRessoucesAdminRoleInput: IdInput!) {\n    addHumanRessoucesAdminRole(addHumanRessoucesAdminRoleInput: $addHumanRessoucesAdminRoleInput)\n  }\n": types.Add_Human_Ressources_Admin_RoleDocument,
     "\n  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($removeHumanRessoucesAdminRoleInput: IdInput!) {\n    removeHumanRessoucesAdminRole(removeHumanRessoucesAdminRoleInput: $removeHumanRessoucesAdminRoleInput)\n  }\n": types.Remove_Human_Ressources_Admin_RoleDocument,
-    "\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n": types.Add_Global_PriceDocument,
+    "\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddGlobalPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n": types.Add_Global_PriceDocument,
     "\n  mutation DELETE_GLOBAL_PRICE($deletePriceInput: IdInput!) {\n    deleteGlobalPrice(deletePriceInput: $deletePriceInput)\n  }\n": types.Delete_Global_PriceDocument,
     "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      count\n      list {\n        id\n        name\n        code\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Highway_ListDocument,
     "\n  query HIGHWAY_BY_ID($highwayByIdInput: IdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
@@ -139,7 +139,7 @@ export function gql(source: "\n  mutation REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE($re
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n"): (typeof documents)["\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n"];
+export function gql(source: "\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddGlobalPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n"): (typeof documents)["\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddGlobalPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

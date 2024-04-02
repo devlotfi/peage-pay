@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AddPriceService } from './add-price.service';
-import { AddPriceInput } from './input/add-price.input.gql';
+import { AddGlobalPriceInput } from './input/add-global-price.input.gql';
 import { UseGuards } from '@nestjs/common';
 import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { AllowRoles } from 'src/shared/decorators/allow-roles.decorator';
@@ -17,6 +17,7 @@ import { YearlyPriceListResult } from './result/yearly-price-list.result.gql';
 import { CustomPriceListResult } from './result/custom-price-list.result.gql';
 import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { AddLocalPriceInput } from './input/add-local-price.input.gql';
 
 @Resolver()
 export class PriceResolver {
@@ -31,7 +32,7 @@ export class PriceResolver {
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async addGlobalPrice(
-    @Args('addPriceInput') addPriceInput: AddPriceInput,
+    @Args('addPriceInput') addPriceInput: AddGlobalPriceInput,
   ) {
     return await this.addPriceService.addGlobalPrice(addPriceInput);
   }
@@ -40,7 +41,7 @@ export class PriceResolver {
   @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async addLocalPrice(
-    @Args('addPriceInput') addPriceInput: AddPriceInput,
+    @Args('addPriceInput') addPriceInput: AddLocalPriceInput,
     @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.addPriceService.addLocalPrice(

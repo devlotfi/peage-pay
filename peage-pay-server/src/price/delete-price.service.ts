@@ -19,11 +19,14 @@ export class DeletePriceService {
       where: {
         id: deletePriceInput.id,
       },
+      include: {
+        tollPrice: true,
+      },
     });
     if (!price) {
       throw new GraphQLError(PriceErrors.PRICE_NOT_FOUND);
     }
-    if (price.tollId) {
+    if (price.tollPrice) {
       throw new GraphQLError(PriceErrors.CANNOT_DELETE_LOCAL_PRICE);
     }
     return await this.deletePrice(deletePriceInput);
@@ -37,17 +40,20 @@ export class DeletePriceService {
       where: {
         id: deletePriceInput.id,
       },
+      include: {
+        tollPrice: true,
+      },
     });
     if (!price) {
       throw new GraphQLError(PriceErrors.PRICE_NOT_FOUND);
     }
-    if (!price.tollId) {
+    if (!price.tollPrice) {
       throw new GraphQLError(PriceErrors.CANNOT_DELETE_GLOBAL_PRICE);
     }
 
     const tollAdminData =
       await this.tollAdminService.getTollAdminData(accessTokenPayload);
-    if (tollAdminData.tollAdmin?.toll?.id !== price.tollId) {
+    if (tollAdminData.tollAdmin?.toll?.id !== price.tollPrice.tollId) {
       throw new GraphQLError(BaseUserErrors.INSUFFICIENT_PRIVILEGES);
     }
 

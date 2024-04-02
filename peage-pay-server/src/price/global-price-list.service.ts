@@ -17,7 +17,7 @@ export class GlobalPriceListService {
     const list = await this.databaseService.dailyPrice.findMany({
       where: {
         price: {
-          tollId: null,
+          tollPrice: null,
         },
       },
       include: {
@@ -39,7 +39,7 @@ export class GlobalPriceListService {
     const list = await this.databaseService.weeklyPrice.findMany({
       where: {
         price: {
-          tollId: null,
+          tollPrice: null,
         },
       },
       include: {
@@ -61,7 +61,7 @@ export class GlobalPriceListService {
     const list = await this.databaseService.monthlyPrice.findMany({
       where: {
         price: {
-          tollId: null,
+          tollPrice: null,
         },
       },
       include: {
@@ -83,7 +83,7 @@ export class GlobalPriceListService {
     const list = await this.databaseService.yearlyPrice.findMany({
       where: {
         price: {
-          tollId: null,
+          tollPrice: null,
         },
       },
       include: {
@@ -105,7 +105,7 @@ export class GlobalPriceListService {
     const list = await this.databaseService.customPrice.findMany({
       where: {
         price: {
-          tollId: null,
+          tollPrice: null,
         },
       },
       include: {

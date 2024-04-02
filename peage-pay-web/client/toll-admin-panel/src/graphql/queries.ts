@@ -104,6 +104,9 @@ export const DAILY_PRICE_LOCAL_LIST = gql(`
           endTimestamp
           createdAt
           updatedAt
+          tollPrice {
+            direction
+          }
         }
       }
     }
@@ -125,6 +128,9 @@ export const WEEKLY_PRICE_LOCAL_LIST = gql(`
           endTimestamp
           createdAt
           updatedAt
+          tollPrice {
+            direction
+          }
         }
       }
     }
@@ -148,6 +154,9 @@ export const MONTHLY_PRICE_LOCAL_LIST = gql(`
           endTimestamp
           createdAt
           updatedAt
+          tollPrice {
+            direction
+          }
         }
       }
     }
@@ -170,6 +179,9 @@ export const YEARLY_PRICE_LOCAL_LIST = gql(`
           endTimestamp
           createdAt
           updatedAt
+          tollPrice {
+            direction
+          }
         }
       }
     }
@@ -192,6 +204,9 @@ export const CUSTOM_PRICE_LOCAL_LIST = gql(`
           endTimestamp
           createdAt
           updatedAt
+          tollPrice {
+            direction
+          }
         }
       }
     }

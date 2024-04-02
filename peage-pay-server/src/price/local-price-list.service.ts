@@ -25,7 +25,9 @@ export class LocalPriceListService {
     const list = await this.databaseService.dailyPrice.findMany({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
       include: {
@@ -37,7 +39,9 @@ export class LocalPriceListService {
     const count = await this.databaseService.dailyPrice.count({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
     });
@@ -56,7 +60,9 @@ export class LocalPriceListService {
     const list = await this.databaseService.weeklyPrice.findMany({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
       include: {
@@ -68,7 +74,9 @@ export class LocalPriceListService {
     const count = await this.databaseService.weeklyPrice.count({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
     });
@@ -87,7 +95,9 @@ export class LocalPriceListService {
     const list = await this.databaseService.monthlyPrice.findMany({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
       include: {
@@ -99,7 +109,9 @@ export class LocalPriceListService {
     const count = await this.databaseService.monthlyPrice.count({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
     });
@@ -118,7 +130,9 @@ export class LocalPriceListService {
     const list = await this.databaseService.yearlyPrice.findMany({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
       include: {
@@ -130,7 +144,9 @@ export class LocalPriceListService {
     const count = await this.databaseService.yearlyPrice.count({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
     });
@@ -149,7 +165,9 @@ export class LocalPriceListService {
     const list = await this.databaseService.customPrice.findMany({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
       include: {
@@ -161,7 +179,9 @@ export class LocalPriceListService {
     const count = await this.databaseService.customPrice.count({
       where: {
         price: {
-          tollId: tollAdminData.tollAdmin?.toll?.id,
+          tollPrice: {
+            tollId: tollAdminData.tollAdmin?.toll?.id,
+          },
         },
       },
     });

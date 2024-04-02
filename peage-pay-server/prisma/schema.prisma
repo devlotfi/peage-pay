@@ -204,7 +204,7 @@ model Toll {
   exitTollsTrip     Trip[]          @relation("exitTollTrip")
   entryTollsTicket  Ticket[]        @relation("entryTollTicket")
   exitTollsTicket   Ticket[]        @relation("exitTollTicket")
-  prices            Price[]
+  tollPrices        TollPrice[]
   tollAdmins        TollAdmin[]
   gateAdmins        GateAdmin[]
 
@@ -332,8 +332,24 @@ enum DayOfWeek {
   SATURDAY
 }
 
+enum TollDirection {
+  INBOUND
+  OUTBOUND
+}
+
+model TollPrice {
+  toll  Toll  @relation(fields: [tollId], references: [id], onDelete: Cascade)
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  tollId        String        @unique
+  priceId       String        @unique
+  tollDirection TollDirection
+
+  @@id([tollId, priceId])
+}
+
 model Price {
-  toll         Toll?         @relation(fields: [tollId], references: [id])
+  tollPrice    TollPrice?
   dailyPrice   DailyPrice?
   weeklyPrice  WeeklyPrice?
   monthlyPrice MonthlyPrice?
@@ -341,7 +357,6 @@ model Price {
   customPrice  CustomPrice?
 
   id             String   @id @default(uuid())
-  tollId         String?
   value          Decimal
   startTimestamp DateTime
   endTimestamp   DateTime

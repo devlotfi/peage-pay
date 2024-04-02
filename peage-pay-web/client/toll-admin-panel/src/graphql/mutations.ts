@@ -1,7 +1,7 @@
 import { gql } from '../__generated__';
 
 export const ADD_LOCAL_PRICE = gql(`
-  mutation ADD_LOCAL_PRICE($addPriceInput: AddPriceInput!) {
+  mutation ADD_LOCAL_PRICE($addPriceInput: AddLocalPriceInput!) {
     addLocalPrice(addPriceInput: $addPriceInput)
   }
 `);
