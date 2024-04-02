@@ -12,6 +12,7 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
+  Select,
   TextInput,
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
@@ -19,15 +20,19 @@ import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { AUTOMATIC_GATE_BY_ID } from '../../graphql/queries';
 import { EDIT_AUTOMATIC_GATE } from '../../graphql/mutations';
+import { Utils } from '@peage-pay-web/utils';
+import { TollDirectionType } from '../../__generated__/graphql';
 
 interface EditAutomaticGateValues {
   name: string;
+  direction: TollDirectionType;
   password: string;
   confirmPassword: string;
 }
 
 const initialValues: EditAutomaticGateValues = {
   name: '',
+  direction: TollDirectionType.Inbound,
   password: '',
   confirmPassword: '',
 };
@@ -129,6 +134,27 @@ const EditAutomaticGatePage = (): JSX.Element => {
                 <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
+            <Select
+              variant={
+                errors.direction && touched.direction ? 'error' : 'edge-100'
+              }
+              className="w-full mb-[1.3rem]"
+            >
+              <Select.Main>
+                <Select.Label>Direction</Select.Label>
+                <Select.Field
+                  name="direction"
+                  value={values.direction}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {Utils.renderFieldOptions(TollDirectionType)}
+                </Select.Field>
+              </Select.Main>
+              {errors.direction && touched.direction ? (
+                <Select.InfoMessage>{errors.direction}</Select.InfoMessage>
+              ) : null}
+            </Select>
             <TextInput
               variant={
                 errors.password && touched.password ? 'error' : 'edge-100'

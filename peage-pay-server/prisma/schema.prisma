@@ -266,12 +266,13 @@ model AutomaticGate {
   toll                      Toll                       @relation(fields: [tollId], references: [id])
   automaticGateRefreshToken AutomaticGateRefreshToken?
 
-  id           String   @id @default(uuid())
+  id           String        @id @default(uuid())
   tollId       String
   name         String
+  direction    TollDirection
   passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@unique([name, tollId])
 }

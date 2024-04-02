@@ -1,9 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, MaxLength } from 'class-validator';
+import { IsOptional, IsUUID, MaxLength } from 'class-validator';
 import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 
 @InputType()
 export class AutomaticGateListInput extends PaginationInput {
+  @Field()
+  @IsUUID()
+  public tollId: string;
+
   @Field({ nullable: true })
   @MaxLength(1024)
   @IsOptional()

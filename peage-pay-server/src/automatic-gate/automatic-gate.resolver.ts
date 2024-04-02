@@ -25,11 +25,9 @@ export class AutomaticGateResolver {
   public async automaticGateList(
     @Args('automaticGateListInput')
     automaticGateListInput: AutomaticGateListInput,
-    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.automaticGateService.automaticGateList(
       automaticGateListInput,
-      accessTokenPayload,
     );
   }
 

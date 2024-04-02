@@ -9,12 +9,13 @@ import {
   SearchValues,
   Table,
 } from '@peage-pay-web/ui';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AutomaticGateSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from '@peage-pay-web/utils';
 import AutomaticGateItem from '../../components/automatic-gate/automatic-gate-item.component';
+import { TollAdminInfoConext } from '../../context/toll-admin-info.context';
 
 const initialValues: SearchValues<AutomaticGateSearchFields> = {
   search: '',
@@ -24,10 +25,13 @@ const initialValues: SearchValues<AutomaticGateSearchFields> = {
 const AutomaticGateListPage = (): JSX.Element => {
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
+  const { tollAdmin } = useContext(TollAdminInfoConext);
 
   const { data, loading, error } = useQuery(AUTOMATIC_GATE_LIST, {
     variables: {
       automaticGateListInput: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        tollId: tollAdmin.toll?.id!,
         take: 10,
         skip: 10 * (page - 1),
         [searchData.field]: searchData.search,

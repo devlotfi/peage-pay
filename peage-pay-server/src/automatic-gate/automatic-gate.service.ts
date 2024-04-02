@@ -58,14 +58,11 @@ export class AutomaticGateService {
 
   public async automaticGateList(
     automaticGateListInput: AutomaticGateListInput,
-    accessTokenPayload: UserAccessTokenPayload,
   ): Promise<AutomaticGateListResult> {
-    const tollAdmin = await this.getTollAdmin(accessTokenPayload.userId);
-
     if (automaticGateListInput.idSearch || automaticGateListInput.nameSearch) {
       const whereQuery: Prisma.AutomaticGateWhereInput = {
         toll: {
-          id: tollAdmin.tollId!,
+          id: automaticGateListInput.tollId,
         },
         OR: [
           {
@@ -102,7 +99,7 @@ export class AutomaticGateService {
         await this.databaseService.automaticGate.findMany({
           where: {
             toll: {
-              id: tollAdmin.tollId!,
+              id: automaticGateListInput.tollId,
             },
           },
           take: automaticGateListInput.take,
@@ -112,7 +109,7 @@ export class AutomaticGateService {
         {
           where: {
             toll: {
-              id: tollAdmin.tollId!,
+              id: automaticGateListInput.tollId,
             },
           },
         },
@@ -143,6 +140,7 @@ export class AutomaticGateService {
     const automaticGate = await this.databaseService.automaticGate.create({
       data: {
         name: addAutomaticGateInput.name,
+        direction: addAutomaticGateInput.direction,
         passwordHash: await Utils.hashString(addAutomaticGateInput.password),
         toll: {
           connect: {
@@ -165,6 +163,7 @@ export class AutomaticGateService {
     const automaticGate = await this.databaseService.automaticGate.update({
       data: {
         name: editAutomaticGateInput.name,
+        direction: editAutomaticGateInput.direction,
         passwordHash: editAutomaticGateInput.password
           ? await Utils.hashString(editAutomaticGateInput.password)
           : undefined,

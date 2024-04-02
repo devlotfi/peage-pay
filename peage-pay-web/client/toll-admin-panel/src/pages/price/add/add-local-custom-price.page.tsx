@@ -98,31 +98,29 @@ const AddLocalCustomPricePage = (): JSX.Element => {
           </Heading>
         </FormPageLayout.Title>
 
+        <Select
+          variant={errors.direction && touched.direction ? 'error' : 'edge-100'}
+          className="w-full mb-[1.3rem]"
+        >
+          <Select.Main>
+            <Select.Label>Direction</Select.Label>
+            <Select.Field
+              name="direction"
+              value={values.direction}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {Utils.renderFieldOptions(TollDirectionType)}
+            </Select.Field>
+          </Select.Main>
+          {errors.direction && touched.direction ? (
+            <Select.InfoMessage>{errors.direction}</Select.InfoMessage>
+          ) : null}
+        </Select>
         <TextInput
           variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
-          <Select
-            variant={
-              errors.direction && touched.direction ? 'error' : 'edge-100'
-            }
-            className="w-full mb-[1.3rem]"
-          >
-            <Select.Main>
-              <Select.Label>Direction</Select.Label>
-              <Select.Field
-                name="direction"
-                value={values.direction}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              >
-                {Utils.renderFieldOptions(TollDirectionType)}
-              </Select.Field>
-            </Select.Main>
-            {errors.direction && touched.direction ? (
-              <Select.InfoMessage>{errors.direction}</Select.InfoMessage>
-            ) : null}
-          </Select>
           <TextInput.Main>
             <TextInput.Label>Value</TextInput.Label>
             <TextInput.Field
