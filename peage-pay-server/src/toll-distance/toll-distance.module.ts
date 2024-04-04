@@ -3,6 +3,7 @@ import { TollDistanceService } from './toll-distance.service';
 import { TollDistanceResolver } from './toll-distance.resolver';
 
 @Module({
-  providers: [TollDistanceService, TollDistanceResolver]
+  providers: [TollDistanceService, TollDistanceResolver],
+  exports: [TollDistanceService],
 })
 export class TollDistanceModule {}

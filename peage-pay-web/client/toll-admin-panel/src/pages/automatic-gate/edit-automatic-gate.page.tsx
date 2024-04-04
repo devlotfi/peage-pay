@@ -21,11 +21,15 @@ import { useParams } from 'react-router-dom';
 import { AUTOMATIC_GATE_BY_ID } from '../../graphql/queries';
 import { EDIT_AUTOMATIC_GATE } from '../../graphql/mutations';
 import { Utils } from '@peage-pay-web/utils';
-import { TollDirectionType } from '../../__generated__/graphql';
+import {
+  AutomaticGateVariantType,
+  TollDirectionType,
+} from '../../__generated__/graphql';
 
 interface EditAutomaticGateValues {
   name: string;
   direction: TollDirectionType;
+  variant: AutomaticGateVariantType;
   password: string;
   confirmPassword: string;
 }
@@ -33,6 +37,7 @@ interface EditAutomaticGateValues {
 const initialValues: EditAutomaticGateValues = {
   name: '',
   direction: TollDirectionType.Inbound,
+  variant: AutomaticGateVariantType.QrCodeReader,
   password: '',
   confirmPassword: '',
 };
@@ -67,6 +72,8 @@ const EditAutomaticGatePage = (): JSX.Element => {
       onCompleted(data) {
         if (data.automaticGateById) {
           setFieldValue('name', data.automaticGateById.name);
+          setFieldValue('variant', data.automaticGateById.variant);
+          setFieldValue('direction', data.automaticGateById.direction);
         }
       },
     },
@@ -134,6 +141,25 @@ const EditAutomaticGatePage = (): JSX.Element => {
                 <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
+            <Select
+              variant={errors.variant && touched.variant ? 'error' : 'edge-100'}
+              className="w-full mb-[1.3rem]"
+            >
+              <Select.Main>
+                <Select.Label>Direction</Select.Label>
+                <Select.Field
+                  name="variant"
+                  value={values.variant}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  {Utils.renderFieldOptions(AutomaticGateVariantType)}
+                </Select.Field>
+              </Select.Main>
+              {errors.variant && touched.variant ? (
+                <Select.InfoMessage>{errors.variant}</Select.InfoMessage>
+              ) : null}
+            </Select>
             <Select
               variant={
                 errors.direction && touched.direction ? 'error' : 'edge-100'

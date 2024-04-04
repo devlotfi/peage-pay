@@ -142,6 +142,7 @@ export class AutomaticGateService {
       data: {
         name: addAutomaticGateInput.name,
         direction: addAutomaticGateInput.direction,
+        variant: addAutomaticGateInput.variant,
         passwordHash: await Utils.hashString(addAutomaticGateInput.password),
         toll: {
           connect: {
@@ -165,6 +166,7 @@ export class AutomaticGateService {
       data: {
         name: editAutomaticGateInput.name,
         direction: editAutomaticGateInput.direction,
+        variant: editAutomaticGateInput.variant,
         passwordHash: editAutomaticGateInput.password
           ? await Utils.hashString(editAutomaticGateInput.password)
           : undefined,

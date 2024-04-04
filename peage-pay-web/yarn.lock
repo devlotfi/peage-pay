@@ -5929,36 +5929,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"badge-reader@workspace:client/badge-reader":
-  version: 0.0.0-use.local
-  resolution: "badge-reader@workspace:client/badge-reader"
-  dependencies:
-    "@electron-toolkit/eslint-config-prettier": "npm:^2.0.0"
-    "@electron-toolkit/eslint-config-ts": "npm:^1.0.1"
-    "@electron-toolkit/preload": "npm:^3.0.0"
-    "@electron-toolkit/tsconfig": "npm:^1.0.1"
-    "@electron-toolkit/utils": "npm:^3.0.0"
-    "@types/node": "npm:^18.19.9"
-    "@types/react": "npm:^18.2.48"
-    "@types/react-dom": "npm:^18.2.18"
-    "@vitejs/plugin-react": "npm:^4.2.1"
-    autoprefixer: "npm:^10.4.19"
-    electron: "npm:^28.2.0"
-    electron-builder: "npm:^24.9.1"
-    electron-vite: "npm:^2.0.0"
-    eslint: "npm:^8.56.0"
-    eslint-plugin-react: "npm:^7.33.2"
-    postcss: "npm:^8.4.38"
-    prettier: "npm:^3.2.4"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    serialport: "npm:^12.0.0"
-    tailwindcss: "npm:^3.4.3"
-    typescript: "npm:^5.3.3"
-    vite: "npm:^5.0.12"
-  languageName: unknown
-  linkType: soft
-
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -8839,6 +8809,35 @@ __metadata:
   checksum: 10c0/33e77fd29bddc2d9bb78ab3eb854c165909201f88c75faa8272e35899e2d35a8a642a15e7420ef945e1f64a9670d6aa3ec744106b2aa42be68ca5114025954ca
   languageName: node
   linkType: hard
+
+"gate-admin-panel@workspace:client/gate-admin-panel":
+  version: 0.0.0-use.local
+  resolution: "gate-admin-panel@workspace:client/gate-admin-panel"
+  dependencies:
+    "@electron-toolkit/eslint-config-prettier": "npm:^2.0.0"
+    "@electron-toolkit/eslint-config-ts": "npm:^1.0.1"
+    "@electron-toolkit/preload": "npm:^3.0.0"
+    "@electron-toolkit/tsconfig": "npm:^1.0.1"
+    "@electron-toolkit/utils": "npm:^3.0.0"
+    "@types/node": "npm:^18.19.9"
+    "@types/react": "npm:^18.2.48"
+    "@types/react-dom": "npm:^18.2.18"
+    "@vitejs/plugin-react": "npm:^4.2.1"
+    autoprefixer: "npm:^10.4.19"
+    electron: "npm:^28.2.0"
+    electron-builder: "npm:^24.9.1"
+    electron-vite: "npm:^2.0.0"
+    eslint: "npm:^8.56.0"
+    eslint-plugin-react: "npm:^7.33.2"
+    postcss: "npm:^8.4.38"
+    prettier: "npm:^3.2.4"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    tailwindcss: "npm:^3.4.3"
+    typescript: "npm:^5.3.3"
+    vite: "npm:^5.0.12"
+  languageName: unknown
+  linkType: soft
 
 "gensync@npm:^1.0.0-beta.2":
   version: 1.0.0-beta.2

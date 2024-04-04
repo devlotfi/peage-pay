@@ -262,17 +262,24 @@ model AutomaticGateRefreshToken {
   createdAt       DateTime @default(now())
 }
 
+enum AutomaticGateVariant {
+  TICKET_PRINTER
+  RFID_READER
+  QR_CODE_READER
+}
+
 model AutomaticGate {
   toll                      Toll                       @relation(fields: [tollId], references: [id])
   automaticGateRefreshToken AutomaticGateRefreshToken?
 
-  id           String        @id @default(uuid())
+  id           String               @id @default(uuid())
   tollId       String
   name         String
+  variant      AutomaticGateVariant
   direction    TollDirection
   passwordHash String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
 
   @@unique([name, tollId])
 }
@@ -295,17 +302,17 @@ model Trip {
 }
 
 model Ticket {
-  entryToll Toll @relation("entryTollTicket", fields: [entryTollId], references: [id])
-  exitToll  Toll @relation("exitTollTicket", fields: [exitTollId], references: [id])
+  entryToll Toll  @relation("entryTollTicket", fields: [entryTollId], references: [id])
+  exitToll  Toll? @relation("exitTollTicket", fields: [exitTollId], references: [id])
 
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   entryTollId    String
-  exitTollId     String
-  entryTimeStamp DateTime @default(now())
+  exitTollId     String?
+  entryTimeStamp DateTime  @default(now())
   entryTollPrice Decimal
-  exitTimeStamp  DateTime
-  exitTollPrice  Decimal
-  distance       Decimal
+  exitTimeStamp  DateTime?
+  exitTollPrice  Decimal?
+  distance       Decimal?
 }
 
 enum Month {

@@ -63,8 +63,10 @@ const AutomaticGateItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{automaticGate.id}</Table.Body.Td>
+
       <Table.Body.Td>{automaticGate.name}</Table.Body.Td>
+      <Table.Body.Td>{automaticGate.variant}</Table.Body.Td>
+      <Table.Body.Td>{automaticGate.direction}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);
@@ -77,6 +79,7 @@ const AutomaticGateItem = ({
           return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{automaticGate.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

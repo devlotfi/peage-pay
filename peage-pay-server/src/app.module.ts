@@ -36,6 +36,7 @@ import { RfidTagModule } from './rfid-tag/rfid-tag.module';
 import { RfidTagSearchFields } from './rfid-tag/graphql/rfid-tag-search-fields.gql';
 import { AutomaticGateModule } from './automatic-gate/automatic-gate.module';
 import { AutomaticGateSearchFields } from './automatic-gate/graphql/automatic-gate-search-fields.gql';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
   imports: [
@@ -95,6 +96,7 @@ import { AutomaticGateSearchFields } from './automatic-gate/graphql/automatic-ga
     TollDistanceModule,
     RfidTagModule,
     AutomaticGateModule,
+    TicketModule,
   ],
 })
 export class AppModule {}

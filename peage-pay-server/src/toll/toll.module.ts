@@ -9,6 +9,6 @@ import { TollPriceService } from './toll-price.service';
 @Module({
   imports: [WilayaModule, HighwayModule, TollNetworkModule],
   providers: [TollService, TollPriceService, TollResolver],
-  exports: [TollService],
+  exports: [TollService, TollPriceService],
 })
 export class TollModule {}

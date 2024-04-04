@@ -208,4 +208,11 @@ export class TollDistanceService {
 
     return true;
   }
+
+  public async tollDistance(
+    fromTollId: string,
+    toTollId: string,
+  ): Promise<number> {
+    return 100;
+  }
 }

@@ -88,7 +88,7 @@ export class TollResolver {
   @Query(() => Boolean)
   //@UseGuards(AuthGuard)
   public async tollPrice(@Args('tollPriceInput') tollPriceInput: IdInput) {
-    return await this.tollPriceService.tollPrice(tollPriceInput);
+    return await this.tollPriceService.tollPrice();
   }
 
   @ResolveField(() => WilayaType)

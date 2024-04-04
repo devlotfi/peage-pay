@@ -70,6 +70,8 @@ export const AUTOMATIC_GATE_LIST = gql(`
       list {
         id
         name
+        variant
+        direction
         tollId
         createdAt
         updatedAt
@@ -83,6 +85,8 @@ export const AUTOMATIC_GATE_BY_ID = gql(`
     automaticGateById(automaticGateByIdInput: $automaticGateByIdInput) {
       id
       name
+      variant
+      direction
       tollId
       createdAt
       updatedAt

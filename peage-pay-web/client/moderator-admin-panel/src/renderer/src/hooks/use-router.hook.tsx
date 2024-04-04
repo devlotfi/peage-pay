@@ -10,7 +10,6 @@ import DashboardLayout from '@renderer/layout/dashboard-layout.layout';
 import RfidTagLayout from '@renderer/layout/rfid-tag.layout';
 import BaseUserListPage from '@renderer/pages/base-user/base-user-list.page';
 import RfisTagListPage from '@renderer/pages/rfid-tag/rfid-tag-list.page';
-import { BadgeScannerProvider } from '@renderer/context/badge-scanner.context';
 import AddRfidTagPage from '@renderer/pages/rfid-tag/add-rfid-tag.page';
 
 const useRouter = () => {
@@ -63,11 +62,7 @@ const useRouter = () => {
           children: [
             {
               path: '/dashboard/rfid-tag/add/:baseUserId',
-              element: (
-                <BadgeScannerProvider>
-                  <AddRfidTagPage></AddRfidTagPage>
-                </BadgeScannerProvider>
-              ),
+              element: <AddRfidTagPage></AddRfidTagPage>,
             },
             {
               path: '/dashboard/rfid-tag/list/:baseUserId',

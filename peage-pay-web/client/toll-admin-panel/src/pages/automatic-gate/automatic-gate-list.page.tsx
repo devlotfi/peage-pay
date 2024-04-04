@@ -10,7 +10,10 @@ import {
   Table,
 } from '@peage-pay-web/ui';
 import { useContext, useState } from 'react';
-import { AutomaticGateSearchFields } from '../../__generated__/graphql';
+import {
+  AutomaticGateSearchFields,
+  AutomaticGateType,
+} from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from '@peage-pay-web/utils';
@@ -64,17 +67,19 @@ const AutomaticGateListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Name</Table.Head.Th>
+                    <Table.Head.Th>Variant</Table.Head.Th>
+                    <Table.Head.Th>Direction</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
-                  {data?.automaticGateList.list.map((highway) => (
+                  {data?.automaticGateList.list.map((automaticGate) => (
                     <AutomaticGateItem
-                      key={highway.id}
-                      automaticGate={highway}
+                      key={automaticGate.id}
+                      automaticGate={automaticGate as AutomaticGateType}
                     ></AutomaticGateItem>
                   ))}
                 </Table.Body>

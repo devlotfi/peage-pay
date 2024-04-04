@@ -6,23 +6,11 @@ import { AdminDashboardLayout, Heading, Table } from '@peage-pay-web/ui';
 import ConnectToSerialPortFrom from '@renderer/components/seria-port/connect-to-serial-port-form.component';
 import { BadgeScannerContext } from '@renderer/context/badge-scanner.context';
 import { RFID_TAG_BY_RFID } from '@renderer/graphql/queries';
-import { DISCONNECT_FROM_SERIAL_PORT } from '@renderer/react-query/mutations';
 import { useContext, useEffect, useRef } from 'react';
-import { useMutation as useReactMutation } from 'react-query';
 
 const BadgeScannerPage = () => {
-  const { rfid, setRfid, setPath } = useContext(BadgeScannerContext);
+  const { rfid, setRfid } = useContext(BadgeScannerContext);
   const listenersRegisteredRef = useRef(false);
-
-  const { mutate: mutateDisconnectToSerialPort } = useReactMutation(
-    DISCONNECT_FROM_SERIAL_PORT,
-    {
-      mutationKey: DISCONNECT_FROM_SERIAL_PORT.name,
-      onSuccess() {
-        setPath(null);
-      },
-    },
-  );
 
   const { loading, error, data } = useQuery(RFID_TAG_BY_RFID, {
     variables: {
@@ -33,13 +21,6 @@ const BadgeScannerPage = () => {
     fetchPolicy: 'network-only',
     skip: !rfid,
   });
-
-  useEffect(() => {
-    return () => {
-      mutateDisconnectToSerialPort();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (!listenersRegisteredRef.current) {

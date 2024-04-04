@@ -1,8 +1,7 @@
-import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { Button } from '@peage-pay-web/ui';
 import PDFDisplay from '@renderer/components/pdf-display.component';
 import jsPDF from 'jspdf';
-import { QRCodeCanvas, QRCodeSVG } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 import { useRef, useState } from 'react';
 
 const TicketPrinter = () => {
@@ -14,17 +13,32 @@ const TicketPrinter = () => {
     const doc = new jsPDF({
       unit: 'mm',
       orientation: 'portrait',
-      format: [57, 57],
+      format: [57, 100],
     });
+    new jsPDF();
 
     const qrCodeCanvas: HTMLCanvasElement = document.getElementById(
       'qr-code-canvas',
     ) as HTMLCanvasElement;
     const imageData = qrCodeCanvas.toDataURL('image/webp');
+    console.log(doc.internal.pageSize.getWidth());
+    const docWidth = doc.internal.pageSize.getWidth();
+    doc.setFontSize(10);
+    doc.text('Ticket de peage', docWidth / 2, 10, {
+      align: 'center',
+    });
 
-    doc.addImage(imageData, 'WEBP', 0, 0, 50, 50);
+    const imgWidth = 30;
+    const imgHeight = 30;
+    doc.addImage(
+      imageData,
+      'WEBP',
+      (docWidth - imgWidth) / 2,
+      40,
+      imgWidth,
+      imgHeight,
+    );
 
-    // Display or save the PDF
     const data = doc.output('datauristring');
     console.log(data);
 
@@ -47,7 +61,7 @@ const TicketPrinter = () => {
         id="qr-code-canvas"
         className="hidden"
         value={text}
-        size={500}
+        size={200}
       ></QRCodeCanvas>
     </div>
   );

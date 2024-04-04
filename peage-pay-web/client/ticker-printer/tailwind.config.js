@@ -4,8 +4,8 @@ import Config from '../../lib/tailwind-config/tailwind.config';
 export default {
   presets: [Config],
   content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
+    './src/renderer/index.html',
+    './src/renderer/**/*.{js,ts,jsx,tsx}',
     '../../lib/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {

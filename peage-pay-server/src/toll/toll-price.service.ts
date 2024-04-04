@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { DayOfWeek, Month, Prisma, Toll } from '@prisma/client';
-import { TollListInput } from './input/toll-list.input.gql';
-import { AddTollInput } from './input/add-toll.input.gql';
-import { EditTollInput } from './input/edit-toll.input.gql';
-import { TollListResult } from './result/toll-list.result.gql';
+import { DayOfWeek, Month } from '@prisma/client';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 
 @Injectable()
@@ -59,26 +55,7 @@ export class TollPriceService {
     }
   }
 
-  public async tollPrice(tollPriceInput: IdInput): Promise<number> {
-    const currentDatetime = new Date();
-
-    const dailyPrices = await this.databaseService.dailyPrice.findMany({
-      where: {
-        price: {
-          startTimestamp: {
-            lte: currentDatetime,
-          },
-          endTimestamp: {
-            gte: currentDatetime,
-          },
-        },
-      },
-      include: {
-        price: true,
-      },
-    });
-
-    console.log(dailyPrices);
+  public async tollPrice(): Promise<number> {
     return 1;
   }
 }
