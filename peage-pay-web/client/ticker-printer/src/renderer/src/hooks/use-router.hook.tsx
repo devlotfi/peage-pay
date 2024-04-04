@@ -1,7 +1,7 @@
 import { Navigate, createHashRouter } from 'react-router-dom';
 import { ErrorPage } from '@peage-pay-web/ui';
 import DashboardLayout from '@renderer/layout/dashboard-layout.layout';
-import BadgeScannerPage from '@renderer/pages/badge-scanner.page';
+import TicketPrinter from '@renderer/pages/ticket-printer.page';
 import {
   SignInAutomaticGatePage,
   useAutomaticGateAuthGuard,
@@ -28,7 +28,7 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <BadgeScannerPage></BadgeScannerPage>,
+          element: <TicketPrinter></TicketPrinter>,
         },
       ],
     },

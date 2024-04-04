@@ -65,6 +65,6 @@ export class RfidTagResolver {
 
   @ResolveField(() => BaseUserType)
   public async baseUser(@Parent() rfidTag: RfidTagType) {
-    return await this.baseUserService.baseUserById({ id: rfidTag.id });
+    return await this.baseUserService.baseUserById({ id: rfidTag.baseUserId });
   }
 }
