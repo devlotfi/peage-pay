@@ -1,28 +1,18 @@
-import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  AutomaticGateAuthContext,
-  AutomaticGateNavbarDropdown,
-} from '@peage-pay-web/automatic-gate-auth';
+import { NavbarDropdown } from '@peage-pay-web/auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
-import { useContext } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
 
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="Ticket printer">
-          <AutomaticGateNavbarDropdown></AutomaticGateNavbarDropdown>
-          {automaticGateAuthData?.automaticGate ? (
-            <AdminDashboardLayout.AutomaticGateInfo
-              automaticGate={automaticGateAuthData.automaticGate}
-            ></AdminDashboardLayout.AutomaticGateInfo>
-          ) : undefined}
+        <AdminDashboardLayout.Sidebar.Main title="Gate Admin">
+          <NavbarDropdown></NavbarDropdown>
           <MenuItem
             onClick={() => navigate('/dashboard')}
             variant={
@@ -31,9 +21,21 @@ const DashboardLayout = (): JSX.Element => {
             className="w-full mb-[0.5rem]"
           >
             <MenuItem.Icon>
-              <FontAwesomeIcon icon={faIdBadge}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Ticket printer</MenuItem.Text>
+            <MenuItem.Text>Home</MenuItem.Text>
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigate('/dashboard/scan')}
+            variant={
+              location.pathname === '/dashboard/scan' ? 'primary' : 'base-200'
+            }
+            className="w-full mb-[0.5rem]"
+          >
+            <MenuItem.Icon>
+              <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
+            </MenuItem.Icon>
+            <MenuItem.Text>Scan</MenuItem.Text>
           </MenuItem>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>

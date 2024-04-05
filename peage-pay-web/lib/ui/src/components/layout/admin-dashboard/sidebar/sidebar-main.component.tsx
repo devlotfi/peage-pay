@@ -74,7 +74,7 @@ const SidebarMain = ({
           <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
         </IconButton>
       </div>
-      <div className="flex h-[1px] bg-edge-100 mx-[1rem] my-[1rem]"></div>
+      <div className="flex min-h-[1px] bg-edge-100 mx-[1rem] my-[1rem]"></div>
       {children}
     </div>
   );

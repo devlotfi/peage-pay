@@ -4666,6 +4666,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/offscreencanvas@npm:^2019.6.4":
+  version: 2019.7.3
+  resolution: "@types/offscreencanvas@npm:2019.7.3"
+  checksum: 10c0/6d1dfae721d321cd2b5435f347a0e53b09f33b2f9e9333396480f592823bc323847b8169f7d251d2285cb93dbc1ba2e30741ac5cf4b1c003d660fd4c24526963
+  languageName: node
+  linkType: hard
+
 "@types/plist@npm:^3.0.1":
   version: 3.0.5
   resolution: "@types/plist@npm:3.0.5"
@@ -11062,28 +11069,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moderator-admin-panel-old@workspace:client/moderator-admin-panel-old":
-  version: 0.0.0-use.local
-  resolution: "moderator-admin-panel-old@workspace:client/moderator-admin-panel-old"
-  dependencies:
-    "@types/react": "npm:^18.2.66"
-    "@types/react-dom": "npm:^18.2.22"
-    "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
-    "@typescript-eslint/parser": "npm:^7.2.0"
-    "@vitejs/plugin-react": "npm:^4.2.1"
-    autoprefixer: "npm:^10.4.19"
-    eslint: "npm:^8.57.0"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-react-refresh: "npm:^0.4.6"
-    postcss: "npm:^8.4.38"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    tailwindcss: "npm:^3.4.3"
-    typescript: "npm:^5.2.2"
-    vite: "npm:^5.2.0"
-  languageName: unknown
-  linkType: soft
-
 "moderator-admin-panel@workspace:client/moderator-admin-panel":
   version: 0.0.0-use.local
   resolution: "moderator-admin-panel@workspace:client/moderator-admin-panel"
@@ -11884,6 +11869,7 @@ __metadata:
     jwt-decode: "npm:^4.0.0"
     localforage: "npm:^1.10.0"
     match-sorter: "npm:^6.3.4"
+    qr-scanner: "npm:^1.4.2"
     qrcode.react: "npm:^3.1.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -12298,6 +12284,15 @@ __metadata:
   version: 1.1.3
   resolution: "pvutils@npm:1.1.3"
   checksum: 10c0/23489e6b3c76b6afb6964a20f891d6bef092939f401c78bba186b2bfcdc7a13904a0af0a78f7933346510f8c1228d5ab02d3c80e968fd84d3c76ff98d8ec9aac
+  languageName: node
+  linkType: hard
+
+"qr-scanner@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "qr-scanner@npm:1.4.2"
+  dependencies:
+    "@types/offscreencanvas": "npm:^2019.6.4"
+  checksum: 10c0/32ac53d6f5c9045e1464d6b110eb19d3f8865f72276d26f00f6cc1e1d239ce34c799824a3082c775236cf887cf4354b2c292c89a08fd25378ab2c68472346970
   languageName: node
   linkType: hard
 

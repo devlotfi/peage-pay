@@ -1322,6 +1322,27 @@ export type YearlyPriceType = {
   startDate: Scalars['DateTime']['output'];
 };
 
+export type Delete_Base_UserMutationVariables = Exact<{
+  deleteBaseUserInput: IdInput;
+}>;
+
+
+export type Delete_Base_UserMutation = { __typename?: 'Mutation', deleteBaseUser: boolean };
+
+export type Add_Rfid_TagMutationVariables = Exact<{
+  addRfidTagInput: AddRfidTagInput;
+}>;
+
+
+export type Add_Rfid_TagMutation = { __typename?: 'Mutation', addRfidTag: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, baseUserId: string, createdAt: any, updatedAt: any } };
+
+export type Delete_Rfid_TagMutationVariables = Exact<{
+  deleteRfidTagInput: IdInput;
+}>;
+
+
+export type Delete_Rfid_TagMutation = { __typename?: 'Mutation', deleteRfidTag: boolean };
+
 export type Rfid_Tag_By_RfidQueryVariables = Exact<{
   rfidTagByRfidInput: RfidTagByRfidInput;
 }>;
@@ -1329,5 +1350,32 @@ export type Rfid_Tag_By_RfidQueryVariables = Exact<{
 
 export type Rfid_Tag_By_RfidQuery = { __typename?: 'Query', rfidTagByRfid?: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, createdAt: any, updatedAt: any, baseUserId: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } | null };
 
+export type Base_User_ListQueryVariables = Exact<{
+  baseUserListInput: BaseUserListInput;
+}>;
 
+
+export type Base_User_ListQuery = { __typename?: 'Query', baseUserList: { __typename?: 'BaseUserListResult', count: number, list: Array<{ __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any, roles: Array<BaseUserRolesType> }> } };
+
+export type Base_User_By_IdQueryVariables = Exact<{
+  baseUserByIdInput: IdInput;
+}>;
+
+
+export type Base_User_By_IdQuery = { __typename?: 'Query', baseUserById?: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, roles: Array<BaseUserRolesType>, createdAt: any, updatedAt: any } | null };
+
+export type Rfid_Tag_ListQueryVariables = Exact<{
+  rfidTagListInput: RfidTagListInput;
+}>;
+
+
+export type Rfid_Tag_ListQuery = { __typename?: 'Query', rfidTagList: { __typename?: 'RfidTagListResult', count: number, list: Array<{ __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, baseUserId: string, createdAt: any, updatedAt: any }> } };
+
+
+export const Delete_Base_UserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_BASE_USER"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteBaseUserInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteBaseUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteBaseUserInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteBaseUserInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Base_UserMutation, Delete_Base_UserMutationVariables>;
+export const Add_Rfid_TagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_RFID_TAG"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addRfidTagInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddRfidTagInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addRfidTag"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addRfidTagInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addRfidTagInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_Rfid_TagMutation, Add_Rfid_TagMutationVariables>;
+export const Delete_Rfid_TagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_RFID_TAG"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteRfidTagInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteRfidTag"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteRfidTagInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteRfidTagInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Rfid_TagMutation, Delete_Rfid_TagMutationVariables>;
 export const Rfid_Tag_By_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_BY_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagByRfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagByRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagByRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_By_RfidQuery, Rfid_Tag_By_RfidQueryVariables>;
+export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
+export const Base_User_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Base_User_By_IdQuery, Base_User_By_IdQueryVariables>;
+export const Rfid_Tag_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_ListQuery, Rfid_Tag_ListQueryVariables>;
