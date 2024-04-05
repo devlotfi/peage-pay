@@ -14,12 +14,13 @@ import { SignInAutomaticGateInput } from './input/sign-in-automatic-gate.input.g
 import { compare } from 'bcrypt';
 import { AutomaticGateErrors } from './graphql/automatic-gate-errors.gql';
 import { AutomaticGateTokenService } from 'src/token/automatic-gate-token.service';
-import { Request, Response } from 'express';
 import { AutomaticGateType } from './graphql/automatic-gate.gql';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { AutomaticGateListInput } from './input/automatic-gate-list.input.gql';
 import { AutomaticGateListResult } from './result/automatic-gate-list.result.gql';
 import { AutomaticGateAccessTokenPayload } from './types/automatic-gate-access-token-payload.type';
+import { SignInAutomaticGateRefreshTokenInput } from './input/sign-in-automatic-gate-refresh-token.input.gql';
+import { SignInAutomaticGateRefreshTokenResult } from './result/sign-in-automatic-gate-refresh-token.result.gql';
 
 @Injectable()
 export class AutomaticGateService {
@@ -196,8 +197,6 @@ export class AutomaticGateService {
 
   public async signInAutomaticGate(
     signInAutomaticGateInput: SignInAutomaticGateInput,
-    req: Request,
-    res: Response,
   ): Promise<SignInAutomaticGateResult> {
     const automaticGate =
       await this.databaseService.automaticGate.findUniqueOrThrow({
@@ -213,36 +212,32 @@ export class AutomaticGateService {
       throw new GraphQLError(AutomaticGateErrors.INVALID_NAME_OR_PASSWORD);
     }
 
-    await this.automaticGateTokenService.generateRefreshToken(
-      automaticGate.id,
-      req,
-      res,
-    );
+    const refreshToken =
+      await this.automaticGateTokenService.generateRefreshToken(
+        automaticGate.id,
+      );
     const accessToken =
       await this.automaticGateTokenService.generateAccessToken(
         automaticGate.id,
       );
 
     return {
+      refreshToken,
       accessToken,
       automaticGate: automaticGate as AutomaticGateType,
     };
   }
 
   public async signInAutomaticGateRefreshToken(
-    req: Request,
-    res: Response,
-  ): Promise<SignInAutomaticGateResult> {
-    const { payload, refreshToken, valid } =
-      await this.automaticGateTokenService.checkRefreshTokenCookie(req, res);
-    if (!refreshToken) {
-      throw new GraphQLError(TokenErrors.REFRESH_TOKEN_NOT_PROVIDED);
-    }
+    signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput,
+  ): Promise<SignInAutomaticGateRefreshTokenResult> {
+    const { payload, valid } =
+      await this.automaticGateTokenService.checkRefreshToken(
+        signInAutomaticGateRefreshTokenInput.refreshToken,
+      );
     if (!valid || !payload) {
       throw new GraphQLError(TokenErrors.INVALID_REFRESH_TOKEN);
     }
-
-    console.log(payload);
 
     const automaticGateId: string = payload.automaticGateId;
     const automaticGate =
@@ -263,13 +258,9 @@ export class AutomaticGateService {
 
   public async signOutAutomaticGate(
     accessTokenPayload: AutomaticGateAccessTokenPayload,
-    req: Request,
-    res: Response,
   ): Promise<boolean> {
     await this.automaticGateTokenService.clearRefreshToken(
       accessTokenPayload.automaticGateId,
-      req,
-      res,
     );
     return true;
   }

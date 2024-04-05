@@ -1,4 +1,4 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
 
 export const SIGN_UP_WITH_EMAIL = gql(`
   mutation SIGN_UP_WITH_EMAIL($signUpWithEmailInput: SignUpWithEmailInput!) {
@@ -34,6 +34,7 @@ export const SIGN_IN_WITH_EMAIL = gql(`
         createdAt
         updatedAt
       }
+      refreshToken
       accessToken
       roles
     }
@@ -50,6 +51,7 @@ export const SIGN_IN_WITH_GOOGLE = gql(`
         createdAt
         updatedAt
       }
+      refreshToken
       accessToken
       roles
     }

@@ -1,26 +1,27 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faAt,
   faExclamationCircle,
   faKey,
   faSignIn,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Alert,
   Button,
   CustomLink,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { SIGN_IN_WITH_EMAIL } from "../../graphql/mutations";
-import { AuthErrors, RefreshTokenMode } from "../../__generated__/graphql";
-import { useContext, useRef } from "react";
-import { AuthContext } from "../../context/auth.context";
-import VerifyEmailModal from "../verify-email-modal.component";
-import { Link } from "react-router-dom";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { SIGN_IN_WITH_EMAIL } from '../../graphql/mutations';
+import { AuthErrors, RefreshTokenMode } from '../../__generated__/graphql';
+import { useContext, useRef } from 'react';
+import { AuthContext } from '../../context/auth.context';
+import VerifyEmailModal from '../verify-email-modal.component';
+import { Link } from 'react-router-dom';
+import { UserAuthUtils } from '../../utils';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -33,22 +34,29 @@ interface SignInWithEmailValues {
 }
 
 const initialValues: SignInWithEmailValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const SignInWithEmailForm = (): JSX.Element => {
-  const { setAuthData, setAccessToken } = useContext(AuthContext);
+  const { setAuthData, refreshTokenMode } = useContext(AuthContext);
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_WITH_EMAIL,
     {
       onCompleted(data) {
+        if (
+          refreshTokenMode === RefreshTokenMode.PlainText &&
+          data.signInWithEmail.refreshToken
+        ) {
+          UserAuthUtils.setRefreshToken(data.signInWithEmail.refreshToken);
+        }
+
         setAuthData({
           // @ts-ignore
           baseUser: data.signInWithEmail.baseUser,
           userRoles: data.signInWithEmail.roles,
         });
-        setAccessToken(data.signInWithEmail.accessToken);
+        UserAuthUtils.setAccessToken(data.signInWithEmail.accessToken);
       },
       onError(error) {
         switch (error.message) {
@@ -57,7 +65,7 @@ const SignInWithEmailForm = (): JSX.Element => {
             break;
         }
       },
-    }
+    },
   );
   const verifyEmailModalRef = useRef<HTMLDialogElement>(null);
 
@@ -72,7 +80,7 @@ const SignInWithEmailForm = (): JSX.Element => {
               email: values.email,
               password: values.password,
             },
-            refreshTokenMode: RefreshTokenMode.Cookie,
+            refreshTokenMode,
           },
         });
       },
@@ -87,12 +95,12 @@ const SignInWithEmailForm = (): JSX.Element => {
 
       <form onSubmit={handleSubmit} className="mt-[2rem]">
         <TextInput
-          variant={errors.email && touched.email ? "error" : "edge-100"}
+          variant={errors.email && touched.email ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>E-mail</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -109,12 +117,12 @@ const SignInWithEmailForm = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.password && touched.password ? "error" : "edge-100"}
+          variant={errors.password && touched.password ? 'error' : 'edge-100'}
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
             <TextInput.Label>Password</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -130,27 +138,27 @@ const SignInWithEmailForm = (): JSX.Element => {
             <TextInput.InfoMessage>{errors.password}</TextInput.InfoMessage>
           ) : null}
         </TextInput>
-        <Link to={"/send-password-reset-email"}>
+        <Link to={'/send-password-reset-email'}>
           <CustomLink className="mb-[1rem]">Reset password</CustomLink>
         </Link>
 
         {error ? (
-          <Alert variant={"error"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button className="w-full" variant={"primary"} type="submit">
+        <Button className="w-full" variant={'primary'} type="submit">
           {loading ? (
             <Button.Content>
-              <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+              <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
             </Button.Content>
           ) : (
             <>
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Sign in</Button.Content>

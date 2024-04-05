@@ -17,9 +17,11 @@ export class Env {
   @IsString()
   public AUTH_COMMON_CLIENT_URL: string;
   @IsString()
-  public MODERATOR_BADGE_READER_URL: string;
-  @IsString()
   public TICKET_PRINTER_URL: string;
+  @IsString()
+  public RFID_TAG_READER_URL: string;
+  @IsString()
+  public QR_CODE_READER_URL: string;
 
   @IsString()
   public DATABASE_URL: string;

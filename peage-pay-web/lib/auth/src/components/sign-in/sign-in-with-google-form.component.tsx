@@ -6,17 +6,25 @@ import { SIGN_IN_WITH_GOOGLE } from '../../graphql/mutations';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import { RefreshTokenMode } from '../../__generated__/graphql';
+import { UserAuthUtils } from '../../utils';
 
 const SignInWithGoogleForm = (): JSX.Element => {
-  const { setAccessToken, setAuthData } = useContext(AuthContext);
+  const { setAuthData, refreshTokenMode } = useContext(AuthContext);
   const [signInWithGoogle, { loading }] = useMutation(SIGN_IN_WITH_GOOGLE, {
     onCompleted(data) {
+      if (
+        refreshTokenMode === RefreshTokenMode.PlainText &&
+        data.signInWithGoogle.refreshToken
+      ) {
+        UserAuthUtils.setRefreshToken(data.signInWithGoogle.refreshToken);
+      }
+
       setAuthData({
         // @ts-ignore
         baseUser: data.signInWithGoogle.baseUser,
         userRoles: data.signInWithGoogle.roles,
       });
-      setAccessToken(data.signInWithGoogle.accessToken);
+      UserAuthUtils.setAccessToken(data.signInWithGoogle.accessToken);
     },
     onError(error) {
       console.log(error);
@@ -26,7 +34,7 @@ const SignInWithGoogleForm = (): JSX.Element => {
     onSuccess(tokenResponse) {
       signInWithGoogle({
         variables: {
-          refreshTokenMode: RefreshTokenMode.Cookie,
+          refreshTokenMode,
           signInWithGoogleInput: {
             token: tokenResponse.access_token,
           },

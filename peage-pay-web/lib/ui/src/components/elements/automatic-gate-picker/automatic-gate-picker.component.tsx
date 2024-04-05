@@ -97,7 +97,7 @@ const AutomaticGatePicker = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Toll list</Heading.Text>
+                <Heading.Text>Automatic gate list</Heading.Text>
               </Heading>
             </ListPageLayout.Title>
 

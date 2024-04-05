@@ -17,7 +17,10 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <ApplicationApolloClientProvider authType="AUTOMATIC_GATE">
+        <ApplicationApolloClientProvider
+          userRefreshTokenMode="PLAIN_TEXT"
+          authType="AUTOMATIC_GATE"
+        >
           <AutomaticGateAuthProvider>
             <App />
           </AutomaticGateAuthProvider>

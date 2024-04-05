@@ -13,9 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_GateDocument,
+    "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      refreshToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_GateDocument,
     "\n  mutation SIGN_OUT_AUTOMATIC_GATE {\n    signOutAutomaticGate\n  }\n": types.Sign_Out_Automatic_GateDocument,
-    "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_Gate_Refresh_TokenDocument,
+    "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN($signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput!) {\n    signInAutomaticGateRefreshToken(signInAutomaticGateRefreshTokenInput: $signInAutomaticGateRefreshTokenInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Sign_In_Automatic_Gate_Refresh_TokenDocument,
 };
 
 /**
@@ -35,7 +35,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function gql(source: "\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      refreshToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_AUTOMATIC_GATE($signInAutomaticGateInput: SignInAutomaticGateInput!) {\n    signInAutomaticGate(signInAutomaticGateInput: $signInAutomaticGateInput) {\n      accessToken\n      refreshToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -43,7 +43,7 @@ export function gql(source: "\n  mutation SIGN_OUT_AUTOMATIC_GATE {\n    signOut
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {\n    signInAutomaticGateRefreshToken {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN($signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput!) {\n    signInAutomaticGateRefreshToken(signInAutomaticGateRefreshTokenInput: $signInAutomaticGateRefreshTokenInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN($signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput!) {\n    signInAutomaticGateRefreshToken(signInAutomaticGateRefreshTokenInput: $signInAutomaticGateRefreshTokenInput) {\n      accessToken\n      automaticGate {\n        id\n        name\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

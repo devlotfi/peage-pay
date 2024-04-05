@@ -5,8 +5,11 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import {
   SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN,
+  SIGN_IN_WITH_REFRESH_TOKEN,
   SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
 } from './graphql/query';
+import { UserAuthUtils } from '@peage-pay-web/auth';
+import { AutomaticGateAuthUtils } from '@peage-pay-web/automatic-gate-auth';
 
 const serverGraphqlEndpoint = `${
   import.meta.env['VITE_SERVER_URL'] ||
@@ -15,7 +18,12 @@ const serverGraphqlEndpoint = `${
 
 export type AuthType = 'USER' | 'AUTOMATIC_GATE';
 
-export const initApolloClient = (authType: AuthType) => {
+export type UserRefreshTokenMode = 'COOKIE' | 'PLAIN_TEXT';
+
+export const initApolloClient = (
+  authType: AuthType,
+  userRefreshTokenMode: UserRefreshTokenMode = 'PLAIN_TEXT',
+) => {
   const httpLink = createHttpLink({
     uri: serverGraphqlEndpoint,
     credentials: 'include',
@@ -39,27 +47,44 @@ export const initApolloClient = (authType: AuthType) => {
       console.log('getting access');
 
       if (authType === 'USER') {
-        const response = await axios.post<{
-          data: {
-            signInWithRefreshTokenCookie: {
-              accessToken: string;
+        if (userRefreshTokenMode === 'COOKIE') {
+          const response = await axios.post<{
+            data: {
+              signInWithRefreshTokenCookie: {
+                accessToken: string;
+              };
             };
-          };
-        }>(
-          serverGraphqlEndpoint,
-          {
-            query: SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
-          },
-          {
-            withCredentials: true,
-          },
-        );
+          }>(
+            serverGraphqlEndpoint,
+            {
+              query: SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
+            },
+            {
+              withCredentials: true,
+            },
+          );
 
-        accessToken =
-          response.data.data.signInWithRefreshTokenCookie.accessToken;
-        sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+          accessToken =
+            response.data.data.signInWithRefreshTokenCookie.accessToken;
+          sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+        } else {
+          const response = await axios.post<{
+            data: {
+              signInWithRefreshTokenCookie: {
+                accessToken: string;
+              };
+            };
+          }>(serverGraphqlEndpoint, {
+            query: SIGN_IN_WITH_REFRESH_TOKEN,
+            variables: {
+              refreshToken: UserAuthUtils.getRefreshToken(),
+            },
+          });
 
-        console.log(response);
+          accessToken =
+            response.data.data.signInWithRefreshTokenCookie.accessToken;
+          sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+        }
       } else {
         const response = await axios.post<{
           data: {
@@ -71,6 +96,9 @@ export const initApolloClient = (authType: AuthType) => {
           serverGraphqlEndpoint,
           {
             query: SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN,
+            variables: {
+              refreshToken: AutomaticGateAuthUtils.getRefreshToken(),
+            },
           },
           {
             withCredentials: true,

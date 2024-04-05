@@ -5,7 +5,7 @@ import { ThemeProvider } from '@peage-pay-web/tailwind-config';
 import './i18n';
 import { AuthProvider } from '@peage-pay-web/auth';
 import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
-import { BaseUserRolesType } from './__generated__/graphql';
+import { BaseUserRolesType, RefreshTokenMode } from './__generated__/graphql';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BadgeScannerProvider } from './context/badge-scanner.context';
@@ -20,7 +20,10 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ApplicationApolloClientProvider authType="USER">
-          <AuthProvider allowedRoles={[BaseUserRolesType.Moderator]}>
+          <AuthProvider
+            refreshTokenMode={RefreshTokenMode.PlainText}
+            allowedRoles={[BaseUserRolesType.Moderator]}
+          >
             <BadgeScannerProvider>
               <App></App>
             </BadgeScannerProvider>

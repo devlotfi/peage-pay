@@ -12,6 +12,7 @@ export const registerIPCHandlers = (mainWindow: BrowserWindow) => {
   ipcMain.handle(
     IPCMessages.CONNECT_TO_SERIAL_PORT,
     async (_event, path: string) => {
+      console.log(await mainWindow.webContents.session.cookies.get({}));
       const baudRate = +import.meta.env.MAIN_VITE_BAUD_RATE;
       CurrentPort.instance.connect(path, baudRate);
 

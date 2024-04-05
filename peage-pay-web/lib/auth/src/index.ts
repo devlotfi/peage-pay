@@ -9,6 +9,7 @@ import SignInPage from './pages/sign-in.page';
 import SignUpPage from './pages/sign-up.page';
 import TollNotAssignedErrorPage from './pages/toll-not-assigned-error.page';
 import VerifyEmailPage from './pages/verify-email.page';
+import { UserAuthUtils } from './utils';
 
 export {
   SignInPage,
@@ -23,4 +24,5 @@ export {
   SignInWithGoogleExternalPage,
   GoogleOAuthWrapper,
   TollNotAssignedErrorPage,
+  UserAuthUtils,
 };

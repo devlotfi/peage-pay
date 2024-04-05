@@ -16,7 +16,7 @@ const AutomaticGatePickerItem = ({
   onAutomaticGateSelected,
   onAutomaticGateUnselected,
 }: AutomaticGatePickerItemProps): JSX.Element => {
-  const renderButton = () => {
+  const renderButton = (): any => {
     if (selectedAutomaticGate) {
       if (automaticGate.id === selectedAutomaticGate.id) {
         return (

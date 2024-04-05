@@ -25,16 +25,14 @@ const useRouter = () => {
       path: '/sign-in',
       element: notAuthGuard(
         <SignInPage
-          title="Genral administration"
+          title="Moderator"
           googleExternalSignInUrl={`${import.meta.env.RENDERER_VITE_AUTH_COMMON_CLIENT_URL}/badge-reader/google`}
         ></SignInPage>,
       ),
     },
     {
       path: '/sign-up',
-      element: notAuthGuard(
-        <SignUpPage title="Genral administration"></SignUpPage>,
-      ),
+      element: notAuthGuard(<SignUpPage title="Moderator"></SignUpPage>),
     },
     {
       path: '/send-password-reset-email',

@@ -3,7 +3,11 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { AuthType, initApolloClient } from '../init-apollo-client';
+import {
+  AuthType,
+  UserRefreshTokenMode,
+  initApolloClient,
+} from '../init-apollo-client';
 import { PropsWithChildren, createContext, useState } from 'react';
 
 interface ApplicationApolloClientContext {
@@ -22,13 +26,17 @@ export const ApplicationApolloClientContext = createContext(initialValue);
 
 interface ApplicationApolloClientProviderProps {
   authType: AuthType;
+  userRefreshTokenMode?: UserRefreshTokenMode;
 }
 
 export const ApplicationApolloClientProvider = ({
   children,
   authType,
+  userRefreshTokenMode,
 }: PropsWithChildren<ApplicationApolloClientProviderProps>): JSX.Element => {
-  const [apolloClient, setApolloClient] = useState(initApolloClient(authType));
+  const [apolloClient, setApolloClient] = useState(
+    initApolloClient(authType, userRefreshTokenMode),
+  );
 
   return (
     <ApplicationApolloClientContext.Provider

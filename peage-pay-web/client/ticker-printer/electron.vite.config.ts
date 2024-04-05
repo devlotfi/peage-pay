@@ -11,7 +11,7 @@ export default defineConfig({
   },
   renderer: {
     server: {
-      port: 5180,
+      port: 5179,
     },
     resolve: {
       alias: {

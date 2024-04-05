@@ -20,6 +20,7 @@ import { useContext, useRef, useState } from 'react';
 import { AutomaticGateAuthContext } from '../context/automatic-gate-auth.context';
 import { SIGN_IN_AUTOMATIC_GATE } from '../graphql/mutations';
 import { AutomaticGateType, TollType } from '../__generated__/graphql';
+import { AutomaticGateAuthUtils } from '../utils';
 
 const signInAutomaticGateValidationSchema = yup.object({
   tollId: yup.string().uuid().required(),
@@ -40,18 +41,21 @@ const initialValues: SignInAutomaticGateValues = {
 };
 
 const SignInAutomaticGateForm = (): JSX.Element => {
-  const { setAutomaticGateAuthData, setAccessToken } = useContext(
-    AutomaticGateAuthContext,
-  );
+  const { setAutomaticGateAuthData } = useContext(AutomaticGateAuthContext);
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_AUTOMATIC_GATE,
     {
       onCompleted(data) {
+        AutomaticGateAuthUtils.setRefreshToken(
+          data.signInAutomaticGate.refreshToken,
+        );
         setAutomaticGateAuthData({
           // @ts-ignore
           automaticGate: data.signInAutomaticGate.automaticGate,
         });
-        setAccessToken(data.signInAutomaticGate.accessToken);
+        AutomaticGateAuthUtils.setAccessToken(
+          data.signInAutomaticGate.accessToken,
+        );
       },
     },
   );
@@ -119,7 +123,9 @@ const SignInAutomaticGateForm = (): JSX.Element => {
       {selectedToll ? (
         <AutomaticGatePicker
           toll={selectedToll}
-          onChange={handleAutomaticGateSeleted}
+          onChange={(automaticGate) =>
+            handleAutomaticGateSeleted(automaticGate as AutomaticGateType)
+          }
           modalRef={automaticGatePickerModalRef}
           value={selectedAutomaticGate}
         ></AutomaticGatePicker>
@@ -131,7 +137,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           className="w-full mb-[0.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Wilaya</TextInput.Label>
+            <TextInput.Label>Toll</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedToll?.name}
               {selectedToll?.id}
@@ -162,7 +168,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           className="w-full mb-[0.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Wilaya</TextInput.Label>
+            <TextInput.Label>Gate</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedAutomaticGate?.name}
               {selectedAutomaticGate?.id}

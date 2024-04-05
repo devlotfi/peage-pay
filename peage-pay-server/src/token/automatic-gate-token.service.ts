@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Request, Response } from 'express';
-import * as Cookies from 'cookies';
-import { CookieKeys } from 'src/shared/constants/cookie-keys';
 import { DatabaseService } from 'src/database/database.service';
 import { Utils } from 'src/shared/utils';
 import { Env } from 'src/shared/config/env.type';
@@ -18,11 +15,7 @@ export class AutomaticGateTokenService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async generateRefreshToken(
-    automaticGateId: string,
-    req: Request,
-    res: Response,
-  ): Promise<string> {
+  public async generateRefreshToken(automaticGateId: string): Promise<string> {
     const refreshToken = await this.jwtService.signAsync(
       { automaticGateId: automaticGateId },
       {
@@ -56,26 +49,11 @@ export class AutomaticGateTokenService {
         },
       });
     });
-    const cookies = new Cookies(req, res);
-    const currentDate = new Date();
-    const cookiExpirationDate = new Date(
-      currentDate.getTime() + 30 * 24 * 60 * 60 * 1000,
-    );
-    cookies.set(CookieKeys.REFRESH_TOKEN, refreshToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
-      expires: cookiExpirationDate,
-    });
 
     return refreshToken;
   }
 
-  public async clearRefreshToken(
-    automaticGateId: string,
-    req: Request,
-    res: Response,
-  ): Promise<void> {
+  public async clearRefreshToken(automaticGateId: string): Promise<void> {
     try {
       await this.databaseService.automaticGateRefreshToken.delete({
         where: {
@@ -83,9 +61,6 @@ export class AutomaticGateTokenService {
         },
       });
     } catch (error) {}
-
-    const cookies = new Cookies(req, res);
-    cookies.set(CookieKeys.REFRESH_TOKEN, undefined);
   }
 
   public async generateAccessToken(automaticGateId: string): Promise<string> {
@@ -104,9 +79,7 @@ export class AutomaticGateTokenService {
     return accessToken;
   }
 
-  public async checkRefreshTokenCookie(req: Request, res: Response) {
-    const cookies = new Cookies(req, res);
-    const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
+  public async checkRefreshToken(refreshToken: string) {
     let valid = true;
     let payload: AutomaticGateRefreshTokenPayload | undefined;
     if (refreshToken) {
@@ -126,7 +99,6 @@ export class AutomaticGateTokenService {
     }
 
     return {
-      refreshToken,
       payload,
       valid,
     };

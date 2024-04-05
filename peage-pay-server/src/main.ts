@@ -19,8 +19,9 @@ async function bootstrap() {
       configService.getOrThrow<string>('GATE_ADMIN_PANEL_URL'),
       configService.getOrThrow<string>('AUTH_COMMON_CLIENT_URL'),
       configService.getOrThrow<string>('MODERATOR_ADMIN_PANEL_URL'),
-      configService.getOrThrow<string>('MODERATOR_BADGE_READER_URL'),
       configService.getOrThrow<string>('TICKET_PRINTER_URL'),
+      configService.getOrThrow<string>('RFID_TAG_READER_URL'),
+      configService.getOrThrow<string>('QR_CODE_READER_URL'),
     ],
   });
   app.use(cookieParser());

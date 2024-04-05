@@ -22,6 +22,7 @@ export type AddAutomaticGateInput = {
   direction: TollDirectionType;
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  variant: AutomaticGateVariantType;
 };
 
 export type AddCustomPriceInput = {
@@ -193,7 +194,14 @@ export type AutomaticGateType = {
   name: Scalars['String']['output'];
   tollId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  variant: AutomaticGateVariantType;
 };
+
+export enum AutomaticGateVariantType {
+  QrCodeReader = 'QR_CODE_READER',
+  RfidReader = 'RFID_READER',
+  TicketPrinter = 'TICKET_PRINTER'
+}
 
 export enum BaseUserErrors {
   InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES',
@@ -296,6 +304,7 @@ export type EditAutomaticGateInput = {
   direction?: InputMaybe<TollDirectionType>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<AutomaticGateVariantType>;
 };
 
 export type EditHighwayInput = {
@@ -479,6 +488,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
@@ -493,6 +503,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
 };
 
@@ -714,6 +725,11 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
+export type MutationValidateTicketArgs = {
+  validateTicketInput: IdInput;
+};
+
+
 export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
 };
@@ -900,6 +916,11 @@ export type QuerySectionListForTollNetworkArgs = {
 };
 
 
+export type QuerySignInAutomaticGateRefreshTokenArgs = {
+  signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput;
+};
+
+
 export type QuerySignInWithRefreshTokenArgs = {
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 };
@@ -1071,10 +1092,15 @@ export type SignInAutomaticGateInput = {
   tollId: Scalars['String']['input'];
 };
 
+export type SignInAutomaticGateRefreshTokenInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
 export type SignInAutomaticGateResult = {
   __typename?: 'SignInAutomaticGateResult';
   accessToken: Scalars['String']['output'];
   automaticGate: AutomaticGateType;
+  refreshToken: Scalars['String']['output'];
 };
 
 export type SignInResult = {
@@ -1138,6 +1164,18 @@ export type SubscriptionType = {
   name: Scalars['String']['output'];
   price: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TicketType = {
+  __typename?: 'TicketType';
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
 };
 
 export enum TokenErrors {
@@ -1327,19 +1365,21 @@ export type Sign_In_Automatic_GateMutationVariables = Exact<{
 }>;
 
 
-export type Sign_In_Automatic_GateMutation = { __typename?: 'Mutation', signInAutomaticGate: { __typename?: 'SignInAutomaticGateResult', accessToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any } } };
+export type Sign_In_Automatic_GateMutation = { __typename?: 'Mutation', signInAutomaticGate: { __typename?: 'SignInAutomaticGateResult', accessToken: string, refreshToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any } } };
 
 export type Sign_Out_Automatic_GateMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type Sign_Out_Automatic_GateMutation = { __typename?: 'Mutation', signOutAutomaticGate: boolean };
 
-export type Sign_In_Automatic_Gate_Refresh_TokenQueryVariables = Exact<{ [key: string]: never; }>;
+export type Sign_In_Automatic_Gate_Refresh_TokenQueryVariables = Exact<{
+  signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput;
+}>;
 
 
 export type Sign_In_Automatic_Gate_Refresh_TokenQuery = { __typename?: 'Query', signInAutomaticGateRefreshToken: { __typename?: 'SignInAutomaticGateResult', accessToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any } } };
 
 
-export const Sign_In_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_GateMutation, Sign_In_Automatic_GateMutationVariables>;
+export const Sign_In_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_GateMutation, Sign_In_Automatic_GateMutationVariables>;
 export const Sign_Out_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_OUT_AUTOMATIC_GATE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signOutAutomaticGate"}}]}}]} as unknown as DocumentNode<Sign_Out_Automatic_GateMutation, Sign_Out_Automatic_GateMutationVariables>;
-export const Sign_In_Automatic_Gate_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGateRefreshToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_Gate_Refresh_TokenQuery, Sign_In_Automatic_Gate_Refresh_TokenQueryVariables>;
+export const Sign_In_Automatic_Gate_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGateRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_Gate_Refresh_TokenQuery, Sign_In_Automatic_Gate_Refresh_TokenQueryVariables>;

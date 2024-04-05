@@ -6,6 +6,7 @@ import {
 import useAutomaticGateAuthGuard from './hooks/use-automatic-gate-auth-guard.hook';
 import useAuthGuard from './hooks/use-automatic-gate-auth-guard.hook';
 import SignInAutomaticGatePage from './pages/sign-in-automatic-gate.page';
+import { AutomaticGateAuthUtils } from './utils';
 
 export {
   SignInAutomaticGatePage,
@@ -14,4 +15,5 @@ export {
   AutomaticGateAuthProvider,
   AutomaticGateAuthContext,
   useAutomaticGateAuthGuard,
+  AutomaticGateAuthUtils,
 };

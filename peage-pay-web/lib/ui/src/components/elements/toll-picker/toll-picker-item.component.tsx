@@ -16,7 +16,7 @@ const TollPickerItem = ({
   onTollSelected,
   onTollUnselected,
 }: TollPickerItemProps): JSX.Element => {
-  const renderButton = () => {
+  const renderButton = (): any => {
     if (selectedToll) {
       if (toll.id === selectedToll.id) {
         return (

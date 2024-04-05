@@ -1,10 +1,17 @@
 import { PropsWithChildren, createContext, useState } from 'react';
-import { BaseUserRolesType, BaseUserType } from '../__generated__/graphql';
+import {
+  BaseUserRolesType,
+  BaseUserType,
+  RefreshTokenMode,
+} from '../__generated__/graphql';
 import { useQuery } from '@apollo/client';
-import { SessionStorageKeys } from '@peage-pay-web/constants';
-import { SIGN_IN_WITH_REFRESH_TOKEN_COOKIE } from '../graphql/queries';
+import {
+  SIGN_IN_WITH_REFRESH_TOKEN,
+  SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
+} from '../graphql/queries';
 import PermissionErrorPage from '../pages/permission-error.page';
 import { FullScreenLoading } from '@peage-pay-web/ui';
+import { UserAuthUtils } from '../utils';
 
 type AuthData = {
   baseUser: BaseUserType;
@@ -14,23 +21,17 @@ type AuthData = {
 interface AuthContext {
   authData: AuthData;
   allowedRoles: BaseUserRolesType[];
+  refreshTokenMode: RefreshTokenMode;
 
   setAuthData: (authData: AuthData) => void;
-  setAccessToken: (accessToken: string) => void;
-  clearAccessToken: () => void;
 }
 
 const initialValue: AuthContext = {
   authData: null,
   allowedRoles: [],
+  refreshTokenMode: RefreshTokenMode.PlainText,
 
   setAuthData: () => {
-    return;
-  },
-  setAccessToken: () => {
-    return;
-  },
-  clearAccessToken: () => {
     return;
   },
 };
@@ -39,11 +40,13 @@ export const AuthContext = createContext(initialValue);
 
 interface AuthProviderProps {
   allowedRoles: BaseUserRolesType[];
+  refreshTokenMode: RefreshTokenMode;
 }
 
 export const AuthProvider = ({
   children,
   allowedRoles,
+  refreshTokenMode,
 }: PropsWithChildren<AuthProviderProps>): JSX.Element => {
   const [authData, setAuthData] = useState(initialValue.authData);
   const [authLoading, setAuthLoading] = useState<boolean>(true);
@@ -55,20 +58,36 @@ export const AuthProvider = ({
         baseUser: data.signInWithRefreshTokenCookie.baseUser,
         userRoles: data.signInWithRefreshTokenCookie.roles,
       });
-      setAccessToken(data.signInWithRefreshTokenCookie.accessToken);
+      UserAuthUtils.setAccessToken(
+        data.signInWithRefreshTokenCookie.accessToken,
+      );
       setAuthLoading(false);
     },
     onError() {
       setAuthLoading(false);
     },
+    skip: refreshTokenMode !== RefreshTokenMode.Cookie,
   });
-
-  const setAccessToken = (accessToken: string) => {
-    sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
-  };
-  const clearAccessToken = () => {
-    sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);
-  };
+  useQuery(SIGN_IN_WITH_REFRESH_TOKEN, {
+    variables: {
+      signInWithRefreshTokenInput: {
+        refreshToken: UserAuthUtils.getRefreshToken()!,
+      },
+    },
+    onCompleted(data) {
+      setAuthData({
+        // @ts-ignore
+        baseUser: data.signInWithRefreshToken.baseUser,
+        userRoles: data.signInWithRefreshToken.roles,
+      });
+      UserAuthUtils.setAccessToken(data.signInWithRefreshToken.accessToken);
+      setAuthLoading(false);
+    },
+    onError() {
+      setAuthLoading(false);
+    },
+    skip: refreshTokenMode !== RefreshTokenMode.PlainText,
+  });
 
   const checkRoles = (
     allowedRoles: BaseUserRolesType[],
@@ -102,9 +121,8 @@ export const AuthProvider = ({
       value={{
         authData: authData,
         allowedRoles,
+        refreshTokenMode,
         setAuthData,
-        setAccessToken,
-        clearAccessToken,
       }}
     >
       {renderContent()}

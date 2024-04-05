@@ -5,9 +5,5 @@ import { Length } from 'class-validator';
 export class SignInAutomaticGateRefreshTokenInput {
   @Field()
   @Length(1, 512)
-  public name: string;
-
-  @Field()
-  @Length(1, 512)
-  public password: string;
+  public refreshToken: string;
 }
