@@ -6,15 +6,16 @@ import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { UserAuthUtils } from '../utils';
 
 const PermissionErrorPage = (): JSX.Element => {
-  const { setAuthData, clearAccessToken } = useContext(AuthContext);
+  const { setAuthData } = useContext(AuthContext);
   const [signOutWithRefreshTokenCookie, { loading }] = useMutation(
     SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE,
     {
       onCompleted() {
         setAuthData(null);
-        clearAccessToken();
+        UserAuthUtils.clearAccessToken();
       },
       onError(error) {
         console.log(error);

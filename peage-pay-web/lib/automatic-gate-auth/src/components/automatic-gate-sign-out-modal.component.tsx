@@ -5,21 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SIGN_OUT_AUTOMATIC_GATE } from '../graphql/mutations';
 import { AutomaticGateAuthContext } from '../context/automatic-gate-auth.context';
+import { AutomaticGateAuthUtils } from '../utils';
 
 interface SignOutModalProps {
   modalRef: RefObject<HTMLDialogElement>;
 }
 
-const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
-  const { setAutomaticGateAuthData, clearAccessToken } = useContext(
-    AutomaticGateAuthContext,
-  );
+const AutomaticGateSignOutModal = ({
+  modalRef,
+}: SignOutModalProps): JSX.Element => {
+  const { setAutomaticGateAuthData } = useContext(AutomaticGateAuthContext);
   const [signOutWithRefreshTokenCookie, { loading }] = useMutation(
     SIGN_OUT_AUTOMATIC_GATE,
     {
       onCompleted() {
         setAutomaticGateAuthData(null);
-        clearAccessToken();
+        AutomaticGateAuthUtils.clearAccessToken();
       },
       onError(error) {
         console.log(error);
@@ -69,4 +70,4 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
   );
 };
 
-export default SignOutModal;
+export default AutomaticGateSignOutModal;

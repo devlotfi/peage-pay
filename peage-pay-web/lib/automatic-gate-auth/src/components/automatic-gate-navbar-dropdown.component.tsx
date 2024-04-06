@@ -18,7 +18,7 @@ import {
 } from '@peage-pay-web/ui';
 import { useContext, useRef } from 'react';
 import { Utils } from '@peage-pay-web/utils';
-import SignOutModal from './sign-out-modal.component';
+import AutomaticGateSignOutModal from './automatic-gate-sign-out-modal.component';
 import { AutomaticGateAuthContext } from '..';
 
 const NavbarDropdownArrow = (): JSX.Element => {
@@ -162,7 +162,9 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
         </Dropdown.Content>
       </Dropdown>
 
-      <SignOutModal modalRef={signOutModalRef}></SignOutModal>
+      <AutomaticGateSignOutModal
+        modalRef={signOutModalRef}
+      ></AutomaticGateSignOutModal>
     </>
   );
 };
