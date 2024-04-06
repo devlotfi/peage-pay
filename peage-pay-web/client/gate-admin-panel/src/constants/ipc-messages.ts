@@ -1,1 +1,3 @@
-export enum IPCMessages {}
+export enum IPCMessages {
+  lol = 'lol',
+}
