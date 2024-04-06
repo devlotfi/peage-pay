@@ -1,12 +1,11 @@
 import { BrowserWindow, app, ipcMain } from 'electron';
-import { TitleBarIPCMessages } from '@peage-pay-web/ui';
 
 export const registerTitleBarIPCHandlers = (mainWindow: BrowserWindow) => {
-  ipcMain.handle(TitleBarIPCMessages.CLOSE, async () => {
+  ipcMain.handle('CLOSE', async () => {
     app.quit();
   });
 
-  ipcMain.handle(TitleBarIPCMessages.MAXIMIZE, async () => {
+  ipcMain.handle('MAXIMIZE', async () => {
     if (mainWindow.isMaximized()) {
       mainWindow.unmaximize();
     } else {
@@ -14,7 +13,7 @@ export const registerTitleBarIPCHandlers = (mainWindow: BrowserWindow) => {
     }
   });
 
-  ipcMain.handle(TitleBarIPCMessages.MINIMIZE, async () => {
+  ipcMain.handle('MINIMIZE', async () => {
     mainWindow.minimize();
   });
 };
