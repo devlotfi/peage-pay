@@ -7,32 +7,37 @@ import {
   faPlus,
   faRoad,
   faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavbarDropdown } from "@peage-pay-web/auth";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
+import { NavbarDropdown } from '@peage-pay-web/auth';
 import {
   AdminDashboardLayout,
   MenuDropdown,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { Outlet, useLocation, useMatch, useNavigate } from "react-router-dom";
+} from '@peage-pay-web/ui';
+import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const addPriceMatch = useMatch("/dashboard/price/add/*");
-  const priceListMatch = useMatch("/dashboard/price/list/*");
+  const addPriceMatch = useMatch('/dashboard/price/add/*');
+  const priceListMatch = useMatch('/dashboard/price/list/*');
 
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="General admin">
+        <AdminDashboardLayout.Sidebar.Main
+          logoTitle="PeagePay Admin"
+          logo={PeagePayAdminLogo}
+          title="General admin"
+        >
           <NavbarDropdown></NavbarDropdown>
           <MenuItem
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate('/dashboard')}
             variant={
-              location.pathname === "/dashboard" ? "primary" : "base-200"
+              location.pathname === '/dashboard' ? 'primary' : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -42,11 +47,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Home</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/highway/list")}
+            onClick={() => navigate('/dashboard/highway/list')}
             variant={
-              location.pathname === "/dashboard/highway/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/highway/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -56,11 +61,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Highways</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/subscription/list")}
+            onClick={() => navigate('/dashboard/subscription/list')}
             variant={
-              location.pathname === "/dashboard/subscription/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/subscription/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -70,11 +75,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Subscriptions</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/toll-network/list")}
+            onClick={() => navigate('/dashboard/toll-network/list')}
             variant={
-              location.pathname === "/dashboard/toll-network/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/toll-network/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -84,11 +89,11 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Text>Toll networks</MenuItem.Text>
           </MenuItem>
           <MenuItem
-            onClick={() => navigate("/dashboard/base-user/list")}
+            onClick={() => navigate('/dashboard/base-user/list')}
             variant={
-              location.pathname === "/dashboard/base-user/list"
-                ? "primary"
-                : "base-200"
+              location.pathname === '/dashboard/base-user/list'
+                ? 'primary'
+                : 'base-200'
             }
             className="w-full mb-[0.5rem]"
           >
@@ -102,7 +107,7 @@ const DashboardLayout = (): JSX.Element => {
             opened={true}
             mainElement={
               <MenuDropdown.Main className="mb-[0.5rem]">
-                <MenuItem className="w-full" variant={"base-200"}>
+                <MenuItem className="w-full" variant={'base-200'}>
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
                   </MenuItem.Icon>
@@ -112,8 +117,8 @@ const DashboardLayout = (): JSX.Element => {
             }
           >
             <MenuItem
-              onClick={() => navigate("/dashboard/price/list/daily")}
-              variant={priceListMatch ? "primary" : "base-200"}
+              onClick={() => navigate('/dashboard/price/list/daily')}
+              variant={priceListMatch ? 'primary' : 'base-200'}
               className="w-full mb-[0.5rem]"
             >
               <MenuItem.Icon>
@@ -122,8 +127,8 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Text>List</MenuItem.Text>
             </MenuItem>
             <MenuItem
-              onClick={() => navigate("/dashboard/price/add/daily")}
-              variant={addPriceMatch ? "primary" : "base-200"}
+              onClick={() => navigate('/dashboard/price/add/daily')}
+              variant={addPriceMatch ? 'primary' : 'base-200'}
               className="w-full mb-[0.5rem]"
             >
               <MenuItem.Icon>

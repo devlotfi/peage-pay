@@ -5,6 +5,7 @@ import { GateAdminListInput } from './input/gate-admin-list.input.gql';
 import { GateAdminListResult } from './result/gate-admin-list.result.gql';
 import { GateAdmin, Prisma } from '@prisma/client';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Injectable()
 export class GateAdminService {
@@ -90,6 +91,20 @@ export class GateAdminService {
         baseUserId: ugateAdminByIdInput.id,
       },
     });
+  }
+
+  public async gateAdminInfo(
+    accessTokenPayload: UserAccessTokenPayload,
+  ): Promise<GateAdmin | null> {
+    const gateAdmin = await this.databaseService.gateAdmin.findUniqueOrThrow({
+      where: {
+        baseUserId: accessTokenPayload.userId,
+      },
+      include: {
+        toll: true,
+      },
+    });
+    return gateAdmin;
   }
 
   public async addGateAdminRole(

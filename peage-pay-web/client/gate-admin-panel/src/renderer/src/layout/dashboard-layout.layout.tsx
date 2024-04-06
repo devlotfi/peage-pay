@@ -1,18 +1,29 @@
 import { faHome, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { NavbarDropdown } from '@peage-pay-web/auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
+import { GateAdminInfoConext } from '@renderer/context/gate-admin-info.context';
+import { useContext } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { gateAdmin } = useContext(GateAdminInfoConext);
 
   return (
     <AdminDashboardLayout usage={'desktop'}>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="Gate Admin">
+        <AdminDashboardLayout.Sidebar.Main
+          logoTitle="PeagePay Admin"
+          logo={PeagePayAdminLogo}
+          title="Gate Admin"
+        >
           <NavbarDropdown></NavbarDropdown>
+          <AdminDashboardLayout.TollInfo
+            toll={gateAdmin.toll!}
+          ></AdminDashboardLayout.TollInfo>
           <MenuItem
             onClick={() => navigate('/dashboard')}
             variant={

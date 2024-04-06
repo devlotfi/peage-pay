@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -47,7 +47,7 @@ html {
   --color-content: #ffffff;
 }
 
-#theme-provider[data-theme="LIGHT"] {
+#theme-provider[data-theme='LIGHT'] {
   --base-100: #ffffff;
   --base-200: #eaeef2;
   --base-300: #d4d8dd;
@@ -58,19 +58,19 @@ html {
   --edge-300: #838383;
 }
 
-#theme-provider[data-theme="DARK"] {
+#theme-provider[data-theme='DARK'] {
   --base-100: #333c4d;
   --base-200: #1d2636;
   --base-300: #161e22;
   --base-content: #e0eaf0;
 
-  --edge-100: #abc0cc;
+  --edge-100: #7d909b;
   --edge-200: #4c596e;
   --edge-300: #abc0cc;
 }
 
 #theme-provider {
   color: var(--base-content);
-  font-family: "Noto Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-weight: 500;
 }

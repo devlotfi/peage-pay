@@ -2,7 +2,6 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes, useContext } from 'react';
 import { Button, IconButton } from '@peage-pay-web/ui';
 import { Utils } from '@peage-pay-web/utils';
-import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { AdminDashboardLayoutContext } from '../admin-dashboard-layout/admin-dashboard-layout.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -25,12 +24,16 @@ const sidebarMainVariants = cva(
 interface SidebarMainProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof sidebarMainVariants> {
+  logoTitle: string;
+  logo: any;
   title: string;
 }
 
 const SidebarMain = ({
   className,
   children,
+  logoTitle,
+  logo,
   title,
   ...props
 }: SidebarMainProps): JSX.Element => {
@@ -55,11 +58,11 @@ const SidebarMain = ({
               <div className="flex items-center">
                 <img
                   className="w-[2.3rem]"
-                  src={PeagePayAdminLogo}
+                  src={logo}
                   alt="peage-pay-admin-logo"
                 />
                 <div className="flex font-bold font-logo text-[15pt] ml-[0.7rem]">
-                  PeagePay Admin
+                  {logoTitle}
                 </div>
               </div>
               <div className="flex justify-center">{title}</div>

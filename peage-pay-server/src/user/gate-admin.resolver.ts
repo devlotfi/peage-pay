@@ -20,6 +20,8 @@ import { GateAdminListInput } from './input/gate-admin-list.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { TollService } from 'src/toll/toll.service';
+import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Resolver(() => GateAdminType)
 export class GateAdminResolver {
@@ -36,6 +38,15 @@ export class GateAdminResolver {
     @Args('gateAdminListInput') gateAdminListInput: GateAdminListInput,
   ) {
     return await this.gateAdminService.gateAdminList(gateAdminListInput);
+  }
+
+  @Query(() => GateAdminType, { nullable: true })
+  @AllowRoles([BaseUserRolesType.GATE_ADMIN])
+  @UseGuards(AuthGuard)
+  public async gateAdminInfo(
+    @ContextAccessTokenPayload() accessTokenPayload: UserAccessTokenPayload,
+  ) {
+    return await this.gateAdminService.gateAdminInfo(accessTokenPayload);
   }
 
   @Query(() => GateAdminType, { nullable: true })

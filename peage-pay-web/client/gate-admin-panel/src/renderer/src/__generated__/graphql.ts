@@ -777,6 +777,7 @@ export type Query = {
   dailyPriceLocalList: DailyPriceListResult;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
+  gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
@@ -1382,6 +1383,12 @@ export type Ticket_InfoQueryVariables = Exact<{
 
 export type Ticket_InfoQuery = { __typename?: 'Query', ticketInfo: { __typename?: 'TicketType', distance?: number | null, entryTollId: string, entryTollPrice: number, entryTimeStamp: any, exitTollId?: string | null, exitTollPrice?: number | null, entryToll: { __typename?: 'TollType', name: string } } };
 
+export type Gate_Admin_InfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Gate_Admin_InfoQuery = { __typename?: 'Query', gateAdminInfo?: { __typename?: 'GateAdminType', toll?: { __typename?: 'TollType', name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType } | null } | null };
+
 
 export const Validate_TicketDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VALIDATE_TICKET"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validateTicket"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateTicketInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<Validate_TicketMutation, Validate_TicketMutationVariables>;
 export const Ticket_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TICKET_INFO"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ticketInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ticketInfoInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTollId"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}}]}}]}}]} as unknown as DocumentNode<Ticket_InfoQuery, Ticket_InfoQueryVariables>;
+export const Gate_Admin_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GATE_ADMIN_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gateAdminInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}}]}}]}}]}}]} as unknown as DocumentNode<Gate_Admin_InfoQuery, Gate_Admin_InfoQueryVariables>;

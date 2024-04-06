@@ -1,5 +1,6 @@
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PeagePayLogo } from '@peage-pay-web/assets';
 import {
   AutomaticGateAuthContext,
   AutomaticGateNavbarDropdown,
@@ -16,7 +17,11 @@ const DashboardLayout = (): JSX.Element => {
   return (
     <AdminDashboardLayout usage={'desktop'}>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="Ticket printer">
+        <AdminDashboardLayout.Sidebar.Main
+          logoTitle="PeagePay Gate"
+          logo={PeagePayLogo}
+          title="Ticket printer"
+        >
           <AutomaticGateNavbarDropdown></AutomaticGateNavbarDropdown>
           {automaticGateAuthData?.automaticGate ? (
             <AdminDashboardLayout.AutomaticGateInfo

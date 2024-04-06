@@ -10,6 +10,7 @@ import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { TitleBar } from '@peage-pay-web/ui';
 import { PeagePayAdminLogo } from '@peage-pay-web/assets';
+import { GateAdminInfoProvider } from './context/gate-admin-info.context';
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,9 @@ root.render(
               refreshTokenMode={RefreshTokenMode.PlainText}
               allowedRoles={[BaseUserRolesType.Moderator]}
             >
-              <App></App>
+              <GateAdminInfoProvider>
+                <App></App>
+              </GateAdminInfoProvider>
             </AuthProvider>
           </TitleBar.Layout>
         </ApplicationApolloClientProvider>

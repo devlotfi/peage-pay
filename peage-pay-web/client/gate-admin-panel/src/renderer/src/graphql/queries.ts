@@ -15,3 +15,15 @@ export const TICKET_INFO = gql(`
     }
   }
 `);
+
+export const GATE_ADMIN_INFO = gql(`
+  query GATE_ADMIN_INFO {
+    gateAdminInfo {
+      toll {
+        name
+        inboundStatus
+        outboundStatus
+      }
+    }
+  }
+`);

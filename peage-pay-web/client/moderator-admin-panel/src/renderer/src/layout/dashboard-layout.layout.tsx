@@ -1,5 +1,6 @@
 import { faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { NavbarDropdown } from '@peage-pay-web/auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -11,7 +12,11 @@ const DashboardLayout = (): JSX.Element => {
   return (
     <AdminDashboardLayout usage={'desktop'}>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="Moderator">
+        <AdminDashboardLayout.Sidebar.Main
+          logoTitle="PeagePay Admin"
+          logo={PeagePayAdminLogo}
+          title="Moderator"
+        >
           <NavbarDropdown></NavbarDropdown>
           <MenuItem
             onClick={() => navigate('/dashboard')}

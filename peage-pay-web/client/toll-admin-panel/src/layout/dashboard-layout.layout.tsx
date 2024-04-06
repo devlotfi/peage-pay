@@ -15,6 +15,7 @@ import {
 import { useContext } from 'react';
 import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { TollAdminInfoConext } from '../context/toll-admin-info.context';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 
 const DashboardLayout = (): JSX.Element => {
   const location = useLocation();
@@ -27,11 +28,15 @@ const DashboardLayout = (): JSX.Element => {
   return (
     <AdminDashboardLayout>
       <AdminDashboardLayout.Sidebar>
-        <AdminDashboardLayout.Sidebar.Main title="Toll admin">
+        <AdminDashboardLayout.Sidebar.Main
+          logoTitle="PeagePay Admin"
+          logo={PeagePayAdminLogo}
+          title="Toll admin"
+        >
+          <NavbarDropdown></NavbarDropdown>
           <AdminDashboardLayout.TollInfo
             toll={tollAdmin.toll!}
           ></AdminDashboardLayout.TollInfo>
-          <NavbarDropdown></NavbarDropdown>
           <MenuItem
             onClick={() => navigate('/dashboard')}
             variant={
