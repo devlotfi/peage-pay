@@ -13,7 +13,7 @@ const PDFDisplay = ({ modalRef, pdfData }: PDFDisplayProps): JSX.Element => {
       <Modal.Window className="flex overflow-y-auto h-full">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Scan a badge</div>
+            <div className="flex">Ticket</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}

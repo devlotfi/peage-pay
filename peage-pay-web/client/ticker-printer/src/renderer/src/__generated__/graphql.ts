@@ -22,6 +22,7 @@ export type AddAutomaticGateInput = {
   direction: TollDirectionType;
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  variant: AutomaticGateVariantType;
 };
 
 export type AddCustomPriceInput = {
@@ -193,7 +194,14 @@ export type AutomaticGateType = {
   name: Scalars['String']['output'];
   tollId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  variant: AutomaticGateVariantType;
 };
+
+export enum AutomaticGateVariantType {
+  QrCodeReader = 'QR_CODE_READER',
+  RfidReader = 'RFID_READER',
+  TicketPrinter = 'TICKET_PRINTER'
+}
 
 export enum BaseUserErrors {
   InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES',
@@ -296,6 +304,7 @@ export type EditAutomaticGateInput = {
   direction?: InputMaybe<TollDirectionType>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<AutomaticGateVariantType>;
 };
 
 export type EditHighwayInput = {
@@ -479,6 +488,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
@@ -493,6 +503,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
 };
 
@@ -714,6 +725,11 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
+export type MutationValidateTicketArgs = {
+  validateTicketInput: IdInput;
+};
+
+
 export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
 };
@@ -778,6 +794,7 @@ export type Query = {
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
+  ticketInfo: TicketType;
   tollAdminById?: Maybe<TollAdminType>;
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
@@ -900,6 +917,11 @@ export type QuerySectionListForTollNetworkArgs = {
 };
 
 
+export type QuerySignInAutomaticGateRefreshTokenArgs = {
+  signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput;
+};
+
+
 export type QuerySignInWithRefreshTokenArgs = {
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 };
@@ -912,6 +934,11 @@ export type QuerySubscriptionByIdArgs = {
 
 export type QuerySubscriptionListArgs = {
   subscriptionListInput: SubscriptionListInput;
+};
+
+
+export type QueryTicketInfoArgs = {
+  ticketInfoInput: IdInput;
 };
 
 
@@ -1071,10 +1098,15 @@ export type SignInAutomaticGateInput = {
   tollId: Scalars['String']['input'];
 };
 
+export type SignInAutomaticGateRefreshTokenInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
 export type SignInAutomaticGateResult = {
   __typename?: 'SignInAutomaticGateResult';
   accessToken: Scalars['String']['output'];
   automaticGate: AutomaticGateType;
+  refreshToken: Scalars['String']['output'];
 };
 
 export type SignInResult = {
@@ -1138,6 +1170,20 @@ export type SubscriptionType = {
   name: Scalars['String']['output'];
   price: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TicketType = {
+  __typename?: 'TicketType';
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
 };
 
 export enum TokenErrors {
@@ -1322,12 +1368,10 @@ export type YearlyPriceType = {
   startDate: Scalars['DateTime']['output'];
 };
 
-export type Rfid_Tag_By_RfidQueryVariables = Exact<{
-  rfidTagByRfidInput: RfidTagByRfidInput;
-}>;
+export type Generate_TicketMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Rfid_Tag_By_RfidQuery = { __typename?: 'Query', rfidTagByRfid?: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, createdAt: any, updatedAt: any, baseUserId: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } | null };
+export type Generate_TicketMutation = { __typename?: 'Mutation', generateTicket: { __typename?: 'TicketType', id: string, distance?: number | null, entryTollId: string, entryTimeStamp: any, entryToll: { __typename?: 'TollType', name: string }, exitToll?: { __typename?: 'TollType', name: string } | null } };
 
 
-export const Rfid_Tag_By_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_BY_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagByRfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagByRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagByRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_By_RfidQuery, Rfid_Tag_By_RfidQueryVariables>;
+export const Generate_TicketDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GENERATE_TICKET"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateTicket"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Generate_TicketMutation, Generate_TicketMutationVariables>;

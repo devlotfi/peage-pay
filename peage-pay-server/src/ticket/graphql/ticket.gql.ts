@@ -15,6 +15,9 @@ export class TicketType {
   @Field()
   public entryTollPrice: number;
 
+  @Field(() => Date)
+  public entryTimeStamp: Date;
+
   @Field({ nullable: true })
   public exitTollId?: string;
 
@@ -23,6 +26,9 @@ export class TicketType {
 
   @Field({ nullable: true })
   public exitTollPrice?: number;
+
+  @Field(() => Date, { nullable: true })
+  public exitTimeStamp?: Date;
 
   @Field({ nullable: true })
   public distance?: number;

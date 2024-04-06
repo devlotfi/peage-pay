@@ -9,6 +9,8 @@ import { BaseUserRolesType, RefreshTokenMode } from './__generated__/graphql';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BadgeScannerProvider } from './context/badge-scanner.context';
+import { TitleBar } from '@peage-pay-web/ui';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 
 const queryClient = new QueryClient();
 
@@ -20,14 +22,19 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ApplicationApolloClientProvider authType="USER">
-          <AuthProvider
-            refreshTokenMode={RefreshTokenMode.PlainText}
-            allowedRoles={[BaseUserRolesType.Moderator]}
+          <TitleBar.Layout
+            windowIcon={PeagePayAdminLogo}
+            title="Peage Pay moderator admin panel"
           >
-            <BadgeScannerProvider>
-              <App></App>
-            </BadgeScannerProvider>
-          </AuthProvider>
+            <AuthProvider
+              refreshTokenMode={RefreshTokenMode.PlainText}
+              allowedRoles={[BaseUserRolesType.Moderator]}
+            >
+              <BadgeScannerProvider>
+                <App></App>
+              </BadgeScannerProvider>
+            </AuthProvider>
+          </TitleBar.Layout>
         </ApplicationApolloClientProvider>
       </ThemeProvider>
     </QueryClientProvider>

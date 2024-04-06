@@ -59,7 +59,7 @@ const BadgeScannerPage = () => {
           <Table.Container>
             <Table>
               <Table.Body>
-                <Table.Body.Tr>
+                <Table.Body.Tr variant={'zebra'}>
                   <Table.Body.Td>RFID</Table.Body.Td>
                   <Table.Body.Td>{rfid}</Table.Body.Td>
                 </Table.Body.Tr>
@@ -81,7 +81,7 @@ const BadgeScannerPage = () => {
                   <Table.Container>
                     <Table>
                       <Table.Body>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Id</Table.Body.Td>
                           <Table.Body.Td>{data.rfidTagByRfid.id}</Table.Body.Td>
                         </Table.Body.Tr>
@@ -123,7 +123,7 @@ const BadgeScannerPage = () => {
                   <Table.Container>
                     <Table>
                       <Table.Body>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Id</Table.Body.Td>
                           <Table.Body.Td>{data.rfidTagByRfid.id}</Table.Body.Td>
                         </Table.Body.Tr>

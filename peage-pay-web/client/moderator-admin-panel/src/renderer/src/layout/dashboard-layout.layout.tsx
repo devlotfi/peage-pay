@@ -9,7 +9,7 @@ const DashboardLayout = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <AdminDashboardLayout>
+    <AdminDashboardLayout usage={'desktop'}>
       <AdminDashboardLayout.Sidebar>
         <AdminDashboardLayout.Sidebar.Main title="Moderator">
           <NavbarDropdown></NavbarDropdown>

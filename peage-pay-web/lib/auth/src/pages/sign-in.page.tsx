@@ -2,7 +2,7 @@ import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
 import SignInPageTabs, {
   SignInTabsEnum,
 } from '../components/sign-in/sign-in-page-tabs.component';
-import { useState } from 'react';
+import { BaseHTMLAttributes, useState } from 'react';
 import SignInWithEmailForm from '../components/sign-in/sign-in-with-email-form.component';
 import SignInWithGoogleForm from '../components/sign-in/sign-in-with-google-form.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,8 +15,23 @@ import { Toll } from '@peage-pay-web/assets';
 import { Link } from 'react-router-dom';
 import SignInWithGoogleFormExternal from '../components/sign-in/sign-in-with-google-form-external.component';
 import GoogleOAuthWrapper from '../components/google-oauth-wrapper.component';
+import { VariantProps, cva } from 'class-variance-authority';
+import { Utils } from '@peage-pay-web/utils';
 
-interface SignInPageProps {
+const signInPageVariants = cva(
+  'flex flex-col bg-base-200 min-h-screen bg-cover',
+  {
+    variants: {
+      usage: {
+        desktop: 'min-h-[cacl(100vh-2.5rem)] flex-1 overflow-y-auto',
+      },
+    },
+  },
+);
+
+interface SignInPageProps
+  extends BaseHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof signInPageVariants> {
   title: string;
   googleExternalSignInUrl?: string;
 }
@@ -24,6 +39,9 @@ interface SignInPageProps {
 const SignInPage = ({
   title,
   googleExternalSignInUrl,
+  className,
+  usage,
+  ...props
 }: SignInPageProps): JSX.Element => {
   const [tab, setTab] = useState<SignInTabsEnum>(SignInTabsEnum.EMAIL);
 
@@ -49,7 +67,10 @@ const SignInPage = ({
   };
 
   return (
-    <div className="flex flex-col bg-base-200 min-h-screen bg-cover text-base-content">
+    <div
+      className={Utils.cn(signInPageVariants({ className, usage }))}
+      {...props}
+    >
       <MinimalNavbar>
         <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>

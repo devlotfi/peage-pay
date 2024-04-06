@@ -22,6 +22,7 @@ const useRouter = () => {
       path: '/sign-in',
       element: notAuthGuard(
         <SignInPage
+          usage={'desktop'}
           title="Gate Admin"
           googleExternalSignInUrl={`${import.meta.env.RENDERER_VITE_AUTH_COMMON_CLIENT_URL}/badge-reader/google`}
         ></SignInPage>,
@@ -29,12 +30,16 @@ const useRouter = () => {
     },
     {
       path: '/sign-up',
-      element: notAuthGuard(<SignUpPage title="Gate Admin"></SignUpPage>),
+      element: notAuthGuard(
+        <SignUpPage usage={'desktop'} title="Gate Admin"></SignUpPage>,
+      ),
     },
     {
       path: '/send-password-reset-email',
       element: notAuthGuard(
-        <SendPasswordResetEmailPage></SendPasswordResetEmailPage>,
+        <SendPasswordResetEmailPage
+          usage={'desktop'}
+        ></SendPasswordResetEmailPage>,
       ),
     },
     {

@@ -13,6 +13,13 @@ import AdminDashboardLayoutAutomaticGateInfo from './admin-dashboard-layout-auto
 
 const adminDashboardLayoutVariants = cva(
   'flex max-h-screen min-h-screen bg-base-200',
+  {
+    variants: {
+      usage: {
+        desktop: 'min-h-[cacl(100vh-2.5rem)] flex-1 overflow-y-auto',
+      },
+    },
+  },
 );
 
 interface AdminDashboardLayoutProps
@@ -36,6 +43,7 @@ export const AdminDashboardLayoutContext = createContext(initialValue);
 const AdminDashboardLayout = ({
   className,
   children,
+  usage,
   ...props
 }: AdminDashboardLayoutProps): JSX.Element => {
   const [sidebarOpened, setSidebarOpened] = useState<boolean>(false);
@@ -48,7 +56,7 @@ const AdminDashboardLayout = ({
       }}
     >
       <div
-        className={Utils.cn(adminDashboardLayoutVariants({ className }))}
+        className={Utils.cn(adminDashboardLayoutVariants({ className, usage }))}
         {...props}
       >
         {children}

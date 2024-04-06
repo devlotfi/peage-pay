@@ -8,7 +8,6 @@ import { DropdownContext } from './dropdown.context';
 const dropdownVariants = cva('flex flex-col relative', {
   variants: {},
 });
-
 interface dropdownProps
   extends BaseHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof dropdownVariants> {

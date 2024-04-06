@@ -14,7 +14,7 @@ const DashboardLayout = (): JSX.Element => {
   const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
 
   return (
-    <AdminDashboardLayout>
+    <AdminDashboardLayout usage={'desktop'}>
       <AdminDashboardLayout.Sidebar>
         <AdminDashboardLayout.Sidebar.Main title="Ticket printer">
           <AutomaticGateNavbarDropdown></AutomaticGateNavbarDropdown>

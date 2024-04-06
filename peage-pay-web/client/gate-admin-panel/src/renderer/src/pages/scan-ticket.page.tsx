@@ -1,13 +1,188 @@
+import { useQuery } from '@apollo/client';
+import { faQrcode, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Camera } from '@peage-pay-web/assets';
+import {
+  AdminDashboardLayout,
+  Button,
+  Heading,
+  Table,
+} from '@peage-pay-web/ui';
 import QRCodeScanner from '@renderer/components/qr-code-scanner.component';
+import { TICKET_INFO } from '@renderer/graphql/queries';
+import QrScanner from 'qr-scanner';
+import { useEffect, useState } from 'react';
 
 const ScanTicketPage = (): JSX.Element => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [hasCamera, setHasCamera] = useState<boolean>(false);
+  const [cameraList, setCameraList] = useState<QrScanner.Camera[]>([]);
+  const [ticket, setTicket] = useState<string | null>(null);
+
+  const {
+    loading: ticketLoading,
+    error: ticketError,
+    data: ticketData,
+  } = useQuery(TICKET_INFO, {
+    variables: {
+      ticketInfoInput: {
+        id: ticket!,
+      },
+    },
+    fetchPolicy: 'network-only',
+    skip: !ticket,
+  });
+
+  const initCameraData = async () => {
+    const hasCameraPromise = QrScanner.hasCamera();
+    const cameraListPromise = QrScanner.listCameras();
+    await Promise.all([hasCameraPromise, cameraListPromise]);
+    const hasCameraResult = await hasCameraPromise;
+    const cameraListResult = await cameraListPromise;
+
+    setHasCamera(hasCameraResult);
+    setCameraList(cameraListResult);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    initCameraData();
+  }, []);
+
+  if (loading) {
+    return (
+      <AdminDashboardLayout.Loading loading></AdminDashboardLayout.Loading>
+    );
+  }
+
+  if (!hasCamera) {
+    return (
+      <div className="flex flex-1 flex-col justify-center items-center">
+        <img className="w-[15rem]" src={Camera} alt="camera" />
+        <div className="flex mt-[1rem]">A camera is required</div>
+        <Button
+          onClick={initCameraData}
+          className="mt-[1rem]"
+          variant="base-200"
+        >
+          <Button.Icon position="left">
+            <FontAwesomeIcon icon={faRefresh}></FontAwesomeIcon>
+          </Button.Icon>
+          <Button.Content>Refresh</Button.Content>
+        </Button>
+      </div>
+    );
+  }
+
+  const calculateAppliedPrice = () => {
+    if (ticketData && ticketData.ticketInfo.exitTollPrice) {
+      return (
+        (ticketData.ticketInfo.entryTollPrice +
+          ticketData.ticketInfo.exitTollPrice) /
+        2
+      );
+    }
+    return 0;
+  };
+
+  const calculateTotal = () => {
+    if (ticketData?.ticketInfo.distance) {
+      const appliedPrice = calculateAppliedPrice();
+      return ticketData.ticketInfo.distance * appliedPrice;
+    }
+    return 0;
+  };
+
   return (
     <div className="flex flex-1">
       <div className="flex flex-col flex-1">
-        <QRCodeScanner></QRCodeScanner>
+        <QRCodeScanner
+          onScan={(value) => setTicket(value)}
+          cameraList={cameraList}
+        ></QRCodeScanner>
       </div>
       <div className="flex h-full min-w-[1px] bg-edge-100 mx-[1rem]"></div>
-      <div className="flex flex-col flex-1"></div>
+      <div className="flex flex-col flex-1">
+        {ticket ? (
+          <>
+            <Table.Container className="w-full">
+              <Table>
+                <Table.Body>
+                  <Table.Body.Tr variant={'zebra'}>
+                    <Table.Body.Td>Ticket ID</Table.Body.Td>
+                    <Table.Body.Td className="text-[9pt]">
+                      {ticket}
+                    </Table.Body.Td>
+                  </Table.Body.Tr>
+                </Table.Body>
+              </Table>
+            </Table.Container>
+            <AdminDashboardLayout.Loading loading={ticketLoading}>
+              <AdminDashboardLayout.Error error={ticketError}>
+                <div className="flex flex-col">
+                  <Heading className="text-[15pt] ml-[1rem] my-[0.7rem]">
+                    <Heading.Icon position="left">
+                      <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
+                    </Heading.Icon>
+                    <Heading.Text>Ticket info</Heading.Text>
+                  </Heading>
+                </div>
+                <Table.Container className="w-full">
+                  <Table>
+                    <Table.Body>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Entry toll</Table.Body.Td>
+                        <Table.Body.Td>
+                          {ticketData?.ticketInfo.entryToll.name}
+                        </Table.Body.Td>
+                      </Table.Body.Tr>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Entry toll price</Table.Body.Td>
+                        <Table.Body.Td>
+                          {ticketData?.ticketInfo.entryTollPrice} dzd/km
+                        </Table.Body.Td>
+                      </Table.Body.Tr>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Exit toll price</Table.Body.Td>
+                        <Table.Body.Td>
+                          {ticketData?.ticketInfo.exitTollPrice} dzd/km
+                        </Table.Body.Td>
+                      </Table.Body.Tr>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Distance</Table.Body.Td>
+                        <Table.Body.Td>
+                          {ticketData?.ticketInfo.distance} km
+                        </Table.Body.Td>
+                      </Table.Body.Tr>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Applied price</Table.Body.Td>
+                        <Table.Body.Td>{calculateAppliedPrice()}</Table.Body.Td>
+                      </Table.Body.Tr>
+                    </Table.Body>
+                  </Table>
+                </Table.Container>
+
+                <Table.Container className="w-full mt-[1rem]">
+                  <Table>
+                    <Table.Body>
+                      <Table.Body.Tr variant={'zebra'}>
+                        <Table.Body.Td>Total</Table.Body.Td>
+                        <Table.Body.Td className="text-primary-100">
+                          {calculateTotal()} dzd
+                        </Table.Body.Td>
+                      </Table.Body.Tr>
+                    </Table.Body>
+                  </Table>
+                </Table.Container>
+              </AdminDashboardLayout.Error>
+            </AdminDashboardLayout.Loading>
+          </>
+        ) : (
+          <div className="flex flex-1 justify-center items-center">
+            <div className="flex">Scan a ticket to start</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

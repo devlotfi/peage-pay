@@ -1,13 +1,29 @@
-import { Button } from '@peage-pay-web/ui';
+import { useMutation } from '@apollo/client';
+import {
+  faArrowDown,
+  faInfo,
+  faPrint,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert, Button, LoaderDots } from '@peage-pay-web/ui';
 import PDFDisplay from '@renderer/components/pdf-display.component';
+import { GENERATE_TICKET } from '@renderer/graphql/mutations';
 import jsPDF from 'jspdf';
 import { QRCodeCanvas } from 'qrcode.react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const TicketPrinter = () => {
-  const [text, setText] = useState('');
+const TicketPrinter = (): JSX.Element => {
   const [pdfData, setPdfData] = useState<string>();
   const pdfDisplayModalRef = useRef<HTMLDialogElement>(null);
+
+  const [generateTicket, { loading, error, data }] =
+    useMutation(GENERATE_TICKET);
+
+  useEffect(() => {
+    if (data) {
+      makePdf();
+    }
+  }, [data]);
 
   const makePdf = () => {
     const doc = new jsPDF({
@@ -47,22 +63,48 @@ const TicketPrinter = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-1 justify-center items-center">
       <PDFDisplay modalRef={pdfDisplayModalRef} pdfData={pdfData}></PDFDisplay>
-      <Button onClick={makePdf}>
-        <Button.Content>PDF</Button.Content>
-      </Button>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
       <QRCodeCanvas
         id="qr-code-canvas"
         className="hidden"
-        value={text}
+        value={data?.generateTicket.id || ''}
         size={200}
       ></QRCodeCanvas>
+
+      {error ? (
+        <Alert>
+          <Alert.Icon position={'left'}>
+            <FontAwesomeIcon icon={faInfo}></FontAwesomeIcon>
+          </Alert.Icon>
+          <Alert.Content>{error.message}</Alert.Content>
+        </Alert>
+      ) : undefined}
+      <div className="flex flex-col">
+        <FontAwesomeIcon
+          className="text-success-100"
+          icon={faPrint}
+          size="5x"
+        ></FontAwesomeIcon>
+        <FontAwesomeIcon
+          className="my-[1rem]"
+          icon={faArrowDown}
+          size="3x"
+        ></FontAwesomeIcon>
+        <Button
+          className="min-h-[5rem] px-[3rem] text-[15pt]"
+          variant={'success'}
+          onClick={() => generateTicket()}
+        >
+          {loading ? (
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
+          ) : (
+            <>
+              <Button.Content>Print ticket</Button.Content>
+            </>
+          )}
+        </Button>
+      </div>
     </div>
   );
 };

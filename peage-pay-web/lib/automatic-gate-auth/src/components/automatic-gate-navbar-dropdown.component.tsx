@@ -79,7 +79,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
       >
         <Dropdown.Content
           className="w-full static mb-[1rem] shadow-none"
-          position={'bottom-right'}
+          position={'bottom-left'}
         >
           <MenuDropdown
             mainElement={

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const sidebarMainVariants = cva(
-  'fixed lg:static flex flex-col bg-base-200 lg:bg-transparent rounded-tr-2xl rounded-br-2xl h-screen lg:h-auto min-w-[20rem] w-[20rem] p-[0.7rem] z-50 duration-300 ease overflow-y-auto',
+  'fixed lg:static flex flex-col bg-base-200 lg:bg-transparent h-screen lg:h-auto min-w-[20rem] w-[20rem] p-[0.7rem] z-50 duration-300 ease overflow-y-auto',
   {
     variants: {
       sidebarOpened: {

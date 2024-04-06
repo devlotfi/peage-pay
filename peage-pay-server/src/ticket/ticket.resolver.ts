@@ -2,6 +2,7 @@ import {
   Args,
   Mutation,
   Parent,
+  Query,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
@@ -33,6 +34,20 @@ export class TicketResolver {
   ) {
     return await this.ticketService.generateTicket(
       automaticGateAccessTokenPayload,
+    );
+  }
+
+  @Query(() => TicketType)
+  @AllowRoles([BaseUserRolesType.GATE_ADMIN])
+  @UseGuards(AuthGuard)
+  public async ticketInfo(
+    @Args('ticketInfoInput') ticketInfoInput: IdInput,
+    @ContextAccessTokenPayload()
+    accessTokenPayload: UserAccessTokenPayload,
+  ) {
+    return await this.ticketService.ticketInfo(
+      ticketInfoInput,
+      accessTokenPayload,
     );
   }
 

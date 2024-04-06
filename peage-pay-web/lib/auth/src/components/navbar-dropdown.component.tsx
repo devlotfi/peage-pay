@@ -6,30 +6,30 @@ import {
   faPowerOff,
   faSun,
   faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ThemeContext, ThemesEnum } from "@peage-pay-web/tailwind-config";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ThemeContext, ThemesEnum } from '@peage-pay-web/tailwind-config';
 import {
   Button,
   ButtonOutline,
   Dropdown,
   MenuDropdown,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useContext, useRef } from "react";
-import { AuthContext } from "@peage-pay-web/auth";
-import { Utils } from "@peage-pay-web/utils";
-import SignOutModal from "./sign-out-modal.component";
+} from '@peage-pay-web/ui';
+import { useContext, useRef } from 'react';
+import { AuthContext } from '@peage-pay-web/auth';
+import { Utils } from '@peage-pay-web/utils';
+import SignOutModal from './sign-out-modal.component';
 
 const NavbarDropdownArrow = (): JSX.Element => {
   const { open } = useContext(Dropdown.Context);
 
   return (
-    <Button.Icon position={"left"}>
+    <Button.Icon position={'left'}>
       <FontAwesomeIcon
         className={Utils.cn(
-          "text-[20pt] duration-300 ease",
-          open && "rotate-180"
+          'text-[20pt] duration-300 ease',
+          open && 'rotate-180',
         )}
         icon={faCaretDown}
       ></FontAwesomeIcon>
@@ -54,7 +54,7 @@ const NavbarDropdown = (): JSX.Element => {
         mainElement={
           <Dropdown.Main>
             <ButtonOutline
-              variant={"edge-200"}
+              variant={'edge-200'}
               className="min-h-[2.7rem] w-full rounded-lg hover:bg-base-100 mb-[1rem] justify-between"
             >
               <div className="flex">
@@ -70,7 +70,7 @@ const NavbarDropdown = (): JSX.Element => {
                   </ButtonOutline.Content>
                 ) : null}
               </div>
-              <ButtonOutline.Icon position={"right"}>
+              <ButtonOutline.Icon position={'right'}>
                 <FontAwesomeIcon
                   className="text-[20pt] text-primary-100"
                   icon={faUserCircle}
@@ -82,12 +82,12 @@ const NavbarDropdown = (): JSX.Element => {
       >
         <Dropdown.Content
           className="w-full static mb-[1rem] shadow-none"
-          position={"bottom-right"}
+          position={'bottom-left'}
         >
           <MenuDropdown
             mainElement={
               <MenuDropdown.Main className="mb-[0.5rem]">
-                <MenuItem className="w-full" variant={"base-100"}>
+                <MenuItem className="w-full" variant={'base-100'}>
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faBrush}></FontAwesomeIcon>
                   </MenuItem.Icon>
@@ -99,7 +99,7 @@ const NavbarDropdown = (): JSX.Element => {
             <MenuItem
               onClick={() => setDarkTheme()}
               className="w-full mb-[0.5rem]"
-              variant={theme === ThemesEnum.DARK ? "primary" : "base-100"}
+              variant={theme === ThemesEnum.DARK ? 'primary' : 'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
@@ -109,7 +109,7 @@ const NavbarDropdown = (): JSX.Element => {
             <MenuItem
               onClick={() => setLightTheme()}
               className="w-full mb-[0.5rem]"
-              variant={theme === ThemesEnum.LIGHT ? "primary" : "base-100"}
+              variant={theme === ThemesEnum.LIGHT ? 'primary' : 'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
@@ -121,7 +121,7 @@ const NavbarDropdown = (): JSX.Element => {
           <MenuDropdown
             mainElement={
               <MenuDropdown.Main>
-                <MenuItem className="w-full mb-[0.5rem]" variant={"base-100"}>
+                <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
                   </MenuItem.Icon>
@@ -132,20 +132,20 @@ const NavbarDropdown = (): JSX.Element => {
           >
             <MenuItem
               className="w-full mb-[0.5rem] mt-[0.5rem]"
-              variant={"primary"}
+              variant={'primary'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>English</MenuItem.Text>
             </MenuItem>
-            <MenuItem className="w-full mb-[0.5rem]" variant={"base-100"}>
+            <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>French</MenuItem.Text>
             </MenuItem>
-            <MenuItem className="w-full mb-[0.5rem]" variant={"base-100"}>
+            <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
@@ -155,7 +155,7 @@ const NavbarDropdown = (): JSX.Element => {
           <MenuItem
             onClick={showSignOutModal}
             className="w-full"
-            variant={"error"}
+            variant={'error'}
           >
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>

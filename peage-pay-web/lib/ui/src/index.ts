@@ -32,6 +32,8 @@ import Pagination from './components/layout/pagination/pagination.component';
 import SearchForm, {
   SearchValues,
 } from './components/layout/search-form/search-form.component';
+import { TitleBarIPCMessages } from './components/layout/title-bar/title-bar-ipc-messages';
+import TitleBar from './components/layout/title-bar/title-bar.component';
 import ErrorPage from './components/pages/error-page/error.page';
 
 export {
@@ -68,6 +70,8 @@ export {
   DirectionalInputs,
   TollPicker,
   AutomaticGatePicker,
+  TitleBar,
+  TitleBarIPCMessages,
 };
 
 export type { SearchValues };

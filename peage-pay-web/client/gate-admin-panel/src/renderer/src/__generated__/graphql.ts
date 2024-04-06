@@ -22,6 +22,7 @@ export type AddAutomaticGateInput = {
   direction: TollDirectionType;
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  variant: AutomaticGateVariantType;
 };
 
 export type AddCustomPriceInput = {
@@ -193,7 +194,14 @@ export type AutomaticGateType = {
   name: Scalars['String']['output'];
   tollId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  variant: AutomaticGateVariantType;
 };
+
+export enum AutomaticGateVariantType {
+  QrCodeReader = 'QR_CODE_READER',
+  RfidReader = 'RFID_READER',
+  TicketPrinter = 'TICKET_PRINTER'
+}
 
 export enum BaseUserErrors {
   InsufficientPrivileges = 'INSUFFICIENT_PRIVILEGES',
@@ -296,6 +304,7 @@ export type EditAutomaticGateInput = {
   direction?: InputMaybe<TollDirectionType>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<AutomaticGateVariantType>;
 };
 
 export type EditHighwayInput = {
@@ -479,6 +488,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
@@ -493,6 +503,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
 };
 
@@ -714,6 +725,11 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
+export type MutationValidateTicketArgs = {
+  validateTicketInput: IdInput;
+};
+
+
 export type MutationVerifyEmailArgs = {
   verifyEmailInput: VerifyEmailInput;
 };
@@ -778,6 +794,7 @@ export type Query = {
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
+  ticketInfo: TicketType;
   tollAdminById?: Maybe<TollAdminType>;
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
@@ -900,6 +917,11 @@ export type QuerySectionListForTollNetworkArgs = {
 };
 
 
+export type QuerySignInAutomaticGateRefreshTokenArgs = {
+  signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput;
+};
+
+
 export type QuerySignInWithRefreshTokenArgs = {
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 };
@@ -912,6 +934,11 @@ export type QuerySubscriptionByIdArgs = {
 
 export type QuerySubscriptionListArgs = {
   subscriptionListInput: SubscriptionListInput;
+};
+
+
+export type QueryTicketInfoArgs = {
+  ticketInfoInput: IdInput;
 };
 
 
@@ -1071,10 +1098,15 @@ export type SignInAutomaticGateInput = {
   tollId: Scalars['String']['input'];
 };
 
+export type SignInAutomaticGateRefreshTokenInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
 export type SignInAutomaticGateResult = {
   __typename?: 'SignInAutomaticGateResult';
   accessToken: Scalars['String']['output'];
   automaticGate: AutomaticGateType;
+  refreshToken: Scalars['String']['output'];
 };
 
 export type SignInResult = {
@@ -1138,6 +1170,20 @@ export type SubscriptionType = {
   name: Scalars['String']['output'];
   price: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TicketType = {
+  __typename?: 'TicketType';
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
 };
 
 export enum TokenErrors {
@@ -1322,60 +1368,20 @@ export type YearlyPriceType = {
   startDate: Scalars['DateTime']['output'];
 };
 
-export type Delete_Base_UserMutationVariables = Exact<{
-  deleteBaseUserInput: IdInput;
+export type Validate_TicketMutationVariables = Exact<{
+  validateTicketInput: IdInput;
 }>;
 
 
-export type Delete_Base_UserMutation = { __typename?: 'Mutation', deleteBaseUser: boolean };
+export type Validate_TicketMutation = { __typename?: 'Mutation', validateTicket: { __typename?: 'TicketType', id: string } };
 
-export type Add_Rfid_TagMutationVariables = Exact<{
-  addRfidTagInput: AddRfidTagInput;
+export type Ticket_InfoQueryVariables = Exact<{
+  ticketInfoInput: IdInput;
 }>;
 
 
-export type Add_Rfid_TagMutation = { __typename?: 'Mutation', addRfidTag: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, baseUserId: string, createdAt: any, updatedAt: any } };
-
-export type Delete_Rfid_TagMutationVariables = Exact<{
-  deleteRfidTagInput: IdInput;
-}>;
+export type Ticket_InfoQuery = { __typename?: 'Query', ticketInfo: { __typename?: 'TicketType', distance?: number | null, entryTollId: string, entryTollPrice: number, entryTimeStamp: any, exitTollId?: string | null, exitTollPrice?: number | null, entryToll: { __typename?: 'TollType', name: string } } };
 
 
-export type Delete_Rfid_TagMutation = { __typename?: 'Mutation', deleteRfidTag: boolean };
-
-export type Rfid_Tag_By_RfidQueryVariables = Exact<{
-  rfidTagByRfidInput: RfidTagByRfidInput;
-}>;
-
-
-export type Rfid_Tag_By_RfidQuery = { __typename?: 'Query', rfidTagByRfid?: { __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, createdAt: any, updatedAt: any, baseUserId: string, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } | null };
-
-export type Base_User_ListQueryVariables = Exact<{
-  baseUserListInput: BaseUserListInput;
-}>;
-
-
-export type Base_User_ListQuery = { __typename?: 'Query', baseUserList: { __typename?: 'BaseUserListResult', count: number, list: Array<{ __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any, roles: Array<BaseUserRolesType> }> } };
-
-export type Base_User_By_IdQueryVariables = Exact<{
-  baseUserByIdInput: IdInput;
-}>;
-
-
-export type Base_User_By_IdQuery = { __typename?: 'Query', baseUserById?: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, roles: Array<BaseUserRolesType>, createdAt: any, updatedAt: any } | null };
-
-export type Rfid_Tag_ListQueryVariables = Exact<{
-  rfidTagListInput: RfidTagListInput;
-}>;
-
-
-export type Rfid_Tag_ListQuery = { __typename?: 'Query', rfidTagList: { __typename?: 'RfidTagListResult', count: number, list: Array<{ __typename?: 'RfidTagType', id: string, rfid: string, registrationNumber: string, baseUserId: string, createdAt: any, updatedAt: any }> } };
-
-
-export const Delete_Base_UserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_BASE_USER"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteBaseUserInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteBaseUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteBaseUserInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteBaseUserInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Base_UserMutation, Delete_Base_UserMutationVariables>;
-export const Add_Rfid_TagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_RFID_TAG"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addRfidTagInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddRfidTagInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addRfidTag"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addRfidTagInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addRfidTagInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_Rfid_TagMutation, Add_Rfid_TagMutationVariables>;
-export const Delete_Rfid_TagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_RFID_TAG"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteRfidTagInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteRfidTag"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deleteRfidTagInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteRfidTagInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Rfid_TagMutation, Delete_Rfid_TagMutationVariables>;
-export const Rfid_Tag_By_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_BY_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagByRfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagByRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagByRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagByRfidInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_By_RfidQuery, Rfid_Tag_By_RfidQueryVariables>;
-export const Base_User_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BaseUserListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]}}]} as unknown as DocumentNode<Base_User_ListQuery, Base_User_ListQueryVariables>;
-export const Base_User_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BASE_USER_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"baseUserByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"baseUserByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"baseUserByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Base_User_By_IdQuery, Base_User_By_IdQueryVariables>;
-export const Rfid_Tag_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RFID_TAG_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidTagListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rfidTagList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"rfidTagListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"rfidTagListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"rfid"}},{"kind":"Field","name":{"kind":"Name","value":"registrationNumber"}},{"kind":"Field","name":{"kind":"Name","value":"baseUserId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Rfid_Tag_ListQuery, Rfid_Tag_ListQueryVariables>;
+export const Validate_TicketDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VALIDATE_TICKET"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validateTicket"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateTicketInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<Validate_TicketMutation, Validate_TicketMutationVariables>;
+export const Ticket_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TICKET_INFO"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ticketInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ticketInfoInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTollId"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}}]}}]}}]} as unknown as DocumentNode<Ticket_InfoQuery, Ticket_InfoQueryVariables>;

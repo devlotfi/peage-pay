@@ -3,16 +3,38 @@ import SignInAutomaticGateForm from '../components/sign-in-automatic-gate-form.c
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn, faUserGear } from '@fortawesome/free-solid-svg-icons';
 import { Toll } from '@peage-pay-web/assets';
+import { cva, VariantProps } from 'class-variance-authority';
+import { BaseHTMLAttributes } from 'react';
+import { Utils } from '@peage-pay-web/utils';
 
-interface SignInAutomaticGatePageProps {
+const signInAutomaticGateVariants = cva(
+  'flex flex-col bg-base-200 min-h-screen bg-cover text-base-content',
+  {
+    variants: {
+      usage: {
+        desktop: 'min-h-[cacl(100vh-2.5rem)] flex-1 overflow-y-auto',
+      },
+    },
+  },
+);
+
+interface SignInAutomaticGatePageProps
+  extends BaseHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof signInAutomaticGateVariants> {
   title: string;
 }
 
 const SignInAutomaticGatePage = ({
   title,
+  className,
+  usage,
+  ...props
 }: SignInAutomaticGatePageProps): JSX.Element => {
   return (
-    <div className="flex flex-col bg-base-200 min-h-screen bg-cover text-base-content">
+    <div
+      className={Utils.cn(signInAutomaticGateVariants({ className, usage }))}
+      {...props}
+    >
       <MinimalNavbar>
         <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>

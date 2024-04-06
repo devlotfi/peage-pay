@@ -1,5 +1,5 @@
 import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
-import { useState } from 'react';
+import { BaseHTMLAttributes, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFilePen,
@@ -12,12 +12,32 @@ import SignUpPageTabs, {
 } from '../components/sign-up/sign-up-page-tabs.component';
 import { Link } from 'react-router-dom';
 import SignUpWithEmailForm from '../components/sign-up/sign-up-with-email-form.component';
+import { cva, VariantProps } from 'class-variance-authority';
+import { Utils } from '@peage-pay-web/utils';
 
-interface SignUpPageProps {
+const signUpPageVariants = cva(
+  'flex flex-col bg-base-200 min-h-screen bg-cover',
+  {
+    variants: {
+      usage: {
+        desktop: 'min-h-[cacl(100vh-2.5rem)] flex-1 overflow-y-auto',
+      },
+    },
+  },
+);
+
+interface SignUpPageProps
+  extends BaseHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof signUpPageVariants> {
   title: string;
 }
 
-const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
+const SignUpPage = ({
+  title,
+  className,
+  usage,
+  ...props
+}: SignUpPageProps): JSX.Element => {
   const [tab, setTab] = useState<SignUpTabsEnum>(SignUpTabsEnum.EMAIL);
 
   const renderTabContent = () => {
@@ -28,7 +48,10 @@ const SignUpPage = ({ title }: SignUpPageProps): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-col bg-base-200 min-h-screen bg-cover text-base-content">
+    <div
+      className={Utils.cn(signUpPageVariants({ className, usage }))}
+      {...props}
+    >
       <MinimalNavbar>
         <MinimalNavbar.LeftContent title={title}></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>

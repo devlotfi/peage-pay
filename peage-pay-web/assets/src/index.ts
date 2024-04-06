@@ -8,6 +8,7 @@ import MailSent from './svg/mail-sent.svg';
 import NotFound from './svg/not-found.svg';
 import NoData from './svg/no-data.svg';
 import PageError from './svg/page-error.svg';
+import Camera from './svg/camera.svg';
 
 export {
   PeagePayLogo,
@@ -20,4 +21,5 @@ export {
   NoData,
   PageError,
   PeagePayAdminLogo,
+  Camera,
 };

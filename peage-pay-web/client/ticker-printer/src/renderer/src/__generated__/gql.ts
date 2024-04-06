@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query RFID_TAG_BY_RFID($rfidTagByRfidInput: RfidTagByRfidInput!) {\n    rfidTagByRfid(rfidTagByRfidInput: $rfidTagByRfidInput) {\n      id\n      rfid\n      registrationNumber\n      createdAt\n      updatedAt\n      baseUserId\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Rfid_Tag_By_RfidDocument,
+    "\n  mutation GENERATE_TICKET {\n    generateTicket {\n      id\n      distance\n      entryTollId\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitToll {\n        name\n      }\n    }\n  }\n": types.Generate_TicketDocument,
 };
 
 /**
@@ -33,7 +33,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query RFID_TAG_BY_RFID($rfidTagByRfidInput: RfidTagByRfidInput!) {\n    rfidTagByRfid(rfidTagByRfidInput: $rfidTagByRfidInput) {\n      id\n      rfid\n      registrationNumber\n      createdAt\n      updatedAt\n      baseUserId\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query RFID_TAG_BY_RFID($rfidTagByRfidInput: RfidTagByRfidInput!) {\n    rfidTagByRfid(rfidTagByRfidInput: $rfidTagByRfidInput) {\n      id\n      rfid\n      registrationNumber\n      createdAt\n      updatedAt\n      baseUserId\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function gql(source: "\n  mutation GENERATE_TICKET {\n    generateTicket {\n      id\n      distance\n      entryTollId\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitToll {\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation GENERATE_TICKET {\n    generateTicket {\n      id\n      distance\n      entryTollId\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitToll {\n        name\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

@@ -3,6 +3,7 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { registerIPCHandlers } from './register-ipc-handlers';
+import { registerTitleBarIPCHandlers } from './register-title-bar-ipc-handlers';
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -10,6 +11,7 @@ function createWindow(): BrowserWindow {
     width: 1200,
     height: 670,
     show: false,
+    frame: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -53,6 +55,7 @@ app.whenReady().then(() => {
   });
 
   const mainWindow = createWindow();
+  registerTitleBarIPCHandlers(mainWindow);
   registerIPCHandlers(mainWindow);
 
   app.on('activate', function () {

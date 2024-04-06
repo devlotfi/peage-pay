@@ -8,6 +8,8 @@ import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 import { BaseUserRolesType, RefreshTokenMode } from './__generated__/graphql';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { TitleBar } from '@peage-pay-web/ui';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 
 const queryClient = new QueryClient();
 
@@ -22,12 +24,17 @@ root.render(
           userRefreshTokenMode="COOKIE"
           authType="USER"
         >
-          <AuthProvider
-            refreshTokenMode={RefreshTokenMode.PlainText}
-            allowedRoles={[BaseUserRolesType.Moderator]}
+          <TitleBar.Layout
+            windowIcon={PeagePayAdminLogo}
+            title="Peage Pay gate admin dashboard"
           >
-            <App></App>
-          </AuthProvider>
+            <AuthProvider
+              refreshTokenMode={RefreshTokenMode.PlainText}
+              allowedRoles={[BaseUserRolesType.Moderator]}
+            >
+              <App></App>
+            </AuthProvider>
+          </TitleBar.Layout>
         </ApplicationApolloClientProvider>
       </ThemeProvider>
     </QueryClientProvider>

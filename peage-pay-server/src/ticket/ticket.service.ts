@@ -20,6 +20,8 @@ export class TicketService {
   public async generateTicket(
     automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
   ): Promise<Ticket> {
+    console.log(automaticGateAccessTokenPayload);
+
     const automaticGate =
       await this.databaseService.automaticGate.findUniqueOrThrow({
         where: {
@@ -36,7 +38,7 @@ export class TicketService {
       data: {
         entryToll: {
           connect: {
-            id: automaticGateAccessTokenPayload.automaticGateId,
+            id: automaticGate.toll.id,
           },
         },
         entryTollPrice: tollPrice,
@@ -45,6 +47,51 @@ export class TicketService {
     });
 
     return ticket;
+  }
+
+  public async ticketInfo(
+    ticketInfoInput: IdInput,
+    userAccessTokenPayload: UserAccessTokenPayload,
+  ): Promise<Ticket> {
+    const ticketPromise = this.databaseService.ticket.findUniqueOrThrow({
+      where: {
+        id: ticketInfoInput.id,
+      },
+    });
+
+    const gateAdminPromise = this.databaseService.gateAdmin.findUniqueOrThrow({
+      where: {
+        baseUserId: userAccessTokenPayload.userId,
+      },
+      include: {
+        toll: true,
+      },
+    });
+    await Promise.all([ticketPromise, gateAdminPromise]);
+    const ticket = await ticketPromise;
+    const gateAdmin = await gateAdminPromise;
+    if (!gateAdmin.toll) {
+      throw new GraphQLError(BaseUserErrors.TOLL_NOT_ASSIGNED);
+    }
+
+    const tollPricePromise = this.tollPriceService.tollPrice();
+    const tollDistancePromise = this.tollDistanceService.tollDistance(
+      ticket.entryTollId,
+      gateAdmin.toll.id,
+    );
+    await Promise.all([tollPricePromise, tollDistancePromise]);
+    const tollPrice = await tollPricePromise;
+    const tollDistance = await tollDistancePromise;
+
+    const ticketInfo: Ticket = {
+      ...ticket,
+      exitTollId: gateAdmin.toll.id,
+      exitTollPrice: tollPrice as any,
+      exitTimeStamp: new Date(),
+      distance: tollDistance as any,
+    };
+
+    return ticketInfo;
   }
 
   public async validateTicket(

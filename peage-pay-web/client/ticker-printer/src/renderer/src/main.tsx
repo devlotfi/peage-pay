@@ -7,6 +7,8 @@ import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AutomaticGateAuthProvider } from '@peage-pay-web/automatic-gate-auth';
+import { TitleBar } from '@peage-pay-web/ui';
+import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 
 const queryClient = new QueryClient();
 
@@ -21,9 +23,14 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
           authType="AUTOMATIC_GATE"
         >
-          <AutomaticGateAuthProvider>
-            <App />
-          </AutomaticGateAuthProvider>
+          <TitleBar.Layout
+            windowIcon={PeagePayAdminLogo}
+            title="Peage Pay ticket printer"
+          >
+            <AutomaticGateAuthProvider>
+              <App />
+            </AutomaticGateAuthProvider>
+          </TitleBar.Layout>
         </ApplicationApolloClientProvider>
       </ThemeProvider>
     </QueryClientProvider>

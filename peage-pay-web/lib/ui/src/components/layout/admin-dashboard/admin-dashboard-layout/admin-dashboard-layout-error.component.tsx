@@ -2,6 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { PageError } from '@peage-pay-web/assets';
+import { ApolloError } from '@apollo/client';
 
 const adminDashboardLayoutLayoutErrorVariants = cva(
   'flex justify-center items-center flex-1',
@@ -20,6 +21,13 @@ const AdminDashboardLayoutError = ({
   children,
   ...props
 }: AdminDashboardLayoutErrorProps) => {
+  const renderError = () => {
+    if (error instanceof ApolloError) {
+      return <div className="flex text-[17pt]">{error.message}</div>;
+    }
+    return <div className="flex text-[17pt]">Error while fetching</div>;
+  };
+
   if (error) {
     return (
       <div
@@ -30,7 +38,7 @@ const AdminDashboardLayoutError = ({
       >
         <div className="flex flex-col items-center">
           <img className="h-[10rem] mb-[0.5rem]" src={PageError} alt="Error" />
-          <div className="flex text-[17pt]">Error while fetching</div>
+          {renderError()}
         </div>
       </div>
     );

@@ -19,7 +19,10 @@ const useRouter = () => {
     {
       path: '/sign-in-automatic-gate',
       element: notAuthGuard(
-        <SignInAutomaticGatePage title="Ticket printer"></SignInAutomaticGatePage>,
+        <SignInAutomaticGatePage
+          usage={'desktop'}
+          title="Ticket printer"
+        ></SignInAutomaticGatePage>,
       ),
     },
     {
