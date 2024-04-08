@@ -4,11 +4,10 @@ import { GraphQLError } from 'graphql';
 import { UserTokenService } from 'src/token/user-token.service';
 import { SignInWithRefreshTokenResult } from './result/sign-in-with-refresh-token.result.gql';
 import { SignInWithRefreshTokenInput } from './input/sign-in-with-refresh-token.input.gql';
-import { UserAccessTokenPayload } from './types/user-access-token-payload.type';
 import { Request, Response } from 'express';
-import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { BaseUserService } from 'src/user/base-user.service';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
+import { SignOutInput } from './input/sign-out.input.gql';
 
 @Injectable()
 export class TokenAuthService {
@@ -77,27 +76,16 @@ export class TokenAuthService {
     };
   }
 
-  public async signOut(
-    accessTokenPayload: UserAccessTokenPayload,
-  ): Promise<boolean> {
-    await this.userTokenService.clearRefreshToken(
-      accessTokenPayload.userId,
-      RefreshTokenMode.PLAIN_TEXT,
-    );
+  public async signOut(signOutinput: SignOutInput): Promise<boolean> {
+    await this.userTokenService.clearRefreshToken(signOutinput.refreshToken);
     return true;
   }
 
   public async signOutWithRefreshTokenCookie(
-    accessTokenPayload: UserAccessTokenPayload,
     req: Request,
     res: Response,
   ): Promise<boolean> {
-    await this.userTokenService.clearRefreshToken(
-      accessTokenPayload.userId,
-      RefreshTokenMode.COOKIE,
-      req,
-      res,
-    );
+    await this.userTokenService.clearRefreshTokenWithCookie(req, res);
     return true;
   }
 }

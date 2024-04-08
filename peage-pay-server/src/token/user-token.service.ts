@@ -65,30 +65,13 @@ export class UserTokenService {
     res: Response,
     refreshTokenMode: RefreshTokenMode,
   ): Promise<string> {
-    const refreshToken = await this.jwtService.signAsync(
-      { userId },
-      {
-        expiresIn: '30d',
-        secret: this.configService.getOrThrow<string>(
-          'USER_JWT_REFRESH_TOKEN_SECRET',
-        ),
-      },
-    );
+    return this.databaseService.$transaction(async (prisma) => {
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 30);
 
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 30);
-
-    await this.databaseService.$transaction(async (prisma) => {
-      await prisma.userRefreshToken.deleteMany({
-        where: {
-          baseUser: {
-            id: userId,
-          },
-        },
-      });
-      await prisma.userRefreshToken.create({
+      const refreshTokenRecord = await prisma.userRefreshToken.create({
         data: {
-          tokenHash: await Utils.hashString(refreshToken),
+          tokenHash: '',
           expiresAt: expirationDate,
           baseUser: {
             connect: {
@@ -97,41 +80,70 @@ export class UserTokenService {
           },
         },
       });
-    });
 
-    if (refreshTokenMode === RefreshTokenMode.COOKIE) {
-      const cookies = new Cookies(req, res);
-      const currentDate = new Date();
-      const expirationDate = new Date(
-        currentDate.getTime() + 30 * 24 * 60 * 60 * 1000,
+      const refreshToken = await this.jwtService.signAsync(
+        { userId, tokenId: refreshTokenRecord.id },
+        {
+          expiresIn: '30d',
+          secret: this.configService.getOrThrow<string>(
+            'USER_JWT_REFRESH_TOKEN_SECRET',
+          ),
+        },
       );
-      cookies.set(CookieKeys.REFRESH_TOKEN, refreshToken, {
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: false,
-        expires: expirationDate,
-      });
-    }
 
-    return refreshToken;
-  }
-
-  public async clearRefreshToken(
-    userId: string,
-    refreshTokenMode: RefreshTokenMode,
-    req?: Request,
-    res?: Response,
-  ): Promise<void> {
-    try {
-      await this.databaseService.userRefreshToken.delete({
+      await prisma.userRefreshToken.update({
+        data: {
+          tokenHash: await Utils.hashString(refreshToken),
+        },
         where: {
-          userId,
+          id: refreshTokenRecord.id,
         },
       });
-    } catch (error) {}
 
-    if (refreshTokenMode === RefreshTokenMode.COOKIE && req && res) {
-      const cookies = new Cookies(req, res);
+      if (refreshTokenMode === RefreshTokenMode.COOKIE) {
+        const cookies = new Cookies(req, res);
+        const currentDate = new Date();
+        const expirationDate = new Date(
+          currentDate.getTime() + 30 * 24 * 60 * 60 * 1000,
+        );
+        cookies.set(CookieKeys.REFRESH_TOKEN, refreshToken, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: false,
+          expires: expirationDate,
+        });
+      }
+
+      return refreshToken;
+    });
+  }
+
+  public async clearRefreshToken(refreshToken: string): Promise<void> {
+    const { payload } = await this.checkRefreshToken(refreshToken);
+
+    if (payload) {
+      await this.databaseService.userRefreshToken.delete({
+        where: {
+          id: payload.tokenId,
+        },
+      });
+    }
+  }
+
+  public async clearRefreshTokenWithCookie(
+    req: Request,
+    res: Response,
+  ): Promise<void> {
+    const cookies = new Cookies(req, res);
+    const refreshToken = cookies.get(CookieKeys.REFRESH_TOKEN);
+
+    if (refreshToken) {
+      await this.databaseService.userRefreshToken.delete({
+        where: {
+          tokenHash: await Utils.hashString(refreshToken),
+        },
+      });
+
       cookies.set(CookieKeys.REFRESH_TOKEN, undefined);
     }
   }

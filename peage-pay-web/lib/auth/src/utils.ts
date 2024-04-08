@@ -4,6 +4,9 @@ export abstract class UserAuthUtils {
   public static setRefreshToken = (refreshToken: string) => {
     localStorage.setItem(LocalStorageKeys.REFRESH_TOKEN, refreshToken);
   };
+  public static clearRefreshToken = () => {
+    localStorage.removeItem(LocalStorageKeys.REFRESH_TOKEN);
+  };
   public static getRefreshToken = () => {
     return localStorage.getItem(LocalStorageKeys.REFRESH_TOKEN);
   };

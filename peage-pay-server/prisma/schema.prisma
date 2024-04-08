@@ -55,8 +55,8 @@ model UserRefreshToken {
   baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   id        String   @id @default(uuid())
-  userId    String   @unique
-  tokenHash String
+  userId    String
+  tokenHash String   @unique
   expiresAt DateTime
   createdAt DateTime @default(now())
 }
@@ -102,7 +102,7 @@ model BaseUser {
   tollAdmin            TollAdmin?
   gateAdmin            GateAdmin?
   verificationToken    VerificationToken?
-  userRefreshToken     UserRefreshToken?
+  userRefreshToken     UserRefreshToken[]
   trips                Trip[]                @relation("Trips")
   userSubscriptions    UserSubscription[]
   rfidTags             RfidTag[]

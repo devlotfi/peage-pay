@@ -58,6 +58,12 @@ export const SIGN_IN_WITH_GOOGLE = gql(`
   }
 `);
 
+export const SIGN_OUT = gql(`
+  mutation SIGN_OUT($signOutInput: SignOutInput!) {
+    signOut(signOutInput: $signOutInput)
+  }
+`);
+
 export const SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE = gql(`
   mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {
     signOutWithRefreshTokenCookie

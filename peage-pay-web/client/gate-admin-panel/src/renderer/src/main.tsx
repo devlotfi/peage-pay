@@ -22,7 +22,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ApplicationApolloClientProvider
-          userRefreshTokenMode="COOKIE"
+          userRefreshTokenMode="PLAIN_TEXT"
           authType="USER"
         >
           <TitleBar.Layout

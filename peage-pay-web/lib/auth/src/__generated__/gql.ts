@@ -19,6 +19,7 @@ const documents = {
     "\n  mutation RESET_PASSWORD($resetPasswordInput: ResetPasswordInput!) {\n    resetPassword(resetPasswordInput: $resetPasswordInput)\n  }\n": types.Reset_PasswordDocument,
     "\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInput: SigninWithEmailInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithEmail(signInWithEmailInput: $signInWithEmailInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      refreshToken\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_EmailDocument,
     "\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      refreshToken\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_GoogleDocument,
+    "\n  mutation SIGN_OUT($signOutInput: SignOutInput!) {\n    signOut(signOutInput: $signOutInput)\n  }\n": types.Sign_OutDocument,
     "\n  mutation SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE {\n    signOutWithRefreshTokenCookie\n  }\n": types.Sign_Out_With_Refresh_Token_CookieDocument,
     "\n  query SIGN_IN_WITH_REFRESH_TOKEN($signInWithRefreshTokenInput: SignInWithRefreshTokenInput!) {\n    signInWithRefreshToken(signInWithRefreshTokenInput: $signInWithRefreshTokenInput) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_Refresh_TokenDocument,
     "\n  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {\n    signInWithRefreshTokenCookie {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_Refresh_Token_CookieDocument,
@@ -62,6 +63,10 @@ export function gql(source: "\n  mutation SIGN_IN_WITH_EMAIL($signInWithEmailInp
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      refreshToken\n      accessToken\n      roles\n    }\n  }\n"): (typeof documents)["\n  mutation SIGN_IN_WITH_GOOGLE($signInWithGoogleInput: SignInWithGoogleInput!, $refreshTokenMode: RefreshTokenMode!) {\n    signInWithGoogle(signInWithGoogleInput: $signInWithGoogleInput, refreshTokenMode: $refreshTokenMode) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      refreshToken\n      accessToken\n      roles\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SIGN_OUT($signOutInput: SignOutInput!) {\n    signOut(signOutInput: $signOutInput)\n  }\n"): (typeof documents)["\n  mutation SIGN_OUT($signOutInput: SignOutInput!) {\n    signOut(signOutInput: $signOutInput)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
