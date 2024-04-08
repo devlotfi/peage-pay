@@ -1,18 +1,19 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { AppThemeProvider } from "./lib/theme/context/app-theme.context";
-import TestComp from "./test-comp.component";
-import { NavigationContainer } from "@react-navigation/native";
-import AppProviderContainer from "./app-provider-container.component";
+import { AppThemeProvider } from './context/app-theme.context';
+import AppProviderContainer from './providers/app-provider-container.component';
+import { NetConnectionProvider } from './context/net-connection-context.component';
+import { AuthProvider } from './context/auth.context';
+import MainRouter from './routers/main.router';
 
 export default function App() {
   return (
     <AppThemeProvider>
-      <NavigationContainer>
-        <AppProviderContainer>
-          <TestComp></TestComp>
-        </AppProviderContainer>
-      </NavigationContainer>
+      <AppProviderContainer>
+        <NetConnectionProvider>
+          <AuthProvider>
+            <MainRouter></MainRouter>
+          </AuthProvider>
+        </NetConnectionProvider>
+      </AppProviderContainer>
     </AppThemeProvider>
   );
 }

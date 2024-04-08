@@ -1,16 +1,16 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import UIButton from "./lib/ui/elements/ui-button/ui-button.component";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { AppThemeContext } from "./lib/theme/context/app-theme.context";
-import { AppTheme } from "./lib/theme/types/app-theme.type";
-import { AppThemesEnum } from "./lib/theme/types/app-themes-enum.type";
-import { useContext } from "react";
-import UIText from "./lib/ui/elements/ui-text/ui-text.component";
-import UIButtonOutline from "./lib/ui/elements/ui-button-outline/ui-button-outline.component";
-import UIHeading from "./lib/ui/elements/ui-heading/ui-heading.component";
-import UIAlert from "./lib/ui/elements/ui-alert/ui-alert.component";
-import UILink from "./lib/ui/elements/ui-link/ui-links.component";
-import UITextInput from "./lib/ui/elements/ui-text-input/ui-text-input.component";
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import UIButton from './elements/ui-button/ui-button.component';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AppThemeContext } from './context/app-theme.context';
+import { AppTheme } from './theme/types/app-theme.type';
+import { AppThemesEnum } from './theme/types/app-themes-enum.type';
+import { useContext } from 'react';
+import UIText from './elements/ui-text/ui-text.component';
+import UIButtonOutline from './elements/ui-button-outline/ui-button-outline.component';
+import UIHeading from './elements/ui-heading/ui-heading.component';
+import UIAlert from './elements/ui-alert/ui-alert.component';
+import UILink from './elements/ui-link/ui-links.component';
+import UITextInput from './elements/ui-text-input/ui-text-input.component';
 
 export default function TestComp() {
   const { theme, setTheme } = useContext(AppThemeContext);
@@ -24,12 +24,12 @@ export default function TestComp() {
           height: 50,
           width: 100,
           borderRadius: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: theme["base-200"],
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: theme['base-200'],
         }}
       >
-        <Text style={{ fontFamily: "FugazOne_400Regular" }}>Light</Text>
+        <Text style={{ fontFamily: 'FugazOne_400Regular' }}>Light</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -39,19 +39,19 @@ export default function TestComp() {
           height: 50,
           width: 100,
           borderRadius: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: theme["base-200"],
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: theme['base-200'],
         }}
       >
         <UIText>Dark</UIText>
       </Pressable>
-      <View style={{ alignItems: "flex-start" }}>
+      <View style={{ alignItems: 'flex-start' }}>
         <UIButton variant="base-200">
           <UIButton.Icon icon={faUser} position="left"></UIButton.Icon>
           <UIButton.Text>lol</UIButton.Text>
         </UIButton>
-        <UIButtonOutline onPress={() => console.log("lol")} variant="success">
+        <UIButtonOutline onPress={() => console.log('lol')} variant="success">
           <UIButtonOutline.Icon
             icon={faUser}
             position="left"
@@ -62,8 +62,8 @@ export default function TestComp() {
           <UIHeading.Icon icon={faUser} position="left"></UIHeading.Icon>
           <UIHeading.Text>lol</UIHeading.Text>
         </UIHeading>
-        <View style={{ width: "100%", padding: 10 }}>
-          <UIAlert style={{ width: "100%" }} variant="error">
+        <View style={{ width: '100%', padding: 10 }}>
+          <UIAlert style={{ width: '100%' }} variant="error">
             <UIAlert.Icon icon={faUser} position="left"></UIAlert.Icon>
             <UIAlert.Text>lol</UIAlert.Text>
           </UIAlert>
@@ -71,7 +71,7 @@ export default function TestComp() {
 
           <UITextInput
             variant="edge-100"
-            style={{ width: "100%", marginTop: 30 }}
+            style={{ width: '100%', marginTop: 30 }}
           >
             <UITextInput.Main>
               <UITextInput.Label>lol</UITextInput.Label>
@@ -90,6 +90,6 @@ export default function TestComp() {
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme["base-100"],
+      backgroundColor: theme['base-100'],
     },
   });
