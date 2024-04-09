@@ -1,27 +1,99 @@
-import { PropsWithChildren, createContext, useState } from 'react';
+import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import { BaseUserRolesType, BaseUserType } from '../__generated__/graphql';
+import UIText from '../elements/ui-text/ui-text.component';
+import { useQuery } from '@apollo/client';
+import { SIGN_IN_WITH_REFRESH_TOKEN_INITIAL } from '../graphql/queries';
+import { UserAuthUtils } from '../utils/utils';
+import { AccessTokenContext } from './access-token.context';
+import FullScreenLoading from '../layout/full-screen-loading.component';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type AuthData = {} | null;
+type AuthData = {
+  baseUser: BaseUserType;
+  userRoles: BaseUserRolesType[];
+} | null;
 
 interface AuthContext {
-  authData: AuthData | null;
+  authData: AuthData;
+  allowedRoles: BaseUserRolesType[];
 
-  setAuthData: (authData: AuthData | null) => void;
+  setAuthData: (authData: AuthData) => void;
 }
 
 const initialValue: AuthContext = {
   authData: null,
-  setAuthData: () => {},
+  allowedRoles: [],
+
+  setAuthData: () => {
+    return;
+  },
 };
 
 export const AuthContext = createContext(initialValue);
 
-export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
+interface AuthProviderProps {
+  allowedRoles: BaseUserRolesType[];
+}
+
+export const AuthProvider = ({
+  children,
+  allowedRoles,
+}: PropsWithChildren<AuthProviderProps>): JSX.Element => {
+  const { setAccessToken } = useContext(AccessTokenContext);
   const [authData, setAuthData] = useState<AuthData | null>(null);
 
+  const { loading } = useQuery(SIGN_IN_WITH_REFRESH_TOKEN_INITIAL, {
+    variables: {
+      signInWithRefreshTokenInput: {
+        refreshToken: UserAuthUtils.getRefreshTokenSync()!,
+      },
+    },
+    onCompleted(data) {
+      setAccessToken(data.signInWithRefreshToken.accessToken);
+      setAuthData({
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        baseUser: data.signInWithRefreshToken.baseUser,
+        userRoles: data.signInWithRefreshToken.roles,
+      });
+    },
+  });
+
+  const checkRoles = (
+    allowedRoles: BaseUserRolesType[],
+    userRoles: BaseUserRolesType[],
+  ): boolean => {
+    for (const role of allowedRoles) {
+      if (userRoles.indexOf(role) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return <FullScreenLoading></FullScreenLoading>;
+    } else {
+      if (
+        (authData && checkRoles(allowedRoles, authData.userRoles)) ||
+        !authData
+      ) {
+        return children;
+      } else {
+        return <UIText>Not permitted</UIText>;
+      }
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ authData, setAuthData }}>
-      {children}
+    <AuthContext.Provider
+      value={{
+        authData: authData,
+        allowedRoles,
+        setAuthData,
+      }}
+    >
+      {renderContent()}
     </AuthContext.Provider>
   );
 };

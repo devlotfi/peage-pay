@@ -8,15 +8,7 @@ import {
 import { AppTheme } from '../../theme/types/app-theme.type';
 import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import { useContext } from 'react';
-import { UITextInputContext } from './ui-text-input.context';
-
-type Variants =
-  | 'primary'
-  | 'success'
-  | 'error'
-  | 'warning'
-  | 'edge-100'
-  | 'edge-200';
+import { UITextInputContext, Variants } from './ui-text-input.context';
 
 interface UITextInputMainProps extends ViewProps {
   style?: StyleProp<ViewStyle>;
@@ -29,14 +21,11 @@ const UITextInputMain = ({
   ...props
 }: UITextInputMainProps): JSX.Element => {
   const { theme } = useAppTheme();
-  const { variant, focused } = useContext(UITextInputContext);
+  const { variant } = useContext(UITextInputContext);
   const styles = makeStyles(theme);
 
   return (
-    <View
-      style={[styles.base, styles[variant], focused && styles.focus, style]}
-      {...props}
-    >
+    <View style={[styles.base, styles[variant], style]} {...props}>
       {children}
     </View>
   );
@@ -51,12 +40,7 @@ const makeStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       borderWidth: 1,
       width: '100%',
-      height: '100%',
       backgroundColor: theme['base-100'],
-    },
-
-    focus: {
-      borderColor: theme['primary-100'],
     },
 
     primary: {

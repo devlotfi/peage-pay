@@ -49,45 +49,42 @@ export const AuthProvider = ({
   refreshTokenMode,
 }: PropsWithChildren<AuthProviderProps>): JSX.Element => {
   const [authData, setAuthData] = useState(initialValue.authData);
-  const [authLoading, setAuthLoading] = useState<boolean>(true);
 
-  useQuery(SIGN_IN_WITH_REFRESH_TOKEN_COOKIE, {
-    onCompleted(data) {
-      setAuthData({
-        // @ts-ignore
-        baseUser: data.signInWithRefreshTokenCookie.baseUser,
-        userRoles: data.signInWithRefreshTokenCookie.roles,
-      });
-      UserAuthUtils.setAccessToken(
-        data.signInWithRefreshTokenCookie.accessToken,
-      );
-      setAuthLoading(false);
-    },
-    onError() {
-      setAuthLoading(false);
-    },
-    skip: refreshTokenMode !== RefreshTokenMode.Cookie,
-  });
-  useQuery(SIGN_IN_WITH_REFRESH_TOKEN, {
-    variables: {
-      signInWithRefreshTokenInput: {
-        refreshToken: UserAuthUtils.getRefreshToken()!,
+  const { loading: signInWithRefreshTokenCookieLoading } = useQuery(
+    SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
+    {
+      onCompleted(data) {
+        UserAuthUtils.setAccessToken(
+          data.signInWithRefreshTokenCookie.accessToken,
+        );
+        setAuthData({
+          // @ts-ignore
+          baseUser: data.signInWithRefreshTokenCookie.baseUser,
+          userRoles: data.signInWithRefreshTokenCookie.roles,
+        });
       },
+      skip: refreshTokenMode !== RefreshTokenMode.Cookie,
     },
-    onCompleted(data) {
-      setAuthData({
-        // @ts-ignore
-        baseUser: data.signInWithRefreshToken.baseUser,
-        userRoles: data.signInWithRefreshToken.roles,
-      });
-      UserAuthUtils.setAccessToken(data.signInWithRefreshToken.accessToken);
-      setAuthLoading(false);
+  );
+  const { loading: signInWithRefreshTokenLoading } = useQuery(
+    SIGN_IN_WITH_REFRESH_TOKEN,
+    {
+      variables: {
+        signInWithRefreshTokenInput: {
+          refreshToken: UserAuthUtils.getRefreshToken()!,
+        },
+      },
+      onCompleted(data) {
+        UserAuthUtils.setAccessToken(data.signInWithRefreshToken.accessToken);
+        setAuthData({
+          // @ts-ignore
+          baseUser: data.signInWithRefreshToken.baseUser,
+          userRoles: data.signInWithRefreshToken.roles,
+        });
+      },
+      skip: refreshTokenMode !== RefreshTokenMode.PlainText,
     },
-    onError() {
-      setAuthLoading(false);
-    },
-    skip: refreshTokenMode !== RefreshTokenMode.PlainText,
-  });
+  );
 
   const checkRoles = (
     allowedRoles: BaseUserRolesType[],
@@ -102,7 +99,7 @@ export const AuthProvider = ({
   };
 
   const renderContent = () => {
-    if (authLoading) {
+    if (signInWithRefreshTokenCookieLoading || signInWithRefreshTokenLoading) {
       return <FullScreenLoading></FullScreenLoading>;
     } else {
       if (
@@ -119,7 +116,7 @@ export const AuthProvider = ({
   return (
     <AuthContext.Provider
       value={{
-        authData: authData,
+        authData,
         allowedRoles,
         refreshTokenMode,
         setAuthData,

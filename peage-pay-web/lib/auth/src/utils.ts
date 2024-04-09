@@ -13,6 +13,9 @@ export abstract class UserAuthUtils {
   public static setAccessToken = (accessToken: string) => {
     sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
   };
+  public static getAccessToken = () => {
+    return sessionStorage.getItem(SessionStorageKeys.ACCESS_TOKEN);
+  };
   public static clearAccessToken = () => {
     sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);
   };

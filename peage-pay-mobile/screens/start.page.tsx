@@ -8,10 +8,10 @@ import UIButton from '../elements/ui-button/ui-button.component';
 import { faFilePen, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import UIButtonOutline from '../elements/ui-button-outline/ui-button-outline.component';
 import type { StackScreenProps } from '@react-navigation/stack';
-import { MainRouterParamList } from '../routers/main.router';
+import { MainStackRouterParamList } from '../navigators/router';
 import { LinearGradient } from 'expo-linear-gradient';
 
-type Props = StackScreenProps<MainRouterParamList, 'Start'>;
+type Props = StackScreenProps<MainStackRouterParamList, 'Start'>;
 
 const StartPage = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
@@ -28,7 +28,7 @@ const StartPage = ({ navigation }: Props): JSX.Element => {
         <Image
           style={styles.image}
           contentFit="contain"
-          source={require('../assets/svg/toll.svg')}
+          source={require('../assets/img/toll.png')}
         ></Image>
       </View>
       <View style={styles.buttonsContainer}>

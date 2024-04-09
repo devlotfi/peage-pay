@@ -26,7 +26,7 @@ const UIText = ({ children, style, ...props }: UITextProps): JSX.Element => {
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
-      fontFamily: 'NotoSans_500Medium',
+      fontFamily: 'Noto-Sans',
       color: theme['base-content'],
       includeFontPadding: false,
     },

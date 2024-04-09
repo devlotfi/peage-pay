@@ -3,22 +3,16 @@ import MinimalNavbar from '../layout/minimal-navbar.component';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import type { StackScreenProps } from '@react-navigation/stack';
-import { MainRouterParamList } from '../routers/main.router';
 import { Image, ImageBackground } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import UIHeading from '../elements/ui-heading/ui-heading.component';
-import {
-  faAt,
-  faFilePen,
-  faKey,
-  faSignIn,
-} from '@fortawesome/free-solid-svg-icons';
-import UITextInput from '../elements/ui-text-input/ui-text-input.component';
-import UIButton from '../elements/ui-button/ui-button.component';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import OrDivider from '../layout/or-divider.component';
 import UIButtonOutline from '../elements/ui-button-outline/ui-button-outline.component';
+import SignInWithEmailForm from '../components/sign-in-with-email-form.component';
+import UIButton from '../elements/ui-button/ui-button.component';
+import { MainStackNavigatorParamList } from '../navigators/router';
 
-type Props = StackScreenProps<MainRouterParamList, 'SignIn'>;
+type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
 
 const SignInPage = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
@@ -29,7 +23,7 @@ const SignInPage = ({ navigation }: Props): JSX.Element => {
       <MinimalNavbar></MinimalNavbar>
       <ImageBackground
         style={styles.imageContainer}
-        source={require('../assets/img/toll.png')}
+        source={require('../assets/img/toll-bg.png')}
       >
         <LinearGradient
           style={styles.gradient}
@@ -38,42 +32,8 @@ const SignInPage = ({ navigation }: Props): JSX.Element => {
           <View style={{ flex: 1 }}></View>
           <View style={styles.formContainer}>
             <ScrollView>
-              <UIHeading style={styles.title} size={25}>
-                <UIHeading.Icon
-                  position="left"
-                  icon={faSignIn}
-                ></UIHeading.Icon>
-                <UIHeading.Text>Sign In</UIHeading.Text>
-              </UIHeading>
+              <SignInWithEmailForm></SignInWithEmailForm>
 
-              <UITextInput variant="edge-100" style={styles.input}>
-                <UITextInput.Main>
-                  <UITextInput.Label>E-mail</UITextInput.Label>
-                  <UITextInput.IconContainer position="left">
-                    <UITextInput.Icon icon={faAt}></UITextInput.Icon>
-                  </UITextInput.IconContainer>
-                  <UITextInput.Field placeholder="Enter e-mail"></UITextInput.Field>
-                </UITextInput.Main>
-              </UITextInput>
-              <UITextInput variant="edge-100" style={styles.input}>
-                <UITextInput.Main>
-                  <UITextInput.Label>Password</UITextInput.Label>
-                  <UITextInput.IconContainer position="left">
-                    <UITextInput.Icon icon={faKey}></UITextInput.Icon>
-                  </UITextInput.IconContainer>
-                  <UITextInput.Field placeholder="Enter password"></UITextInput.Field>
-                </UITextInput.Main>
-              </UITextInput>
-
-              <UIButton
-                style={styles.button}
-                onPress={() => navigation.push('Start')}
-                variant="primary"
-                iconPosition="right"
-              >
-                <UIButton.Content>Sign In</UIButton.Content>
-                <UIButton.Icon icon={faSignIn}></UIButton.Icon>
-              </UIButton>
               <UIButton
                 style={styles.button}
                 onPress={() => navigation.push('Dashboard')}
@@ -83,7 +43,7 @@ const SignInPage = ({ navigation }: Props): JSX.Element => {
                 <UIButton.Content>Sign in with Google</UIButton.Content>
                 <Image
                   style={{ height: 30, width: 30 }}
-                  source={require('../assets/svg/google.svg')}
+                  source={require('../assets/img/google.png')}
                 ></Image>
               </UIButton>
 

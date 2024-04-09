@@ -3,8 +3,8 @@ import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import UIText from '../elements/ui-text/ui-text.component';
 import type { StackScreenProps } from '@react-navigation/stack';
-import { MainRouterParamList } from '../routers/main.router';
-import { DashboardRouterParamList } from '../routers/dashboard.router';
+import { MainStackRouterParamList } from '../navigators/router';
+import { DashboardRouterParamList } from '../navigators/dashboard.router';
 
 type Props = StackScreenProps<DashboardRouterParamList, 'Home'>;
 

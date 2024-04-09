@@ -1,6 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { SessionStorageKeys } from '@peage-pay-web/constants';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import {
@@ -30,7 +29,10 @@ export const initApolloClient = (
   });
 
   const authLink = setContext(async (_, { headers }) => {
-    let accessToken = sessionStorage.getItem(SessionStorageKeys.ACCESS_TOKEN);
+    let accessToken =
+      authType === 'AUTOMATIC_GATE'
+        ? UserAuthUtils.getAccessToken()!
+        : AutomaticGateAuthUtils.getAccessToken()!;
 
     let expired = false;
     if (accessToken) {
@@ -66,7 +68,7 @@ export const initApolloClient = (
 
           accessToken =
             response.data.data.signInWithRefreshTokenCookie.accessToken;
-          sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+          UserAuthUtils.setAccessToken(accessToken);
         } else {
           const response = await axios.post<{
             data: {
@@ -83,7 +85,7 @@ export const initApolloClient = (
 
           accessToken =
             response.data.data.signInWithRefreshTokenCookie.accessToken;
-          sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+          UserAuthUtils.setAccessToken(accessToken);
         }
       } else {
         const response = await axios.post<{
@@ -107,7 +109,7 @@ export const initApolloClient = (
 
         accessToken =
           response.data.data.signInAutomaticGateRefreshToken.accessToken;
-        sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
+        AutomaticGateAuthUtils.setAccessToken(accessToken);
 
         console.log(response);
       }

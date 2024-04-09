@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { AppTheme } from '../theme/types/app-theme.type';
 
@@ -11,8 +11,10 @@ const MinimalNavbar = (): JSX.Element => {
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require('../assets/svg/peage-pay-logo.svg')}
+        contentFit="contain"
+        source={require('../assets/img/peage-pay-logo.png')}
       ></Image>
+      <Text style={styles.logoText}>PeagePay</Text>
     </View>
   );
 };
@@ -28,8 +30,14 @@ const makeStyles = (theme: AppTheme) =>
       flexDirection: 'row',
     },
     logo: {
-      height: 35,
-      width: 35,
+      height: 38,
+      width: 38,
+    },
+    logoText: {
+      fontFamily: 'Fugaz-One',
+      color: theme['base-content'],
+      fontSize: 20,
+      marginLeft: 10,
     },
   });
 

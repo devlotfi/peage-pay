@@ -10,16 +10,16 @@ import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import { UITextInputContext, Variants } from './ui-text-input.context';
 import { useContext } from 'react';
 
-interface UITextInputLabelProps extends TextProps {
+interface UITextInputInfoMessageProps extends TextProps {
   style?: StyleProp<TextStyle>;
   variant?: Variants;
 }
 
-const UITextInputLabel = ({
+const UITextInputInfoMessage = ({
   children,
   style,
   ...props
-}: UITextInputLabelProps): JSX.Element => {
+}: UITextInputInfoMessageProps): JSX.Element => {
   const { theme } = useAppTheme();
   const { variant } = useContext(UITextInputContext);
   const styles = makeStyles(theme);
@@ -34,12 +34,9 @@ const UITextInputLabel = ({
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
-      fontSize: 15,
-      position: 'absolute',
-      top: -15,
-      left: 13,
-      backgroundColor: theme['base-100'],
+      fontSize: 13,
       paddingHorizontal: 5,
+      marginLeft: 10,
     },
     primary: {
       color: theme['primary-100'],
@@ -61,4 +58,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default UITextInputLabel;
+export default UITextInputInfoMessage;
