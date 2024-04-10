@@ -7,17 +7,31 @@ import MainStackRouter from './navigators/router';
 import { AccessTokenProvider } from './context/access-token.context';
 import { ApplicationApolloClientProvider } from './context/application-apollo-client.context';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { BaseUserRolesType } from './__generated__/graphql';
+import { useLocales } from 'expo-localization';
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 SplashScreen.preventAutoHideAsync();
 
 const App = (): JSX.Element => {
   const [fontsLoaded, fontError] = useFonts({
-    'Noto-Sans': require('./assets/fonts/noto-sans.ttf'),
+    Inter: require('./assets/fonts/inter.ttf'),
     'Fugaz-One': require('./assets/fonts/fugaz-one.ttf'),
   });
+  const locales = useLocales();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    for (const locale of locales) {
+      if (['fr', 'en', 'ar'].indexOf(locale.languageCode) !== -1) {
+        i18n.changeLanguage(locale.languageCode);
+        break;
+      }
+    }
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {

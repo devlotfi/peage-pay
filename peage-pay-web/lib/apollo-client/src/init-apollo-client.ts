@@ -30,7 +30,7 @@ export const initApolloClient = (
 
   const authLink = setContext(async (_, { headers }) => {
     let accessToken =
-      authType === 'AUTOMATIC_GATE'
+      authType === 'USER'
         ? UserAuthUtils.getAccessToken()!
         : AutomaticGateAuthUtils.getAccessToken()!;
 

@@ -1,9 +1,13 @@
 @font-face {
-  font-family: 'Noto Sans';
-  src: url('./fonts/noto-sans.ttf');
+  font-family: 'Inter';
+  src: url('./fonts/inter.ttf');
 }
 
 @font-face {
   font-family: 'Fugaz One';
   src: url('./fonts/fugaz-one.ttf');
+}
+
+* {
+  font-family: 'Inter';
 }

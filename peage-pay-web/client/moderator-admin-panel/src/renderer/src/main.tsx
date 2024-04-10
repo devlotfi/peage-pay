@@ -21,7 +21,10 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <ApplicationApolloClientProvider authType="USER">
+        <ApplicationApolloClientProvider
+          authType="USER"
+          userRefreshTokenMode="PLAIN_TEXT"
+        >
           <TitleBar.Layout
             windowIcon={PeagePayAdminLogo}
             title="Peage Pay moderator admin panel"
