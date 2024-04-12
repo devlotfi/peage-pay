@@ -1,3 +1,25 @@
 {
-  "HELLO": "Bonjour"
+  "WELCOME_MESSAGE": "Bienvenu sur l'application PeagePay",
+  "OR": "Ou",
+  "SIGN_IN": "Connexion",
+  "SIGN_UP": "Inscription",
+  "SIGN_OUT": "Deconnexion",
+  "RESET_PASSWORD": "Recuperer mot de passe",
+  "EMAIL_SENT": "E-mail envoye",
+  "FIRST_NAME": "Prénom",
+  "LAST_NAME": "Nom",
+  "EMAIL": "E-mail",
+  "PASSWORD": "Mot de passe",
+  "CONFIRM_PASSWORD": "Confirmer mot de pass",
+  "SIGN_IN_WITH_GOOGLE": "Connexion avec google",
+  "INVALID_EMAIL_OR_PASSWORD": "E-mail ou mot de passe incorrectes",
+  "NOT_FOUND": "Element introuvable",
+  "UNIQUE_CONSTRAINT_VIOLATION": "Element deja existant",
+  "FOREIGN_KEY_CONSTRAINT_VIOLATION": "Erreur",
+  "INTERNAL_SERVER_ERROR": "Erreur interne",
+  "SEND": "Envoyer",
+
+  "BALANCE": "Solde",
+  "DEPOSITS": "Recharges",
+  "TRIPS": "Trajets"
 }

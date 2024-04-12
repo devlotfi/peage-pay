@@ -29,7 +29,7 @@ export class BaseUserResolver {
   @UseGuards(AuthGuard)
   public async baseUserList(
     @Args('baseUserListInput') baseUserListInput: BaseUserListInput,
-  ): Promise<BaseUserListResult> {
+  ) {
     return await this.baseUserService.baseUserList(baseUserListInput);
   }
 
@@ -42,7 +42,7 @@ export class BaseUserResolver {
   @UseGuards(AuthGuard)
   public async baseUserById(
     @Args('baseUserByIdInput') baseUserByIdInput: IdInput,
-  ): Promise<BaseUserType | null> {
+  ) {
     return (await this.baseUserService.baseUserById(baseUserByIdInput)) as any;
   }
 
@@ -51,16 +51,12 @@ export class BaseUserResolver {
   @UseGuards(AuthGuard)
   public async deleteBaseUser(
     @Args('deleteBaseUserInput') deleteBaseUserInput: IdInput,
-  ): Promise<boolean> {
-    return (await this.baseUserService.deleteBaseUser(
-      deleteBaseUserInput,
-    )) as any;
+  ) {
+    return await this.baseUserService.deleteBaseUser(deleteBaseUserInput);
   }
 
   @ResolveField(() => [BaseUserRolesType])
-  public async roles(
-    @Parent() baseUser: BaseUserType,
-  ): Promise<BaseUserRolesType[]> {
+  public async roles(@Parent() baseUser: BaseUserType) {
     return this.baseUserService.getUserRolesList(baseUser.id);
   }
 }

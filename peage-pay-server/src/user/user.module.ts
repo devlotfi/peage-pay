@@ -10,6 +10,8 @@ import { GateAdminResolver } from './gate-admin.resolver';
 import { ModeratorResolver } from './moderator.resolver';
 import { HumanRessourcesAdminResolver } from './human-ressources-admin.resolver';
 import { TollModule } from 'src/toll/toll.module';
+import { UserResolver } from './user.resolver';
+import { UserService } from './user.service';
 
 @Module({
   imports: [TollModule],
@@ -23,6 +25,8 @@ import { TollModule } from 'src/toll/toll.module';
     TollAdminResolver,
     GateAdminResolver,
     ModeratorResolver,
+    UserResolver,
+    UserService,
     HumanRessourcesAdminResolver,
   ],
   exports: [

@@ -3,12 +3,13 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { useInitApolloClient } from '../hooks/use-init-apollo-client';
 import { PropsWithChildren, createContext, useState } from 'react';
+import { initApolloClient } from '../apollo-client/init-apollo-client';
 
 interface ApplicationApolloClientContext {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   setApolloClient: (value: ApolloClient<NormalizedCacheObject>) => void;
+  resetClient: () => void;
 }
 
 const initialValue: ApplicationApolloClientContext = {
@@ -16,6 +17,7 @@ const initialValue: ApplicationApolloClientContext = {
   setApolloClient: () => {
     return;
   },
+  resetClient: () => {},
 };
 
 export const ApplicationApolloClientContext = createContext(initialValue);
@@ -23,14 +25,18 @@ export const ApplicationApolloClientContext = createContext(initialValue);
 export const ApplicationApolloClientProvider = ({
   children,
 }: PropsWithChildren): JSX.Element => {
-  const { initApolloClient } = useInitApolloClient();
   const [apolloClient, setApolloClient] = useState(initApolloClient());
+
+  const resetClient = () => {
+    setApolloClient(initApolloClient());
+  };
 
   return (
     <ApplicationApolloClientContext.Provider
       value={{
         apolloClient,
         setApolloClient,
+        resetClient,
       }}
     >
       <ApolloProvider client={apolloClient}>{children}</ApolloProvider>

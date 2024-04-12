@@ -7,11 +7,14 @@ export abstract class AutomaticGateAuthUtils {
   public static getRefreshToken = () => {
     return localStorage.getItem(LocalStorageKeys.REFRESH_TOKEN);
   };
+  public static clearRefreshToken = () => {
+    localStorage.removeItem(LocalStorageKeys.REFRESH_TOKEN);
+  };
   public static setAccessToken = (accessToken: string) => {
     sessionStorage.setItem(SessionStorageKeys.ACCESS_TOKEN, accessToken);
   };
   public static getAccessToken = () => {
-    return localStorage.getItem(SessionStorageKeys.ACCESS_TOKEN);
+    return sessionStorage.getItem(SessionStorageKeys.ACCESS_TOKEN);
   };
   public static clearAccessToken = () => {
     sessionStorage.removeItem(SessionStorageKeys.ACCESS_TOKEN);

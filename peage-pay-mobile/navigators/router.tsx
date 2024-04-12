@@ -12,14 +12,13 @@ import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
 import ReloadPage from '../screens/reload.page';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import TabIcon from './tab-icon.component';
 import DashboardNavbar from '../layout/dashboard-navbar.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
-import { Text } from 'react-native';
-import UIText from '../elements/ui-text/ui-text.component';
+import ResetPasswordPage from '../screens/reset-password.page';
+import MinimalNavbar from '../layout/minimal-navbar.component';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;
@@ -113,6 +112,7 @@ export type MainStackNavigatorParamList = {
   Start: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  ResetPassword: undefined;
   Dashboard: undefined;
 };
 
@@ -124,7 +124,7 @@ const MainStackNavigator = (): JSX.Element => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {authData ? (
+        {authData !== null ? (
           <>
             <Stack.Screen
               name="Dashboard"
@@ -137,22 +137,22 @@ const MainStackNavigator = (): JSX.Element => {
             <Stack.Screen
               name="Start"
               component={StartPage}
-              options={{ headerShown: false }}
+              options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
             <Stack.Screen
               name="SignIn"
               component={SignInPage}
-              options={{ headerShown: false }}
+              options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
             <Stack.Screen
               name="SignUp"
               component={SignUpPage}
-              options={{ headerShown: false }}
+              options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
             <Stack.Screen
-              name="Dashboard"
-              component={DrawerNavigator}
-              options={{ headerShown: false }}
+              name="ResetPassword"
+              component={ResetPasswordPage}
+              options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
           </>
         )}

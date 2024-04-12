@@ -18,6 +18,8 @@ import { CustomPriceListResult } from './result/custom-price-list.result.gql';
 import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { AddLocalPriceInput } from './input/add-local-price.input.gql';
+import { DefaultPriceService } from './default-price.service';
+import { EditDefaultPriceInput } from './input/edit-default-price.input.gql';
 
 @Resolver()
 export class PriceResolver {
@@ -26,7 +28,19 @@ export class PriceResolver {
     private readonly deletePriceService: DeletePriceService,
     private readonly globalPriceListService: GlobalPriceListService,
     private readonly localPriceListService: LocalPriceListService,
+    private readonly defaultPriceService: DefaultPriceService,
   ) {}
+
+  @Mutation(() => Boolean)
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @UseGuards(AuthGuard)
+  public async editDefaultPrice(
+    @Args('editDefaultPriceInput') editDefaultPriceInput: EditDefaultPriceInput,
+  ) {
+    return await this.defaultPriceService.editDefaultPrice(
+      editDefaultPriceInput,
+    );
+  }
 
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])

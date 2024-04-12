@@ -15,6 +15,7 @@ import { useMutation } from '@apollo/client';
 import { SIGN_UP_WITH_EMAIL } from '../graphql/mutations';
 import UIAlert from '../elements/ui-alert/ui-alert.component';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
+import { useTranslation } from 'react-i18next';
 
 const signUpWithEmailValidationSchema = yup.object({
   firstName: yup.string().max(50).required(),
@@ -46,6 +47,8 @@ const initialValues: SignUpWithEmailValues = {
 const SignUpWithEmailForm = (): JSX.Element => {
   const styles = makeStyles();
   const { theme } = useAppTheme();
+  const { t } = useTranslation();
+
   const [signUpWithEmail, { loading, error }] = useMutation(
     SIGN_UP_WITH_EMAIL,
     {
@@ -85,7 +88,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
     <>
       <UIHeading style={styles.title} size={25}>
         <UIHeading.Icon position="left" icon={faSignIn}></UIHeading.Icon>
-        <UIHeading.Text>Sign Up</UIHeading.Text>
+        <UIHeading.Text>{t('SIGN_UP')}</UIHeading.Text>
       </UIHeading>
 
       <UITextInput
@@ -93,12 +96,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>E-mail</UITextInput.Label>
+          <UITextInput.Label>{t('FIRST_NAME')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faAt}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="First name"
+            placeholder={t('FIRST_NAME')}
             value={values.firstName}
             onChangeText={handleChange('firstName')}
             onBlur={handleBlur('firstName')}
@@ -113,12 +116,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>E-mail</UITextInput.Label>
+          <UITextInput.Label>{t('LAST_NAME')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faAt}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="First name"
+            placeholder={t('LAST_NAME')}
             value={values.lastName}
             onChangeText={handleChange('lastName')}
             onBlur={handleBlur('lastName')}
@@ -133,12 +136,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>E-mail</UITextInput.Label>
+          <UITextInput.Label>{t('EMAIL')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faAt}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="Enter e-mail"
+            placeholder={t('EMAIL')}
             keyboardType="email-address"
             autoCapitalize="none"
             value={values.email}
@@ -155,12 +158,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>Password</UITextInput.Label>
+          <UITextInput.Label>{t('PASSWORD')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faKey}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="Enter password"
+            placeholder={t('PASSWORD')}
             secureTextEntry
             autoCapitalize="none"
             value={values.password}
@@ -181,12 +184,12 @@ const SignUpWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>Confirm password</UITextInput.Label>
+          <UITextInput.Label>{t('CONFIRM_PASSWORD')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faKey}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="Confirm password"
+            placeholder={t('CONFIRM_PASSWORD')}
             secureTextEntry
             autoCapitalize="none"
             value={values.confirmPassword}
@@ -204,7 +207,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
       {error ? (
         <UIAlert style={styles.alert} variant="error">
           <UIAlert.Icon position="left" icon={faInfoCircle}></UIAlert.Icon>
-          <UIAlert.Content>{error.message}</UIAlert.Content>
+          <UIAlert.Content>{t(error.message)}</UIAlert.Content>
         </UIAlert>
       ) : undefined}
 
@@ -221,7 +224,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
           ></ActivityIndicator>
         ) : (
           <>
-            <UIButton.Content>Sign Up</UIButton.Content>
+            <UIButton.Content>{t('SIGN_UP')}</UIButton.Content>
             <UIButton.Icon icon={faSignIn}></UIButton.Icon>
           </>
         )}

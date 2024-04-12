@@ -5451,6 +5451,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.36.1":
+  version: 3.36.1
+  resolution: "core-js@npm:3.36.1"
+  checksum: 10c0/4f0ad2464535d809ba659226feca15bff14b9b5452518bddff8d81b9c94b0227b3027d9838f22f1dce664958acb4107b935cc0037695ae545edc2a303bca98bf
+  languageName: node
+  linkType: hard
+
 "core-util-is@npm:~1.0.0":
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
@@ -9798,6 +9805,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
     "@typescript-eslint/parser": "npm:^7.4.0"
     axios: "npm:^1.6.8"
+    core-js: "npm:^3.36.1"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     expo: "npm:^50.0.15"

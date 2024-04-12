@@ -23,14 +23,13 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
       },
     },
     onCompleted() {
-      console.log('clear');
-
+      UserAuthUtils.clearAccessToken();
       UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },
     onError(error) {
       console.log(error);
-      console.log('clear');
+      UserAuthUtils.clearAccessToken();
       UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },
@@ -40,11 +39,13 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
     { loading: signOutWithRefreshTokenLoading },
   ] = useMutation(SIGN_OUT_WITH_REFRESH_TOKEN_COOKIE, {
     onCompleted() {
+      UserAuthUtils.clearAccessToken();
       UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },
     onError(error) {
       console.log(error);
+      UserAuthUtils.clearAccessToken();
       UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },

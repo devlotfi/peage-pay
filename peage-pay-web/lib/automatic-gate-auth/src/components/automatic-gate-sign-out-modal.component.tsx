@@ -19,8 +19,9 @@ const AutomaticGateSignOutModal = ({
     SIGN_OUT_AUTOMATIC_GATE,
     {
       onCompleted() {
-        setAutomaticGateAuthData(null);
+        AutomaticGateAuthUtils.clearRefreshToken();
         AutomaticGateAuthUtils.clearAccessToken();
+        setAutomaticGateAuthData(null);
       },
       onError(error) {
         console.log(error);

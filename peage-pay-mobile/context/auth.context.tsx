@@ -1,10 +1,9 @@
-import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 import { BaseUserRolesType, BaseUserType } from '../__generated__/graphql';
 import UIText from '../elements/ui-text/ui-text.component';
 import { useQuery } from '@apollo/client';
 import { SIGN_IN_WITH_REFRESH_TOKEN_INITIAL } from '../graphql/queries';
-import { UserAuthUtils } from '../utils/utils';
-import { AccessTokenContext } from './access-token.context';
+import { AuthInitializedStatus, UserAuthUtils } from '../utils/utils';
 import FullScreenLoading from '../layout/full-screen-loading.component';
 
 type AuthData = {
@@ -38,23 +37,28 @@ export const AuthProvider = ({
   children,
   allowedRoles,
 }: PropsWithChildren<AuthProviderProps>): JSX.Element => {
-  const { setAccessToken } = useContext(AccessTokenContext);
   const [authData, setAuthData] = useState<AuthData | null>(null);
 
   const { loading } = useQuery(SIGN_IN_WITH_REFRESH_TOKEN_INITIAL, {
     variables: {
       signInWithRefreshTokenInput: {
-        refreshToken: UserAuthUtils.getRefreshTokenSync()!,
+        refreshToken: UserAuthUtils.getRefreshToken()!,
       },
     },
     onCompleted(data) {
-      setAccessToken(data.signInWithRefreshToken.accessToken);
+      AuthInitializedStatus.setAuthInitialized(true);
+      UserAuthUtils.setAccessToken(data.signInWithRefreshToken.accessToken);
       setAuthData({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         baseUser: data.signInWithRefreshToken.baseUser,
         userRoles: data.signInWithRefreshToken.roles,
       });
+    },
+    onError(error) {
+      console.log(JSON.stringify(error));
+
+      console.log(error.message);
     },
   });
 
@@ -72,7 +76,7 @@ export const AuthProvider = ({
 
   const renderContent = () => {
     if (loading) {
-      return <FullScreenLoading></FullScreenLoading>;
+      return <FullScreenLoading loading></FullScreenLoading>;
     } else {
       if (
         (authData && checkRoles(allowedRoles, authData.userRoles)) ||

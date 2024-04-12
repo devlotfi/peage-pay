@@ -2,14 +2,16 @@ import { StyleSheet, View } from 'react-native';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { AppTheme } from '../theme/types/app-theme.type';
 import UIText from '../elements/ui-text/ui-text.component';
+import { useTranslation } from 'react-i18next';
 
 const OrDivider = (): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
+  const { t } = useTranslation();
 
   return (
     <View style={styles.divider}>
-      <UIText style={styles.text}>Or</UIText>
+      <UIText style={styles.text}>{t('OR')}</UIText>
     </View>
   );
 };

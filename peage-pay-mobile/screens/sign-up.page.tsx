@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import MinimalNavbar from '../layout/minimal-navbar.component';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import type { StackScreenProps } from '@react-navigation/stack';
@@ -10,16 +9,17 @@ import OrDivider from '../layout/or-divider.component';
 import UIButtonOutline from '../elements/ui-button-outline/ui-button-outline.component';
 import { MainStackNavigatorParamList } from '../navigators/router';
 import SignUpWithEmailForm from '../components/sign-up-with-email-form.component';
+import { useTranslation } from 'react-i18next';
 
 type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
 
 const SignInPage = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
+  const { t } = useTranslation();
 
   return (
     <View style={styles.page}>
-      <MinimalNavbar></MinimalNavbar>
       <ImageBackground
         style={styles.imageContainer}
         source={require('../assets/img/toll-bg.png')}
@@ -40,7 +40,9 @@ const SignInPage = ({ navigation }: Props): JSX.Element => {
                 variant="primary"
                 iconPosition="right"
               >
-                <UIButtonOutline.Content>Sign In</UIButtonOutline.Content>
+                <UIButtonOutline.Content>
+                  {t('SIGN_IN')}
+                </UIButtonOutline.Content>
                 <UIButtonOutline.Icon icon={faFilePen}></UIButtonOutline.Icon>
               </UIButtonOutline>
             </ScrollView>

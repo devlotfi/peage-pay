@@ -5,6 +5,7 @@ import { DeletePriceService } from './delete-price.service';
 import { GlobalPriceListService } from './global-price-list.service';
 import { TollAdminService } from './toll-admin.service';
 import { LocalPriceListService } from './local-price-list.service';
+import { DefaultPriceService } from './default-price.service';
 
 @Module({
   providers: [
@@ -14,6 +15,7 @@ import { LocalPriceListService } from './local-price-list.service';
     GlobalPriceListService,
     LocalPriceListService,
     PriceResolver,
+    DefaultPriceService,
   ],
   exports: [
     AddPriceService,

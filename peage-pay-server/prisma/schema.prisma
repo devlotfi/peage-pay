@@ -107,6 +107,7 @@ model BaseUser {
   userSubscriptions    UserSubscription[]
   rfidTags             RfidTag[]
   currentTrip          Trip?                 @relation(fields: [currentTripId], references: [id])
+  deposits             Deposit[]
 
   id            String   @id @default(uuid())
   currentTripId String?  @unique
@@ -121,6 +122,7 @@ model User {
 
   baseUserId String  @id
   balance    Decimal @default(0)
+  pinHash    String?
 }
 
 model GeneralAdmin {
@@ -414,11 +416,21 @@ model CustomPrice {
 
 model DefaultPrice {
   id    String  @id @default(uuid())
-  value Decimal
+  value Decimal @default(0)
 }
 
-model ReloadCode {
+model Deposit {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  id         String   @id @default(uuid())
+  baseUserId String
+  amount     Decimal
+  createdAt  DateTime @default(now())
+}
+
+model Code {
   id        String   @id @default(uuid())
   codeHash  String   @unique
+  value     Decimal
   createdAt DateTime @default(now())
 }

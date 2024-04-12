@@ -12,7 +12,6 @@ import { useMutation } from '@apollo/client';
 import { SIGN_OUT } from '../graphql/mutations';
 import { UserAuthUtils } from '../utils/utils';
 import { useContext } from 'react';
-import { AccessTokenContext } from '../context/access-token.context';
 import { AuthContext } from '../context/auth.context';
 
 const CustomDrawerContent = (
@@ -20,23 +19,22 @@ const CustomDrawerContent = (
 ): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
-  const { setAccessToken } = useContext(AccessTokenContext);
   const { setAuthData } = useContext(AuthContext);
 
   const [signOut, { loading }] = useMutation(SIGN_OUT, {
     variables: {
       signOutInput: {
-        refreshToken: UserAuthUtils.getRefreshTokenSync()!,
+        refreshToken: UserAuthUtils.getRefreshToken()!,
       },
     },
-    async onCompleted() {
-      setAccessToken(null);
-      await UserAuthUtils.clearRefreshToken();
+    onCompleted() {
+      UserAuthUtils.clearAccessToken();
+      UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },
-    async onError() {
-      setAccessToken(null);
-      await UserAuthUtils.clearRefreshToken();
+    onError() {
+      UserAuthUtils.clearAccessToken();
+      UserAuthUtils.clearRefreshToken();
       setAuthData(null);
     },
   });

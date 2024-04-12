@@ -4,7 +4,6 @@ import AppProviderContainer from './providers/app-provider-container.component';
 import { NetConnectionProvider } from './context/net-connection-context.component';
 import { AuthProvider } from './context/auth.context';
 import MainStackRouter from './navigators/router';
-import { AccessTokenProvider } from './context/access-token.context';
 import { ApplicationApolloClientProvider } from './context/application-apollo-client.context';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect } from 'react';
@@ -26,8 +25,8 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     for (const locale of locales) {
-      if (['fr', 'en', 'ar'].indexOf(locale.languageCode) !== -1) {
-        i18n.changeLanguage(locale.languageCode);
+      if (['fr', 'en', 'ar'].indexOf(locale.languageCode!) !== -1) {
+        i18n.changeLanguage(locale.languageCode!);
         break;
       }
     }
@@ -40,20 +39,18 @@ const App = (): JSX.Element => {
   }, [fontsLoaded, fontError]);
 
   if (!fontsLoaded && !fontError) {
-    return null;
+    return <></>;
   }
 
   return (
     <AppThemeProvider>
       <AppProviderContainer onLayout={onLayoutRootView}>
         <NetConnectionProvider>
-          <AccessTokenProvider>
-            <ApplicationApolloClientProvider>
-              <AuthProvider allowedRoles={[BaseUserRolesType.User]}>
-                <MainStackRouter></MainStackRouter>
-              </AuthProvider>
-            </ApplicationApolloClientProvider>
-          </AccessTokenProvider>
+          <ApplicationApolloClientProvider>
+            <AuthProvider allowedRoles={[BaseUserRolesType.User]}>
+              <MainStackRouter></MainStackRouter>
+            </AuthProvider>
+          </ApplicationApolloClientProvider>
         </NetConnectionProvider>
       </AppProviderContainer>
     </AppThemeProvider>

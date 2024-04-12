@@ -294,9 +294,20 @@ export enum DayOfWeekType {
   Wednesday = 'WEDNESDAY'
 }
 
+export type DefinePinInput = {
+  pin: Scalars['String']['input'];
+};
+
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
+};
+
+export type DepositType = {
+  __typename?: 'DepositType';
+  amount: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
 };
 
 export type EditAutomaticGateInput = {
@@ -305,6 +316,10 @@ export type EditAutomaticGateInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   variant?: InputMaybe<AutomaticGateVariantType>;
+};
+
+export type EditDefaultPriceInput = {
+  value: Scalars['Float']['input'];
 };
 
 export type EditHighwayInput = {
@@ -472,6 +487,7 @@ export type Mutation = {
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
   changeTollStatus: Scalars['Boolean']['output'];
+  definePin: Scalars['Boolean']['output'];
   deleteAutomaticGate: Scalars['Boolean']['output'];
   deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
@@ -483,13 +499,16 @@ export type Mutation = {
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
   editAutomaticGate: AutomaticGateType;
+  editDefaultPrice: Scalars['Boolean']['output'];
   editHighway: HighwayType;
   editSection: SectionType;
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
+  redeemCode: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   removeModeratorRole: Scalars['Boolean']['output'];
@@ -588,6 +607,11 @@ export type MutationChangeTollStatusArgs = {
 };
 
 
+export type MutationDefinePinArgs = {
+  definePinInput: DefinePinInput;
+};
+
+
 export type MutationDeleteAutomaticGateArgs = {
   deleteAutomaticGateInput: IdInput;
 };
@@ -643,6 +667,11 @@ export type MutationEditAutomaticGateArgs = {
 };
 
 
+export type MutationEditDefaultPriceArgs = {
+  editDefaultPriceInput: EditDefaultPriceInput;
+};
+
+
 export type MutationEditHighwayArgs = {
   editHighwayInput: EditHighwayInput;
 };
@@ -670,6 +699,11 @@ export type MutationEditTollNetworkArgs = {
 
 export type MutationGenerateTollDistancesArgs = {
   generateTollDistancesInput: GenerateTollDistancesInput;
+};
+
+
+export type MutationRedeemCodeArgs = {
+  redeemCodeInput: RedeemCodeInput;
 };
 
 
@@ -780,6 +814,7 @@ export type Query = {
   customPriceLocalList: CustomPriceListResult;
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
+  depositList: Array<DepositType>;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
   gateAdminInfo?: Maybe<GateAdminType>;
@@ -809,6 +844,8 @@ export type Query = {
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
   tollPrice: Scalars['Boolean']['output'];
+  tripList: Array<TripType>;
+  userInfo: UserType;
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
@@ -1010,6 +1047,10 @@ export type QueryYearlyPriceGlobalListArgs = {
 
 export type QueryYearlyPriceLocalListArgs = {
   priceListInput: PaginationInput;
+};
+
+export type RedeemCodeInput = {
+  code: Scalars['String']['input'];
 };
 
 export enum RefreshTokenMode {
@@ -1319,6 +1360,28 @@ export type TollType = {
   wilayaId: Scalars['String']['output'];
 };
 
+export type TripType = {
+  __typename?: 'TripType';
+  baseUserId: Scalars['String']['output'];
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
+};
+
+export type UserType = {
+  __typename?: 'UserType';
+  balance: Scalars['Float']['output'];
+  baseUser?: Maybe<BaseUserType>;
+  baseUserId: Scalars['String']['output'];
+};
+
 export type VerifyEmailInput = {
   token: Scalars['String']['input'];
   userId: Scalars['String']['input'];
@@ -1385,6 +1448,13 @@ export type Sign_Up_With_EmailMutationVariables = Exact<{
 
 export type Sign_Up_With_EmailMutation = { __typename?: 'Mutation', signUpWithEmail: boolean };
 
+export type Send_Password_Reset_EmailMutationVariables = Exact<{
+  sendPasswordResetEmailInput: SendResetPasswordEmailInput;
+}>;
+
+
+export type Send_Password_Reset_EmailMutation = { __typename?: 'Mutation', sendPasswordResetEmail: boolean };
+
 export type Sign_In_With_EmailMutationVariables = Exact<{
   signInWithEmailInput: SigninWithEmailInput;
   refreshTokenMode: RefreshTokenMode;
@@ -1400,15 +1470,64 @@ export type Sign_OutMutationVariables = Exact<{
 
 export type Sign_OutMutation = { __typename?: 'Mutation', signOut: boolean };
 
+export type Define_PinMutationVariables = Exact<{
+  definePinInput: DefinePinInput;
+}>;
+
+
+export type Define_PinMutation = { __typename?: 'Mutation', definePin: boolean };
+
+export type Redeem_CodeMutationVariables = Exact<{
+  redeemCodeInput: RedeemCodeInput;
+}>;
+
+
+export type Redeem_CodeMutation = { __typename?: 'Mutation', redeemCode: boolean };
+
+export type Sign_In_With_Refresh_Token_InitialQueryVariables = Exact<{
+  signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
+}>;
+
+
+export type Sign_In_With_Refresh_Token_InitialQuery = { __typename?: 'Query', signInWithRefreshToken: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string, roles: Array<BaseUserRolesType>, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } };
+
+export type Sign_In_With_Refresh_Token_CookieQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Sign_In_With_Refresh_Token_CookieQuery = { __typename?: 'Query', signInWithRefreshTokenCookie: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string } };
+
 export type Sign_In_With_Refresh_TokenQueryVariables = Exact<{
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 }>;
 
 
-export type Sign_In_With_Refresh_TokenQuery = { __typename?: 'Query', signInWithRefreshToken: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string, roles: Array<BaseUserRolesType>, baseUser: { __typename?: 'BaseUserType', id: string, firstName: string, lastName: string, createdAt: any, updatedAt: any } } };
+export type Sign_In_With_Refresh_TokenQuery = { __typename?: 'Query', signInWithRefreshToken: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string } };
+
+export type Deposit_ListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Deposit_ListQuery = { __typename?: 'Query', depositList: Array<{ __typename?: 'DepositType', id: string, amount: number, createdAt: any }> };
+
+export type Trip_ListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Trip_ListQuery = { __typename?: 'Query', tripList: Array<{ __typename?: 'TripType', distance?: number | null, entryTimeStamp: any, entryTollPrice: number, exitTimeStamp?: any | null, exitTollPrice?: number | null, entryToll: { __typename?: 'TollType', name: string }, exitToll?: { __typename?: 'TollType', name: string } | null }> };
+
+export type User_InfoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type User_InfoQuery = { __typename?: 'Query', userInfo: { __typename?: 'UserType', balance: number } };
 
 
 export const Sign_Up_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_UP_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpWithEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUpWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}}}]}]}}]} as unknown as DocumentNode<Sign_Up_With_EmailMutation, Sign_Up_With_EmailMutationVariables>;
+export const Send_Password_Reset_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SEND_PASSWORD_RESET_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sendPasswordResetEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SendResetPasswordEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendPasswordResetEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sendPasswordResetEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sendPasswordResetEmailInput"}}}]}]}}]} as unknown as DocumentNode<Send_Password_Reset_EmailMutation, Send_Password_Reset_EmailMutationVariables>;
 export const Sign_In_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SigninWithEmailInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RefreshTokenMode"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithEmailInput"}}},{"kind":"Argument","name":{"kind":"Name","value":"refreshTokenMode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"refreshTokenMode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_EmailMutation, Sign_In_With_EmailMutationVariables>;
 export const Sign_OutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_OUT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignOutInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signOut"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signOutInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}}}]}]}}]} as unknown as DocumentNode<Sign_OutMutation, Sign_OutMutationVariables>;
-export const Sign_In_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_TokenQuery, Sign_In_With_Refresh_TokenQueryVariables>;
+export const Define_PinDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DEFINE_PIN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"definePinInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DefinePinInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"definePin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"definePinInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"definePinInput"}}}]}]}}]} as unknown as DocumentNode<Define_PinMutation, Define_PinMutationVariables>;
+export const Redeem_CodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REDEEM_CODE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RedeemCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"redeemCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"redeemCodeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}}}]}]}}]} as unknown as DocumentNode<Redeem_CodeMutation, Redeem_CodeMutationVariables>;
+export const Sign_In_With_Refresh_Token_InitialDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_INITIAL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_InitialQuery, Sign_In_With_Refresh_Token_InitialQueryVariables>;
+export const Sign_In_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_CookieQuery, Sign_In_With_Refresh_Token_CookieQueryVariables>;
+export const Sign_In_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_TokenQuery, Sign_In_With_Refresh_TokenQueryVariables>;
+export const Deposit_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DEPOSIT_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<Deposit_ListQuery, Deposit_ListQueryVariables>;
+export const Trip_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TRIP_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tripList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"exitToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Trip_ListQuery, Trip_ListQueryVariables>;
+export const User_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"USER_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}}]}}]} as unknown as DocumentNode<User_InfoQuery, User_InfoQueryVariables>;

@@ -1,6 +1,6 @@
-import { useMutation } from "@apollo/client";
-import { faCheck, faKey } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from '@apollo/client';
+import { faCheck, faKey } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Alert,
   Button,
@@ -8,18 +8,18 @@ import {
   LoaderDots,
   MinimalNavbar,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import { useSearchParams } from "react-router-dom";
-import * as yup from "yup";
-import { RESET_PASSWORD } from "../graphql/mutations";
-import { TokenErrors } from "../__generated__/graphql";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import { useSearchParams } from 'react-router-dom';
+import * as yup from 'yup';
+import { RESET_PASSWORD } from '../graphql/mutations';
+import { TokenErrors } from '../__generated__/graphql';
 
 const resetPasswordValidationSchema = yup.object({
   password: yup.string().min(7).max(512).required(),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
+    .oneOf([yup.ref('password')], 'Passwords must match')
     .required(),
   userId: yup.string().uuid().required(),
   token: yup.string().length(128).required(),
@@ -31,7 +31,7 @@ const ResetPasswordPage = () => {
     onError(error) {
       switch (error.message) {
         case TokenErrors.InvalidVerificationToken:
-          setFieldError("password", "auth:errors.INVALID_VERIFICATION_TOKEN");
+          setFieldError('password', 'auth:errors.INVALID_VERIFICATION_TOKEN');
           break;
       }
     },
@@ -47,10 +47,10 @@ const ResetPasswordPage = () => {
   } = useFormik({
     validationSchema: resetPasswordValidationSchema,
     initialValues: {
-      password: "",
-      confirmPassword: "",
-      userId: params.get("userId"),
-      token: params.get("token"),
+      password: '',
+      confirmPassword: '',
+      userId: params.get('userId'),
+      token: params.get('token'),
     },
     onSubmit(values) {
       if (values.token && values.userId) {
@@ -77,15 +77,15 @@ const ResetPasswordPage = () => {
         <div className="flex bg-base-100 border-edge-200 border-[1px] rounded-xl p-[1rem] w-full max-w-[40rem]">
           <form onSubmit={handleSubmit} className="w-full">
             <Heading className="mb-[2rem] text-[20pt]">
-              <Heading.Icon position={"left"}>
+              <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
               </Heading.Icon>
               <Heading.Text>Reset password</Heading.Text>
             </Heading>
 
             {data ? (
-              <Alert variant={"success"} className="mb-[2rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[2rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Password reset</Alert.Content>
@@ -94,13 +94,13 @@ const ResetPasswordPage = () => {
 
             <TextInput
               variant={
-                errors.password && touched.password ? "error" : "edge-100"
+                errors.password && touched.password ? 'error' : 'edge-100'
               }
               className="w-full mb-[1.5rem]"
             >
               <TextInput.Main>
                 <TextInput.Label>Password</TextInput.Label>
-                <TextInput.Icon position={"left"}>
+                <TextInput.Icon position={'left'}>
                   <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                 </TextInput.Icon>
                 <TextInput.Field
@@ -119,14 +119,14 @@ const ResetPasswordPage = () => {
             <TextInput
               variant={
                 errors.confirmPassword && touched.confirmPassword
-                  ? "error"
-                  : "edge-100"
+                  ? 'error'
+                  : 'edge-100'
               }
               className="w-full mb-[1.5rem]"
             >
               <TextInput.Main>
                 <TextInput.Label>Confirm password</TextInput.Label>
-                <TextInput.Icon position={"left"}>
+                <TextInput.Icon position={'left'}>
                   <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                 </TextInput.Icon>
                 <TextInput.Field
@@ -146,16 +146,16 @@ const ResetPasswordPage = () => {
             </TextInput>
 
             {data ? null : (
-              <Button className="w-full" variant={"primary"} type="submit">
+              <Button className="w-full" variant={'primary'} type="submit">
                 {loading ? (
                   <Button.Content>
                     <LoaderDots
-                      dotProps={{ variant: "color-content" }}
+                      dotProps={{ variant: 'color-content' }}
                     ></LoaderDots>
                   </Button.Content>
                 ) : (
                   <>
-                    <Button.Icon position={"left"}>
+                    <Button.Icon position={'left'}>
                       <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                     </Button.Icon>
                     <Button.Content>Reset password</Button.Content>

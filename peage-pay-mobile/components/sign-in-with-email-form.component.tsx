@@ -21,6 +21,9 @@ import VerificationRequestPendingModal from './verification-request-pending-moda
 import { AccessTokenContext } from '../context/access-token.context';
 import { UserAuthUtils } from '../utils/utils';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
+import { useTranslation } from 'react-i18next';
+import { StackScreenProps } from '@react-navigation/stack';
+import { MainStackNavigatorParamList } from '../navigators/router';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -37,7 +40,9 @@ const initialValues: SignInWithEmailValues = {
   password: '',
 };
 
-const SignInWithEmailForm = (): JSX.Element => {
+type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
+
+const SignInWithEmailForm = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles();
   const { setAccessToken } = useContext(AccessTokenContext);
@@ -46,12 +51,13 @@ const SignInWithEmailForm = (): JSX.Element => {
     showVerificationRequestPendingModal,
     setShowVerificationRequestPendingModal,
   ] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_WITH_EMAIL,
     {
       async onCompleted(data) {
-        await UserAuthUtils.setRefreshToken(data.signInWithEmail.refreshToken);
+        await UserAuthUtils.setRefreshToken(data.signInWithEmail.refreshToken!);
         setAccessToken(data.signInWithEmail.accessToken);
 
         setAuthData({
@@ -102,7 +108,7 @@ const SignInWithEmailForm = (): JSX.Element => {
 
       <UIHeading style={styles.title} size={25}>
         <UIHeading.Icon position="left" icon={faSignIn}></UIHeading.Icon>
-        <UIHeading.Text>Sign In</UIHeading.Text>
+        <UIHeading.Text>{t('SIGN_IN')}</UIHeading.Text>
       </UIHeading>
 
       <UITextInput
@@ -110,12 +116,12 @@ const SignInWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>E-mail</UITextInput.Label>
+          <UITextInput.Label>{t('EMAIL')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faAt}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="Enter e-mail"
+            placeholder={t('EMAIL')}
             keyboardType="email-address"
             autoCapitalize="none"
             value={values.email}
@@ -132,12 +138,12 @@ const SignInWithEmailForm = (): JSX.Element => {
         style={styles.input}
       >
         <UITextInput.Main>
-          <UITextInput.Label>Password</UITextInput.Label>
+          <UITextInput.Label>{t('PASSWORD')}</UITextInput.Label>
           <UITextInput.IconContainer position="left">
             <UITextInput.Icon icon={faKey}></UITextInput.Icon>
           </UITextInput.IconContainer>
           <UITextInput.Field
-            placeholder="Enter password"
+            placeholder={t('PASSWORD')}
             secureTextEntry
             autoCapitalize="none"
             value={values.password}
@@ -153,11 +159,16 @@ const SignInWithEmailForm = (): JSX.Element => {
       {error ? (
         <UIAlert style={styles.alert} variant="error">
           <UIAlert.Icon position="left" icon={faInfoCircle}></UIAlert.Icon>
-          <UIAlert.Content>{error.message}</UIAlert.Content>
+          <UIAlert.Content>{t(error.message)}</UIAlert.Content>
         </UIAlert>
       ) : undefined}
 
-      <UILink>Reset password</UILink>
+      <UILink
+        onPress={() => navigation.push('ResetPassword')}
+        style={{ marginLeft: 10 }}
+      >
+        {t('RESET_PASSWORD')}
+      </UILink>
       <UIButton
         style={styles.button}
         onPress={() => handleSubmit()}
@@ -171,7 +182,7 @@ const SignInWithEmailForm = (): JSX.Element => {
           ></ActivityIndicator>
         ) : (
           <>
-            <UIButton.Content>Sign In</UIButton.Content>
+            <UIButton.Content>{t('SIGN_IN')}</UIButton.Content>
             <UIButton.Icon icon={faSignIn}></UIButton.Icon>
           </>
         )}
