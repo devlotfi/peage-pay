@@ -50,7 +50,7 @@ const HomePage = (): JSX.Element => {
       loading={userInfoLoading || depositListLoading || tripListLoading}
     >
       <View style={styles.page}>
-        <UIHeading style={styles.heading} size={30}>
+        <UIHeading size={30}>
           <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
           <UIHeading.Text>{t('BALANCE')}</UIHeading.Text>
         </UIHeading>
@@ -71,7 +71,7 @@ const HomePage = (): JSX.Element => {
           </UIText>
         </LinearGradient>
 
-        <UIHeading style={styles.heading} size={30}>
+        <UIHeading size={30}>
           <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
           <UIHeading.Text>{t('DEPOSITS')}</UIHeading.Text>
         </UIHeading>
@@ -104,10 +104,6 @@ const makeStyles = (theme: AppTheme) =>
     },
     balanceUser: {
       color: theme['color-content'],
-    },
-    heading: {
-      margin: 15,
-      marginLeft: 20,
     },
   });
 

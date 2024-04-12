@@ -74,7 +74,7 @@ const ResetPasswordPage = ({ navigation }: Props): JSX.Element => {
           <View style={{ flex: 1 }}></View>
           <View style={styles.formContainer}>
             <ScrollView>
-              <UIHeading style={styles.title} size={25}>
+              <UIHeading size={25}>
                 <UIHeading.Icon
                   position="left"
                   icon={faEnvelope}
@@ -110,7 +110,7 @@ const ResetPasswordPage = ({ navigation }: Props): JSX.Element => {
               {data ? (
                 <UIAlert variant={'success'} style={styles.alert}>
                   <UIAlert.Icon icon={faCheck} position={'left'}></UIAlert.Icon>
-                  <UIAlert.Content>{t('EMAIL_SENT')}</UIAlert.Content>
+                  <UIAlert.Content>{t('OPERATION_SUCCESSFUL')}</UIAlert.Content>
                 </UIAlert>
               ) : null}
 
@@ -177,9 +177,6 @@ const makeStyles = (theme: AppTheme) =>
       paddingTop: 30,
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
-    },
-    title: {
-      marginLeft: 10,
     },
     input: {
       width: '100%',

@@ -11,8 +11,8 @@ import HomePage from '../screens/home.page';
 import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
-import ReloadPage from '../screens/reload.page';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import ReloadPage from '../screens/deposit.page';
+import { faHome, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
 import TabIcon from './tab-icon.component';
 import DashboardNavbar from '../layout/dashboard-navbar.component';
 import { useContext } from 'react';
@@ -22,7 +22,7 @@ import MinimalNavbar from '../layout/minimal-navbar.component';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;
-  Reload: undefined;
+  Deposit: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabsNavigatorParamList>();
@@ -33,7 +33,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props}></CustomTabBar>}>
       <Tab.Screen
-        name="Acceuil"
+        name="Home"
         component={HomePage}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
@@ -43,42 +43,12 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
         }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Recharge"
+        name="Deposit"
         component={ReloadPage}
         options={{
-          headerShown: false,
+          header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={faHome}></TabIcon>
-          ),
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="Profil"
-        component={ReloadPage}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={faHome}></TabIcon>
-          ),
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="Carte"
-        component={ReloadPage}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={faHome}></TabIcon>
-          ),
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="Calcul de tarifs"
-        component={ReloadPage}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={faHome}></TabIcon>
+            <TabIcon focused={focused} icon={faMoneyBillTransfer}></TabIcon>
           ),
         }}
       ></Tab.Screen>

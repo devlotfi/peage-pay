@@ -40,6 +40,8 @@ import { TicketModule } from './ticket/ticket.module';
 import { CodeModule } from './code/code.module';
 import { DepositModule } from './deposit/deposit.module';
 import { TripModule } from './trip/trip.module';
+import { ChargilyModule } from './chargily/chargily.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -103,6 +105,8 @@ import { TripModule } from './trip/trip.module';
     CodeModule,
     DepositModule,
     TripModule,
+    ChargilyModule,
+    PaymentModule,
   ],
 })
 export class AppModule {}

@@ -16,7 +16,7 @@ const TabIcon = ({ icon, focused }: TabIconProps): JSX.Element => {
   return (
     <FontAwesomeIcon
       icon={icon}
-      size={17}
+      size={19}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       style={[styles.icon, focused && styles.iconFocused]}
@@ -28,7 +28,7 @@ const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     icon: {
       color: theme['base-content'],
-      marginBottom: 5,
+      marginBottom: 3,
     },
     iconFocused: {
       color: theme['primary-100'],

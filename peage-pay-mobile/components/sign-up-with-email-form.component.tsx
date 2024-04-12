@@ -86,7 +86,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
 
   return (
     <>
-      <UIHeading style={styles.title} size={25}>
+      <UIHeading size={25}>
         <UIHeading.Icon position="left" icon={faSignIn}></UIHeading.Icon>
         <UIHeading.Text>{t('SIGN_UP')}</UIHeading.Text>
       </UIHeading>
@@ -235,9 +235,6 @@ const SignUpWithEmailForm = (): JSX.Element => {
 
 const makeStyles = () =>
   StyleSheet.create({
-    title: {
-      marginLeft: 10,
-    },
     input: {
       width: '100%',
       marginTop: 20,

@@ -26,7 +26,7 @@ export class CodeService {
       data: await Promise.all(
         codes.map(async (code) => ({
           value: 500,
-          codeHash: await Utils.hashString(code),
+          codeHash: await Utils.hashStringStatic(code),
         })),
       ),
     });
@@ -41,7 +41,7 @@ export class CodeService {
     return this.databaseService.$transaction(async (prisma) => {
       const code = await prisma.code.findUniqueOrThrow({
         where: {
-          codeHash: await Utils.hashString(redeemCodeInput.code),
+          codeHash: await Utils.hashStringStatic(redeemCodeInput.code),
         },
       });
 
@@ -63,6 +63,12 @@ export class CodeService {
               id: userAccessTokenPayload.userId,
             },
           },
+        },
+      });
+
+      await prisma.code.delete({
+        where: {
+          id: code.id,
         },
       });
       return true;

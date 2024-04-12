@@ -26,13 +26,17 @@ const CustomTabBar = (props: BottomTabBarProps): JSX.Element => {
                   props.state.index === index
                     ? theme['primary-100']
                     : 'transparent',
-                width: '30%',
+                width: 50,
+                position: 'absolute',
                 height: 5,
-                marginBottom: 10,
+                marginBottom: 5,
                 borderRadius: 1000,
+                marginTop: -5,
               }}
             ></View>
 
+            {/*  eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-ignore */}
             {props.descriptors[route.key].options.tabBarIcon({
               focused: props.state.index === index,
               color: '',
@@ -58,6 +62,7 @@ const makeStyles = (theme: AppTheme) =>
     tabBarContainer: {
       padding: 10,
       backgroundColor: theme['base-100'],
+      position: 'relative',
     },
     tabBar: {
       backgroundColor: theme['base-200'],
@@ -78,6 +83,7 @@ const makeStyles = (theme: AppTheme) =>
     tabLabel: {
       fontSize: 12,
       textAlign: 'center',
+      fontWeight: 'bold',
     },
     activeTabLabel: {
       color: theme['primary-100'],

@@ -18,7 +18,6 @@ import { SIGN_IN_WITH_EMAIL } from '../graphql/mutations';
 import UIAlert from '../elements/ui-alert/ui-alert.component';
 import UILink from '../elements/ui-link/ui-links.component';
 import VerificationRequestPendingModal from './verification-request-pending-modal.component';
-import { AccessTokenContext } from '../context/access-token.context';
 import { UserAuthUtils } from '../utils/utils';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { useTranslation } from 'react-i18next';
@@ -45,7 +44,6 @@ type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
 const SignInWithEmailForm = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles();
-  const { setAccessToken } = useContext(AccessTokenContext);
   const { setAuthData } = useContext(AuthContext);
   const [
     showVerificationRequestPendingModal,
@@ -56,10 +54,9 @@ const SignInWithEmailForm = ({ navigation }: Props): JSX.Element => {
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_WITH_EMAIL,
     {
-      async onCompleted(data) {
-        await UserAuthUtils.setRefreshToken(data.signInWithEmail.refreshToken!);
-        setAccessToken(data.signInWithEmail.accessToken);
-
+      onCompleted(data) {
+        UserAuthUtils.setRefreshToken(data.signInWithEmail.refreshToken!);
+        UserAuthUtils.setAccessToken(data.signInWithEmail.accessToken);
         setAuthData({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -106,7 +103,7 @@ const SignInWithEmailForm = ({ navigation }: Props): JSX.Element => {
         onClose={() => setShowVerificationRequestPendingModal(false)}
       ></VerificationRequestPendingModal>
 
-      <UIHeading style={styles.title} size={25}>
+      <UIHeading size={25}>
         <UIHeading.Icon position="left" icon={faSignIn}></UIHeading.Icon>
         <UIHeading.Text>{t('SIGN_IN')}</UIHeading.Text>
       </UIHeading>
@@ -193,9 +190,6 @@ const SignInWithEmailForm = ({ navigation }: Props): JSX.Element => {
 
 const makeStyles = () =>
   StyleSheet.create({
-    title: {
-      marginLeft: 10,
-    },
     input: {
       width: '100%',
       marginTop: 20,

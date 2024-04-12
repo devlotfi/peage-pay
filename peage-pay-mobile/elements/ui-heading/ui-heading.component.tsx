@@ -42,6 +42,8 @@ const makeStyles = () =>
     base: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginLeft: 20,
+      marginVertical: 10,
     },
   });
 

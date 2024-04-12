@@ -70,4 +70,10 @@ export class Env {
 
   @IsString()
   public GOOGLE_OAUTH_CLIENT_SECRET: string;
+
+  @IsString()
+  public CHARGILY_PAY_PUBLIC_KEY: string;
+
+  @IsString()
+  public CHARGILY_PAY_SECRET_KEY: string;
 }
