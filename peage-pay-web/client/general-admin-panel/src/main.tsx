@@ -14,7 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ThemeProvider>
-      <ApplicationApolloClientProvider authType="USER">
+      <ApplicationApolloClientProvider
+        authType="USER"
+        userRefreshTokenMode="COOKIE"
+      >
         <AuthProvider
           refreshTokenMode={RefreshTokenMode.Cookie}
           allowedRoles={[BaseUserRolesType.GeneralAdmin]}

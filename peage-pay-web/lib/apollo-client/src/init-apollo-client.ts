@@ -72,19 +72,21 @@ export const initApolloClient = (
         } else {
           const response = await axios.post<{
             data: {
-              signInWithRefreshTokenCookie: {
+              signInWithRefreshToken: {
                 accessToken: string;
               };
             };
           }>(serverGraphqlEndpoint, {
             query: SIGN_IN_WITH_REFRESH_TOKEN,
             variables: {
-              refreshToken: UserAuthUtils.getRefreshToken(),
+              signInWithRefreshTokenInput: {
+                refreshToken: UserAuthUtils.getRefreshToken(),
+              },
             },
           });
+          console.log(response.data.data);
 
-          accessToken =
-            response.data.data.signInWithRefreshTokenCookie.accessToken;
+          accessToken = response.data.data.signInWithRefreshToken.accessToken;
           UserAuthUtils.setAccessToken(accessToken);
         }
       } else {
