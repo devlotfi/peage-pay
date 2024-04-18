@@ -2,12 +2,6 @@ import { faPowerOff, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { faPlug } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Select, TextInput } from '@peage-pay-web/ui';
-import { BadgeScannerContext } from '@renderer/context/badge-scanner.context';
-import {
-  CONNECT_TO_SERIAL_PORT,
-  DISCONNECT_FROM_SERIAL_PORT,
-} from '@renderer/react-query/mutations';
-import { SERIAL_PORT_LIST } from '@renderer/react-query/queries';
 import { useFormik } from 'formik';
 import { useContext } from 'react';
 import {
@@ -15,6 +9,12 @@ import {
   useQuery as useReactQuery,
 } from 'react-query';
 import * as yup from 'yup';
+import { SerialPortContext } from '../context/serial-port.context';
+import { SERIAL_PORT_LIST } from '../react-query/queries';
+import {
+  CONNECT_TO_SERIAL_PORT,
+  DISCONNECT_FROM_SERIAL_PORT,
+} from '../react-query/mutations';
 
 interface ConnectToSerialPortValues {
   path: string;
@@ -29,7 +29,7 @@ const connectToSerialValidationSchema = yup.object({
 });
 
 const ConnectToSerialPortFrom = () => {
-  const { path, setPath } = useContext(BadgeScannerContext);
+  const { path, setPath } = useContext(SerialPortContext);
 
   const { data: serialPortListData, refetch: serialPortListRefetch } =
     useReactQuery(SERIAL_PORT_LIST.name, SERIAL_PORT_LIST);
@@ -106,7 +106,7 @@ const ConnectToSerialPortFrom = () => {
             onBlur={handleBlur}
           >
             <option>Select port</option>
-            {serialPortListData?.map((serialPort) => (
+            {serialPortListData?.map((serialPort: any) => (
               <option key={serialPort.path} value={serialPort.path}>
                 {serialPort.path}
               </option>

@@ -15,6 +15,8 @@ export const registerIPCHandlers = (mainWindow: BrowserWindow) => {
     async (_event, path: string) => {
       console.log(await mainWindow.webContents.session.cookies.get({}));
       const baudRate = +import.meta.env.MAIN_VITE_BAUD_RATE;
+      console.log(path, baudRate);
+
       CurrentPort.instance.connect(path, baudRate);
 
       CurrentPort.instance.port?.on('data', (data: Buffer) => {
@@ -36,7 +38,13 @@ export const registerIPCHandlers = (mainWindow: BrowserWindow) => {
     },
   );
 
-  ipcMain.handle(IPCMessages.DISCONNECT_FROM_SERIAL_PORT, async () => {
+  ipcMain.handle(IPCMessages.DISCONNECT_FROM_SERIAL_PORT, () => {
     CurrentPort.instance.disconnect();
+  });
+
+  ipcMain.handle(IPCMessages.OPEN_GATE, async () => {
+    console.log('opening gate');
+
+    CurrentPort.instance.port?.write(SerialPortMessages.OPEN_GATE + '\n');
   });
 };

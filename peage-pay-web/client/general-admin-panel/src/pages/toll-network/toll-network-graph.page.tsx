@@ -1,23 +1,23 @@
 /// <reference types="@types/google.maps" />
-import { useQuery } from "@apollo/client";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AdminDashboardLayout, Heading } from "@peage-pay-web/ui";
-import { useEffect } from "react";
+import { useQuery } from '@apollo/client';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AdminDashboardLayout, Heading } from '@peage-pay-web/ui';
+import { useEffect } from 'react';
 import {
   FULL_TOLL_LIST,
   SECTION_LIST_FOR_TOLL_NETWORK,
   TOLL_NETWORK_BY_ID,
-} from "../../graphql/queries";
-import { useParams } from "react-router-dom";
-import * as ReactDOM from "react-dom/client";
-import TollMapMarker from "../../components/toll/toll-map-marker.component";
+} from '../../graphql/queries';
+import { useParams } from 'react-router-dom';
+import * as ReactDOM from 'react-dom/client';
+import TollMapMarker from '../../components/toll/toll-map-marker.component';
 import {
   SectionStatusType,
   SectionType,
   TollType,
-} from "../../__generated__/graphql";
-import SectionMapMarker from "../../components/section/section-map-marker.component";
+} from '../../__generated__/graphql';
+import SectionMapMarker from '../../components/section/section-map-marker.component';
 
 const TollNetworkGraphPage = (): JSX.Element => {
   const { tollNetworkId } = useParams();
@@ -31,7 +31,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
         id: tollNetworkId as string,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   const {
     data: tollListData,
@@ -43,7 +43,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
         id: tollNetworkId as string,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
     skip: tollNetworkLoading || tollNetworkError !== undefined,
   });
   const {
@@ -56,11 +56,11 @@ const TollNetworkGraphPage = (): JSX.Element => {
         id: tollNetworkId as string,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
 
   const getMapMount = (): HTMLElement => {
-    return document.getElementById("toll-network-graph-map") as HTMLElement;
+    return document.getElementById('toll-network-graph-map') as HTMLElement;
   };
 
   useEffect(() => {
@@ -68,11 +68,11 @@ const TollNetworkGraphPage = (): JSX.Element => {
       const map = new google.maps.Map(getMapMount(), {
         center: { lat: 28.76, lng: 2.89 },
         zoom: 5,
-        mapId: "4504f8b37365c3d0",
+        mapId: '4504f8b37365c3d0',
       });
 
       for (const toll of tollListData.fullTollList) {
-        const tollMarker = document.createElement("div");
+        const tollMarker = document.createElement('div');
         const root = ReactDOM.createRoot(tollMarker);
         root.render(<TollMapMarker toll={toll as TollType}></TollMapMarker>);
 
@@ -87,19 +87,19 @@ const TollNetworkGraphPage = (): JSX.Element => {
       }
 
       for (const section of sectionListData.sectionListForTollNetwork) {
-        let polylineColor = "#FFFFFF";
+        let polylineColor = '#FFFFFF';
         switch (section.status) {
           case SectionStatusType.NormalTraffic:
-            polylineColor = "#22c55e";
+            polylineColor = '#22c55e';
             break;
           case SectionStatusType.ModerateTraffic:
-            polylineColor = "#facc15";
+            polylineColor = '#facc15';
             break;
           case SectionStatusType.HighTraffic:
-            polylineColor = "#f97316";
+            polylineColor = '#f97316';
             break;
           case SectionStatusType.Blocked:
-            polylineColor = "#ef4444";
+            polylineColor = '#ef4444';
             break;
           default:
             break;
@@ -122,10 +122,12 @@ const TollNetworkGraphPage = (): JSX.Element => {
           strokeWeight: 5,
         });
 
-        const distanceMarker = document.createElement("div");
+        const distanceMarker = document.createElement('div');
         const root = ReactDOM.createRoot(distanceMarker);
         root.render(
-          <SectionMapMarker section={section as SectionType}></SectionMapMarker>
+          <SectionMapMarker
+            section={section as SectionType}
+          ></SectionMapMarker>,
         );
 
         const latitude =
@@ -153,7 +155,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
       >
         <div className="flex flex-col h-full">
           <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
+            <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
             </Heading.Icon>
             <Heading.Text>Toll network map</Heading.Text>

@@ -1,5 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { faQrcode, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import {
+  faQrcode,
+  faRefresh,
+  faRoadBarrier,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Camera } from '@peage-pay-web/assets';
 import {
@@ -12,6 +16,9 @@ import QRCodeScanner from '@renderer/components/qr-code-scanner.component';
 import { TICKET_INFO } from '@renderer/graphql/queries';
 import QrScanner from 'qr-scanner';
 import { useEffect, useState } from 'react';
+import { ConnectToSerialPortFrom } from '@peage-pay-web/serial-port';
+import { useMutation as useReactMutation } from 'react-query';
+import { OPEN_GATE } from '@renderer/react-query/mutations';
 
 const ScanTicketPage = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,6 +38,10 @@ const ScanTicketPage = (): JSX.Element => {
     },
     fetchPolicy: 'network-only',
     skip: !ticket,
+  });
+
+  const { mutate: mutateOpenGate } = useReactMutation(OPEN_GATE, {
+    mutationKey: OPEN_GATE.name,
   });
 
   const initCameraData = async () => {
@@ -94,94 +105,109 @@ const ScanTicketPage = (): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-1">
-      <div className="flex flex-col flex-1">
-        <QRCodeScanner
-          onScan={(value) => setTicket(value)}
-          cameraList={cameraList}
-        ></QRCodeScanner>
-      </div>
-      <div className="flex h-full min-w-[1px] bg-edge-100 mx-[1rem]"></div>
-      <div className="flex flex-col flex-1">
-        {ticket ? (
-          <>
-            <Table.Container className="w-full">
-              <Table>
-                <Table.Body>
-                  <Table.Body.Tr variant={'zebra'}>
-                    <Table.Body.Td>Ticket ID</Table.Body.Td>
-                    <Table.Body.Td className="text-[9pt]">
-                      {ticket}
-                    </Table.Body.Td>
-                  </Table.Body.Tr>
-                </Table.Body>
-              </Table>
-            </Table.Container>
-            <AdminDashboardLayout.Loading loading={ticketLoading}>
-              <AdminDashboardLayout.Error error={ticketError}>
-                <div className="flex flex-col">
-                  <Heading className="text-[15pt] ml-[1rem] my-[0.7rem]">
-                    <Heading.Icon position="left">
-                      <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
-                    </Heading.Icon>
-                    <Heading.Text>Ticket info</Heading.Text>
-                  </Heading>
-                </div>
-                <Table.Container className="w-full">
-                  <Table>
-                    <Table.Body>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Entry toll</Table.Body.Td>
-                        <Table.Body.Td>
-                          {ticketData?.ticketInfo.entryToll.name}
-                        </Table.Body.Td>
-                      </Table.Body.Tr>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Entry toll price</Table.Body.Td>
-                        <Table.Body.Td>
-                          {ticketData?.ticketInfo.entryTollPrice} dzd/km
-                        </Table.Body.Td>
-                      </Table.Body.Tr>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Exit toll price</Table.Body.Td>
-                        <Table.Body.Td>
-                          {ticketData?.ticketInfo.exitTollPrice} dzd/km
-                        </Table.Body.Td>
-                      </Table.Body.Tr>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Distance</Table.Body.Td>
-                        <Table.Body.Td>
-                          {ticketData?.ticketInfo.distance} km
-                        </Table.Body.Td>
-                      </Table.Body.Tr>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Applied price</Table.Body.Td>
-                        <Table.Body.Td>{calculateAppliedPrice()}</Table.Body.Td>
-                      </Table.Body.Tr>
-                    </Table.Body>
-                  </Table>
-                </Table.Container>
+    <div className="flex flex-1 flex-col">
+      <ConnectToSerialPortFrom></ConnectToSerialPortFrom>
+      <div className="flex flex-1 mt-[1rem]">
+        <div className="flex flex-col flex-1">
+          <Button
+            className="mb-[1rem]"
+            onClick={() => mutateOpenGate()}
+            variant={'success'}
+          >
+            <Button.Icon>
+              <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
+            </Button.Icon>
+            <Button.Content>Open Gate</Button.Content>
+          </Button>
+          <QRCodeScanner
+            onScan={(value) => setTicket(value)}
+            cameraList={cameraList}
+          ></QRCodeScanner>
+        </div>
+        <div className="flex h-full min-w-[1px] bg-edge-100 mx-[1rem]"></div>
+        <div className="flex flex-col flex-1">
+          {ticket ? (
+            <>
+              <Table.Container className="w-full">
+                <Table>
+                  <Table.Body>
+                    <Table.Body.Tr variant={'zebra'}>
+                      <Table.Body.Td>Ticket ID</Table.Body.Td>
+                      <Table.Body.Td className="text-[9pt]">
+                        {ticket}
+                      </Table.Body.Td>
+                    </Table.Body.Tr>
+                  </Table.Body>
+                </Table>
+              </Table.Container>
+              <AdminDashboardLayout.Loading loading={ticketLoading}>
+                <AdminDashboardLayout.Error error={ticketError}>
+                  <div className="flex flex-col">
+                    <Heading className="text-[15pt] ml-[1rem] my-[0.7rem]">
+                      <Heading.Icon position="left">
+                        <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
+                      </Heading.Icon>
+                      <Heading.Text>Ticket info</Heading.Text>
+                    </Heading>
+                  </div>
+                  <Table.Container className="w-full">
+                    <Table>
+                      <Table.Body>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Entry toll</Table.Body.Td>
+                          <Table.Body.Td>
+                            {ticketData?.ticketInfo.entryToll.name}
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Entry toll price</Table.Body.Td>
+                          <Table.Body.Td>
+                            {ticketData?.ticketInfo.entryTollPrice} dzd/km
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Exit toll price</Table.Body.Td>
+                          <Table.Body.Td>
+                            {ticketData?.ticketInfo.exitTollPrice} dzd/km
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Distance</Table.Body.Td>
+                          <Table.Body.Td>
+                            {ticketData?.ticketInfo.distance} km
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Applied price</Table.Body.Td>
+                          <Table.Body.Td>
+                            {calculateAppliedPrice()}
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                      </Table.Body>
+                    </Table>
+                  </Table.Container>
 
-                <Table.Container className="w-full mt-[1rem]">
-                  <Table>
-                    <Table.Body>
-                      <Table.Body.Tr variant={'zebra'}>
-                        <Table.Body.Td>Total</Table.Body.Td>
-                        <Table.Body.Td className="text-primary-100">
-                          {calculateTotal()} dzd
-                        </Table.Body.Td>
-                      </Table.Body.Tr>
-                    </Table.Body>
-                  </Table>
-                </Table.Container>
-              </AdminDashboardLayout.Error>
-            </AdminDashboardLayout.Loading>
-          </>
-        ) : (
-          <div className="flex flex-1 justify-center items-center">
-            <div className="flex">Scan a ticket to start</div>
-          </div>
-        )}
+                  <Table.Container className="w-full mt-[1rem]">
+                    <Table>
+                      <Table.Body>
+                        <Table.Body.Tr variant={'zebra'}>
+                          <Table.Body.Td>Total</Table.Body.Td>
+                          <Table.Body.Td className="text-primary-100">
+                            {calculateTotal()} dzd
+                          </Table.Body.Td>
+                        </Table.Body.Tr>
+                      </Table.Body>
+                    </Table>
+                  </Table.Container>
+                </AdminDashboardLayout.Error>
+              </AdminDashboardLayout.Loading>
+            </>
+          ) : (
+            <div className="flex flex-1 justify-center items-center">
+              <div className="flex">Scan a ticket to start</div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

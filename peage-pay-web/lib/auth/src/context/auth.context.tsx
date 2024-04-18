@@ -49,6 +49,7 @@ export const AuthProvider = ({
   refreshTokenMode,
 }: PropsWithChildren<AuthProviderProps>): JSX.Element => {
   const [authData, setAuthData] = useState(initialValue.authData);
+  const [ready, setReady] = useState<boolean>(false);
 
   const { loading: signInWithRefreshTokenCookieLoading } = useQuery(
     SIGN_IN_WITH_REFRESH_TOKEN_COOKIE,
@@ -62,6 +63,7 @@ export const AuthProvider = ({
           baseUser: data.signInWithRefreshTokenCookie.baseUser,
           userRoles: data.signInWithRefreshTokenCookie.roles,
         });
+        setReady(true);
       },
       skip: refreshTokenMode !== RefreshTokenMode.Cookie,
     },
@@ -81,6 +83,7 @@ export const AuthProvider = ({
           baseUser: data.signInWithRefreshToken.baseUser,
           userRoles: data.signInWithRefreshToken.roles,
         });
+        setReady(true);
       },
       skip: refreshTokenMode !== RefreshTokenMode.PlainText,
     },
@@ -99,7 +102,11 @@ export const AuthProvider = ({
   };
 
   const renderContent = () => {
-    if (signInWithRefreshTokenCookieLoading || signInWithRefreshTokenLoading) {
+    if (
+      signInWithRefreshTokenCookieLoading ||
+      signInWithRefreshTokenLoading ||
+      !ready
+    ) {
       return <FullScreenLoading></FullScreenLoading>;
     } else {
       if (

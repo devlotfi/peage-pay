@@ -1,16 +1,25 @@
 #include <SPI.h>
 #include <MFRC522.h>
+#include <Servo.h>
 
 #define SS_PIN 10
 #define RST_PIN 9
 #define BUZZER_PIN 2
-#define LED_PIN 4
+#define GREEN_LED_PIN 4
+#define RED_LED_PIN 5
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
+Servo servo;
+
 void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  digitalWrite(RED_LED_PIN, HIGH);
+
+  servo.attach(3);
+  servo.write(180);
 
   Serial.begin(9600);
   SPI.begin();
@@ -42,13 +51,17 @@ void loop() {
     Serial.println("}");
     
     // Turn the buzzer on
-    digitalWrite(BUZZER_PIN, HIGH);
-    digitalWrite(LED_PIN, HIGH);
+    
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(RED_LED_PIN, LOW);
     // Wait for a short duration
-    delay(500);
+    servo.write(90);
+    delay(2000);
+    servo.write(180);
     // Turn the buzzer off
     digitalWrite(BUZZER_PIN, LOW);
-    digitalWrite(LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, HIGH);
     
     mfrc522.PICC_HaltA(); // Stop reading
   }

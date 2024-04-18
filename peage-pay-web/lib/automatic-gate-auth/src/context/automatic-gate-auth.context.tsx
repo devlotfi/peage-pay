@@ -33,6 +33,7 @@ export const AutomaticGateAuthProvider = ({
   const [automaticGateAuthData, setAutomaticGateAuthData] = useState(
     initialValue.automaticGateAuthData,
   );
+  const [ready, setReady] = useState<boolean>(false);
 
   const { loading } = useQuery(SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN, {
     variables: {
@@ -48,11 +49,12 @@ export const AutomaticGateAuthProvider = ({
       AutomaticGateAuthUtils.setAccessToken(
         data.signInAutomaticGateRefreshToken.accessToken,
       );
+      setReady(true);
     },
   });
 
   const renderContent = () => {
-    if (loading) {
+    if (loading || !ready) {
       return <FullScreenLoading></FullScreenLoading>;
     } else {
       return children;

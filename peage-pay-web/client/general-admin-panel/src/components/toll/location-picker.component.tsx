@@ -77,6 +77,7 @@ const LocationPicker = ({
       center: { lat: 28.76, lng: 2.89 },
       zoom: 5,
       mapId: '4504f8b37365c3d0',
+      mapTypeId: 'satellite',
     });
 
     if (initialValue) {
@@ -105,7 +106,7 @@ const LocationPicker = ({
   return (
     <Modal modalRef={modalRef} className="h-screen w-screen">
       <Modal.Window className="h-full">
-        <Modal.Header>lol</Modal.Header>
+        <Modal.Header>Location picker</Modal.Header>
         <Modal.Content>
           <div className="flex h-full w-full flex-col bg-base-100">
             <div className="flex justify-between flex-col lg:flex-row py-[1rem]">

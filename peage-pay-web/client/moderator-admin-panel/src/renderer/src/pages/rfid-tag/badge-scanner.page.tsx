@@ -3,10 +3,10 @@ import { IPCMessages } from '@constants/ipc-messages';
 import { faIdBadge, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AdminDashboardLayout, Heading, Table } from '@peage-pay-web/ui';
-import ConnectToSerialPortFrom from '@renderer/components/seria-port/connect-to-serial-port-form.component';
 import { BadgeScannerContext } from '@renderer/context/badge-scanner.context';
 import { RFID_TAG_BY_RFID } from '@renderer/graphql/queries';
 import { useContext, useEffect, useRef } from 'react';
+import { ConnectToSerialPortFrom } from '@peage-pay-web/serial-port';
 
 const BadgeScannerPage = () => {
   const { rfid, setRfid } = useContext(BadgeScannerContext);

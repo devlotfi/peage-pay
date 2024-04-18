@@ -28,34 +28,19 @@ const AdminDashboardLayoutTollInfo = ({
       <Table.Container>
         <Table>
           <Table.Body>
-            <Table.Head.Tr>
-              <Table.Head.Th>Toll</Table.Head.Th>
-            </Table.Head.Tr>
             <Table.Body.Tr>
+              <Table.Body.Td>Toll</Table.Body.Td>
               <Table.Body.Td>{toll.name}</Table.Body.Td>
             </Table.Body.Tr>
-          </Table.Body>
-        </Table>
-      </Table.Container>
-      <Table.Container className="mt-[0.5rem]">
-        <Table>
-          <Table.Body>
-            <Table.Head.Tr>
-              <Table.Head.Th>Inbound traffic status</Table.Head.Th>
-            </Table.Head.Tr>
             <Table.Body.Tr>
+              <Table.Body.Td>Traffic</Table.Body.Td>
+            </Table.Body.Tr>
+            <Table.Body.Tr>
+              <Table.Body.Td>Inbound</Table.Body.Td>
               <Table.Body.Td>{toll.inboundStatus}</Table.Body.Td>
             </Table.Body.Tr>
-          </Table.Body>
-        </Table>
-      </Table.Container>
-      <Table.Container className="mt-[0.5rem]">
-        <Table>
-          <Table.Body>
-            <Table.Head.Tr>
-              <Table.Head.Th>Outbound traffic status</Table.Head.Th>
-            </Table.Head.Tr>
             <Table.Body.Tr>
+              <Table.Body.Td>Outbound</Table.Body.Td>
               <Table.Body.Td>{toll.outboundStatus}</Table.Body.Td>
             </Table.Body.Tr>
           </Table.Body>

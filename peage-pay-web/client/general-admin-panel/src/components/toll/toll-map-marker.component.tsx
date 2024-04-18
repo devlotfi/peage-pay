@@ -12,7 +12,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
   return (
     <div className="group flex flex-col p-[0.5rem] bg-base-100 rounded-lg relative border-edge-100 border-[1px] translate-y-[-2rem]">
       <div className="flex items-center text-primary-100 font-bold text-[12pt]">
-        <div
+        {/* <div
           className={Utils.cn(
             'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
             toll.inboundStatus === TollStatusType.NormalTraffic &&
@@ -35,7 +35,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
               'bg-orange-400',
             toll.outboundStatus === TollStatusType.OutOfService && 'bg-red-500',
           )}
-        ></div>
+        ></div> */}
         <div className="flex text-[11pt]">{toll.name}</div>
       </div>
       <div className="hidden group-hover:flex text-[10pt] group-hover:text-[11pt]">

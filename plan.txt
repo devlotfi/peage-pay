@@ -1,0 +1,54 @@
+- Chapitre 3 Implementation logicielle
+1 Intruduction
+2 Languages
+  - Typescript 
+  - Css
+  - Html
+3 Outils de realisation
+  - VSCode
+  - Figma
+3 Architecture 3 tiers
+4 Details de realisation 
+  4.1 API Externes
+    - Chargily Pay
+    - Google Maps API
+    - Google OAuth
+  4.2 Systeme d'authenthification
+    4.2.1 JWT (Json Web Token)
+    4.2.2 Connexion
+    4.2.2 Authenthification des requetes
+    4.2.2 Deconnexion
+  4.3 Communication client-serveur
+    4.3.1 Introduction
+    4.3.2 GraphQL
+  4.1 La couche "Données"
+    4.1.1 Introduction
+    4.1.2 Technologies
+      - PostgresSQL
+      - Redis
+  4.2 La couche "Back-End"
+    4.2.1 Introduction
+    4.2.2 Architecture (Diagramme de deploiment)
+    4.2.3 Technologies
+      - Node js 
+      - Nest
+      - Prisma
+  4.3 La couche "Front-End"
+    4.3.1 Introduction
+    4.3.2 Technologies Front-End communes
+      - Apollo Client
+      - i18n
+    4.3.2 La partie Web Et desktop
+      4.3.2.1 Technologies
+        - React
+        - Tailwind CSS
+        - Electron-Vite
+
+- Chapitre 4 Simulation en ustilisant arduino
+  1 Introduction
+  2 Arduino
+  3 Outil de modelisation (Fritzing)
+  4 Realisation
+    4.1 Schema conceptuel
+    4.2 Schema pratique
+    4.3 Liste des composants

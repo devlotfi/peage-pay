@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { TitleBar } from '@peage-pay-web/ui';
 import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { GateAdminInfoProvider } from './context/gate-admin-info.context';
+import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,9 @@ root.render(
               allowedRoles={[BaseUserRolesType.Moderator]}
             >
               <GateAdminInfoProvider>
-                <App></App>
+                <SerialPortProvider>
+                  <App></App>
+                </SerialPortProvider>
               </GateAdminInfoProvider>
             </AuthProvider>
           </TitleBar.Layout>

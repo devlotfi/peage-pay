@@ -3079,6 +3079,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@peage-pay-web/serial-port@workspace:lib/serial-port":
+  version: 0.0.0-use.local
+  resolution: "@peage-pay-web/serial-port@workspace:lib/serial-port"
+  languageName: unknown
+  linkType: soft
+
 "@peage-pay-web/storybook-config@workspace:*, @peage-pay-web/storybook-config@workspace:lib/storybook-config":
   version: 0.0.0-use.local
   resolution: "@peage-pay-web/storybook-config@workspace:lib/storybook-config"
@@ -8840,6 +8846,7 @@ __metadata:
     prettier: "npm:^3.2.4"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-query: "npm:^3.39.3"
     serialport: "npm:^12.0.0"
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:^5.3.3"

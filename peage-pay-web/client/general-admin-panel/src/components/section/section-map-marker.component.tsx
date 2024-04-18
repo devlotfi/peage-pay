@@ -9,7 +9,7 @@ const SectionMapMarker = ({ section }: SectionMapMarkerProps): JSX.Element => {
   return (
     <div className="group flex flex-col py-[0.3rem] px-[0.5rem] translate-y-[0.5rem] font-bold bg-base-100 rounded-lg relative border-edge-100 border-[1px]">
       <div className="flex">
-        <div
+        {/* <div
           className={Utils.cn(
             'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.2rem]',
             section.status === SectionStatusType.NormalTraffic &&
@@ -19,7 +19,7 @@ const SectionMapMarker = ({ section }: SectionMapMarkerProps): JSX.Element => {
             section.status === SectionStatusType.HighTraffic && 'bg-orange-400',
             section.status === SectionStatusType.Blocked && 'bg-red-500',
           )}
-        ></div>
+        ></div> */}
         <div className="flex">
           <span className="hidden group-hover:flex">Distance: </span>{' '}
           {section.distance} km

@@ -3,6 +3,7 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { registerTitleBarIPCHandlers } from './register-title-bar-ipc-handlers';
+import { registerIPCHandlers } from './register-ipc-handlers';
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -55,6 +56,7 @@ app.whenReady().then(() => {
 
   const mainWindow = createWindow();
   registerTitleBarIPCHandlers(mainWindow);
+  registerIPCHandlers(mainWindow);
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
