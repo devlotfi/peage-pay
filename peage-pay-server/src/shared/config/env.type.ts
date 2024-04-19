@@ -76,4 +76,7 @@ export class Env {
 
   @IsString()
   public CHARGILY_PAY_SECRET_KEY: string;
+
+  @IsString()
+  public CHARGILY_WEBHOOK_URL: string;
 }

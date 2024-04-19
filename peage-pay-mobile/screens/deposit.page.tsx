@@ -7,6 +7,7 @@ import { faCreditCard, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
 import { useState } from 'react';
 import RedeemCodeForm from '../components/redeem-code-form.component';
+import DepositAmountForm from '../components/deposit-amount.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;
@@ -21,7 +22,7 @@ const ReloadPage = (): JSX.Element => {
   const renderTab = () => {
     switch (tab) {
       case 'CARD':
-        return <RedeemCodeForm></RedeemCodeForm>;
+        return <DepositAmountForm></DepositAmountForm>;
 
       case 'CODE':
         return <RedeemCodeForm></RedeemCodeForm>;

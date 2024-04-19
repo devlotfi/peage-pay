@@ -42,6 +42,7 @@ import { DepositModule } from './deposit/deposit.module';
 import { TripModule } from './trip/trip.module';
 import { ChargilyModule } from './chargily/chargily.module';
 import { PaymentModule } from './payment/payment.module';
+import { PaymentSubscriptionMessages } from './payment/graphql/payment-subscription-messages.gql';
 
 @Module({
   imports: [
@@ -63,6 +64,9 @@ import { PaymentModule } from './payment/payment.module';
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: false,
+      subscriptions: {
+        'graphql-ws': true,
+      },
       buildSchemaOptions: {
         orphanedTypes: [
           AuthErrors,
@@ -79,6 +83,8 @@ import { PaymentModule } from './payment/payment.module';
           BaseUserSearchFields,
           RfidTagSearchFields,
           AutomaticGateSearchFields,
+
+          PaymentSubscriptionMessages,
         ],
       },
       context: ({ req, res }) => ({ req, res }),

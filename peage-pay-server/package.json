@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "nkgrok": "ngrok http --domain=pumped-teal-extremely.ngrok-free.app 3000"
   },
   "dependencies": {
     "@apollo/server": "^4.10.2",
@@ -44,6 +45,8 @@
     "cookies": "^0.9.1",
     "googleapis": "^134.0.0",
     "graphql": "^16.8.1",
+    "graphql-redis-subscriptions": "^2.6.0",
+    "ioredis": "^5.4.1",
     "nodemailer": "^6.9.13",
     "prisma": "^5.12.1",
     "redis": "^4.6.13",

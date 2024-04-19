@@ -164,10 +164,10 @@ const RedeemCodeForm = (): JSX.Element => {
 
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
-    input: {},
-    inputMain: {
-      maxWidth: 70,
+    input: {
+      flex: 1,
     },
+    inputMain: {},
     separator: {
       height: 3,
       minWidth: 10,

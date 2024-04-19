@@ -1,13 +1,13 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
+import { PaymentService } from './payment.service';
 
 @Controller()
 export class PaymentController {
-  @Post('webhook')
-  public handleWebHook(@Body() body: any, @Req() req: Request) {
-    console.log(JSON.stringify(body));
-    console.log(req.get('signature'));
+  public constructor(private readonly paymentService: PaymentService) {}
 
-    return 'Hello world';
+  @Post('webhook')
+  public async handleWebHook(@Body() body: any, @Req() req: Request) {
+    return await this.paymentService.handleWebHook(body, req);
   }
 }

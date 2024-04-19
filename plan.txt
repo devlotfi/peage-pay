@@ -1,4 +1,13 @@
-- Chapitre 3 Implementation logicielle
+- Chapitre 3 Simulation en ustilisant arduino
+  1 Introduction
+  2 Arduino
+  3 Outil de modelisation (Fritzing)
+  4 Realisation
+    4.1 Schema conceptuel
+    4.2 Schema pratique
+    4.3 Liste des composants
+
+- Chapitre 4 Implementation logicielle
 1 Intruduction
 2 Languages
   - Typescript 
@@ -43,12 +52,18 @@
         - React
         - Tailwind CSS
         - Electron-Vite
+    4.3.3 La partie Application Mobile
+      4.3.2.1 Technologies
+        - React Native
+        - Expo
+  4.4 La plateforme PeagePay
+    4.4.1 Description
+    4.4.2 Panneau d'administration general
+    4.4.2 Panneau d'administration des ressources humaines
+    4.4.2 Panneau d'administration du péage
+    4.4.2 Panneau d'administration d'une barriere de page (Tickets)
+    4.4.2 Panneau d'administration du moderateur
 
-- Chapitre 4 Simulation en ustilisant arduino
-  1 Introduction
-  2 Arduino
-  3 Outil de modelisation (Fritzing)
-  4 Realisation
-    4.1 Schema conceptuel
-    4.2 Schema pratique
-    4.3 Liste des composants
+    4.4.2 Logiciel d'impression de tickets
+    4.4.2 Logiciel de detection et de facturation (Badges de Telepeage)
+    4.4.2 Logiciel de detection et de facturation (QR code de l'application mobile)

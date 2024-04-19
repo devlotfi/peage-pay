@@ -36,7 +36,7 @@ const makeStyles = (theme: AppTheme) =>
     base: {
       borderRadius: 7,
       fontSize: 17,
-      width: '100%',
+      flex: 1,
       paddingHorizontal: 10,
       color: theme['base-content'],
     },

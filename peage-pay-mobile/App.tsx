@@ -12,6 +12,7 @@ import { BaseUserRolesType } from './__generated__/graphql';
 import { useLocales } from 'expo-localization';
 import './i18n';
 import { useTranslation } from 'react-i18next';
+import PaymentNotificationsProvider from './providers/payment-notifications.component';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,7 +49,9 @@ const App = (): JSX.Element => {
         <NetConnectionProvider>
           <ApplicationApolloClientProvider>
             <AuthProvider allowedRoles={[BaseUserRolesType.User]}>
-              <MainStackRouter></MainStackRouter>
+              <PaymentNotificationsProvider>
+                <MainStackRouter></MainStackRouter>
+              </PaymentNotificationsProvider>
             </AuthProvider>
           </ApplicationApolloClientProvider>
         </NetConnectionProvider>

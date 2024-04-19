@@ -46,3 +46,9 @@ export const REDEEM_CODE = gql(`
     redeemCode(redeemCodeInput: $redeemCodeInput)
   }
 `);
+
+export const DEPOSIT_AMOUNT = gql(`
+  mutation DEPOSIT_AMOUNT($depositAmountInput: DepositAmountInput!) {
+    depositAmount(depositAmountInput: $depositAmountInput)
+  }
+`);

@@ -303,6 +303,10 @@ export type DeleteSectionInput = {
   toTollId: Scalars['String']['input'];
 };
 
+export type DepositAmountInput = {
+  amount: Scalars['Float']['input'];
+};
+
 export type DepositType = {
   __typename?: 'DepositType';
   amount: Scalars['Float']['output'];
@@ -498,6 +502,7 @@ export type Mutation = {
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
+  depositAmount: Scalars['String']['output'];
   editAutomaticGate: AutomaticGateType;
   editDefaultPrice: Scalars['Boolean']['output'];
   editHighway: HighwayType;
@@ -662,6 +667,11 @@ export type MutationDeleteTollNetworkArgs = {
 };
 
 
+export type MutationDepositAmountArgs = {
+  depositAmountInput: DepositAmountInput;
+};
+
+
 export type MutationEditAutomaticGateArgs = {
   editAutomaticGateInput: EditAutomaticGateInput;
 };
@@ -777,6 +787,11 @@ export type PaginationInput = {
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
 };
+
+export enum PaymentSubscriptionMessages {
+  PaymentFailed = 'PAYMENT_FAILED',
+  PaymentSuccessful = 'PAYMENT_SUCCESSFUL'
+}
 
 export enum PriceErrors {
   CannotDeleteGlobalPrice = 'CANNOT_DELETE_GLOBAL_PRICE',
@@ -1195,6 +1210,22 @@ export type SigninWithEmailInput = {
   password: Scalars['String']['input'];
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  paymentFailed: Scalars['Boolean']['output'];
+  paymentSuccessful: Scalars['Boolean']['output'];
+};
+
+
+export type SubscriptionPaymentFailedArgs = {
+  paymentFailedInput: IdInput;
+};
+
+
+export type SubscriptionPaymentSuccessfulArgs = {
+  paymentSuccessfulInput: IdInput;
+};
+
 export type SubscriptionListInput = {
   idSearch?: InputMaybe<Scalars['String']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1484,6 +1515,13 @@ export type Redeem_CodeMutationVariables = Exact<{
 
 export type Redeem_CodeMutation = { __typename?: 'Mutation', redeemCode: boolean };
 
+export type Deposit_AmountMutationVariables = Exact<{
+  depositAmountInput: DepositAmountInput;
+}>;
+
+
+export type Deposit_AmountMutation = { __typename?: 'Mutation', depositAmount: string };
+
 export type Sign_In_With_Refresh_Token_InitialQueryVariables = Exact<{
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 }>;
@@ -1518,6 +1556,20 @@ export type User_InfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type User_InfoQuery = { __typename?: 'Query', userInfo: { __typename?: 'UserType', balance: number } };
 
+export type Payment_SuccessfulSubscriptionVariables = Exact<{
+  paymentSuccessfulInput: IdInput;
+}>;
+
+
+export type Payment_SuccessfulSubscription = { __typename?: 'Subscription', paymentSuccessful: boolean };
+
+export type Payment_FailedSubscriptionVariables = Exact<{
+  paymentFailedInput: IdInput;
+}>;
+
+
+export type Payment_FailedSubscription = { __typename?: 'Subscription', paymentFailed: boolean };
+
 
 export const Sign_Up_With_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_UP_WITH_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignUpWithEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUpWithEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signUpWithEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signUpWithEmailInput"}}}]}]}}]} as unknown as DocumentNode<Sign_Up_With_EmailMutation, Sign_Up_With_EmailMutationVariables>;
 export const Send_Password_Reset_EmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SEND_PASSWORD_RESET_EMAIL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sendPasswordResetEmailInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SendResetPasswordEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendPasswordResetEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sendPasswordResetEmailInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sendPasswordResetEmailInput"}}}]}]}}]} as unknown as DocumentNode<Send_Password_Reset_EmailMutation, Send_Password_Reset_EmailMutationVariables>;
@@ -1525,9 +1577,12 @@ export const Sign_In_With_EmailDocument = {"kind":"Document","definitions":[{"ki
 export const Sign_OutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_OUT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignOutInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signOut"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signOutInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}}}]}]}}]} as unknown as DocumentNode<Sign_OutMutation, Sign_OutMutationVariables>;
 export const Define_PinDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DEFINE_PIN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"definePinInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DefinePinInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"definePin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"definePinInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"definePinInput"}}}]}]}}]} as unknown as DocumentNode<Define_PinMutation, Define_PinMutationVariables>;
 export const Redeem_CodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REDEEM_CODE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RedeemCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"redeemCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"redeemCodeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}}}]}]}}]} as unknown as DocumentNode<Redeem_CodeMutation, Redeem_CodeMutationVariables>;
+export const Deposit_AmountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DEPOSIT_AMOUNT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DepositAmountInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositAmount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"depositAmountInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}}}]}]}}]} as unknown as DocumentNode<Deposit_AmountMutation, Deposit_AmountMutationVariables>;
 export const Sign_In_With_Refresh_Token_InitialDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_INITIAL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_InitialQuery, Sign_In_With_Refresh_Token_InitialQueryVariables>;
 export const Sign_In_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_CookieQuery, Sign_In_With_Refresh_Token_CookieQueryVariables>;
 export const Sign_In_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_TokenQuery, Sign_In_With_Refresh_TokenQueryVariables>;
 export const Deposit_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DEPOSIT_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<Deposit_ListQuery, Deposit_ListQueryVariables>;
 export const Trip_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TRIP_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tripList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"exitToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Trip_ListQuery, Trip_ListQueryVariables>;
 export const User_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"USER_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}}]}}]} as unknown as DocumentNode<User_InfoQuery, User_InfoQueryVariables>;
+export const Payment_SuccessfulDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"PAYMENT_SUCCESSFUL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paymentSuccessfulInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentSuccessful"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paymentSuccessfulInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paymentSuccessfulInput"}}}]}]}}]} as unknown as DocumentNode<Payment_SuccessfulSubscription, Payment_SuccessfulSubscriptionVariables>;
+export const Payment_FailedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"PAYMENT_FAILED"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paymentFailedInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentFailed"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paymentFailedInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paymentFailedInput"}}}]}]}}]} as unknown as DocumentNode<Payment_FailedSubscription, Payment_FailedSubscriptionVariables>;

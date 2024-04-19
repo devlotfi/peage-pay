@@ -6,12 +6,12 @@ type Position = 'left' | 'right';
 
 interface UITextInputIconContainerProps extends ViewProps {
   style?: StyleProp<ViewProps>;
-  position?: Position;
+  position: Position;
 }
 
 const UITextInputIconContainer = ({
   style,
-  position,
+  position = 'left',
   ...props
 }: UITextInputIconContainerProps): JSX.Element => {
   const { theme } = useAppTheme();
@@ -29,13 +29,14 @@ const makeStyles = (theme: AppTheme) =>
       paddingHorizontal: 10,
       justifyContent: 'center',
       alignItems: 'center',
+      minWidth: 50,
     },
 
     left: {
       paddingRight: 0,
     },
     right: {
-      paddingRight: 0,
+      paddingHorizontal: 0,
     },
   });
 

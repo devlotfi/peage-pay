@@ -6065,17 +6065,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"escape-string-regexp@npm:2.0.0, escape-string-regexp@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escape-string-regexp@npm:2.0.0"
+  checksum: 10c0/2530479fe8db57eace5e8646c9c2a9c80fa279614986d16dcc6bcaceb63ae77f05a851ba6c43756d816c61d7f4534baf56e3c705e3e0d884818a46808811c507
+  languageName: node
+  linkType: hard
+
 "escape-string-regexp@npm:^1.0.5":
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 10c0/a968ad453dd0c2724e14a4f20e177aaf32bb384ab41b674a8454afe9a41c5e6fe8903323e0a1052f56289d04bd600f81278edf140b0fcc02f5cac98d0f5b5371
-  languageName: node
-  linkType: hard
-
-"escape-string-regexp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "escape-string-regexp@npm:2.0.0"
-  checksum: 10c0/2530479fe8db57eace5e8646c9c2a9c80fa279614986d16dcc6bcaceb63ae77f05a851ba6c43756d816c61d7f4534baf56e3c705e3e0d884818a46808811c507
   languageName: node
   linkType: hard
 
@@ -7115,7 +7115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-ws@npm:^5.14.0":
+"graphql-ws@npm:^5.14.0, graphql-ws@npm:^5.16.0":
   version: 5.16.0
   resolution: "graphql-ws@npm:5.16.0"
   peerDependencies:
@@ -7499,7 +7499,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.4":
+"invariant@npm:2.2.4, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -9818,6 +9818,7 @@ __metadata:
     expo-status-bar: "npm:~1.11.1"
     formik: "npm:^2.4.5"
     graphql: "npm:^16.8.1"
+    graphql-ws: "npm:^5.16.0"
     i18next: "npm:^23.11.0"
     jwt-decode: "npm:^4.0.0"
     react: "npm:18.2.0"
@@ -9828,6 +9829,7 @@ __metadata:
     react-native-safe-area-context: "npm:4.8.2"
     react-native-screens: "npm:~3.29.0"
     react-native-svg: "npm:14.1.0"
+    react-native-webview: "npm:13.6.4"
     remove: "npm:^0.1.5"
     typescript: "npm:^5.3.0"
     yup: "npm:^1.4.0"
@@ -10268,6 +10270,19 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/952d666471c1e849de1ca1f7c590dcbeba270fb62fb5afa707eac21da9d39f48ea21049dbaabf3db7078712c6236803e7143b9d9a30529bc6754f8d5f107d6ac
+  languageName: node
+  linkType: hard
+
+"react-native-webview@npm:13.6.4":
+  version: 13.6.4
+  resolution: "react-native-webview@npm:13.6.4"
+  dependencies:
+    escape-string-regexp: "npm:2.0.0"
+    invariant: "npm:2.2.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/4d0a02d652438aa55d6326cbbcd739ad3b3d7e8485ec8e8b70277d5662cff90795d2c5bcf737e83660e9df6dac8ac87137929144df45fc6a5322817873630a4e
   languageName: node
   linkType: hard
 
