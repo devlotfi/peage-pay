@@ -14,6 +14,7 @@ import {
   Heading,
   LoaderDots,
   TextInput,
+  TollPicker,
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -21,7 +22,6 @@ import { useParams } from 'react-router-dom';
 import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
 import { useRef, useState } from 'react';
 import { TollType } from '../../__generated__/graphql';
-import TollPicker from '../../components/toll/toll-picker.component';
 import { ADD_SECTION } from '../../graphql/mutations';
 
 interface AddSectionValues {

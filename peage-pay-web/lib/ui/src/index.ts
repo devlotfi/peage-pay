@@ -22,6 +22,7 @@ import TextArea from './components/elements/text-area/text-area.component';
 import TextInput from './components/elements/text-input/text-input.component';
 import TollPicker from './components/elements/toll-picker/toll-picker.component';
 import Tooltip from './components/elements/tooltip/tooltip.component';
+import UserRolesDropdown from './components/elements/user-roles-dropdown/user-roles-dropdown.component';
 import AdminDashboardLayout from './components/layout/admin-dashboard/admin-dashboard-layout/admin-dashboard-layout.component';
 import DirectionalInputs from './components/layout/directional-inputs/directional-inputs.component';
 import FormPageLayout from './components/layout/form-page-layout/form-page-layout.component';
@@ -72,6 +73,7 @@ export {
   AutomaticGatePicker,
   TitleBar,
   TitleBarIPCMessages,
+  UserRolesDropdown,
 };
 
 export type { SearchValues };

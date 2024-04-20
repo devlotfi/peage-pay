@@ -1,17 +1,17 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import {
   AdminDashboardLayout,
   Heading,
   ListPageLayout,
   Pagination,
   Table,
-} from "@peage-pay-web/ui";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import { DAILY_PRICE_GLOBAL_LIST } from "../../../graphql/queries";
-import DailyPriceListItem from "../../../components/price/item/daily-price-item.component";
-import { DailyPriceType } from "../../../__generated__/graphql";
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { DAILY_PRICE_GLOBAL_LIST } from '../../../graphql/queries';
+import DailyPriceListItem from '../../../components/price/item/daily-price-item.component';
+import { DailyPriceType } from '../../../__generated__/graphql';
 
 const DailyPriceGlobalListPage = (): JSX.Element => {
   const [page, setPage] = useState<number>(1);
@@ -27,14 +27,14 @@ const DailyPriceGlobalListPage = (): JSX.Element => {
         skip: 10 * (page - 1),
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
 
   return (
     <ListPageLayout>
       <ListPageLayout.Title>
         <Heading className="text-[20pt]">
-          <Heading.Icon position={"left"}>
+          <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>Daily price global list</Heading.Text>
@@ -49,11 +49,11 @@ const DailyPriceGlobalListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
                     <Table.Head.Th>Priority</Table.Head.Th>
                     <Table.Head.Th>Start time</Table.Head.Th>
                     <Table.Head.Th>End time</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

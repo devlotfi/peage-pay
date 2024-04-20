@@ -1,15 +1,16 @@
-import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { YearlyPriceType } from "../../../__generated__/graphql";
-import DeleteGlobalPriceModal from "../delete-global-price-modal.component";
-import { YEARLY_PRICE_GLOBAL_LIST } from "../../../graphql/queries";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { YearlyPriceType } from '../../../__generated__/graphql';
+import DeleteGlobalPriceModal from '../delete-global-price-modal.component';
+import { YEARLY_PRICE_GLOBAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface YearlyPriceItemProps {
   yearlyPrice: YearlyPriceType;
@@ -21,7 +22,7 @@ const YearlyPriceListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -32,7 +33,7 @@ const YearlyPriceListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteGlobalPriceModal
               modalRef={deleteModalRef}
               price={yearlyPrice.price}
@@ -41,7 +42,7 @@ const YearlyPriceListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -51,17 +52,16 @@ const YearlyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{yearlyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(yearlyPrice.startDate);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+          return Utils.formatDate(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(yearlyPrice.endDate);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+          return Utils.formatDate(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>{yearlyPrice.price.value}</Table.Body.Td>
@@ -69,15 +69,16 @@ const YearlyPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(yearlyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(yearlyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{yearlyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

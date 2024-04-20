@@ -15,6 +15,7 @@ import { BaseUserType } from '../../__generated__/graphql';
 import { useRef } from 'react';
 import DeleteBaseUserModal from './delete-base-user-modal.component';
 import { useNavigate } from 'react-router-dom';
+import { Utils } from '@peage-pay-web/utils';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
@@ -77,7 +78,6 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
       <Table.Body.Td>
         <Table.Container>
           <Table>
@@ -96,15 +96,16 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.updatedAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

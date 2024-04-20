@@ -1,15 +1,16 @@
-import { faEllipsisH, faUserMinus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { ModeratorType } from "../../__generated__/graphql";
-import { useRef } from "react";
-import { MODERATOR_LIST } from "../../graphql/queries";
-import RemoveModeratorRoleModal from "./remove-moderator-role-modal.component";
+} from '@peage-pay-web/ui';
+import { ModeratorType } from '../../__generated__/graphql';
+import { useRef } from 'react';
+import { MODERATOR_LIST } from '../../graphql/queries';
+import RemoveModeratorRoleModal from './remove-moderator-role-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface ModeratorItemProps {
   moderator: ModeratorType;
@@ -19,7 +20,7 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
   const removeModeratorRoleModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -30,7 +31,7 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <RemoveModeratorRoleModal
               modalRef={removeModeratorRoleModalRef}
               baseUser={moderator.baseUser}
@@ -40,7 +41,7 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
             <MenuItem
               onClick={() => removeModeratorRoleModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -50,21 +51,21 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{moderator.baseUser.id}</Table.Body.Td>
       <Table.Body.Td>{moderator.baseUser.firstName}</Table.Body.Td>
       <Table.Body.Td>{moderator.baseUser.lastName}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(moderator.baseUser.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(moderator.baseUser.updatedAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{moderator.baseUser.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

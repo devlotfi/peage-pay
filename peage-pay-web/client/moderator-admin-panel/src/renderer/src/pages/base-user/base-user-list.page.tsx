@@ -60,12 +60,12 @@ const BaseUserListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Roles</Table.Head.Th>
                     <Table.Head.Th>First name</Table.Head.Th>
                     <Table.Head.Th>Last name</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

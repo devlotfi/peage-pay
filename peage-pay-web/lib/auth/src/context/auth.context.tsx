@@ -65,6 +65,9 @@ export const AuthProvider = ({
         });
         setReady(true);
       },
+      onError() {
+        setReady(true);
+      },
       skip: refreshTokenMode !== RefreshTokenMode.Cookie,
     },
   );
@@ -83,6 +86,9 @@ export const AuthProvider = ({
           baseUser: data.signInWithRefreshToken.baseUser,
           userRoles: data.signInWithRefreshToken.roles,
         });
+        setReady(true);
+      },
+      onError() {
         setReady(true);
       },
       skip: refreshTokenMode !== RefreshTokenMode.PlainText,

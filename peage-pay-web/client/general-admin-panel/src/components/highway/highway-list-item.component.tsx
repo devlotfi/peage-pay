@@ -1,15 +1,16 @@
-import { faEllipsisH, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { HighwayType } from "../../__generated__/graphql";
-import { useNavigate } from "react-router-dom";
-import DeleteHighwayModal from "./delete-highway-modal.component";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { HighwayType } from '../../__generated__/graphql';
+import { useNavigate } from 'react-router-dom';
+import DeleteHighwayModal from './delete-highway-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface HighwatListItemProps {
   highway: HighwayType;
@@ -20,7 +21,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -31,7 +32,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteHighwayModal
               modalRef={deleteModalRef}
               highway={highway}
@@ -39,7 +40,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => navigate(`/dashboard/highway/edit/${highway.id}`)}
               className="w-full mb-[0.5rem]"
-              variant={"base-100"}
+              variant={'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
@@ -49,7 +50,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -59,21 +60,21 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{highway.id}</Table.Body.Td>
       <Table.Body.Td>{highway.name}</Table.Body.Td>
       <Table.Body.Td>{highway.code}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(highway.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(highway.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{highway.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

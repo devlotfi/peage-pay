@@ -1,15 +1,16 @@
-import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { WeeklyPriceType } from "../../../__generated__/graphql";
-import DeleteGlobalPriceModal from "../delete-global-price-modal.component";
-import { WEEKLY_PRICE_GLOBAL_LIST } from "../../../graphql/queries";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { WeeklyPriceType } from '../../../__generated__/graphql';
+import DeleteGlobalPriceModal from '../delete-global-price-modal.component';
+import { WEEKLY_PRICE_GLOBAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface WeeklyPriceItemProps {
   weeklyPrice: WeeklyPriceType;
@@ -21,7 +22,7 @@ const WeeklyPriceListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -32,7 +33,7 @@ const WeeklyPriceListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteGlobalPriceModal
               modalRef={deleteModalRef}
               price={weeklyPrice.price}
@@ -41,7 +42,7 @@ const WeeklyPriceListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -51,7 +52,6 @@ const WeeklyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{weeklyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>
         <Table.Container>
           <Table>
@@ -72,15 +72,16 @@ const WeeklyPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(weeklyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(weeklyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{weeklyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

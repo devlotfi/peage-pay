@@ -81,7 +81,6 @@ const TollListPage = (): JSX.Element => {
                     <Table.Head>
                       <Table.Head.Tr>
                         <Table.Head.Th></Table.Head.Th>
-                        <Table.Head.Th>Id</Table.Head.Th>
                         <Table.Head.Th>Name</Table.Head.Th>
                         <Table.Head.Th>Wilaya</Table.Head.Th>
                         <Table.Head.Th>Wilaya code</Table.Head.Th>
@@ -89,6 +88,7 @@ const TollListPage = (): JSX.Element => {
                         <Table.Head.Th>Highway code</Table.Head.Th>
                         <Table.Head.Th>Created at</Table.Head.Th>
                         <Table.Head.Th>Updated at</Table.Head.Th>
+                        <Table.Head.Th>Id</Table.Head.Th>
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>

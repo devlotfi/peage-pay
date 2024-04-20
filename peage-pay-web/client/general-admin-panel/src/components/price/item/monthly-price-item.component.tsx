@@ -1,15 +1,16 @@
-import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { MonthlyPriceType } from "../../../__generated__/graphql";
-import DeleteGlobalPriceModal from "../delete-global-price-modal.component";
-import { MONTHLY_PRICE_GLOBAL_LIST } from "../../../graphql/queries";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { MonthlyPriceType } from '../../../__generated__/graphql';
+import DeleteGlobalPriceModal from '../delete-global-price-modal.component';
+import { MONTHLY_PRICE_GLOBAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface MonthlyPriceItemProps {
   monthlyPrice: MonthlyPriceType;
@@ -21,7 +22,7 @@ const MonthlyPriceListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -32,7 +33,7 @@ const MonthlyPriceListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteGlobalPriceModal
               modalRef={deleteModalRef}
               price={monthlyPrice.price}
@@ -41,7 +42,7 @@ const MonthlyPriceListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -51,7 +52,6 @@ const MonthlyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{monthlyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.startDay}</Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.endDay}</Table.Body.Td>
       <Table.Body.Td>
@@ -72,15 +72,16 @@ const MonthlyPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(monthlyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(monthlyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{monthlyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

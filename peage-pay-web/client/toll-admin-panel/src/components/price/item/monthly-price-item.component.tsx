@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { MonthlyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { MONTHLY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface MonthlyPriceItemProps {
   monthlyPrice: MonthlyPriceType;
@@ -51,7 +52,6 @@ const MonthlyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{monthlyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.startDay}</Table.Body.Td>
       <Table.Body.Td>{monthlyPrice.endDay}</Table.Body.Td>
       <Table.Body.Td>
@@ -72,15 +72,16 @@ const MonthlyPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(monthlyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(monthlyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{monthlyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

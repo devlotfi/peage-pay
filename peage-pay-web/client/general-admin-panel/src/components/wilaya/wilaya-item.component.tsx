@@ -51,9 +51,9 @@ const WilayaItem = ({
   return (
     <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
-      <Table.Body.Td>{wilaya.id}</Table.Body.Td>
       <Table.Body.Td>{wilaya.name}</Table.Body.Td>
       <Table.Body.Td>{wilaya.code}</Table.Body.Td>
+      <Table.Body.Td>{wilaya.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

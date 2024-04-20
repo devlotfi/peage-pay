@@ -2,18 +2,20 @@ import {
   faEllipsisH,
   faUserMinus,
   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { BaseUserRolesType, BaseUserType } from "../../__generated__/graphql";
-import AddHumanRessourcesAdminRoleModal from "./add-human-ressources-admin-role-modal.component";
-import { useRef } from "react";
-import RemoveHumanRessourcesAdminRoleModal from "./remove-human-ressources-admin-role-modal.component";
+  UserRolesDropdown,
+} from '@peage-pay-web/ui';
+import { BaseUserRolesType, BaseUserType } from '../../__generated__/graphql';
+import AddHumanRessourcesAdminRoleModal from './add-human-ressources-admin-role-modal.component';
+import { useRef } from 'react';
+import RemoveHumanRessourcesAdminRoleModal from './remove-human-ressources-admin-role-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
@@ -25,7 +27,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
     useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -36,7 +38,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <AddHumanRessourcesAdminRoleModal
               modalRef={addHumanRessourcesAdminRoleModalRef}
               baseUser={baseUser}
@@ -46,14 +48,14 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               baseUser={baseUser}
             ></RemoveHumanRessourcesAdminRoleModal>
             {!baseUser.roles.includes(
-              BaseUserRolesType.HumanRessourcesAdmin
+              BaseUserRolesType.HumanRessourcesAdmin,
             ) ? (
               <MenuItem
                 onClick={() =>
                   addHumanRessourcesAdminRoleModalRef.current?.showModal()
                 }
                 className="w-full"
-                variant={"base-100"}
+                variant={'base-100'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -67,7 +69,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                   removeHumanRessourcesAdminRoleModalRef.current?.showModal()
                 }
                 className="w-full"
-                variant={"error"}
+                variant={'error'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -80,34 +82,24 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
       <Table.Body.Td>
-        <Table.Container>
-          <Table>
-            <Table.Body>
-              {baseUser.roles.map((role) => (
-                <Table.Body.Tr key={role}>
-                  <Table.Body.Td className="p-[0.2rem]">{role}</Table.Body.Td>
-                </Table.Body.Tr>
-              ))}
-            </Table.Body>
-          </Table>
-        </Table.Container>
+        <UserRolesDropdown userRoles={baseUser.roles}></UserRolesDropdown>
       </Table.Body.Td>
       <Table.Body.Td>{baseUser.firstName}</Table.Body.Td>
       <Table.Body.Td>{baseUser.lastName}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.updatedAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

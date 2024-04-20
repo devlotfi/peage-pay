@@ -1,15 +1,16 @@
-import { faEllipsisH, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { SubscriptionType } from "../../__generated__/graphql";
-import { useNavigate } from "react-router-dom";
-import DeleteSubscriptionModal from "./delete-subscription-modal.component";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { SubscriptionType } from '../../__generated__/graphql';
+import { useNavigate } from 'react-router-dom';
+import DeleteSubscriptionModal from './delete-subscription-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface SubscriptionListItemProps {
   subscription: SubscriptionType;
@@ -22,7 +23,7 @@ const SubscriptionListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -33,7 +34,7 @@ const SubscriptionListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteSubscriptionModal
               modalRef={deleteModalRef}
               subscription={subscription}
@@ -43,7 +44,7 @@ const SubscriptionListItem = ({
                 navigate(`/dashboard/subscription/edit/${subscription.id}`)
               }
               className="w-full mb-[0.5rem]"
-              variant={"base-100"}
+              variant={'base-100'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
@@ -53,7 +54,7 @@ const SubscriptionListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -63,22 +64,22 @@ const SubscriptionListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{subscription.id}</Table.Body.Td>
       <Table.Body.Td>{subscription.name}</Table.Body.Td>
       <Table.Body.Td>{subscription.days} days</Table.Body.Td>
       <Table.Body.Td>{subscription.price} dzd/km</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(subscription.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(subscription.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{subscription.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

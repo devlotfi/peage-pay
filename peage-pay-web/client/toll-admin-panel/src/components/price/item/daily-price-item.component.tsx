@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { DailyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { DAILY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface DailyPriceItemProps {
   dailyPrice: DailyPriceType;
@@ -51,21 +52,21 @@ const DailyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{dailyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>{dailyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{dailyPrice.price.priority}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(dailyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(dailyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{dailyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

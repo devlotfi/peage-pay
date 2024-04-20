@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { AutomaticGateType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteAutomaticGateModal from './delete-automatic-gate-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface AutomaticGateItemProps {
   automaticGate: AutomaticGateType;
@@ -70,13 +71,13 @@ const AutomaticGateItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>{automaticGate.id}</Table.Body.Td>

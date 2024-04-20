@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
   Modal,
   Heading,
@@ -10,16 +10,16 @@ import {
   Pagination,
   SearchValues,
   AdminDashboardLayout,
-} from "@peage-pay-web/ui";
-import { HighwaySearchFields, HighwayType } from "../../__generated__/graphql";
-import { useQuery } from "@apollo/client";
-import { HIGHWAY_LIST } from "../../graphql/queries";
-import HighwayPickerItem from "./highway-picker-item.component";
-import { useState } from "react";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { HighwaySearchFields, HighwayType } from '../../__generated__/graphql';
+import { useQuery } from '@apollo/client';
+import { HIGHWAY_LIST } from '../../graphql/queries';
+import HighwayPickerItem from './highway-picker-item.component';
+import { useState } from 'react';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<HighwaySearchFields> = {
-  search: "",
+  search: '',
   field: HighwaySearchFields.NameSearch,
 };
 
@@ -45,7 +45,7 @@ const HighwayPicker = ({
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   const handleHighwaySelected = (highway: HighwayType) => {
     if (onChange) {
@@ -66,9 +66,9 @@ const HighwayPicker = ({
             <div className="flex">Pick a highway</div>
             <Button
               onClick={() => modalRef.current?.close()}
-              variant={"base-200"}
+              variant={'base-200'}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Close</Button.Content>
@@ -85,7 +85,7 @@ const HighwayPicker = ({
 
             <ListPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Highway list</Heading.Text>
@@ -100,11 +100,11 @@ const HighwayPicker = ({
                       <Table.Head>
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
-                          <Table.Head.Th>Id</Table.Head.Th>
                           <Table.Head.Th>Name</Table.Head.Th>
                           <Table.Head.Th>Code</Table.Head.Th>
                           <Table.Head.Th>Created At</Table.Head.Th>
                           <Table.Head.Th>Updated At</Table.Head.Th>
+                          <Table.Head.Th>Id</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>

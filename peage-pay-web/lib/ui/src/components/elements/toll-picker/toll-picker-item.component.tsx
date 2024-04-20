@@ -2,6 +2,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Button } from '@peage-pay-web/ui';
 import { TollType } from '../../../__generated__/graphql';
+import { Utils } from '@peage-pay-web/utils';
 
 interface TollPickerItemProps {
   toll: TollType;
@@ -51,7 +52,6 @@ const TollPickerItem = ({
   return (
     <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
-      <Table.Body.Td>{toll.id}</Table.Body.Td>
       <Table.Body.Td>{toll.name}</Table.Body.Td>
       <Table.Body.Td>{toll.wilaya.name}</Table.Body.Td>
       <Table.Body.Td>{toll.wilaya.code}</Table.Body.Td>
@@ -60,15 +60,16 @@ const TollPickerItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(toll.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(toll.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{toll.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

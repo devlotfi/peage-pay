@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import { TOLL_NETWORK_LIST } from "../../graphql/queries";
+import { useQuery } from '@apollo/client';
+import { TOLL_NETWORK_LIST } from '../../graphql/queries';
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,16 +8,16 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from "@peage-pay-web/ui";
-import { useState } from "react";
-import { TollNetworkSearchFields } from "../../__generated__/graphql";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import TollNetworkItem from "../../components/toll-network/toll-network-item.component";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { TollNetworkSearchFields } from '../../__generated__/graphql';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<TollNetworkSearchFields> = {
-  search: "",
+  search: '',
   field: TollNetworkSearchFields.NameSearch,
 };
 
@@ -33,7 +33,7 @@ const TollNetworkListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   return (
     <ListPageLayout>
@@ -45,7 +45,7 @@ const TollNetworkListPage = (): JSX.Element => {
 
       <ListPageLayout.Title>
         <Heading className="text-[20pt]">
-          <Heading.Icon position={"left"}>
+          <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>Toll network list</Heading.Text>
@@ -60,10 +60,10 @@ const TollNetworkListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Name</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

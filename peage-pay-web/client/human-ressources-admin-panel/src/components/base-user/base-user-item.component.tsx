@@ -2,23 +2,24 @@ import {
   faEllipsisH,
   faUserMinus,
   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { BaseUserRolesType, BaseUserType } from "../../__generated__/graphql";
-import { useRef } from "react";
-import AddTollAdminRoleModal from "../toll-admin/add-toll-admin-role-modal.component";
-import { BASE_USER_LIST } from "../../graphql/queries";
-import RemoveTollAdminRoleModal from "../toll-admin/remove-toll-admin-role-modal.component";
-import AddGateAdminRoleModal from "../gate-admin/add-gate-admin-role-modal.component";
-import RemoveGateAdminRoleModal from "../gate-admin/remove-gate-admin-role-modal.component";
-import AddModeratorRoleModal from "../moderator/add-moderator-role-modal.component";
-import RemoveModeratorRoleModal from "../moderator/remove-moderator-role-modal.component";
+} from '@peage-pay-web/ui';
+import { BaseUserRolesType, BaseUserType } from '../../__generated__/graphql';
+import { useRef } from 'react';
+import AddTollAdminRoleModal from '../toll-admin/add-toll-admin-role-modal.component';
+import { BASE_USER_LIST } from '../../graphql/queries';
+import RemoveTollAdminRoleModal from '../toll-admin/remove-toll-admin-role-modal.component';
+import AddGateAdminRoleModal from '../gate-admin/add-gate-admin-role-modal.component';
+import RemoveGateAdminRoleModal from '../gate-admin/remove-gate-admin-role-modal.component';
+import AddModeratorRoleModal from '../moderator/add-moderator-role-modal.component';
+import RemoveModeratorRoleModal from '../moderator/remove-moderator-role-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
@@ -35,7 +36,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
   const removeModeratorRoleModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -46,7 +47,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <AddTollAdminRoleModal
               modalRef={addTollAdminRoleModalRef}
               baseUser={baseUser}
@@ -84,7 +85,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => addTollAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={'base-100'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -96,7 +97,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeTollAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"error"}
+                variant={'error'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -109,7 +110,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => addGateAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={'base-100'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -121,7 +122,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeGateAdminRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"error"}
+                variant={'error'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -134,7 +135,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => addModeratorRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"base-100"}
+                variant={'base-100'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -146,7 +147,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem
                 onClick={() => removeModeratorRoleModalRef.current?.showModal()}
                 className="w-full mb-[0.5rem] last:mb-0"
-                variant={"error"}
+                variant={'error'}
               >
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
@@ -157,7 +158,6 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
       <Table.Body.Td>
         <Table.Container>
           <Table>
@@ -176,15 +176,16 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(baseUser.updatedAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{baseUser.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

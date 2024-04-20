@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { WeeklyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { WEEKLY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface WeeklyPriceItemProps {
   weeklyPrice: WeeklyPriceType;
@@ -51,7 +52,6 @@ const WeeklyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{weeklyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>
         <Table.Container>
           <Table>
@@ -72,15 +72,16 @@ const WeeklyPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(weeklyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(weeklyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{weeklyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

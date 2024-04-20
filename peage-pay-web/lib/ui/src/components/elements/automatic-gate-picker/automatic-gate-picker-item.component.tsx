@@ -2,6 +2,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Button } from '@peage-pay-web/ui';
 import { AutomaticGateType } from '../../../__generated__/graphql';
+import { Utils } from '@peage-pay-web/utils';
 
 interface AutomaticGatePickerItemProps {
   automaticGate: AutomaticGateType;
@@ -51,20 +52,20 @@ const AutomaticGatePickerItem = ({
   return (
     <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
-      <Table.Body.Td>{automaticGate.id}</Table.Body.Td>
       <Table.Body.Td>{automaticGate.name}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{automaticGate.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

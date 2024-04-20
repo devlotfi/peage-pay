@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import { BASE_USER_LIST } from "../../graphql/queries";
+import { useQuery } from '@apollo/client';
+import { BASE_USER_LIST } from '../../graphql/queries';
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,16 +8,16 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from "@peage-pay-web/ui";
-import { useState } from "react";
-import { BaseUserSearchFields } from "../../__generated__/graphql";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import BaseUserItem from "../../components/base-user/base-user-item.component";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
+import { BaseUserSearchFields } from '../../__generated__/graphql';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import BaseUserItem from '../../components/base-user/base-user-item.component';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<BaseUserSearchFields> = {
-  search: "",
+  search: '',
   field: BaseUserSearchFields.FirstNameSearch,
 };
 
@@ -33,7 +33,7 @@ const BaseUserListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   return (
     <ListPageLayout>
@@ -45,7 +45,7 @@ const BaseUserListPage = (): JSX.Element => {
 
       <ListPageLayout.Title>
         <Heading className="text-[20pt]">
-          <Heading.Icon position={"left"}>
+          <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>User list</Heading.Text>
@@ -60,12 +60,12 @@ const BaseUserListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>Roles</Table.Head.Th>
                     <Table.Head.Th>First name</Table.Head.Th>
                     <Table.Head.Th>Last name</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

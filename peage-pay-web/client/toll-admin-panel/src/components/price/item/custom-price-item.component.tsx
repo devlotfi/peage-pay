@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { CustomPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { CUSTOM_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface CustomPriceItemProps {
   customPrice: CustomPriceType;
@@ -51,17 +52,16 @@ const CustomPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{customPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(customPrice.startDate);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+          return Utils.formatDate(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(customPrice.endDate);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+          return Utils.formatDate(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>{customPrice.price.value}</Table.Body.Td>
@@ -69,15 +69,16 @@ const CustomPriceListItem = ({
       <Table.Body.Td>
         {(() => {
           const date = new Date(customPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(customPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{customPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

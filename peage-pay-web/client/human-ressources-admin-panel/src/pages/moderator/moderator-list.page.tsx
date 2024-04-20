@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import { MODERATOR_LIST } from "../../graphql/queries";
+import { useQuery } from '@apollo/client';
+import { MODERATOR_LIST } from '../../graphql/queries';
 import {
   AdminDashboardLayout,
   Heading,
@@ -8,19 +8,19 @@ import {
   SearchForm,
   SearchValues,
   Table,
-} from "@peage-pay-web/ui";
-import { useState } from "react";
+} from '@peage-pay-web/ui';
+import { useState } from 'react';
 import {
   BaseUserSearchFields,
   ModeratorType,
-} from "../../__generated__/graphql";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import { Utils } from "@peage-pay-web/utils";
-import ModeratorItem from "../../components/moderator/moderator-item.component";
+} from '../../__generated__/graphql';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { Utils } from '@peage-pay-web/utils';
+import ModeratorItem from '../../components/moderator/moderator-item.component';
 
 const initialValues: SearchValues<BaseUserSearchFields> = {
-  search: "",
+  search: '',
   field: BaseUserSearchFields.FirstNameSearch,
 };
 
@@ -36,7 +36,7 @@ const ModeratorListPage = (): JSX.Element => {
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   return (
     <ListPageLayout>
@@ -48,7 +48,7 @@ const ModeratorListPage = (): JSX.Element => {
 
       <ListPageLayout.Title>
         <Heading className="text-[20pt]">
-          <Heading.Icon position={"left"}>
+          <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
           <Heading.Text>Moderator list</Heading.Text>
@@ -63,11 +63,11 @@ const ModeratorListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
                     <Table.Head.Th>First name</Table.Head.Th>
                     <Table.Head.Th>Last name</Table.Head.Th>
                     <Table.Head.Th>Created at</Table.Head.Th>
                     <Table.Head.Th>Updated at</Table.Head.Th>
+                    <Table.Head.Th>Id</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

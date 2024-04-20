@@ -9,6 +9,7 @@ import {
 import { useRef } from 'react';
 import { RfidTagType } from '../../__generated__/graphql';
 import DeleteRfidTagModal from './delete-rfid-tag-modal.component';
+import { Utils } from '@peage-pay-web/utils';
 
 interface RfidTagItemProps {
   rfidTag: RfidTagType;
@@ -47,21 +48,21 @@ const RfidTagItem = ({ rfidTag }: RfidTagItemProps): JSX.Element => {
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{rfidTag.id}</Table.Body.Td>
       <Table.Body.Td>{rfidTag.rfid}</Table.Body.Td>
       <Table.Body.Td>{rfidTag.registrationNumber}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(rfidTag.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(rfidTag.createdAt);
-          return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatDateTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{rfidTag.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

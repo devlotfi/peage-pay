@@ -1,15 +1,16 @@
-import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
   Dropdown,
   IconButtonOutline,
   MenuItem,
-} from "@peage-pay-web/ui";
-import { useRef } from "react";
-import { DailyPriceType } from "../../../__generated__/graphql";
-import DeleteGlobalPriceModal from "../delete-global-price-modal.component";
-import { DAILY_PRICE_GLOBAL_LIST } from "../../../graphql/queries";
+} from '@peage-pay-web/ui';
+import { useRef } from 'react';
+import { DailyPriceType } from '../../../__generated__/graphql';
+import DeleteGlobalPriceModal from '../delete-global-price-modal.component';
+import { DAILY_PRICE_GLOBAL_LIST } from '../../../graphql/queries';
+import { Utils } from '@peage-pay-web/utils';
 
 interface DailyPriceItemProps {
   dailyPrice: DailyPriceType;
@@ -21,7 +22,7 @@ const DailyPriceListItem = ({
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Table.Body.Tr variant={"zebra"}>
+    <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>
         <Dropdown
           mainElement={
@@ -32,7 +33,7 @@ const DailyPriceListItem = ({
             </Dropdown.Main>
           }
         >
-          <Dropdown.Content position={"bottom-left"}>
+          <Dropdown.Content position={'bottom-left'}>
             <DeleteGlobalPriceModal
               modalRef={deleteModalRef}
               price={dailyPrice.price}
@@ -41,7 +42,7 @@ const DailyPriceListItem = ({
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
               className="w-full"
-              variant={"error"}
+              variant={'error'}
             >
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
@@ -51,21 +52,21 @@ const DailyPriceListItem = ({
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
-      <Table.Body.Td>{dailyPrice.price.id}</Table.Body.Td>
       <Table.Body.Td>{dailyPrice.price.value}</Table.Body.Td>
       <Table.Body.Td>{dailyPrice.price.priority}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(dailyPrice.price.startTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(dailyPrice.price.endTimestamp);
-          return `${date.getHours()}:${date.getMinutes()}`;
+          return Utils.formatTime(date);
         })()}
       </Table.Body.Td>
+      <Table.Body.Td>{dailyPrice.price.id}</Table.Body.Td>
     </Table.Body.Tr>
   );
 };

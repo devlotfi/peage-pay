@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList, faTimes } from '@fortawesome/free-solid-svg-icons';
 import {
   Modal,
   Heading,
@@ -10,16 +10,16 @@ import {
   Pagination,
   SearchValues,
   AdminDashboardLayout,
-} from "@peage-pay-web/ui";
-import { WilayaSearchFields, WilayaType } from "../../__generated__/graphql";
-import { useQuery } from "@apollo/client";
-import { WILAYA_LIST } from "../../graphql/queries";
-import WilayaItem from "./wilaya-item.component";
-import { useState } from "react";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { WilayaSearchFields, WilayaType } from '../../__generated__/graphql';
+import { useQuery } from '@apollo/client';
+import { WILAYA_LIST } from '../../graphql/queries';
+import WilayaItem from './wilaya-item.component';
+import { useState } from 'react';
+import { Utils } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<WilayaSearchFields> = {
-  search: "",
+  search: '',
   field: WilayaSearchFields.NameSearch,
 };
 
@@ -45,7 +45,7 @@ const WilayaPicker = ({
         [searchData.field]: searchData.search,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
   const handleWilayaSelected = (wilaya: WilayaType) => {
     if (onChange) {
@@ -66,9 +66,9 @@ const WilayaPicker = ({
             <div className="flex">Pick a wilaya</div>
             <Button
               onClick={() => modalRef.current?.close()}
-              variant={"base-200"}
+              variant={'base-200'}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
               <Button.Content>Close</Button.Content>
@@ -85,7 +85,7 @@ const WilayaPicker = ({
 
             <ListPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
                 <Heading.Text>Wilaya list</Heading.Text>
@@ -100,9 +100,9 @@ const WilayaPicker = ({
                       <Table.Head>
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
-                          <Table.Head.Th>Id</Table.Head.Th>
                           <Table.Head.Th>Name</Table.Head.Th>
                           <Table.Head.Th>Code</Table.Head.Th>
+                          <Table.Head.Th>Id</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>
