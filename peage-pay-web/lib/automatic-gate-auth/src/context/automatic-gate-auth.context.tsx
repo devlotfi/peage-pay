@@ -45,6 +45,10 @@ export const AutomaticGateAuthProvider = ({
       AutomaticGateAuthUtils.setAccessToken(
         data.signInAutomaticGateRefreshToken.accessToken,
       );
+      console.log(
+        'refresh auth completed',
+        data.signInAutomaticGateRefreshToken,
+      );
       setAutomaticGateAuthData({
         // @ts-ignore
         automaticGate: data.signInAutomaticGateRefreshToken.automaticGate,
@@ -52,15 +56,21 @@ export const AutomaticGateAuthProvider = ({
       setReady(true);
     },
     onError() {
+      console.log('refresh error');
       setReady(true);
     },
+    skip: automaticGateAuthData !== null,
   });
 
   const renderContent = () => {
     if (loading || !ready) {
       return <FullScreenLoading></FullScreenLoading>;
     } else {
-      return children;
+      if (!automaticGateAuthData) {
+        return children;
+      } else {
+        return children;
+      }
     }
   };
 

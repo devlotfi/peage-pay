@@ -406,3 +406,9 @@ export const TOLL_DISTANCE_LIST = gql(`
     }
   }
 `);
+
+export const DEFAULT_PRICE = gql(`
+  query DEFAULT_PRICE {
+    defaultPrice
+  }
+`);

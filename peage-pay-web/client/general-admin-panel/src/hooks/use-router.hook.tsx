@@ -24,6 +24,8 @@ import AddGlobalDailyPricePage from '../pages/price/add/add-global-daily-price.p
 import EditSectionPage from '../pages/section/edit-section.page';
 import SectionLayout from '../layout/section.layout';
 import TollDistanceListPage from '../pages/toll-distance/toll-distance-list.page';
+import EditDefaultPricePage from '../pages/price/add/edit-default-price.page';
+import TestHome from './test-home';
 
 const DashboardLayout = lazy(() => import('../layout/dashboard-layout.layout'));
 const AddPriceLayout = lazy(() => import('../layout/add-price.layout'));
@@ -101,7 +103,7 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <h1>home</h1>,
+          element: <TestHome></TestHome>,
         },
 
         {
@@ -221,6 +223,10 @@ const useRouter = () => {
           path: '/dashboard/price/add',
           element: <AddPriceLayout></AddPriceLayout>,
           children: [
+            {
+              path: '/dashboard/price/add/default',
+              element: <EditDefaultPricePage></EditDefaultPricePage>,
+            },
             {
               path: '/dashboard/price/add/daily',
               element: <AddGlobalDailyPricePage></AddGlobalDailyPricePage>,

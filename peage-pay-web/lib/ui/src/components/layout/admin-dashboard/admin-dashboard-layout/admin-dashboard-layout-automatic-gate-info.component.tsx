@@ -5,7 +5,7 @@ import { AutomaticGateType } from '../../../../__generated__/graphql';
 import Table from '../../../elements/table/table.component';
 
 const adminDashboardLayoutAutomaticGateInfoVariants = cva(
-  'flex flex-col bg-base-100 rounded-lg border-[1px] border-edge-200 mb-[1rem] p-[0.5rem]',
+  'flex flex-col bg-base-100 rounded-lg border-[1px] border-edge-200 mb-[1rem]',
 );
 
 interface AdminDashboardLayoutAutomaticGateInfoProps
@@ -27,34 +27,18 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
       )}
       {...props}
     >
-      <Table.Container>
-        <Table>
-          <Table.Body>
-            <Table.Head.Tr>
-              <Table.Head.Th className="py-[0.2rem]">Gate</Table.Head.Th>
-            </Table.Head.Tr>
-            <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.2rem]">
-                {automaticGate.name}
-              </Table.Body.Td>
-            </Table.Body.Tr>
-          </Table.Body>
-        </Table>
-      </Table.Container>
-      <Table.Container className="mt-[0.5rem]">
-        <Table>
-          <Table.Body>
-            <Table.Head.Tr>
-              <Table.Head.Th className="py-[0.2rem]">Direction</Table.Head.Th>
-            </Table.Head.Tr>
-            <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.2rem]">
-                {automaticGate.direction}
-              </Table.Body.Td>
-            </Table.Body.Tr>
-          </Table.Body>
-        </Table>
-      </Table.Container>
+      <Table>
+        <Table.Body>
+          <Table.Head.Tr>
+            <Table.Head.Th className="py-[0.2rem]">Direction</Table.Head.Th>
+          </Table.Head.Tr>
+          <Table.Body.Tr>
+            <Table.Body.Td className="py-[0.2rem]">
+              {automaticGate.direction}
+            </Table.Body.Td>
+          </Table.Body.Tr>
+        </Table.Body>
+      </Table>
     </div>
   );
 };

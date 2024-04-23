@@ -212,3 +212,9 @@ export const GENERATE_TOLL_DISTANCES = gql(`
     generateTollDistances(generateTollDistancesInput: $generateTollDistancesInput)
   }
 `);
+
+export const EDIT_DEFAULT_PRICE = gql(`
+  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {
+    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)
+  }
+`);

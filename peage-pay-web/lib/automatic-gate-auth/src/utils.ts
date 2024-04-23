@@ -5,6 +5,11 @@ export abstract class AutomaticGateAuthUtils {
     localStorage.setItem(LocalStorageKeys.REFRESH_TOKEN, refreshToken);
   };
   public static getRefreshToken = () => {
+    console.log(
+      localStorage.getItem(LocalStorageKeys.REFRESH_TOKEN),
+      'refreshtoken',
+    );
+
     return localStorage.getItem(LocalStorageKeys.REFRESH_TOKEN);
   };
   public static clearRefreshToken = () => {

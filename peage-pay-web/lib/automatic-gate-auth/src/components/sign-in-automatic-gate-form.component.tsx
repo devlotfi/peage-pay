@@ -36,7 +36,7 @@ interface SignInAutomaticGateValues {
 
 const initialValues: SignInAutomaticGateValues = {
   tollId: '',
-  automaticGateId: '',
+  automaticGateId: '', //
   password: '',
 };
 
@@ -49,13 +49,13 @@ const SignInAutomaticGateForm = (): JSX.Element => {
         AutomaticGateAuthUtils.setRefreshToken(
           data.signInAutomaticGate.refreshToken,
         );
+        AutomaticGateAuthUtils.setAccessToken(
+          data.signInAutomaticGate.accessToken,
+        );
         setAutomaticGateAuthData({
           // @ts-ignore
           automaticGate: data.signInAutomaticGate.automaticGate,
         });
-        AutomaticGateAuthUtils.setAccessToken(
-          data.signInAutomaticGate.accessToken,
-        );
       },
     },
   );

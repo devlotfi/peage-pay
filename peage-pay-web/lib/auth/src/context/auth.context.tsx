@@ -91,7 +91,8 @@ export const AuthProvider = ({
       onError() {
         setReady(true);
       },
-      skip: refreshTokenMode !== RefreshTokenMode.PlainText,
+      skip:
+        refreshTokenMode !== RefreshTokenMode.PlainText || authData !== null,
     },
   );
 

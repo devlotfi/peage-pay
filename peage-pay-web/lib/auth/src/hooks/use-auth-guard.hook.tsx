@@ -6,6 +6,8 @@ const useAuthGuard = () => {
   const { authData } = useContext(AuthContext);
 
   const authGuard = (element: JSX.Element): JSX.Element => {
+    console.log(authData, 'from guard');
+
     if (authData) {
       return element;
     }

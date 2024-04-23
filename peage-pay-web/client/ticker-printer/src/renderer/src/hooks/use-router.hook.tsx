@@ -31,6 +31,10 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
+          element: <h1>lol</h1>,
+        },
+        {
+          path: '/dashboard/print',
           element: <TicketPrinter></TicketPrinter>,
         },
       ],

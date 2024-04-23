@@ -31,6 +31,13 @@ export class PriceResolver {
     private readonly defaultPriceService: DefaultPriceService,
   ) {}
 
+  @Query(() => Number)
+  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @UseGuards(AuthGuard)
+  public async defaultPrice() {
+    return await this.defaultPriceService.defaultPrice();
+  }
+
   @Mutation(() => Boolean)
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)

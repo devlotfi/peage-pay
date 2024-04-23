@@ -33,6 +33,7 @@ const documents = {
     "\n  mutation ADD_GLOBAL_PRICE($addPriceInput: AddGlobalPriceInput!) {\n    addGlobalPrice(addPriceInput: $addPriceInput)\n  }\n": types.Add_Global_PriceDocument,
     "\n  mutation DELETE_GLOBAL_PRICE($deletePriceInput: IdInput!) {\n    deleteGlobalPrice(deletePriceInput: $deletePriceInput)\n  }\n": types.Delete_Global_PriceDocument,
     "\n  mutation GENERATE_TOLL_DISTANCES($generateTollDistancesInput: IdInput!) {\n    generateTollDistances(generateTollDistancesInput: $generateTollDistancesInput)\n  }\n": types.Generate_Toll_DistancesDocument,
+    "\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n": types.Edit_Default_PriceDocument,
     "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      count\n      list {\n        id\n        name\n        code\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Highway_ListDocument,
     "\n  query HIGHWAY_BY_ID($highwayByIdInput: IdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
     "\n  query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {\n    subscriptionList(subscriptionListInput: $subscriptionListInput) {\n      count\n      list {\n        id\n        name\n        days\n        price\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Subscription_ListDocument,
@@ -54,6 +55,7 @@ const documents = {
     "\n  query YEARLY_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {\n    yearlyPriceGlobalList(priceListInput: $priceListInput) {\n      count\n      list {\n        startDate\n        endDate\n        priceId\n        price {\n          id\n          value\n          priority\n          startTimestamp\n          endTimestamp\n          createdAt\n          updatedAt\n        }\n      }\n    }\n  }\n": types.Yearly_Price_Global_ListDocument,
     "\n  query CUSTOM_PRICE_GLOBAL_LIST($priceListInput: PaginationInput!) {\n    customPriceGlobalList(priceListInput: $priceListInput) {\n      count\n      list {\n        priceId\n        startDate\n        endDate\n        price {\n          id\n          value\n          priority\n          startTimestamp\n          endTimestamp\n          createdAt\n          updatedAt\n        }\n      }\n    }\n  }\n": types.Custom_Price_Global_ListDocument,
     "\n  query TOLL_DISTANCE_LIST($tollDistanceListInput: TollDistanceListInput!) {\n    tollDistanceList(tollDistanceListInput: $tollDistanceListInput) {\n      count\n      list {\n        distance\n        fromToll {\n          id\n          name\n        }\n        toToll {\n          id\n          name\n        }\n      }\n    }\n  }\n": types.Toll_Distance_ListDocument,
+    "\n  query DEFAULT_PRICE {\n    defaultPrice\n  }\n": types.Default_PriceDocument,
 };
 
 /**
@@ -153,6 +155,10 @@ export function gql(source: "\n  mutation GENERATE_TOLL_DISTANCES($generateTollD
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n"): (typeof documents)["\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      count\n      list {\n        id\n        name\n        code\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      count\n      list {\n        id\n        name\n        code\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -234,6 +240,10 @@ export function gql(source: "\n  query CUSTOM_PRICE_GLOBAL_LIST($priceListInput:
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query TOLL_DISTANCE_LIST($tollDistanceListInput: TollDistanceListInput!) {\n    tollDistanceList(tollDistanceListInput: $tollDistanceListInput) {\n      count\n      list {\n        distance\n        fromToll {\n          id\n          name\n        }\n        toToll {\n          id\n          name\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query TOLL_DISTANCE_LIST($tollDistanceListInput: TollDistanceListInput!) {\n    tollDistanceList(tollDistanceListInput: $tollDistanceListInput) {\n      count\n      list {\n        distance\n        fromToll {\n          id\n          name\n        }\n        toToll {\n          id\n          name\n        }\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query DEFAULT_PRICE {\n    defaultPrice\n  }\n"): (typeof documents)["\n  query DEFAULT_PRICE {\n    defaultPrice\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
