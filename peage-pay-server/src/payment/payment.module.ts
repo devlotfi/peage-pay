@@ -4,10 +4,9 @@ import { PaymentResolver } from './payment.resolver';
 import { ChargilyModule } from 'src/chargily/chargily.module';
 import { PaymentController } from './payment.controller';
 import { ConfigModule } from '@nestjs/config';
-import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
-  imports: [ChargilyModule, ConfigModule, RedisModule],
+  imports: [ChargilyModule, ConfigModule],
   providers: [PaymentService, PaymentResolver],
   controllers: [PaymentController],
 })

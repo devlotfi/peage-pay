@@ -91,12 +91,12 @@ export class SectionResolver {
   }
 
   @ResolveField(() => TollType)
-  public async fromToll(@Parent() tollDistance: SectionType) {
-    return await this.tollService.tollById({ id: tollDistance.fromTollId });
+  public async fromToll(@Parent() section: SectionType) {
+    return await this.tollService.tollById({ id: section.fromTollId });
   }
 
   @ResolveField(() => TollType)
-  public async toToll(@Parent() tollDistance: SectionType) {
-    return await this.tollService.tollById({ id: tollDistance.toTollId });
+  public async toToll(@Parent() section: SectionType) {
+    return await this.tollService.tollById({ id: section.toTollId });
   }
 }

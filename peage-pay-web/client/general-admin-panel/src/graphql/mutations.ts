@@ -206,3 +206,9 @@ export const DELETE_GLOBAL_PRICE = gql(`
     deleteGlobalPrice(deletePriceInput: $deletePriceInput)
   }
 `);
+
+export const GENERATE_TOLL_DISTANCES = gql(`
+  mutation GENERATE_TOLL_DISTANCES($generateTollDistancesInput: IdInput!) {
+    generateTollDistances(generateTollDistancesInput: $generateTollDistancesInput)
+  }
+`);

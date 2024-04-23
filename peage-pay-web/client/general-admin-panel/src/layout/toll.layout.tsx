@@ -3,13 +3,14 @@ import {
   faNetworkWired,
   faPen,
   faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AdminDashboardLayout, Table, Tabs } from "@peage-pay-web/ui";
-import { useMatch, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { TOLL_NETWORK_BY_ID } from "../graphql/queries";
-import { useQuery } from "@apollo/client";
+  faRuler,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AdminDashboardLayout, Table, Tabs } from '@peage-pay-web/ui';
+import { useMatch, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { TOLL_NETWORK_BY_ID } from '../graphql/queries';
+import { useQuery } from '@apollo/client';
 
 const TollLayout = (): JSX.Element => {
   const navigate = useNavigate();
@@ -17,13 +18,16 @@ const TollLayout = (): JSX.Element => {
   const tollListMatch = useMatch(`/dashboard/toll/list/${tollNetworkId}`);
   const addTollMatch = useMatch(`/dashboard/toll/add/${tollNetworkId}`);
   const addSectionMatch = useMatch(
-    `/dashboard/toll/section/add/${tollNetworkId}`
+    `/dashboard/toll/section/add/${tollNetworkId}`,
   );
   const tollNetworkGraphMatch = useMatch(
-    `/dashboard/toll/toll-network/graph/${tollNetworkId}`
+    `/dashboard/toll/toll-network/graph/${tollNetworkId}`,
   );
   const editTollNetworkMatch = useMatch(
-    `/dashboard/toll/toll-network/edit/${tollNetworkId}`
+    `/dashboard/toll/toll-network/edit/${tollNetworkId}`,
+  );
+  const generatedDistancesMatch = useMatch(
+    `/dashboard/toll/toll-distance/list/${tollNetworkId}`,
   );
 
   const { loading, error, data } = useQuery(TOLL_NETWORK_BY_ID, {
@@ -32,7 +36,7 @@ const TollLayout = (): JSX.Element => {
         id: tollNetworkId as string,
       },
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   });
 
   return (
@@ -52,18 +56,18 @@ const TollLayout = (): JSX.Element => {
       <Tabs className="mb-[1rem]">
         <Tabs.Item
           onClick={() => navigate(`/dashboard/toll/list/${tollNetworkId}`)}
-          isActive={tollListMatch ? "active" : "notActive"}
+          isActive={tollListMatch ? 'active' : 'notActive'}
         >
-          <Tabs.Item.Icon position={"left"}>
+          <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Tabs.Item.Icon>
           <Tabs.Item.Content>Toll list</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate(`/dashboard/toll/add/${tollNetworkId}`)}
-          isActive={addTollMatch ? "active" : "notActive"}
+          isActive={addTollMatch ? 'active' : 'notActive'}
         >
-          <Tabs.Item.Icon position={"left"}>
+          <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Tabs.Item.Icon>
           <Tabs.Item.Content>Add toll</Tabs.Item.Content>
@@ -72,9 +76,9 @@ const TollLayout = (): JSX.Element => {
           onClick={() =>
             navigate(`/dashboard/toll/section/add/${tollNetworkId}`)
           }
-          isActive={addSectionMatch ? "active" : "notActive"}
+          isActive={addSectionMatch ? 'active' : 'notActive'}
         >
-          <Tabs.Item.Icon position={"left"}>
+          <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Tabs.Item.Icon>
           <Tabs.Item.Content>Add section</Tabs.Item.Content>
@@ -83,9 +87,9 @@ const TollLayout = (): JSX.Element => {
           onClick={() =>
             navigate(`/dashboard/toll/toll-network/graph/${tollNetworkId}`)
           }
-          isActive={tollNetworkGraphMatch ? "active" : "notActive"}
+          isActive={tollNetworkGraphMatch ? 'active' : 'notActive'}
         >
-          <Tabs.Item.Icon position={"left"}>
+          <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
           </Tabs.Item.Icon>
           <Tabs.Item.Content>Graph</Tabs.Item.Content>
@@ -94,12 +98,23 @@ const TollLayout = (): JSX.Element => {
           onClick={() =>
             navigate(`/dashboard/toll/toll-network/edit/${tollNetworkId}`)
           }
-          isActive={editTollNetworkMatch ? "active" : "notActive"}
+          isActive={editTollNetworkMatch ? 'active' : 'notActive'}
         >
-          <Tabs.Item.Icon position={"left"}>
+          <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
           </Tabs.Item.Icon>
           <Tabs.Item.Content>Edit toll network</Tabs.Item.Content>
+        </Tabs.Item>
+        <Tabs.Item
+          onClick={() =>
+            navigate(`/dashboard/toll/toll-distance/list/${tollNetworkId}`)
+          }
+          isActive={generatedDistancesMatch ? 'active' : 'notActive'}
+        >
+          <Tabs.Item.Icon position={'left'}>
+            <FontAwesomeIcon icon={faRuler}></FontAwesomeIcon>
+          </Tabs.Item.Icon>
+          <Tabs.Item.Content>Generated Distances</Tabs.Item.Content>
         </Tabs.Item>
       </Tabs>
     </AdminDashboardLayout.Tabs>

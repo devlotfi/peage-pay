@@ -12,11 +12,7 @@ import {
 import { useParams } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
 import TollMapMarker from '../../components/toll/toll-map-marker.component';
-import {
-  SectionStatusType,
-  SectionType,
-  TollType,
-} from '../../__generated__/graphql';
+import { SectionType, TollType } from '../../__generated__/graphql';
 import SectionMapMarker from '../../components/section/section-map-marker.component';
 
 const TollNetworkGraphPage = (): JSX.Element => {
@@ -87,23 +83,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
       }
 
       for (const section of sectionListData.sectionListForTollNetwork) {
-        let polylineColor = '#FFFFFF';
-        switch (section.status) {
-          case SectionStatusType.NormalTraffic:
-            polylineColor = '#22c55e';
-            break;
-          case SectionStatusType.ModerateTraffic:
-            polylineColor = '#facc15';
-            break;
-          case SectionStatusType.HighTraffic:
-            polylineColor = '#f97316';
-            break;
-          case SectionStatusType.Blocked:
-            polylineColor = '#ef4444';
-            break;
-          default:
-            break;
-        }
+        const polylineColor = '#FFFFFF';
 
         new google.maps.Polyline({
           map,

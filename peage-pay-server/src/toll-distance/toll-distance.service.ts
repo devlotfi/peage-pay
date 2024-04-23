@@ -1,8 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { GenerateTollDistancesInput } from './input/generate-toll-distances.input.gql';
-import { $Enums, Section, Toll } from '@prisma/client';
+import { $Enums, Prisma, Section, Toll } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { TollDistanceListInput } from './input/toll-distance-list.input.gql';
+import { TollDistanceListResult } from './result/toll-distance-list.result.gql';
+import { RedisService } from 'src/redis/redis.service';
+import { TollDistanceRedisPrefixes } from './toll-distance-prefixes';
+import { TollDistanceInput } from './input/toll-distance.input.gql';
 
 class GraphToll implements Toll {
   public constructor(toll: Toll) {
@@ -127,92 +132,180 @@ function traverseFromNode(
 
 @Injectable()
 export class TollDistanceService {
-  public constructor(private readonly databaseService: DatabaseService) {}
+  public constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly redisService: RedisService,
+  ) {}
 
   public async generateTollDistances(
-    generateTollDistancesInput: GenerateTollDistancesInput,
+    generateTollDistancesInput: IdInput,
   ): Promise<boolean> {
-    const tolls = await this.databaseService.toll.findMany({
-      where: {
-        tollNetworkId: generateTollDistancesInput.tollNetworkId,
-      },
-    });
-    const sections = await this.databaseService.section.findMany({
-      where: {
-        AND: [
-          {
-            fromToll: {
-              tollNetwork: {
-                id: generateTollDistancesInput.tollNetworkId,
+    return this.databaseService.$transaction(async (prisma) => {
+      await prisma.tollDistance.deleteMany({
+        where: {
+          AND: [
+            {
+              fromToll: {
+                tollNetwork: {
+                  id: generateTollDistancesInput.id,
+                },
               },
             },
-          },
-          {
-            toToll: {
-              tollNetwork: {
-                id: generateTollDistancesInput.tollNetworkId,
+            {
+              toToll: {
+                tollNetwork: {
+                  id: generateTollDistancesInput.id,
+                },
               },
             },
-          },
-        ],
-      },
-    });
-    const graphTolls = new Map<string, GraphToll>();
-    for (const toll of tolls) {
-      const graphToll = new GraphToll(toll);
-      graphTolls.set(toll.id, graphToll);
-    }
-
-    const graphSections: GraphSection[] = sections.map((section) => {
-      const fromGraphToll = graphTolls.get(section.fromTollId);
-      const toGraphToll = graphTolls.get(section.toTollId);
-      if (!fromGraphToll || !toGraphToll) {
-        throw new Error();
+          ],
+        },
+      });
+      const tolls = await prisma.toll.findMany({
+        where: {
+          tollNetworkId: generateTollDistancesInput.id,
+        },
+      });
+      const sections = await prisma.section.findMany({
+        where: {
+          AND: [
+            {
+              fromToll: {
+                tollNetwork: {
+                  id: generateTollDistancesInput.id,
+                },
+              },
+            },
+            {
+              toToll: {
+                tollNetwork: {
+                  id: generateTollDistancesInput.id,
+                },
+              },
+            },
+          ],
+        },
+      });
+      const graphTolls = new Map<string, GraphToll>();
+      for (const toll of tolls) {
+        const graphToll = new GraphToll(toll);
+        graphTolls.set(toll.id, graphToll);
       }
-      const graphSection = new GraphSection(
-        section,
-        fromGraphToll,
-        toGraphToll,
-      );
-      return graphSection;
+
+      const graphSections: GraphSection[] = sections.map((section) => {
+        const fromGraphToll = graphTolls.get(section.fromTollId);
+        const toGraphToll = graphTolls.get(section.toTollId);
+        if (!fromGraphToll || !toGraphToll) {
+          throw new Error();
+        }
+        const graphSection = new GraphSection(
+          section,
+          fromGraphToll,
+          toGraphToll,
+        );
+        return graphSection;
+      });
+
+      for (const [, graphToll] of graphTolls) {
+        const connectedSections = graphSections.filter(
+          (graphSection) =>
+            graphSection.fromGraphToll === graphToll ||
+            graphSection.toGraphToll === graphToll,
+        );
+        graphToll.connectedSections = connectedSections;
+      }
+
+      const graphTollDistancesMap = new Map<string, GraphTollDistance>();
+
+      for (const [, graphToll] of graphTolls) {
+        const savedSections = new Set<GraphSection>();
+
+        traverseFromNode(
+          graphToll,
+          graphToll,
+          savedSections,
+          graphTollDistancesMap,
+        );
+      }
+
+      const insertionList: Prisma.TollDistanceCreateManyInput[] = [];
+      console.log('--- list ---');
+      graphTollDistancesMap.forEach((graphTollDistance) => {
+        insertionList.push({
+          distance: graphTollDistance.distance,
+          fromTollId: graphTollDistance.fromGraphToll.id,
+          toTollId: graphTollDistance.toGraphToll.id,
+        });
+        console.log(
+          `${graphTollDistance.fromGraphToll.name} | ${graphTollDistance.toGraphToll.name} | ${graphTollDistance.distance} km`,
+        );
+      });
+      await prisma.tollDistance.createMany({ data: insertionList });
+
+      return true;
     });
+  }
 
-    for (const [, graphToll] of graphTolls) {
-      const connectedSections = graphSections.filter(
-        (graphSection) =>
-          graphSection.fromGraphToll === graphToll ||
-          graphSection.toGraphToll === graphToll,
-      );
-      graphToll.connectedSections = connectedSections;
-    }
-
-    const graphTollDistancesMap = new Map<string, GraphTollDistance>();
-
-    for (const [, graphToll] of graphTolls) {
-      const savedSections = new Set<GraphSection>();
-
-      traverseFromNode(
-        graphToll,
-        graphToll,
-        savedSections,
-        graphTollDistancesMap,
-      );
-    }
-
-    console.log('--- list ---');
-    graphTollDistancesMap.forEach((graphTollDistance) => {
-      console.log(
-        `${graphTollDistance.fromGraphToll.name} | ${graphTollDistance.toGraphToll.name} | ${graphTollDistance.distance} km`,
-      );
+  public async tollDistanceList(
+    tollDistanceListInput: TollDistanceListInput,
+  ): Promise<TollDistanceListResult> {
+    const whereQuery: Prisma.TollDistanceWhereInput = {
+      fromToll: {
+        tollNetworkId: tollDistanceListInput.id,
+      },
+      toToll: {
+        tollNetworkId: tollDistanceListInput.id,
+      },
+    };
+    const tollDistanceList = await this.databaseService.tollDistance.findMany({
+      where: whereQuery,
+      take: tollDistanceListInput.take,
+      skip: tollDistanceListInput.skip,
     });
-
-    return true;
+    const tollDistanceCount = await this.databaseService.tollDistance.count({
+      where: whereQuery,
+    });
+    return {
+      list: tollDistanceList as any[],
+      count: tollDistanceCount,
+    };
   }
 
   public async tollDistance(
-    fromTollId: string,
-    toTollId: string,
+    tollDistanceInput: TollDistanceInput,
   ): Promise<number> {
-    return 100;
+    const cacheResult =
+      (await this.redisService.client.get(
+        TollDistanceRedisPrefixes.tollDistance(
+          tollDistanceInput.fromTollId,
+          tollDistanceInput.toTollId,
+        ),
+      )) ||
+      (await this.redisService.client.get(
+        TollDistanceRedisPrefixes.tollDistance(
+          tollDistanceInput.toTollId,
+          tollDistanceInput.fromTollId,
+        ),
+      ));
+    if (cacheResult) {
+      return +cacheResult;
+    }
+
+    const tollDistance =
+      await this.databaseService.tollDistance.findFirstOrThrow({
+        where: {
+          OR: [
+            {
+              fromTollId: tollDistanceInput.fromTollId,
+              toTollId: tollDistanceInput.toTollId,
+            },
+            {
+              fromTollId: tollDistanceInput.toTollId,
+              toTollId: tollDistanceInput.fromTollId,
+            },
+          ],
+        },
+      });
+    return tollDistance.distance.toNumber();
   }
 }

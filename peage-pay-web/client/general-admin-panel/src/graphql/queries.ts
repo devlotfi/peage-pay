@@ -387,3 +387,22 @@ export const CUSTOM_PRICE_GLOBAL_LIST = gql(`
     }
   }
 `);
+
+export const TOLL_DISTANCE_LIST = gql(`
+  query TOLL_DISTANCE_LIST($tollDistanceListInput: TollDistanceListInput!) {
+    tollDistanceList(tollDistanceListInput: $tollDistanceListInput) {
+      count
+      list {
+        distance
+        fromToll {
+          id
+          name
+        }
+        toToll {
+          id
+          name
+        }
+      }
+    }
+  }
+`);

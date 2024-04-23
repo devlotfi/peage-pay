@@ -3,7 +3,6 @@ import { AuthResolver } from './auth.resolver';
 import { EmailModule } from 'src/email/email.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { RedisModule } from 'src/redis/redis.module';
 import { AuthRedisService } from './auth-redis.service';
 import { EmailAuthService } from './email-auth.service';
 import { TokenAuthService } from './token-auth.service';
@@ -16,7 +15,6 @@ import { UserModule } from 'src/user/user.module';
     EmailModule,
     SmsModule,
     ConfigModule,
-    RedisModule,
     UserModule,
     JwtModule.register({}),
   ],

@@ -75,10 +75,10 @@ export class TicketService {
     }
 
     const tollPricePromise = this.tollPriceService.tollPrice();
-    const tollDistancePromise = this.tollDistanceService.tollDistance(
-      ticket.entryTollId,
-      gateAdmin.toll.id,
-    );
+    const tollDistancePromise = this.tollDistanceService.tollDistance({
+      fromTollId: ticket.entryTollId,
+      toTollId: gateAdmin.toll.id,
+    });
     await Promise.all([tollPricePromise, tollDistancePromise]);
     const tollPrice = await tollPricePromise;
     const tollDistance = await tollDistancePromise;
@@ -120,10 +120,10 @@ export class TicketService {
     }
 
     const tollPricePromise = this.tollPriceService.tollPrice();
-    const tollDistancePromise = this.tollDistanceService.tollDistance(
-      ticket.entryTollId,
-      gateAdmin.toll.id,
-    );
+    const tollDistancePromise = this.tollDistanceService.tollDistance({
+      fromTollId: ticket.entryTollId,
+      toTollId: gateAdmin.toll.id,
+    });
     await Promise.all([tollPricePromise, tollDistancePromise]);
     const tollPrice = await tollPricePromise;
     const tollDistance = await tollDistancePromise;
