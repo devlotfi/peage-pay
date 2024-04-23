@@ -14,7 +14,6 @@ import { SignInAutomaticGateInput } from './input/sign-in-automatic-gate.input.g
 import { compare } from 'bcrypt';
 import { AutomaticGateErrors } from './graphql/automatic-gate-errors.gql';
 import { AutomaticGateTokenService } from 'src/token/automatic-gate-token.service';
-import { AutomaticGateType } from './graphql/automatic-gate.gql';
 import { TokenErrors } from 'src/token/graphql/token-errors.gql';
 import { AutomaticGateListInput } from './input/automatic-gate-list.input.gql';
 import { AutomaticGateListResult } from './result/automatic-gate-list.result.gql';
@@ -224,7 +223,7 @@ export class AutomaticGateService {
     return {
       refreshToken,
       accessToken,
-      automaticGate: automaticGate as AutomaticGateType,
+      automaticGate: automaticGate as any,
     };
   }
 

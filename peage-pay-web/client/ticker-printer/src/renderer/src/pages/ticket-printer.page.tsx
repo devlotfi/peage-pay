@@ -5,16 +5,18 @@ import {
   faPrint,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AutomaticGateAuthContext } from '@peage-pay-web/automatic-gate-auth';
 import { Alert, Button, LoaderDots } from '@peage-pay-web/ui';
 import PDFDisplay from '@renderer/components/pdf-display.component';
 import { GENERATE_TICKET } from '@renderer/graphql/mutations';
 import jsPDF from 'jspdf';
 import { QRCodeCanvas } from 'qrcode.react';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 const TicketPrinter = (): JSX.Element => {
   const [pdfData, setPdfData] = useState<string>();
   const pdfDisplayModalRef = useRef<HTMLDialogElement>(null);
+  const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
 
   const [generateTicket, { loading, error, data }] =
     useMutation(GENERATE_TICKET);
@@ -23,13 +25,14 @@ const TicketPrinter = (): JSX.Element => {
     if (data) {
       makePdf();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const makePdf = () => {
     const doc = new jsPDF({
       unit: 'mm',
       orientation: 'portrait',
-      format: [57, 100],
+      format: [57, 70],
     });
     new jsPDF();
 
@@ -39,10 +42,20 @@ const TicketPrinter = (): JSX.Element => {
     const imageData = qrCodeCanvas.toDataURL('image/webp');
     console.log(doc.internal.pageSize.getWidth());
     const docWidth = doc.internal.pageSize.getWidth();
-    doc.setFontSize(10);
-    doc.text('Ticket de peage', docWidth / 2, 10, {
+    doc.setFontSize(13);
+    console.log(automaticGateAuthData?.automaticGate);
+
+    doc.text(`Delivré par le péage de:`, docWidth / 2, 17, {
       align: 'center',
     });
+    doc.text(
+      `${automaticGateAuthData?.automaticGate.toll.name}`,
+      docWidth / 2,
+      23,
+      {
+        align: 'center',
+      },
+    );
 
     const imgWidth = 30;
     const imgHeight = 30;
@@ -50,10 +63,14 @@ const TicketPrinter = (): JSX.Element => {
       imageData,
       'WEBP',
       (docWidth - imgWidth) / 2,
-      40,
+      30,
       imgWidth,
       imgHeight,
     );
+
+    doc.text('Ticket de peage', docWidth / 2, 10, {
+      align: 'center',
+    });
 
     const data = doc.output('datauristring');
     console.log(data);

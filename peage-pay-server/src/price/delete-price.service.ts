@@ -4,8 +4,8 @@ import { GraphQLError } from 'graphql';
 import { PriceErrors } from './graphql/price-errors.gql';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
-import { TollAdminService } from './toll-admin.service';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { TollAdminService } from 'src/user/toll-admin.service';
 
 @Injectable()
 export class DeletePriceService {
@@ -52,8 +52,8 @@ export class DeletePriceService {
     }
 
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
-    if (tollAdminData.tollAdmin?.toll?.id !== price.tollPrice.tollId) {
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
+    if (tollAdminData.tollId! !== price.tollPrice.tollId) {
       throw new GraphQLError(BaseUserErrors.INSUFFICIENT_PRIVILEGES);
     }
 

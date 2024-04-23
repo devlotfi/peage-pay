@@ -42,13 +42,16 @@ export const AutomaticGateAuthProvider = ({
       },
     },
     onCompleted(data) {
+      AutomaticGateAuthUtils.setAccessToken(
+        data.signInAutomaticGateRefreshToken.accessToken,
+      );
       setAutomaticGateAuthData({
         // @ts-ignore
         automaticGate: data.signInAutomaticGateRefreshToken.automaticGate,
       });
-      AutomaticGateAuthUtils.setAccessToken(
-        data.signInAutomaticGateRefreshToken.accessToken,
-      );
+      setReady(true);
+    },
+    onError() {
       setReady(true);
     },
   });

@@ -32,7 +32,7 @@ root.render(
           >
             <AuthProvider
               refreshTokenMode={RefreshTokenMode.PlainText}
-              allowedRoles={[BaseUserRolesType.Moderator]}
+              allowedRoles={[BaseUserRolesType.GateAdmin]}
             >
               <GateAdminInfoProvider>
                 <SerialPortProvider>

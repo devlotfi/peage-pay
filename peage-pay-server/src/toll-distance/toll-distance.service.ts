@@ -274,20 +274,16 @@ export class TollDistanceService {
   public async tollDistance(
     tollDistanceInput: TollDistanceInput,
   ): Promise<number> {
-    const cacheResult =
-      (await this.redisService.client.get(
-        TollDistanceRedisPrefixes.tollDistance(
-          tollDistanceInput.fromTollId,
-          tollDistanceInput.toTollId,
-        ),
-      )) ||
-      (await this.redisService.client.get(
-        TollDistanceRedisPrefixes.tollDistance(
-          tollDistanceInput.toTollId,
-          tollDistanceInput.fromTollId,
-        ),
-      ));
+    const cacheResult = await this.redisService.client.get(
+      TollDistanceRedisPrefixes.tollDistance(
+        tollDistanceInput.fromTollId,
+        tollDistanceInput.toTollId,
+      ),
+    );
+
     if (cacheResult) {
+      console.log('distance from cache');
+
       return +cacheResult;
     }
 
@@ -306,6 +302,27 @@ export class TollDistanceService {
           ],
         },
       });
+    const cacheSet1Promise = this.redisService.client.set(
+      TollDistanceRedisPrefixes.tollDistance(
+        tollDistance.fromTollId,
+        tollDistance.toTollId,
+      ),
+      tollDistance.distance.toNumber(),
+      {
+        EX: 60 * 60 * 24,
+      },
+    );
+    const cacheSet2Promise = this.redisService.client.set(
+      TollDistanceRedisPrefixes.tollDistance(
+        tollDistance.toTollId,
+        tollDistance.fromTollId,
+      ),
+      tollDistance.distance.toNumber(),
+      {
+        EX: 60 * 60 * 24,
+      },
+    );
+    await Promise.all([cacheSet1Promise, cacheSet2Promise]);
     return tollDistance.distance.toNumber();
   }
 }

@@ -26,7 +26,7 @@ const UserRolesDropdown = ({
       }
     >
       <Dropdown.Content position={'bottom-left'}>
-        <Table.Container>
+        <Table.Container className="border-0">
           <Table>
             <Table.Body>
               {userRoles.map((role) => (

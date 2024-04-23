@@ -10,6 +10,10 @@ export const SIGN_IN_AUTOMATIC_GATE = gql(`
         name
         direction
         tollId
+        toll {
+          id
+          name
+        }
         createdAt
         updatedAt
       }

@@ -6,8 +6,8 @@ import { MonthlyPriceListResult } from './result/monthly-price-list.result.gql';
 import { YearlyPriceListResult } from './result/yearly-price-list.result.gql';
 import { CustomPriceListResult } from './result/custom-price-list.result.gql';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
-import { TollAdminService } from './toll-admin.service';
 import { PaginationInput } from 'src/shared/graphql/pagination-input.gql';
+import { TollAdminService } from 'src/user/toll-admin.service';
 
 @Injectable()
 export class LocalPriceListService {
@@ -21,12 +21,12 @@ export class LocalPriceListService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<DailyPriceListResult> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
     const list = await this.databaseService.dailyPrice.findMany({
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -40,7 +40,7 @@ export class LocalPriceListService {
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -56,12 +56,12 @@ export class LocalPriceListService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<WeeklyPriceListResult> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
     const list = await this.databaseService.weeklyPrice.findMany({
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -75,7 +75,7 @@ export class LocalPriceListService {
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -91,12 +91,12 @@ export class LocalPriceListService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<MonthlyPriceListResult> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
     const list = await this.databaseService.monthlyPrice.findMany({
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -110,7 +110,7 @@ export class LocalPriceListService {
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -126,12 +126,12 @@ export class LocalPriceListService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<YearlyPriceListResult> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
     const list = await this.databaseService.yearlyPrice.findMany({
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -145,7 +145,7 @@ export class LocalPriceListService {
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -161,12 +161,12 @@ export class LocalPriceListService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<CustomPriceListResult> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
     const list = await this.databaseService.customPrice.findMany({
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },
@@ -180,7 +180,7 @@ export class LocalPriceListService {
       where: {
         price: {
           tollPrice: {
-            tollId: tollAdminData.tollAdmin?.toll?.id,
+            tollId: tollAdminData.tollId!,
           },
         },
       },

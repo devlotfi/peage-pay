@@ -190,8 +190,10 @@ export type AutomaticGateType = {
   __typename?: 'AutomaticGateType';
   createdAt: Scalars['DateTime']['output'];
   direction: TollDirectionType;
+  fromToll: TollType;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  toll: TollType;
   tollId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   variant: AutomaticGateVariantType;
@@ -294,9 +296,24 @@ export enum DayOfWeekType {
   Wednesday = 'WEDNESDAY'
 }
 
+export type DefinePinInput = {
+  pin: Scalars['String']['input'];
+};
+
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
+};
+
+export type DepositAmountInput = {
+  amount: Scalars['Float']['input'];
+};
+
+export type DepositType = {
+  __typename?: 'DepositType';
+  amount: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
 };
 
 export type EditAutomaticGateInput = {
@@ -305,6 +322,10 @@ export type EditAutomaticGateInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   variant?: InputMaybe<AutomaticGateVariantType>;
+};
+
+export type EditDefaultPriceInput = {
+  value: Scalars['Float']['input'];
 };
 
 export type EditHighwayInput = {
@@ -365,10 +386,6 @@ export type GateAdminType = {
   baseUserId: Scalars['String']['output'];
   toll?: Maybe<TollType>;
   tollId?: Maybe<Scalars['String']['output']>;
-};
-
-export type GenerateTollDistancesInput = {
-  tollNetworkId: Scalars['String']['input'];
 };
 
 export type HighwayListInput = {
@@ -472,6 +489,7 @@ export type Mutation = {
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
   changeTollStatus: Scalars['Boolean']['output'];
+  definePin: Scalars['Boolean']['output'];
   deleteAutomaticGate: Scalars['Boolean']['output'];
   deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
@@ -482,14 +500,18 @@ export type Mutation = {
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
+  depositAmount: Scalars['String']['output'];
   editAutomaticGate: AutomaticGateType;
+  editDefaultPrice: Scalars['Boolean']['output'];
   editHighway: HighwayType;
   editSection: SectionType;
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
+  redeemCode: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   removeModeratorRole: Scalars['Boolean']['output'];
@@ -588,6 +610,11 @@ export type MutationChangeTollStatusArgs = {
 };
 
 
+export type MutationDefinePinArgs = {
+  definePinInput: DefinePinInput;
+};
+
+
 export type MutationDeleteAutomaticGateArgs = {
   deleteAutomaticGateInput: IdInput;
 };
@@ -638,8 +665,18 @@ export type MutationDeleteTollNetworkArgs = {
 };
 
 
+export type MutationDepositAmountArgs = {
+  depositAmountInput: DepositAmountInput;
+};
+
+
 export type MutationEditAutomaticGateArgs = {
   editAutomaticGateInput: EditAutomaticGateInput;
+};
+
+
+export type MutationEditDefaultPriceArgs = {
+  editDefaultPriceInput: EditDefaultPriceInput;
 };
 
 
@@ -669,7 +706,12 @@ export type MutationEditTollNetworkArgs = {
 
 
 export type MutationGenerateTollDistancesArgs = {
-  generateTollDistancesInput: GenerateTollDistancesInput;
+  generateTollDistancesInput: IdInput;
+};
+
+
+export type MutationRedeemCodeArgs = {
+  redeemCodeInput: RedeemCodeInput;
 };
 
 
@@ -720,6 +762,11 @@ export type MutationSignInWithGoogleArgs = {
 };
 
 
+export type MutationSignOutArgs = {
+  signOutInput: SignOutInput;
+};
+
+
 export type MutationSignUpWithEmailArgs = {
   signUpWithEmailInput: SignUpWithEmailInput;
 };
@@ -738,6 +785,11 @@ export type PaginationInput = {
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
 };
+
+export enum PaymentSubscriptionMessages {
+  PaymentFailed = 'PAYMENT_FAILED',
+  PaymentSuccessful = 'PAYMENT_SUCCESSFUL'
+}
 
 export enum PriceErrors {
   CannotDeleteGlobalPrice = 'CANNOT_DELETE_GLOBAL_PRICE',
@@ -775,8 +827,10 @@ export type Query = {
   customPriceLocalList: CustomPriceListResult;
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
+  depositList: Array<DepositType>;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
+  gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
@@ -794,14 +848,19 @@ export type Query = {
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
   subscriptionById?: Maybe<SubscriptionType>;
   subscriptionList: SubscriptionListResult;
+  ticketInfo: TicketType;
   tollAdminById?: Maybe<TollAdminType>;
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
   tollById: TollType;
+  tollDistance: Scalars['Float']['output'];
+  tollDistanceList: TollDistanceListResult;
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
   tollPrice: Scalars['Boolean']['output'];
+  tripList: Array<TripType>;
+  userInfo: UserType;
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
@@ -936,6 +995,11 @@ export type QuerySubscriptionListArgs = {
 };
 
 
+export type QueryTicketInfoArgs = {
+  ticketInfoInput: IdInput;
+};
+
+
 export type QueryTollAdminByIdArgs = {
   tollAdminByIdInput: IdInput;
 };
@@ -948,6 +1012,16 @@ export type QueryTollAdminListArgs = {
 
 export type QueryTollByIdArgs = {
   tollByIdInput: IdInput;
+};
+
+
+export type QueryTollDistanceArgs = {
+  tollDistanceInput: TollDistanceInput;
+};
+
+
+export type QueryTollDistanceListArgs = {
+  tollDistanceListInput: TollDistanceListInput;
 };
 
 
@@ -998,6 +1072,10 @@ export type QueryYearlyPriceGlobalListArgs = {
 
 export type QueryYearlyPriceLocalListArgs = {
   priceListInput: PaginationInput;
+};
+
+export type RedeemCodeInput = {
+  code: Scalars['String']['input'];
 };
 
 export enum RefreshTokenMode {
@@ -1126,6 +1204,10 @@ export type SignInWithRefreshTokenResult = {
   roles: Array<BaseUserRolesType>;
 };
 
+export type SignOutInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
 export type SignUpWithEmailInput = {
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -1136,6 +1218,22 @@ export type SignUpWithEmailInput = {
 export type SigninWithEmailInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  paymentFailed: Scalars['Boolean']['output'];
+  paymentSuccessful: Scalars['Boolean']['output'];
+};
+
+
+export type SubscriptionPaymentFailedArgs = {
+  paymentFailedInput: IdInput;
+};
+
+
+export type SubscriptionPaymentSuccessfulArgs = {
+  paymentSuccessfulInput: IdInput;
 };
 
 export type SubscriptionListInput = {
@@ -1169,9 +1267,11 @@ export type SubscriptionType = {
 export type TicketType = {
   __typename?: 'TicketType';
   distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
   entryToll: TollType;
   entryTollId: Scalars['String']['output'];
   entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
   exitToll?: Maybe<TollType>;
   exitTollId?: Maybe<Scalars['String']['output']>;
   exitTollPrice?: Maybe<Scalars['Float']['output']>;
@@ -1215,6 +1315,32 @@ export enum TollDirectionType {
   Inbound = 'INBOUND',
   Outbound = 'OUTBOUND'
 }
+
+export type TollDistanceInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type TollDistanceListInput = {
+  id: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type TollDistanceListResult = {
+  __typename?: 'TollDistanceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<TollDistanceType>;
+};
+
+export type TollDistanceType = {
+  __typename?: 'TollDistanceType';
+  distance: Scalars['Float']['output'];
+  fromToll: TollType;
+  fromTollId: Scalars['String']['output'];
+  toToll: TollType;
+  toTollId: Scalars['String']['output'];
+};
 
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1301,6 +1427,28 @@ export type TollType = {
   wilayaId: Scalars['String']['output'];
 };
 
+export type TripType = {
+  __typename?: 'TripType';
+  baseUserId: Scalars['String']['output'];
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
+};
+
+export type UserType = {
+  __typename?: 'UserType';
+  balance: Scalars['Float']['output'];
+  baseUser?: Maybe<BaseUserType>;
+  baseUserId: Scalars['String']['output'];
+};
+
 export type VerifyEmailInput = {
   token: Scalars['String']['input'];
   userId: Scalars['String']['input'];
@@ -1365,7 +1513,7 @@ export type Sign_In_Automatic_GateMutationVariables = Exact<{
 }>;
 
 
-export type Sign_In_Automatic_GateMutation = { __typename?: 'Mutation', signInAutomaticGate: { __typename?: 'SignInAutomaticGateResult', accessToken: string, refreshToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any } } };
+export type Sign_In_Automatic_GateMutation = { __typename?: 'Mutation', signInAutomaticGate: { __typename?: 'SignInAutomaticGateResult', accessToken: string, refreshToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any, toll: { __typename?: 'TollType', id: string, name: string } } } };
 
 export type Sign_Out_Automatic_GateMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1377,9 +1525,9 @@ export type Sign_In_Automatic_Gate_Refresh_TokenQueryVariables = Exact<{
 }>;
 
 
-export type Sign_In_Automatic_Gate_Refresh_TokenQuery = { __typename?: 'Query', signInAutomaticGateRefreshToken: { __typename?: 'SignInAutomaticGateResult', accessToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any } } };
+export type Sign_In_Automatic_Gate_Refresh_TokenQuery = { __typename?: 'Query', signInAutomaticGateRefreshToken: { __typename?: 'SignInAutomaticGateResult', accessToken: string, automaticGate: { __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, tollId: string, createdAt: any, updatedAt: any, toll: { __typename?: 'TollType', id: string, name: string } } } };
 
 
-export const Sign_In_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_GateMutation, Sign_In_Automatic_GateMutationVariables>;
+export const Sign_In_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_GateMutation, Sign_In_Automatic_GateMutationVariables>;
 export const Sign_Out_Automatic_GateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_OUT_AUTOMATIC_GATE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signOutAutomaticGate"}}]}}]} as unknown as DocumentNode<Sign_Out_Automatic_GateMutation, Sign_Out_Automatic_GateMutationVariables>;
-export const Sign_In_Automatic_Gate_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGateRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_Gate_Refresh_TokenQuery, Sign_In_Automatic_Gate_Refresh_TokenQueryVariables>;
+export const Sign_In_Automatic_Gate_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInAutomaticGateRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInAutomaticGateRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInAutomaticGateRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"automaticGate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Sign_In_Automatic_Gate_Refresh_TokenQuery, Sign_In_Automatic_Gate_Refresh_TokenQueryVariables>;

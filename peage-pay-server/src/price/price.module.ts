@@ -3,15 +3,15 @@ import { AddPriceService } from './add-price.service';
 import { PriceResolver } from './price.resolver';
 import { DeletePriceService } from './delete-price.service';
 import { GlobalPriceListService } from './global-price-list.service';
-import { TollAdminService } from './toll-admin.service';
 import { LocalPriceListService } from './local-price-list.service';
 import { DefaultPriceService } from './default-price.service';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
+  imports: [UserModule],
   providers: [
     AddPriceService,
     DeletePriceService,
-    TollAdminService,
     GlobalPriceListService,
     LocalPriceListService,
     PriceResolver,
@@ -20,7 +20,6 @@ import { DefaultPriceService } from './default-price.service';
   exports: [
     AddPriceService,
     DeletePriceService,
-    TollAdminService,
     GlobalPriceListService,
     LocalPriceListService,
     PriceResolver,

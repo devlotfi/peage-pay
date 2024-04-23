@@ -9,6 +9,10 @@ export const SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN = gql(`
         name
         direction
         tollId
+        toll {
+          id
+          name
+        }
         createdAt
         updatedAt
       }

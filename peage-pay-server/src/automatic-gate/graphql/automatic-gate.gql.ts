@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { TollDirectionType } from 'src/price/graphql/toll-direction.gql';
 import { AutomaticGateVariantType } from './automatic-gate-variant.gql';
+import { TollType } from 'src/toll/graphql/toll.gql';
 
 @ObjectType()
 export class AutomaticGateType {
@@ -18,6 +19,9 @@ export class AutomaticGateType {
 
   @Field()
   public tollId: string;
+
+  @Field(() => TollType)
+  public toll: TollType;
 
   @Field(() => Date)
   public createdAt: Date;

@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { AddGlobalPriceInput } from './input/add-global-price.input.gql';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
-import { TollAdminService } from './toll-admin.service';
 import { AddLocalPriceInput } from './input/add-local-price.input.gql';
 import { GraphQLError } from 'graphql';
 import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
+import { TollAdminService } from 'src/user/toll-admin.service';
 
 @Injectable()
 export class AddPriceService {
@@ -19,9 +19,9 @@ export class AddPriceService {
     accessTokenPayload: UserAccessTokenPayload,
   ): Promise<boolean> {
     const tollAdminData =
-      await this.tollAdminService.getTollAdminData(accessTokenPayload);
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
 
-    if (!tollAdminData.tollAdmin || !tollAdminData.tollAdmin.toll) {
+    if (!tollAdminData.tollId) {
       throw new GraphQLError(BaseUserErrors.INSUFFICIENT_PRIVILEGES);
     }
 
@@ -42,7 +42,7 @@ export class AddPriceService {
                     addLocalPriceInput.addDailyPriceInput.direction,
                   toll: {
                     connect: {
-                      id: tollAdminData.tollAdmin.toll.id,
+                      id: tollAdminData.tollId,
                     },
                   },
                 },
@@ -70,7 +70,7 @@ export class AddPriceService {
                     addLocalPriceInput.addWeeklyPriceInput.direction,
                   toll: {
                     connect: {
-                      id: tollAdminData.tollAdmin.toll.id,
+                      id: tollAdminData.tollId,
                     },
                   },
                 },
@@ -106,7 +106,7 @@ export class AddPriceService {
                     addLocalPriceInput.addMonthlyPriceInput.direction,
                   toll: {
                     connect: {
-                      id: tollAdminData.tollAdmin.toll.id,
+                      id: tollAdminData.tollId,
                     },
                   },
                 },
@@ -140,7 +140,7 @@ export class AddPriceService {
                     addLocalPriceInput.addYearlyPriceInput.direction,
                   toll: {
                     connect: {
-                      id: tollAdminData.tollAdmin.toll.id,
+                      id: tollAdminData.tollId,
                     },
                   },
                 },
@@ -174,7 +174,7 @@ export class AddPriceService {
                     addLocalPriceInput.addCustomPriceInput.direction,
                   toll: {
                     connect: {
-                      id: tollAdminData.tollAdmin.toll.id,
+                      id: tollAdminData.tollId,
                     },
                   },
                 },

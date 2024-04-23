@@ -23,14 +23,14 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
           authType="AUTOMATIC_GATE"
         >
-          <TitleBar.Layout
-            windowIcon={PeagePayAdminLogo}
-            title="Peage Pay ticket printer"
-          >
-            <AutomaticGateAuthProvider>
+          <AutomaticGateAuthProvider>
+            <TitleBar.Layout
+              windowIcon={PeagePayAdminLogo}
+              title="Peage Pay ticket printer"
+            >
               <App />
-            </AutomaticGateAuthProvider>
-          </TitleBar.Layout>
+            </TitleBar.Layout>
+          </AutomaticGateAuthProvider>
         </ApplicationApolloClientProvider>
       </ThemeProvider>
     </QueryClientProvider>

@@ -31,10 +31,12 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
         <Table>
           <Table.Body>
             <Table.Head.Tr>
-              <Table.Head.Th>Gate</Table.Head.Th>
+              <Table.Head.Th className="py-[0.2rem]">Gate</Table.Head.Th>
             </Table.Head.Tr>
             <Table.Body.Tr>
-              <Table.Body.Td>{automaticGate.name}</Table.Body.Td>
+              <Table.Body.Td className="py-[0.2rem]">
+                {automaticGate.name}
+              </Table.Body.Td>
             </Table.Body.Tr>
           </Table.Body>
         </Table>
@@ -43,10 +45,12 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
         <Table>
           <Table.Body>
             <Table.Head.Tr>
-              <Table.Head.Th>Direction</Table.Head.Th>
+              <Table.Head.Th className="py-[0.2rem]">Direction</Table.Head.Th>
             </Table.Head.Tr>
             <Table.Body.Tr>
-              <Table.Body.Td>{automaticGate.direction}</Table.Body.Td>
+              <Table.Body.Td className="py-[0.2rem]">
+                {automaticGate.direction}
+              </Table.Body.Td>
             </Table.Body.Tr>
           </Table.Body>
         </Table>

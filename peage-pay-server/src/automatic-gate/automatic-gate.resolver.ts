@@ -1,4 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { AutomaticGateService } from './automatic-gate.service';
 import { AutomaticGateListResult } from './result/automatic-gate-list.result.gql';
 import { UseGuards } from '@nestjs/common';
@@ -17,11 +24,14 @@ import { SignInAutomaticGateResult } from './result/sign-in-automatic-gate.resul
 import { AutomaticGateAuthGuard } from 'src/shared/guards/automatic-gate-auth.guard';
 import { AutomaticGateAccessTokenPayload } from './types/automatic-gate-access-token-payload.type';
 import { SignInAutomaticGateRefreshTokenInput } from './input/sign-in-automatic-gate-refresh-token.input.gql';
+import { TollType } from 'src/toll/graphql/toll.gql';
+import { TollService } from 'src/toll/toll.service';
 
-@Resolver()
+@Resolver(() => AutomaticGateType)
 export class AutomaticGateResolver {
   public constructor(
     private readonly automaticGateService: AutomaticGateService,
+    private readonly tollService: TollService,
   ) {}
 
   @Query(() => AutomaticGateListResult)
@@ -112,5 +122,10 @@ export class AutomaticGateResolver {
     return await this.automaticGateService.signOutAutomaticGate(
       accessTokenPayload,
     );
+  }
+
+  @ResolveField(() => TollType)
+  public async toll(@Parent() automaticGate: AutomaticGateType) {
+    return await this.tollService.tollById({ id: automaticGate.tollId });
   }
 }
