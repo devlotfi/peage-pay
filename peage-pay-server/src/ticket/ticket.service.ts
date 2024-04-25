@@ -4,6 +4,7 @@ import { GraphQLError } from 'graphql';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { AutomaticGateAccessTokenPayload } from 'src/automatic-gate/types/automatic-gate-access-token-payload.type';
 import { DatabaseService } from 'src/database/database.service';
+import { TollDirectionType } from 'src/price/graphql/toll-direction.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollDistanceService } from 'src/toll-distance/toll-distance.service';
 import { TollPriceService } from 'src/toll/toll-price.service';
@@ -32,7 +33,10 @@ export class TicketService {
         },
       });
     automaticGate.toll.id;
-    const tollPrice = await this.tollPriceService.tollPrice();
+    const tollPrice = await this.tollPriceService.tollPrice({
+      tollId: automaticGate.tollId,
+      direction: TollDirectionType.INBOUND,
+    });
 
     const ticket = await this.databaseService.ticket.create({
       data: {
@@ -74,7 +78,10 @@ export class TicketService {
       throw new GraphQLError(BaseUserErrors.TOLL_NOT_ASSIGNED);
     }
 
-    const tollPricePromise = this.tollPriceService.tollPrice();
+    const tollPricePromise = this.tollPriceService.tollPrice({
+      tollId: gateAdmin.toll.id,
+      direction: TollDirectionType.OUTBOUND,
+    });
     const tollDistancePromise = this.tollDistanceService.tollDistance({
       fromTollId: ticket.entryTollId,
       toTollId: gateAdmin.toll.id,
@@ -119,7 +126,10 @@ export class TicketService {
       throw new GraphQLError(BaseUserErrors.TOLL_NOT_ASSIGNED);
     }
 
-    const tollPricePromise = this.tollPriceService.tollPrice();
+    const tollPricePromise = this.tollPriceService.tollPrice({
+      tollId: gateAdmin.toll.id,
+      direction: TollDirectionType.OUTBOUND,
+    });
     const tollDistancePromise = this.tollDistanceService.tollDistance({
       fromTollId: ticket.entryTollId,
       toTollId: gateAdmin.toll.id,

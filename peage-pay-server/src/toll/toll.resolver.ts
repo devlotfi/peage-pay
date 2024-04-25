@@ -25,6 +25,7 @@ import { HighwayService } from 'src/highway/highway.service';
 import { TollNetworkService } from 'src/toll-network/toll-network.service';
 import { TollPriceService } from './toll-price.service';
 import { ChangeTollStatusInput } from './input/change-toll-status.input.gql';
+import { TollPriceInput } from './input/toll-price.input.gql';
 
 @Resolver(() => TollType)
 export class TollResolver {
@@ -35,6 +36,14 @@ export class TollResolver {
     private readonly highwayService: HighwayService,
     private readonly tollNetworkService: TollNetworkService,
   ) {}
+
+  @Query(() => Boolean)
+  //@UseGuards(AuthGuard)
+  public async tollPrice(
+    @Args('tollPriceInput') tollPriceInput: TollPriceInput,
+  ) {
+    return await this.tollPriceService.tollPrice(tollPriceInput);
+  }
 
   @Query(() => [TollType])
   @UseGuards(AuthGuard)
@@ -83,12 +92,6 @@ export class TollResolver {
   @UseGuards(AuthGuard)
   public async deleteToll(@Args('deleteTollInput') deleteTollInput: IdInput) {
     return await this.tollService.deleteToll(deleteTollInput);
-  }
-
-  @Query(() => Boolean)
-  //@UseGuards(AuthGuard)
-  public async tollPrice(@Args('tollPriceInput') tollPriceInput: IdInput) {
-    return await this.tollPriceService.tollPrice();
   }
 
   @ResolveField(() => WilayaType)

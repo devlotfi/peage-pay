@@ -351,7 +351,7 @@ model TollPrice {
   toll  Toll  @relation(fields: [tollId], references: [id], onDelete: Cascade)
   price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
 
-  tollId        String        @unique
+  tollId        String
   priceId       String        @unique
   tollDirection TollDirection
 
