@@ -67,35 +67,26 @@ export class TollPriceService {
   }
 
   private isTimeBetween(startTime: Date, endTime: Date) {
-    function createDateWithTimeOnly(hours, minutes, seconds) {
-      const today = new Date();
-      return new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate(),
-        hours,
-        minutes,
-        seconds,
+    const now = new Date();
+    const currentTime = now.getHours() * 60 + now.getMinutes();
+    const startTimeHours = startTime.getHours();
+    const startTimeMinutes = startTime.getMinutes();
+    const startTimeInMinutes = startTimeHours * 60 + startTimeMinutes;
+    const endTimeHours = endTime.getHours();
+    const endTimeMinutes = endTime.getMinutes();
+    const endTimeInMinutes = endTimeHours * 60 + endTimeMinutes;
+
+    if (endTimeInMinutes < startTimeInMinutes) {
+      // End time is earlier than start time, so it spans over midnight
+      return (
+        currentTime >= startTimeInMinutes || currentTime < endTimeInMinutes
+      );
+    } else {
+      // Normal case where end time is later than start time
+      return (
+        currentTime >= startTimeInMinutes && currentTime < endTimeInMinutes
       );
     }
-
-    const start = createDateWithTimeOnly(
-      startTime.getHours(),
-      startTime.getMinutes(),
-      startTime.getSeconds(),
-    );
-    const end = createDateWithTimeOnly(
-      endTime.getHours(),
-      endTime.getMinutes(),
-      endTime.getSeconds(),
-    );
-    const givenTime = createDateWithTimeOnly(
-      new Date().getHours(),
-      new Date().getMinutes(),
-      new Date().getSeconds(),
-    );
-
-    return givenTime >= start && givenTime <= end;
   }
 
   private isDateBetween(startDate: Date, endDate: Date) {
@@ -120,6 +111,13 @@ export class TollPriceService {
 
   private isMonthDay(startDay: number, endDay: number) {
     const currentMonthDay = new Date().getDate();
+    console.log(
+      'is month day',
+      startDay,
+      endDay,
+      currentMonthDay >= startDay && currentMonthDay <= endDay,
+    );
+
     return currentMonthDay >= startDay && currentMonthDay <= endDay;
   }
 
@@ -128,6 +126,12 @@ export class TollPriceService {
   }
 
   private isMonth(months: Month[]) {
+    console.log(
+      'is month',
+      this.monthFromDate(new Date()),
+      months.indexOf(this.monthFromDate(new Date())) !== -1,
+    );
+
     return months.indexOf(this.monthFromDate(new Date())) !== -1;
   }
 
@@ -143,22 +147,8 @@ export class TollPriceService {
     return +cachedResult;
   }
 
-  private async tollPriceCached(
-    tollPriceInput: TollPriceInput,
-  ): Promise<number | null> {
-    const cachedResult = await this.redisService.client.get(
-      tollPriceInput.direction === TollDirectionType.INBOUND
-        ? PriceRedisPrefixes.tollPriceInbound(tollPriceInput.tollId)
-        : PriceRedisPrefixes.tollPriceOutbound(tollPriceInput.tollId),
-    );
-    return cachedResult ? +cachedResult : null;
-  }
-
   public async tollPrice(tollPriceInput: TollPriceInput): Promise<number> {
-    const cachedResult = await this.tollPriceCached(tollPriceInput);
-    if (cachedResult) {
-      return cachedResult;
-    }
+    console.log('params', tollPriceInput);
 
     const query = {
       where: {
@@ -214,7 +204,7 @@ export class TollPriceService {
     const currentTimeDailyPrices = allDailyPrices.filter((dailyPrice) =>
       this.isTimeBetween(
         dailyPrice.price.startTimestamp,
-        dailyPrice.price.startTimestamp,
+        dailyPrice.price.endTimestamp,
       ),
     );
     const currentTimeWeeklyPrices = allWeeklyPrices.filter(
@@ -222,7 +212,7 @@ export class TollPriceService {
         this.isDayOfWeek(weeklyPrice.days) &&
         this.isTimeBetween(
           weeklyPrice.price.startTimestamp,
-          weeklyPrice.price.startTimestamp,
+          weeklyPrice.price.endTimestamp,
         ),
     );
     const currentTimeMonthlyPrices = allMonthlyPrices.filter(
@@ -231,7 +221,7 @@ export class TollPriceService {
         this.isMonthDay(monthlyPrice.startDay, monthlyPrice.endDay) &&
         this.isTimeBetween(
           monthlyPrice.price.startTimestamp,
-          monthlyPrice.price.startTimestamp,
+          monthlyPrice.price.endTimestamp,
         ),
     );
     const currentTimeYearlyPrices = allYearlyPrices.filter(
@@ -239,7 +229,7 @@ export class TollPriceService {
         this.isDateBetween(yearlyPrice.startDate, yearlyPrice.endDate) &&
         this.isTimeBetween(
           yearlyPrice.price.startTimestamp,
-          yearlyPrice.price.startTimestamp,
+          yearlyPrice.price.endTimestamp,
         ),
     );
     const currentTimeCustomPrices = allCustomPrices.filter(
@@ -247,10 +237,103 @@ export class TollPriceService {
         this.isDateBetween(customPrice.startDate, customPrice.endDate) &&
         this.isTimeBetween(
           customPrice.price.startTimestamp,
-          customPrice.price.startTimestamp,
+          customPrice.price.endTimestamp,
         ),
     );
 
-    return 1;
+    // console.log(currentTimeDailyPrices);
+    /*     console.log(currentTimeWeeklyPrices);
+    console.log(currentTimeMonthlyPrices);
+    console.log(currentTimeYearlyPrices);
+    console.log(currentTimeCustomPrices); */
+
+    const dailyPricesGlobal = currentTimeDailyPrices.filter(
+      (dailyPrice) => dailyPrice.price.tollPrice === null,
+    );
+    const weeklyPricesGlobal = currentTimeWeeklyPrices.filter(
+      (weeklyPrice) => weeklyPrice.price.tollPrice === null,
+    );
+    const monthlyPricesGlobal = currentTimeMonthlyPrices.filter(
+      (monthlyPrice) => monthlyPrice.price.tollPrice === null,
+    );
+    const yearlyPricesGlobal = currentTimeYearlyPrices.filter(
+      (yearlyPrice) => yearlyPrice.price.tollPrice === null,
+    );
+    const customPricesGlobal = currentTimeCustomPrices.filter(
+      (customPrice) => customPrice.price.tollPrice === null,
+    );
+
+    const dailyPricesLocal = currentTimeDailyPrices.filter(
+      (dailyPrice) => dailyPrice.price.tollPrice !== null,
+    );
+    const weeklyPricesLocal = currentTimeWeeklyPrices.filter(
+      (weeklyPrice) => weeklyPrice.price.tollPrice !== null,
+    );
+    const monthlyPricesLocal = currentTimeMonthlyPrices.filter(
+      (monthlyPrice) => monthlyPrice.price.tollPrice !== null,
+    );
+    const yearlyPricesLocal = currentTimeYearlyPrices.filter(
+      (yearlyPrice) => yearlyPrice.price.tollPrice !== null,
+    );
+    const customPricesLocal = currentTimeCustomPrices.filter(
+      (customPrice) => customPrice.price.tollPrice !== null,
+    );
+
+    const sortPrices = (price1, price2) => {
+      if (price1.price.priority > price2.price.priority) {
+        return -1;
+      } else if (price1.price.priority < price2.price.priority) {
+        return 1;
+      }
+      return 0;
+    };
+
+    console.log('month global', monthlyPricesGlobal);
+
+    if (customPricesLocal.length > 0) {
+      const price = customPricesLocal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (yearlyPricesLocal.length > 0) {
+      const price = yearlyPricesLocal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (monthlyPricesLocal.length > 0) {
+      const price = monthlyPricesLocal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (weeklyPricesLocal.length > 0) {
+      const price = weeklyPricesLocal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (dailyPricesLocal.length > 0) {
+      const price = dailyPricesLocal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+      //
+    } else if (customPricesGlobal.length > 0) {
+      const price = customPricesGlobal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (yearlyPricesGlobal.length > 0) {
+      const price = yearlyPricesGlobal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (monthlyPricesGlobal.length > 0) {
+      const price = monthlyPricesGlobal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (weeklyPricesGlobal.length > 0) {
+      const price = weeklyPricesGlobal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else if (dailyPricesGlobal.length > 0) {
+      const price = dailyPricesGlobal.sort(sortPrices)[0];
+      console.log(price);
+      return price.price.value.toNumber();
+    } else {
+      console.log(defaultPrice);
+      return defaultPrice;
+    }
   }
 }

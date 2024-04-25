@@ -37,7 +37,7 @@ export class TollResolver {
     private readonly tollNetworkService: TollNetworkService,
   ) {}
 
-  @Query(() => Boolean)
+  @Query(() => Number)
   //@UseGuards(AuthGuard)
   public async tollPrice(
     @Args('tollPriceInput') tollPriceInput: TollPriceInput,

@@ -25,6 +25,14 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     subscriber: new Redis(this.configService.getOrThrow<string>('REDIS_URL')),
   });
 
+  public async scanAndDelete(pattern) {
+    let cursor = 0;
+    const reply = await this._client.scan(cursor, { MATCH: pattern });
+    for (const key of reply.keys) {
+      cursor = reply.cursor;
+      await this._client.del(key);
+    }
+  }
   public get client() {
     return this._client;
   }

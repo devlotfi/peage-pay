@@ -20,7 +20,7 @@ function createWindow(): BrowserWindow {
     },
   });
 
-  globalShortcut.register('CommandOrControl+R', () => {
+  globalShortcut.register('F5', () => {
     const focusedWindow = BrowserWindow.getFocusedWindow();
     if (focusedWindow) {
       focusedWindow.webContents.reload();
