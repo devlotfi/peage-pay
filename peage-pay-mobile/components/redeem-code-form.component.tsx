@@ -17,6 +17,7 @@ import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { useTranslation } from 'react-i18next';
 import { USER_INFO } from '../graphql/queries';
 import { AppTheme } from '../theme/types/app-theme.type';
+import { Image } from 'expo-image';
 
 const redeemCodeValidationSchema = yup.object({
   part1: yup.string().length(4).required(),
@@ -65,7 +66,7 @@ const RedeemCodeForm = (): JSX.Element => {
 
   return (
     <>
-      <UIHeading size={25}>
+      <UIHeading style={{ marginLeft: 5, marginVertical: 20 }} size={25}>
         <UIHeading.Icon position="left" icon={faTicket}></UIHeading.Icon>
         <UIHeading.Text>{t('REDEEM_CODE')}</UIHeading.Text>
       </UIHeading>
@@ -78,6 +79,10 @@ const RedeemCodeForm = (): JSX.Element => {
           <UITextInput.Main style={styles.inputMain}>
             <UITextInput.Field
               autoCapitalize="none"
+              placeholder="_ _ _ _"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              style={styles.inputField as any}
+              maxLength={4}
               value={values.part1}
               onChangeText={handleChange('part1')}
               onBlur={handleBlur('part1')}
@@ -92,6 +97,10 @@ const RedeemCodeForm = (): JSX.Element => {
           <UITextInput.Main style={styles.inputMain}>
             <UITextInput.Field
               autoCapitalize="none"
+              placeholder="_ _ _ _"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              style={styles.inputField as any}
+              maxLength={4}
               value={values.part2}
               onChangeText={handleChange('part2')}
               onBlur={handleBlur('part2')}
@@ -106,6 +115,10 @@ const RedeemCodeForm = (): JSX.Element => {
           <UITextInput.Main style={styles.inputMain}>
             <UITextInput.Field
               autoCapitalize="none"
+              placeholder="_ _ _ _"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              style={styles.inputField as any}
+              maxLength={4}
               value={values.part3}
               onChangeText={handleChange('part3')}
               onBlur={handleBlur('part3')}
@@ -120,6 +133,10 @@ const RedeemCodeForm = (): JSX.Element => {
           <UITextInput.Main style={styles.inputMain}>
             <UITextInput.Field
               autoCapitalize="none"
+              placeholder="_ _ _ _"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              style={styles.inputField as any}
+              maxLength={4}
               value={values.part4}
               onChangeText={handleChange('part4')}
               onBlur={handleBlur('part4')}
@@ -158,6 +175,12 @@ const RedeemCodeForm = (): JSX.Element => {
           </>
         )}
       </UIButton>
+
+      <Image
+        source={require('../assets/img/redeem-cards.png')}
+        style={styles.image}
+        contentFit="contain"
+      ></Image>
     </>
   );
 };
@@ -168,6 +191,10 @@ const makeStyles = (theme: AppTheme) =>
       flex: 1,
     },
     inputMain: {},
+    image: {
+      height: 250,
+      marginTop: 30,
+    },
     separator: {
       height: 3,
       minWidth: 10,
@@ -180,7 +207,9 @@ const makeStyles = (theme: AppTheme) =>
       maxWidth: '100%',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 20,
+    },
+    inputField: {
+      textAlign: 'center',
     },
     alert: {
       marginTop: 10,

@@ -19,6 +19,7 @@ import { USER_INFO } from '../graphql/queries';
 import { AppTheme } from '../theme/types/app-theme.type';
 import DepositAmountModal from './deposit-amount-modal.component copy';
 import UIText from '../elements/ui-text/ui-text.component';
+import { Image } from 'expo-image';
 
 const depositAmountValidationSchema = yup.object({
   amount: yup.number().min(200).max(2000).required(),
@@ -42,7 +43,7 @@ const DepositAmountForm = (): JSX.Element => {
     {
       refetchQueries: [USER_INFO],
       awaitRefetchQueries: true,
-      onCompleted(data, clientOptions) {
+      onCompleted(data) {
         console.log(data);
       },
       onError(error) {
@@ -138,29 +139,31 @@ const DepositAmountForm = (): JSX.Element => {
           </>
         )}
       </UIButton>
+
+      <Image
+        source={require('../assets/img/cards.png')}
+        style={styles.image}
+        contentFit="cover"
+      ></Image>
     </ScrollView>
   );
 };
 
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
+    image: {
+      height: 300,
+      marginTop: 20,
+    },
     input: {},
     inputMain: {
       maxWidth: 70,
-    },
-    separator: {
-      height: 3,
-      minWidth: 10,
-      backgroundColor: theme['base-content'],
-      borderRadius: 100,
-      marginHorizontal: 5,
     },
     inputContainer: {
       flexDirection: 'row',
       maxWidth: '100%',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 20,
     },
     alert: {
       marginTop: 10,

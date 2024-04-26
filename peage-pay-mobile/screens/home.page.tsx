@@ -50,7 +50,7 @@ const HomePage = (): JSX.Element => {
       loading={userInfoLoading || depositListLoading || tripListLoading}
     >
       <View style={styles.page}>
-        <UIHeading size={30}>
+        <UIHeading style={{ marginLeft: 20 }} size={30}>
           <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
           <UIHeading.Text>{t('BALANCE')}</UIHeading.Text>
         </UIHeading>
@@ -71,7 +71,7 @@ const HomePage = (): JSX.Element => {
           </UIText>
         </LinearGradient>
 
-        <UIHeading size={30}>
+        <UIHeading style={{ marginLeft: 20 }} size={30}>
           <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
           <UIHeading.Text>{t('DEPOSITS')}</UIHeading.Text>
         </UIHeading>

@@ -60,26 +60,23 @@ const CustomTabBar = (props: BottomTabBarProps): JSX.Element => {
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     tabBarContainer: {
-      padding: 10,
       backgroundColor: theme['base-100'],
       position: 'relative',
     },
     tabBar: {
+      borderColor: theme['edge-200'],
+      borderTopWidth: 1,
       backgroundColor: theme['base-200'],
-      borderRadius: 13,
       padding: 5,
       flexDirection: 'row',
     },
     tabItem: {
-      paddingVertical: 5,
+      paddingVertical: 10,
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
-      borderRadius: 7,
     },
-    activeTabItem: {
-      backgroundColor: theme['base-100'],
-    },
+    activeTabItem: {},
     tabLabel: {
       fontSize: 12,
       textAlign: 'center',
