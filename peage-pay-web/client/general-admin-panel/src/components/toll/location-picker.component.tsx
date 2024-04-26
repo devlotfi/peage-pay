@@ -49,7 +49,7 @@ const LocationPicker = ({
     modalRef.current?.close();
   };
 
-  const handleMapClick = (e: google.maps.MapMouseEvent) => {
+  const handleMapClick = async (e: google.maps.MapMouseEvent) => {
     if (locationPickerMarker) {
       locationPickerMarker.map = null;
     }
@@ -59,12 +59,15 @@ const LocationPicker = ({
       onChange(e.latLng);
     }
 
-    const pinView = new google.maps.marker.PinElement({
+    const { PinElement, AdvancedMarkerElement } =
+      (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
+
+    const pinView = new PinElement({
       glyphColor: '#FFFFFF',
       background: '#2AA8EE',
       borderColor: '#2AA8EE',
     });
-    const marker = new google.maps.marker.AdvancedMarkerElement({
+    const marker = new AdvancedMarkerElement({
       map: locationPickerMap,
       position: e.latLng,
       content: pinView.element,
@@ -72,21 +75,27 @@ const LocationPicker = ({
     locationPickerMarker = marker;
   };
 
-  useEffect(() => {
-    const map = new google.maps.Map(getMapMount(), {
+  const initMap = async () => {
+    const { Map } = (await google.maps.importLibrary(
+      'maps',
+    )) as google.maps.MapsLibrary;
+    const { PinElement, AdvancedMarkerElement } =
+      (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
+
+    const map = new Map(getMapMount(), {
       center: { lat: 28.76, lng: 2.89 },
       zoom: 5,
       mapId: '4504f8b37365c3d0',
-      mapTypeId: 'satellite',
+      mapTypeId: 'hybrid',
     });
 
     if (initialValue) {
-      const pinView = new google.maps.marker.PinElement({
+      const pinView = new PinElement({
         glyphColor: '#FFFFFF',
         background: '#2AA8EE',
         borderColor: '#2AA8EE',
       });
-      const marker = new google.maps.marker.AdvancedMarkerElement({
+      const marker = new AdvancedMarkerElement({
         map: map,
         position: new google.maps.LatLng({
           lat: initialValue.lat,
@@ -99,7 +108,10 @@ const LocationPicker = ({
 
     map.addListener('click', handleMapClick);
     locationPickerMap = map;
+  };
 
+  useEffect(() => {
+    initMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

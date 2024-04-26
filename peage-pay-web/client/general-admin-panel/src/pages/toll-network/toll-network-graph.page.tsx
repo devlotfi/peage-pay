@@ -59,12 +59,20 @@ const TollNetworkGraphPage = (): JSX.Element => {
     return document.getElementById('toll-network-graph-map') as HTMLElement;
   };
 
-  useEffect(() => {
+  const initMap = async () => {
     if (tollListData && tollNetworkData && sectionListData) {
-      const map = new google.maps.Map(getMapMount(), {
+      const { Map } = (await google.maps.importLibrary(
+        'maps',
+      )) as google.maps.MapsLibrary;
+      const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+        'marker',
+      )) as google.maps.MarkerLibrary;
+
+      const map = new Map(getMapMount(), {
         center: { lat: 28.76, lng: 2.89 },
         zoom: 5,
-        mapId: '4504f8b37365c3d0',
+        mapId: 'DEMO_MAP_ID',
+        mapTypeId: 'hybrid',
       });
 
       for (const toll of tollListData.fullTollList) {
@@ -72,7 +80,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
         const root = ReactDOM.createRoot(tollMarker);
         root.render(<TollMapMarker toll={toll as TollType}></TollMapMarker>);
 
-        new google.maps.marker.AdvancedMarkerElement({
+        new AdvancedMarkerElement({
           map: map,
           position: {
             lat: toll.latitude,
@@ -124,6 +132,10 @@ const TollNetworkGraphPage = (): JSX.Element => {
         });
       }
     }
+  };
+
+  useEffect(() => {
+    initMap();
   }, [tollListData, tollNetworkData, sectionListData]);
 
   return (
