@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 7.8.5"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_SERVER_URL": "http://192.168.1.33:3000",
+        "EXPO_PUBLIC_WS_SERVER_URL": "ws://192.168.1.33:3000"
+      }
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SERVER_URL": "http://192.168.1.33:3000",
+        "EXPO_PUBLIC_WS_SERVER_URL": "ws://192.168.1.33:3000"
+      }
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}
