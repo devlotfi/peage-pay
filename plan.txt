@@ -17,16 +17,21 @@
   - VSCode
   - Figma
 3 Architecture 3 tiers
-4 Details de realisation 
+4 Architecture (Diagramme de deploiment)
+5 Details de realisation 
   4.1 API Externes
     - Chargily Pay
     - Google Maps API
     - Google OAuth
   4.2 Systeme d'authenthification
     4.2.1 JWT (Json Web Token)
-    4.2.2 Connexion
-    4.2.2 Authenthification des requetes
-    4.2.2 Deconnexion
+      - introduction
+      - Connexion
+      - Authenthification des requetes
+      - Deconnexion
+    4.2.2 OAuth 2.0
+      - introduction
+      - flux d'authenthification
   4.3 Communication client-serveur
     4.3.1 Introduction
     4.3.2 GraphQL
@@ -37,7 +42,6 @@
       - Redis
   4.2 La couche "Back-End"
     4.2.1 Introduction
-    4.2.2 Architecture (Diagramme de deploiment)
     4.2.3 Technologies
       - Node js 
       - Nest

@@ -13,7 +13,6 @@ import { useLocales } from 'expo-localization';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 import PaymentNotificationsProvider from './providers/payment-notifications.component';
-import UIText from './elements/ui-text/ui-text.component';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,8 +50,6 @@ const App = (): JSX.Element => {
           <ApplicationApolloClientProvider>
             <AuthProvider allowedRoles={[BaseUserRolesType.User]}>
               <PaymentNotificationsProvider>
-                <UIText>{process.env.EXPO_PUBLIC_SERVER_URL}</UIText>
-                <UIText>{process.env.EXPO_PUBLIC_WS_SERVER_URL}</UIText>
                 <MainStackRouter></MainStackRouter>
               </PaymentNotificationsProvider>
             </AuthProvider>

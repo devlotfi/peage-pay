@@ -12,9 +12,10 @@ import { HumanRessourcesAdminResolver } from './human-ressources-admin.resolver'
 import { TollModule } from 'src/toll/toll.module';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
+import { TripModule } from 'src/trip/trip.module';
 
 @Module({
-  imports: [TollModule],
+  imports: [TollModule, TripModule],
   providers: [
     BaseUserService,
     HumanRessourcesAdminService,

@@ -12,6 +12,10 @@ import { ChangeTollStatusInput } from './input/change-toll-status.input.gql';
 export class TollService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
+  public async globalTollList(): Promise<Toll[]> {
+    return await this.databaseService.toll.findMany();
+  }
+
   public async fullTollList(fullTollListInput: IdInput): Promise<Toll[]> {
     return await this.databaseService.toll.findMany({
       where: {

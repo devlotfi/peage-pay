@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { Text } from 'react-native';
 import FullScreenLoading from '../layout/full-screen-loading.component';
+import NetworkConfigForm from '../components/network-config-form.component';
 
 interface NetConnectionContext {
   state: NetInfoState | null;
@@ -35,8 +35,8 @@ export const NetConnectionProvider = ({ children }: PropsWithChildren) => {
     return <FullScreenLoading></FullScreenLoading>;
   }
 
-  if (!netState.isConnected) {
-    return <Text>Disconnected</Text>;
+  if (netState && !netState.isConnected) {
+    return <NetworkConfigForm></NetworkConfigForm>;
   }
 
   return (

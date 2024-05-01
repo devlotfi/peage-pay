@@ -29,6 +29,11 @@ export class SectionResolver {
     private readonly tollService: TollService,
   ) {}
 
+  @Query(() => [SectionType])
+  public async globalSectionList() {
+    return await this.sectionService.globalSectionList();
+  }
+
   @Query(() => SectionListResult)
   @UseGuards(AuthGuard)
   public async sectionListForToll(

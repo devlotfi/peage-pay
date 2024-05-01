@@ -12,17 +12,7 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: [
-      configService.getOrThrow<string>('GENERAL_ADMIN_PANEL_URL'),
-      configService.getOrThrow<string>('HUMAN_RESSOURCES_PANEL_URL'),
-      configService.getOrThrow<string>('TOLL_ADMIN_PANEL_URL'),
-      configService.getOrThrow<string>('GATE_ADMIN_PANEL_URL'),
-      configService.getOrThrow<string>('AUTH_COMMON_CLIENT_URL'),
-      configService.getOrThrow<string>('MODERATOR_ADMIN_PANEL_URL'),
-      configService.getOrThrow<string>('TICKET_PRINTER_URL'),
-      configService.getOrThrow<string>('RFID_TAG_READER_URL'),
-      configService.getOrThrow<string>('QR_CODE_READER_URL'),
-    ],
+    origin: true,
   });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());

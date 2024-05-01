@@ -13,6 +13,10 @@ import { IdInput } from 'src/shared/graphql/id-input.gql';
 export class SectionService {
   public constructor(private readonly databaseService: DatabaseService) {}
 
+  public async globalSectionList(): Promise<Section[]> {
+    return await this.databaseService.section.findMany();
+  }
+
   public async sectionListForToll(
     sectionListForTollInput: SectionListForTollInput,
   ): Promise<SectionListResult> {

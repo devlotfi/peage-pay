@@ -12,17 +12,27 @@ import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
 import ReloadPage from '../screens/deposit.page';
-import { faHome, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalculator,
+  faHome,
+  faMapLocationDot,
+  faMoneyBillTransfer,
+  faWallet,
+} from '@fortawesome/free-solid-svg-icons';
 import TabIcon from './tab-icon.component';
 import DashboardNavbar from '../layout/dashboard-navbar.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import ResetPasswordPage from '../screens/reset-password.page';
 import MinimalNavbar from '../layout/minimal-navbar.component';
+import MapPage from '../screens/map.page';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;
+  Balance: undefined;
   Deposit: undefined;
+  Map: undefined;
+  Prices: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabsNavigatorParamList>();
@@ -43,12 +53,43 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
         }}
       ></Tab.Screen>
       <Tab.Screen
+        name="Balance"
+        component={HomePage}
+        options={{
+          header: () => <DashboardNavbar {...props}></DashboardNavbar>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={faWallet}></TabIcon>
+          ),
+        }}
+      ></Tab.Screen>
+
+      <Tab.Screen
         name="Deposit"
         component={ReloadPage}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={faMoneyBillTransfer}></TabIcon>
+          ),
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Map"
+        component={MapPage}
+        options={{
+          header: () => <DashboardNavbar {...props}></DashboardNavbar>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={faMapLocationDot}></TabIcon>
+          ),
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Prices"
+        component={HomePage}
+        options={{
+          header: () => <DashboardNavbar {...props}></DashboardNavbar>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={faCalculator}></TabIcon>
           ),
         }}
       ></Tab.Screen>

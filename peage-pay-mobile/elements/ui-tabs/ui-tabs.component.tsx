@@ -32,10 +32,10 @@ UITabs.Icon = UITabsIcon;
 const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     base: {
-      borderRadius: 7,
       flexDirection: 'row',
-      backgroundColor: theme['base-200'],
       paddingVertical: 5,
+      borderBottomColor: theme['edge-100'],
+      borderBottomWidth: 1,
     },
   });
 

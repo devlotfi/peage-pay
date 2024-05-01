@@ -7,5 +7,6 @@ import { TollModule } from 'src/toll/toll.module';
 @Module({
   imports: [TollModule, TollDistanceModule],
   providers: [TripService, TripResolver],
+  exports: [TripService],
 })
 export class TripModule {}

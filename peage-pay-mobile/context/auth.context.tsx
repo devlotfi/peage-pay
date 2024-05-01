@@ -3,7 +3,7 @@ import { BaseUserRolesType, BaseUserType } from '../__generated__/graphql';
 import UIText from '../elements/ui-text/ui-text.component';
 import { useQuery } from '@apollo/client';
 import { SIGN_IN_WITH_REFRESH_TOKEN_INITIAL } from '../graphql/queries';
-import { AuthInitializedStatus, UserAuthUtils } from '../utils/utils';
+import { UserAuthUtils } from '../utils/utils';
 import FullScreenLoading from '../layout/full-screen-loading.component';
 
 type AuthData = {
@@ -38,6 +38,7 @@ export const AuthProvider = ({
   allowedRoles,
 }: PropsWithChildren<AuthProviderProps>): JSX.Element => {
   const [authData, setAuthData] = useState<AuthData | null>(null);
+  const [ready, setReady] = useState<boolean>(false);
 
   const { loading } = useQuery(SIGN_IN_WITH_REFRESH_TOKEN_INITIAL, {
     variables: {
@@ -46,7 +47,6 @@ export const AuthProvider = ({
       },
     },
     onCompleted(data) {
-      AuthInitializedStatus.setAuthInitialized(true);
       UserAuthUtils.setAccessToken(data.signInWithRefreshToken.accessToken);
       setAuthData({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -54,6 +54,7 @@ export const AuthProvider = ({
         baseUser: data.signInWithRefreshToken.baseUser,
         userRoles: data.signInWithRefreshToken.roles,
       });
+      setReady(true);
     },
     onError(error) {
       console.log(JSON.stringify(error));
@@ -75,7 +76,7 @@ export const AuthProvider = ({
   };
 
   const renderContent = () => {
-    if (loading) {
+    if (loading || !ready) {
       return <FullScreenLoading loading></FullScreenLoading>;
     } else {
       if (

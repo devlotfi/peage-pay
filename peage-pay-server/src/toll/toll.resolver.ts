@@ -46,6 +46,11 @@ export class TollResolver {
   }
 
   @Query(() => [TollType])
+  public async globalTollList() {
+    return await this.tollService.globalTollList();
+  }
+
+  @Query(() => [TollType])
   @UseGuards(AuthGuard)
   public async fullTollList(
     @Args('fullTollListInput') fullTollListInput: IdInput,

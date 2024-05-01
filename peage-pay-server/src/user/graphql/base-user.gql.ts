@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { BaseUserRolesType } from './base-user-roles.gql';
+import { TripType } from 'src/trip/graphql/trip.gql';
 
 @ObjectType()
 export class BaseUserType {
@@ -20,4 +21,10 @@ export class BaseUserType {
 
   @Field(() => [BaseUserRolesType])
   public roles: BaseUserRolesType[];
+
+  @Field({ nullable: true })
+  public currentTripId?: string;
+
+  @Field(() => TripType)
+  public currentTrip: TripType;
 }

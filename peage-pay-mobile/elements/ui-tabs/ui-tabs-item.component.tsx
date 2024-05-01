@@ -3,6 +3,7 @@ import {
   PressableProps,
   StyleProp,
   StyleSheet,
+  View,
   ViewStyle,
 } from 'react-native';
 import { AppTheme } from '../../theme/types/app-theme.type';
@@ -26,7 +27,10 @@ const UITabsItem = ({
   return (
     <UIButtonContext.Provider value={{ variant }}>
       <Pressable style={[styles.base, styles[variant], style]} {...props}>
-        {children}
+        <>
+          {children}
+          {variant === 'active' ? <View style={styles.indicator}></View> : null}
+        </>
       </Pressable>
     </UIButtonContext.Provider>
   );
@@ -43,13 +47,20 @@ const makeStyles = (theme: AppTheme) =>
       borderRadius: 7,
       flex: 1,
       flexDirection: 'row',
+      position: 'relative',
+    },
+    indicator: {
+      position: 'absolute',
+      backgroundColor: theme['primary-100'],
+      height: 5,
+      borderRadius: 1000,
+      width: '50%',
+      bottom: 0,
     },
     active: {
-      backgroundColor: theme['base-100'],
-    },
-    inactive: {
       backgroundColor: theme['base-200'],
     },
+    inactive: {},
   });
 
 export default UITabsItem;

@@ -13,11 +13,19 @@ import { AuthInitializedStatus, UserAuthUtils } from '../utils/utils';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import * as SecureStore from 'expo-secure-store';
+import { SecureStoreKeys } from '../constants/secure-store-keys';
 
-const serverGraphqlEndpoint = `${process.env.EXPO_PUBLIC_SERVER_URL}/graphql`;
-const serverWsGraphqlEndpoint = `${process.env.EXPO_PUBLIC_WS_SERVER_URL}/graphql`;
+const serverGraphqlEndpoint = `${SecureStore.getItem(
+  SecureStoreKeys.SERVER_URL,
+)}/graphql`;
+const serverWsGraphqlEndpoint = `${SecureStore.getItem(
+  SecureStoreKeys.WS_SERVER_URL,
+)}/graphql`;
 
 export const initApolloClient = () => {
+  console.log(serverGraphqlEndpoint);
+
   const httpLink = createHttpLink({
     uri: serverGraphqlEndpoint,
     credentials: 'include',

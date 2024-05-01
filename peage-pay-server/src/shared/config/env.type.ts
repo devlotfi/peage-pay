@@ -17,6 +17,9 @@ export class Env {
   @IsString()
   public AUTH_COMMON_CLIENT_URL: string;
   @IsString()
+  public GLOBAL_MAP_URL: string;
+
+  @IsString()
   public TICKET_PRINTER_URL: string;
   @IsString()
   public RFID_TAG_READER_URL: string;

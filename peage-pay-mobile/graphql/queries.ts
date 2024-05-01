@@ -67,3 +67,57 @@ export const USER_INFO = gql(`
     }
   }
 `);
+
+export const GLOBAL_TOLL_LIST = gql(`
+  query GLOBAL_TOLL_LIST {
+    globalTollList {
+      id
+      name
+      inboundStatus
+      outboundStatus
+      longitude
+      latitude
+      wilayaId
+      wilaya {
+        id
+        name
+        code
+      }
+      highwayId
+      highway {
+        id
+        name
+        code
+      }
+      tollNetworkId
+      tollNetwork {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`);
+
+export const GLOBAL_SECTION_LIST = gql(`
+  query GLOBAL_SECTION_LIST {
+    globalSectionList {
+      distance
+      fromStatus
+      toStatus
+      fromToll {
+        id
+        name
+        latitude
+        longitude
+      }
+      toToll {
+        id
+        name
+        latitude
+        longitude
+      }
+    }
+  }
+`);
