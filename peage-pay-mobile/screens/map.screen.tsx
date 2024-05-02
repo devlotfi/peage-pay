@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
 import MapView, { MapMarker, Polyline } from 'react-native-maps';
@@ -12,11 +12,13 @@ import TollMapMarker from '../components/toll/toll-map-marker.component';
 import SectionMapMarker from '../components/section/section-map-marker.component';
 import TollDetails from '../components/toll/toll-details.component';
 import SectionDetails from '../components/section/section-details.component';
+import UIButton from '../elements/ui-button/ui-button.component';
+import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Map'>;
 
-const MapPage = (): JSX.Element => {
+const MapScreen = (): JSX.Element => {
   const styles = makeStyles();
 
   const {
@@ -97,6 +99,14 @@ const MapPage = (): JSX.Element => {
     <FullScreenLoading loading={tollListLoading || sectionListLoading}>
       <FullScreenError error={tollListError || sectionListError}>
         <View style={styles.page}>
+          <View style={styles.priceButtonContainer}>
+            <UIButton variant="primary" style={styles.priceButton}>
+              <UIButton.Icon
+                style={{ marginRight: 0 } as ViewStyle}
+                icon={faMoneyBill1Wave}
+              ></UIButton.Icon>
+            </UIButton>
+          </View>
           <View style={styles.infoContainer}>
             {selectedToll ? (
               <TollDetails
@@ -127,6 +137,20 @@ const makeStyles = () =>
     page: {
       flex: 1,
     },
+    priceButtonContainer: {
+      width: '100%',
+      position: 'absolute',
+      bottom: 0,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      zIndex: 10,
+    },
+    priceButton: {
+      margin: 15,
+      minHeight: 59,
+      width: 59,
+      borderRadius: 1000,
+    },
     infoContainer: {
       width: '100%',
       alignItems: 'center',
@@ -139,4 +163,4 @@ const makeStyles = () =>
     },
   });
 
-export default MapPage;
+export default MapScreen;

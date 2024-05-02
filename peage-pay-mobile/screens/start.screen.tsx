@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 type Props = StackScreenProps<MainStackNavigatorParamList, 'Start'>;
 
-const StartPage = ({ navigation }: Props): JSX.Element => {
+const StartScreen = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { t } = useTranslation();
@@ -81,4 +81,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default StartPage;
+export default StartScreen;

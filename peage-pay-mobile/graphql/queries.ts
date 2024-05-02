@@ -24,13 +24,13 @@ export const SIGN_IN_WITH_REFRESH_TOKEN_COOKIE = gql(`
   }
 `);
 
-export const SIGN_IN_WITH_REFRESH_TOKEN = gql(`
+export const SIGN_IN_WITH_REFRESH_TOKEN = `
   query SIGN_IN_WITH_REFRESH_TOKEN($signInWithRefreshTokenInput: SignInWithRefreshTokenInput!) {
     signInWithRefreshToken(signInWithRefreshTokenInput: $signInWithRefreshTokenInput) {
       accessToken
     }
   }
-`);
+`;
 
 export const DEPOSIT_LIST = gql(`
   query DEPOSIT_LIST {
@@ -45,6 +45,7 @@ export const DEPOSIT_LIST = gql(`
 export const TRIP_LIST = gql(`
   query TRIP_LIST {
     tripList {
+      id
       distance
       entryTimeStamp
       entryTollPrice

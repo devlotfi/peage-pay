@@ -20,7 +20,7 @@ import EmptyList from '../layout/empty-list.component';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Balance'>;
 
-const BalancePage = (): JSX.Element => {
+const BalanceScreen = (): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { authData } = useContext(AuthContext);
@@ -43,26 +43,12 @@ const BalancePage = (): JSX.Element => {
   } = useQuery(DEPOSIT_LIST, {
     fetchPolicy: 'network-only',
   });
-  /* const {
-    loading: tripListLoading,
-    error: tripListError,
-    data: tripListData,
-  } = useQuery(TRIP_LIST, {
-    fetchPolicy: 'network-only',
-  }); */
 
   const renderDepositList = () => {
     if (depositListData && depositListData.depositList.length > 0) {
-      return (
-        <ScrollView
-          style={styles.depositList}
-          contentContainerStyle={styles.depositListContent}
-        >
-          {depositListData.depositList.map((deposit) => (
-            <DepositItem key={deposit.id} deposit={deposit}></DepositItem>
-          ))}
-        </ScrollView>
-      );
+      return depositListData.depositList.map((deposit) => (
+        <DepositItem key={deposit.id} deposit={deposit}></DepositItem>
+      ));
     } else {
       return <EmptyList></EmptyList>;
     }
@@ -71,7 +57,10 @@ const BalancePage = (): JSX.Element => {
   return (
     <FullScreenLoading loading={userInfoLoading || depositListLoading}>
       <FullScreenError error={userInfoError || depositListError}>
-        <View style={styles.page}>
+        <ScrollView
+          style={styles.page}
+          contentContainerStyle={styles.pageScrollContent}
+        >
           <UIHeading style={{ marginLeft: 20 }} size={30}>
             <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
             <UIHeading.Text>{t('BALANCE')}</UIHeading.Text>
@@ -98,8 +87,8 @@ const BalancePage = (): JSX.Element => {
             <UIHeading.Text>{t('DEPOSITS')}</UIHeading.Text>
           </UIHeading>
 
-          {renderDepositList()}
-        </View>
+          <View style={styles.depositList}>{renderDepositList()}</View>
+        </ScrollView>
       </FullScreenError>
     </FullScreenLoading>
   );
@@ -110,6 +99,9 @@ const makeStyles = (theme: AppTheme) =>
     page: {
       backgroundColor: theme['base-100'],
       flex: 1,
+    },
+    pageScrollContent: {
+      paddingBottom: 30,
     },
     balanceContainer: {
       borderRadius: 20,
@@ -133,9 +125,6 @@ const makeStyles = (theme: AppTheme) =>
     depositList: {
       paddingHorizontal: 10,
     },
-    depositListContent: {
-      paddingBottom: 30,
-    },
   });
 
-export default BalancePage;
+export default BalanceScreen;

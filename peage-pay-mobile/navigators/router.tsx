@@ -1,17 +1,17 @@
-import StartPage from '../screens/start.screen';
+import StartScreen from '../screens/start.screen';
 import { NavigationContainer } from '@react-navigation/native';
-import SignInPage from '../screens/sign-in.screen';
+import SignInScreen from '../screens/sign-in.screen';
 import SignUpPage from '../screens/sign-up.screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   DrawerScreenProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
-import BalancePage from '../screens/balance.screen';
+import BalanceScreen from '../screens/balance.screen';
 import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
-import ReloadPage from '../screens/deposit.screen';
+import DepositScreen from '../screens/deposit.screen';
 import {
   faCalculator,
   faHome,
@@ -23,9 +23,10 @@ import TabIcon from './tab-icon.component';
 import DashboardNavbar from '../layout/dashboard-navbar.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
-import ResetPasswordPage from '../screens/reset-password.screen';
+import ResetPasswordScreen from '../screens/reset-password.screen';
 import MinimalNavbar from '../layout/minimal-navbar.component';
-import MapPage from '../screens/map.screen';
+import MapScreen from '../screens/map.screen';
+import HomeScreen from '../screens/home.screen';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;
@@ -44,7 +45,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props}></CustomTabBar>}>
       <Tab.Screen
         name="Home"
-        component={BalancePage}
+        component={HomeScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -54,7 +55,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
       ></Tab.Screen>
       <Tab.Screen
         name="Balance"
-        component={BalancePage}
+        component={BalanceScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -65,7 +66,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
 
       <Tab.Screen
         name="Deposit"
-        component={ReloadPage}
+        component={DepositScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -75,7 +76,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
       ></Tab.Screen>
       <Tab.Screen
         name="Map"
-        component={MapPage}
+        component={MapScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -85,7 +86,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
       ></Tab.Screen>
       <Tab.Screen
         name="Prices"
-        component={BalancePage}
+        component={BalanceScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -147,12 +148,12 @@ const MainStackNavigator = (): JSX.Element => {
           <>
             <Stack.Screen
               name="Start"
-              component={StartPage}
+              component={StartScreen}
               options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
             <Stack.Screen
               name="SignIn"
-              component={SignInPage}
+              component={SignInScreen}
               options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
             <Stack.Screen
@@ -162,7 +163,7 @@ const MainStackNavigator = (): JSX.Element => {
             ></Stack.Screen>
             <Stack.Screen
               name="ResetPassword"
-              component={ResetPasswordPage}
+              component={ResetPasswordScreen}
               options={{ header: () => <MinimalNavbar></MinimalNavbar> }}
             ></Stack.Screen>
           </>

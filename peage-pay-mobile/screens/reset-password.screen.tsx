@@ -37,7 +37,7 @@ const initialValues: SendPasswordResetEmailValues = {
 
 type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
 
-const ResetPasswordPage = ({ navigation }: Props): JSX.Element => {
+const ResetPasswordScreen = ({ navigation }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { t } = useTranslation();
@@ -193,4 +193,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default ResetPasswordPage;
+export default ResetPasswordScreen;

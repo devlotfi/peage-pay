@@ -42,8 +42,6 @@ export const initApolloClient = () => {
     let expired = false;
     let accessToken = UserAuthUtils.getAccessToken();
 
-    console.log('GLOBAL', accessToken);
-
     if (accessToken) {
       const decoded = jwtDecode(accessToken);
       const currentTimestamp = Math.floor(Date.now() / 1000);
@@ -52,28 +50,36 @@ export const initApolloClient = () => {
       const timeRemaining = expirationTimestamp
         ? expirationTimestamp - currentTimestamp
         : 0;
-      expired = timeRemaining <= 30;
+      expired = timeRemaining <= 1;
     }
     if (expired) {
-      console.log('getting access');
+      console.log(
+        'getting access',
+        '#############   ',
+        UserAuthUtils.getRefreshToken(),
+      );
 
-      const response = await axios.post<{
-        data: {
-          signInWithRefreshTokenInput: {
-            accessToken: string;
+      try {
+        const response = await axios.post<{
+          data: {
+            signInWithRefreshToken: {
+              accessToken: string;
+            };
           };
-        };
-      }>(serverGraphqlEndpoint, {
-        query: SIGN_IN_WITH_REFRESH_TOKEN,
-        variables: {
-          signInWithRefreshTokenInput: {
-            refreshToken: UserAuthUtils.getRefreshToken(),
+        }>(serverGraphqlEndpoint, {
+          query: SIGN_IN_WITH_REFRESH_TOKEN,
+          variables: {
+            signInWithRefreshTokenInput: {
+              refreshToken: UserAuthUtils.getRefreshToken(),
+            },
           },
-        },
-      });
+        });
 
-      accessToken = response.data.data.signInWithRefreshTokenInput.accessToken;
-      UserAuthUtils.setAccessToken(accessToken);
+        accessToken = response.data.data.signInWithRefreshToken.accessToken;
+        UserAuthUtils.setAccessToken(accessToken);
+      } catch (error) {
+        console.log(JSON.stringify(error.data));
+      }
     }
 
     return {

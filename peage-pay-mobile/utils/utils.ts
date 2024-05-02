@@ -42,13 +42,13 @@ export class Utils {
 
 export abstract class UserAuthUtils {
   public static setAccessToken = (accessToken: string) => {
-    SecureStore.setItem(SecureStoreKeys.ACCESS_TOKEN, accessToken);
+    AuthInitializedStatus.setAccessToken(accessToken);
   };
   public static clearAccessToken = async () => {
-    await SecureStore.deleteItemAsync(SecureStoreKeys.ACCESS_TOKEN);
+    AuthInitializedStatus.setAccessToken(null);
   };
   public static getAccessToken = () => {
-    return SecureStore.getItem(SecureStoreKeys.ACCESS_TOKEN);
+    return AuthInitializedStatus.accessToken;
   };
 
   public static setRefreshToken = (refreshToken: string) => {
@@ -63,13 +63,13 @@ export abstract class UserAuthUtils {
 }
 
 export abstract class AuthInitializedStatus {
-  private static _initialized: boolean = false;
+  private static _accessToken: string | null = null;
 
-  public static get initialized(): boolean {
-    return AuthInitializedStatus._initialized;
+  public static get accessToken(): string | null {
+    return AuthInitializedStatus._accessToken;
   }
 
-  public static setAuthInitialized(value: boolean) {
-    AuthInitializedStatus._initialized = value;
+  public static setAccessToken(value: string | null) {
+    AuthInitializedStatus._accessToken = value;
   }
 }

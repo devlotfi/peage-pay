@@ -6,8 +6,8 @@ export class UserType {
   @Field()
   public baseUserId: string;
 
-  @Field(() => BaseUserType, { nullable: true })
-  public baseUser?: BaseUserType;
+  @Field(() => BaseUserType)
+  public baseUser: BaseUserType;
 
   @Field()
   public balance: number;

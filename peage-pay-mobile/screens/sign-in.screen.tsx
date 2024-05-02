@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;
 
-const SignInPage = ({ navigation, ...props }: Props): JSX.Element => {
+const SignInScreen = ({ navigation, ...props }: Props): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { t } = useTranslation();
@@ -101,4 +101,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default SignInPage;
+export default SignInScreen;

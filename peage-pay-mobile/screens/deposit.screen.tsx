@@ -14,7 +14,7 @@ type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;
 
 type Tab = 'CARD' | 'CODE';
 
-const ReloadPage = (): JSX.Element => {
+const DepositScreen = (): JSX.Element => {
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const [tab, setTab] = useState<Tab>('CODE');
@@ -81,4 +81,4 @@ const makeStyles = (theme: AppTheme) =>
     },
   });
 
-export default ReloadPage;
+export default DepositScreen;
