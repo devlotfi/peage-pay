@@ -7,27 +7,27 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import * as SecureStore from 'expo-secure-store';
 import { SecureStoreKeys } from '../../constants/secure-store-keys';
+import { AppTheme } from '../../theme/types/app-theme.type';
+import { useAppTheme } from '../../hooks/use-app-theme.hook';
 
 const networkConfigValidationSchema = yup.object({
   serverUrl: yup.string().required(),
   wsServerUrl: yup.string().required(),
-  globalMapUrl: yup.string().required(),
 });
 
 interface networkConfig {
   serverUrl: string;
   wsServerUrl: string;
-  globalMapUrl: string;
 }
 
 const initialValues: networkConfig = {
   serverUrl: '',
   wsServerUrl: '',
-  globalMapUrl: '',
 };
 
 const NetworkConfigForm = (): JSX.Element => {
-  const styles = makeStyles();
+  const { theme } = useAppTheme();
+  const styles = makeStyles(theme);
 
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     useFormik({
@@ -36,10 +36,6 @@ const NetworkConfigForm = (): JSX.Element => {
       onSubmit(values) {
         SecureStore.setItem(SecureStoreKeys.SERVER_URL, values.serverUrl);
         SecureStore.setItem(SecureStoreKeys.WS_SERVER_URL, values.wsServerUrl);
-        SecureStore.setItem(
-          SecureStoreKeys.GLOBAL_MAP_URL,
-          values.globalMapUrl,
-        );
       },
     });
 
@@ -96,31 +92,6 @@ const NetworkConfigForm = (): JSX.Element => {
           </UITextInput.InfoMessage>
         ) : undefined}
       </UITextInput>
-      <UITextInput
-        variant={
-          errors.globalMapUrl && touched.globalMapUrl ? 'error' : 'edge-100'
-        }
-        style={styles.input}
-      >
-        <UITextInput.Main>
-          <UITextInput.Label>Server Url</UITextInput.Label>
-          <UITextInput.IconContainer position="left">
-            <UITextInput.Icon icon={faAt}></UITextInput.Icon>
-          </UITextInput.IconContainer>
-          <UITextInput.Field
-            placeholder={'Server Url'}
-            autoCapitalize="none"
-            value={values.globalMapUrl}
-            onChangeText={handleChange('globalMapUrl')}
-            onBlur={handleBlur('globalMapUrl')}
-          ></UITextInput.Field>
-        </UITextInput.Main>
-        {errors.globalMapUrl && touched.globalMapUrl ? (
-          <UITextInput.InfoMessage>
-            {errors.globalMapUrl}
-          </UITextInput.InfoMessage>
-        ) : undefined}
-      </UITextInput>
 
       <UIButton
         style={styles.button}
@@ -135,10 +106,11 @@ const NetworkConfigForm = (): JSX.Element => {
   );
 };
 
-const makeStyles = () =>
+const makeStyles = (theme: AppTheme) =>
   StyleSheet.create({
     page: {
       padding: 10,
+      backgroundColor: theme['base-100'],
     },
     input: {
       width: '100%',

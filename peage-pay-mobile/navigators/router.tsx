@@ -1,17 +1,17 @@
-import StartPage from '../screens/start.page';
+import StartPage from '../screens/start.screen';
 import { NavigationContainer } from '@react-navigation/native';
-import SignInPage from '../screens/sign-in.page';
-import SignUpPage from '../screens/sign-up.page';
+import SignInPage from '../screens/sign-in.screen';
+import SignUpPage from '../screens/sign-up.screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   DrawerScreenProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
-import BalancePage from '../screens/balance.page';
+import BalancePage from '../screens/balance.screen';
 import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
-import ReloadPage from '../screens/deposit.page';
+import ReloadPage from '../screens/deposit.screen';
 import {
   faCalculator,
   faHome,
@@ -23,9 +23,9 @@ import TabIcon from './tab-icon.component';
 import DashboardNavbar from '../layout/dashboard-navbar.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
-import ResetPasswordPage from '../screens/reset-password.page';
+import ResetPasswordPage from '../screens/reset-password.screen';
 import MinimalNavbar from '../layout/minimal-navbar.component';
-import MapPage from '../screens/map.page';
+import MapPage from '../screens/map.screen';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;

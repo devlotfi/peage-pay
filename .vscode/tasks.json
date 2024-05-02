@@ -22,11 +22,7 @@
     {
       "type": "shell",
       "label": "Run common elements",
-      "dependsOn": [
-        "Run dev server",
-        "Run ngrok for dev server",
-        "Run auth common client"
-      ]
+      "dependsOn": ["Run dev server", "Run ngrok for dev server"]
     }
   ]
 }

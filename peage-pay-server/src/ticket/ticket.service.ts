@@ -32,7 +32,6 @@ export class TicketService {
           toll: true,
         },
       });
-    automaticGate.toll.id;
     const tollPrice = await this.tollPriceService.tollPrice({
       tollId: automaticGate.tollId,
       direction: TollDirectionType.INBOUND,

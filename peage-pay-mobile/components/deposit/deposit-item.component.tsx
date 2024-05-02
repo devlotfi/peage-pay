@@ -15,7 +15,7 @@ const DepositItem = ({ deposit }: DepositItemProps): JSX.Element => {
 
   return (
     <View style={styles.main}>
-      <UIText style={styles.priceText}>{deposit.amount} DZD</UIText>
+      <UIText style={styles.priceText}>+ {deposit.amount} DZD</UIText>
       <UIText style={styles.dateText}>
         {Utils.formatDateTime(new Date(deposit.createdAt))}
       </UIText>
@@ -36,7 +36,7 @@ const makeStyles = (theme: AppTheme) =>
     priceText: {
       fontSize: 20,
       fontWeight: 'bold',
-      color: theme['primary-100'],
+      color: theme['success-100'],
       marginBottom: 7,
     },
     dateText: {

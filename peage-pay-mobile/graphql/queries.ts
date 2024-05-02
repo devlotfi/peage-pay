@@ -64,6 +64,17 @@ export const USER_INFO = gql(`
   query USER_INFO {
     userInfo {
       balance
+      baseUser {
+        currentTrip {
+          entryTimeStamp
+          entryTollId
+          entryTollPrice
+          entryToll {
+            id
+            name
+          }
+        }
+      }
     }
   }
 `);

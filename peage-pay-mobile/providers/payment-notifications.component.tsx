@@ -43,12 +43,13 @@ const PaymentNotificationsProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      {showSuccessModal ? (
-        <PaymentSuccessfulModal
-          onClose={() => setShowSuccessModal(false)}
-        ></PaymentSuccessfulModal>
-      ) : null}
       {children}
+      <PaymentSuccessfulModal
+        onClose={() => setShowSuccessModal(false)}
+        animationType="fade"
+        transparent={true}
+        visible={showSuccessModal}
+      ></PaymentSuccessfulModal>
     </>
   );
 };

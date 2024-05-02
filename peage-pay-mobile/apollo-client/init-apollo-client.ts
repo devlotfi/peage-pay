@@ -9,7 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { SIGN_IN_WITH_REFRESH_TOKEN } from '../graphql/queries';
-import { AuthInitializedStatus, UserAuthUtils } from '../utils/utils';
+import { UserAuthUtils } from '../utils/utils';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
@@ -54,7 +54,7 @@ export const initApolloClient = () => {
         : 0;
       expired = timeRemaining <= 30;
     }
-    if (expired && AuthInitializedStatus.initialized) {
+    if (expired) {
       console.log('getting access');
 
       const response = await axios.post<{

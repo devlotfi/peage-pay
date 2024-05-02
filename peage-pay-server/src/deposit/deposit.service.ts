@@ -16,6 +16,9 @@ export class DepositService {
           id: userAccessTokenPayload.userId,
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 }

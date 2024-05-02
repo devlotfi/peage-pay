@@ -25,6 +25,6 @@ export class BaseUserType {
   @Field({ nullable: true })
   public currentTripId?: string;
 
-  @Field(() => TripType)
-  public currentTrip: TripType;
+  @Field(() => TripType, { nullable: true })
+  public currentTrip?: TripType;
 }

@@ -48,6 +48,7 @@ const makeStyles = (theme: AppTheme) =>
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      zIndex: 50,
     },
     window: {
       backgroundColor: theme['base-100'],

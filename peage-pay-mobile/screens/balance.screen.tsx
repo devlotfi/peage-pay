@@ -15,6 +15,7 @@ import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import DepositItem from '../components/deposit/deposit-item.component';
 import FullScreenError from '../layout/full-screen-error.component';
+import EmptyList from '../layout/empty-list.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Balance'>;
@@ -31,6 +32,9 @@ const BalancePage = (): JSX.Element => {
     data: userInfoData,
   } = useQuery(USER_INFO, {
     fetchPolicy: 'network-only',
+    onError(error) {
+      console.log(error);
+    },
   });
   const {
     loading: depositListLoading,
@@ -48,12 +52,19 @@ const BalancePage = (): JSX.Element => {
   }); */
 
   const renderDepositList = () => {
-    if (depositListData && depositListData.depositList.length < 0) {
-      return depositListData.depositList.map((deposit) => (
-        <DepositItem key={deposit.id} deposit={deposit}></DepositItem>
-      ));
+    if (depositListData && depositListData.depositList.length > 0) {
+      return (
+        <ScrollView
+          style={styles.depositList}
+          contentContainerStyle={styles.depositListContent}
+        >
+          {depositListData.depositList.map((deposit) => (
+            <DepositItem key={deposit.id} deposit={deposit}></DepositItem>
+          ))}
+        </ScrollView>
+      );
     } else {
-      return <UIText>Empty</UIText>;
+      return <EmptyList></EmptyList>;
     }
   };
 
@@ -86,12 +97,8 @@ const BalancePage = (): JSX.Element => {
             <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
             <UIHeading.Text>{t('DEPOSITS')}</UIHeading.Text>
           </UIHeading>
-          <ScrollView
-            style={styles.depositList}
-            contentContainerStyle={styles.depositListContent}
-          >
-            {renderDepositList()}
-          </ScrollView>
+
+          {renderDepositList()}
         </View>
       </FullScreenError>
     </FullScreenLoading>

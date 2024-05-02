@@ -14,8 +14,6 @@ import './i18n';
 import { useTranslation } from 'react-i18next';
 import PaymentNotificationsProvider from './providers/payment-notifications.component';
 
-SplashScreen.preventAutoHideAsync();
-
 const App = (): JSX.Element => {
   const [fontsLoaded, fontError] = useFonts({
     Inter: require('./assets/fonts/inter.ttf'),

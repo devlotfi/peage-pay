@@ -231,8 +231,8 @@ enum SectionStatus {
 }
 
 model Section {
-  fromToll Toll @relation("fromSection", fields: [fromTollId], references: [id])
-  toToll   Toll @relation("toSection", fields: [toTollId], references: [id])
+  fromToll Toll @relation("fromSection", fields: [fromTollId], references: [id], onDelete: Cascade)
+  toToll   Toll @relation("toSection", fields: [toTollId], references: [id], onDelete: Cascade)
 
   fromTollId String
   toTollId   String
@@ -287,25 +287,25 @@ model AutomaticGate {
 }
 
 model Trip {
-  entryToll       Toll      @relation("entryTollTrip", fields: [entryTollId], references: [id])
-  exitToll        Toll      @relation("exitTollTrip", fields: [exitTollId], references: [id])
+  entryToll       Toll      @relation("entryTollTrip", fields: [entryTollId], references: [id], onDelete: Cascade)
+  exitToll        Toll?     @relation("exitTollTrip", fields: [exitTollId], references: [id], onDelete: Cascade)
   baseUser        BaseUser  @relation("Trips", fields: [baseUserId], references: [id], onDelete: Cascade)
   currentBaseUser BaseUser?
 
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   entryTollId    String
-  exitTollId     String
+  exitTollId     String?
   baseUserId     String
-  entryTimeStamp DateTime @default(now())
+  entryTimeStamp DateTime  @default(now())
   entryTollPrice Decimal
-  exitTimeStamp  DateTime
-  exitTollPrice  Decimal
-  distance       Decimal
+  exitTimeStamp  DateTime?
+  exitTollPrice  Decimal?
+  distance       Decimal?
 }
 
 model Ticket {
-  entryToll Toll  @relation("entryTollTicket", fields: [entryTollId], references: [id])
-  exitToll  Toll? @relation("exitTollTicket", fields: [exitTollId], references: [id])
+  entryToll Toll  @relation("entryTollTicket", fields: [entryTollId], references: [id], onDelete: Cascade)
+  exitToll  Toll? @relation("exitTollTicket", fields: [exitTollId], references: [id], onDelete: Cascade)
 
   id             String    @id @default(uuid())
   entryTollId    String
