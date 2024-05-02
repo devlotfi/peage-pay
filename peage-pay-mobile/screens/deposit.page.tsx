@@ -6,8 +6,8 @@ import UITabs from '../elements/ui-tabs/ui-tabs.component';
 import { faCreditCard, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
 import { useState } from 'react';
-import RedeemCodeForm from '../components/redeem-code-form.component';
-import DepositAmountForm from '../components/deposit-amount.component';
+import RedeemCodeForm from '../components/payment/redeem-code-form.component';
+import DepositAmountForm from '../components/payment/deposit-amount.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;

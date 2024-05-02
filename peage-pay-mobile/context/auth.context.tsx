@@ -60,6 +60,7 @@ export const AuthProvider = ({
       console.log(JSON.stringify(error));
 
       console.log(error.message);
+      setReady(true);
     },
   });
 

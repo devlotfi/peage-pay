@@ -54,7 +54,7 @@ const makeStyles = (theme: AppTheme) =>
       backgroundColor: theme['primary-100'],
       height: 5,
       borderRadius: 1000,
-      width: '50%',
+      width: '100%',
       bottom: 0,
     },
     active: {

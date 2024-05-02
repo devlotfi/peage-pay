@@ -25,7 +25,6 @@ import EditSectionPage from '../pages/section/edit-section.page';
 import SectionLayout from '../layout/section.layout';
 import TollDistanceListPage from '../pages/toll-distance/toll-distance-list.page';
 import EditDefaultPricePage from '../pages/price/add/edit-default-price.page';
-import TestHome from './test-home';
 
 const DashboardLayout = lazy(() => import('../layout/dashboard-layout.layout'));
 const AddPriceLayout = lazy(() => import('../layout/add-price.layout'));
@@ -103,7 +102,7 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <TestHome></TestHome>,
+          element: <h1>home</h1>,
         },
 
         {

@@ -8,7 +8,7 @@ import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import OrDivider from '../layout/or-divider.component';
 import UIButtonOutline from '../elements/ui-button-outline/ui-button-outline.component';
 import { MainStackNavigatorParamList } from '../navigators/router';
-import SignUpWithEmailForm from '../components/sign-up-with-email-form.component';
+import SignUpWithEmailForm from '../components/auth/sign-up-with-email-form.component';
 import { useTranslation } from 'react-i18next';
 
 type Props = StackScreenProps<MainStackNavigatorParamList, 'SignIn'>;

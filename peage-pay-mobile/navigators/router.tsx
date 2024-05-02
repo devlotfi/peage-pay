@@ -7,7 +7,7 @@ import {
   DrawerScreenProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
-import HomePage from '../screens/home.page';
+import BalancePage from '../screens/balance.page';
 import CustomDrawerContent from './custom-drawer-content.component';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
@@ -44,7 +44,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props}></CustomTabBar>}>
       <Tab.Screen
         name="Home"
-        component={HomePage}
+        component={BalancePage}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -54,7 +54,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
       ></Tab.Screen>
       <Tab.Screen
         name="Balance"
-        component={HomePage}
+        component={BalancePage}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
@@ -85,7 +85,7 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
       ></Tab.Screen>
       <Tab.Screen
         name="Prices"
-        component={HomePage}
+        component={BalancePage}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (

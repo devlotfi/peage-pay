@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Run dev server",
+      "command": "yarn",
+      "args": ["run", "start:dev"],
+      "options": {
+        "cwd": "peage-pay-server"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Run ngrok for dev server",
+      "command": "yarn",
+      "args": ["run", "ngrok"],
+      "options": {
+        "cwd": "peage-pay-server"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Run common elements",
+      "dependsOn": [
+        "Run dev server",
+        "Run ngrok for dev server",
+        "Run auth common client"
+      ]
+    }
+  ]
+}

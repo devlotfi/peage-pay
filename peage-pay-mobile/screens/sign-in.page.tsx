@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import OrDivider from '../layout/or-divider.component';
 import UIButtonOutline from '../elements/ui-button-outline/ui-button-outline.component';
-import SignInWithEmailForm from '../components/sign-in-with-email-form.component';
+import SignInWithEmailForm from '../components/auth/sign-in-with-email-form.component';
 import UIButton from '../elements/ui-button/ui-button.component';
 import { MainStackNavigatorParamList } from '../navigators/router';
 import { useTranslation } from 'react-i18next';

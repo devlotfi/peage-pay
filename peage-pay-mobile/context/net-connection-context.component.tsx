@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import FullScreenLoading from '../layout/full-screen-loading.component';
-import NetworkConfigForm from '../components/network-config-form.component';
+import NetworkConfigForm from '../components/network/network-config-form.component';
 
 interface NetConnectionContext {
   state: NetInfoState | null;

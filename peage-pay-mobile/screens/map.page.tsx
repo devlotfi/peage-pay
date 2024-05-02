@@ -8,10 +8,10 @@ import FullScreenLoading from '../layout/full-screen-loading.component';
 import { useState } from 'react';
 import { SectionType, TollType } from '../__generated__/graphql';
 import FullScreenError from '../layout/full-screen-error.component';
-import TollMapMarker from '../components/toll-map-marker.component';
-import SectionMapMarker from '../components/section-map-marker.component';
-import TollDetails from '../components/toll-details.component';
-import SectionDetails from '../components/section-details.component';
+import TollMapMarker from '../components/toll/toll-map-marker.component';
+import SectionMapMarker from '../components/section/section-map-marker.component';
+import TollDetails from '../components/toll/toll-details.component';
+import SectionDetails from '../components/section/section-details.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Map'>;

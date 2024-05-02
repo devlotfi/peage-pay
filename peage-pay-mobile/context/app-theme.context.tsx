@@ -4,7 +4,6 @@ import { LightTheme } from '../theme/themes/light.theme';
 import { AppThemesEnum } from '../theme/types/app-themes-enum.type';
 import { DarkTheme } from '../theme/themes/dark.theme';
 import { useColorScheme } from 'react-native';
-import UIText from '../elements/ui-text/ui-text.component';
 
 interface AppThemeContext {
   theme: AppTheme;

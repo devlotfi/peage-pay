@@ -8,10 +8,12 @@ import { Env } from 'src/shared/config/env.type';
 import { RedisService } from 'src/redis/redis.service';
 import { PaymentMessagesPrefixes } from './payment-messages-prefixes';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
+import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class PaymentService {
   public constructor(
+    private readonly databaseService: DatabaseService,
     private readonly chargilyService: ChargilyService,
     private readonly configService: ConfigService<Env>,
     private readonly redisService: RedisService,
@@ -21,14 +23,6 @@ export class PaymentService {
     depositAmountInput: DepositAmountInput,
     userAccessTokenPayload: UserAccessTokenPayload,
   ): Promise<string> {
-    this.redisService.pubSubClient.publish(
-      PaymentMessagesPrefixes.PAYMENT_SUCCESSFUL(userAccessTokenPayload.userId),
-      {
-        paymentSuccessful: true,
-      },
-    );
-    console.log(userAccessTokenPayload.userId);
-
     const checkout = await this.chargilyService.client.createCheckout({
       success_url: 'http://localhost:3000',
       amount: depositAmountInput.amount,
@@ -69,6 +63,26 @@ export class PaymentService {
 
     switch (checkout.type) {
       case 'checkout.paid':
+        console.log('successful payment');
+
+        await this.databaseService.$transaction([
+          this.databaseService.user.update({
+            data: {
+              balance: {
+                increment: checkout.data.amount,
+              },
+            },
+            where: {
+              baseUserId: checkout.data.metadata.baseUserId,
+            },
+          }),
+          this.databaseService.deposit.create({
+            data: {
+              amount: checkout.data.amount,
+              baseUserId: checkout.data.metadata.baseUserId,
+            },
+          }),
+        ]);
         this.redisService.pubSubClient.publish(
           PaymentMessagesPrefixes.PAYMENT_SUCCESSFUL(
             checkout.data.metadata.baseUserId,
