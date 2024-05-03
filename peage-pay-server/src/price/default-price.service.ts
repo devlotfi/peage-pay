@@ -11,7 +11,7 @@ export class DefaultPriceService {
     private readonly redisService: RedisService,
   ) {}
 
-  public async defaultPrice(): Promise<number> {
+  public async defaultPrice(): Promise<number | null> {
     const cacheResult = await this.redisService.client.get(
       PriceRedisPrefixes.defaultPrice(),
     );
@@ -19,9 +19,12 @@ export class DefaultPriceService {
       return +cacheResult;
     }
 
-    const defaultPrice =
-      await this.databaseService.defaultPrice.findFirstOrThrow();
-    return defaultPrice.value.toNumber();
+    const defaultPrice = await this.databaseService.defaultPrice.findFirst();
+
+    if (defaultPrice) {
+      return defaultPrice.value.toNumber();
+    }
+    return null;
   }
 
   public async editDefaultPrice(

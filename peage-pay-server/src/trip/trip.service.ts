@@ -10,6 +10,8 @@ import { RfidInput } from 'src/shared/graphql/rfid-input.gql';
 import { GraphQLError } from 'graphql';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 import { TollDistanceService } from 'src/toll-distance/toll-distance.service';
+import { TripPriceInput } from './input/trip-price.input.gql';
+import { TripPriceResult } from './result/trip-price.result.gql';
 
 @Injectable()
 export class TripService {
@@ -37,6 +39,37 @@ export class TripService {
         id: tripByIdInput.id,
       },
     });
+  }
+
+  public async tripPrice(
+    tripPriceInput: TripPriceInput,
+  ): Promise<TripPriceResult> {
+    const distancePromise = this.tollDistanceService.tollDistance({
+      fromTollId: tripPriceInput.fromTollId,
+      toTollId: tripPriceInput.toTollId,
+    });
+    const fromTollPricePromise = this.tollPriceService.tollPrice({
+      tollId: tripPriceInput.fromTollId,
+      direction: TollDirectionType.INBOUND,
+    });
+    const toTollPricePromise = this.tollPriceService.tollPrice({
+      tollId: tripPriceInput.fromTollId,
+      direction: TollDirectionType.OUTBOUND,
+    });
+    await Promise.all([
+      distancePromise,
+      fromTollPricePromise,
+      toTollPricePromise,
+    ]);
+    const distance = await distancePromise;
+    const fromTollPrice = await fromTollPricePromise;
+    const toTollPrice = await toTollPricePromise;
+
+    return {
+      distance,
+      fromTollPrice,
+      toTollPrice,
+    };
   }
 
   public async startTripRfid(

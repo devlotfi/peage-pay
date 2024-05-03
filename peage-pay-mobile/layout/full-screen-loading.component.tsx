@@ -6,10 +6,12 @@ import { PropsWithChildren } from 'react';
 
 interface FullScreenLoadingProps {
   loading?: boolean;
+  logo?: boolean;
 }
 
 const FullScreenLoading = ({
   loading,
+  logo = true,
   children,
 }: PropsWithChildren<FullScreenLoadingProps>) => {
   const { theme } = useAppTheme();
@@ -18,11 +20,13 @@ const FullScreenLoading = ({
   if (loading) {
     return (
       <View style={styles.page}>
-        <Image
-          source={require('../assets/img/peage-pay-logo.png')}
-          style={styles.image}
-          contentFit="contain"
-        ></Image>
+        {logo ? (
+          <Image
+            source={require('../assets/img/peage-pay-logo.png')}
+            style={styles.image}
+            contentFit="contain"
+          ></Image>
+        ) : null}
         <ActivityIndicator
           style={styles.spinner}
           color={theme['primary-100']}

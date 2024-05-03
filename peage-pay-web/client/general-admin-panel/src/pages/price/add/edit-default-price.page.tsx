@@ -36,7 +36,7 @@ const EditDefaultPricePage = (): JSX.Element => {
     DEFAULT_PRICE,
     {
       onCompleted(data) {
-        setFieldValue('value', data.defaultPrice);
+        setFieldValue('value', data.defaultPrice ? data.defaultPrice : '');
       },
     },
   );

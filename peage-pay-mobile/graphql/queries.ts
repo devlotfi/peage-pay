@@ -133,3 +133,13 @@ export const GLOBAL_SECTION_LIST = gql(`
     }
   }
 `);
+
+export const TRIP_PRICE = gql(`
+  query TRIP_PRICE($tripPriceInput: TripPriceInput!) {
+    tripPrice(tripPriceInput: $tripPriceInput) {
+      distance
+      fromTollPrice
+      toTollPrice
+    }
+  }
+`);

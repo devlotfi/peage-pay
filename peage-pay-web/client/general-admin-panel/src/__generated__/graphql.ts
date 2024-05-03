@@ -241,6 +241,8 @@ export enum BaseUserSearchFields {
 export type BaseUserType = {
   __typename?: 'BaseUserType';
   createdAt: Scalars['DateTime']['output'];
+  currentTrip?: Maybe<TripType>;
+  currentTripId?: Maybe<Scalars['String']['output']>;
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
@@ -826,12 +828,14 @@ export type Query = {
   customPriceLocalList: CustomPriceListResult;
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
-  defaultPrice: Scalars['Float']['output'];
+  defaultPrice?: Maybe<Scalars['Float']['output']>;
   depositList: Array<DepositType>;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
   gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
+  globalSectionList: Array<SectionType>;
+  globalTollList: Array<TollType>;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
   lol: Scalars['String']['output'];
@@ -858,8 +862,9 @@ export type Query = {
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
-  tollPrice: Scalars['Boolean']['output'];
+  tollPrice: Scalars['Float']['output'];
   tripList: Array<TripType>;
+  tripPrice: Array<TripPriceResult>;
   userInfo: UserType;
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
@@ -1041,7 +1046,12 @@ export type QueryTollNetworkListArgs = {
 
 
 export type QueryTollPriceArgs = {
-  tollPriceInput: IdInput;
+  tollPriceInput: TollPriceInput;
+};
+
+
+export type QueryTripPriceArgs = {
+  tripPriceInput: TripPriceInput;
 };
 
 
@@ -1386,6 +1396,11 @@ export type TollNetworkType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type TollPriceInput = {
+  direction: TollDirectionType;
+  tollId: Scalars['String']['input'];
+};
+
 export type TollPriceType = {
   __typename?: 'TollPriceType';
   direction: TollDirectionType;
@@ -1427,6 +1442,18 @@ export type TollType = {
   wilayaId: Scalars['String']['output'];
 };
 
+export type TripPriceInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type TripPriceResult = {
+  __typename?: 'TripPriceResult';
+  distance: Scalars['Float']['output'];
+  fromTollPrice: Scalars['Float']['output'];
+  toTollPrice: Scalars['Float']['output'];
+};
+
 export type TripType = {
   __typename?: 'TripType';
   baseUserId: Scalars['String']['output'];
@@ -1445,7 +1472,7 @@ export type TripType = {
 export type UserType = {
   __typename?: 'UserType';
   balance: Scalars['Float']['output'];
-  baseUser?: Maybe<BaseUserType>;
+  baseUser: BaseUserType;
   baseUserId: Scalars['String']['output'];
 };
 
@@ -1805,7 +1832,7 @@ export type Toll_Distance_ListQuery = { __typename?: 'Query', tollDistanceList: 
 export type Default_PriceQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Default_PriceQuery = { __typename?: 'Query', defaultPrice: number };
+export type Default_PriceQuery = { __typename?: 'Query', defaultPrice?: number | null };
 
 
 export const Add_HighwayDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ADD_HIGHWAY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddHighwayInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addHighway"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"addHighwayInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"addHighwayInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Add_HighwayMutation, Add_HighwayMutationVariables>;

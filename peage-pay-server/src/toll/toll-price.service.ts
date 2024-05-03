@@ -4,8 +4,6 @@ import { DayOfWeek, Month, Prisma } from '@prisma/client';
 import { RedisService } from 'src/redis/redis.service';
 import { PriceRedisPrefixes } from 'src/price/price-redis-prefixes';
 import { TollPriceInput } from './input/toll-price.input.gql';
-import { TollDirectionType } from 'src/price/graphql/toll-direction.gql';
-import { inspect } from 'util';
 
 @Injectable()
 export class TollPriceService {

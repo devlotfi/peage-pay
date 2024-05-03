@@ -31,7 +31,7 @@ export class PriceResolver {
     private readonly defaultPriceService: DefaultPriceService,
   ) {}
 
-  @Query(() => Number)
+  @Query(() => Number, { nullable: true })
   @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
   @UseGuards(AuthGuard)
   public async defaultPrice() {

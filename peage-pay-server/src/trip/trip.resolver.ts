@@ -1,10 +1,12 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { TripService } from './trip.service';
 import { TripType } from './graphql/trip.gql';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { TripPriceInput } from './input/trip-price.input.gql';
+import { TripPriceResult } from './result/trip-price.result.gql';
 
 @Resolver()
 export class TripResolver {
@@ -16,5 +18,15 @@ export class TripResolver {
     @ContextAccessTokenPayload() userAccessTokenPayload: UserAccessTokenPayload,
   ) {
     return await this.tripService.tripList(userAccessTokenPayload);
+  }
+
+  @Query(() => TripPriceResult)
+  @UseGuards(AuthGuard)
+  public async tripPrice(
+    @Args('tripPriceInput') tripPriceInput: TripPriceInput,
+  ) {
+    console.log(tripPriceInput);
+
+    return await this.tripService.tripPrice(tripPriceInput);
   }
 }

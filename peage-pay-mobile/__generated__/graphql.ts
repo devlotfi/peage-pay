@@ -828,7 +828,7 @@ export type Query = {
   customPriceLocalList: CustomPriceListResult;
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
-  defaultPrice: Scalars['Float']['output'];
+  defaultPrice?: Maybe<Scalars['Float']['output']>;
   depositList: Array<DepositType>;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
@@ -864,6 +864,7 @@ export type Query = {
   tollNetworkList: TollNetworkListResult;
   tollPrice: Scalars['Float']['output'];
   tripList: Array<TripType>;
+  tripPrice: TripPriceResult;
   userInfo: UserType;
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
@@ -1046,6 +1047,11 @@ export type QueryTollNetworkListArgs = {
 
 export type QueryTollPriceArgs = {
   tollPriceInput: TollPriceInput;
+};
+
+
+export type QueryTripPriceArgs = {
+  tripPriceInput: TripPriceInput;
 };
 
 
@@ -1436,6 +1442,18 @@ export type TollType = {
   wilayaId: Scalars['String']['output'];
 };
 
+export type TripPriceInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type TripPriceResult = {
+  __typename?: 'TripPriceResult';
+  distance: Scalars['Float']['output'];
+  fromTollPrice: Scalars['Float']['output'];
+  toTollPrice: Scalars['Float']['output'];
+};
+
 export type TripType = {
   __typename?: 'TripType';
   baseUserId: Scalars['String']['output'];
@@ -1579,13 +1597,6 @@ export type Sign_In_With_Refresh_Token_CookieQueryVariables = Exact<{ [key: stri
 
 export type Sign_In_With_Refresh_Token_CookieQuery = { __typename?: 'Query', signInWithRefreshTokenCookie: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string } };
 
-export type Sign_In_With_Refresh_TokenQueryVariables = Exact<{
-  signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
-}>;
-
-
-export type Sign_In_With_Refresh_TokenQuery = { __typename?: 'Query', signInWithRefreshToken: { __typename?: 'SignInWithRefreshTokenResult', accessToken: string } };
-
 export type Deposit_ListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1611,6 +1622,13 @@ export type Global_Section_ListQueryVariables = Exact<{ [key: string]: never; }>
 
 export type Global_Section_ListQuery = { __typename?: 'Query', globalSectionList: Array<{ __typename?: 'SectionType', distance: number, fromStatus: SectionStatusType, toStatus: SectionStatusType, fromToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number }, toToll: { __typename?: 'TollType', id: string, name: string, latitude: number, longitude: number } }> };
 
+export type Trip_PriceQueryVariables = Exact<{
+  tripPriceInput: TripPriceInput;
+}>;
+
+
+export type Trip_PriceQuery = { __typename?: 'Query', tripPrice: { __typename?: 'TripPriceResult', distance: number, fromTollPrice: number, toTollPrice: number } };
+
 export type Payment_SuccessfulSubscriptionVariables = Exact<{
   paymentSuccessfulInput: IdInput;
 }>;
@@ -1635,11 +1653,11 @@ export const Redeem_CodeDocument = {"kind":"Document","definitions":[{"kind":"Op
 export const Deposit_AmountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DEPOSIT_AMOUNT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DepositAmountInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositAmount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"depositAmountInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}}}]}]}}]} as unknown as DocumentNode<Deposit_AmountMutation, Deposit_AmountMutationVariables>;
 export const Sign_In_With_Refresh_Token_InitialDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_INITIAL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_InitialQuery, Sign_In_With_Refresh_Token_InitialQueryVariables>;
 export const Sign_In_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_CookieQuery, Sign_In_With_Refresh_Token_CookieQueryVariables>;
-export const Sign_In_With_Refresh_TokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_TokenQuery, Sign_In_With_Refresh_TokenQueryVariables>;
 export const Deposit_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DEPOSIT_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<Deposit_ListQuery, Deposit_ListQueryVariables>;
 export const Trip_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TRIP_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tripList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"exitToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Trip_ListQuery, Trip_ListQueryVariables>;
 export const User_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"USER_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentTrip"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<User_InfoQuery, User_InfoQueryVariables>;
 export const Global_Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GLOBAL_TOLL_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"globalTollList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Global_Toll_ListQuery, Global_Toll_ListQueryVariables>;
 export const Global_Section_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GLOBAL_SECTION_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"globalSectionList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromStatus"}},{"kind":"Field","name":{"kind":"Name","value":"toStatus"}},{"kind":"Field","name":{"kind":"Name","value":"fromToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"toToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Global_Section_ListQuery, Global_Section_ListQueryVariables>;
+export const Trip_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TRIP_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tripPriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TripPriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tripPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tripPriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tripPriceInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"fromTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"toTollPrice"}}]}}]}}]} as unknown as DocumentNode<Trip_PriceQuery, Trip_PriceQueryVariables>;
 export const Payment_SuccessfulDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"PAYMENT_SUCCESSFUL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paymentSuccessfulInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentSuccessful"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paymentSuccessfulInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paymentSuccessfulInput"}}}]}]}}]} as unknown as DocumentNode<Payment_SuccessfulSubscription, Payment_SuccessfulSubscriptionVariables>;
 export const Payment_FailedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"PAYMENT_FAILED"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paymentFailedInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentFailed"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paymentFailedInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paymentFailedInput"}}}]}]}}]} as unknown as DocumentNode<Payment_FailedSubscription, Payment_FailedSubscriptionVariables>;
