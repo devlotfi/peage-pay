@@ -37,6 +37,14 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
               {automaticGate.direction}
             </Table.Body.Td>
           </Table.Body.Tr>
+          <Table.Head.Tr>
+            <Table.Head.Th className="py-[0.2rem]">Toll</Table.Head.Th>
+          </Table.Head.Tr>
+          <Table.Body.Tr>
+            <Table.Body.Td className="py-[0.2rem]">
+              {automaticGate.toll.name}
+            </Table.Body.Td>
+          </Table.Body.Tr>
         </Table.Body>
       </Table>
     </div>

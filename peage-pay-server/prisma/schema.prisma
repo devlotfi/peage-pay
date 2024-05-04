@@ -315,6 +315,7 @@ model Ticket {
   exitTimeStamp  DateTime?
   exitTollPrice  Decimal?
   distance       Decimal?
+  used           Boolean   @default(false)
 }
 
 enum Month {

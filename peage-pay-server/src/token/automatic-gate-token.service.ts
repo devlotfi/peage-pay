@@ -72,7 +72,7 @@ export class AutomaticGateTokenService {
         secret: this.configService.getOrThrow<string>(
           'AUTOMATIC_GATE_JWT_ACCESS_TOKEN_SECRET',
         ),
-        expiresIn: '30min',
+        expiresIn: '1min',
       },
     );
 

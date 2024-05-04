@@ -32,4 +32,7 @@ export class TicketType {
 
   @Field({ nullable: true })
   public distance?: number;
+
+  @Field(() => Boolean)
+  public used: boolean;
 }

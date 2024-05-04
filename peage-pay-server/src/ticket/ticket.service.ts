@@ -6,6 +6,7 @@ import { AutomaticGateAccessTokenPayload } from 'src/automatic-gate/types/automa
 import { DatabaseService } from 'src/database/database.service';
 import { TollDirectionType } from 'src/price/graphql/toll-direction.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 import { TollDistanceService } from 'src/toll-distance/toll-distance.service';
 import { TollPriceService } from 'src/toll/toll-price.service';
 import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
@@ -76,6 +77,9 @@ export class TicketService {
     if (!gateAdmin.toll) {
       throw new GraphQLError(BaseUserErrors.TOLL_NOT_ASSIGNED);
     }
+    if (ticket.used) {
+      return ticket;
+    }
 
     const tollPricePromise = this.tollPriceService.tollPrice({
       tollId: gateAdmin.toll.id,
@@ -124,6 +128,9 @@ export class TicketService {
     if (!gateAdmin.toll) {
       throw new GraphQLError(BaseUserErrors.TOLL_NOT_ASSIGNED);
     }
+    if (ticket.used) {
+      throw new GraphQLError(PrismaErrors.UNIQUE_CONSTRAINT_VIOLATION);
+    }
 
     const tollPricePromise = this.tollPriceService.tollPrice({
       tollId: gateAdmin.toll.id,
@@ -150,6 +157,7 @@ export class TicketService {
         exitTollPrice: tollPrice,
         exitTimeStamp: new Date(),
         distance: tollDistance,
+        used: true,
       },
     });
 

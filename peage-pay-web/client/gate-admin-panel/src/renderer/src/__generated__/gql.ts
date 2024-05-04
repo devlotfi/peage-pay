@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  mutation VALIDATE_TICKET($validateTicketInput: IdInput!) {\n    validateTicket(validateTicketInput: $validateTicketInput) {\n      id\n    }\n  }\n": types.Validate_TicketDocument,
-    "\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n    }\n  }\n": types.Ticket_InfoDocument,
+    "\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n      used\n    }\n  }\n": types.Ticket_InfoDocument,
     "\n  query GATE_ADMIN_INFO {\n    gateAdminInfo {\n      toll {\n        name\n        inboundStatus\n        outboundStatus\n      }\n    }\n  }\n": types.Gate_Admin_InfoDocument,
 };
 
@@ -39,7 +39,7 @@ export function gql(source: "\n  mutation VALIDATE_TICKET($validateTicketInput: 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n    }\n  }\n"): (typeof documents)["\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n    }\n  }\n"];
+export function gql(source: "\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n      used\n    }\n  }\n"): (typeof documents)["\n  query TICKET_INFO($ticketInfoInput: IdInput!) {\n    ticketInfo(ticketInfoInput: $ticketInfoInput) {\n      distance\n      entryTollId\n      entryTollPrice\n      entryTimeStamp\n      entryToll {\n        name\n      }\n      exitTollId\n      exitTollPrice\n      used\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

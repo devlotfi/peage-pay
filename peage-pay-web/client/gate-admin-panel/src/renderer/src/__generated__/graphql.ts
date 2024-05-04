@@ -192,6 +192,7 @@ export type AutomaticGateType = {
   direction: TollDirectionType;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  toll: TollType;
   tollId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   variant: AutomaticGateVariantType;
@@ -240,6 +241,8 @@ export enum BaseUserSearchFields {
 export type BaseUserType = {
   __typename?: 'BaseUserType';
   createdAt: Scalars['DateTime']['output'];
+  currentTrip?: Maybe<TripType>;
+  currentTripId?: Maybe<Scalars['String']['output']>;
   firstName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   lastName: Scalars['String']['output'];
@@ -294,9 +297,24 @@ export enum DayOfWeekType {
   Wednesday = 'WEDNESDAY'
 }
 
+export type DefinePinInput = {
+  pin: Scalars['String']['input'];
+};
+
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
   toTollId: Scalars['String']['input'];
+};
+
+export type DepositAmountInput = {
+  amount: Scalars['Float']['input'];
+};
+
+export type DepositType = {
+  __typename?: 'DepositType';
+  amount: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
 };
 
 export type EditAutomaticGateInput = {
@@ -305,6 +323,10 @@ export type EditAutomaticGateInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   variant?: InputMaybe<AutomaticGateVariantType>;
+};
+
+export type EditDefaultPriceInput = {
+  value: Scalars['Float']['input'];
 };
 
 export type EditHighwayInput = {
@@ -365,10 +387,6 @@ export type GateAdminType = {
   baseUserId: Scalars['String']['output'];
   toll?: Maybe<TollType>;
   tollId?: Maybe<Scalars['String']['output']>;
-};
-
-export type GenerateTollDistancesInput = {
-  tollNetworkId: Scalars['String']['input'];
 };
 
 export type HighwayListInput = {
@@ -472,6 +490,7 @@ export type Mutation = {
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
   changeTollStatus: Scalars['Boolean']['output'];
+  definePin: Scalars['Boolean']['output'];
   deleteAutomaticGate: Scalars['Boolean']['output'];
   deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
@@ -482,14 +501,18 @@ export type Mutation = {
   deleteSubscription: Scalars['Boolean']['output'];
   deleteToll: Scalars['Boolean']['output'];
   deleteTollNetwork: Scalars['Boolean']['output'];
+  depositAmount: Scalars['String']['output'];
   editAutomaticGate: AutomaticGateType;
+  editDefaultPrice: Scalars['Boolean']['output'];
   editHighway: HighwayType;
   editSection: SectionType;
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
+  redeemCode: Scalars['Boolean']['output'];
   removeGateAdminRole: Scalars['Boolean']['output'];
   removeHumanRessoucesAdminRole: Scalars['Boolean']['output'];
   removeModeratorRole: Scalars['Boolean']['output'];
@@ -588,6 +611,11 @@ export type MutationChangeTollStatusArgs = {
 };
 
 
+export type MutationDefinePinArgs = {
+  definePinInput: DefinePinInput;
+};
+
+
 export type MutationDeleteAutomaticGateArgs = {
   deleteAutomaticGateInput: IdInput;
 };
@@ -638,8 +666,18 @@ export type MutationDeleteTollNetworkArgs = {
 };
 
 
+export type MutationDepositAmountArgs = {
+  depositAmountInput: DepositAmountInput;
+};
+
+
 export type MutationEditAutomaticGateArgs = {
   editAutomaticGateInput: EditAutomaticGateInput;
+};
+
+
+export type MutationEditDefaultPriceArgs = {
+  editDefaultPriceInput: EditDefaultPriceInput;
 };
 
 
@@ -669,7 +707,12 @@ export type MutationEditTollNetworkArgs = {
 
 
 export type MutationGenerateTollDistancesArgs = {
-  generateTollDistancesInput: GenerateTollDistancesInput;
+  generateTollDistancesInput: IdInput;
+};
+
+
+export type MutationRedeemCodeArgs = {
+  redeemCodeInput: RedeemCodeInput;
 };
 
 
@@ -720,6 +763,11 @@ export type MutationSignInWithGoogleArgs = {
 };
 
 
+export type MutationSignOutArgs = {
+  signOutInput: SignOutInput;
+};
+
+
 export type MutationSignUpWithEmailArgs = {
   signUpWithEmailInput: SignUpWithEmailInput;
 };
@@ -738,6 +786,11 @@ export type PaginationInput = {
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
 };
+
+export enum PaymentSubscriptionMessages {
+  PaymentFailed = 'PAYMENT_FAILED',
+  PaymentSuccessful = 'PAYMENT_SUCCESSFUL'
+}
 
 export enum PriceErrors {
   CannotDeleteGlobalPrice = 'CANNOT_DELETE_GLOBAL_PRICE',
@@ -775,10 +828,14 @@ export type Query = {
   customPriceLocalList: CustomPriceListResult;
   dailyPriceGlobalList: DailyPriceListResult;
   dailyPriceLocalList: DailyPriceListResult;
+  defaultPrice?: Maybe<Scalars['Float']['output']>;
+  depositList: Array<DepositType>;
   fullTollList: Array<TollType>;
   gateAdminById?: Maybe<GateAdminType>;
   gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
+  globalSectionList: Array<SectionType>;
+  globalTollList: Array<TollType>;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
   lol: Scalars['String']['output'];
@@ -800,10 +857,16 @@ export type Query = {
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
   tollById: TollType;
+  tollDistance: Scalars['Float']['output'];
+  tollDistanceList: TollDistanceListResult;
   tollList: TollListResult;
   tollNetworkById: TollNetworkType;
   tollNetworkList: TollNetworkListResult;
-  tollPrice: Scalars['Boolean']['output'];
+  tollPrice: Scalars['Float']['output'];
+  tripList: Array<TripType>;
+  tripPrice: TripPriceResult;
+  userInfo: UserType;
+  userRfidTagList: Array<RfidTagType>;
   weeklyPriceGlobalList: WeeklyPriceListResult;
   weeklyPriceLocalList: WeeklyPriceListResult;
   wilayaById: WilayaType;
@@ -958,6 +1021,16 @@ export type QueryTollByIdArgs = {
 };
 
 
+export type QueryTollDistanceArgs = {
+  tollDistanceInput: TollDistanceInput;
+};
+
+
+export type QueryTollDistanceListArgs = {
+  tollDistanceListInput: TollDistanceListInput;
+};
+
+
 export type QueryTollListArgs = {
   tollListInput: TollListInput;
 };
@@ -974,7 +1047,12 @@ export type QueryTollNetworkListArgs = {
 
 
 export type QueryTollPriceArgs = {
-  tollPriceInput: IdInput;
+  tollPriceInput: TollPriceInput;
+};
+
+
+export type QueryTripPriceArgs = {
+  tripPriceInput: TripPriceInput;
 };
 
 
@@ -1005,6 +1083,10 @@ export type QueryYearlyPriceGlobalListArgs = {
 
 export type QueryYearlyPriceLocalListArgs = {
   priceListInput: PaginationInput;
+};
+
+export type RedeemCodeInput = {
+  code: Scalars['String']['input'];
 };
 
 export enum RefreshTokenMode {
@@ -1133,6 +1215,10 @@ export type SignInWithRefreshTokenResult = {
   roles: Array<BaseUserRolesType>;
 };
 
+export type SignOutInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
 export type SignUpWithEmailInput = {
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -1143,6 +1229,22 @@ export type SignUpWithEmailInput = {
 export type SigninWithEmailInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  paymentFailed: Scalars['Boolean']['output'];
+  paymentSuccessful: Scalars['Boolean']['output'];
+};
+
+
+export type SubscriptionPaymentFailedArgs = {
+  paymentFailedInput: IdInput;
+};
+
+
+export type SubscriptionPaymentSuccessfulArgs = {
+  paymentSuccessfulInput: IdInput;
 };
 
 export type SubscriptionListInput = {
@@ -1185,6 +1287,7 @@ export type TicketType = {
   exitTollId?: Maybe<Scalars['String']['output']>;
   exitTollPrice?: Maybe<Scalars['Float']['output']>;
   id: Scalars['ID']['output'];
+  used: Scalars['Boolean']['output'];
 };
 
 export enum TokenErrors {
@@ -1224,6 +1327,32 @@ export enum TollDirectionType {
   Inbound = 'INBOUND',
   Outbound = 'OUTBOUND'
 }
+
+export type TollDistanceInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type TollDistanceListInput = {
+  id: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Float']['input']>;
+  take: Scalars['Float']['input'];
+};
+
+export type TollDistanceListResult = {
+  __typename?: 'TollDistanceListResult';
+  count: Scalars['Float']['output'];
+  list: Array<TollDistanceType>;
+};
+
+export type TollDistanceType = {
+  __typename?: 'TollDistanceType';
+  distance: Scalars['Float']['output'];
+  fromToll: TollType;
+  fromTollId: Scalars['String']['output'];
+  toToll: TollType;
+  toTollId: Scalars['String']['output'];
+};
 
 export type TollListInput = {
   highwayCodeSearch?: InputMaybe<Scalars['String']['input']>;
@@ -1269,6 +1398,11 @@ export type TollNetworkType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type TollPriceInput = {
+  direction: TollDirectionType;
+  tollId: Scalars['String']['input'];
+};
+
 export type TollPriceType = {
   __typename?: 'TollPriceType';
   direction: TollDirectionType;
@@ -1308,6 +1442,40 @@ export type TollType = {
   updatedAt: Scalars['DateTime']['output'];
   wilaya: WilayaType;
   wilayaId: Scalars['String']['output'];
+};
+
+export type TripPriceInput = {
+  fromTollId: Scalars['String']['input'];
+  toTollId: Scalars['String']['input'];
+};
+
+export type TripPriceResult = {
+  __typename?: 'TripPriceResult';
+  distance: Scalars['Float']['output'];
+  fromTollPrice: Scalars['Float']['output'];
+  toTollPrice: Scalars['Float']['output'];
+};
+
+export type TripType = {
+  __typename?: 'TripType';
+  baseUserId: Scalars['String']['output'];
+  distance?: Maybe<Scalars['Float']['output']>;
+  entryTimeStamp: Scalars['DateTime']['output'];
+  entryToll: TollType;
+  entryTollId: Scalars['String']['output'];
+  entryTollPrice: Scalars['Float']['output'];
+  exitTimeStamp?: Maybe<Scalars['DateTime']['output']>;
+  exitToll?: Maybe<TollType>;
+  exitTollId?: Maybe<Scalars['String']['output']>;
+  exitTollPrice?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
+};
+
+export type UserType = {
+  __typename?: 'UserType';
+  balance: Scalars['Float']['output'];
+  baseUser: BaseUserType;
+  baseUserId: Scalars['String']['output'];
 };
 
 export type VerifyEmailInput = {
@@ -1381,7 +1549,7 @@ export type Ticket_InfoQueryVariables = Exact<{
 }>;
 
 
-export type Ticket_InfoQuery = { __typename?: 'Query', ticketInfo: { __typename?: 'TicketType', distance?: number | null, entryTollId: string, entryTollPrice: number, entryTimeStamp: any, exitTollId?: string | null, exitTollPrice?: number | null, entryToll: { __typename?: 'TollType', name: string } } };
+export type Ticket_InfoQuery = { __typename?: 'Query', ticketInfo: { __typename?: 'TicketType', distance?: number | null, entryTollId: string, entryTollPrice: number, entryTimeStamp: any, exitTollId?: string | null, exitTollPrice?: number | null, used: boolean, entryToll: { __typename?: 'TollType', name: string } } };
 
 export type Gate_Admin_InfoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1390,5 +1558,5 @@ export type Gate_Admin_InfoQuery = { __typename?: 'Query', gateAdminInfo?: { __t
 
 
 export const Validate_TicketDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VALIDATE_TICKET"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validateTicket"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateTicketInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<Validate_TicketMutation, Validate_TicketMutationVariables>;
-export const Ticket_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TICKET_INFO"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ticketInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ticketInfoInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTollId"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}}]}}]}}]} as unknown as DocumentNode<Ticket_InfoQuery, Ticket_InfoQueryVariables>;
+export const Ticket_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TICKET_INFO"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ticketInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ticketInfoInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTollId"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"used"}}]}}]}}]} as unknown as DocumentNode<Ticket_InfoQuery, Ticket_InfoQueryVariables>;
 export const Gate_Admin_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GATE_ADMIN_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gateAdminInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}}]}}]}}]}}]} as unknown as DocumentNode<Gate_Admin_InfoQuery, Gate_Admin_InfoQueryVariables>;

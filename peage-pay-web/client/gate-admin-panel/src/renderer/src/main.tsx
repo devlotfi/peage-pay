@@ -9,7 +9,7 @@ import { BaseUserRolesType, RefreshTokenMode } from './__generated__/graphql';
 import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { TitleBar } from '@peage-pay-web/ui';
-import { PeagePayAdminLogo } from '@peage-pay-web/assets';
+import GateAdminPanelLogo from './assets/img/icon.png';
 import { GateAdminInfoProvider } from './context/gate-admin-info.context';
 import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
@@ -27,7 +27,7 @@ root.render(
           authType="USER"
         >
           <TitleBar.Layout
-            windowIcon={PeagePayAdminLogo}
+            windowIcon={GateAdminPanelLogo}
             title="Peage Pay gate admin dashboard"
           >
             <AuthProvider

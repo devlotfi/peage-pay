@@ -12,6 +12,7 @@ export const TICKET_INFO = gql(`
       }
       exitTollId
       exitTollPrice
+      used
     }
   }
 `);

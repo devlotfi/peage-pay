@@ -48,10 +48,6 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <h1>home</h1>,
-        },
-        {
-          path: '/dashboard/scan',
           element: <ScanTicketPage></ScanTicketPage>,
         },
       ],

@@ -1,15 +1,21 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import {
+  faCheck,
+  faCheckCircle,
+  faExclamationCircle,
   faQrcode,
   faRefresh,
   faRoadBarrier,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Camera } from '@peage-pay-web/assets';
 import {
   AdminDashboardLayout,
+  Alert,
   Button,
   Heading,
+  LoaderDots,
   Table,
 } from '@peage-pay-web/ui';
 import QRCodeScanner from '@renderer/components/qr-code-scanner.component';
@@ -19,6 +25,7 @@ import { useEffect, useState } from 'react';
 import { ConnectToSerialPortFrom } from '@peage-pay-web/serial-port';
 import { useMutation as useReactMutation } from 'react-query';
 import { OPEN_GATE } from '@renderer/react-query/mutations';
+import { VALIDATE_TICKET } from '@renderer/graphql/mutations';
 
 const ScanTicketPage = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,6 +46,14 @@ const ScanTicketPage = (): JSX.Element => {
     fetchPolicy: 'network-only',
     skip: !ticket,
   });
+  const [
+    validateTicket,
+    {
+      loading: validateTicketLoading,
+      error: validateTicketError,
+      data: validateTicketData,
+    },
+  ] = useMutation(VALIDATE_TICKET);
 
   const { mutate: mutateOpenGate } = useReactMutation(OPEN_GATE, {
     mutationKey: OPEN_GATE.name,
@@ -104,6 +119,18 @@ const ScanTicketPage = (): JSX.Element => {
     return 0;
   };
 
+  const handleValidateTicket = () => {
+    if (ticket) {
+      validateTicket({
+        variables: {
+          validateTicketInput: {
+            id: ticket,
+          },
+        },
+      });
+    }
+  };
+
   return (
     <div className="flex flex-1 flex-col">
       <ConnectToSerialPortFrom></ConnectToSerialPortFrom>
@@ -128,6 +155,17 @@ const ScanTicketPage = (): JSX.Element => {
         <div className="flex flex-col flex-1">
           {ticket ? (
             <>
+              {ticketData?.ticketInfo.used ? (
+                <Alert variant="error" className="mb-[1rem]">
+                  <Alert.Icon position="left">
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                    ></FontAwesomeIcon>
+                  </Alert.Icon>
+                  <Alert.Content>Ticket already used</Alert.Content>
+                </Alert>
+              ) : null}
+
               <Table.Container className="w-full">
                 <Table>
                   <Table.Body>
@@ -191,14 +229,59 @@ const ScanTicketPage = (): JSX.Element => {
                     <Table>
                       <Table.Body>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Total</Table.Body.Td>
+                          <Table.Body.Td className="text-primary-100 font-bold">
+                            Total
+                          </Table.Body.Td>
                           <Table.Body.Td className="text-primary-100">
-                            {calculateTotal()} dzd
+                            {calculateTotal().toFixed(2)} dzd
                           </Table.Body.Td>
                         </Table.Body.Tr>
                       </Table.Body>
                     </Table>
                   </Table.Container>
+
+                  {validateTicketData ? (
+                    <Alert variant={'success'} className="mt-[0.5rem]">
+                      <Alert.Icon position={'left'}>
+                        <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+                      </Alert.Icon>
+                      <Alert.Content>Ticket validated</Alert.Content>
+                    </Alert>
+                  ) : null}
+
+                  {validateTicketError ? (
+                    <Alert variant={'error'} className="mt-[0.5rem]">
+                      <Alert.Icon position={'left'}>
+                        <FontAwesomeIcon
+                          icon={faExclamationCircle}
+                        ></FontAwesomeIcon>
+                      </Alert.Icon>
+                      <Alert.Content>{`auth:errors.${validateTicketError.message}`}</Alert.Content>
+                    </Alert>
+                  ) : null}
+
+                  {ticketData?.ticketInfo.used ? null : (
+                    <Button
+                      onClick={handleValidateTicket}
+                      className="mt-[1rem]"
+                      variant="primary"
+                    >
+                      {validateTicketLoading ? (
+                        <LoaderDots
+                          dotProps={{ variant: 'color-content' }}
+                        ></LoaderDots>
+                      ) : (
+                        <>
+                          <Button.Icon>
+                            <FontAwesomeIcon
+                              icon={faCheckCircle}
+                            ></FontAwesomeIcon>
+                          </Button.Icon>
+                          <Button.Content>Validate ticket</Button.Content>
+                        </>
+                      )}
+                    </Button>
+                  )}
                 </AdminDashboardLayout.Error>
               </AdminDashboardLayout.Loading>
             </>

@@ -10,7 +10,7 @@ import './assets/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BadgeScannerProvider } from './context/badge-scanner.context';
 import { TitleBar } from '@peage-pay-web/ui';
-import { PeagePayAdminLogo } from '@peage-pay-web/assets';
+import ModeratorAdminPanelLogo from './assets/img/icon.png';
 import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const queryClient = new QueryClient();
@@ -27,7 +27,7 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
         >
           <TitleBar.Layout
-            windowIcon={PeagePayAdminLogo}
+            windowIcon={ModeratorAdminPanelLogo}
             title="Peage Pay moderator admin panel"
           >
             <AuthProvider

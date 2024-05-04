@@ -1,4 +1,4 @@
-import { faHome, faIdBadge } from '@fortawesome/free-solid-svg-icons';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { PeagePayLogo } from '@peage-pay-web/assets';
 import {
@@ -36,19 +36,7 @@ const DashboardLayout = (): JSX.Element => {
             className="w-full mb-[0.5rem]"
           >
             <MenuItem.Icon>
-              <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
-            </MenuItem.Icon>
-            <MenuItem.Text>Home</MenuItem.Text>
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigate('/dashboard/print')}
-            variant={
-              location.pathname === '/dashboard/print' ? 'primary' : 'base-200'
-            }
-            className="w-full mb-[0.5rem]"
-          >
-            <MenuItem.Icon>
-              <FontAwesomeIcon icon={faIdBadge}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faPrint}></FontAwesomeIcon>
             </MenuItem.Icon>
             <MenuItem.Text>Ticket printer</MenuItem.Text>
           </MenuItem>

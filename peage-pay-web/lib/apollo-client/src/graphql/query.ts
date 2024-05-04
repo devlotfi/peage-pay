@@ -15,8 +15,8 @@ export const SIGN_IN_WITH_REFRESH_TOKEN = `
 `;
 
 export const SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN = `
-  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN {
-    signInAutomaticGateRefreshToken {
+  query SIGN_IN_AUTOMATIC_GATE_REFRESH_TOKEN($signInAutomaticGateRefreshTokenInput: SignInAutomaticGateRefreshTokenInput!) {
+    signInAutomaticGateRefreshToken(signInAutomaticGateRefreshTokenInput: $signInAutomaticGateRefreshTokenInput) {
       accessToken
     }
   }
