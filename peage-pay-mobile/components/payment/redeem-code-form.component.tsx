@@ -15,7 +15,7 @@ import { REDEEM_CODE } from '../../graphql/mutations';
 import UIAlert from '../../elements/ui-alert/ui-alert.component';
 import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import { useTranslation } from 'react-i18next';
-import { USER_INFO } from '../../graphql/queries';
+import { DEPOSIT_LIST, USER_INFO } from '../../graphql/queries';
 import { AppTheme } from '../../theme/types/app-theme.type';
 import { Image } from 'expo-image';
 
@@ -46,7 +46,7 @@ const RedeemCodeForm = (): JSX.Element => {
   const { t } = useTranslation();
 
   const [redeemCode, { loading, error, data }] = useMutation(REDEEM_CODE, {
-    refetchQueries: [USER_INFO],
+    refetchQueries: [USER_INFO, DEPOSIT_LIST],
     awaitRefetchQueries: true,
   });
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =

@@ -10,6 +10,7 @@ import {
   Dropdown,
   IconButtonOutline,
   MenuItem,
+  UserRolesDropdown,
 } from '@peage-pay-web/ui';
 import { BaseUserType } from '../../__generated__/graphql';
 import { useRef } from 'react';
@@ -79,17 +80,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
         </Dropdown>
       </Table.Body.Td>
       <Table.Body.Td>
-        <Table.Container>
-          <Table>
-            <Table.Body>
-              {baseUser.roles.map((role) => (
-                <Table.Body.Tr key={role}>
-                  <Table.Body.Td className="p-[0.2rem]">{role}</Table.Body.Td>
-                </Table.Body.Tr>
-              ))}
-            </Table.Body>
-          </Table>
-        </Table.Container>
+        <UserRolesDropdown userRoles={baseUser.roles}></UserRolesDropdown>
       </Table.Body.Td>
       <Table.Body.Td>{baseUser.firstName}</Table.Body.Td>
       <Table.Body.Td>{baseUser.lastName}</Table.Body.Td>

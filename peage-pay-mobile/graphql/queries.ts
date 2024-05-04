@@ -143,3 +143,14 @@ export const TRIP_PRICE = gql(`
     }
   }
 `);
+
+export const USER_RFID_TAG_LIST = gql(`
+  query USER_RFID_TAG_LIST {
+    userRfidTagList {
+      id
+      rfid
+      registrationNumber
+      createdAt
+    }
+  }
+`);

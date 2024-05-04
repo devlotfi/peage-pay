@@ -107,6 +107,12 @@ const TripPriceDetails = ({
                 </UIText>
               </View>
               <View style={styles.infoRow}>
+                <UIText style={styles.infoName}>Distance:</UIText>
+                <UIText style={styles.infoContent}>
+                  {data?.tripPrice.distance} KM
+                </UIText>
+              </View>
+              <View style={styles.infoRow}>
                 <UIText style={[styles.infoName, styles.totalInfoName]}>
                   Total:
                 </UIText>

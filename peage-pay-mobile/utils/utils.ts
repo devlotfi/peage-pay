@@ -60,6 +60,16 @@ export abstract class UserAuthUtils {
   public static getRefreshToken = () => {
     return SecureStore.getItem(SecureStoreKeys.REFRESH_TOKEN);
   };
+
+  public static setPin = (pin: string) => {
+    SecureStore.setItem(SecureStoreKeys.PIN, pin);
+  };
+  public static clearPin = async () => {
+    await SecureStore.deleteItemAsync(SecureStoreKeys.PIN);
+  };
+  public static getPin = () => {
+    return SecureStore.getItem(SecureStoreKeys.PIN);
+  };
 }
 
 export abstract class AuthInitializedStatus {

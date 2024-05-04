@@ -55,6 +55,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-webview": "13.6.4",
+    "react-qr-code": "^2.0.12",
     "remove": "^0.1.5",
     "typescript": "^5.3.0",
     "yup": "^1.4.0"

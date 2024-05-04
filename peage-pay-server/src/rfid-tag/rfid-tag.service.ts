@@ -6,10 +6,21 @@ import { Prisma, RfidTag } from '@prisma/client';
 import { AddRfidTagInput } from './input/add-rfid-tag.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { RfidTagByRfidInput } from './input/rfid-tag-by-rfid.input.gql';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Injectable()
 export class RfidTagService {
   public constructor(private readonly databaseService: DatabaseService) {}
+
+  public async userRfidTagList(
+    userAccessTokenPayload: UserAccessTokenPayload,
+  ): Promise<RfidTag[]> {
+    return await this.databaseService.rfidTag.findMany({
+      where: {
+        baseUserId: userAccessTokenPayload.userId,
+      },
+    });
+  }
 
   public async rfidTagList(
     rfidTagListInput: RfidTagListInput,

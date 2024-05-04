@@ -7,14 +7,17 @@ import {
 } from 'react-native';
 import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import { AppTheme } from '../../theme/types/app-theme.type';
+import { RefObject } from 'react';
 
 interface UITextInputFieldProps extends TextInputProps {
   style?: StyleProp<ViewStyle>;
+  fieldRef?: RefObject<TextInput>;
 }
 
 const UITextInputField = ({
   children,
   style,
+  fieldRef,
   ...props
 }: UITextInputFieldProps): JSX.Element => {
   const { theme } = useAppTheme();
@@ -22,6 +25,7 @@ const UITextInputField = ({
 
   return (
     <TextInput
+      ref={fieldRef}
       style={[styles.base, style]}
       placeholderTextColor={theme['base-content']}
       {...props}

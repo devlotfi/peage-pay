@@ -19,6 +19,8 @@ import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { BaseUserType } from 'src/user/graphql/base-user.gql';
 import { RfidTagByRfidInput } from './input/rfid-tag-by-rfid.input.gql';
 import { BaseUserService } from 'src/user/base-user.service';
+import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Resolver(() => RfidTagType)
 export class RfidTagResolver {
@@ -26,6 +28,14 @@ export class RfidTagResolver {
     private readonly rfidTagService: RfidTagService,
     private readonly baseUserService: BaseUserService,
   ) {}
+
+  @Query(() => [RfidTagType])
+  @UseGuards(AuthGuard)
+  public async userRfidTagList(
+    @ContextAccessTokenPayload() userAccessTokenPayload: UserAccessTokenPayload,
+  ) {
+    return await this.rfidTagService.userRfidTagList(userAccessTokenPayload);
+  }
 
   @Query(() => RfidTagListResult)
   @AllowRoles([BaseUserRolesType.MODERATOR])

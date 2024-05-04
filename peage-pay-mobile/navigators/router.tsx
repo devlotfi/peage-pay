@@ -13,10 +13,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomTabBar from './custom-tab-bar.component';
 import DepositScreen from '../screens/deposit.screen';
 import {
-  faCalculator,
   faHome,
+  faIdBadge,
   faMapLocationDot,
   faMoneyBillTransfer,
+  faQrcode,
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 import TabIcon from './tab-icon.component';
@@ -27,13 +28,16 @@ import ResetPasswordScreen from '../screens/reset-password.screen';
 import MinimalNavbar from '../layout/minimal-navbar.component';
 import MapScreen from '../screens/map.screen';
 import HomeScreen from '../screens/home.screen';
+import BadgesScreen from '../screens/badges.screen';
+import QrCodeScreen from '../screens/qr-code.screen';
 
 export type BottomTabsNavigatorParamList = {
   Home: undefined;
   Balance: undefined;
   Deposit: undefined;
   Map: undefined;
-  Prices: undefined;
+  Badges: undefined;
+  QrCode: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabsNavigatorParamList>();
@@ -63,7 +67,6 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
           ),
         }}
       ></Tab.Screen>
-
       <Tab.Screen
         name="Deposit"
         component={DepositScreen}
@@ -85,12 +88,22 @@ const BottomTabsNavigator = (props: Props): JSX.Element => {
         }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Prices"
-        component={BalanceScreen}
+        name="Badges"
+        component={BadgesScreen}
         options={{
           header: () => <DashboardNavbar {...props}></DashboardNavbar>,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={faCalculator}></TabIcon>
+            <TabIcon focused={focused} icon={faIdBadge}></TabIcon>
+          ),
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="QrCode"
+        component={QrCodeScreen}
+        options={{
+          header: () => <DashboardNavbar {...props}></DashboardNavbar>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={faQrcode}></TabIcon>
           ),
         }}
       ></Tab.Screen>

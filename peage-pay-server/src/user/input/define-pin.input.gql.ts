@@ -4,7 +4,7 @@ import { IsNumberString, Length } from 'class-validator';
 @InputType()
 export class DefinePinInput {
   @Field()
-  @Length(7)
+  @Length(5)
   @IsNumberString()
   public pin: string;
 }
