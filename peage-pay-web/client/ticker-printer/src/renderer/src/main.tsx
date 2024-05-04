@@ -5,11 +5,11 @@ import { ThemeProvider } from '@peage-pay-web/tailwind-config';
 import './i18n';
 import { ApplicationApolloClientProvider } from '@peage-pay-web/apollo-client';
 import './assets/main.css';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { AutomaticGateAuthProvider } from '@peage-pay-web/automatic-gate-auth';
 import { TitleBar } from '@peage-pay-web/ui';
 import TicketPrinterIcon from './assets/img/icon.png';
 import { SerialPortProvider } from '@peage-pay-web/serial-port';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 

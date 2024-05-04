@@ -7,6 +7,7 @@
 #define BUZZER_PIN 2
 #define GREEN_LED_PIN 4
 #define RED_LED_PIN 5
+#define BLUE_LED_PIN 6
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
@@ -16,6 +17,7 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(GREEN_LED_PIN, OUTPUT);
   pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(BLUE_LED_PIN, OUTPUT);
   digitalWrite(RED_LED_PIN, HIGH);
 
   servo.attach(3);
@@ -27,6 +29,20 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');
+    if (input == "OPEN_GATE") {
+      digitalWrite(GREEN_LED_PIN, HIGH);
+      digitalWrite(RED_LED_PIN, LOW);
+      servo.write(90);
+
+      delay(2000);
+      digitalWrite(GREEN_LED_PIN, LOW);
+      digitalWrite(RED_LED_PIN, HIGH);
+      servo.write(180);
+    }
+  }
+
   // Look for new cards
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
     // Create a string to store the UID
@@ -51,17 +67,13 @@ void loop() {
     Serial.println("}");
     
     // Turn the buzzer on
-    
-    digitalWrite(GREEN_LED_PIN, HIGH);
-    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(BUZZER_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
     // Wait for a short duration
-    servo.write(90);
-    delay(2000);
-    servo.write(180);
+    delay(300);
     // Turn the buzzer off
     digitalWrite(BUZZER_PIN, LOW);
-    digitalWrite(GREEN_LED_PIN, LOW);
-    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
     
     mfrc522.PICC_HaltA(); // Stop reading
   }

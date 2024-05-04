@@ -9158,7 +9158,6 @@ __metadata:
     prettier: "npm:^3.2.4"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-query: "npm:^3.39.3"
     serialport: "npm:^12.0.0"
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:^5.3.3"
@@ -9344,28 +9343,6 @@ __metadata:
   checksum: 10c0/bb8750d026b25da437072762fd739098bad92ff72f66483c3929db4579e072f5523960f7e7fd70ee0d75db48898067b5dc1c9c1d17888128cff008fcc34d1bd3
   languageName: node
   linkType: hard
-
-"global-map@workspace:client/global-map":
-  version: 0.0.0-use.local
-  resolution: "global-map@workspace:client/global-map"
-  dependencies:
-    "@types/react": "npm:^18.2.66"
-    "@types/react-dom": "npm:^18.2.22"
-    "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
-    "@typescript-eslint/parser": "npm:^7.2.0"
-    "@vitejs/plugin-react": "npm:^4.2.1"
-    autoprefixer: "npm:^10.4.19"
-    eslint: "npm:^8.57.0"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-react-refresh: "npm:^0.4.6"
-    postcss: "npm:^8.4.38"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    tailwindcss: "npm:^3.4.3"
-    typescript: "npm:^5.2.2"
-    vite: "npm:^5.2.0"
-  languageName: unknown
-  linkType: soft
 
 "globals@npm:^11.1.0":
   version: 11.12.0
