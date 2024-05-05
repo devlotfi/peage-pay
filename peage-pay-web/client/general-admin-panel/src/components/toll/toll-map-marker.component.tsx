@@ -17,7 +17,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
       <div className="hidden group-hover:flex mt-[0.5rem] w-full">
         <a
           className="w-full"
-          href={`/dashboard/toll/edit/${toll.id}`}
+          href={`/dashboard/toll/edit/${toll.tollNetworkId}/${toll.id}`}
           target="_blank"
           rel="noreferrer"
         >

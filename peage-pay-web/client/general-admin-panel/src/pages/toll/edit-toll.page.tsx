@@ -156,6 +156,8 @@ const EditTollPage = (): JSX.Element => {
     validationSchema: editTollValidationSchema,
     onSubmit(values) {
       if (tollId) {
+        console.log(values);
+
         editToll({
           variables: {
             editTollInput: {
@@ -309,7 +311,7 @@ const EditTollPage = (): JSX.Element => {
               <Select.Main>
                 <Select.Label>Inbound Status</Select.Label>
                 <Select.Field
-                  name="Outbound Status"
+                  name="outboundStatus"
                   value={values.outboundStatus}
                   onChange={handleChange}
                   onBlur={handleBlur}
