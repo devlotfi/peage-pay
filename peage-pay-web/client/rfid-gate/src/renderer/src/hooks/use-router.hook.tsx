@@ -1,40 +1,48 @@
-import { Navigate, createHashRouter } from 'react-router-dom'
-import { ErrorPage } from '@peage-pay-web/ui'
-import DashboardLayout from '@renderer/layout/dashboard-layout.layout'
-import RfidGatePage from '@renderer/pages/rfid-gate.page'
+import { Navigate, createHashRouter } from 'react-router-dom';
+import { ErrorPage } from '@peage-pay-web/ui';
+import DashboardLayout from '@renderer/layout/dashboard-layout.layout';
+import RfidGatePage from '@renderer/pages/rfid-gate.page';
 import {
   SignInAutomaticGatePage,
-  useAutomaticGateAuthGuard
-} from '@peage-pay-web/automatic-gate-auth'
+  useAutomaticGateAuthGuard,
+} from '@peage-pay-web/automatic-gate-auth';
+import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const useRouter = () => {
-  const { authGuard, notAuthGuard } = useAutomaticGateAuthGuard()
+  const { authGuard, notAuthGuard } = useAutomaticGateAuthGuard();
 
   const router = createHashRouter([
     {
       path: '/',
       element: <Navigate to={'/sign-in-automatic-gate'}></Navigate>,
-      errorElement: <ErrorPage></ErrorPage>
+      errorElement: <ErrorPage></ErrorPage>,
     },
     {
       path: '/sign-in-automatic-gate',
       element: notAuthGuard(
-        <SignInAutomaticGatePage usage={'desktop'} title="Ticket printer"></SignInAutomaticGatePage>
-      )
+        <SignInAutomaticGatePage
+          usage={'desktop'}
+          title="Rfid gate"
+        ></SignInAutomaticGatePage>,
+      ),
     },
     {
       path: '/dashboard',
-      element: authGuard(<DashboardLayout></DashboardLayout>),
+      element: authGuard(
+        <SerialPortProvider>
+          <DashboardLayout></DashboardLayout>
+        </SerialPortProvider>,
+      ),
       children: [
         {
           path: '/dashboard',
-          element: <RfidGatePage></RfidGatePage>
-        }
-      ]
-    }
-  ])
+          element: <RfidGatePage></RfidGatePage>,
+        },
+      ],
+    },
+  ]);
 
-  return { router }
-}
+  return { router };
+};
 
-export default useRouter
+export default useRouter;

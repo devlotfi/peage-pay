@@ -85,25 +85,25 @@ const BadgeScannerPage = () => {
                           <Table.Body.Td>Id</Table.Body.Td>
                           <Table.Body.Td>{data.rfidTagByRfid.id}</Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Rfid</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.rfid}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Registration number</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.registrationNumber}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Created at</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.createdAt}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Updated at</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.updatedAt}
@@ -127,25 +127,25 @@ const BadgeScannerPage = () => {
                           <Table.Body.Td>Id</Table.Body.Td>
                           <Table.Body.Td>{data.rfidTagByRfid.id}</Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>First name</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.baseUser.firstName}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Last name</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.baseUser.lastName}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Created at</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.createdAt}
                           </Table.Body.Td>
                         </Table.Body.Tr>
-                        <Table.Body.Tr>
+                        <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>Updated at</Table.Body.Td>
                           <Table.Body.Td>
                             {data.rfidTagByRfid.updatedAt}

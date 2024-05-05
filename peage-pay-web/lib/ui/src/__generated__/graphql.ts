@@ -509,6 +509,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  endTripRfid: Scalars['Boolean']['output'];
   generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
@@ -526,6 +527,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  startTripRfid: Scalars['Boolean']['output'];
   validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
 };
@@ -706,6 +708,11 @@ export type MutationEditTollNetworkArgs = {
 };
 
 
+export type MutationEndTripRfidArgs = {
+  endTripRfidInput: RfidInput;
+};
+
+
 export type MutationGenerateTollDistancesArgs = {
   generateTollDistancesInput: IdInput;
 };
@@ -770,6 +777,11 @@ export type MutationSignOutArgs = {
 
 export type MutationSignUpWithEmailArgs = {
   signUpWithEmailInput: SignUpWithEmailInput;
+};
+
+
+export type MutationStartTripRfidArgs = {
+  startTripRfidInput: RfidInput;
 };
 
 
@@ -1100,6 +1112,10 @@ export type ResetPasswordInput = {
   userId: Scalars['String']['input'];
 };
 
+export type RfidInput = {
+  rfid: Scalars['String']['input'];
+};
+
 export type RfidTagByRfidInput = {
   rfid: Scalars['String']['input'];
 };
@@ -1287,6 +1303,7 @@ export type TicketType = {
   exitTollId?: Maybe<Scalars['String']['output']>;
   exitTollPrice?: Maybe<Scalars['Float']['output']>;
   id: Scalars['ID']['output'];
+  used: Scalars['Boolean']['output'];
 };
 
 export enum TokenErrors {
@@ -1548,8 +1565,8 @@ export type Automatic_Gate_ListQueryVariables = Exact<{
 }>;
 
 
-export type Automatic_Gate_ListQuery = { __typename?: 'Query', automaticGateList: { __typename?: 'AutomaticGateListResult', count: number, list: Array<{ __typename?: 'AutomaticGateType', id: string, name: string, tollId: string, createdAt: any, updatedAt: any }> } };
+export type Automatic_Gate_ListQuery = { __typename?: 'Query', automaticGateList: { __typename?: 'AutomaticGateListResult', count: number, list: Array<{ __typename?: 'AutomaticGateType', id: string, name: string, direction: TollDirectionType, variant: AutomaticGateVariantType, tollId: string, createdAt: any, updatedAt: any }> } };
 
 
 export const Toll_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TOLL_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TollListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tollList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"tollListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tollListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"wilayaId"}},{"kind":"Field","name":{"kind":"Name","value":"wilaya"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"highwayId"}},{"kind":"Field","name":{"kind":"Name","value":"highway"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworkId"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetwork"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Toll_ListQuery, Toll_ListQueryVariables>;
-export const Automatic_Gate_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AUTOMATIC_GATE_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AutomaticGateListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"automaticGateList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"automaticGateListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Automatic_Gate_ListQuery, Automatic_Gate_ListQueryVariables>;
+export const Automatic_Gate_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AUTOMATIC_GATE_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AutomaticGateListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"automaticGateList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"automaticGateListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"automaticGateListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"direction"}},{"kind":"Field","name":{"kind":"Name","value":"variant"}},{"kind":"Field","name":{"kind":"Name","value":"tollId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Automatic_Gate_ListQuery, Automatic_Gate_ListQueryVariables>;

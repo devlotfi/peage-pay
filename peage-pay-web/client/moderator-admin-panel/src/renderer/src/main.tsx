@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BadgeScannerProvider } from './context/badge-scanner.context';
 import { TitleBar } from '@peage-pay-web/ui';
 import ModeratorAdminPanelLogo from './assets/img/icon.png';
-import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const queryClient = new QueryClient();
 
@@ -34,11 +33,9 @@ root.render(
               refreshTokenMode={RefreshTokenMode.PlainText}
               allowedRoles={[BaseUserRolesType.Moderator]}
             >
-              <SerialPortProvider>
-                <BadgeScannerProvider>
-                  <App></App>
-                </BadgeScannerProvider>
-              </SerialPortProvider>
+              <BadgeScannerProvider>
+                <App></App>
+              </BadgeScannerProvider>
             </AuthProvider>
           </TitleBar.Layout>
         </ApplicationApolloClientProvider>

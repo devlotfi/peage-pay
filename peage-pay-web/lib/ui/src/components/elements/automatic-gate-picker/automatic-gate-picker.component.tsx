@@ -110,10 +110,8 @@ const AutomaticGatePicker = ({
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
                           <Table.Head.Th>Name</Table.Head.Th>
-                          <Table.Head.Th>Wilaya</Table.Head.Th>
-                          <Table.Head.Th>Wilaya code</Table.Head.Th>
-                          <Table.Head.Th>Highway</Table.Head.Th>
-                          <Table.Head.Th>Highway code</Table.Head.Th>
+                          <Table.Head.Th>Direction</Table.Head.Th>
+                          <Table.Head.Th>Variant</Table.Head.Th>
                           <Table.Head.Th>Created at</Table.Head.Th>
                           <Table.Head.Th>Updated at</Table.Head.Th>
                           <Table.Head.Th>Id</Table.Head.Th>

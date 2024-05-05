@@ -20,7 +20,6 @@ function createWindow(): BrowserWindow {
     },
   });
 
-  mainWindow.webContents.openDevTools();
   globalShortcut.register('F5', () => {
     const focusedWindow = BrowserWindow.getFocusedWindow();
     if (focusedWindow) {

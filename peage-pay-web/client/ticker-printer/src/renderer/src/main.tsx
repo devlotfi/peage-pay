@@ -8,7 +8,6 @@ import './assets/main.css';
 import { AutomaticGateAuthProvider } from '@peage-pay-web/automatic-gate-auth';
 import { TitleBar } from '@peage-pay-web/ui';
 import TicketPrinterIcon from './assets/img/icon.png';
-import { SerialPortProvider } from '@peage-pay-web/serial-port';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
@@ -29,9 +28,7 @@ root.render(
             title="Peage Pay ticket printer"
           >
             <AutomaticGateAuthProvider>
-              <SerialPortProvider>
-                <App />
-              </SerialPortProvider>
+              <App />
             </AutomaticGateAuthProvider>
           </TitleBar.Layout>
         </ApplicationApolloClientProvider>

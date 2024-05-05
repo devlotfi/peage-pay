@@ -42,6 +42,8 @@ export const AUTOMATIC_GATE_LIST = gql(`
       list {
         id
         name
+        direction
+        variant
         tollId
         createdAt
         updatedAt

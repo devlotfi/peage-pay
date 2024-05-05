@@ -100,6 +100,7 @@ const EditAutomaticGatePage = (): JSX.Element => {
             editAutomaticGateInput: {
               automaticGateId: automaticGateId,
               name: values.name,
+              direction: values.direction,
               password: values.password !== '' ? values.password : undefined,
             },
           },

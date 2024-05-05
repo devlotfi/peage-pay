@@ -11,6 +11,7 @@ import RfidTagLayout from '@renderer/layout/rfid-tag.layout';
 import BaseUserListPage from '@renderer/pages/base-user/base-user-list.page';
 import RfisTagListPage from '@renderer/pages/rfid-tag/rfid-tag-list.page';
 import AddRfidTagPage from '@renderer/pages/rfid-tag/add-rfid-tag.page';
+import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -47,7 +48,11 @@ const useRouter = () => {
     },
     {
       path: '/dashboard',
-      element: authGuard(<DashboardLayout></DashboardLayout>),
+      element: authGuard(
+        <SerialPortProvider>
+          <DashboardLayout></DashboardLayout>
+        </SerialPortProvider>,
+      ),
       children: [
         {
           path: '/dashboard',

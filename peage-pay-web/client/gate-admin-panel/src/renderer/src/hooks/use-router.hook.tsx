@@ -8,6 +8,7 @@ import {
 } from '@peage-pay-web/auth';
 import DashboardLayout from '@renderer/layout/dashboard-layout.layout';
 import ScanTicketPage from '@renderer/pages/scan-ticket.page';
+import { SerialPortProvider } from '@peage-pay-web/serial-port';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -44,7 +45,11 @@ const useRouter = () => {
     },
     {
       path: '/dashboard',
-      element: authGuard(<DashboardLayout></DashboardLayout>),
+      element: authGuard(
+        <SerialPortProvider>
+          <DashboardLayout></DashboardLayout>
+        </SerialPortProvider>,
+      ),
       children: [
         {
           path: '/dashboard',

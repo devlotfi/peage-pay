@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query TOLL_LIST($tollListInput: TollListInput!) {\n    tollList(tollListInput: $tollListInput) {\n      count\n      list {\n        id\n        name\n        inboundStatus\n        outboundStatus\n        longitude\n        latitude\n        wilayaId\n        wilaya {\n          id\n          name\n          code\n        }\n        highwayId\n        highway {\n          id\n          name\n          code\n        }\n        tollNetworkId\n        tollNetwork {\n          id\n          name\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Toll_ListDocument,
-    "\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Automatic_Gate_ListDocument,
+    "\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        direction\n        variant\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Automatic_Gate_ListDocument,
 };
 
 /**
@@ -38,7 +38,7 @@ export function gql(source: "\n  query TOLL_LIST($tollListInput: TollListInput!)
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        direction\n        variant\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        direction\n        variant\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
