@@ -63,7 +63,6 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
     <Modal modalRef={modalRef}>
       <Modal.Window>
         <Modal.Header>Sign out</Modal.Header>
-        {refreshTokenMode}
         <Modal.Content>Are you sure you want to sign out ?</Modal.Content>
         <Modal.Footer className="justify-end">
           <Button

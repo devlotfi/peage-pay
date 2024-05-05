@@ -128,10 +128,13 @@ export class TripService {
           toll: true,
         },
       });
+      console.log('log 1 *******************');
+
       const tollPrice = await this.tollPriceService.tollPrice({
         tollId: automaticGate.tollId,
         direction: TollDirectionType.OUTBOUND,
       });
+      console.log('log 2 *******************');
       const rfidTag = await prisma.rfidTag.findUniqueOrThrow({
         where: {
           rfid: endTripRfidInput.rfid,
@@ -140,7 +143,7 @@ export class TripService {
           baseUser: true,
         },
       });
-
+      console.log('log 3 *******************');
       if (!rfidTag.baseUser.currentTripId) {
         throw new GraphQLError(PrismaErrors.NOT_FOUND);
       }
@@ -149,10 +152,15 @@ export class TripService {
           id: rfidTag.baseUser.currentTripId,
         },
       });
+      console.log('log 4 *******************');
+      console.log('@', trip.entryTollId);
+      console.log('@', automaticGate.tollId);
+
       const tollDistance = await this.tollDistanceService.tollDistance({
         fromTollId: trip.entryTollId,
         toTollId: automaticGate.tollId,
       });
+      console.log('log 5 *******************');
 
       await prisma.trip.update({
         data: {
@@ -165,6 +173,30 @@ export class TripService {
           id: trip.id,
         },
       });
+      console.log('log 6 *******************');
+
+      const tripPrice =
+        ((trip.entryTollPrice.toNumber() + tollPrice) / 2) * tollDistance;
+      await prisma.user.update({
+        data: {
+          balance: {
+            decrement: tripPrice,
+          },
+        },
+        where: {
+          baseUserId: rfidTag.baseUserId,
+        },
+      });
+      console.log('log 7 *******************');
+      await prisma.baseUser.update({
+        data: {
+          currentTripId: null,
+        },
+        where: {
+          id: rfidTag.baseUserId,
+        },
+      });
+      console.log('log 8 *******************');
 
       return true;
     });

@@ -4,8 +4,8 @@
     "src/renderer/src/env.d.ts",
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.tsx",
-    "src/preload/*.d.ts",
-    "src/constants/**/*"
+    "src/constants/**/*",
+    "src/preload/*.d.ts"
   ],
   "compilerOptions": {
     "composite": true,

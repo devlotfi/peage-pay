@@ -81,7 +81,7 @@ export class AutomaticGateResolver {
   }
 
   @Mutation(() => Boolean)
-  @AllowRoles([BaseUserRolesType.GENERAL_ADMIN])
+  @AllowRoles([BaseUserRolesType.TOLL_ADMIN])
   @UseGuards(AuthGuard)
   public async deleteAutomaticGate(
     @Args('deleteAutomaticGateInput') deleteAutomaticGateInput: IdInput,

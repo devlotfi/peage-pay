@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import {
   faArrowDown,
-  faInfo,
+  faInfoCircle,
   faPrint,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -112,9 +112,9 @@ const TicketPrinter = (): JSX.Element => {
         ></QRCodeCanvas>
 
         {error ? (
-          <Alert>
+          <Alert variant="error">
             <Alert.Icon position={'left'}>
-              <FontAwesomeIcon icon={faInfo}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>{error.message}</Alert.Content>
           </Alert>

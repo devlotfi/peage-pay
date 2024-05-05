@@ -1,4 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { TripService } from './trip.service';
 import { TripType } from './graphql/trip.gql';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
@@ -10,10 +17,15 @@ import { TripPriceResult } from './result/trip-price.result.gql';
 import { AutomaticGateAuthGuard } from 'src/shared/guards/automatic-gate-auth.guard';
 import { RfidInput } from 'src/shared/graphql/rfid-input.gql';
 import { AutomaticGateAccessTokenPayload } from 'src/automatic-gate/types/automatic-gate-access-token-payload.type';
+import { TollType } from 'src/toll/graphql/toll.gql';
+import { TollService } from 'src/toll/toll.service';
 
-@Resolver()
+@Resolver(() => TripType)
 export class TripResolver {
-  public constructor(private readonly tripService: TripService) {}
+  public constructor(
+    private readonly tripService: TripService,
+    private readonly tollService: TollService,
+  ) {}
 
   @Query(() => [TripType])
   @UseGuards(AuthGuard)
@@ -51,9 +63,22 @@ export class TripResolver {
     @ContextAccessTokenPayload()
     automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
   ) {
-    return await this.tripService.startTripRfid(
+    return await this.tripService.endTripRfid(
       endTripRfidInput,
       automaticGateAccessTokenPayload,
     );
+  }
+
+  @ResolveField(() => TollType)
+  public async entryToll(@Parent() trip: TripType) {
+    return await this.tollService.tollById({ id: trip.entryTollId });
+  }
+
+  @ResolveField(() => TollType)
+  public async exitToll(@Parent() trip: TripType) {
+    if (trip.exitTollId) {
+      return await this.tollService.tollById({ id: trip.exitTollId });
+    }
+    return null;
   }
 }
