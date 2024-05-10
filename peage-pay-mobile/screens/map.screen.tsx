@@ -216,10 +216,13 @@ const MapScreen = (): JSX.Element => {
               ></SectionDetails>
             ) : null}
           </View>
-          <MapView style={styles.map} provider="google" mapType="hybrid">
+          <MapView
+            style={styles.map}
+            showsTraffic
+            provider="google"
+            mapType="hybrid"
+          >
             {renderTolls()}
-            {renderSections()}
-            {renderSectionLines()}
           </MapView>
         </View>
       </FullScreenError>

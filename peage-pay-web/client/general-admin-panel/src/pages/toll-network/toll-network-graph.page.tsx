@@ -64,6 +64,9 @@ const TollNetworkGraphPage = (): JSX.Element => {
       const { Map } = (await google.maps.importLibrary(
         'maps',
       )) as google.maps.MapsLibrary;
+      const { TrafficLayer } = (await google.maps.importLibrary(
+        'maps',
+      )) as google.maps.MapsLibrary;
       const { AdvancedMarkerElement } = (await google.maps.importLibrary(
         'marker',
       )) as google.maps.MarkerLibrary;
@@ -74,6 +77,8 @@ const TollNetworkGraphPage = (): JSX.Element => {
         mapId: 'DEMO_MAP_ID',
         mapTypeId: 'hybrid',
       });
+      const trafficLayer = new TrafficLayer();
+      trafficLayer.setMap(map);
 
       for (const toll of tollListData.fullTollList) {
         const tollMarker = document.createElement('div');
