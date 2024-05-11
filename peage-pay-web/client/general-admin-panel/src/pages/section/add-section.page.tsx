@@ -111,13 +111,13 @@ const AddSectionPage = (): JSX.Element => {
       {tollNetworkData ? (
         <>
           <TollPicker
-            value={fromToll}
+            value={fromToll as any}
             onChange={handleFromTollChange}
             modalRef={fromTollPickerModalRef}
             tollNetwork={tollNetworkData.tollNetworkById}
           ></TollPicker>
           <TollPicker
-            value={toToll}
+            value={toToll as any}
             onChange={handleToTollChange}
             modalRef={toTollPickerModalRef}
             tollNetwork={tollNetworkData.tollNetworkById}

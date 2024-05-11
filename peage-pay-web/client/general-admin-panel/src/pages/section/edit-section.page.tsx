@@ -12,7 +12,6 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
-  Select,
   Table,
   TextInput,
 } from '@peage-pay-web/ui';
@@ -24,24 +23,18 @@ import {
   TOLL_BY_ID,
   TOLL_NETWORK_BY_ID,
 } from '../../graphql/queries';
-import { SectionStatusType } from '../../__generated__/graphql';
 import { EDIT_SECTION } from '../../graphql/mutations';
-import { Utils } from '@peage-pay-web/utils';
 
 interface EditSectionValues {
   fromTollId: string;
   toTollId: string;
   distance: number;
-  fromStatus: SectionStatusType;
-  toStatus: SectionStatusType;
 }
 
 const initialValues: EditSectionValues = {
   fromTollId: '',
   toTollId: '',
   distance: 0,
-  fromStatus: SectionStatusType.NormalTraffic,
-  toStatus: SectionStatusType.NormalTraffic,
 };
 
 const editSectionValidationSchema = yup.object({
@@ -96,8 +89,6 @@ const EditSectionPage = (): JSX.Element => {
       },
       onCompleted(data) {
         setFieldValue('distance', data.sectionByIds?.distance);
-        setFieldValue('fromStatus', data.sectionByIds?.fromStatus);
-        setFieldValue('toStatus', data.sectionByIds?.toStatus);
       },
       skip:
         fromTollLoading ||
@@ -144,8 +135,6 @@ const EditSectionPage = (): JSX.Element => {
             fromTollId: values.fromTollId,
             toTollId: values.toTollId,
             distance: values.distance,
-            fromStatus: values.fromStatus,
-            toStatus: values.toStatus,
           },
         },
       });
@@ -227,48 +216,6 @@ const EditSectionPage = (): JSX.Element => {
                 <TextInput.InfoMessage>{errors.distance}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
-            <Select
-              variant={
-                errors.fromStatus && touched.fromStatus ? 'error' : 'edge-100'
-              }
-              className="w-full mb-[1.3rem]"
-            >
-              <Select.Main>
-                <Select.Label>From Status</Select.Label>
-                <Select.Field
-                  name="fromStatus"
-                  value={values.fromStatus}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                >
-                  {Utils.renderFieldOptions(SectionStatusType)}
-                </Select.Field>
-              </Select.Main>
-              {errors.fromStatus && touched.fromStatus ? (
-                <Select.InfoMessage>{errors.fromStatus}</Select.InfoMessage>
-              ) : null}
-            </Select>
-            <Select
-              variant={
-                errors.toStatus && touched.toStatus ? 'error' : 'edge-100'
-              }
-              className="w-full mb-[1.3rem]"
-            >
-              <Select.Main>
-                <Select.Label>From Status</Select.Label>
-                <Select.Field
-                  name="toStatus"
-                  value={values.toStatus}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                >
-                  {Utils.renderFieldOptions(SectionStatusType)}
-                </Select.Field>
-              </Select.Main>
-              {errors.toStatus && touched.toStatus ? (
-                <Select.InfoMessage>{errors.toStatus}</Select.InfoMessage>
-              ) : null}
-            </Select>
 
             {addData ? (
               <Alert variant={'success'} className="mb-[0.5rem]">

@@ -65,8 +65,6 @@ const SectionListPage = (): JSX.Element => {
                         <Table.Head.Th>From toll</Table.Head.Th>
                         <Table.Head.Th>To toll</Table.Head.Th>
                         <Table.Head.Th>Distance (km)</Table.Head.Th>
-                        <Table.Head.Th>From Status</Table.Head.Th>
-                        <Table.Head.Th>To Status</Table.Head.Th>
                       </Table.Head.Tr>
                     </Table.Head>
                     <Table.Body>

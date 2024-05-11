@@ -1,6 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { TollType } from 'src/toll/graphql/toll.gql';
-import { SectionStatusType } from './section-status.gql';
 
 @ObjectType()
 export class SectionType {
@@ -15,12 +14,6 @@ export class SectionType {
 
   @Field(() => TollType)
   public toToll: TollType;
-
-  @Field(() => SectionStatusType)
-  public fromStatus: SectionStatusType;
-
-  @Field(() => SectionStatusType)
-  public toStatus: SectionStatusType;
 
   @Field()
   public distance: number;

@@ -13,8 +13,6 @@ class GraphToll implements Toll {
   public constructor(toll: Toll) {
     this.id = toll.id;
     this.name = toll.name;
-    this.inboundStatus = toll.inboundStatus;
-    this.outboundStatus = toll.outboundStatus;
     this.latitude = toll.latitude;
     this.longitude = toll.longitude;
     this.wilayaId = toll.wilayaId;
@@ -26,8 +24,6 @@ class GraphToll implements Toll {
 
   public id: string;
   public name: string;
-  public inboundStatus: $Enums.TollStatus;
-  public outboundStatus: $Enums.TollStatus;
   public latitude: Decimal;
   public longitude: Decimal;
   public wilayaId: string;
@@ -48,8 +44,6 @@ class GraphSection implements Section {
     this.fromTollId = section.fromTollId;
     this.toTollId = section.toTollId;
     this.distance = section.distance;
-    this.fromStatus = section.fromStatus;
-    this.toStatus = section.toStatus;
 
     this.fromGraphToll = fromGraphToll;
     this.toGraphToll = toGraphToll;
@@ -58,8 +52,6 @@ class GraphSection implements Section {
   public fromTollId: string;
   public toTollId: string;
   public distance: Decimal;
-  public fromStatus: $Enums.SectionStatus;
-  public toStatus: $Enums.SectionStatus;
 
   public fromGraphToll: GraphToll;
   public toGraphToll: GraphToll;

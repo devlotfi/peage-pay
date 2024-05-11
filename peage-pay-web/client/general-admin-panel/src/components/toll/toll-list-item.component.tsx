@@ -2,7 +2,6 @@ import {
   faEllipsisH,
   faList,
   faPen,
-  faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -43,16 +42,6 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               modalRef={deleteModalRef}
               toll={toll}
             ></DeleteTollModal>
-            <MenuItem
-              onClick={() => navigate(`/dashboard/toll/section/add/${toll.id}`)}
-              className="w-full mb-[0.5rem]"
-              variant={'base-100'}
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>Add section</MenuItem.Text>
-            </MenuItem>
             <MenuItem
               onClick={() =>
                 navigate(`/dashboard/toll/section/list/${toll.id}`)

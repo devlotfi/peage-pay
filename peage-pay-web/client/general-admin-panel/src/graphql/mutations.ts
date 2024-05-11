@@ -4,10 +4,6 @@ export const ADD_HIGHWAY = gql(`
   mutation ADD_HIGHWAY($addHighwayInput: AddHighwayInput!) {
     addHighway(addHighwayInput: $addHighwayInput) {
       id
-      name
-      code
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -16,10 +12,6 @@ export const EDIT_HIGHWAY = gql(`
   mutation EDIT_HIGHWAY($editHighwayInput: EditHighwayInput!) {
     editHighway(editHighwayInput: $editHighwayInput) {
       id
-      name
-      code
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -34,11 +26,6 @@ export const ADD_SUBSCRIPTION = gql(`
   mutation ADD_SUBSCRIPTION($addSubscriptionInput: AddSubscriptionInput!) {
     addSubscription(addSubscriptionInput: $addSubscriptionInput) {
       id
-      name
-      days
-      price
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -47,11 +34,6 @@ export const EDIT_SUBSCRIPTION = gql(`
   mutation EDIT_SUBSCRIPTION($editSubscriptionInput: EditSubscriptionInput!) {
     editSubscription(editSubscriptionInput: $editSubscriptionInput) {
       id
-      name
-      days
-      price
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -66,27 +48,6 @@ export const ADD_TOLL = gql(`
   mutation ADD_TOLL($addTollInput: AddTollInput!) {
     addToll(addTollInput: $addTollInput) {
       id
-      name
-      inboundStatus
-      outboundStatus
-      longitude
-      latitude
-      wilaya {
-        id
-        name
-        code
-      }
-      highway {
-        id
-        name
-        code
-      }
-      tollNetwork {
-        id
-        name
-      }
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -95,27 +56,6 @@ export const EDIT_TOLL = gql(`
   mutation EDIT_TOLL($editTollInput: EditTollInput!) {
     editToll(editTollInput: $editTollInput) {
       id
-      name
-      inboundStatus
-      outboundStatus
-      longitude
-      latitude
-      wilaya {
-        id
-        name
-        code
-      }
-      highway {
-        id
-        name
-        code
-      }
-      tollNetwork {
-        id
-        name
-      }
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -130,9 +70,6 @@ export const ADD_TOLL_NETWORK = gql(`
   mutation ADD_TOLL_NETWORK($addTollNetworkInput: AddTollNetworkInput!) {
     addTollNetwork(addTollNetworkInput: $addTollNetworkInput) {
       id
-      name
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -141,9 +78,6 @@ export const EDIT_TOLL_NETWORK = gql(`
   mutation EDIT_TOLL_NETWORK($editTollNetworkInput: EditTollNetworkInput!) {
     editTollNetwork(editTollNetworkInput: $editTollNetworkInput) {
       id
-      name
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -159,9 +93,6 @@ export const ADD_SECTION = gql(`
     addSection(addSectionInput: $addSectionInput) {
       fromTollId
       toTollId
-      distance
-      fromStatus
-      toStatus
     }
   }
 `);
@@ -171,8 +102,6 @@ export const EDIT_SECTION = gql(`
     editSection(editSectionInput: $editSectionInput) {
       fromTollId
       toTollId
-      fromStatus
-      toStatus
     }
   }
 `);

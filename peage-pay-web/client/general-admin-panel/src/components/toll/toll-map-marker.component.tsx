@@ -1,5 +1,4 @@
-import { Utils } from '@peage-pay-web/utils';
-import { TollStatusType, TollType } from '../../__generated__/graphql';
+import { TollType } from '../../__generated__/graphql';
 import { Button, Table } from '@peage-pay-web/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
@@ -48,47 +47,6 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
               <Table.Body.Td className="py-[0.1rem]">Wilaya</Table.Body.Td>
               <Table.Body.Td className="py-[0.1rem]">
                 {toll.wilaya.name}
-              </Table.Body.Td>
-            </Table.Body.Tr>
-            <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Status</Table.Body.Td>
-            </Table.Body.Tr>
-            <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Inbound</Table.Body.Td>
-              <Table.Body.Td className="flex items-center py-[0.1rem]">
-                <div
-                  className={Utils.cn(
-                    'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
-                    toll.inboundStatus === TollStatusType.NormalTraffic &&
-                      'bg-green-500',
-                    toll.inboundStatus === TollStatusType.ModerateTraffic &&
-                      'bg-yellow-500',
-                    toll.inboundStatus === TollStatusType.HighTraffic &&
-                      'bg-orange-400',
-                    toll.inboundStatus === TollStatusType.OutOfService &&
-                      'bg-red-500',
-                  )}
-                ></div>{' '}
-                {toll.inboundStatus}
-              </Table.Body.Td>
-            </Table.Body.Tr>
-            <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Outbound</Table.Body.Td>
-              <Table.Body.Td className="flex items-center py-[0.1rem]">
-                <div
-                  className={Utils.cn(
-                    'flex h-[0.7rem] w-[0.7rem] rounded-full mr-[0.5rem]',
-                    toll.outboundStatus === TollStatusType.NormalTraffic &&
-                      'bg-green-500',
-                    toll.outboundStatus === TollStatusType.ModerateTraffic &&
-                      'bg-yellow-500',
-                    toll.outboundStatus === TollStatusType.HighTraffic &&
-                      'bg-orange-400',
-                    toll.outboundStatus === TollStatusType.OutOfService &&
-                      'bg-red-500',
-                  )}
-                ></div>{' '}
-                {toll.outboundStatus}
               </Table.Body.Td>
             </Table.Body.Tr>
           </Table.Body>

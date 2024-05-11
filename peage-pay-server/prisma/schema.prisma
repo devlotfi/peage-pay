@@ -186,13 +186,6 @@ model TollNetwork {
   updatedAt DateTime @updatedAt
 }
 
-enum TollStatus {
-  NORMAL_TRAFFIC
-  MODERATE_TRAFFIC
-  HIGH_TRAFFIC
-  OUT_OF_SERVICE
-}
-
 model Toll {
   wilaya            Wilaya          @relation(fields: [wilayaId], references: [id])
   highway           Highway         @relation(fields: [highwayId], references: [id])
@@ -210,24 +203,15 @@ model Toll {
   tollAdmins        TollAdmin[]
   gateAdmins        GateAdmin[]
 
-  id             String     @id @default(uuid())
-  wilayaId       String
-  tollNetworkId  String
-  highwayId      String
-  name           String     @unique
-  inboundStatus  TollStatus @default(OUT_OF_SERVICE)
-  outboundStatus TollStatus @default(OUT_OF_SERVICE)
-  longitude      Decimal
-  latitude       Decimal
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-}
-
-enum SectionStatus {
-  NORMAL_TRAFFIC
-  MODERATE_TRAFFIC
-  HIGH_TRAFFIC
-  BLOCKED
+  id            String   @id @default(uuid())
+  wilayaId      String
+  tollNetworkId String
+  highwayId     String
+  name          String   @unique
+  longitude     Decimal
+  latitude      Decimal
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Section {
@@ -236,8 +220,6 @@ model Section {
 
   fromTollId String
   toTollId   String
-  fromStatus SectionStatus @default(NORMAL_TRAFFIC)
-  toStatus   SectionStatus @default(NORMAL_TRAFFIC)
   distance   Decimal
 
   @@id([fromTollId, toTollId])

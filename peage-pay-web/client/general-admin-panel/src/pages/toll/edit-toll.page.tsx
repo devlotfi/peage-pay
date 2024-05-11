@@ -15,7 +15,6 @@ import {
   FormPageLayout,
   Heading,
   LoaderDots,
-  Select,
   TextInput,
 } from '@peage-pay-web/ui';
 import { EDIT_TOLL } from '../../graphql/mutations';
@@ -29,20 +28,13 @@ import {
   WILAYA_BY_ID,
 } from '../../graphql/queries';
 import { useState, useRef } from 'react';
-import {
-  WilayaType,
-  HighwayType,
-  TollStatusType,
-} from '../../__generated__/graphql';
+import { WilayaType, HighwayType } from '../../__generated__/graphql';
 import HighwayPicker from '../../components/highway/highway-picker.component';
 import LocationPicker from '../../components/toll/location-picker.component';
 import WilayaPicker from '../../components/wilaya/wilaya-picker.component';
-import { Utils } from '@peage-pay-web/utils';
 
 interface EditTollValues {
   name: string;
-  inboundStatus: TollStatusType;
-  outboundStatus: TollStatusType;
   latitude: number;
   longitude: number;
   wilayaId: string;
@@ -51,8 +43,6 @@ interface EditTollValues {
 
 const initialValues: EditTollValues = {
   name: '',
-  inboundStatus: TollStatusType.NormalTraffic,
-  outboundStatus: TollStatusType.NormalTraffic,
   latitude: 0,
   longitude: 0,
   wilayaId: '',
@@ -84,8 +74,6 @@ const EditTollPage = (): JSX.Element => {
       if (data.tollById) {
         setValues({
           name: data.tollById.name,
-          inboundStatus: data.tollById.inboundStatus,
-          outboundStatus: data.tollById.outboundStatus,
           latitude: data.tollById.latitude,
           longitude: data.tollById.longitude,
           highwayId: data.tollById.highway.id,
@@ -166,8 +154,6 @@ const EditTollPage = (): JSX.Element => {
               longitude: values.longitude,
               wilayaId: values.wilayaId,
               highwayId: values.highwayId,
-              inboundStatus: values.inboundStatus,
-              outboundStatus: values.outboundStatus,
               tollId: tollId,
             },
           },
@@ -277,52 +263,6 @@ const EditTollPage = (): JSX.Element => {
                 <TextInput.InfoMessage>{errors.name}</TextInput.InfoMessage>
               ) : null}
             </TextInput>
-            <Select
-              variant={
-                errors.inboundStatus && touched.inboundStatus
-                  ? 'error'
-                  : 'edge-100'
-              }
-              className="w-full mb-[1.3rem]"
-            >
-              <Select.Main>
-                <Select.Label>Inbound Status</Select.Label>
-                <Select.Field
-                  name="inboundStatus"
-                  value={values.inboundStatus}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                >
-                  {Utils.renderFieldOptions(TollStatusType)}
-                </Select.Field>
-              </Select.Main>
-              {errors.inboundStatus && touched.inboundStatus ? (
-                <Select.InfoMessage>{errors.inboundStatus}</Select.InfoMessage>
-              ) : null}
-            </Select>
-            <Select
-              variant={
-                errors.outboundStatus && touched.outboundStatus
-                  ? 'error'
-                  : 'edge-100'
-              }
-              className="w-full mb-[1.3rem]"
-            >
-              <Select.Main>
-                <Select.Label>Inbound Status</Select.Label>
-                <Select.Field
-                  name="outboundStatus"
-                  value={values.outboundStatus}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                >
-                  {Utils.renderFieldOptions(TollStatusType)}
-                </Select.Field>
-              </Select.Main>
-              {errors.outboundStatus && touched.outboundStatus ? (
-                <Select.InfoMessage>{errors.outboundStatus}</Select.InfoMessage>
-              ) : null}
-            </Select>
             <TextInput
               variant={
                 errors.latitude && touched.latitude ? 'error' : 'edge-100'

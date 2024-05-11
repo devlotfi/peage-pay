@@ -6,7 +6,6 @@ import {
   IsUUID,
   Length,
 } from 'class-validator';
-import { TollStatusType } from '../graphql/toll-status.gql';
 
 @InputType()
 export class EditTollInput {
@@ -28,14 +27,6 @@ export class EditTollInput {
   @Length(1, 1024)
   @IsOptional()
   public name?: string;
-
-  @Field(() => TollStatusType, { nullable: true })
-  @IsOptional()
-  public inboundStatus?: TollStatusType;
-
-  @Field(() => TollStatusType, { nullable: true })
-  @IsOptional()
-  public outboundStatus?: TollStatusType;
 
   @Field({ nullable: true })
   @IsLatitude()

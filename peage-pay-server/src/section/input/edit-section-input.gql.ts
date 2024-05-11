@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNumber, IsUUID } from 'class-validator';
-import { SectionStatusType } from '../graphql/section-status.gql';
 
 @InputType()
 export class EditSectionInput {
@@ -15,10 +14,4 @@ export class EditSectionInput {
   @Field()
   @IsNumber()
   public distance: number;
-
-  @Field(() => SectionStatusType)
-  public fromStatus: SectionStatusType;
-
-  @Field(() => SectionStatusType)
-  public toStatus: SectionStatusType;
 }

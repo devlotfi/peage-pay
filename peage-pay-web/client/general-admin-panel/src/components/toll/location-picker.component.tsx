@@ -25,14 +25,7 @@ const LocationPicker = ({
   initialValue,
 }: LocationPickerProps): JSX.Element => {
   const [selectedLocation, setSelectedLocation] =
-    useState<google.maps.LatLng | null>(
-      initialValue
-        ? new google.maps.LatLng({
-            lat: initialValue.lat,
-            lng: initialValue.lng,
-          })
-        : null,
-    );
+    useState<google.maps.LatLng | null>(null);
 
   const getMapMount = (): HTMLElement => {
     return document.getElementById('location-picker-map') as HTMLElement;
@@ -103,6 +96,12 @@ const LocationPicker = ({
         }),
         content: pinView.element,
       });
+      setSelectedLocation(
+        new google.maps.LatLng({
+          lat: initialValue.lat,
+          lng: initialValue.lng,
+        }),
+      );
       locationPickerMarker = marker;
     }
 

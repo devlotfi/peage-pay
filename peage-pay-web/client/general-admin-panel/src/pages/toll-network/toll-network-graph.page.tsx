@@ -127,7 +127,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
           (section.fromToll.latitude + section.toToll.latitude) / 2;
         const longitude =
           (section.fromToll.longitude + section.toToll.longitude) / 2;
-        new google.maps.marker.AdvancedMarkerElement({
+        new AdvancedMarkerElement({
           map: map,
           position: {
             lat: latitude,
@@ -150,8 +150,8 @@ const TollNetworkGraphPage = (): JSX.Element => {
       <AdminDashboardLayout.Error
         error={tollNetworkError || tollListError || sectionListError}
       >
-        <div className="flex flex-col h-full">
-          <Heading className="text-[20pt]">
+        <div className="flex flex-col flex-1">
+          <Heading className="text-[20pt] my-[0.5rem] ml-[1rem]">
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
             </Heading.Icon>
