@@ -7,8 +7,6 @@ export const TOLL_LIST = gql(`
       list {
         id
         name
-        inboundStatus
-        outboundStatus
         longitude
         latitude
         wilayaId

@@ -19,7 +19,6 @@ import AddLocalDailyPricePage from '../pages/price/add/add-local-daily-price.pag
 import PriceListLayout from '../layout/price-list.layout';
 import AddPriceLayout from '../layout/add-price.layout';
 import DashboardLayout from '../layout/dashboard-layout.layout';
-import EditTollPage from '../pages/toll/edit-toll.page';
 import AutomaticGateListPage from '../pages/automatic-gate/automatic-gate-list.page';
 import AddAutomaticGatePage from '../pages/automatic-gate/add-automatic-gate.page';
 import EditAutomaticGatePage from '../pages/automatic-gate/edit-automatic-gate.page';
@@ -59,11 +58,6 @@ const useRouter = () => {
         {
           path: '/dashboard',
           element: <h1>home</h1>,
-        },
-
-        {
-          path: '/dashboard/toll/edit',
-          element: <EditTollPage></EditTollPage>,
         },
 
         {

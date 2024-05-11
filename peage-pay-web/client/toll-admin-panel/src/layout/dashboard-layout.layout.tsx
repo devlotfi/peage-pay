@@ -49,20 +49,6 @@ const DashboardLayout = (): JSX.Element => {
             </MenuItem.Icon>
             <MenuItem.Text>Home</MenuItem.Text>
           </MenuItem>
-          <MenuItem
-            onClick={() => navigate('/dashboard/toll/edit')}
-            variant={
-              location.pathname === '/dashboard/toll/edit'
-                ? 'primary'
-                : 'base-200'
-            }
-            className="w-full mb-[0.5rem]"
-          >
-            <MenuItem.Icon>
-              <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
-            </MenuItem.Icon>
-            <MenuItem.Text>Edit toll</MenuItem.Text>
-          </MenuItem>
 
           <MenuItem
             onClick={() => navigate('/dashboard/automatic-gate/list')}

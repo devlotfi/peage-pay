@@ -5,8 +5,6 @@ export const TOLL_BY_ID = gql(`
     tollById(tollByIdInput: $tollByIdInput) {
       id
       name
-      inboundStatus
-      outboundStatus
       longitude
       latitude
       wilayaId
@@ -40,8 +38,6 @@ export const TOLL_ADMIN_INFO = gql(`
       toll {
         id
         name
-        inboundStatus
-        outboundStatus
         latitude
         longitude
         wilaya {

@@ -12,20 +12,10 @@ export const DELETE_LOCAL_PRICE = gql(`
   }
 `);
 
-export const CHANGE_TOLL_STATUS = gql(`
-  mutation CHANGE_TOLL_STATUS($changeTollStatusInput: ChangeTollStatusInput!) {
-    changeTollStatus(changeTollStatusInput: $changeTollStatusInput)
-  }
-`);
-
 export const ADD_AUTOMATIC_GATE = gql(`
   mutation ADD_AUTOMATIC_GATE($addAutomaticGateInput: AddAutomaticGateInput!) {
     addAutomaticGate(addAutomaticGateInput: $addAutomaticGateInput) {
       id
-      name
-      tollId
-      createdAt
-      updatedAt
     }
   }
 `);
@@ -34,10 +24,6 @@ export const EDIT_AUTOMATIC_GATE = gql(`
   mutation EDIT_AUTOMATIC_GATE($editAutomaticGateInput: EditAutomaticGateInput!) {
     editAutomaticGate(editAutomaticGateInput: $editAutomaticGateInput) {
       id
-      name
-      tollId
-      createdAt
-      updatedAt
     }
   }
 `);
