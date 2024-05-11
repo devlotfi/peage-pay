@@ -22,8 +22,6 @@ export const GATE_ADMIN_INFO = gql(`
     gateAdminInfo {
       toll {
         name
-        inboundStatus
-        outboundStatus
       }
     }
   }

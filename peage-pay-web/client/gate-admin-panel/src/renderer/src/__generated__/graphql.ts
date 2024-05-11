@@ -255,12 +255,6 @@ export type ChangeTollInput = {
   tollId?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ChangeTollStatusInput = {
-  inboundStatus: TollStatusType;
-  outboundStatus: TollStatusType;
-  tollId: Scalars['String']['input'];
-};
-
 export type CustomPriceListResult = {
   __typename?: 'CustomPriceListResult';
   count: Scalars['Float']['output'];
@@ -337,9 +331,7 @@ export type EditHighwayInput = {
 
 export type EditSectionInput = {
   distance: Scalars['Float']['input'];
-  fromStatus: SectionStatusType;
   fromTollId: Scalars['String']['input'];
-  toStatus: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -352,11 +344,9 @@ export type EditSubscriptionInput = {
 
 export type EditTollInput = {
   highwayId?: InputMaybe<Scalars['String']['input']>;
-  inboundStatus?: InputMaybe<TollStatusType>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  outboundStatus?: InputMaybe<TollStatusType>;
   tollId: Scalars['String']['input'];
   wilayaId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -489,7 +479,6 @@ export type Mutation = {
   addTollNetwork: TollNetworkType;
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
-  changeTollStatus: Scalars['Boolean']['output'];
   definePin: Scalars['Boolean']['output'];
   deleteAutomaticGate: Scalars['Boolean']['output'];
   deleteBaseUser: Scalars['Boolean']['output'];
@@ -509,6 +498,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  endTripRfid: Scalars['Boolean']['output'];
   generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
   generateTollDistances: Scalars['Boolean']['output'];
@@ -526,6 +516,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  startTripRfid: Scalars['Boolean']['output'];
   validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
 };
@@ -603,11 +594,6 @@ export type MutationChangeGateAdminTollArgs = {
 
 export type MutationChangeTollAdminTollArgs = {
   changeTollAdminTollInput: ChangeTollInput;
-};
-
-
-export type MutationChangeTollStatusArgs = {
-  changeTollStatusInput: ChangeTollStatusInput;
 };
 
 
@@ -706,6 +692,11 @@ export type MutationEditTollNetworkArgs = {
 };
 
 
+export type MutationEndTripRfidArgs = {
+  endTripRfidInput: RfidInput;
+};
+
+
 export type MutationGenerateTollDistancesArgs = {
   generateTollDistancesInput: IdInput;
 };
@@ -770,6 +761,11 @@ export type MutationSignOutArgs = {
 
 export type MutationSignUpWithEmailArgs = {
   signUpWithEmailInput: SignUpWithEmailInput;
+};
+
+
+export type MutationStartTripRfidArgs = {
+  startTripRfidInput: RfidInput;
 };
 
 
@@ -1100,6 +1096,10 @@ export type ResetPasswordInput = {
   userId: Scalars['String']['input'];
 };
 
+export type RfidInput = {
+  rfid: Scalars['String']['input'];
+};
+
 export type RfidTagByRfidInput = {
   rfid: Scalars['String']['input'];
 };
@@ -1153,20 +1153,11 @@ export type SectionListResult = {
   list: Array<SectionType>;
 };
 
-export enum SectionStatusType {
-  Blocked = 'BLOCKED',
-  HighTraffic = 'HIGH_TRAFFIC',
-  ModerateTraffic = 'MODERATE_TRAFFIC',
-  NormalTraffic = 'NORMAL_TRAFFIC'
-}
-
 export type SectionType = {
   __typename?: 'SectionType';
   distance: Scalars['Float']['output'];
-  fromStatus: SectionStatusType;
   fromToll: TollType;
   fromTollId: Scalars['String']['output'];
-  toStatus: SectionStatusType;
   toToll: TollType;
   toTollId: Scalars['String']['output'];
 };
@@ -1419,24 +1410,15 @@ export enum TollSearchFields {
   WilayaNameSearch = 'wilayaNameSearch'
 }
 
-export enum TollStatusType {
-  HighTraffic = 'HIGH_TRAFFIC',
-  ModerateTraffic = 'MODERATE_TRAFFIC',
-  NormalTraffic = 'NORMAL_TRAFFIC',
-  OutOfService = 'OUT_OF_SERVICE'
-}
-
 export type TollType = {
   __typename?: 'TollType';
   createdAt: Scalars['DateTime']['output'];
   highway: HighwayType;
   highwayId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  inboundStatus: TollStatusType;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   name: Scalars['String']['output'];
-  outboundStatus: TollStatusType;
   tollNetwork: TollNetworkType;
   tollNetworkId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1554,9 +1536,9 @@ export type Ticket_InfoQuery = { __typename?: 'Query', ticketInfo: { __typename?
 export type Gate_Admin_InfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Gate_Admin_InfoQuery = { __typename?: 'Query', gateAdminInfo?: { __typename?: 'GateAdminType', toll?: { __typename?: 'TollType', name: string, inboundStatus: TollStatusType, outboundStatus: TollStatusType } | null } | null };
+export type Gate_Admin_InfoQuery = { __typename?: 'Query', gateAdminInfo?: { __typename?: 'GateAdminType', toll?: { __typename?: 'TollType', name: string } | null } | null };
 
 
 export const Validate_TicketDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VALIDATE_TICKET"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"validateTicket"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"validateTicketInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"validateTicketInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<Validate_TicketMutation, Validate_TicketMutationVariables>;
 export const Ticket_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TICKET_INFO"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ticketInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ticketInfoInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ticketInfoInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"distance"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollId"}},{"kind":"Field","name":{"kind":"Name","value":"entryTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"entryTimeStamp"}},{"kind":"Field","name":{"kind":"Name","value":"entryToll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exitTollId"}},{"kind":"Field","name":{"kind":"Name","value":"exitTollPrice"}},{"kind":"Field","name":{"kind":"Name","value":"used"}}]}}]}}]} as unknown as DocumentNode<Ticket_InfoQuery, Ticket_InfoQueryVariables>;
-export const Gate_Admin_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GATE_ADMIN_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gateAdminInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"inboundStatus"}},{"kind":"Field","name":{"kind":"Name","value":"outboundStatus"}}]}}]}}]}}]} as unknown as DocumentNode<Gate_Admin_InfoQuery, Gate_Admin_InfoQueryVariables>;
+export const Gate_Admin_InfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GATE_ADMIN_INFO"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gateAdminInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Gate_Admin_InfoQuery, Gate_Admin_InfoQueryVariables>;
