@@ -46,21 +46,21 @@ export const TitleBar = ({ title, windowIcon }: TitleBarProps): JSX.Element => {
       <div className="flex">
         <IconButton
           onClick={minimiseWindow}
-          className="title-bar-btn ml-[0.5rem] mr-0 min-h-[1.7rem] min-w-[1.7rem] h-[1.7rem] w-[1.7rem]"
+          className="title-bar-btn rounded-full ml-[0.5rem] mr-0 min-h-[1.8rem] min-w-[1.8rem] h-[1.8rem] w-[1.8rem]"
           variant="base-200"
         >
           <FontAwesomeIcon icon={faWindowMinimize}></FontAwesomeIcon>
         </IconButton>
         <IconButton
           onClick={maximiseWindow}
-          className="title-bar-btn ml-[0.5rem] mr-0 min-h-[1.7rem] min-w-[1.7rem] h-[1.7rem] w-[1.7rem]"
+          className="title-bar-btn rounded-full ml-[0.5rem] mr-0 min-h-[1.8rem] min-w-[1.8rem] h-[1.8rem] w-[1.8rem]"
           variant="base-200"
         >
           <FontAwesomeIcon icon={faWindowMaximize}></FontAwesomeIcon>
         </IconButton>
         <IconButton
           onClick={closeWindow}
-          className="title-bar-btn mx-[0.5rem] min-h-[1.7rem] min-w-[1.7rem] h-[1.7rem] w-[1.7rem]"
+          className="title-bar-btn rounded-full mx-[0.5rem] min-h-[1.8rem] min-w-[1.8rem] h-[1.8rem] w-[1.8rem]"
           variant="error"
         >
           <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
