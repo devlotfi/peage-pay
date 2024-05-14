@@ -20,6 +20,8 @@ export class BaseUserService {
       baseUserListInput.firstNameSearch ||
       baseUserListInput.lastNameSearch
     ) {
+      console.log('query base user');
+
       const whereQuery: Prisma.BaseUserWhereInput = {
         OR: [
           {

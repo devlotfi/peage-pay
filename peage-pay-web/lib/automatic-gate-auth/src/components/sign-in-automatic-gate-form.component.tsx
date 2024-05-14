@@ -116,7 +116,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
   return (
     <>
       <TollPicker
-        onChange={handleTollSeleted}
+        onChange={handleTollSeleted as any}
         modalRef={tollPickerModalRef}
         value={selectedToll}
       ></TollPicker>

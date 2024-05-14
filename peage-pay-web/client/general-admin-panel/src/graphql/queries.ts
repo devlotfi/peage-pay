@@ -1,5 +1,16 @@
 import { gql } from '../__generated__';
 
+export const GENERAL_ADMIN_STATISTICS = gql(`
+  query GENERAL_ADMIN_STATISTICS {
+    generalAdminStatistics {
+      highwayCount
+      tollNetworksCount
+      subscriptionsCount
+      humanRessourcesAdminCount
+    }
+  }
+`);
+
 export const HIGHWAY_LIST = gql(`
   query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {
     highwayList(highwayListInput: $highwayListInput) {

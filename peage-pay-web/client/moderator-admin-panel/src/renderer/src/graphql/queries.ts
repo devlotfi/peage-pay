@@ -1,5 +1,14 @@
 import { gql } from '../__generated__';
 
+export const MODERATOR_STATISTICS = gql(`
+  query MODERATOR_STATISTICS {
+    moderatorStatistics {
+      userCount
+      rfidTagCount
+    }
+  }
+`);
+
 export const RFID_TAG_BY_RFID = gql(`
   query RFID_TAG_BY_RFID($rfidTagByRfidInput: RfidTagByRfidInput!) {
     rfidTagByRfid(rfidTagByRfidInput: $rfidTagByRfidInput) {

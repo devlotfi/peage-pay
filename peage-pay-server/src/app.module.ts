@@ -43,6 +43,7 @@ import { TripModule } from './trip/trip.module';
 import { ChargilyModule } from './chargily/chargily.module';
 import { PaymentModule } from './payment/payment.module';
 import { PaymentSubscriptionMessages } from './payment/graphql/payment-subscription-messages.gql';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -113,6 +114,7 @@ import { PaymentSubscriptionMessages } from './payment/graphql/payment-subscript
     TripModule,
     ChargilyModule,
     PaymentModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}

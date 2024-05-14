@@ -34,6 +34,7 @@ const documents = {
     "\n  mutation DELETE_GLOBAL_PRICE($deletePriceInput: IdInput!) {\n    deleteGlobalPrice(deletePriceInput: $deletePriceInput)\n  }\n": types.Delete_Global_PriceDocument,
     "\n  mutation GENERATE_TOLL_DISTANCES($generateTollDistancesInput: IdInput!) {\n    generateTollDistances(generateTollDistancesInput: $generateTollDistancesInput)\n  }\n": types.Generate_Toll_DistancesDocument,
     "\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n": types.Edit_Default_PriceDocument,
+    "\n  query GENERAL_ADMIN_STATISTICS {\n    generalAdminStatistics {\n      highwayCount\n      tollNetworksCount\n      subscriptionsCount\n      humanRessourcesAdminCount\n    }\n  }\n": types.General_Admin_StatisticsDocument,
     "\n  query HIGHWAY_LIST($highwayListInput: HighwayListInput!) {\n    highwayList(highwayListInput: $highwayListInput) {\n      count\n      list {\n        id\n        name\n        code\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Highway_ListDocument,
     "\n  query HIGHWAY_BY_ID($highwayByIdInput: IdInput!) {\n    highwayById(highwayByIdInput: $highwayByIdInput) {\n      code\n      id\n      name\n      createdAt\n      updatedAt\n    }\n  }\n": types.Highway_By_IdDocument,
     "\n  query SUBSCRIPTION_LIST($subscriptionListInput: SubscriptionListInput!) {\n    subscriptionList(subscriptionListInput: $subscriptionListInput) {\n      count\n      list {\n        id\n        name\n        days\n        price\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Subscription_ListDocument,
@@ -156,6 +157,10 @@ export function gql(source: "\n  mutation GENERATE_TOLL_DISTANCES($generateTollD
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n"): (typeof documents)["\n  mutation EDIT_DEFAULT_PRICE($editDefaultPriceInput: EditDefaultPriceInput!) {\n    editDefaultPrice(editDefaultPriceInput: $editDefaultPriceInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GENERAL_ADMIN_STATISTICS {\n    generalAdminStatistics {\n      highwayCount\n      tollNetworksCount\n      subscriptionsCount\n      humanRessourcesAdminCount\n    }\n  }\n"): (typeof documents)["\n  query GENERAL_ADMIN_STATISTICS {\n    generalAdminStatistics {\n      highwayCount\n      tollNetworksCount\n      subscriptionsCount\n      humanRessourcesAdminCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

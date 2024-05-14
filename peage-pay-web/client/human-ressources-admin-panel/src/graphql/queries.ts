@@ -1,4 +1,15 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
+
+export const HUMAN_RESSOURCES_ADMIN_STATISTICS = gql(`
+  query HUMAN_RESSOURCES_ADMIN_STATISTICS {
+    humanRessourcesAdminStatistics {
+      userCount
+      tollAdminCount
+      gateAdminCount
+      moderatorCount
+    }
+  }
+`);
 
 export const BASE_USER_LIST = gql(`
   query BASE_USER_LIST($baseUserListInput: BaseUserListInput!) {
@@ -111,40 +122,6 @@ export const MODERATOR_LIST = gql(`
           createdAt
           updatedAt
         }
-      }
-    }
-  }
-`);
-
-export const TOLL_LIST = gql(`
-  query TOLL_LIST($tollListInput: TollListInput!) {
-    tollList(tollListInput: $tollListInput) {
-      count
-      list {
-        id
-        name
-        status
-        longitude
-        latitude
-        wilayaId
-        wilaya {
-          id
-          name
-          code
-        }
-        highwayId
-        highway {
-          id
-          name
-          code
-        }
-        tollNetworkId
-        tollNetwork {
-          id
-          name
-        }
-        createdAt
-        updatedAt
       }
     }
   }

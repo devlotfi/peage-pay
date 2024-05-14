@@ -379,6 +379,14 @@ export type GateAdminType = {
   tollId?: Maybe<Scalars['String']['output']>;
 };
 
+export type GeneralAdminStatistics = {
+  __typename?: 'GeneralAdminStatistics';
+  highwayCount: Scalars['Float']['output'];
+  humanRessourcesAdminCount: Scalars['Float']['output'];
+  subscriptionsCount: Scalars['Float']['output'];
+  tollNetworksCount: Scalars['Float']['output'];
+};
+
 export type HighwayListInput = {
   codeSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -408,6 +416,14 @@ export type HighwayType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type HumanRessourcesAdminStatistics = {
+  __typename?: 'HumanRessourcesAdminStatistics';
+  gateAdminCount: Scalars['Float']['output'];
+  moderatorCount: Scalars['Float']['output'];
+  tollAdminCount: Scalars['Float']['output'];
+  userCount: Scalars['Float']['output'];
+};
+
 export type IdInput = {
   id: Scalars['String']['input'];
 };
@@ -424,6 +440,12 @@ export type ModeratorListResult = {
   __typename?: 'ModeratorListResult';
   count: Scalars['Float']['output'];
   list: Array<ModeratorType>;
+};
+
+export type ModeratorStatistics = {
+  __typename?: 'ModeratorStatistics';
+  rfidTagCount: Scalars['Float']['output'];
+  userCount: Scalars['Float']['output'];
 };
 
 export type ModeratorType = {
@@ -830,12 +852,15 @@ export type Query = {
   gateAdminById?: Maybe<GateAdminType>;
   gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
+  generalAdminStatistics: GeneralAdminStatistics;
   globalSectionList: Array<SectionType>;
   globalTollList: Array<TollType>;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
+  humanRessourcesAdminStatistics: HumanRessourcesAdminStatistics;
   lol: Scalars['String']['output'];
   moderatorList: ModeratorListResult;
+  moderatorStatistics: ModeratorStatistics;
   monthlyPriceGlobalList: MonthlyPriceListResult;
   monthlyPriceLocalList: MonthlyPriceListResult;
   rfidTagByRfid?: Maybe<RfidTagType>;
@@ -852,6 +877,7 @@ export type Query = {
   tollAdminById?: Maybe<TollAdminType>;
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
+  tollAdminStatistics: TollAdminStatistics;
   tollById: TollType;
   tollDistance: Scalars['Float']['output'];
   tollDistanceList: TollDistanceListResult;
@@ -1306,6 +1332,15 @@ export type TollAdminListResult = {
   list: Array<TollAdminType>;
 };
 
+export type TollAdminStatistics = {
+  __typename?: 'TollAdminStatistics';
+  automaticGateCount: Scalars['Float']['output'];
+  localGateAdminCount: Scalars['Float']['output'];
+  qrCodeReaderCount: Scalars['Float']['output'];
+  rfidReaderCount: Scalars['Float']['output'];
+  ticketPrinterCount: Scalars['Float']['output'];
+};
+
 export type TollAdminType = {
   __typename?: 'TollAdminType';
   baseUser: BaseUserType;
@@ -1666,6 +1701,11 @@ export type Edit_Default_PriceMutationVariables = Exact<{
 
 export type Edit_Default_PriceMutation = { __typename?: 'Mutation', editDefaultPrice: boolean };
 
+export type General_Admin_StatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type General_Admin_StatisticsQuery = { __typename?: 'Query', generalAdminStatistics: { __typename?: 'GeneralAdminStatistics', highwayCount: number, tollNetworksCount: number, subscriptionsCount: number, humanRessourcesAdminCount: number } };
+
 export type Highway_ListQueryVariables = Exact<{
   highwayListInput: HighwayListInput;
 }>;
@@ -1840,6 +1880,7 @@ export const Add_Global_PriceDocument = {"kind":"Document","definitions":[{"kind
 export const Delete_Global_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DELETE_GLOBAL_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteGlobalPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"deletePriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deletePriceInput"}}}]}]}}]} as unknown as DocumentNode<Delete_Global_PriceMutation, Delete_Global_PriceMutationVariables>;
 export const Generate_Toll_DistancesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GENERATE_TOLL_DISTANCES"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"generateTollDistancesInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateTollDistances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"generateTollDistancesInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"generateTollDistancesInput"}}}]}]}}]} as unknown as DocumentNode<Generate_Toll_DistancesMutation, Generate_Toll_DistancesMutationVariables>;
 export const Edit_Default_PriceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_DEFAULT_PRICE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editDefaultPriceInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditDefaultPriceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editDefaultPrice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editDefaultPriceInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editDefaultPriceInput"}}}]}]}}]} as unknown as DocumentNode<Edit_Default_PriceMutation, Edit_Default_PriceMutationVariables>;
+export const General_Admin_StatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GENERAL_ADMIN_STATISTICS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generalAdminStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayCount"}},{"kind":"Field","name":{"kind":"Name","value":"tollNetworksCount"}},{"kind":"Field","name":{"kind":"Name","value":"subscriptionsCount"}},{"kind":"Field","name":{"kind":"Name","value":"humanRessourcesAdminCount"}}]}}]}}]} as unknown as DocumentNode<General_Admin_StatisticsQuery, General_Admin_StatisticsQueryVariables>;
 export const Highway_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HIGHWAY_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"highwayListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"HighwayListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"highwayListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"highwayListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Highway_ListQuery, Highway_ListQueryVariables>;
 export const Highway_By_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HIGHWAY_BY_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"highwayById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"highwayByIdInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"highwayByIdInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<Highway_By_IdQuery, Highway_By_IdQueryVariables>;
 export const Subscription_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SUBSCRIPTION_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"subscriptionListInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionListInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"list"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"days"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<Subscription_ListQuery, Subscription_ListQueryVariables>;

@@ -18,6 +18,7 @@ const documents = {
     "\n  mutation ADD_AUTOMATIC_GATE($addAutomaticGateInput: AddAutomaticGateInput!) {\n    addAutomaticGate(addAutomaticGateInput: $addAutomaticGateInput) {\n      id\n    }\n  }\n": types.Add_Automatic_GateDocument,
     "\n  mutation EDIT_AUTOMATIC_GATE($editAutomaticGateInput: EditAutomaticGateInput!) {\n    editAutomaticGate(editAutomaticGateInput: $editAutomaticGateInput) {\n      id\n    }\n  }\n": types.Edit_Automatic_GateDocument,
     "\n  mutation DELETE_AUTOMATIC_GATE($deleteAutomaticGateInput: IdInput!) {\n    deleteAutomaticGate(deleteAutomaticGateInput: $deleteAutomaticGateInput)\n  }\n": types.Delete_Automatic_GateDocument,
+    "\n  query TOLL_ADMIN_STATISTICS {\n    tollAdminStatistics {\n      automaticGateCount\n      rfidReaderCount\n      ticketPrinterCount\n      qrCodeReaderCount\n      localGateAdminCount\n    }\n  }\n": types.Toll_Admin_StatisticsDocument,
     "\n  query TOLL_BY_ID($tollByIdInput: IdInput!) {\n    tollById(tollByIdInput: $tollByIdInput) {\n      id\n      name\n      longitude\n      latitude\n      wilayaId\n      wilaya {\n        id\n        name\n        code\n      }\n      highwayId\n      highway {\n        id\n        name\n        code\n      }\n      tollNetworkId\n      tollNetwork {\n        id\n        name\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.Toll_By_IdDocument,
     "\n  query TOLL_ADMIN_INFO {\n    tollAdminInfo {\n      tollId\n      baseUserId\n      toll {\n        id\n        name\n        latitude\n        longitude\n        wilaya {\n          id\n          name\n          code\n        }\n        highway {\n          id\n          name\n          code\n        }\n        tollNetwork {\n          id\n          name\n        }\n      }\n    }\n  }\n": types.Toll_Admin_InfoDocument,
     "\n  query AUTOMATIC_GATE_LIST($automaticGateListInput: AutomaticGateListInput!) {\n    automaticGateList(automaticGateListInput: $automaticGateListInput) {\n      count\n      list {\n        id\n        name\n        variant\n        direction\n        tollId\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.Automatic_Gate_ListDocument,
@@ -63,6 +64,10 @@ export function gql(source: "\n  mutation EDIT_AUTOMATIC_GATE($editAutomaticGate
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation DELETE_AUTOMATIC_GATE($deleteAutomaticGateInput: IdInput!) {\n    deleteAutomaticGate(deleteAutomaticGateInput: $deleteAutomaticGateInput)\n  }\n"): (typeof documents)["\n  mutation DELETE_AUTOMATIC_GATE($deleteAutomaticGateInput: IdInput!) {\n    deleteAutomaticGate(deleteAutomaticGateInput: $deleteAutomaticGateInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query TOLL_ADMIN_STATISTICS {\n    tollAdminStatistics {\n      automaticGateCount\n      rfidReaderCount\n      ticketPrinterCount\n      qrCodeReaderCount\n      localGateAdminCount\n    }\n  }\n"): (typeof documents)["\n  query TOLL_ADMIN_STATISTICS {\n    tollAdminStatistics {\n      automaticGateCount\n      rfidReaderCount\n      ticketPrinterCount\n      qrCodeReaderCount\n      localGateAdminCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

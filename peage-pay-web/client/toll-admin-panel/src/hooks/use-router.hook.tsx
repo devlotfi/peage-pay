@@ -23,6 +23,7 @@ import AutomaticGateListPage from '../pages/automatic-gate/automatic-gate-list.p
 import AddAutomaticGatePage from '../pages/automatic-gate/add-automatic-gate.page';
 import EditAutomaticGatePage from '../pages/automatic-gate/edit-automatic-gate.page';
 import AutomaticGateLayout from '../layout/automatic-gate.layout';
+import HomePage from '../pages/home/home.page';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -57,7 +58,7 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <h1>home</h1>,
+          element: <HomePage></HomePage>,
         },
 
         {

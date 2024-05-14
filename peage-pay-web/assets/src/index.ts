@@ -9,6 +9,7 @@ import NotFound from './svg/not-found.svg';
 import NoData from './svg/no-data.svg';
 import PageError from './svg/page-error.svg';
 import Camera from './svg/camera.svg';
+import AdminPanel from './svg/admin-panel.svg';
 
 export {
   PeagePayLogo,
@@ -22,4 +23,5 @@ export {
   PageError,
   PeagePayAdminLogo,
   Camera,
+  AdminPanel
 };

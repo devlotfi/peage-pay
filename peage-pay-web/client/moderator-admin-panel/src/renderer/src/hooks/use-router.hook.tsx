@@ -12,6 +12,7 @@ import BaseUserListPage from '@renderer/pages/base-user/base-user-list.page';
 import RfisTagListPage from '@renderer/pages/rfid-tag/rfid-tag-list.page';
 import AddRfidTagPage from '@renderer/pages/rfid-tag/add-rfid-tag.page';
 import { SerialPortProvider } from '@peage-pay-web/serial-port';
+import HomePage from '@renderer/pages/home/home.page';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -56,7 +57,7 @@ const useRouter = () => {
       children: [
         {
           path: '/dashboard',
-          element: <h1>home</h1>,
+          element: <HomePage></HomePage>,
         },
 
         {

@@ -1,5 +1,17 @@
 import { gql } from '../__generated__';
 
+export const TOLL_ADMIN_STATISTICS = gql(`
+  query TOLL_ADMIN_STATISTICS {
+    tollAdminStatistics {
+      automaticGateCount
+      rfidReaderCount
+      ticketPrinterCount
+      qrCodeReaderCount
+      localGateAdminCount
+    }
+  }
+`);
+
 export const TOLL_BY_ID = gql(`
   query TOLL_BY_ID($tollByIdInput: IdInput!) {
     tollById(tollByIdInput: $tollByIdInput) {
