@@ -1,5 +1,5 @@
 import { ButtonOutline, Heading, MinimalNavbar } from '@peage-pay-web/ui';
-import { BaseHTMLAttributes, useState } from 'react';
+import { BaseHTMLAttributes } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFilePen,
@@ -7,13 +7,11 @@ import {
   faUserGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { Toll } from '@peage-pay-web/assets';
-import SignUpPageTabs, {
-  SignUpTabsEnum,
-} from '../components/sign-up/sign-up-page-tabs.component';
 import { Link } from 'react-router-dom';
 import SignUpWithEmailForm from '../components/sign-up/sign-up-with-email-form.component';
 import { cva, VariantProps } from 'class-variance-authority';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const signUpPageVariants = cva(
   'flex flex-col bg-base-200 min-h-screen bg-cover',
@@ -38,14 +36,7 @@ const SignUpPage = ({
   usage,
   ...props
 }: SignUpPageProps): JSX.Element => {
-  const [tab, setTab] = useState<SignUpTabsEnum>(SignUpTabsEnum.EMAIL);
-
-  const renderTabContent = () => {
-    switch (tab) {
-      case SignUpTabsEnum.EMAIL:
-        return <SignUpWithEmailForm></SignUpWithEmailForm>;
-    }
-  };
+  const { t } = useTranslation();
 
   return (
     <div
@@ -64,16 +55,12 @@ const SignUpPage = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Sign up</Heading.Text>
+                <Heading.Text>{t('SIGN_UP')}</Heading.Text>
               </Heading>
-              <SignUpPageTabs
-                value={tab}
-                onChange={(value) => setTab(value)}
-              ></SignUpPageTabs>
-              {renderTabContent()}
+              <SignUpWithEmailForm></SignUpWithEmailForm>
               <div className="flex bg-edge-100 h-[1px] my-[1.5rem] justify-center relative">
                 <div className="flex bg-base-100 rounded-full justify-center items-center h-[2.3rem] w-[2.3rem] absolute translate-y-[-50%]">
-                  Or
+                  {t('OR')}
                 </div>
               </div>
               <Link to={'/sign-in'} className="flex w-full">
@@ -81,7 +68,7 @@ const SignUpPage = ({
                   <ButtonOutline.Icon position={'left'}>
                     <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                   </ButtonOutline.Icon>
-                  <ButtonOutline.Content>Sign in</ButtonOutline.Content>
+                  <ButtonOutline.Content>{t('SIGN_IN')}</ButtonOutline.Content>
                 </ButtonOutline>
               </Link>
             </div>
@@ -89,7 +76,9 @@ const SignUpPage = ({
           <div className="bg-edge-100 w-[1px] my-[1rem] mx-[1.5rem] hidden lg:flex"></div>
           <div className="flex flex-col">
             <div className="flex text-[17pt] items-center">
-              <div className="flex mr-[1.5rem]">PeagePay Adminstration</div>
+              <div className="flex mr-[1.5rem]">
+                {t('PEAGE_PAY_ADMINISTRATION')}
+              </div>
               <FontAwesomeIcon
                 className="text-[25pt] text-primary-100"
                 icon={faUserGear}

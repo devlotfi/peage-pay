@@ -20,6 +20,7 @@ import { SEND_PASSWORD_RESET_EMAIL } from '../graphql/mutations';
 import { cva, VariantProps } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const sendPasswordResetEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -53,6 +54,7 @@ const SendPasswordResetEmailPage = ({
   usage,
   ...props
 }: SendPasswordResetEmailProps): JSX.Element => {
+  const { t } = useTranslation();
   const [sendPasswordResetEmail, { loading, data, error }] = useMutation(
     SEND_PASSWORD_RESET_EMAIL,
   );
@@ -88,7 +90,7 @@ const SendPasswordResetEmailPage = ({
               <Heading.Icon position={'left'}>
                 <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
               </Heading.Icon>
-              <Heading.Text>Send password reset email</Heading.Text>
+              <Heading.Text>{t('SEND_PASSWORD_RESET_EMAIL')}</Heading.Text>
             </Heading>
 
             {error ? (
@@ -96,7 +98,7 @@ const SendPasswordResetEmailPage = ({
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+                <Alert.Content>{`${t(error.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -105,7 +107,7 @@ const SendPasswordResetEmailPage = ({
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Password reset email sent</Alert.Content>
+                <Alert.Content>{t('EMAIL_SENT')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -114,14 +116,14 @@ const SendPasswordResetEmailPage = ({
               className="w-full mb-[1.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>E-mail</TextInput.Label>
+                <TextInput.Label>{t('EMAIL')}</TextInput.Label>
                 <TextInput.Icon position={'left'}>
                   <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
                 </TextInput.Icon>
                 <TextInput.Field
                   name="email"
                   type="email"
-                  placeholder="Enter e-mail"
+                  placeholder={t('ENTER_EMAIL')}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -145,7 +147,7 @@ const SendPasswordResetEmailPage = ({
                     <Button.Icon position={'left'}>
                       <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
                     </Button.Icon>
-                    <Button.Content>Send e-mail</Button.Content>
+                    <Button.Content>{t('SEND_EMAIL')}</Button.Content>
                   </>
                 )}
               </Button>

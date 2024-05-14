@@ -22,6 +22,7 @@ import { AuthContext } from '../../context/auth.context';
 import VerifyEmailModal from '../verify-email-modal.component';
 import { Link } from 'react-router-dom';
 import { UserAuthUtils } from '../../utils';
+import { useTranslation } from 'react-i18next';
 
 const signInWithEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -39,6 +40,7 @@ const initialValues: SignInWithEmailValues = {
 };
 
 const SignInWithEmailForm = (): JSX.Element => {
+  const { t } = useTranslation();
   const { setAuthData, refreshTokenMode } = useContext(AuthContext);
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_WITH_EMAIL,
@@ -99,14 +101,14 @@ const SignInWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>E-mail</TextInput.Label>
+            <TextInput.Label>{t('EMAIL')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="email"
               type="email"
-              placeholder="Enter e-mail"
+              placeholder={t('ENTER_EMAIL')}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -121,14 +123,14 @@ const SignInWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Label>{t('PASSWORD')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="password"
               type="password"
-              placeholder="Enter password"
+              placeholder={t('ENTER_PASSWORD')}
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -139,7 +141,7 @@ const SignInWithEmailForm = (): JSX.Element => {
           ) : null}
         </TextInput>
         <Link to={'/send-password-reset-email'}>
-          <CustomLink className="mb-[1rem]">Reset password</CustomLink>
+          <CustomLink className="mb-[1rem]">{t('RESET_PASSWORD')}</CustomLink>
         </Link>
 
         {error ? (
@@ -147,7 +149,7 @@ const SignInWithEmailForm = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -161,7 +163,7 @@ const SignInWithEmailForm = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Sign in</Button.Content>
+              <Button.Content>{t('SIGN_IN')}</Button.Content>
             </>
           )}
         </Button>

@@ -13,6 +13,7 @@ import { SIGN_UP_WITH_EMAIL } from '../../graphql/mutations';
 import { AuthErrors } from '../../__generated__/graphql';
 import { useRef } from 'react';
 import VerifyEmailModal from '../verify-email-modal.component';
+import { useTranslation } from 'react-i18next';
 
 const signUpWithEmailValidationSchema = yup.object({
   firstName: yup.string().max(50).required(),
@@ -42,6 +43,7 @@ const initialValues: SignUpWithEmailValues = {
 };
 
 const SignUpWithEmailForm = (): JSX.Element => {
+  const { t } = useTranslation();
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_UP_WITH_EMAIL,
     {
@@ -90,14 +92,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>First name</TextInput.Label>
+            <TextInput.Label>{t('FIRST_NAME')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="firstName"
               type="text"
-              placeholder="Enter first name"
+              placeholder={t('ENTER_FIRST_NAME')}
               value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -112,14 +114,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Last name</TextInput.Label>
+            <TextInput.Label>{t('LAST_NAME')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="lastName"
               type="text"
-              placeholder="Enter last name"
+              placeholder={t('ENTER_LAST_NAME')}
               value={values.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -134,14 +136,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>E-mail</TextInput.Label>
+            <TextInput.Label>{t('EMAIL')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="email"
               type="email"
-              placeholder="Enter e-mail"
+              placeholder={t('ENTER_EMAIL')}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -156,14 +158,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Label>{t('PASSWORD')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="password"
               type="password"
-              placeholder="Enter password"
+              placeholder={t('ENTER_PASSWORD')}
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -182,14 +184,14 @@ const SignUpWithEmailForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Confirm password</TextInput.Label>
+            <TextInput.Label>{t('CONFIRM_PASSWORD')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="confirmPassword"
               type="password"
-              placeholder="Enter password"
+              placeholder={t('ENTER_PASSWORD')}
               value={values.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -207,7 +209,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -221,7 +223,7 @@ const SignUpWithEmailForm = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Sign up</Button.Content>
+              <Button.Content>{t('SIGN_UP')}</Button.Content>
             </>
           )}
         </Button>

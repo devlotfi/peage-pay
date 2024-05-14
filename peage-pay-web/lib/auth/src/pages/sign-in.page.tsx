@@ -17,6 +17,7 @@ import SignInWithGoogleFormExternal from '../components/sign-in/sign-in-with-goo
 import GoogleOAuthWrapper from '../components/google-oauth-wrapper.component';
 import { VariantProps, cva } from 'class-variance-authority';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const signInPageVariants = cva(
   'flex flex-col bg-base-200 min-h-screen bg-cover',
@@ -43,6 +44,7 @@ const SignInPage = ({
   usage,
   ...props
 }: SignInPageProps): JSX.Element => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<SignInTabsEnum>(SignInTabsEnum.EMAIL);
 
   const renderTabContent = () => {
@@ -83,7 +85,7 @@ const SignInPage = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Sign in</Heading.Text>
+                <Heading.Text>{t('SIGN_IN')}</Heading.Text>
               </Heading>
               <SignInPageTabs
                 value={tab}
@@ -93,7 +95,7 @@ const SignInPage = ({
             </div>
             <div className="flex bg-edge-100 h-[1px] my-[1.5rem] justify-center relative">
               <div className="flex bg-base-100 rounded-full justify-center items-center h-[2.3rem] w-[2.3rem] absolute translate-y-[-50%]">
-                Or
+                {t('OR')}
               </div>
             </div>
             <Link to={'/sign-up'} className="flex w-full">
@@ -101,14 +103,16 @@ const SignInPage = ({
                 <ButtonOutline.Icon position={'left'}>
                   <FontAwesomeIcon icon={faFilePen}></FontAwesomeIcon>
                 </ButtonOutline.Icon>
-                <ButtonOutline.Content>Sign up</ButtonOutline.Content>
+                <ButtonOutline.Content>{t('SIGN_UP')}</ButtonOutline.Content>
               </ButtonOutline>
             </Link>
           </div>
           <div className="bg-edge-100 w-[1px] my-[1rem] mx-[1.5rem] hidden lg:flex"></div>
           <div className="flex flex-col">
             <div className="flex justify-between text-[17pt] items-center">
-              <div className="flex mr-[1.5rem]">PeagePay Adminstration</div>
+              <div className="flex mr-[1.5rem]">
+                {t('PEAGE_PAY_ADMINISTRATION')}
+              </div>
               <FontAwesomeIcon
                 className="text-[25pt] text-primary-100"
                 icon={faUserGear}

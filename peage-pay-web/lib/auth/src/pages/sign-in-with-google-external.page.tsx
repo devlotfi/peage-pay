@@ -4,8 +4,10 @@ import { Google } from '@peage-pay-web/assets';
 import { Button, MinimalNavbar, TextInput } from '@peage-pay-web/ui';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const SignInWithGoogleExternalPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +36,7 @@ const SignInWithGoogleExternalPage = (): JSX.Element => {
           {accessToken ? (
             <TextInput>
               <TextInput.Main>
-                <TextInput.Label>Auth token</TextInput.Label>
+                <TextInput.Label>{t('TOKEN')}</TextInput.Label>
                 <TextInput.Icon position="left">
                   <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
                 </TextInput.Icon>
@@ -53,7 +55,7 @@ const SignInWithGoogleExternalPage = (): JSX.Element => {
                       <Button.Icon className="text-[12pt]" position={'left'}>
                         <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                       </Button.Icon>
-                      <Button.Content>Copied</Button.Content>
+                      <Button.Content>{t('COPIED')}</Button.Content>
                     </Button>
                   ) : (
                     <Button
@@ -64,7 +66,7 @@ const SignInWithGoogleExternalPage = (): JSX.Element => {
                       <Button.Icon className="text-[12pt]" position={'left'}>
                         <FontAwesomeIcon icon={faClipboard}></FontAwesomeIcon>
                       </Button.Icon>
-                      <Button.Content>Copy</Button.Content>
+                      <Button.Content>{t('COPY')}</Button.Content>
                     </Button>
                   )}
                 </TextInput.Icon>
@@ -79,7 +81,7 @@ const SignInWithGoogleExternalPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <img src={Google} alt="" />
               </Button.Icon>
-              <Button.Content>Sign in with google</Button.Content>
+              <Button.Content>{t('SIGN_IN_WITH_GOOGLE')}</Button.Content>
             </Button>
           )}
         </div>

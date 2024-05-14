@@ -10,6 +10,7 @@ import { SIGN_IN_WITH_GOOGLE } from '../../graphql/mutations';
 import * as yup from 'yup';
 import { UserAuthUtils } from '../../utils';
 import { AuthContext } from '../../context/auth.context';
+import { useTranslation } from 'react-i18next';
 
 const signInWithGoogleExternalValidationSchema = yup.object({
   accessToken: yup.string().required(),
@@ -30,6 +31,7 @@ interface SignInWithGoogleFormExternalProps {
 const SignInWithGoogleFormExternal = ({
   url,
 }: SignInWithGoogleFormExternalProps): JSX.Element => {
+  const { t } = useTranslation();
   const [browserOpened, setBrowserOpened] = useState<boolean>(false);
   const { setAuthData, refreshTokenMode } = useContext(AuthContext);
 
@@ -85,14 +87,14 @@ const SignInWithGoogleFormExternal = ({
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Token</TextInput.Label>
+            <TextInput.Label>{t('TOKEN')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <img src={Google} alt="google" />
             </TextInput.Icon>
             <TextInput.Field
               name="accessToken"
               type="text"
-              placeholder="Enter token"
+              placeholder={t('ENTER_TOKEN')}
               value={values.accessToken}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -113,7 +115,7 @@ const SignInWithGoogleFormExternal = ({
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Sign in</Button.Content>
+              <Button.Content>{t('SIGN_IN')}</Button.Content>
             </>
           )}
         </Button>

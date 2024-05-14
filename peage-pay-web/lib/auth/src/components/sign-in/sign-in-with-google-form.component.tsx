@@ -7,8 +7,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import { RefreshTokenMode } from '../../__generated__/graphql';
 import { UserAuthUtils } from '../../utils';
+import { useTranslation } from 'react-i18next';
 
 const SignInWithGoogleForm = (): JSX.Element => {
+  const { t } = useTranslation();
   const { setAuthData, refreshTokenMode } = useContext(AuthContext);
   const [signInWithGoogle, { loading }] = useMutation(SIGN_IN_WITH_GOOGLE, {
     onCompleted(data) {
@@ -56,7 +58,7 @@ const SignInWithGoogleForm = (): JSX.Element => {
           <Button.Icon position={'left'}>
             <img src={Google} alt="" />
           </Button.Icon>
-          <Button.Content>Sign in with google</Button.Content>
+          <Button.Content>{t('SIGN_IN_WITH_GOOGLE')}</Button.Content>
         </>
       )}
     </Button>
