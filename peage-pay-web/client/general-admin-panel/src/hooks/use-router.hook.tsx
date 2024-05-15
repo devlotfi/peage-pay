@@ -21,7 +21,6 @@ import YearlyPriceGlobalListPage from '../pages/price/list/yearly-price-global-l
 import CustomPriceGlobalListPage from '../pages/price/list/custom-price-global-list.page';
 import AddGlobalDailyPricePage from '../pages/price/add/add-global-daily-price.page';
 import EditSectionPage from '../pages/section/edit-section.page';
-import SectionLayout from '../layout/section.layout';
 import TollDistanceListPage from '../pages/toll-distance/toll-distance-list.page';
 import EditDefaultPricePage from '../pages/price/add/edit-default-price.page';
 import HomePage from '../pages/home/home.page';
@@ -79,17 +78,6 @@ const useRouter = () => {
         {
           path: '/dashboard',
           element: <HomePage></HomePage>,
-        },
-
-        {
-          path: '/dashboard/toll',
-          element: <SectionLayout></SectionLayout>,
-          children: [
-            {
-              path: '/dashboard/toll/edit/:tollNetworkId/:tollId',
-              element: <EditTollPage></EditTollPage>,
-            },
-          ],
         },
 
         {
