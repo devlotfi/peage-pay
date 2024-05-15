@@ -11,12 +11,14 @@ import { HighwayType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteHighwayModal from './delete-highway-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface HighwatListItemProps {
   highway: HighwayType;
 }
 
 const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -45,7 +47,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -55,7 +57,7 @@ const HighwayListItem = ({ highway }: HighwatListItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

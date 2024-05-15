@@ -4,6 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { DayOfWeekType } from '../../../__generated__/graphql';
 import Checkbox from '../checkbox/checkbox.component';
 import { DayOfWeekPickerContext } from './day-of-week-picker.context';
+import { useTranslation } from 'react-i18next';
 
 const dayOfWeekPickerMainVariants = cva(
   'grid grid-cols-2 relative lg:grid-cols-4 min-h-[2.7rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
@@ -42,6 +43,7 @@ const DayOfWeekPickerMain = ({
   handleChange,
   ...props
 }: DayOfWeekPickerMainProps): JSX.Element => {
+  const { t } = useTranslation();
   const { variant: globalVariant } = useContext(DayOfWeekPickerContext);
 
   const handleDaySelected = (month: DayOfWeekType) => {
@@ -66,19 +68,22 @@ const DayOfWeekPickerMain = ({
 
   const renderDays = () => {
     return Object.keys(DayOfWeekType).map((key) => {
-      const month = DayOfWeekType[key as keyof typeof DayOfWeekType];
+      const dayOfWeek = DayOfWeekType[key as keyof typeof DayOfWeekType];
       return (
         <div key={key} className="p-[0.7rem]">
-          <Checkbox initialChecked={isDaySelected(month)} variant={'primary'}>
+          <Checkbox
+            initialChecked={isDaySelected(dayOfWeek)}
+            variant={'primary'}
+          >
             <Checkbox.Check></Checkbox.Check>
             <Checkbox.Field
               onChange={(e) =>
                 e.target.checked
-                  ? handleDaySelected(month)
-                  : handleDayUnselected(month)
+                  ? handleDaySelected(dayOfWeek)
+                  : handleDayUnselected(dayOfWeek)
               }
             ></Checkbox.Field>
-            <Checkbox.Label>{month}</Checkbox.Label>
+            <Checkbox.Label>{t(dayOfWeek)}</Checkbox.Label>
           </Checkbox>
         </div>
       );

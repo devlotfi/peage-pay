@@ -18,6 +18,7 @@ import { TollNetworkType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteTollNetworkModal from './delete-toll-network-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface TollNetworkItemProps {
   tollNetwork: TollNetworkType;
@@ -26,6 +27,7 @@ interface TollNetworkItemProps {
 const TollNetworkItem = ({
   tollNetwork,
 }: TollNetworkItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -54,7 +56,7 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Toll list</MenuItem.Text>
+              <MenuItem.Text>{t('TOLL_LIST')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => navigate(`/dashboard/toll/add/${tollNetwork.id}`)}
@@ -64,7 +66,19 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add toll</MenuItem.Text>
+              <MenuItem.Text>{t('ADD_TOLL')}</MenuItem.Text>
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigate(`/dashboard/toll/section/list/${tollNetwork.id}`)
+              }
+              className="w-full mb-[0.5rem]"
+              variant={'base-100'}
+            >
+              <MenuItem.Icon>
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              </MenuItem.Icon>
+              <MenuItem.Text>{t('SECTION_LIST')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() =>
@@ -76,7 +90,7 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add section</MenuItem.Text>
+              <MenuItem.Text>{t('ADD_SECTION')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() =>
@@ -88,7 +102,7 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Graph</MenuItem.Text>
+              <MenuItem.Text>{t('GRAPH')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() =>
@@ -100,7 +114,7 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -110,7 +124,7 @@ const TollNetworkItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

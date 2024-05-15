@@ -14,8 +14,10 @@ import * as ReactDOM from 'react-dom/client';
 import TollMapMarker from '../../components/toll/toll-map-marker.component';
 import { SectionType, TollType } from '../../__generated__/graphql';
 import SectionMapMarker from '../../components/section/section-map-marker.component';
+import { useTranslation } from 'react-i18next';
 
 const TollNetworkGraphPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollNetworkId } = useParams();
   const {
     data: tollNetworkData,
@@ -155,7 +157,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Toll network map</Heading.Text>
+            <Heading.Text>{t('GRAPH')}</Heading.Text>
           </Heading>
           <div
             className="flex h-full rounded-lg"

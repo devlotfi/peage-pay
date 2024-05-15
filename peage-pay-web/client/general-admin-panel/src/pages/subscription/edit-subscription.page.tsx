@@ -20,6 +20,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { SUBSCRIPTION_BY_ID } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface EditSubscriptionValues {
   name: string;
@@ -40,6 +41,7 @@ const editSubscriptionValidationSchema = yup.object({
 });
 
 const EditSubscriptionPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { subscriptionId } = useParams();
   const { loading: subscriptionLoading, error: subscriptionError } = useQuery(
     SUBSCRIPTION_BY_ID,
@@ -102,7 +104,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit subscription</Heading.Text>
+                <Heading.Text>{t('EDIT_SUBSCRIPTION')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -111,13 +113,13 @@ const EditSubscriptionPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter subscription name"
+                  placeholder={t('ENTER_NAME')}
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -130,7 +132,7 @@ const EditSubscriptionPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Days</TextInput.Label>
+                <TextInput.Label>{t('DAYS')}</TextInput.Label>
                 <TextInput.Field
                   name="days"
                   value={values.days}
@@ -150,7 +152,7 @@ const EditSubscriptionPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Price</TextInput.Label>
+                <TextInput.Label>{t('PRICE')}</TextInput.Label>
                 <TextInput.Field
                   name="price"
                   value={values.price}
@@ -172,7 +174,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Subscription updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -181,7 +183,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(editError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -195,7 +197,7 @@ const EditSubscriptionPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit highway</Button.Content>
+                  <Button.Content>{t('EDIT_SUBSCRIPTION')}</Button.Content>
                 </>
               )}
             </Button>

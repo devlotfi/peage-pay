@@ -4,9 +4,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AdminDashboardLayout, Tabs } from '@peage-pay-web/ui';
+import { useTranslation } from 'react-i18next';
 import { useMatch, useNavigate } from 'react-router-dom';
 
 const AddPriceLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const editDefaultPriceMatch = useMatch('/dashboard/price/add/default');
   const addDailyPriceMatch = useMatch('/dashboard/price/add/daily');
@@ -25,7 +27,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Default price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('DEFAULT_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/add/daily')}
@@ -34,7 +36,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Daily price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_GLOBAL_DAILY_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/add/weekly')}
@@ -43,7 +45,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Weekly price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_GLOBAL_WEEKLY_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/add/monthly')}
@@ -52,7 +54,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Monthly price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_GLOBAL_MONTHLY_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/add/yearly')}
@@ -61,7 +63,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Yearly price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_GLOBAL_YEARLY_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/add/custom')}
@@ -70,7 +72,7 @@ const AddPriceLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Custom price</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_GLOBAL_CUSTOM_PRICE')}</Tabs.Item.Content>
         </Tabs.Item>
       </Tabs>
     </AdminDashboardLayout.Tabs>

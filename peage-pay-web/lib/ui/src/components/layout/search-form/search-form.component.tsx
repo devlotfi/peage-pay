@@ -1,14 +1,15 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { FormHTMLAttributes } from "react";
-import { Utils } from "@peage-pay-web/utils";
-import { useFormik } from "formik";
-import TextInput from "../../elements/text-input/text-input.component";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faTableList } from "@fortawesome/free-solid-svg-icons";
-import Select from "../../elements/select/select.component";
-import Button from "../../elements/button/button.component";
+import { VariantProps, cva } from 'class-variance-authority';
+import { FormHTMLAttributes } from 'react';
+import { Utils } from '@peage-pay-web/utils';
+import { useFormik } from 'formik';
+import TextInput from '../../elements/text-input/text-input.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faTableList } from '@fortawesome/free-solid-svg-icons';
+import Select from '../../elements/select/select.component';
+import Button from '../../elements/button/button.component';
+import { useTranslation } from 'react-i18next';
 
-const searchFormVariants = cva("flex flex-col lg:flex-row w-full mt-[0.5rem]");
+const searchFormVariants = cva('flex flex-col lg:flex-row w-full mt-[0.5rem]');
 
 export interface SearchValues<T> {
   search: string;
@@ -31,8 +32,9 @@ const SearchForm = <T,>({
   fieldSelectOptions,
   ...props
 }: SearchFormProps<T>): JSX.Element => {
+  const { t } = useTranslation();
   const initialValues: SearchValues<T> = {
-    search: "",
+    search: '',
     field: initialFieldSearch as T,
   };
 
@@ -54,8 +56,8 @@ const SearchForm = <T,>({
       <div className="flex mb-[1rem] lg:mb-0 w-full">
         <TextInput className="mr-[0.5rem] w-full">
           <TextInput.Main>
-            <TextInput.Label>Search</TextInput.Label>
-            <TextInput.Icon position={"left"}>
+            <TextInput.Label>{t('SEARCH')}</TextInput.Label>
+            <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
@@ -69,8 +71,8 @@ const SearchForm = <T,>({
         </TextInput>
         <Select className="mr-[0.5rem] w-[50%]">
           <Select.Main>
-            <Select.Label>Field</Select.Label>
-            <Select.Icon position={"left"}>
+            <Select.Label>{t('FIELD')}</Select.Label>
+            <Select.Icon position={'left'}>
               <FontAwesomeIcon icon={faTableList}></FontAwesomeIcon>
             </Select.Icon>
             <Select.Field
@@ -88,12 +90,12 @@ const SearchForm = <T,>({
       <Button
         type="submit"
         className="lg:ml-[0.5rem] min-h-[2.5rem]"
-        variant={"primary"}
+        variant={'primary'}
       >
-        <Button.Icon position={"left"}>
+        <Button.Icon position={'left'}>
           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
         </Button.Icon>
-        <Button.Content>Search</Button.Content>
+        <Button.Content>{t('SEARCH')}</Button.Content>
       </Button>
     </form>
   );

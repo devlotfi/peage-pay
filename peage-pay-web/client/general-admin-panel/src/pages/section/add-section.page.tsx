@@ -23,6 +23,7 @@ import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
 import { useRef, useState } from 'react';
 import { TollType } from '../../__generated__/graphql';
 import { ADD_SECTION } from '../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface AddSectionValues {
   fromTollId: string;
@@ -43,6 +44,7 @@ const addSectionValidationSchema = yup.object({
 });
 
 const AddSectionPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollNetworkId } = useParams();
   const [fromToll, setFromToll] = useState<TollType | null>(null);
   const [toToll, setToToll] = useState<TollType | null>(null);
@@ -133,7 +135,7 @@ const AddSectionPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Add section</Heading.Text>
+                <Heading.Text>{t('ADD_SECTION')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -144,7 +146,7 @@ const AddSectionPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Destination toll</TextInput.Label>
+                <TextInput.Label>{t('FROM_TOLL')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
                   {fromToll?.name} {fromToll?.id}
                 </div>
@@ -164,7 +166,7 @@ const AddSectionPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set toll</Button.Content>
+              <Button.Content>{t('SET_TOLL')}</Button.Content>
             </Button>
 
             <TextInput
@@ -174,7 +176,7 @@ const AddSectionPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Destination toll</TextInput.Label>
+                <TextInput.Label>{t('TO_TOLL')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
                   {toToll?.name} {toToll?.id}
                 </div>
@@ -192,7 +194,7 @@ const AddSectionPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set toll</Button.Content>
+              <Button.Content>{t('SET_TOLL')}</Button.Content>
             </Button>
 
             <TextInput
@@ -202,7 +204,7 @@ const AddSectionPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Distance</TextInput.Label>
+                <TextInput.Label>{t('DISTANCE')}</TextInput.Label>
                 <TextInput.Field
                   name="distance"
                   value={values.distance}
@@ -223,7 +225,7 @@ const AddSectionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Toll distance created</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -232,7 +234,7 @@ const AddSectionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${addError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(addError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -246,7 +248,7 @@ const AddSectionPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Add toll distance</Button.Content>
+                  <Button.Content>{t('ADD_SECTION')}</Button.Content>
                 </>
               )}
             </Button>

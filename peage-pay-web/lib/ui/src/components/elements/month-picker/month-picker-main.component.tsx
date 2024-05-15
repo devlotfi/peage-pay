@@ -4,6 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { MonthType } from '../../../__generated__/graphql';
 import Checkbox from '../checkbox/checkbox.component';
 import { MonthPickerContext } from './month-picker.context';
+import { useTranslation } from 'react-i18next';
 
 const monthPickerMainVariants = cva(
   'grid grid-cols-2 relative lg:grid-cols-4 min-h-[2.7rem] border-[1px] rounded-lg relative focus-within:outline outline-[3px]',
@@ -42,6 +43,7 @@ const MonthPickerMain = ({
   handleChange,
   ...props
 }: MonthPickerMainProps): JSX.Element => {
+  const { t } = useTranslation();
   const { variant: globalVariant } = useContext(MonthPickerContext);
 
   const handleMonthSelected = (month: MonthType) => {
@@ -78,7 +80,7 @@ const MonthPickerMain = ({
                   : handleMonthUnselected(month)
               }
             ></Checkbox.Field>
-            <Checkbox.Label>{month}</Checkbox.Label>
+            <Checkbox.Label>{t(month)}</Checkbox.Label>
           </Checkbox>
         </div>
       );

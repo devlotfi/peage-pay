@@ -16,9 +16,11 @@ import {
   MenuDropdown,
   MenuItem,
 } from '@peage-pay-web/ui';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Home</MenuItem.Text>
+            <MenuItem.Text>{t('HOME')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/highway/list')}
@@ -58,7 +60,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Highways</MenuItem.Text>
+            <MenuItem.Text>{t('HIGHWAYS')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/subscription/list')}
@@ -72,7 +74,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faFileSignature}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Subscriptions</MenuItem.Text>
+            <MenuItem.Text>{t('SUBSCRIPTIONS')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/toll-network/list')}
@@ -86,7 +88,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faCircleNodes}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Toll networks</MenuItem.Text>
+            <MenuItem.Text>{t('TOLL_NETWORKS')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/base-user/list')}
@@ -100,7 +102,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Users</MenuItem.Text>
+            <MenuItem.Text>{t('USERS')}</MenuItem.Text>
           </MenuItem>
 
           <MenuDropdown
@@ -111,7 +113,7 @@ const DashboardLayout = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Global prices</MenuItem.Text>
+                  <MenuItem.Text>{t('GLOBAL_PRICES')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -124,7 +126,7 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>List</MenuItem.Text>
+              <MenuItem.Text>{t('LIST')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => navigate('/dashboard/price/add/daily')}
@@ -134,7 +136,7 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add</MenuItem.Text>
+              <MenuItem.Text>{t('ADD')}</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
         </AdminDashboardLayout.Sidebar.Main>

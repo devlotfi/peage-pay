@@ -10,12 +10,14 @@ import { useRef } from 'react';
 import DeleteSectionModal from './delete-section-modal.component';
 import { SectionType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface SectionItemProps {
   section: SectionType;
 }
 
 const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -50,7 +52,7 @@ const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -60,7 +62,7 @@ const SectionItem = ({ section }: SectionItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

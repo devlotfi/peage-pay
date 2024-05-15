@@ -32,6 +32,7 @@ import { WilayaType, HighwayType } from '../../__generated__/graphql';
 import HighwayPicker from '../../components/highway/highway-picker.component';
 import LocationPicker from '../../components/toll/location-picker.component';
 import WilayaPicker from '../../components/wilaya/wilaya-picker.component';
+import { useTranslation } from 'react-i18next';
 
 interface EditTollValues {
   name: string;
@@ -58,6 +59,7 @@ const editTollValidationSchema = yup.object({
 });
 
 const EditTollPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollId } = useParams();
   const {
     loading: tollLoading,
@@ -240,7 +242,7 @@ const EditTollPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit toll</Heading.Text>
+                <Heading.Text>{t('EDIT_TOLL')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -249,7 +251,7 @@ const EditTollPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
@@ -270,7 +272,7 @@ const EditTollPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Latitude</TextInput.Label>
+                <TextInput.Label>{t('LATITUDE')}</TextInput.Label>
                 <TextInput.Field
                   readOnly
                   name="latitude"
@@ -292,7 +294,7 @@ const EditTollPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Longitude</TextInput.Label>
+                <TextInput.Label>{t('LONGITUDE')}</TextInput.Label>
                 <TextInput.Field
                   readOnly
                   name="longitude"
@@ -318,7 +320,7 @@ const EditTollPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faMapMarked}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set location</Button.Content>
+              <Button.Content>{t('SET_LOCATION')}</Button.Content>
             </Button>
 
             <TextInput
@@ -328,10 +330,9 @@ const EditTollPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Wilaya</TextInput.Label>
+                <TextInput.Label>{t('WILAYA')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedWilaya?.name} {selectedWilaya?.code}{' '}
-                  {selectedWilaya?.id}
+                  {selectedWilaya?.name} {selectedWilaya?.code}
                 </div>
               </TextInput.Main>
               {errors.wilayaId && touched.wilayaId ? (
@@ -347,7 +348,7 @@ const EditTollPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faCity}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set wilaya</Button.Content>
+              <Button.Content>{t('SET_WILAYA')}</Button.Content>
             </Button>
 
             <TextInput
@@ -357,10 +358,9 @@ const EditTollPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Highway</TextInput.Label>
+                <TextInput.Label>{t('HIGHWAY')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedHighway?.name} {selectedHighway?.code}{' '}
-                  {selectedHighway?.id}
+                  {selectedHighway?.name} {selectedHighway?.code}
                 </div>
               </TextInput.Main>
               {errors.highwayId && touched.highwayId ? (
@@ -378,7 +378,7 @@ const EditTollPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set highway</Button.Content>
+              <Button.Content>{t('SET_HIGHWAY')}</Button.Content>
             </Button>
 
             {editData ? (
@@ -386,7 +386,7 @@ const EditTollPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Toll updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -409,7 +409,7 @@ const EditTollPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit toll</Button.Content>
+                  <Button.Content>{t('EDIT_TOLL')}</Button.Content>
                 </>
               )}
             </Button>

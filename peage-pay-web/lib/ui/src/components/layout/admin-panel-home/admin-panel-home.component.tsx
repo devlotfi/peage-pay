@@ -5,6 +5,7 @@ import { AdminPanel } from '@peage-pay-web/assets';
 import { PropsWithChildren } from 'react';
 import AdminPanelHomeStat from './admin-panel-home-stat.component';
 import AdminPanelHomeGrid from './admin-panel-home-grid.component';
+import { useTranslation } from 'react-i18next';
 
 interface AdminPanelHomeProps {
   message: string;
@@ -14,6 +15,8 @@ const AdminPanelHome = ({
   message,
   children,
 }: PropsWithChildren<AdminPanelHomeProps>) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-center">
@@ -32,7 +35,7 @@ const AdminPanelHome = ({
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faChartColumn}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Statistics</Heading.Text>
+          <Heading.Text>{t('STATISTICS')}</Heading.Text>
         </Heading>
 
         {children}

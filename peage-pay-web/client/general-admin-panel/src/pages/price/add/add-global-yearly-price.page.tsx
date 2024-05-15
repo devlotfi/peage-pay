@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Alert,
   Button,
@@ -13,11 +13,12 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { ADD_GLOBAL_PRICE } from "../../../graphql/mutations";
-import { Utils } from "@peage-pay-web/utils";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { ADD_GLOBAL_PRICE } from '../../../graphql/mutations';
+import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface AddGlobalYearlyPriceValues {
   value: number;
@@ -31,10 +32,10 @@ interface AddGlobalYearlyPriceValues {
 const initialValues: AddGlobalYearlyPriceValues = {
   value: 1,
   priority: 1,
-  startTimestamp: "",
-  endTimestamp: "",
-  startDate: "",
-  endDate: "",
+  startTimestamp: '',
+  endTimestamp: '',
+  startDate: '',
+  endDate: '',
 };
 
 const addGlobalYearlyPriceValidationSchema = yup.object({
@@ -53,6 +54,7 @@ const addGlobalYearlyPriceValidationSchema = yup.object({
 });
 
 const AddGlobalYearlyPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addGlobalPrice, { loading, error, data }] =
     useMutation(ADD_GLOBAL_PRICE);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -67,10 +69,10 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
                 value: values.value,
                 priority: values.priority,
                 startTimestamp: Utils.createDateFromTimeString(
-                  values.startTimestamp
+                  values.startTimestamp,
                 ),
                 endTimestamp: Utils.createDateFromTimeString(
-                  values.endTimestamp
+                  values.endTimestamp,
                 ),
                 startDate: Utils.createDateFromDateString(values.startDate),
                 endDate: Utils.createDateFromDateString(values.endDate),
@@ -86,19 +88,19 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <FormPageLayout.Title>
           <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
+            <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add global yearly price</Heading.Text>
+            <Heading.Text>{t('ADD_GLOBAL_YEARLY_PRICE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
         <TextInput
-          variant={errors.value && touched.value ? "error" : "edge-100"}
+          variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Label>{t('VALUE')}</TextInput.Label>
             <TextInput.Field
               name="value"
               value={values.value}
@@ -109,18 +111,18 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
               step={0.01}
               min={0}
             ></TextInput.Field>
-            <TextInput.Icon position={"right"}>dzd/km</TextInput.Icon>
+            <TextInput.Icon position={'right'}>dzd/km</TextInput.Icon>
           </TextInput.Main>
           {errors.value && touched.value ? (
             <TextInput.InfoMessage>{errors.value}</TextInput.InfoMessage>
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.value && touched.value ? "error" : "edge-100"}
+          variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Label>{t('PRIORITY')}</TextInput.Label>
             <TextInput.Field
               name="priority"
               value={values.priority}
@@ -140,13 +142,13 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
-                ? "error"
-                : "edge-100"
+                ? 'error'
+                : 'edge-100'
             }
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Label>{t('START_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="startTimestamp"
                 value={values.startTimestamp}
@@ -164,12 +166,12 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
           <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={
-              errors.endTimestamp && touched.endTimestamp ? "error" : "edge-100"
+              errors.endTimestamp && touched.endTimestamp ? 'error' : 'edge-100'
             }
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Label>{t('END_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="endTimestamp"
                 value={values.endTimestamp}
@@ -189,12 +191,12 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
         <DirectionalInputs className="w-full mb-[1.3rem]">
           <TextInput
             variant={
-              errors.startDate && touched.startDate ? "error" : "edge-100"
+              errors.startDate && touched.startDate ? 'error' : 'edge-100'
             }
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start date</TextInput.Label>
+              <TextInput.Label>{t('START_DATE')}</TextInput.Label>
               <TextInput.Field
                 name="startDate"
                 value={values.startDate}
@@ -209,11 +211,11 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
           </TextInput>
           <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
-            variant={errors.endDate && touched.endDate ? "error" : "edge-100"}
+            variant={errors.endDate && touched.endDate ? 'error' : 'edge-100'}
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End date</TextInput.Label>
+              <TextInput.Label>{t('END_DATE')}</TextInput.Label>
               <TextInput.Field
                 name="endDate"
                 value={values.endDate}
@@ -229,32 +231,32 @@ const AddGlobalYearlyPricePage = (): JSX.Element => {
         </DirectionalInputs>
 
         {data ? (
-          <Alert variant={"success"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'success'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Global yearly price created</Alert.Content>
+            <Alert.Content>{t('OPERATIOn_SUCCESSFUL')}</Alert.Content>
           </Alert>
         ) : null}
 
         {error ? (
-          <Alert variant={"error"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
             <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+        <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
           {loading ? (
-            <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
           ) : (
             <>
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add global daily price</Button.Content>
+              <Button.Content>{t('ADD_GLOBAL_YEARLY_PRICE')}</Button.Content>
             </>
           )}
         </Button>

@@ -2,12 +2,15 @@ import { TollType } from '../../__generated__/graphql';
 import { Button, Table } from '@peage-pay-web/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 interface TollMapMarkerProps {
   toll: TollType;
 }
 
 const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="group shadow-lg flex flex-col p-[0.5rem] bg-base-100 rounded-lg relative border-edge-100 border-[1px] translate-y-[-2rem]">
       <div className="flex items-center text-primary-100 font-bold text-[12pt]">
@@ -27,7 +30,7 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Edit</Button.Content>
+            <Button.Content>{t('EDIT')}</Button.Content>
           </Button>
         </a>
       </div>
@@ -35,16 +38,20 @@ const TollMapMarker = ({ toll }: TollMapMarkerProps): JSX.Element => {
         <Table>
           <Table.Body>
             <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Info</Table.Body.Td>
+              <Table.Body.Td className="py-[0.1rem]">{t('INFO')}</Table.Body.Td>
             </Table.Body.Tr>
             <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Highway</Table.Body.Td>
+              <Table.Body.Td className="py-[0.1rem]">
+                {t('HIGHWAY')}
+              </Table.Body.Td>
               <Table.Body.Td className="py-[0.1rem]">
                 {toll.highway.name} {toll.highway.code}
               </Table.Body.Td>
             </Table.Body.Tr>
             <Table.Body.Tr>
-              <Table.Body.Td className="py-[0.1rem]">Wilaya</Table.Body.Td>
+              <Table.Body.Td className="py-[0.1rem]">
+                {t('WILAYA')}
+              </Table.Body.Td>
               <Table.Body.Td className="py-[0.1rem]">
                 {toll.wilaya.name}
               </Table.Body.Td>

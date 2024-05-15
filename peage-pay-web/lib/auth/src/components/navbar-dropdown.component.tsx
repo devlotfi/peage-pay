@@ -20,6 +20,7 @@ import { useContext, useRef } from 'react';
 import { AuthContext } from '@peage-pay-web/auth';
 import { Utils } from '@peage-pay-web/utils';
 import SignOutModal from './sign-out-modal.component';
+import { useTranslation } from 'react-i18next';
 
 const NavbarDropdownArrow = (): JSX.Element => {
   const { open } = useContext(Dropdown.Context);
@@ -38,6 +39,7 @@ const NavbarDropdownArrow = (): JSX.Element => {
 };
 
 const NavbarDropdown = (): JSX.Element => {
+  const { t } = useTranslation();
   const { setDarkTheme, setLightTheme, theme } = useContext(ThemeContext);
   const { authData } = useContext(AuthContext);
   const signOutModalRef = useRef(null);
@@ -91,7 +93,7 @@ const NavbarDropdown = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faBrush}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Theme</MenuItem.Text>
+                  <MenuItem.Text>{t('THEMES')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -104,7 +106,7 @@ const NavbarDropdown = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Dark</MenuItem.Text>
+              <MenuItem.Text>{t('DARK')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => setLightTheme()}
@@ -114,7 +116,7 @@ const NavbarDropdown = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Light</MenuItem.Text>
+              <MenuItem.Text>{t('LIGHT')}</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
 
@@ -125,7 +127,7 @@ const NavbarDropdown = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Language</MenuItem.Text>
+                  <MenuItem.Text>{t('LANGUAGE')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -135,21 +137,21 @@ const NavbarDropdown = (): JSX.Element => {
               variant={'primary'}
             >
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>English</MenuItem.Text>
             </MenuItem>
             <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>French</MenuItem.Text>
+              <MenuItem.Text>Français</MenuItem.Text>
             </MenuItem>
             <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Arabic</MenuItem.Text>
+              <MenuItem.Text>العربية</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
           <MenuItem
@@ -160,7 +162,7 @@ const NavbarDropdown = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Sign out</MenuItem.Text>
+            <MenuItem.Text>{t('SIGN_OUT')}</MenuItem.Text>
           </MenuItem>
         </Dropdown.Content>
       </Dropdown>

@@ -15,6 +15,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { SubscriptionSearchFields } from '../../__generated__/graphql';
 import SubscriptionListItem from '../../components/subscription/subscription-item.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<SubscriptionSearchFields> = {
   search: '',
@@ -22,6 +23,7 @@ const initialValues: SearchValues<SubscriptionSearchFields> = {
 };
 
 const SubscriptionListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -48,7 +50,7 @@ const SubscriptionListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Subscription list</Heading.Text>
+          <Heading.Text>{t('SUBSCRIPTION_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -60,12 +62,12 @@ const SubscriptionListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Name</Table.Head.Th>
-                    <Table.Head.Th>Days</Table.Head.Th>
-                    <Table.Head.Th>Price</Table.Head.Th>
-                    <Table.Head.Th>Created at</Table.Head.Th>
-                    <Table.Head.Th>Updated at</Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                    <Table.Head.Th>{t('DAYS')}</Table.Head.Th>
+                    <Table.Head.Th>{t('PRICE')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

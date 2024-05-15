@@ -8,6 +8,7 @@ import { SectionListResult } from './result/section-list.result.gql';
 import { EditSectionInput } from './input/edit-section-input.gql';
 import { SectionByIdsInput } from './input/section-by-ids.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { SectionListForTollNetworkPaginatedInput } from './input/section-list-for-toll-network-paginated.input.gql copy';
 
 @Injectable()
 export class SectionService {
@@ -17,38 +18,40 @@ export class SectionService {
     return await this.databaseService.section.findMany();
   }
 
-  public async sectionListForToll(
-    sectionListForTollInput: SectionListForTollInput,
+  public async sectionListForTollNetworkPaginated(
+    sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput,
   ): Promise<SectionListResult> {
+    console.log('testa');
+
     const sectionList = await this.databaseService.section.findMany({
       where: {
         OR: [
           {
             fromToll: {
-              id: sectionListForTollInput.id,
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
             },
           },
           {
             toToll: {
-              id: sectionListForTollInput.id,
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
             },
           },
         ],
       },
-      take: sectionListForTollInput.take,
-      skip: sectionListForTollInput.skip,
+      take: sectionListForTollNetworkPaginatedInput.take,
+      skip: sectionListForTollNetworkPaginatedInput.skip,
     });
     const sectionCount = await this.databaseService.section.count({
       where: {
         OR: [
           {
             fromToll: {
-              id: sectionListForTollInput.id,
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
             },
           },
           {
             toToll: {
-              id: sectionListForTollInput.id,
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
             },
           },
         ],

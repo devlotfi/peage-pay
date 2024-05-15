@@ -20,6 +20,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { HIGHWAY_BY_ID } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface EditHighwayValues {
   name: string;
@@ -37,6 +38,7 @@ const editHighwayValidationSchema = yup.object({
 });
 
 const EditHighwayPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { highwayId } = useParams();
   const { loading: highwayLoading, error: highwayError } = useQuery(
     HIGHWAY_BY_ID,
@@ -97,7 +99,7 @@ const EditHighwayPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit highway</Heading.Text>
+                <Heading.Text>{t('EDIT_HIGHWAY')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -106,13 +108,13 @@ const EditHighwayPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter highway name"
+                  placeholder={t('ENTER_NAME')}
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -125,13 +127,13 @@ const EditHighwayPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Code</TextInput.Label>
+                <TextInput.Label>{t('CODE')}</TextInput.Label>
                 <TextInput.Field
                   name="code"
                   value={values.code}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter highway code"
+                  placeholder={t('ENTER_CODE')}
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -145,7 +147,7 @@ const EditHighwayPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Highway updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -154,7 +156,7 @@ const EditHighwayPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(editError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -168,7 +170,7 @@ const EditHighwayPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit highway</Button.Content>
+                  <Button.Content>{t('EDIT_HIGHWAY')}</Button.Content>
                 </>
               )}
             </Button>

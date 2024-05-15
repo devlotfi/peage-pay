@@ -24,6 +24,7 @@ import {
   TOLL_NETWORK_BY_ID,
 } from '../../graphql/queries';
 import { EDIT_SECTION } from '../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface EditSectionValues {
   fromTollId: string;
@@ -44,6 +45,7 @@ const editSectionValidationSchema = yup.object({
 });
 
 const EditSectionPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { fromTollId, toTollId } = useParams();
   const {
     data: fromTollData,
@@ -162,7 +164,7 @@ const EditSectionPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit section</Heading.Text>
+                <Heading.Text>{t('EDIT_SECTION')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
@@ -170,7 +172,7 @@ const EditSectionPage = (): JSX.Element => {
                 <Table.Body>
                   <Table.Body.Tr>
                     <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll 1:
+                      {t('FROM_TOLL')}
                     </Table.Body.Td>
                     <Table.Body.Td>
                       {fromTollData?.tollById?.name}
@@ -178,13 +180,13 @@ const EditSectionPage = (): JSX.Element => {
                   </Table.Body.Tr>
                   <Table.Body.Tr>
                     <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll 2:
+                      {t('TO_TOLL')}
                     </Table.Body.Td>
                     <Table.Body.Td>{toTollData?.tollById?.name}</Table.Body.Td>
                   </Table.Body.Tr>
                   <Table.Body.Tr>
                     <Table.Body.Td className="text-primary-100 font-bold">
-                      Toll network:
+                      {t('TOLL_NETWORK')}
                     </Table.Body.Td>
                     <Table.Body.Td>
                       {tollNetworkData?.tollNetworkById.name}
@@ -201,7 +203,7 @@ const EditSectionPage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Distance</TextInput.Label>
+                <TextInput.Label>{t('DISTANCE')}</TextInput.Label>
                 <TextInput.Field
                   name="distance"
                   value={values.distance}
@@ -222,7 +224,7 @@ const EditSectionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Toll distance created</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -231,7 +233,7 @@ const EditSectionPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${addError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(addError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -245,7 +247,7 @@ const EditSectionPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Update toll distance</Button.Content>
+                  <Button.Content>{t('EDIT_SECTION')}</Button.Content>
                 </>
               )}
             </Button>

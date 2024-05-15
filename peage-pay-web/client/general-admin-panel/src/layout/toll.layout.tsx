@@ -11,12 +11,17 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { TOLL_NETWORK_BY_ID } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 const TollLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { tollNetworkId } = useParams();
   const tollListMatch = useMatch(`/dashboard/toll/list/${tollNetworkId}`);
   const addTollMatch = useMatch(`/dashboard/toll/add/${tollNetworkId}`);
+  const sectionListMatch = useMatch(
+    `/dashboard/toll/section/list/${tollNetworkId}`,
+  );
   const addSectionMatch = useMatch(
     `/dashboard/toll/section/add/${tollNetworkId}`,
   );
@@ -46,7 +51,7 @@ const TollLayout = (): JSX.Element => {
           <Table.Body>
             <Table.Body.Tr>
               <Table.Body.Td className="text-primary-100 font-bold">
-                Toll network:
+                {t('TOLL_NETWORK')}
               </Table.Body.Td>
               <Table.Body.Td>{data?.tollNetworkById.name}</Table.Body.Td>
             </Table.Body.Tr>
@@ -61,7 +66,7 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Toll list</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('TOLL_LIST')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate(`/dashboard/toll/add/${tollNetworkId}`)}
@@ -70,7 +75,18 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Add toll</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_TOLL')}</Tabs.Item.Content>
+        </Tabs.Item>
+        <Tabs.Item
+          onClick={() =>
+            navigate(`/dashboard/toll/section/list/${tollNetworkId}`)
+          }
+          isActive={sectionListMatch ? 'active' : 'notActive'}
+        >
+          <Tabs.Item.Icon position={'left'}>
+            <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+          </Tabs.Item.Icon>
+          <Tabs.Item.Content>{t('SECTION_LIST')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() =>
@@ -81,7 +97,7 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Add section</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_SECTION')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() =>
@@ -92,7 +108,7 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Graph</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('GRAPH')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() =>
@@ -103,7 +119,7 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Edit toll network</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('EDIT_TOLL_NETWORK')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() =>
@@ -114,7 +130,7 @@ const TollLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faRuler}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Generated Distances</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('GENERATED_DISTANCES')}</Tabs.Item.Content>
         </Tabs.Item>
       </Tabs>
     </AdminDashboardLayout.Tabs>

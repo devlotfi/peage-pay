@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Modal, TextInput, Button } from '@peage-pay-web/ui';
 import { RefObject, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface LocationPickerProps {
   onChange?: (latLng: google.maps.LatLng | null) => void;
@@ -24,6 +25,7 @@ const LocationPicker = ({
   modalRef,
   initialValue,
 }: LocationPickerProps): JSX.Element => {
+  const { t } = useTranslation();
   const [selectedLocation, setSelectedLocation] =
     useState<google.maps.LatLng | null>(null);
 
@@ -117,14 +119,14 @@ const LocationPicker = ({
   return (
     <Modal modalRef={modalRef} className="h-screen w-screen">
       <Modal.Window className="h-full">
-        <Modal.Header>Location picker</Modal.Header>
+        <Modal.Header>{t('LOCATION_PICKER')}</Modal.Header>
         <Modal.Content>
           <div className="flex h-full w-full flex-col bg-base-100">
             <div className="flex justify-between flex-col lg:flex-row py-[1rem]">
               <div className="flex mb-[0.5rem] lg:mb-[0rem]">
                 <TextInput variant={'edge-100'} className="w-full">
                   <TextInput.Main>
-                    <TextInput.Label>Latitude</TextInput.Label>
+                    <TextInput.Label>{t('LATITUDE')}</TextInput.Label>
                     <TextInput.Icon position={'left'}>
                       <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
                     </TextInput.Icon>
@@ -141,7 +143,7 @@ const LocationPicker = ({
                 </TextInput>
                 <TextInput variant={'edge-100'} className="w-full ml-[0.5rem]">
                   <TextInput.Main>
-                    <TextInput.Label>Longitude</TextInput.Label>
+                    <TextInput.Label>{t('LONGITUDE')}</TextInput.Label>
                     <TextInput.Icon position={'left'}>
                       <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
                     </TextInput.Icon>
@@ -167,7 +169,7 @@ const LocationPicker = ({
                     <Button.Icon position={'left'}>
                       <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                     </Button.Icon>
-                    <Button.Content>Clear</Button.Content>
+                    <Button.Content>{t('CLEAR')}</Button.Content>
                   </Button>
                 ) : null}
               </div>
@@ -180,7 +182,7 @@ const LocationPicker = ({
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Ok</Button.Content>
+                  <Button.Content>{t('OK')}</Button.Content>
                 </Button>
               </div>
             </div>

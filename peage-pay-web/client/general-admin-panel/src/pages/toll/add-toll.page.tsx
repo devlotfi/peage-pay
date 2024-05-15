@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   faCheck,
   faCity,
@@ -6,8 +6,8 @@ import {
   faMapMarked,
   faPlus,
   faRoad,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AdminDashboardLayout,
   Alert,
@@ -16,17 +16,18 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { ADD_TOLL } from "../../graphql/mutations";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { TOLL_NETWORK_BY_ID } from "../../graphql/queries";
-import LocationPicker from "../../components/toll/location-picker.component";
-import WilayaPicker from "../../components/wilaya/wilaya-picker.component";
-import { HighwayType, WilayaType } from "../../__generated__/graphql";
-import HighwayPicker from "../../components/highway/highway-picker.component";
+} from '@peage-pay-web/ui';
+import { ADD_TOLL } from '../../graphql/mutations';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
+import LocationPicker from '../../components/toll/location-picker.component';
+import WilayaPicker from '../../components/wilaya/wilaya-picker.component';
+import { HighwayType, WilayaType } from '../../__generated__/graphql';
+import HighwayPicker from '../../components/highway/highway-picker.component';
+import { useTranslation } from 'react-i18next';
 
 interface AddTollValues {
   name: string;
@@ -37,11 +38,11 @@ interface AddTollValues {
 }
 
 const initialValues: AddTollValues = {
-  name: "",
+  name: '',
   latitude: 0,
   longitude: 0,
-  wilayaId: "",
-  highwayId: "",
+  wilayaId: '',
+  highwayId: '',
 };
 
 const addTollValidationSchema = yup.object({
@@ -53,6 +54,7 @@ const addTollValidationSchema = yup.object({
 });
 
 const AddTollPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollNetworkId } = useParams();
   const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
     TOLL_NETWORK_BY_ID,
@@ -62,8 +64,8 @@ const AddTollPage = (): JSX.Element => {
           id: tollNetworkId as string,
         },
       },
-      fetchPolicy: "network-only",
-    }
+      fetchPolicy: 'network-only',
+    },
   );
   const [addToll, { loading: addLoading, error: addError, data: addData }] =
     useMutation(ADD_TOLL);
@@ -95,7 +97,7 @@ const AddTollPage = (): JSX.Element => {
   });
   const [selectedWilaya, setSelectedWilaya] = useState<WilayaType | null>(null);
   const [selectedHighway, setSelectedHighway] = useState<HighwayType | null>(
-    null
+    null,
   );
 
   const locationPickerModalRef = useRef<HTMLDialogElement>(null);
@@ -106,30 +108,30 @@ const AddTollPage = (): JSX.Element => {
     const latitude = latLng?.lat();
     const longitude = latLng?.lng();
     if (latitude && longitude) {
-      setFieldValue("latitude", latitude);
-      setFieldValue("longitude", longitude);
+      setFieldValue('latitude', latitude);
+      setFieldValue('longitude', longitude);
     } else {
-      setFieldValue("latitude", 0);
-      setFieldValue("longitude", 0);
+      setFieldValue('latitude', 0);
+      setFieldValue('longitude', 0);
     }
   };
 
   const handleWilayaChange = (wilaya: WilayaType | null) => {
     if (wilaya) {
-      setFieldValue("wilayaId", wilaya?.id);
+      setFieldValue('wilayaId', wilaya?.id);
       setSelectedWilaya(wilaya);
     } else {
-      setFieldValue("wilayaId", "");
+      setFieldValue('wilayaId', '');
       setSelectedWilaya(null);
     }
   };
 
   const handleHighwayChange = (highway: HighwayType | null) => {
     if (highway) {
-      setFieldValue("highwayId", highway?.id);
+      setFieldValue('highwayId', highway?.id);
       setSelectedHighway(highway);
     } else {
-      setFieldValue("highwayId", "");
+      setFieldValue('highwayId', '');
       setSelectedHighway(null);
     }
   };
@@ -156,25 +158,25 @@ const AddTollPage = (): JSX.Element => {
           <AdminDashboardLayout.Error error={tollNetworkError}>
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Add toll</Heading.Text>
+                <Heading.Text>{t('ADD_TOLL')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
             <TextInput
-              variant={errors.name && touched.name ? "error" : "edge-100"}
+              variant={errors.name && touched.name ? 'error' : 'edge-100'}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter toll name"
+                  placeholder={t('ENTER_NAME')}
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -184,19 +186,19 @@ const AddTollPage = (): JSX.Element => {
             </TextInput>
             <TextInput
               variant={
-                errors.latitude && touched.latitude ? "error" : "edge-100"
+                errors.latitude && touched.latitude ? 'error' : 'edge-100'
               }
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Latitude</TextInput.Label>
+                <TextInput.Label>{t('LATITUDE')}</TextInput.Label>
                 <TextInput.Field
                   readOnly
                   name="latitude"
                   value={values.latitude}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter latitude"
+                  placeholder={t('LATITUDE')}
                   type="number"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -206,19 +208,19 @@ const AddTollPage = (): JSX.Element => {
             </TextInput>
             <TextInput
               variant={
-                errors.longitude && touched.longitude ? "error" : "edge-100"
+                errors.longitude && touched.longitude ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Longitude</TextInput.Label>
+                <TextInput.Label>{t('LONGITUDE')}</TextInput.Label>
                 <TextInput.Field
                   readOnly
                   name="longitude"
                   value={values.longitude}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter longitude"
+                  placeholder={t('LONGITUDE')}
                   type="number"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -229,28 +231,27 @@ const AddTollPage = (): JSX.Element => {
               ) : null}
             </TextInput>
             <Button
-              variant={"base-200"}
+              variant={'base-200'}
               className="mb-[1.3rem]"
               type="button"
               onClick={() => locationPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faMapMarked}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set location</Button.Content>
+              <Button.Content>{t('SET_LOCATION')}</Button.Content>
             </Button>
 
             <TextInput
               variant={
-                errors.wilayaId && touched.wilayaId ? "error" : "edge-100"
+                errors.wilayaId && touched.wilayaId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Wilaya</TextInput.Label>
+                <TextInput.Label>{t('WILAYA')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedWilaya?.name} {selectedWilaya?.code}{" "}
-                  {selectedWilaya?.id}
+                  {selectedWilaya?.name} {selectedWilaya?.code}
                 </div>
               </TextInput.Main>
               {errors.wilayaId && touched.wilayaId ? (
@@ -259,27 +260,26 @@ const AddTollPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[1.3rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => wilayaPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faCity}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set wilaya</Button.Content>
+              <Button.Content>{t('SET_WILAYA')}</Button.Content>
             </Button>
 
             <TextInput
               variant={
-                errors.highwayId && touched.highwayId ? "error" : "edge-100"
+                errors.highwayId && touched.highwayId ? 'error' : 'edge-100'
               }
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Highway</TextInput.Label>
+                <TextInput.Label>{t('HIGHWAY')}</TextInput.Label>
                 <div className="flex items-center ml-[1rem]">
-                  {selectedHighway?.name} {selectedHighway?.code}{" "}
-                  {selectedHighway?.id}
+                  {selectedHighway?.name} {selectedHighway?.code}
                 </div>
               </TextInput.Main>
               {errors.highwayId && touched.highwayId ? (
@@ -290,45 +290,45 @@ const AddTollPage = (): JSX.Element => {
             </TextInput>
             <Button
               className="mb-[0.5rem]"
-              variant={"base-200"}
+              variant={'base-200'}
               type="button"
               onClick={() => highwayPickerModalRef.current?.showModal()}
             >
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faRoad}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Set highway</Button.Content>
+              <Button.Content>{t('SET_HIGHWAY')}</Button.Content>
             </Button>
 
             {addData ? (
-              <Alert variant={"success"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Toll created</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
             {addError ? (
-              <Alert variant={"error"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${addError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(addError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
               {addLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Add toll</Button.Content>
+                  <Button.Content>{t('ADD_TOLL')}</Button.Content>
                 </>
               )}
             </Button>

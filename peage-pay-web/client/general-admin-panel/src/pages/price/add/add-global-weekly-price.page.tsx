@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Alert,
   Button,
@@ -14,12 +14,13 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { ADD_GLOBAL_PRICE } from "../../../graphql/mutations";
-import { Utils } from "@peage-pay-web/utils";
-import { DayOfWeekType } from "../../../__generated__/graphql";
+} from '@peage-pay-web/ui';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { ADD_GLOBAL_PRICE } from '../../../graphql/mutations';
+import { Utils } from '@peage-pay-web/utils';
+import { DayOfWeekType } from '../../../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 interface AddGlobalWeeklyPriceValues {
   value: number;
@@ -32,8 +33,8 @@ interface AddGlobalWeeklyPriceValues {
 const initialValues: AddGlobalWeeklyPriceValues = {
   value: 1,
   priority: 1,
-  startTimestamp: "",
-  endTimestamp: "",
+  startTimestamp: '',
+  endTimestamp: '',
   days: [],
 };
 
@@ -54,6 +55,7 @@ const addGlobalWeeklyPriceValidationSchema = yup.object({
 });
 
 const AddGlobalWeeklyPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addGlobalPrice, { loading, error, data }] =
     useMutation(ADD_GLOBAL_PRICE);
   const {
@@ -75,7 +77,7 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
               value: values.value,
               priority: values.priority,
               startTimestamp: Utils.createDateFromTimeString(
-                values.startTimestamp
+                values.startTimestamp,
               ),
               endTimestamp: Utils.createDateFromTimeString(values.endTimestamp),
               days: values.days,
@@ -91,19 +93,19 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <FormPageLayout.Title>
           <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
+            <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add global weekly price</Heading.Text>
+            <Heading.Text>{t('ADD_GLOBAL_WEEKLY_PRICE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
         <TextInput
-          variant={errors.value && touched.value ? "error" : "edge-100"}
+          variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Label>{t('VALUE')}</TextInput.Label>
             <TextInput.Field
               name="value"
               value={values.value}
@@ -114,18 +116,18 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
               step={0.01}
               min={0}
             ></TextInput.Field>
-            <TextInput.Icon position={"right"}>dzd/km</TextInput.Icon>
+            <TextInput.Icon position={'right'}>dzd/km</TextInput.Icon>
           </TextInput.Main>
           {errors.value && touched.value ? (
             <TextInput.InfoMessage>{errors.value}</TextInput.InfoMessage>
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.value && touched.value ? "error" : "edge-100"}
+          variant={errors.value && touched.value ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Label>{t('PRIORITY')}</TextInput.Label>
             <TextInput.Field
               name="priority"
               value={values.priority}
@@ -145,13 +147,13 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
           <TextInput
             variant={
               errors.startTimestamp && touched.startTimestamp
-                ? "error"
-                : "edge-100"
+                ? 'error'
+                : 'edge-100'
             }
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Label>{t('START_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="startTimestamp"
                 value={values.startTimestamp}
@@ -169,12 +171,12 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
           <DirectionalInputs.Arrow></DirectionalInputs.Arrow>
           <TextInput
             variant={
-              errors.endTimestamp && touched.endTimestamp ? "error" : "edge-100"
+              errors.endTimestamp && touched.endTimestamp ? 'error' : 'edge-100'
             }
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Label>{t('END_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="endTimestamp"
                 value={values.endTimestamp}
@@ -193,15 +195,15 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
 
         <DayOfWeekPicker
           className="w-full mb-[1.3rem]"
-          variant={errors.days && touched.days ? "error" : "edge-100"}
+          variant={errors.days && touched.days ? 'error' : 'edge-100'}
         >
           <DayOfWeekPicker.Main
             value={values.days}
             handleChange={(selectedDaysOfWeek) =>
-              setFieldValue("days", selectedDaysOfWeek)
+              setFieldValue('days', selectedDaysOfWeek)
             }
           >
-            <DayOfWeekPicker.Label>Select days of week</DayOfWeekPicker.Label>
+            <DayOfWeekPicker.Label>{t('DAYS_OF_WEEK')}</DayOfWeekPicker.Label>
           </DayOfWeekPicker.Main>
           {errors.days && touched.days ? (
             <DayOfWeekPicker.InfoMessage>
@@ -211,32 +213,32 @@ const AddGlobalWeeklyPricePage = (): JSX.Element => {
         </DayOfWeekPicker>
 
         {data ? (
-          <Alert variant={"success"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'success'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Global weekly price created</Alert.Content>
+            <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
           </Alert>
         ) : null}
 
         {error ? (
-          <Alert variant={"error"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+        <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
           {loading ? (
-            <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
           ) : (
             <>
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add global weekly price</Button.Content>
+              <Button.Content>{t('ADD_GLOBAL_WEEKLY_PRICE')}</Button.Content>
             </>
           )}
         </Button>

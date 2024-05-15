@@ -21,6 +21,7 @@ import { SectionByIdsInput } from './input/section-by-ids.input.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
 import { TollService } from 'src/toll/toll.service';
+import { SectionListForTollNetworkPaginatedInput } from './input/section-list-for-toll-network-paginated.input.gql copy';
 
 @Resolver(() => SectionType)
 export class SectionResolver {
@@ -36,12 +37,12 @@ export class SectionResolver {
 
   @Query(() => SectionListResult)
   @UseGuards(AuthGuard)
-  public async sectionListForToll(
-    @Args('sectionListForTollInput')
-    sectionListForTollInput: SectionListForTollInput,
+  public async sectionListForTollNetworkPaginated(
+    @Args('sectionListForTollNetworkPaginatedInput')
+    sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput,
   ) {
-    return await this.sectionService.sectionListForToll(
-      sectionListForTollInput,
+    return await this.sectionService.sectionListForTollNetworkPaginated(
+      sectionListForTollNetworkPaginatedInput,
     );
   }
 

@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Alert,
   Button,
@@ -12,10 +12,11 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { ADD_SUBSCRIPTION } from "../../graphql/mutations";
-import { useFormik } from "formik";
-import * as yup from "yup";
+} from '@peage-pay-web/ui';
+import { ADD_SUBSCRIPTION } from '../../graphql/mutations';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 interface AddSubscriptionValues {
   name: string;
@@ -24,7 +25,7 @@ interface AddSubscriptionValues {
 }
 
 const initialValues: AddSubscriptionValues = {
-  name: "",
+  name: '',
   days: 1,
   price: 1,
 };
@@ -36,6 +37,7 @@ const addSubscriptionValidationSchema = yup.object({
 });
 
 const AddSubscriptionPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addSubscription, { loading, error, data }] =
     useMutation(ADD_SUBSCRIPTION);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -60,25 +62,25 @@ const AddSubscriptionPage = (): JSX.Element => {
       <FormPageLayout.Form onSubmit={handleSubmit}>
         <FormPageLayout.Title>
           <Heading className="text-[20pt]">
-            <Heading.Icon position={"left"}>
+            <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add subscription</Heading.Text>
+            <Heading.Text>{t('ADD_SUBSCRIPTION')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
         <TextInput
-          variant={errors.name && touched.name ? "error" : "edge-100"}
+          variant={errors.name && touched.name ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Name</TextInput.Label>
+            <TextInput.Label>{t('NAME')}</TextInput.Label>
             <TextInput.Field
               name="name"
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter subscription name"
+              placeholder={t('ENTER_NAME')}
               type="text"
             ></TextInput.Field>
           </TextInput.Main>
@@ -87,11 +89,11 @@ const AddSubscriptionPage = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.days && touched.days ? "error" : "edge-100"}
+          variant={errors.days && touched.days ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Days</TextInput.Label>
+            <TextInput.Label>{t('DAYS')}</TextInput.Label>
             <TextInput.Field
               name="days"
               value={values.days}
@@ -107,11 +109,11 @@ const AddSubscriptionPage = (): JSX.Element => {
           ) : null}
         </TextInput>
         <TextInput
-          variant={errors.price && touched.price ? "error" : "edge-100"}
+          variant={errors.price && touched.price ? 'error' : 'edge-100'}
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Price</TextInput.Label>
+            <TextInput.Label>{t('PRICE')}</TextInput.Label>
             <TextInput.Field
               name="price"
               value={values.price}
@@ -121,7 +123,7 @@ const AddSubscriptionPage = (): JSX.Element => {
               type="number"
               min={1}
             ></TextInput.Field>
-            <TextInput.Icon position={"right"}>dzd/km</TextInput.Icon>
+            <TextInput.Icon position={'right'}>dzd/km</TextInput.Icon>
           </TextInput.Main>
           {errors.price && touched.price ? (
             <TextInput.InfoMessage>{errors.price}</TextInput.InfoMessage>
@@ -129,32 +131,32 @@ const AddSubscriptionPage = (): JSX.Element => {
         </TextInput>
 
         {data ? (
-          <Alert variant={"success"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'success'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Subscription created</Alert.Content>
+            <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
           </Alert>
         ) : null}
 
         {error ? (
-          <Alert variant={"error"} className="mb-[0.5rem]">
-            <Alert.Icon position={"left"}>
+          <Alert variant={'error'} className="mb-[0.5rem]">
+            <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
-        <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+        <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
           {loading ? (
-            <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+            <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
           ) : (
             <>
-              <Button.Icon position={"left"}>
+              <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add subscription</Button.Content>
+              <Button.Content>{t('ADD_SUBSCRIPTION')}</Button.Content>
             </>
           )}
         </Button>

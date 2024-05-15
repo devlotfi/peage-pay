@@ -15,8 +15,10 @@ import { faList, faRecycle } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import TollDistanceItem from '../../components/toll-distance/toll-distance-item.component';
 import GenerateTollDistancesModal from '../../components/toll-distance/generate-toll-distances-modal.component';
+import { useTranslation } from 'react-i18next';
 
 const TollDistanceListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollNetworkId } = useParams();
   const [page, setPage] = useState<number>(1);
   const generateTollDistancesModalRef = useRef<HTMLDialogElement>(null);
@@ -48,7 +50,7 @@ const TollDistanceListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Toll distance list</Heading.Text>
+          <Heading.Text>{t('TOLL_DISTANCE_LIST')}</Heading.Text>
         </Heading>
         <Button
           onClick={() => generateTollDistancesModalRef.current?.showModal()}
@@ -57,7 +59,7 @@ const TollDistanceListPage = (): JSX.Element => {
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faRecycle}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Generate distances</Button.Content>
+          <Button.Content>{t('GENERATE_TOLL_DISTANCES')}</Button.Content>
         </Button>
       </ListPageLayout.Title>
       <AdminDashboardLayout.Loading loading={listLoading}>
@@ -67,11 +69,15 @@ const TollDistanceListPage = (): JSX.Element => {
               <Table>
                 <Table.Head>
                   <Table.Head.Tr>
-                    <Table.Head.Th>From Toll</Table.Head.Th>
-                    <Table.Head.Th>To Toll</Table.Head.Th>
-                    <Table.Head.Th>Distance (km)</Table.Head.Th>
-                    <Table.Head.Th>From Toll Id</Table.Head.Th>
-                    <Table.Head.Th>To Toll Id</Table.Head.Th>
+                    <Table.Head.Th>{t('FROM_TOLL')}</Table.Head.Th>
+                    <Table.Head.Th>{t('TO_TOLL')}</Table.Head.Th>
+                    <Table.Head.Th>{t('DISTANCE')} (km)</Table.Head.Th>
+                    <Table.Head.Th>
+                      {t('FROM_TOLL')} ({t('ID')})
+                    </Table.Head.Th>
+                    <Table.Head.Th>
+                      {t('TO_TOLL')} ({t('ID')})
+                    </Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

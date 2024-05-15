@@ -16,12 +16,14 @@ import AddHumanRessourcesAdminRoleModal from './add-human-ressources-admin-role-
 import { useRef } from 'react';
 import RemoveHumanRessourcesAdminRoleModal from './remove-human-ressources-admin-role-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
 }
 
 const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const addHumanRessourcesAdminRoleModalRef = useRef<HTMLDialogElement>(null);
   const removeHumanRessourcesAdminRoleModalRef =
     useRef<HTMLDialogElement>(null);
@@ -60,7 +62,9 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Add (human ressources admin) role</MenuItem.Text>
+                <MenuItem.Text>
+                  {t('ADD_HUMAN_RESSOURCES_ADMIN_ROLE')}
+                </MenuItem.Text>
               </MenuItem>
             ) : null}
             {baseUser.roles.includes(BaseUserRolesType.HumanRessourcesAdmin) ? (
@@ -75,7 +79,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </MenuItem.Icon>
                 <MenuItem.Text>
-                  Remove (human ressources admin) role
+                  {t('REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE')}
                 </MenuItem.Text>
               </MenuItem>
             ) : null}

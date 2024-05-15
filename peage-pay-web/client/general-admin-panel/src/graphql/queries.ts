@@ -228,9 +228,9 @@ export const SECTION_LIST_FOR_TOLL_NETWORK = gql(`
   }
 `);
 
-export const SECTION_LIST_FOR_TOLL = gql(`
-  query SECTION_LIST_FOR_TOLL($sectionListForTollInput: SectionListForTollInput!) {
-    sectionListForToll(sectionListForTollInput: $sectionListForTollInput) {
+export const SECTION_LIST_FOR_TOLL_NETWORK_PAGINATED = gql(`
+  query SECTION_LIST_FOR_TOLL_NETWORK_PAGINATED($sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput!) {
+    sectionListForTollNetworkPaginated(sectionListForTollNetworkPaginatedInput: $sectionListForTollNetworkPaginatedInput) {
       count
       list {
         distance

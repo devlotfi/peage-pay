@@ -4,6 +4,7 @@ import Dropdown from '../dropdown/dropdown.component';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import Table from '../table/table.component';
 import ButtonOutline from '../button/button-outline.component';
+import { useTranslation } from 'react-i18next';
 
 interface UserRolesDropdownProps {
   userRoles: BaseUserRolesType[];
@@ -12,6 +13,8 @@ interface UserRolesDropdownProps {
 const UserRolesDropdown = ({
   userRoles,
 }: UserRolesDropdownProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Dropdown
       mainElement={
@@ -20,7 +23,7 @@ const UserRolesDropdown = ({
             <ButtonOutline.Icon position={'left'}>
               <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
             </ButtonOutline.Icon>
-            <ButtonOutline.Content>Roles</ButtonOutline.Content>
+            <ButtonOutline.Content>{t('ROLES')}</ButtonOutline.Content>
           </ButtonOutline>
         </Dropdown.Main>
       }

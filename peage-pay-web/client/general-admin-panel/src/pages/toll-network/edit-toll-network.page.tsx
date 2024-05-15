@@ -1,11 +1,11 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   faCheck,
   faExclamationCircle,
   faPen,
   faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   AdminDashboardLayout,
   Alert,
@@ -14,19 +14,20 @@ import {
   Heading,
   LoaderDots,
   TextInput,
-} from "@peage-pay-web/ui";
-import { EDIT_TOLL_NETWORK } from "../../graphql/mutations";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { useParams } from "react-router-dom";
-import { TOLL_NETWORK_BY_ID } from "../../graphql/queries";
+} from '@peage-pay-web/ui';
+import { EDIT_TOLL_NETWORK } from '../../graphql/mutations';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
+import { TOLL_NETWORK_BY_ID } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface EditTollNetworkValues {
   name: string;
 }
 
 const initialValues: EditTollNetworkValues = {
-  name: "",
+  name: '',
 };
 
 const editTollNetworkValidationSchema = yup.object({
@@ -34,6 +35,7 @@ const editTollNetworkValidationSchema = yup.object({
 });
 
 const EditTollNetworkPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tollNetworkId } = useParams();
   const { loading: tollNetworkLoading, error: tollNetworkError } = useQuery(
     TOLL_NETWORK_BY_ID,
@@ -43,7 +45,7 @@ const EditTollNetworkPage = (): JSX.Element => {
           id: tollNetworkId as string,
         },
       },
-      fetchPolicy: "network-only",
+      fetchPolicy: 'network-only',
       onCompleted(data) {
         if (data.tollNetworkById) {
           setValues({
@@ -51,7 +53,7 @@ const EditTollNetworkPage = (): JSX.Element => {
           });
         }
       },
-    }
+    },
   );
   const [
     editTollNetwork,
@@ -89,19 +91,19 @@ const EditTollNetworkPage = (): JSX.Element => {
           <AdminDashboardLayout.Error error={tollNetworkError}>
             <FormPageLayout.Title>
               <Heading className="text-[20pt]">
-                <Heading.Icon position={"left"}>
+                <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit toll network</Heading.Text>
+                <Heading.Text>{t('EDIT_TOLL_NETWORK')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
             <TextInput
-              variant={errors.name && touched.name ? "error" : "edge-100"}
+              variant={errors.name && touched.name ? 'error' : 'edge-100'}
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
@@ -117,34 +119,34 @@ const EditTollNetworkPage = (): JSX.Element => {
             </TextInput>
 
             {editData ? (
-              <Alert variant={"success"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Toll network updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
             {editError ? (
-              <Alert variant={"error"} className="mb-[0.5rem]">
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'} className="mb-[0.5rem]">
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>{`auth:errors.${editError.message}`}</Alert.Content>
+                <Alert.Content>{`${t(editError.message)}`}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button type="submit" variant={"primary"} className="mt-[0.5rem]">
+            <Button type="submit" variant={'primary'} className="mt-[0.5rem]">
               {editLoading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit toll network</Button.Content>
+                  <Button.Content>{t('EDIT_TOLL_NETWORK')}</Button.Content>
                 </>
               )}
             </Button>

@@ -11,6 +11,7 @@ import { SubscriptionType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteSubscriptionModal from './delete-subscription-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface SubscriptionListItemProps {
   subscription: SubscriptionType;
@@ -19,6 +20,7 @@ interface SubscriptionListItemProps {
 const SubscriptionListItem = ({
   subscription,
 }: SubscriptionListItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -49,7 +51,7 @@ const SubscriptionListItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -59,13 +61,15 @@ const SubscriptionListItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>
       </Table.Body.Td>
       <Table.Body.Td>{subscription.name}</Table.Body.Td>
-      <Table.Body.Td>{subscription.days} days</Table.Body.Td>
+      <Table.Body.Td>
+        {subscription.days} {t('DAYS')}
+      </Table.Body.Td>
       <Table.Body.Td>{subscription.price} dzd/km</Table.Body.Td>
       <Table.Body.Td>
         {(() => {

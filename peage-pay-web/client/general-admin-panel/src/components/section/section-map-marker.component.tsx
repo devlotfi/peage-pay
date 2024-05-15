@@ -3,12 +3,15 @@ import { SectionType } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsUpDown, faPen } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@peage-pay-web/ui';
+import { useTranslation } from 'react-i18next';
 
 interface SectionMapMarkerProps {
   section: SectionType;
 }
 
 const SectionMapMarker = ({ section }: SectionMapMarkerProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="group flex flex-col py-[0.3rem] px-[0.5rem] translate-y-[0.5rem] font-bold bg-base-100 rounded-lg relative border-edge-100 border-[1px]">
       <a
@@ -21,12 +24,12 @@ const SectionMapMarker = ({ section }: SectionMapMarkerProps): JSX.Element => {
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Edit</Button.Content>
+          <Button.Content>{t('EDIT')}</Button.Content>
         </Button>
       </a>
       <div className="flex group-hover:mb-[0.5rem]">
         <div className="flex text-[11pt]">
-          <span className="hidden group-hover:flex">Distance: </span>{' '}
+          <span className="hidden group-hover:flex">{t('DISTANCE')}: </span>{' '}
           {section.distance} km
         </div>
       </div>

@@ -1,9 +1,4 @@
-import {
-  faEllipsisH,
-  faList,
-  faPen,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Table,
@@ -16,12 +11,14 @@ import { TollType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteTollModal from './delete-toll-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface TollListItemProps {
   toll: TollType;
 }
 
 const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -42,18 +39,6 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               modalRef={deleteModalRef}
               toll={toll}
             ></DeleteTollModal>
-            <MenuItem
-              onClick={() =>
-                navigate(`/dashboard/toll/section/list/${toll.id}`)
-              }
-              className="w-full mb-[0.5rem]"
-              variant={'base-100'}
-            >
-              <MenuItem.Icon>
-                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
-              </MenuItem.Icon>
-              <MenuItem.Text>Section list</MenuItem.Text>
-            </MenuItem>
 
             <MenuItem
               onClick={() =>
@@ -67,7 +52,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -77,7 +62,7 @@ const TollListItem = ({ toll }: TollListItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

@@ -18,6 +18,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { EDIT_DEFAULT_PRICE } from '../../../graphql/mutations';
 import { DEFAULT_PRICE } from '../../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface EditDefaultPriceValues {
   value: number;
@@ -32,6 +33,7 @@ const editDefaultPriceValidationSchema = yup.object({
 });
 
 const EditDefaultPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { loading: defaultPriceLoading, error: defaultPriceError } = useQuery(
     DEFAULT_PRICE,
     {
@@ -76,7 +78,7 @@ const EditDefaultPricePage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit default price</Heading.Text>
+                <Heading.Text>{t('EDIT_DEFAULT_PRICE')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -85,7 +87,7 @@ const EditDefaultPricePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Value</TextInput.Label>
+                <TextInput.Label>{t('VALUE')}</TextInput.Label>
                 <TextInput.Field
                   name="value"
                   value={values.value}
@@ -108,7 +110,7 @@ const EditDefaultPricePage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Default price updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -131,7 +133,7 @@ const EditDefaultPricePage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit default price price</Button.Content>
+                  <Button.Content>{t('EDIT_DEFAULT_PRICE')}</Button.Content>
                 </>
               )}
             </Button>

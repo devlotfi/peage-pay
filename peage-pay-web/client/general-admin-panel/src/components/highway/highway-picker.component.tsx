@@ -17,6 +17,7 @@ import { HIGHWAY_LIST } from '../../graphql/queries';
 import HighwayPickerItem from './highway-picker-item.component';
 import { useState } from 'react';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<HighwaySearchFields> = {
   search: '',
@@ -34,6 +35,7 @@ const HighwayPicker = ({
   modalRef,
   value,
 }: HighwayPickerProps): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -63,7 +65,7 @@ const HighwayPicker = ({
       <Modal.Window className="flex overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Pick a highway</div>
+            <div className="flex">{t('PICK_HIGHWAY')}</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -71,7 +73,7 @@ const HighwayPicker = ({
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Close</Button.Content>
+              <Button.Content>{t('CLOSE')}</Button.Content>
             </Button>
           </div>
         </Modal.Header>
@@ -88,7 +90,7 @@ const HighwayPicker = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Highway list</Heading.Text>
+                <Heading.Text>{t('HIGHWAY_LIST')}</Heading.Text>
               </Heading>
             </ListPageLayout.Title>
 
@@ -100,11 +102,11 @@ const HighwayPicker = ({
                       <Table.Head>
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
-                          <Table.Head.Th>Name</Table.Head.Th>
-                          <Table.Head.Th>Code</Table.Head.Th>
-                          <Table.Head.Th>Created At</Table.Head.Th>
-                          <Table.Head.Th>Updated At</Table.Head.Th>
-                          <Table.Head.Th>Id</Table.Head.Th>
+                          <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                          <Table.Head.Th>{t('CODE')}</Table.Head.Th>
+                          <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('ID')}</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>

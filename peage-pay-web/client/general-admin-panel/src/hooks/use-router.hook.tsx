@@ -6,7 +6,6 @@ import {
   SignUpPage,
   useAuthGuard,
 } from '@peage-pay-web/auth';
-import { lazy } from 'react';
 import HighwayLayout from '../layout/highway.layout';
 import TollNetworkLayout from '../layout/toll-network.layout';
 import SubscriptionLayout from '../layout/subscription.layout';
@@ -26,49 +25,25 @@ import SectionLayout from '../layout/section.layout';
 import TollDistanceListPage from '../pages/toll-distance/toll-distance-list.page';
 import EditDefaultPricePage from '../pages/price/add/edit-default-price.page';
 import HomePage from '../pages/home/home.page';
-
-const DashboardLayout = lazy(() => import('../layout/dashboard-layout.layout'));
-const AddPriceLayout = lazy(() => import('../layout/add-price.layout'));
-const PriceListLayout = lazy(() => import('../layout/price-list.layout'));
-
-const AddHighwayPage = lazy(() => import('../pages/highway/add-highway.page'));
-const HighwayListPage = lazy(
-  () => import('../pages/highway/highway-list.page'),
-);
-const EditHighwayPage = lazy(
-  () => import('../pages/highway/edit-highway.page'),
-);
-const SectionListPage = lazy(
-  () => import('../pages/section/section-list.page'),
-);
-const AddSectionPage = lazy(() => import('../pages/section/add-section.page'));
-const SubscriptionListPage = lazy(
-  () => import('../pages/subscription/subscription-list.page'),
-);
-const AddSubscriptionPage = lazy(
-  () => import('../pages/subscription/add-subscription.page'),
-);
-const EditSubscriptionPage = lazy(
-  () => import('../pages/subscription/edit-subscription.page'),
-);
-const TollListPage = lazy(() => import('../pages/toll/toll-list.page'));
-const AddTollPage = lazy(() => import('../pages/toll/add-toll.page'));
-const EditTollPage = lazy(() => import('../pages/toll/edit-toll.page'));
-const BaseUserListPage = lazy(
-  () => import('../pages/base-user/base-user-list.page'),
-);
-const TollNetworkListPage = lazy(
-  () => import('../pages/toll-network/toll-network-list.page'),
-);
-const AddTollNetworkPage = lazy(
-  () => import('../pages/toll-network/add-toll-network.page'),
-);
-const EditTollNetworkPage = lazy(
-  () => import('../pages/toll-network/edit-toll-network.page'),
-);
-const TollNetworkGraphPage = lazy(
-  () => import('../pages/toll-network/toll-network-graph.page'),
-);
+import AddPriceLayout from '../layout/add-price.layout';
+import DashboardLayout from '../layout/dashboard-layout.layout';
+import PriceListLayout from '../layout/price-list.layout';
+import BaseUserListPage from '../pages/base-user/base-user-list.page';
+import AddHighwayPage from '../pages/highway/add-highway.page';
+import EditHighwayPage from '../pages/highway/edit-highway.page';
+import HighwayListPage from '../pages/highway/highway-list.page';
+import AddSectionPage from '../pages/section/add-section.page';
+import SectionListPage from '../pages/section/section-list.page';
+import AddSubscriptionPage from '../pages/subscription/add-subscription.page';
+import EditSubscriptionPage from '../pages/subscription/edit-subscription.page';
+import SubscriptionListPage from '../pages/subscription/subscription-list.page';
+import AddTollNetworkPage from '../pages/toll-network/add-toll-network.page';
+import EditTollNetworkPage from '../pages/toll-network/edit-toll-network.page';
+import TollNetworkGraphPage from '../pages/toll-network/toll-network-graph.page';
+import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
+import AddTollPage from '../pages/toll/add-toll.page';
+import EditTollPage from '../pages/toll/edit-toll.page';
+import TollListPage from '../pages/toll/toll-list.page';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
@@ -110,10 +85,6 @@ const useRouter = () => {
           path: '/dashboard/toll',
           element: <SectionLayout></SectionLayout>,
           children: [
-            {
-              path: '/dashboard/toll/section/list/:tollId',
-              element: <SectionListPage></SectionListPage>,
-            },
             {
               path: '/dashboard/toll/edit/:tollNetworkId/:tollId',
               element: <EditTollPage></EditTollPage>,
@@ -202,6 +173,10 @@ const useRouter = () => {
             {
               path: '/dashboard/toll/toll-network/graph/:tollNetworkId',
               element: <TollNetworkGraphPage></TollNetworkGraphPage>,
+            },
+            {
+              path: '/dashboard/toll/section/list/:tollNetworkId',
+              element: <SectionListPage></SectionListPage>,
             },
             {
               path: '/dashboard/toll/section/add/:tollNetworkId',

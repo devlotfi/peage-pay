@@ -15,6 +15,7 @@ import HighwayListItem from '../../components/highway/highway-list-item.componen
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<HighwaySearchFields> = {
   search: '',
@@ -22,6 +23,7 @@ const initialValues: SearchValues<HighwaySearchFields> = {
 };
 
 const HighwayListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -48,7 +50,7 @@ const HighwayListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Highway list</Heading.Text>
+          <Heading.Text>{t('HIGHWAY_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -60,11 +62,11 @@ const HighwayListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Name</Table.Head.Th>
-                    <Table.Head.Th>Code</Table.Head.Th>
-                    <Table.Head.Th>Created at</Table.Head.Th>
-                    <Table.Head.Th>Updated at</Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CODE')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
