@@ -132,7 +132,7 @@ const SignInWithGoogleFormExternal = ({
       <Button.Icon position={'left'}>
         <img src={Google} alt="google" />
       </Button.Icon>
-      <Button.Content>Sign in with google</Button.Content>
+      <Button.Content>{t('SIGN_IN_WITH_GOOGLE')}</Button.Content>
     </Button>
   );
 };

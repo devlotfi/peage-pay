@@ -10,6 +10,7 @@ import { RefObject } from 'react';
 import { BaseUserType } from '../../__generated__/graphql';
 import { BASE_USER_LIST } from '../../graphql/queries';
 import { DELETE_BASE_USER } from '../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteBaseUserModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -20,6 +21,7 @@ const DeleteBaseUserModal = ({
   modalRef,
   baseUser,
 }: DeleteBaseUserModalProps) => {
+  const { t } = useTranslation();
   const [deleteBaseUser, { loading, error }] = useMutation(DELETE_BASE_USER, {
     onCompleted() {
       modalRef.current?.close();
@@ -41,9 +43,9 @@ const DeleteBaseUserModal = ({
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete user</Modal.Header>
+        <Modal.Header>{t('DELETION')}</Modal.Header>
         <Modal.Content>
-          Are you sure you want to delete the user {baseUser.firstName}{' '}
+          {t('DELETE_CONFIRM')}
           {baseUser.lastName}
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
@@ -62,7 +64,7 @@ const DeleteBaseUserModal = ({
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             className="ml-[0.5rem]"
@@ -76,7 +78,7 @@ const DeleteBaseUserModal = ({
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Delete</Button.Content>
+                <Button.Content>{t('DELETE')}</Button.Content>
               </>
             )}
           </Button>

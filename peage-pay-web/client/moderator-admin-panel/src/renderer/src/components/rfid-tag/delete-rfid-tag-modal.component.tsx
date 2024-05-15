@@ -10,6 +10,7 @@ import { RefObject } from 'react';
 import { RfidTagType } from '../../__generated__/graphql';
 import { DELETE_RFID_TAG } from '../../graphql/mutations';
 import { RFID_TAG_LIST } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteRfidTagModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -17,6 +18,7 @@ interface DeleteRfidTagModalProps {
 }
 
 const DeleteRfidTagModal = ({ modalRef, rfidTag }: DeleteRfidTagModalProps) => {
+  const { t } = useTranslation();
   const [deleteRfidTag, { loading, error }] = useMutation(DELETE_RFID_TAG, {
     onCompleted() {
       modalRef.current?.close();
@@ -38,9 +40,9 @@ const DeleteRfidTagModal = ({ modalRef, rfidTag }: DeleteRfidTagModalProps) => {
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete rfid tag</Modal.Header>
+        <Modal.Header>{t('DELETION')}</Modal.Header>
         <Modal.Content>
-          Are you sure you want to dete this rfid tag
+          {t('DELETE_CONFIRM')}
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
               <Alert.Icon position={'left'}>
@@ -58,7 +60,7 @@ const DeleteRfidTagModal = ({ modalRef, rfidTag }: DeleteRfidTagModalProps) => {
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             className="ml-[0.5rem]"
@@ -72,7 +74,7 @@ const DeleteRfidTagModal = ({ modalRef, rfidTag }: DeleteRfidTagModalProps) => {
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Delete</Button.Content>
+                <Button.Content>{t('DELETE')}</Button.Content>
               </>
             )}
           </Button>

@@ -4,8 +4,10 @@ import { AdminDashboardLayout, Table, Tabs } from '@peage-pay-web/ui';
 import { useMatch, useNavigate, useParams } from 'react-router-dom';
 import { BASE_USER_BY_ID } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 const RfidTagLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { baseUserId } = useParams();
   const rfidTagListMatch = useMatch('/dashboard/rfid-tag/list/*');
@@ -27,7 +29,7 @@ const RfidTagLayout = (): JSX.Element => {
           <Table.Body>
             <Table.Body.Tr>
               <Table.Body.Td className="text-primary-100 font-bold">
-                User:
+                {t('USER')}
               </Table.Body.Td>
               <Table.Body.Td>
                 {data?.baseUserById?.firstName} {data?.baseUserById?.lastName}
@@ -45,7 +47,7 @@ const RfidTagLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Rfid tag list</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('RFID_TAG_LIST')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate(`/dashboard/rfid-tag/add/${baseUserId}`)}
@@ -54,7 +56,7 @@ const RfidTagLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>Add rfid tag</Tabs.Item.Content>
+          <Tabs.Item.Content>{t('ADD_RFID_TAG')}</Tabs.Item.Content>
         </Tabs.Item>
       </Tabs>
     </AdminDashboardLayout.Tabs>

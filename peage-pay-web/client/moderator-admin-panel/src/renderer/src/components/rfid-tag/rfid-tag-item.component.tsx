@@ -10,12 +10,14 @@ import { useRef } from 'react';
 import { RfidTagType } from '../../__generated__/graphql';
 import DeleteRfidTagModal from './delete-rfid-tag-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface RfidTagItemProps {
   rfidTag: RfidTagType;
 }
 
 const RfidTagItem = ({ rfidTag }: RfidTagItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -43,7 +45,7 @@ const RfidTagItem = ({ rfidTag }: RfidTagItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

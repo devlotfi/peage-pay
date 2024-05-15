@@ -16,6 +16,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { RFID_TAG_LIST } from '../../graphql/queries';
 import { useParams } from 'react-router-dom';
 import RfidTagItem from '../../components/rfid-tag/rfid-tag-item.component';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<RfidTagSearchFields> = {
   search: '',
@@ -23,6 +24,7 @@ const initialValues: SearchValues<RfidTagSearchFields> = {
 };
 
 const RfisTagListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { baseUserId } = useParams();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
@@ -51,23 +53,23 @@ const RfisTagListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Rfid tag list</Heading.Text>
+          <Heading.Text>{t('RFID_TAG_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
       <AdminDashboardLayout.Loading loading={loading}>
         <AdminDashboardLayout.Error error={error}>
           <ListPageLayout.Empty list={data?.rfidTagList.list}>
-            <Table.Container>
+            <Table.Container className="h-full">
               <Table>
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Rfid</Table.Head.Th>
-                    <Table.Head.Th>Registration number</Table.Head.Th>
-                    <Table.Head.Th>Created at</Table.Head.Th>
-                    <Table.Head.Th>Updated at</Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>{t('RFID')}</Table.Head.Th>
+                    <Table.Head.Th>{t('REGISTRATION_NUMBER')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

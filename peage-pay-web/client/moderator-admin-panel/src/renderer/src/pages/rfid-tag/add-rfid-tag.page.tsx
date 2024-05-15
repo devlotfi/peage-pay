@@ -21,6 +21,7 @@ import { ADD_RFID_TAG } from '../../graphql/mutations';
 import BadgePicker from '@renderer/components/rfid-tag/rfid-tag-scanner.component';
 import { useContext, useEffect, useRef } from 'react';
 import { BadgeScannerContext } from '@renderer/context/badge-scanner.context';
+import { useTranslation } from 'react-i18next';
 
 interface AddRfidTagValues {
   rfid: string;
@@ -38,6 +39,7 @@ const addRfidTagValidationSchema = yup.object({
 });
 
 const AddRfidTagPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { baseUserId } = useParams();
   const [addHighway, { loading, error, data }] = useMutation(ADD_RFID_TAG);
   const {
@@ -85,7 +87,7 @@ const AddRfidTagPage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add rfid tag</Heading.Text>
+            <Heading.Text>{t('ADD_RFID_TAG')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
@@ -94,13 +96,13 @@ const AddRfidTagPage = (): JSX.Element => {
           className="w-full mb-[0.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Rfid</TextInput.Label>
+            <TextInput.Label>{t('RFID')}</TextInput.Label>
             <TextInput.Field
               name="rfid"
               value={values.rfid}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter rfid"
+              placeholder={t('RFID')}
               type="text"
             ></TextInput.Field>
           </TextInput.Main>
@@ -117,7 +119,7 @@ const AddRfidTagPage = (): JSX.Element => {
           <Button.Icon>
             <FontAwesomeIcon icon={faIdCard}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Scan rfid badge</Button.Content>
+          <Button.Content>{t('SCAN_RFID_TAG')}</Button.Content>
         </Button>
 
         <TextInput
@@ -126,16 +128,16 @@ const AddRfidTagPage = (): JSX.Element => {
               ? 'error'
               : 'edge-100'
           }
-          className="w-full mb-[1.3rem]"
+          className="w-full mb-[1.3rem] mt-[1rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Registration number</TextInput.Label>
+            <TextInput.Label>{t('REGISTRATION_NUMBER')}</TextInput.Label>
             <TextInput.Field
               name="registrationNumber"
               value={values.registrationNumber}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter highway registrationNumber"
+              placeholder={t('REGISTRATION_NUMBER')}
               type="text"
             ></TextInput.Field>
           </TextInput.Main>
@@ -151,7 +153,7 @@ const AddRfidTagPage = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Rfid tag created</Alert.Content>
+            <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -160,7 +162,7 @@ const AddRfidTagPage = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -172,7 +174,7 @@ const AddRfidTagPage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add rfid tag</Button.Content>
+              <Button.Content>{t('ADD_RFID_TAG')}</Button.Content>
             </>
           )}
         </Button>

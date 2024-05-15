@@ -15,6 +15,7 @@ import {
   CONNECT_TO_SERIAL_PORT,
   DISCONNECT_FROM_SERIAL_PORT,
 } from '../react-query/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface ConnectToSerialPortValues {
   path: string;
@@ -29,6 +30,7 @@ const connectToSerialValidationSchema = yup.object({
 });
 
 const ConnectToSerialPortFrom = () => {
+  const { t } = useTranslation();
   const { path, setPath } = useContext(SerialPortContext);
 
   const { data: serialPortListData, refetch: serialPortListRefetch } =
@@ -67,12 +69,12 @@ const ConnectToSerialPortFrom = () => {
       <div className="flex w-full mt-[1rem]">
         <TextInput className="w-full" variant="success">
           <TextInput.Main>
-            <TextInput.Label>Connected to</TextInput.Label>
+            <TextInput.Label>{t('CONNECTED_TO')}</TextInput.Label>
             <TextInput.Icon position="left">
               <FontAwesomeIcon icon={faPlug}></FontAwesomeIcon>
             </TextInput.Icon>
             <div className="flex w-full items-center ml-[0.5rem]">
-              Serial port:{' '}
+              {t('SERIAL_PORT')}:{' '}
               <span className="text-success-100 mx-[0.5rem]">{path}</span>{' '}
             </div>
           </TextInput.Main>
@@ -85,7 +87,7 @@ const ConnectToSerialPortFrom = () => {
           <Button.Icon position="left">
             <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Disconnect</Button.Content>
+          <Button.Content>{t('DISCONNECT')}</Button.Content>
         </Button>
       </div>
     );
@@ -98,7 +100,7 @@ const ConnectToSerialPortFrom = () => {
         className="w-full mr-[0.5rem]"
       >
         <Select.Main>
-          <Select.Label>Serial port</Select.Label>
+          <Select.Label>{t('SERIAL_PORT')}</Select.Label>
           <Select.Field
             name="path"
             value={values.path}
@@ -127,13 +129,13 @@ const ConnectToSerialPortFrom = () => {
         <Button.Icon position={'left'}>
           <FontAwesomeIcon icon={faRefresh}></FontAwesomeIcon>
         </Button.Icon>
-        <Button.Content>Refresh</Button.Content>
+        <Button.Content>{t('REFRESH')}</Button.Content>
       </Button>
       <Button type="submit" variant={'primary'}>
         <Button.Icon position={'left'}>
           <FontAwesomeIcon icon={faPlug}></FontAwesomeIcon>
         </Button.Icon>
-        <Button.Content>Connect</Button.Content>
+        <Button.Content>{t('CONNECT')}</Button.Content>
       </Button>
     </form>
   );

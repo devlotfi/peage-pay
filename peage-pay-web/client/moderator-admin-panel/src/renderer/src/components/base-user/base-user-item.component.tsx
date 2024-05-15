@@ -17,12 +17,14 @@ import { useRef } from 'react';
 import DeleteBaseUserModal from './delete-base-user-modal.component';
 import { useNavigate } from 'react-router-dom';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
 }
 
 const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const deleteUserModalRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
@@ -54,7 +56,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Rfid tag list</MenuItem.Text>
+              <MenuItem.Text>{t('RFID_TAG_LIST')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => navigate(`/dashboard/rfid-tag/add/${baseUser.id}`)}
@@ -64,7 +66,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add rfid tag</MenuItem.Text>
+              <MenuItem.Text>{t('ADD_RFID_TAG')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteUserModalRef.current?.showModal()}
@@ -74,7 +76,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete user</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>
