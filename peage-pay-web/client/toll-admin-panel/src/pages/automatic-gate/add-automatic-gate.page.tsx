@@ -22,6 +22,7 @@ import {
   AutomaticGateVariantType,
   TollDirectionType,
 } from '../../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 interface AddAutomaticGateValues {
   name: string;
@@ -49,6 +50,7 @@ const addAutomaticGateValidationSchema = yup.object({
 });
 
 const AddAutomaticGatePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addAutomaticGate, { loading, error, data }] =
     useMutation(ADD_AUTOMATIC_GATE);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -77,7 +79,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add automatic gate</Heading.Text>
+            <Heading.Text>{t('ADD_AUTOMATIC_GATE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
@@ -86,13 +88,13 @@ const AddAutomaticGatePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Name</TextInput.Label>
+            <TextInput.Label>{t('NAME')}</TextInput.Label>
             <TextInput.Field
               name="name"
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter automatic gate name"
+              placeholder={t('ENTER_NAME')}
               type="text"
             ></TextInput.Field>
           </TextInput.Main>
@@ -105,7 +107,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Direction</Select.Label>
+            <Select.Label>{t('VARIANT')}</Select.Label>
             <Select.Field
               name="variant"
               value={values.variant}
@@ -124,7 +126,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Direction</Select.Label>
+            <Select.Label>{t('DIRECTION')}</Select.Label>
             <Select.Field
               name="direction"
               value={values.direction}
@@ -143,13 +145,13 @@ const AddAutomaticGatePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Label>{t('PASSWORD')}</TextInput.Label>
             <TextInput.Field
               name="password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter automatic gate password"
+              placeholder={t('ENTER_PASSWORD')}
               type="password"
             ></TextInput.Field>
           </TextInput.Main>
@@ -166,13 +168,13 @@ const AddAutomaticGatePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Confirm password</TextInput.Label>
+            <TextInput.Label>{t('CONFIRM_PASSWORD')}</TextInput.Label>
             <TextInput.Field
               name="confirmPassword"
               value={values.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Confirm password"
+              placeholder={t('ENTER_PASSWORD')}
               type="password"
             ></TextInput.Field>
           </TextInput.Main>
@@ -188,7 +190,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>Automatic gate created</Alert.Content>
+            <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -197,7 +199,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
             <Alert.Icon position={'left'}>
               <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
             </Alert.Icon>
-            <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
+            <Alert.Content>{`${t(error.message)}`}</Alert.Content>
           </Alert>
         ) : null}
 
@@ -209,7 +211,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add automatic gate</Button.Content>
+              <Button.Content>{t('ADD_AUTOMATIC_GATE')}</Button.Content>
             </>
           )}
         </Button>

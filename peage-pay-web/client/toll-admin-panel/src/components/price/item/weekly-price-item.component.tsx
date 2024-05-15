@@ -11,6 +11,7 @@ import { WeeklyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { WEEKLY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface WeeklyPriceItemProps {
   weeklyPrice: WeeklyPriceType;
@@ -19,6 +20,7 @@ interface WeeklyPriceItemProps {
 const WeeklyPriceListItem = ({
   weeklyPrice,
 }: WeeklyPriceItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -47,7 +49,7 @@ const WeeklyPriceListItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

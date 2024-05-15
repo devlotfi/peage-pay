@@ -16,8 +16,10 @@ import { useContext } from 'react';
 import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { TollAdminInfoConext } from '../context/toll-admin-info.context';
 import { PeagePayAdminLogo } from '@peage-pay-web/assets';
+import { useTranslation } from 'react-i18next';
 
 const DashboardLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { tollAdmin } = useContext(TollAdminInfoConext);
@@ -31,7 +33,7 @@ const DashboardLayout = (): JSX.Element => {
         <AdminDashboardLayout.Sidebar.Main
           logoTitle="PeagePay Admin"
           logo={PeagePayAdminLogo}
-          title="Toll admin"
+          title={t('APP_NAME')}
         >
           <NavbarDropdown></NavbarDropdown>
           <AdminDashboardLayout.TollInfo
@@ -47,7 +49,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Home</MenuItem.Text>
+            <MenuItem.Text>{t('HOME')}</MenuItem.Text>
           </MenuItem>
 
           <MenuItem
@@ -62,7 +64,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Automatic gates</MenuItem.Text>
+            <MenuItem.Text>{t('AUTOMATIC_GATE_LIST')}</MenuItem.Text>
           </MenuItem>
 
           <MenuDropdown
@@ -73,7 +75,7 @@ const DashboardLayout = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Global prices</MenuItem.Text>
+                  <MenuItem.Text>{t('LOCAL_PRICES')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -86,7 +88,7 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>List</MenuItem.Text>
+              <MenuItem.Text>{t('LIST')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => navigate('/dashboard/price/add/daily')}
@@ -96,7 +98,7 @@ const DashboardLayout = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Add</MenuItem.Text>
+              <MenuItem.Text>{t('ADD')}</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
         </AdminDashboardLayout.Sidebar.Main>

@@ -3,6 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { AutomaticGateType } from '../../../../__generated__/graphql';
 import Table from '../../../elements/table/table.component';
+import { useTranslation } from 'react-i18next';
 
 const adminDashboardLayoutAutomaticGateInfoVariants = cva('flex flex-col');
 
@@ -18,6 +19,7 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
   automaticGate,
   ...props
 }: AdminDashboardLayoutAutomaticGateInfoProps): JSX.Element => {
+  const { t } = useTranslation();
   return (
     <div
       className={Utils.cn(
@@ -29,7 +31,7 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
         <Table>
           <Table.Body>
             <Table.Head.Tr>
-              <Table.Head.Th className="py-[0.2rem]">Toll</Table.Head.Th>
+              <Table.Head.Th className="py-[0.2rem]">{t('TOLL')}</Table.Head.Th>
             </Table.Head.Tr>
             <Table.Body.Tr>
               <Table.Body.Td className="py-[0.2rem]">
@@ -43,11 +45,13 @@ const AdminDashboardLayoutAutomaticGateInfo = ({
         <Table>
           <Table.Body>
             <Table.Head.Tr>
-              <Table.Head.Th className="py-[0.2rem]">Direction</Table.Head.Th>
+              <Table.Head.Th className="py-[0.2rem]">
+                {t('DIRECTION')}
+              </Table.Head.Th>
             </Table.Head.Tr>
             <Table.Body.Tr>
               <Table.Body.Td className="py-[0.2rem]">
-                {automaticGate.direction}
+                {t(automaticGate.direction)}
               </Table.Body.Td>
             </Table.Body.Tr>
           </Table.Body>

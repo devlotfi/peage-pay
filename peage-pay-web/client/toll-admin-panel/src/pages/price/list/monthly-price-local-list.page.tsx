@@ -12,8 +12,10 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { MonthlyPriceType } from '../../../__generated__/graphql';
 import MonthlyPriceListItem from '../../../components/price/item/monthly-price-item.component';
 import { MONTHLY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 const MonthlyPriceLocalListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [page, setPage] = useState<number>(1);
 
   const {
@@ -37,7 +39,7 @@ const MonthlyPriceLocalListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Monthly price local list</Heading.Text>
+          <Heading.Text>{t('MONTHLY_PRICE_LOCAL_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -49,14 +51,14 @@ const MonthlyPriceLocalListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
-                    <Table.Head.Th>Start day</Table.Head.Th>
-                    <Table.Head.Th>End day</Table.Head.Th>
-                    <Table.Head.Th>Months</Table.Head.Th>
-                    <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
-                    <Table.Head.Th>Priority</Table.Head.Th>
-                    <Table.Head.Th>Start time</Table.Head.Th>
-                    <Table.Head.Th>End time</Table.Head.Th>
+                    <Table.Head.Th>{t('START_DAY')}</Table.Head.Th>
+                    <Table.Head.Th>{t('END_DAY')}</Table.Head.Th>
+                    <Table.Head.Th>{t('MONTHS')}</Table.Head.Th>
+                    <Table.Head.Th>{t('PRICE')} (dzd/km)</Table.Head.Th>
+                    <Table.Head.Th>{t('PRIORITY')}</Table.Head.Th>
+                    <Table.Head.Th>{t('START_TIMESTAMP')}</Table.Head.Th>
+                    <Table.Head.Th>{t('END_TIMESTAMP')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

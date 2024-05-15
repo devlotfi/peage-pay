@@ -24,6 +24,7 @@ import {
   TollDirectionType,
 } from '../../../__generated__/graphql';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface AddLocalWeeklyPriceValues {
   direction: TollDirectionType;
@@ -60,6 +61,7 @@ const addLocalWeeklyPriceValidationSchema = yup.object({
 });
 
 const AddLocalWeeklyPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const {
@@ -101,7 +103,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add local weekly price</Heading.Text>
+            <Heading.Text>{t('ADD_LOCAL_WEEKLY_PRICE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
@@ -110,7 +112,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Direction</Select.Label>
+            <Select.Label>{t('DIRECTION')}</Select.Label>
             <Select.Field
               name="direction"
               value={values.direction}
@@ -129,13 +131,13 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Label>{t('VALUE')}</TextInput.Label>
             <TextInput.Field
               name="value"
               value={values.value}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter value"
+              placeholder={t('VALUE')}
               type="number"
               step={0.01}
               min={0}
@@ -151,13 +153,13 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Label>{t('PRIORITY')}</TextInput.Label>
             <TextInput.Field
               name="priority"
               value={values.priority}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter priority"
+              placeholder={t('PRIORITY')}
               type="number"
               min={0}
             ></TextInput.Field>
@@ -177,7 +179,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Label>{t('START_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="startTimestamp"
                 value={values.startTimestamp}
@@ -200,7 +202,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Label>{t('END_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="endTimestamp"
                 value={values.endTimestamp}
@@ -227,7 +229,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
               setFieldValue('days', selectedDaysOfWeek)
             }
           >
-            <DayOfWeekPicker.Label>Select days of week</DayOfWeekPicker.Label>
+            <DayOfWeekPicker.Label>{t('DAYS_OF_WEEK')}</DayOfWeekPicker.Label>
           </DayOfWeekPicker.Main>
           {errors.days && touched.days ? (
             <DayOfWeekPicker.InfoMessage>
@@ -262,7 +264,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add local weekly price</Button.Content>
+              <Button.Content>{t('ADD_LOCAL_WEEKLY_PRICE')}</Button.Content>
             </>
           )}
         </Button>

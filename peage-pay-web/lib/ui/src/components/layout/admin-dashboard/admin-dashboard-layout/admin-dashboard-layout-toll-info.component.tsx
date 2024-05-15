@@ -3,6 +3,7 @@ import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { TollType } from '../../../../__generated__/graphql';
 import Table from '../../../elements/table/table.component';
+import { useTranslation } from 'react-i18next';
 
 const adminDashboardLayoutTollInfoVariants = cva(
   'flex flex-col bg-base-100 rounded-lg border-[1px] border-edge-200 mb-[1rem]',
@@ -20,6 +21,8 @@ const AdminDashboardLayoutTollInfo = ({
   toll,
   ...props
 }: AdminDashboardLayoutTollInfoProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={Utils.cn(adminDashboardLayoutTollInfoVariants({ className }))}
@@ -29,7 +32,7 @@ const AdminDashboardLayoutTollInfo = ({
         <Table>
           <Table.Body>
             <Table.Head.Tr>
-              <Table.Head.Th className="py-[0.2rem]">Toll</Table.Head.Th>
+              <Table.Head.Th className="py-[0.2rem]">{t('TOLL')}</Table.Head.Th>
             </Table.Head.Tr>
             <Table.Body.Tr>
               <Table.Body.Td className="py-[0.2rem]">{toll.name}</Table.Body.Td>

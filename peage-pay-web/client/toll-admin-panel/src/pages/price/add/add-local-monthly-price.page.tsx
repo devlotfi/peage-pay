@@ -21,6 +21,7 @@ import * as yup from 'yup';
 import { Utils } from '@peage-pay-web/utils';
 import { MonthType, TollDirectionType } from '../../../__generated__/graphql';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface AddLocalMonthlyPriceValues {
   direction: TollDirectionType;
@@ -71,6 +72,7 @@ const addLocalMonthlyPriceValidationSchema = yup.object({
 });
 
 const AddLocalMonthlyPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const {
@@ -114,7 +116,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add local monthly price</Heading.Text>
+            <Heading.Text>{t('ADD_LOCAL_MONTHLY_PRICE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
@@ -123,7 +125,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Direction</Select.Label>
+            <Select.Label>{t('DIRECTION')}</Select.Label>
             <Select.Field
               name="direction"
               value={values.direction}
@@ -142,13 +144,13 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Label>{t('VALUE')}</TextInput.Label>
             <TextInput.Field
               name="value"
               value={values.value}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter value"
+              placeholder={t('VALUE')}
               type="number"
               step={0.01}
               min={0}
@@ -164,13 +166,13 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Label>{t('PRIORITY')}</TextInput.Label>
             <TextInput.Field
               name="priority"
               value={values.priority}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter priority"
+              placeholder={t('PRIORITY')}
               type="number"
               min={0}
             ></TextInput.Field>
@@ -190,7 +192,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Label>{t('START_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="startTimestamp"
                 value={values.startTimestamp}
@@ -213,7 +215,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Label>{t('END_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="endTimestamp"
                 value={values.endTimestamp}
@@ -236,7 +238,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start day</TextInput.Label>
+              <TextInput.Label>{t('START_DAY')}</TextInput.Label>
               <TextInput.Field
                 name="startDay"
                 value={values.startDay}
@@ -255,7 +257,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End day</TextInput.Label>
+              <TextInput.Label>{t('END_DAY')}</TextInput.Label>
               <TextInput.Field
                 name="endDay"
                 value={values.endDay}
@@ -280,7 +282,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
               setFieldValue('months', selectedMonths)
             }
           >
-            <MonthPicker.Label>Select months</MonthPicker.Label>
+            <MonthPicker.Label>{t('MONTHS')}</MonthPicker.Label>
           </MonthPicker.Main>
           {errors.months && touched.months ? (
             <MonthPicker.InfoMessage>{errors.months}</MonthPicker.InfoMessage>
@@ -313,7 +315,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add local monthly price</Button.Content>
+              <Button.Content>{t('ADD_LOCAL_MONTHLY_PRICE')}</Button.Content>
             </>
           )}
         </Button>

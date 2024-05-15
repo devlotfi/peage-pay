@@ -52,9 +52,7 @@ const PriceListLayout = (): JSX.Element => {
           <Tabs.Item.Icon position={'left'}>
             <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
           </Tabs.Item.Icon>
-          <Tabs.Item.Content>
-            {t('YEARLY_PRICE_GLOBAL_LIST')}Yearly price
-          </Tabs.Item.Content>
+          <Tabs.Item.Content>{t('YEARLY_PRICE_GLOBAL_LIST')}</Tabs.Item.Content>
         </Tabs.Item>
         <Tabs.Item
           onClick={() => navigate('/dashboard/price/list/custom')}

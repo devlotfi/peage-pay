@@ -11,6 +11,7 @@ import { MonthlyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { MONTHLY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface MonthlyPriceItemProps {
   monthlyPrice: MonthlyPriceType;
@@ -19,6 +20,7 @@ interface MonthlyPriceItemProps {
 const MonthlyPriceListItem = ({
   monthlyPrice,
 }: MonthlyPriceItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -47,7 +49,7 @@ const MonthlyPriceListItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

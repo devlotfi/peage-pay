@@ -11,6 +11,7 @@ import { AutomaticGateType } from '../../__generated__/graphql';
 import { useNavigate } from 'react-router-dom';
 import DeleteAutomaticGateModal from './delete-automatic-gate-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface AutomaticGateItemProps {
   automaticGate: AutomaticGateType;
@@ -19,6 +20,7 @@ interface AutomaticGateItemProps {
 const AutomaticGateItem = ({
   automaticGate,
 }: AutomaticGateItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
@@ -49,7 +51,7 @@ const AutomaticGateItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => deleteModalRef.current?.showModal()}
@@ -59,7 +61,7 @@ const AutomaticGateItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

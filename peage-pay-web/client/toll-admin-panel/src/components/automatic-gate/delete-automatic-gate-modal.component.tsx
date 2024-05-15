@@ -10,6 +10,7 @@ import { RefObject } from 'react';
 import { AutomaticGateType } from '../../__generated__/graphql';
 import { DELETE_AUTOMATIC_GATE } from '../../graphql/mutations';
 import { AUTOMATIC_GATE_LIST } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteAutomaticGateModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -20,6 +21,7 @@ const DeleteAutomaticGateModal = ({
   modalRef,
   automaticGate,
 }: DeleteAutomaticGateModalProps) => {
+  const { t } = useTranslation();
   const [deleteAutomaticGateHighway, { loading, error }] = useMutation(
     DELETE_AUTOMATIC_GATE,
     {
@@ -44,9 +46,9 @@ const DeleteAutomaticGateModal = ({
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete automatic gate</Modal.Header>
+        <Modal.Header>{t('DELETION')}</Modal.Header>
         <Modal.Content>
-          Are you sure you want to delete this automatic gate
+          {t('DELETE_CONFIRM')}
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
               <Alert.Icon position={'left'}>
@@ -64,7 +66,7 @@ const DeleteAutomaticGateModal = ({
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             className="ml-[0.5rem]"
@@ -78,7 +80,7 @@ const DeleteAutomaticGateModal = ({
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Delete</Button.Content>
+                <Button.Content>{t('DELETE')}</Button.Content>
               </>
             )}
           </Button>

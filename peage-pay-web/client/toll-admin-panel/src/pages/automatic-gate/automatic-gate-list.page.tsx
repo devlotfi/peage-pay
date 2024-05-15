@@ -19,6 +19,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from '@peage-pay-web/utils';
 import AutomaticGateItem from '../../components/automatic-gate/automatic-gate-item.component';
 import { TollAdminInfoConext } from '../../context/toll-admin-info.context';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<AutomaticGateSearchFields> = {
   search: '',
@@ -26,6 +27,7 @@ const initialValues: SearchValues<AutomaticGateSearchFields> = {
 };
 
 const AutomaticGateListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
   const { tollAdmin } = useContext(TollAdminInfoConext);
@@ -55,7 +57,7 @@ const AutomaticGateListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Automatic gate list</Heading.Text>
+          <Heading.Text>{t('AUTOMATIC_GATE_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -67,12 +69,12 @@ const AutomaticGateListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Name</Table.Head.Th>
-                    <Table.Head.Th>Variant</Table.Head.Th>
-                    <Table.Head.Th>Direction</Table.Head.Th>
-                    <Table.Head.Th>Created at</Table.Head.Th>
-                    <Table.Head.Th>Updated at</Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                    <Table.Head.Th>{t('VARIANT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('DIRECTION')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

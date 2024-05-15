@@ -20,6 +20,7 @@ import * as yup from 'yup';
 import { Utils } from '@peage-pay-web/utils';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
 import { TollDirectionType } from '../../../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 interface AddLocalCustomPriceValues {
   direction: TollDirectionType;
@@ -57,6 +58,7 @@ const addLocalCustomPriceValidationSchema = yup.object({
 });
 
 const AddLocalCustomPricePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -94,7 +96,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
             <Heading.Icon position={'left'}>
               <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
             </Heading.Icon>
-            <Heading.Text>Add custom local price</Heading.Text>
+            <Heading.Text>{t('ADD_LOCAL_CUSTOM_PRICE')}</Heading.Text>
           </Heading>
         </FormPageLayout.Title>
 
@@ -103,7 +105,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <Select.Main>
-            <Select.Label>Direction</Select.Label>
+            <Select.Label>{t('DIRECTION')}</Select.Label>
             <Select.Field
               name="direction"
               value={values.direction}
@@ -122,13 +124,13 @@ const AddLocalCustomPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Value</TextInput.Label>
+            <TextInput.Label>{t('VALUE')}</TextInput.Label>
             <TextInput.Field
               name="value"
               value={values.value}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter value"
+              placeholder={t('VALUE')}
               type="number"
               step={0.01}
               min={0}
@@ -144,13 +146,13 @@ const AddLocalCustomPricePage = (): JSX.Element => {
           className="w-full mb-[1.3rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Priority</TextInput.Label>
+            <TextInput.Label>{t('PRIORITY')}</TextInput.Label>
             <TextInput.Field
               name="priority"
               value={values.priority}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Enter priority"
+              placeholder={t('PRIORITY')}
               type="number"
               min={0}
             ></TextInput.Field>
@@ -170,7 +172,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start timestamp</TextInput.Label>
+              <TextInput.Label>{t('START_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="startTimestamp"
                 value={values.startTimestamp}
@@ -193,7 +195,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End timestamp</TextInput.Label>
+              <TextInput.Label>{t('END_TIMESTAMP')}</TextInput.Label>
               <TextInput.Field
                 name="endTimestamp"
                 value={values.endTimestamp}
@@ -218,7 +220,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>Start date</TextInput.Label>
+              <TextInput.Label>{t('START_DATE')}</TextInput.Label>
               <TextInput.Field
                 name="startDate"
                 value={values.startDate}
@@ -237,7 +239,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
             className="w-full"
           >
             <TextInput.Main>
-              <TextInput.Label>End date</TextInput.Label>
+              <TextInput.Label>{t('END_DATE')}</TextInput.Label>
               <TextInput.Field
                 name="endDate"
                 value={values.endDate}
@@ -278,7 +280,7 @@ const AddLocalCustomPricePage = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Add local daily price</Button.Content>
+              <Button.Content>{t('ADD_LOCAL_CUSTOM_PRICE')}</Button.Content>
             </>
           )}
         </Button>

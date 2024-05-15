@@ -11,6 +11,7 @@ import { DailyPriceType } from '../../../__generated__/graphql';
 import DeleteLocalPriceModal from '../delete-global-price-modal.component';
 import { DAILY_PRICE_LOCAL_LIST } from '../../../graphql/queries';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface DailyPriceItemProps {
   dailyPrice: DailyPriceType;
@@ -19,6 +20,7 @@ interface DailyPriceItemProps {
 const DailyPriceListItem = ({
   dailyPrice,
 }: DailyPriceItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -47,7 +49,7 @@ const DailyPriceListItem = ({
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Delete</MenuItem.Text>
+              <MenuItem.Text>{t('DELETE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

@@ -9,6 +9,7 @@ import { Modal, Button, Alert, LoaderDots } from '@peage-pay-web/ui';
 import { RefObject } from 'react';
 import { PriceType } from '../../__generated__/graphql';
 import { DELETE_LOCAL_PRICE } from '../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteLocalPriceModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -22,6 +23,7 @@ const DeleteLocalPriceModal = ({
   price,
   refetchList,
 }: DeleteLocalPriceModalProps) => {
+  const { t } = useTranslation();
   const [deleteLocalPrice, { loading, error }] = useMutation(
     DELETE_LOCAL_PRICE,
     {
@@ -46,9 +48,9 @@ const DeleteLocalPriceModal = ({
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Delete local price</Modal.Header>
+        <Modal.Header>{t('DELETION')}</Modal.Header>
         <Modal.Content>
-          Are you sure you want to dete this price
+          {t('DELETE_CONFIRM')}
           {error ? (
             <Alert variant={'error'} className="mb-[0.5rem]">
               <Alert.Icon position={'left'}>
@@ -66,7 +68,7 @@ const DeleteLocalPriceModal = ({
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             className="ml-[0.5rem]"
@@ -80,7 +82,7 @@ const DeleteLocalPriceModal = ({
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Delete</Button.Content>
+                <Button.Content>{t('DELETE')}</Button.Content>
               </>
             )}
           </Button>

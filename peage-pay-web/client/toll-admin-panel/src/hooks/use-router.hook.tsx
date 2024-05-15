@@ -24,8 +24,10 @@ import AddAutomaticGatePage from '../pages/automatic-gate/add-automatic-gate.pag
 import EditAutomaticGatePage from '../pages/automatic-gate/edit-automatic-gate.page';
 import AutomaticGateLayout from '../layout/automatic-gate.layout';
 import HomePage from '../pages/home/home.page';
+import { useTranslation } from 'react-i18next';
 
 const useRouter = () => {
+  const { t } = useTranslation();
   const { authGuard, notAuthGuard } = useAuthGuard();
 
   const router = createBrowserRouter([
@@ -36,15 +38,11 @@ const useRouter = () => {
     },
     {
       path: '/sign-in',
-      element: notAuthGuard(
-        <SignInPage title="Toll administration"></SignInPage>,
-      ),
+      element: notAuthGuard(<SignInPage title={t('APP_NAME')}></SignInPage>),
     },
     {
       path: '/sign-up',
-      element: notAuthGuard(
-        <SignUpPage title="Toll administration"></SignUpPage>,
-      ),
+      element: notAuthGuard(<SignUpPage title={t('APP_NAME')}></SignUpPage>),
     },
     {
       path: '/send-password-reset-email',

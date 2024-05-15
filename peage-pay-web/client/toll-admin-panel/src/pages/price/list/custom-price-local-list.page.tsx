@@ -12,8 +12,10 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { CustomPriceType } from '../../../__generated__/graphql';
 import CustomPriceListItem from '../../../components/price/item/custom-price-item.component';
 import { CUSTOM_PRICE_LOCAL_LIST } from '../../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 const CustomPriceLocalListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [page, setPage] = useState<number>(1);
 
   const {
@@ -37,7 +39,7 @@ const CustomPriceLocalListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Custom price local list</Heading.Text>
+          <Heading.Text>{t('CUSTOM_PRICE_LOCAL_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -49,13 +51,13 @@ const CustomPriceLocalListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
-                    <Table.Head.Th>Start date</Table.Head.Th>
-                    <Table.Head.Th>End date</Table.Head.Th>
-                    <Table.Head.Th>Price (dzd/km)</Table.Head.Th>
-                    <Table.Head.Th>Priority</Table.Head.Th>
-                    <Table.Head.Th>Start time</Table.Head.Th>
-                    <Table.Head.Th>End time</Table.Head.Th>
+                    <Table.Head.Th>{t('START_DATE')}</Table.Head.Th>
+                    <Table.Head.Th>{t('END_DATE')}</Table.Head.Th>
+                    <Table.Head.Th>{t('PRICE')} (dzd/km)</Table.Head.Th>
+                    <Table.Head.Th>{t('PRIORITY')}</Table.Head.Th>
+                    <Table.Head.Th>{t('START_TIMESTAMP')}</Table.Head.Th>
+                    <Table.Head.Th>{t('END_TIMESTAMP')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>
