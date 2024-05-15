@@ -33,7 +33,7 @@ const DashboardLayout = (): JSX.Element => {
         <AdminDashboardLayout.Sidebar.Main
           logoTitle="PeagePay Admin"
           logo={PeagePayAdminLogo}
-          title="General admin"
+          title={t('APP_NAME')}
         >
           <NavbarDropdown></NavbarDropdown>
           <MenuItem

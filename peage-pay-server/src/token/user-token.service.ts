@@ -93,7 +93,7 @@ export class UserTokenService {
 
       await prisma.userRefreshToken.update({
         data: {
-          tokenHash: await Utils.hashString(refreshToken),
+          tokenHash: await Utils.hashStringStatic(refreshToken),
         },
         where: {
           id: refreshTokenRecord.id,
@@ -140,7 +140,7 @@ export class UserTokenService {
     if (refreshToken) {
       await this.databaseService.userRefreshToken.delete({
         where: {
-          tokenHash: await Utils.hashString(refreshToken),
+          tokenHash: await Utils.hashStringStatic(refreshToken),
         },
       });
 

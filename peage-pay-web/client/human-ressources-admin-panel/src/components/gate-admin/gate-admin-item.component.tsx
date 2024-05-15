@@ -16,12 +16,14 @@ import RemoveGateAdminRoleModal from './remove-gate-admin-role-modal.component';
 import { GATE_ADMIN_LIST } from '../../graphql/queries';
 import { useNavigate } from 'react-router-dom';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface GateAdminItemProps {
   gateAdmin: GateAdminType;
 }
 
 const GateAdminItem = ({ gateAdmin }: GateAdminItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const removeGateAdminRoleModalRef = useRef<HTMLDialogElement>(null);
 
@@ -54,7 +56,7 @@ const GateAdminItem = ({ gateAdmin }: GateAdminItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => removeGateAdminRoleModalRef.current?.showModal()}
@@ -64,7 +66,7 @@ const GateAdminItem = ({ gateAdmin }: GateAdminItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Remove (gate admin) role</MenuItem.Text>
+              <MenuItem.Text>{t('REMOVE_GATE_ADMIN_ROLE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

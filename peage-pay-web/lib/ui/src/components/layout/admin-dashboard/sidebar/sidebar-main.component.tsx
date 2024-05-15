@@ -54,7 +54,7 @@ const SidebarMain = ({
       <div className="flex justify-center">
         <Button variant={'base-200'} className="w-full">
           <Button.Content>
-            <div className="flex flex-col my-[0.3rem]">
+            <div className="flex flex-col items-center my-[0.3rem]">
               <div className="flex items-center">
                 <img
                   className="w-[2.3rem]"
@@ -65,7 +65,9 @@ const SidebarMain = ({
                   {logoTitle}
                 </div>
               </div>
-              <div className="flex justify-center">{title}</div>
+              <div className="flex justify-center max-w-[10rem] whitespace-break-spaces text-center">
+                {title}
+              </div>
             </div>
           </Button.Content>
         </Button>

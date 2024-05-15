@@ -34,7 +34,9 @@ const UserRolesDropdown = ({
             <Table.Body>
               {userRoles.map((role) => (
                 <Table.Body.Tr key={role}>
-                  <Table.Body.Td className="p-[0.2rem]">{role}</Table.Body.Td>
+                  <Table.Body.Td className="p-[0.2rem]">
+                    {t(role)}
+                  </Table.Body.Td>
                 </Table.Body.Tr>
               ))}
             </Table.Body>

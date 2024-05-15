@@ -25,6 +25,7 @@ import { useRef, useState } from 'react';
 import { TollType } from '../../__generated__/graphql';
 import { CHANGE_GATE_ADMIN_TOLL } from '../../graphql/mutations';
 import { GATE_ADMIN_BY_ID } from '../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 interface EditGateAdminValues {
   tollId: string;
@@ -39,6 +40,7 @@ const editGateAdminValidationSchema = yup.object({
 });
 
 const EditGateAdminPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { baseUserId } = useParams();
   const [toll, setToll] = useState<TollType | null>(null);
 
@@ -108,7 +110,7 @@ const EditGateAdminPage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Update gate admin</Heading.Text>
+                <Heading.Text>{t('EDIT_GATE_ADMIN')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
             <Table.Container className="mb-[2rem]">
@@ -116,7 +118,7 @@ const EditGateAdminPage = (): JSX.Element => {
                 <Table.Body>
                   <Table.Body.Tr>
                     <Table.Body.Td className="text-primary-100 font-bold">
-                      Gate admin:
+                      {t('GATE_ADMIN')}
                     </Table.Body.Td>
                     <Table.Body.Td>
                       {tollAdminData?.gateAdminById?.baseUser.firstName}{' '}
@@ -132,10 +134,8 @@ const EditGateAdminPage = (): JSX.Element => {
               className="w-full mb-[0.5rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Destination toll</TextInput.Label>
-                <div className="flex items-center ml-[1rem]">
-                  {toll?.name} {toll?.id}
-                </div>
+                <TextInput.Label>{t('TOLL')}</TextInput.Label>
+                <div className="flex items-center ml-[1rem]">{toll?.name}</div>
               </TextInput.Main>
               {errors.tollId && touched.tollId ? (
                 <TextInput.InfoMessage>{errors.tollId}</TextInput.InfoMessage>
@@ -151,7 +151,7 @@ const EditGateAdminPage = (): JSX.Element => {
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Unassign</Button.Content>
+                <Button.Content>{t('UNSELECT')}</Button.Content>
               </Button>
             ) : (
               <Button
@@ -163,7 +163,7 @@ const EditGateAdminPage = (): JSX.Element => {
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Set toll</Button.Content>
+                <Button.Content>{t('SET_TOLL')}</Button.Content>
               </Button>
             )}
 
@@ -172,7 +172,7 @@ const EditGateAdminPage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Gate admin updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -195,7 +195,7 @@ const EditGateAdminPage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Update gate admin</Button.Content>
+                  <Button.Content>{t('EDIT_GATE_ADMIN')}</Button.Content>
                 </>
               )}
             </Button>

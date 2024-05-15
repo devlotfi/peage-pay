@@ -21,6 +21,7 @@ import {
   TollNetworkType,
 } from '../../../__generated__/graphql';
 import { TOLL_LIST } from '../../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<TollSearchFields> = {
   search: '',
@@ -40,6 +41,7 @@ const TollPicker = ({
   value,
   tollNetwork,
 }: TollPickerProps): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -70,7 +72,7 @@ const TollPicker = ({
       <Modal.Window className="overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Pick a toll</div>
+            <div className="flex">{t('PICK_TOLL')}</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -78,7 +80,7 @@ const TollPicker = ({
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Close</Button.Content>
+              <Button.Content>{t('CLOSE')}</Button.Content>
             </Button>
           </div>
         </Modal.Header>
@@ -95,7 +97,7 @@ const TollPicker = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Toll list</Heading.Text>
+                <Heading.Text>{t('TOLL_LIST')}</Heading.Text>
               </Heading>
             </ListPageLayout.Title>
 
@@ -107,14 +109,18 @@ const TollPicker = ({
                       <Table.Head>
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
-                          <Table.Head.Th>Name</Table.Head.Th>
-                          <Table.Head.Th>Wilaya</Table.Head.Th>
-                          <Table.Head.Th>Wilaya code</Table.Head.Th>
-                          <Table.Head.Th>Highway</Table.Head.Th>
-                          <Table.Head.Th>Highway code</Table.Head.Th>
-                          <Table.Head.Th>Created at</Table.Head.Th>
-                          <Table.Head.Th>Updated at</Table.Head.Th>
-                          <Table.Head.Th>Id</Table.Head.Th>
+                          <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                          <Table.Head.Th>{t('WILAYA')}</Table.Head.Th>
+                          <Table.Head.Th>
+                            {t('CODE')} ({t('WILAYA')})
+                          </Table.Head.Th>
+                          <Table.Head.Th>{t('HIGHWAY')}</Table.Head.Th>
+                          <Table.Head.Th>
+                            {t('CODE')} ({t('HIGHWAY')})
+                          </Table.Head.Th>
+                          <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('ID')}</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>

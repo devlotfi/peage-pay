@@ -96,34 +96,24 @@
   "OCTOBER": "Octobre",
   "NOVEMBER": "Novembre",
   "DECEMBER": "Decembre",
-  "APP_NAME": "Administration generale",
+  "APP_NAME": "Administration des ressources humaines",
   "HOME": "Acceuil",
-  "WELCOME_MESSAGE": "Bienvenu sur le panneau d'administration generale",
+  "WELCOME_MESSAGE": "Bienvenu sur le panneau d'administration des ressources humaines",
   "STATISTICS": "Statistiques",
-
-  "HIGHWAY": "Autoroute",
-  "HIGHWAYS": "Autoroutes",
-  "HIGHWAY_LIST": "Liste des autoroutes",
-  "ADD_HIGHWAY": "Ajouter une autoroute",
-  "EDIT_HIGHWAY": "Modifier une autoroute",
-  "PICK_HIGHWAY": "Selectionner une autoroute",
-  "SET_HIGHWAY": "Definir autoroute",
-
-  "SUBSCRIPTIONS": "Abonnements",
-  "SUBSCRIPTION_LIST": "Liste des abonnements",
-  "ADD_SUBSCRIPTION": "Ajouter un abonnement",
-  "EDIT_SUBSCRIPTION": "Modifier un abonnement",
-
-  "TOLL_NETWORK": "Reseau de péage",
-  "TOLL_NETWORKS": "Reseaux de péage",
-  "TOLL_NETWORK_LIST": "Liste des reseaux de péage",
-  "ADD_TOLL_NETWORK": "Ajouter un reseau de péage",
-  "EDIT_TOLL_NETWORK": "Modifier un reseau de péage",
 
   "USERS": "Utilisateurs",
   "USER_LIST": "Liste des utilisateurs",
-  "ADD_HUMAN_RESSOURCES_ADMIN_ROLE": "Ajouter role (Administrateur des ressources humaines)",
-  "REMOVE_HUMAN_RESSOURCES_ADMIN_ROLE": "Retirer role (Administrateur des ressources humaines)",
+  "TOLL_ADMIN_LIST": "Liste des administrateurs de péage",
+  "EDIT_TOLL_ADMIN": "Modifier un administrateur de péage",
+  "ADD_TOLL_ADMIN_ROLE": "Ajouter role (Administrateur de péage)",
+  "REMOVE_TOLL_ADMIN_ROLE": "Retirer role (Administrateur de péage)",
+  "GATE_ADMIN_LIST": "Liste des adninistrateurs de barriére",
+  "EDIT_GATE_ADMIN": "Modifier un administrateur de berriére",
+  "ADD_GATE_ADMIN_ROLE": "Ajouter role (Administrateur de barriére)",
+  "REMOVE_GATE_ADMIN_ROLE": "Retirer role (Administrateur de barriére)",
+  "MODERATOR_LIST": "Liste des modérateurs",
+  "ADD_MODERATOR_ROLE": "Ajouter role (Modérateur)",
+  "REMOVE_MODERATOR_ROLE": "Retirer role (Modérateur)",
   "ADD_ROLE": "Ajouter role",
   "REMOVE_ROLE": "Retirer role",
 
@@ -132,32 +122,7 @@
   "ADD_TOLL": "Ajouter un péage",
   "EDIT_TOLL": "Modifer un péage",
   "SET_LOCATION": "Definir localisation",
+  "PICK_TOLL": "Selectionner un péage",
 
-  "TOLL_DISTANCE_LIST": "Liste des distance entre péages",
-  "GENERATE_TOLL_DISTANCES": "Générer les distances",
-
-  "SECTION_LIST": "Liste des sections",
-  "ADD_SECTION": "Ajouter une section",
-  "EDIT_SECTION": "Modifer une section",
-
-  "GRAPH": "Graphe du reseau",
-
-  "GENERATED_DISTANCES": "Distances générés",
-
-  "HUMAN_RESSOURCES_ADMINS": "Administrateurs des ressources humaines",
-
-  "GLOBAL_PRICES": "Tarif globaux",
-  "LIST": "Liste",
-  "DEFAULT_PRICE": "Tarif par defaut",
-  "EDIT_DEFAULT_PRICE": "Modifier le tarif par defaut",
-  "DAILY_PRICE_GLOBAL_LIST": "Liste globale des tarifs quotidiens",
-  "WEEKLY_PRICE_GLOBAL_LIST": "Liste globale des tarifs hebdomadaires",
-  "MONTHLY_PRICE_GLOBAL_LIST": "Liste globale des tarifs mensuels",
-  "YEARLY_PRICE_GLOBAL_LIST": "Liste globale des tarifs annuels",
-  "CUSTOM_PRICE_GLOBAL_LIST": "Liste globale des tarifs customisés",
-  "ADD_GLOBAL_DAILY_PRICE": "Ajouter un tarif quotidien global",
-  "ADD_GLOBAL_WEEKLY_PRICE": "Ajouter un tarif hebdomadaire global",
-  "ADD_GLOBAL_MONTHLY_PRICE": "Ajouter un tarif mensuel global",
-  "ADD_GLOBAL_YEARLY_PRICE": "Ajouter un tarif annuel global",
-  "ADD_GLOBAL_CUSTOM_PRICE": "Ajouter un tarif customisé global"
+  "HUMAN_RESSOURCES_ADMINS": "Administrateurs des ressources humaines"
 }

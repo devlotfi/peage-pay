@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { PeagePayAdminLogo } from '@peage-pay-web/assets';
 import { NavbarDropdown } from '@peage-pay-web/auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ const DashboardLayout = (): JSX.Element => {
         <AdminDashboardLayout.Sidebar.Main
           logoTitle="PeagePay Admin"
           logo={PeagePayAdminLogo}
-          title="Human ressources admin"
+          title={t('APP_NAME')}
         >
           <NavbarDropdown></NavbarDropdown>
           <MenuItem
@@ -28,7 +30,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Home</MenuItem.Text>
+            <MenuItem.Text>{t('HOME')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/base-user/list')}
@@ -42,7 +44,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Global user list</MenuItem.Text>
+            <MenuItem.Text>{t('USER_LIST')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/toll-admin/list')}
@@ -56,7 +58,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUserGear}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Toll admin list</MenuItem.Text>
+            <MenuItem.Text>{t('TOLL_ADMIN_LIST')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/gate-admin/list')}
@@ -70,7 +72,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUserGear}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Gate admin list</MenuItem.Text>
+            <MenuItem.Text>{t('GATE_ADMIN_LIST')}</MenuItem.Text>
           </MenuItem>
           <MenuItem
             onClick={() => navigate('/dashboard/moderator/list')}
@@ -84,7 +86,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faUserGear}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Moderator list</MenuItem.Text>
+            <MenuItem.Text>{t('MODERATOR_LIST')}</MenuItem.Text>
           </MenuItem>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>

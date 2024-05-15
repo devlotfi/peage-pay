@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Utils } from '@peage-pay-web/utils';
 import ModeratorItem from '../../components/moderator/moderator-item.component';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<BaseUserSearchFields> = {
   search: '',
@@ -25,6 +26,7 @@ const initialValues: SearchValues<BaseUserSearchFields> = {
 };
 
 const ModeratorListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -51,7 +53,7 @@ const ModeratorListPage = (): JSX.Element => {
           <Heading.Icon position={'left'}>
             <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
           </Heading.Icon>
-          <Heading.Text>Moderator list</Heading.Text>
+          <Heading.Text>{t('MODERATOR_LIST')}</Heading.Text>
         </Heading>
       </ListPageLayout.Title>
 
@@ -63,11 +65,11 @@ const ModeratorListPage = (): JSX.Element => {
                 <Table.Head>
                   <Table.Head.Tr>
                     <Table.Head.Th></Table.Head.Th>
-                    <Table.Head.Th>First name</Table.Head.Th>
-                    <Table.Head.Th>Last name</Table.Head.Th>
-                    <Table.Head.Th>Created at</Table.Head.Th>
-                    <Table.Head.Th>Updated at</Table.Head.Th>
-                    <Table.Head.Th>Id</Table.Head.Th>
+                    <Table.Head.Th>{t('FIRST_NAME')}</Table.Head.Th>
+                    <Table.Head.Th>{t('LAST_NAME')}</Table.Head.Th>
+                    <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                    <Table.Head.Th>{t('ID')}</Table.Head.Th>
                   </Table.Head.Tr>
                 </Table.Head>
                 <Table.Body>

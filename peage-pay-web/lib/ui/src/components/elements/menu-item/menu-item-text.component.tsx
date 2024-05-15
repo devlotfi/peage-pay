@@ -4,7 +4,7 @@ import { Utils } from '@peage-pay-web/utils';
 import { MenuItemContext } from './menu-item.context';
 
 const menuItemTextVariants = cva(
-  'flex w-full items-center px-[1rem] text-[11pt] font-semibold',
+  'flex w-full text-left items-center px-[1rem] text-[11pt] font-semibold',
   {
     variants: {
       variant: {

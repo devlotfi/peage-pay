@@ -43,9 +43,11 @@ import TollNetworkListPage from '../pages/toll-network/toll-network-list.page';
 import AddTollPage from '../pages/toll/add-toll.page';
 import EditTollPage from '../pages/toll/edit-toll.page';
 import TollListPage from '../pages/toll/toll-list.page';
+import { useTranslation } from 'react-i18next';
 
 const useRouter = () => {
   const { authGuard, notAuthGuard } = useAuthGuard();
+  const { t } = useTranslation();
 
   const router = createBrowserRouter([
     {
@@ -55,15 +57,11 @@ const useRouter = () => {
     },
     {
       path: '/sign-in',
-      element: notAuthGuard(
-        <SignInPage title="Genral administration"></SignInPage>,
-      ),
+      element: notAuthGuard(<SignInPage title={t('APP_NAME')}></SignInPage>),
     },
     {
       path: '/sign-up',
-      element: notAuthGuard(
-        <SignUpPage title="Genral administration"></SignUpPage>,
-      ),
+      element: notAuthGuard(<SignUpPage title={t('APP_NAME')}></SignUpPage>),
     },
     {
       path: '/send-password-reset-email',

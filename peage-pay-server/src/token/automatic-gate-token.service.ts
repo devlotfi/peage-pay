@@ -39,7 +39,7 @@ export class AutomaticGateTokenService {
       });
       await prisma.automaticGateRefreshToken.create({
         data: {
-          tokenHash: await Utils.hashString(refreshToken),
+          tokenHash: await Utils.hashStringStatic(refreshToken),
           expiresAt: expirationDate,
           automaticGate: {
             connect: {

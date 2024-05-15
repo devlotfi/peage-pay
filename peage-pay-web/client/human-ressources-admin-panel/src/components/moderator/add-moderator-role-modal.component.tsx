@@ -1,14 +1,15 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   faExclamationCircle,
   faTimes,
   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal, Button, Alert, LoaderDots } from "@peage-pay-web/ui";
-import { RefObject } from "react";
-import { BaseUserType } from "../../__generated__/graphql";
-import { ADD_MODERATOR_ROLE } from "../../graphql/mutations";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Modal, Button, Alert, LoaderDots } from '@peage-pay-web/ui';
+import { RefObject } from 'react';
+import { BaseUserType } from '../../__generated__/graphql';
+import { ADD_MODERATOR_ROLE } from '../../graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 interface AddModeratorRoleModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -22,6 +23,7 @@ const AddModeratorRoleModal = ({
   baseUser,
   refetchQuery,
 }: AddModeratorRoleModalProps) => {
+  const { t } = useTranslation();
   const [addModeratorRole, { loading, error }] = useMutation(
     ADD_MODERATOR_ROLE,
     {
@@ -30,7 +32,7 @@ const AddModeratorRoleModal = ({
       },
       refetchQueries: [refetchQuery],
       awaitRefetchQueries: true,
-    }
+    },
   );
 
   const handleAdd = () => {
@@ -46,12 +48,12 @@ const AddModeratorRoleModal = ({
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Add role</Modal.Header>
+        <Modal.Header>{t('ADD_MODERATOR_ROLE')}</Modal.Header>
         <Modal.Content>
-          Are you sure you want to add the "Moderator" role to this user
+          {t('CONFIRM_MODIFICATION')}
           {error ? (
-            <Alert variant={"error"} className="mb-[0.5rem]">
-              <Alert.Icon position={"left"}>
+            <Alert variant={'error'} className="mb-[0.5rem]">
+              <Alert.Icon position={'left'}>
                 <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
               </Alert.Icon>
               <Alert.Content>{`auth:errors.${error.message}`}</Alert.Content>
@@ -61,26 +63,26 @@ const AddModeratorRoleModal = ({
         <Modal.Footer className="justify-end">
           <Button
             onClick={() => modalRef.current?.close()}
-            variant={"base-200"}
+            variant={'base-200'}
           >
-            <Button.Icon position={"left"}>
+            <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             className="ml-[0.5rem]"
             onClick={handleAdd}
-            variant={"primary"}
+            variant={'primary'}
           >
             {loading ? (
-              <LoaderDots dotProps={{ variant: "color-content" }}></LoaderDots>
+              <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
             ) : (
               <>
-                <Button.Icon position={"left"}>
+                <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Add</Button.Content>
+                <Button.Content>{t('ADD')}</Button.Content>
               </>
             )}
           </Button>

@@ -16,12 +16,14 @@ import { TOLL_ADMIN_LIST } from '../../graphql/queries';
 import RemoveTollAdminRoleModal from './remove-toll-admin-role-modal.component';
 import { useNavigate } from 'react-router-dom';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface TollAdminItemProps {
   tollAdmin: TollAdminType;
 }
 
 const TollAdminItem = ({ tollAdmin }: TollAdminItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const removeTollAdminRoleModalRef = useRef<HTMLDialogElement>(null);
 
@@ -54,7 +56,7 @@ const TollAdminItem = ({ tollAdmin }: TollAdminItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Edit</MenuItem.Text>
+              <MenuItem.Text>{t('EDIT')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => removeTollAdminRoleModalRef.current?.showModal()}
@@ -64,7 +66,7 @@ const TollAdminItem = ({ tollAdmin }: TollAdminItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Remove (toll admin) role</MenuItem.Text>
+              <MenuItem.Text>{t('REMOVE_TOLL_ADMIN_ROLE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>

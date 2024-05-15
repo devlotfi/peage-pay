@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Button } from '@peage-pay-web/ui';
 import { TollType } from '../../../__generated__/graphql';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface TollPickerItemProps {
   toll: TollType;
@@ -17,6 +18,8 @@ const TollPickerItem = ({
   onTollSelected,
   onTollUnselected,
 }: TollPickerItemProps): JSX.Element => {
+  const { t } = useTranslation();
+
   const renderButton = (): any => {
     if (selectedToll) {
       if (toll.id === selectedToll.id) {
@@ -29,7 +32,7 @@ const TollPickerItem = ({
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Unselect</Button.Content>
+            <Button.Content>{t('UNSELECT')}</Button.Content>
           </Button>
         );
       }
@@ -43,7 +46,7 @@ const TollPickerItem = ({
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Select</Button.Content>
+          <Button.Content>{t('SELECT')}</Button.Content>
         </Button>
       );
     }

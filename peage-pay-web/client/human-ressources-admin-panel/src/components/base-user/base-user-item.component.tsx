@@ -21,12 +21,14 @@ import RemoveGateAdminRoleModal from '../gate-admin/remove-gate-admin-role-modal
 import AddModeratorRoleModal from '../moderator/add-moderator-role-modal.component';
 import RemoveModeratorRoleModal from '../moderator/remove-moderator-role-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface BaseUserItemProps {
   baseUser: BaseUserType;
 }
 
 const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const addTollAdminRoleModalRef = useRef<HTMLDialogElement>(null);
   const removeTollAdminRoleModalRef = useRef<HTMLDialogElement>(null);
 
@@ -91,7 +93,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Add (toll admin) role</MenuItem.Text>
+                <MenuItem.Text>{t('ADD_TOLL_ADMIN_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
             {baseUser.roles.includes(BaseUserRolesType.TollAdmin) ? (
@@ -103,7 +105,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Remove (toll admin) role</MenuItem.Text>
+                <MenuItem.Text>{t('REMOVE_TOLL_ADMIN_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
 
@@ -116,7 +118,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Add (gate admin) role</MenuItem.Text>
+                <MenuItem.Text>{t('ADD_GATE_ADMIN_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
             {baseUser.roles.includes(BaseUserRolesType.GateAdmin) ? (
@@ -128,7 +130,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Remove (gate admin) role</MenuItem.Text>
+                <MenuItem.Text>{t('REMOVE_GATE_ADMIN_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
 
@@ -141,7 +143,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Add (moderator) role</MenuItem.Text>
+                <MenuItem.Text>{t('ADD_MODERATOR_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
             {baseUser.roles.includes(BaseUserRolesType.Moderator) ? (
@@ -153,7 +155,7 @@ const BaseUserItem = ({ baseUser }: BaseUserItemProps): JSX.Element => {
                 <MenuItem.Icon>
                   <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
                 </MenuItem.Icon>
-                <MenuItem.Text>Remove (moderator) role</MenuItem.Text>
+                <MenuItem.Text>{t('REMOVE_MODERATOR_ROLE')}</MenuItem.Text>
               </MenuItem>
             ) : null}
           </Dropdown.Content>

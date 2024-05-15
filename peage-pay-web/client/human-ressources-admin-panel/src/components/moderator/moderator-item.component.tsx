@@ -11,12 +11,14 @@ import { useRef } from 'react';
 import { MODERATOR_LIST } from '../../graphql/queries';
 import RemoveModeratorRoleModal from './remove-moderator-role-modal.component';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 interface ModeratorItemProps {
   moderator: ModeratorType;
 }
 
 const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const removeModeratorRoleModalRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -46,7 +48,7 @@ const ModeratorItem = ({ moderator }: ModeratorItemProps): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Remove (moderator) role</MenuItem.Text>
+              <MenuItem.Text>{t('REMOVE_MODERATOR_ROLE')}</MenuItem.Text>
             </MenuItem>
           </Dropdown.Content>
         </Dropdown>
