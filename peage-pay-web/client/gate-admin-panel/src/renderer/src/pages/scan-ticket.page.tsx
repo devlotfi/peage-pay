@@ -26,8 +26,10 @@ import { ConnectToSerialPortFrom } from '@peage-pay-web/serial-port';
 import { useMutation as useReactMutation } from 'react-query';
 import { OPEN_GATE } from '@renderer/react-query/mutations';
 import { VALIDATE_TICKET } from '@renderer/graphql/mutations';
+import { useTranslation } from 'react-i18next';
 
 const ScanTicketPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [hasCamera, setHasCamera] = useState<boolean>(false);
   const [cameraList, setCameraList] = useState<QrScanner.Camera[]>([]);
@@ -94,7 +96,7 @@ const ScanTicketPage = (): JSX.Element => {
           <Button.Icon position="left">
             <FontAwesomeIcon icon={faRefresh}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Refresh</Button.Content>
+          <Button.Content>{t('REFRESH')}</Button.Content>
         </Button>
       </div>
     );
@@ -144,7 +146,7 @@ const ScanTicketPage = (): JSX.Element => {
             <Button.Icon>
               <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Open Gate</Button.Content>
+            <Button.Content>{t('OPEN_GATE')}</Button.Content>
           </Button>
           <QRCodeScanner
             onScan={(value) => setTicket(value)}
@@ -162,15 +164,19 @@ const ScanTicketPage = (): JSX.Element => {
                       icon={faTriangleExclamation}
                     ></FontAwesomeIcon>
                   </Alert.Icon>
-                  <Alert.Content>Ticket already used</Alert.Content>
+                  <Alert.Content>{t('TICKET_USED')}</Alert.Content>
                 </Alert>
               ) : null}
 
               <Table.Container className="w-full">
                 <Table>
                   <Table.Body>
+                    <Table.Head.Tr>
+                      <Table.Head.Th>
+                        {t('ID')} ({t('Ticket')})
+                      </Table.Head.Th>
+                    </Table.Head.Tr>
                     <Table.Body.Tr variant={'zebra'}>
-                      <Table.Body.Td>Ticket ID</Table.Body.Td>
                       <Table.Body.Td className="text-[9pt]">
                         {ticket}
                       </Table.Body.Td>
@@ -185,40 +191,46 @@ const ScanTicketPage = (): JSX.Element => {
                       <Heading.Icon position="left">
                         <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
                       </Heading.Icon>
-                      <Heading.Text>Ticket info</Heading.Text>
+                      <Heading.Text>{t('TICKET')}</Heading.Text>
                     </Heading>
                   </div>
                   <Table.Container className="w-full">
                     <Table>
                       <Table.Body>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Entry toll</Table.Body.Td>
+                          <Table.Body.Td>{t('ENTRY_TOLL')}</Table.Body.Td>
                           <Table.Body.Td>
                             {ticketData?.ticketInfo.entryToll.name}
                           </Table.Body.Td>
                         </Table.Body.Tr>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Entry toll price</Table.Body.Td>
+                          <Table.Body.Td>
+                            {t('TOLL_PRICE')} ({t('ENTRY_TOLL')})
+                          </Table.Body.Td>
                           <Table.Body.Td>
                             {ticketData?.ticketInfo.entryTollPrice} dzd/km
                           </Table.Body.Td>
                         </Table.Body.Tr>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Exit toll price</Table.Body.Td>
+                          <Table.Body.Td>
+                            {t('PRCIE')} ({t('EXIT_TOLL')})
+                          </Table.Body.Td>
                           <Table.Body.Td>
                             {ticketData?.ticketInfo.exitTollPrice} dzd/km
                           </Table.Body.Td>
                         </Table.Body.Tr>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Distance</Table.Body.Td>
+                          <Table.Body.Td>{t('DISTANCE')}</Table.Body.Td>
                           <Table.Body.Td>
                             {ticketData?.ticketInfo.distance} km
                           </Table.Body.Td>
                         </Table.Body.Tr>
                         <Table.Body.Tr variant={'zebra'}>
-                          <Table.Body.Td>Applied price</Table.Body.Td>
                           <Table.Body.Td>
-                            {calculateAppliedPrice()}
+                            {t('PRICE')} ({t('APPLIED')})
+                          </Table.Body.Td>
+                          <Table.Body.Td>
+                            {calculateAppliedPrice()} dzd/km
                           </Table.Body.Td>
                         </Table.Body.Tr>
                       </Table.Body>
@@ -230,7 +242,7 @@ const ScanTicketPage = (): JSX.Element => {
                       <Table.Body>
                         <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td className="text-primary-100 font-bold">
-                            Total
+                            {t('TOTAL')}
                           </Table.Body.Td>
                           <Table.Body.Td className="text-primary-100">
                             {calculateTotal().toFixed(2)} dzd
@@ -245,7 +257,7 @@ const ScanTicketPage = (): JSX.Element => {
                       <Alert.Icon position={'left'}>
                         <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                       </Alert.Icon>
-                      <Alert.Content>Ticket validated</Alert.Content>
+                      <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
                     </Alert>
                   ) : null}
 
@@ -262,6 +274,7 @@ const ScanTicketPage = (): JSX.Element => {
 
                   {ticketData?.ticketInfo.used ? null : (
                     <Button
+                      type="button"
                       onClick={handleValidateTicket}
                       className="mt-[1rem]"
                       variant="primary"
@@ -277,7 +290,9 @@ const ScanTicketPage = (): JSX.Element => {
                               icon={faCheckCircle}
                             ></FontAwesomeIcon>
                           </Button.Icon>
-                          <Button.Content>Validate ticket</Button.Content>
+                          <Button.Content>
+                            {t('VALIDATE_TICKET')}
+                          </Button.Content>
                         </>
                       )}
                     </Button>
@@ -287,7 +302,7 @@ const ScanTicketPage = (): JSX.Element => {
             </>
           ) : (
             <div className="flex flex-1 justify-center items-center">
-              <div className="flex">Scan a ticket to start</div>
+              <div className="flex">{t('SCAN_A_TICKET')}</div>
             </div>
           )}
         </div>

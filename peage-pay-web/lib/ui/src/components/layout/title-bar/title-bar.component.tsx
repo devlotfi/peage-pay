@@ -8,6 +8,7 @@ import {
 import IconButton from '../../elements/icon-button/icon-button.component';
 import TitleBarLayout from './title-bar-layout.layout';
 import { TitleBarIPCMessages } from './title-bar-ipc-messages';
+import { useTranslation } from 'react-i18next';
 
 interface TitleBarProps {
   title: string;
@@ -22,6 +23,7 @@ declare global {
 }
 
 export const TitleBar = ({ title, windowIcon }: TitleBarProps): JSX.Element => {
+  const { t } = useTranslation();
   const closeWindow = () => {
     window.electron.ipcRenderer.invoke(TitleBarIPCMessages.CLOSE);
   };
@@ -40,7 +42,7 @@ export const TitleBar = ({ title, windowIcon }: TitleBarProps): JSX.Element => {
           src={windowIcon}
           alt="PeagePay"
         />
-        <div className="flex font-normal text-[10pt]">{title}</div>
+        <div className="flex font-normal text-[10pt]">{t(title)}</div>
       </div>
 
       <div className="flex">

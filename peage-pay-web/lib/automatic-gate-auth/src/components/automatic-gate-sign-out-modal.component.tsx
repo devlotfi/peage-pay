@@ -6,6 +6,7 @@ import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SIGN_OUT_AUTOMATIC_GATE } from '../graphql/mutations';
 import { AutomaticGateAuthContext } from '../context/automatic-gate-auth.context';
 import { AutomaticGateAuthUtils } from '../utils';
+import { useTranslation } from 'react-i18next';
 
 interface SignOutModalProps {
   modalRef: RefObject<HTMLDialogElement>;
@@ -14,6 +15,7 @@ interface SignOutModalProps {
 const AutomaticGateSignOutModal = ({
   modalRef,
 }: SignOutModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const { setAutomaticGateAuthData } = useContext(AutomaticGateAuthContext);
   const [signOutWithRefreshTokenCookie, { loading }] = useMutation(
     SIGN_OUT_AUTOMATIC_GATE,
@@ -35,8 +37,8 @@ const AutomaticGateSignOutModal = ({
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Sign out</Modal.Header>
-        <Modal.Content>Are you sure you want to sign out ?</Modal.Content>
+        <Modal.Header>{t('SIGN_OUT')}</Modal.Header>
+        <Modal.Content>{t('SIGN_OUT_CONFIRM')}</Modal.Content>
         <Modal.Footer className="justify-end">
           <Button
             onClick={() => modalRef.current?.close()}
@@ -46,7 +48,7 @@ const AutomaticGateSignOutModal = ({
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button
             onClick={() => signOutWithRefreshTokenCookie()}
@@ -63,7 +65,7 @@ const AutomaticGateSignOutModal = ({
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Sign out</Button.Content>
+                <Button.Content>{t('SIGN_OUT')}</Button.Content>
               </>
             )}
           </Button>

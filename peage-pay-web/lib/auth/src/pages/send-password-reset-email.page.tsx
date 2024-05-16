@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import {
   faAt,
+  faCaretLeft,
   faCheck,
   faEnvelope,
   faExclamationCircle,
@@ -10,6 +11,7 @@ import {
   Alert,
   Button,
   Heading,
+  IconButton,
   LoaderDots,
   MinimalNavbar,
   TextInput,
@@ -21,6 +23,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const sendPasswordResetEmailValidationSchema = yup.object({
   email: yup.string().email().required(),
@@ -55,6 +58,7 @@ const SendPasswordResetEmailPage = ({
   ...props
 }: SendPasswordResetEmailProps): JSX.Element => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [sendPasswordResetEmail, { loading, data, error }] = useMutation(
     SEND_PASSWORD_RESET_EMAIL,
   );
@@ -86,12 +90,22 @@ const SendPasswordResetEmailPage = ({
       <div className="flex flex-col lg:justify-center items-center h-full">
         <div className="flex flex-col bg-base-100 lg:border-edge-200 lg:border-[1px] h-full lg:h-auto lg:rounded-xl w-full lg:max-w-[40rem] p-[1rem]">
           <form onSubmit={handleSubmit}>
-            <Heading className="text-[20pt] mb-[2rem]">
-              <Heading.Icon position={'left'}>
-                <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-              </Heading.Icon>
-              <Heading.Text>{t('SEND_PASSWORD_RESET_EMAIL')}</Heading.Text>
-            </Heading>
+            <div className="flex items-center mb-[1.5rem]">
+              <IconButton
+                onClick={() => navigate('/sign-in')}
+                type="button"
+                className="mr-[1rem]"
+                variant={'base-200'}
+              >
+                <FontAwesomeIcon icon={faCaretLeft}></FontAwesomeIcon>
+              </IconButton>
+              <Heading className="text-[17pt]">
+                <Heading.Icon position={'left'}>
+                  <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+                </Heading.Icon>
+                <Heading.Text>{t('SEND_PASSWORD_RESET_EMAIL')}</Heading.Text>
+              </Heading>
+            </div>
 
             {error ? (
               <Alert variant={'error'} className="mb-[0.5rem]">

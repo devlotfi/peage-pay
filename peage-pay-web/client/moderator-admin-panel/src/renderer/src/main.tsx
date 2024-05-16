@@ -27,7 +27,7 @@ root.render(
         >
           <TitleBar.Layout
             windowIcon={ModeratorAdminPanelLogo}
-            title="Peage Pay moderator admin panel"
+            title="APP_NAME"
           >
             <AuthProvider
               refreshTokenMode={RefreshTokenMode.PlainText}

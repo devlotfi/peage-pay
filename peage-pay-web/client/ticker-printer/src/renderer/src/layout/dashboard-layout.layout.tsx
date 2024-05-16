@@ -7,9 +7,11 @@ import {
 } from '@peage-pay-web/automatic-gate-auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
@@ -20,7 +22,7 @@ const DashboardLayout = (): JSX.Element => {
         <AdminDashboardLayout.Sidebar.Main
           logoTitle="PeagePay Gate"
           logo={PeagePayLogo}
-          title="Ticket printer"
+          title={t('APP_NAME')}
         >
           <AutomaticGateNavbarDropdown></AutomaticGateNavbarDropdown>
           {automaticGateAuthData?.automaticGate ? (
@@ -38,7 +40,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faPrint}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Ticket printer</MenuItem.Text>
+            <MenuItem.Text>{t('TICKET_PRINTER')}</MenuItem.Text>
           </MenuItem>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>

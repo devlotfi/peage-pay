@@ -32,6 +32,7 @@
   "DARK": "Sombre",
   "LANGUAGE": "Langue",
   "SIGN_OUT": "Deconnexion",
+  "SIGN_OUT_CONFIRM": "Etes vous sur de vouloir vous deconnecter ?",
   "OPERATION_SUCCESSFUL": "Operation effectuée",
   "ID": "Identifiant",
   "CREATED_AT": "Crée le",

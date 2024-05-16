@@ -2,6 +2,7 @@ import { AdminDashboardLayout, Select } from '@peage-pay-web/ui';
 import { Utils } from '@peage-pay-web/utils';
 import QrScanner from 'qr-scanner';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface QRCodeScannerProps {
   cameraList: QrScanner.Camera[];
@@ -12,6 +13,7 @@ const QRCodeScanner = ({
   cameraList,
   onScan,
 }: QRCodeScannerProps): JSX.Element => {
+  const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const qrCodeScannerRef = useRef<QrScanner>();
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -89,7 +91,7 @@ const QRCodeScanner = ({
     <div className="flex flex-col max-w-full flex-1 mt-[1rem]">
       <Select variant={'edge-100'} className="w-full">
         <Select.Main>
-          <Select.Label>Camera</Select.Label>
+          <Select.Label>{t('CAMERA')}</Select.Label>
           <Select.Field
             name="camera"
             value={selectedCamera}

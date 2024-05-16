@@ -14,9 +14,11 @@ import { OPEN_GATE } from '@renderer/react-query/mutations';
 import jsPDF from 'jspdf';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation as useReactMutation } from 'react-query';
 
 const TicketPrinter = (): JSX.Element => {
+  const { t } = useTranslation();
   const [pdfData, setPdfData] = useState<string>();
   const pdfDisplayModalRef = useRef<HTMLDialogElement>(null);
   const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
@@ -139,7 +141,7 @@ const TicketPrinter = (): JSX.Element => {
               <LoaderDots dotProps={{ variant: 'color-content' }}></LoaderDots>
             ) : (
               <>
-                <Button.Content>Print ticket</Button.Content>
+                <Button.Content>{t('PRINT_TICKET')}</Button.Content>
               </>
             )}
           </Button>

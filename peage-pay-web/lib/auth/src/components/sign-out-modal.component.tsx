@@ -9,12 +9,14 @@ import { AuthContext, UserAuthUtils } from '@peage-pay-web/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RefreshTokenMode } from '../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 interface SignOutModalProps {
   modalRef: RefObject<HTMLDialogElement>;
 }
 
 const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const { setAuthData, refreshTokenMode } = useContext(AuthContext);
   const [signOut, { loading: signOutLoading }] = useMutation(SIGN_OUT, {
     variables: {
@@ -62,8 +64,8 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
   return (
     <Modal modalRef={modalRef}>
       <Modal.Window>
-        <Modal.Header>Sign out</Modal.Header>
-        <Modal.Content>Are you sure you want to sign out ?</Modal.Content>
+        <Modal.Header>{t('SIGN_OUT')}</Modal.Header>
+        <Modal.Content>{t('SIGN_OUT_CONFIRM')}</Modal.Content>
         <Modal.Footer className="justify-end">
           <Button
             onClick={() => modalRef.current?.close()}
@@ -73,7 +75,7 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
             <Button.Icon position={'left'}>
               <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
             </Button.Icon>
-            <Button.Content>Close</Button.Content>
+            <Button.Content>{t('CLOSE')}</Button.Content>
           </Button>
           <Button onClick={handleSignOut} variant={'error'}>
             {signOutLoading || signOutWithRefreshTokenLoading ? (
@@ -87,7 +89,7 @@ const SignOutModal = ({ modalRef }: SignOutModalProps): JSX.Element => {
                 <Button.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
                 </Button.Icon>
-                <Button.Content>Sign out</Button.Content>
+                <Button.Content>{t('SIGN_OUT')}</Button.Content>
               </>
             )}
           </Button>

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Modal, Button } from '@peage-pay-web/ui';
+import { useTranslation } from 'react-i18next';
 
 interface PDFDisplayProps {
   modalRef: React.RefObject<HTMLDialogElement>;
@@ -8,12 +9,14 @@ interface PDFDisplayProps {
 }
 
 const PDFDisplay = ({ modalRef, pdfData }: PDFDisplayProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Modal modalRef={modalRef} className="h-screen w-screen">
       <Modal.Window className="flex overflow-y-auto h-full">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Ticket</div>
+            <div className="flex">{t('TICKET')}</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -21,7 +24,7 @@ const PDFDisplay = ({ modalRef, pdfData }: PDFDisplayProps): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Close</Button.Content>
+              <Button.Content>{t('CLOSE')}</Button.Content>
             </Button>
           </div>
         </Modal.Header>

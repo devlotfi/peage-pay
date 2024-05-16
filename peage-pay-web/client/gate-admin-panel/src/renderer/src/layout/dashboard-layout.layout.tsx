@@ -5,9 +5,11 @@ import { NavbarDropdown } from '@peage-pay-web/auth';
 import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
 import { GateAdminInfoConext } from '@renderer/context/gate-admin-info.context';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = (): JSX.Element => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { gateAdmin } = useContext(GateAdminInfoConext);
@@ -18,7 +20,7 @@ const DashboardLayout = (): JSX.Element => {
         <AdminDashboardLayout.Sidebar.Main
           logoTitle="PeagePay Admin"
           logo={PeagePayAdminLogo}
-          title="Gate Admin"
+          title={t('APP_NAME')}
         >
           <NavbarDropdown></NavbarDropdown>
           <AdminDashboardLayout.TollInfo
@@ -34,7 +36,7 @@ const DashboardLayout = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Scan</MenuItem.Text>
+            <MenuItem.Text>{t('SCAN')}</MenuItem.Text>
           </MenuItem>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>

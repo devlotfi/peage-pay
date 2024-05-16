@@ -25,10 +25,7 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
           authType="USER"
         >
-          <TitleBar.Layout
-            windowIcon={GateAdminPanelLogo}
-            title="Peage Pay gate admin dashboard"
-          >
+          <TitleBar.Layout windowIcon={GateAdminPanelLogo} title="APP_NAME">
             <AuthProvider
               refreshTokenMode={RefreshTokenMode.PlainText}
               allowedRoles={[BaseUserRolesType.GateAdmin]}
