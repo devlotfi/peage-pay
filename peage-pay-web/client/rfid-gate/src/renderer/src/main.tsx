@@ -23,10 +23,7 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
           authType="AUTOMATIC_GATE"
         >
-          <TitleBar.Layout
-            windowIcon={RfidGateIcon}
-            title="Peage Pay rfid gate"
-          >
+          <TitleBar.Layout windowIcon={RfidGateIcon} title="APP_NAME">
             <AutomaticGateAuthProvider>
               <App />
             </AutomaticGateAuthProvider>

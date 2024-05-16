@@ -39,7 +39,7 @@ const NavbarDropdownArrow = (): JSX.Element => {
 };
 
 const NavbarDropdown = (): JSX.Element => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { setDarkTheme, setLightTheme, theme } = useContext(ThemeContext);
   const { authData } = useContext(AuthContext);
   const signOutModalRef = useRef(null);
@@ -133,27 +133,37 @@ const NavbarDropdown = (): JSX.Element => {
             }
           >
             <MenuItem
+              onClick={() => i18n.changeLanguage('en')}
               className="w-full mb-[0.5rem] mt-[0.5rem]"
-              variant={'primary'}
+              variant={i18n.language === 'en' ? 'primary' : 'base-100'}
             >
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>English</MenuItem.Text>
             </MenuItem>
-            <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
+            <MenuItem
+              onClick={() => i18n.changeLanguage('fr')}
+              className="w-full mb-[0.5rem]"
+              variant={i18n.language === 'fr' ? 'primary' : 'base-100'}
+            >
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>Français</MenuItem.Text>
             </MenuItem>
-            <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
+            <MenuItem
+              onClick={() => i18n.changeLanguage('ar')}
+              className="w-full mb-[0.5rem]"
+              variant={i18n.language === 'ar' ? 'primary' : 'base-100'}
+            >
               <MenuItem.Icon>
-                <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
               <MenuItem.Text>العربية</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
+
           <MenuItem
             onClick={showSignOutModal}
             className="w-full"

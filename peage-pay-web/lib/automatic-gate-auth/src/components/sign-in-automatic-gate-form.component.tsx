@@ -142,7 +142,6 @@ const SignInAutomaticGateForm = (): JSX.Element => {
             <TextInput.Label>{t('TOLL')}</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedToll?.name}
-              {selectedToll?.id}
             </div>
           </TextInput.Main>
           {errors.tollId && touched.tollId ? (
@@ -173,7 +172,6 @@ const SignInAutomaticGateForm = (): JSX.Element => {
             <TextInput.Label>{t('GATE')}</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedAutomaticGate?.name}
-              {selectedAutomaticGate?.id}
             </div>
           </TextInput.Main>
           {errors.automaticGateId && touched.automaticGateId ? (

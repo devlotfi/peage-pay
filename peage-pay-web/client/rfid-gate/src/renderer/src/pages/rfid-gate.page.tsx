@@ -12,9 +12,11 @@ import { TollDirectionType } from '@renderer/__generated__/graphql';
 import { END_TRIP_RFID, START_TRIP_RFID } from '@renderer/graphql/mutations';
 import { OPEN_GATE } from '@renderer/react-query/mutations';
 import { useContext, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation as useReactMutation } from 'react-query';
 
 const RfidGatePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const listenersRegisteredRef = useRef(false);
   const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
 
@@ -129,7 +131,7 @@ const RfidGatePage = (): JSX.Element => {
                   className="text-success-100 text-[10rem]"
                 ></FontAwesomeIcon>
                 <div className="flex text-[15pt] mt-[1rem]">
-                  Transaction successful
+                  {t('TRANSACTION_SUCCESSFUL')}
                 </div>
               </div>
             ) : (
@@ -139,7 +141,7 @@ const RfidGatePage = (): JSX.Element => {
                   className="text-primary-100 text-[10rem]"
                 ></FontAwesomeIcon>
                 <div className="flex text-[15pt] mt-[1rem]">
-                  Waiting for badge detection
+                  {t('WAITING_FOR_BADGE')}
                 </div>
               </div>
             )}

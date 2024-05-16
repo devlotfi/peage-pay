@@ -107,7 +107,7 @@ const ConnectToSerialPortFrom = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <option>Select port</option>
+            <option>{t('----')}</option>
             {serialPortListData?.map((serialPort: any) => (
               <option key={serialPort.path} value={serialPort.path}>
                 {serialPort.path}

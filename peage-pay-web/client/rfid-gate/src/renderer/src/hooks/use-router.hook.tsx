@@ -7,8 +7,10 @@ import {
   useAutomaticGateAuthGuard,
 } from '@peage-pay-web/automatic-gate-auth';
 import { SerialPortProvider } from '@peage-pay-web/serial-port';
+import { useTranslation } from 'react-i18next';
 
 const useRouter = () => {
+  const { t } = useTranslation();
   const { authGuard, notAuthGuard } = useAutomaticGateAuthGuard();
 
   const router = createHashRouter([
@@ -22,7 +24,7 @@ const useRouter = () => {
       element: notAuthGuard(
         <SignInAutomaticGatePage
           usage={'desktop'}
-          title="Rfid gate"
+          title={t('APP_NAME')}
         ></SignInAutomaticGatePage>,
       ),
     },
