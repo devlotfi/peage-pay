@@ -6,6 +6,7 @@ import { Toll } from '@peage-pay-web/assets';
 import { cva, VariantProps } from 'class-variance-authority';
 import { BaseHTMLAttributes } from 'react';
 import { Utils } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const signInAutomaticGateVariants = cva(
   'flex flex-col bg-base-200 min-h-screen bg-cover text-base-content',
@@ -30,6 +31,8 @@ const SignInAutomaticGatePage = ({
   usage,
   ...props
 }: SignInAutomaticGatePageProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={Utils.cn(signInAutomaticGateVariants({ className, usage }))}
@@ -47,7 +50,7 @@ const SignInAutomaticGatePage = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Sign in</Heading.Text>
+                <Heading.Text>{t('SIGN_IN')}</Heading.Text>
               </Heading>
               <SignInAutomaticGateForm></SignInAutomaticGateForm>
             </div>

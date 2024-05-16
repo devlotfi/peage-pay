@@ -21,6 +21,7 @@ import {
   AutomaticGateType,
 } from '../../../__generated__/graphql';
 import { AUTOMATIC_GATE_LIST } from '../../../graphql/queries';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<AutomaticGateSearchFields> = {
   search: '',
@@ -40,6 +41,7 @@ const AutomaticGatePicker = ({
   value,
   toll,
 }: AutomaticGatePickerProps): JSX.Element => {
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -70,7 +72,7 @@ const AutomaticGatePicker = ({
       <Modal.Window className="overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Pick an automatic gate</div>
+            <div className="flex">{t('PICK_AUTOMATIC_GATE')}</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -78,7 +80,7 @@ const AutomaticGatePicker = ({
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Close</Button.Content>
+              <Button.Content>{t('CLOSE')}</Button.Content>
             </Button>
           </div>
         </Modal.Header>
@@ -97,7 +99,7 @@ const AutomaticGatePicker = ({
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Automatic gate list</Heading.Text>
+                <Heading.Text>{t('AUTOMATIC_GATE_LIST')}</Heading.Text>
               </Heading>
             </ListPageLayout.Title>
 
@@ -109,12 +111,12 @@ const AutomaticGatePicker = ({
                       <Table.Head>
                         <Table.Head.Tr>
                           <Table.Head.Th></Table.Head.Th>
-                          <Table.Head.Th>Name</Table.Head.Th>
-                          <Table.Head.Th>Direction</Table.Head.Th>
-                          <Table.Head.Th>Variant</Table.Head.Th>
-                          <Table.Head.Th>Created at</Table.Head.Th>
-                          <Table.Head.Th>Updated at</Table.Head.Th>
-                          <Table.Head.Th>Id</Table.Head.Th>
+                          <Table.Head.Th>{t('NAME')}</Table.Head.Th>
+                          <Table.Head.Th>{t('DIRECTION')}</Table.Head.Th>
+                          <Table.Head.Th>{t('VARIANT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('CREATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('UPDATED_AT')}</Table.Head.Th>
+                          <Table.Head.Th>{t('ID')}</Table.Head.Th>
                         </Table.Head.Tr>
                       </Table.Head>
                       <Table.Body>

@@ -21,6 +21,7 @@ import { AutomaticGateAuthContext } from '../context/automatic-gate-auth.context
 import { SIGN_IN_AUTOMATIC_GATE } from '../graphql/mutations';
 import { AutomaticGateType, TollType } from '../__generated__/graphql';
 import { AutomaticGateAuthUtils } from '../utils';
+import { useTranslation } from 'react-i18next';
 
 const signInAutomaticGateValidationSchema = yup.object({
   tollId: yup.string().uuid().required(),
@@ -41,6 +42,7 @@ const initialValues: SignInAutomaticGateValues = {
 };
 
 const SignInAutomaticGateForm = (): JSX.Element => {
+  const { t } = useTranslation();
   const { setAutomaticGateAuthData } = useContext(AutomaticGateAuthContext);
   const [signInWithEmail, { loading, error }] = useMutation(
     SIGN_IN_AUTOMATIC_GATE,
@@ -137,7 +139,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           className="w-full mb-[0.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Toll</TextInput.Label>
+            <TextInput.Label>{t('TOLL')}</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedToll?.name}
               {selectedToll?.id}
@@ -156,7 +158,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Select toll</Button.Content>
+          <Button.Content>{t('PICK_TOLL')}</Button.Content>
         </Button>
 
         <TextInput
@@ -168,7 +170,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           className="w-full mb-[0.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Gate</TextInput.Label>
+            <TextInput.Label>{t('GATE')}</TextInput.Label>
             <div className="flex items-center ml-[1rem]">
               {selectedAutomaticGate?.name}
               {selectedAutomaticGate?.id}
@@ -189,7 +191,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           <Button.Icon position={'left'}>
             <FontAwesomeIcon icon={faRoadBarrier}></FontAwesomeIcon>
           </Button.Icon>
-          <Button.Content>Select automatic gate</Button.Content>
+          <Button.Content>{t('PICK_AUTOMATIC_GATE')}</Button.Content>
         </Button>
 
         <TextInput
@@ -197,14 +199,14 @@ const SignInAutomaticGateForm = (): JSX.Element => {
           className="w-full mb-[1.5rem]"
         >
           <TextInput.Main>
-            <TextInput.Label>Password</TextInput.Label>
+            <TextInput.Label>{t('PASSWORD')}</TextInput.Label>
             <TextInput.Icon position={'left'}>
               <FontAwesomeIcon icon={faKey}></FontAwesomeIcon>
             </TextInput.Icon>
             <TextInput.Field
               name="password"
               type="password"
-              placeholder="Enter password"
+              placeholder={t('ENTER_PASSWORD')}
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -234,7 +236,7 @@ const SignInAutomaticGateForm = (): JSX.Element => {
               <Button.Icon position={'left'}>
                 <FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>
               </Button.Icon>
-              <Button.Content>Sign in automatic gate</Button.Content>
+              <Button.Content>{t('SIGN_IN_AUTOMATIC_GATE')}</Button.Content>
             </>
           )}
         </Button>

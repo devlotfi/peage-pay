@@ -23,10 +23,7 @@ root.render(
           userRefreshTokenMode="PLAIN_TEXT"
           authType="AUTOMATIC_GATE"
         >
-          <TitleBar.Layout
-            windowIcon={TicketPrinterIcon}
-            title="Peage Pay ticket printer"
-          >
+          <TitleBar.Layout windowIcon={TicketPrinterIcon} title="APP_NAME">
             <AutomaticGateAuthProvider>
               <App />
             </AutomaticGateAuthProvider>

@@ -20,6 +20,7 @@ import { useContext, useRef } from 'react';
 import { Utils } from '@peage-pay-web/utils';
 import AutomaticGateSignOutModal from './automatic-gate-sign-out-modal.component';
 import { AutomaticGateAuthContext } from '..';
+import { useTranslation } from 'react-i18next';
 
 const NavbarDropdownArrow = (): JSX.Element => {
   const { open } = useContext(Dropdown.Context);
@@ -38,6 +39,7 @@ const NavbarDropdownArrow = (): JSX.Element => {
 };
 
 const AutomaticGateNavbarDropdown = (): JSX.Element => {
+  const { t } = useTranslation();
   const { setDarkTheme, setLightTheme, theme } = useContext(ThemeContext);
   const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
   const signOutModalRef = useRef(null);
@@ -88,7 +90,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faBrush}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Theme</MenuItem.Text>
+                  <MenuItem.Text>{t('THEME')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -101,7 +103,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Dark</MenuItem.Text>
+              <MenuItem.Text>{t('DARK')}</MenuItem.Text>
             </MenuItem>
             <MenuItem
               onClick={() => setLightTheme()}
@@ -111,7 +113,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Light</MenuItem.Text>
+              <MenuItem.Text>{t('LIGHT')}</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
 
@@ -122,7 +124,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
                   <MenuItem.Icon>
                     <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
                   </MenuItem.Icon>
-                  <MenuItem.Text>Language</MenuItem.Text>
+                  <MenuItem.Text>{t('LANGUAGE')}</MenuItem.Text>
                 </MenuItem>
               </MenuDropdown.Main>
             }
@@ -140,13 +142,13 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>French</MenuItem.Text>
+              <MenuItem.Text>Français</MenuItem.Text>
             </MenuItem>
             <MenuItem className="w-full mb-[0.5rem]" variant={'base-100'}>
               <MenuItem.Icon>
                 <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>
               </MenuItem.Icon>
-              <MenuItem.Text>Arabic</MenuItem.Text>
+              <MenuItem.Text>العربية</MenuItem.Text>
             </MenuItem>
           </MenuDropdown>
           <MenuItem
@@ -157,7 +159,7 @@ const AutomaticGateNavbarDropdown = (): JSX.Element => {
             <MenuItem.Icon>
               <FontAwesomeIcon icon={faPowerOff}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>Sign out</MenuItem.Text>
+            <MenuItem.Text>{t('SIGN_OUT')}</MenuItem.Text>
           </MenuItem>
         </Dropdown.Content>
       </Dropdown>
