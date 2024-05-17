@@ -12,6 +12,9 @@ import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 import { TollDistanceService } from 'src/toll-distance/toll-distance.service';
 import { TripPriceInput } from './input/trip-price.input.gql';
 import { TripPriceResult } from './result/trip-price.result.gql';
+import { QRCodeInput } from 'src/shared/graphql/qr-code-input.gql';
+import { compare } from 'bcrypt';
+import { AuthErrors } from 'src/auth/graphql/auth-errors.gql';
 
 @Injectable()
 export class TripService {
@@ -121,7 +124,7 @@ export class TripService {
   public async endTripRfid(
     endTripRfidInput: RfidInput,
     automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
-  ) {
+  ): Promise<boolean> {
     return await this.databaseService.$transaction(async (prisma) => {
       const automaticGate = await prisma.automaticGate.findUniqueOrThrow({
         where: {
@@ -131,13 +134,11 @@ export class TripService {
           toll: true,
         },
       });
-      console.log('log 1 *******************');
 
       const tollPrice = await this.tollPriceService.tollPrice({
         tollId: automaticGate.tollId,
         direction: TollDirectionType.OUTBOUND,
       });
-      console.log('log 2 *******************');
       const rfidTag = await prisma.rfidTag.findUniqueOrThrow({
         where: {
           rfid: endTripRfidInput.rfid,
@@ -146,7 +147,6 @@ export class TripService {
           baseUser: true,
         },
       });
-      console.log('log 3 *******************');
       if (!rfidTag.baseUser.currentTripId) {
         throw new GraphQLError(PrismaErrors.NOT_FOUND);
       }
@@ -155,15 +155,11 @@ export class TripService {
           id: rfidTag.baseUser.currentTripId,
         },
       });
-      console.log('log 4 *******************');
-      console.log('@', trip.entryTollId);
-      console.log('@', automaticGate.tollId);
 
       const tollDistance = await this.tollDistanceService.tollDistance({
         fromTollId: trip.entryTollId,
         toTollId: automaticGate.tollId,
       });
-      console.log('log 5 *******************');
 
       await prisma.trip.update({
         data: {
@@ -176,7 +172,6 @@ export class TripService {
           id: trip.id,
         },
       });
-      console.log('log 6 *******************');
 
       const tripPrice =
         ((trip.entryTollPrice.toNumber() + tollPrice) / 2) * tollDistance;
@@ -190,7 +185,6 @@ export class TripService {
           baseUserId: rfidTag.baseUserId,
         },
       });
-      console.log('log 7 *******************');
       await prisma.baseUser.update({
         data: {
           currentTripId: null,
@@ -199,8 +193,133 @@ export class TripService {
           id: rfidTag.baseUserId,
         },
       });
-      console.log('log 8 *******************');
+      return true;
+    });
+  }
 
+  public async startTripQRCode(
+    startTripQRCodeInput: QRCodeInput,
+    automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
+  ): Promise<boolean> {
+    return await this.databaseService.$transaction(async (prisma) => {
+      const user = await this.databaseService.user.findFirstOrThrow({
+        where: {
+          baseUserId: startTripQRCodeInput.baseUserId,
+        },
+      });
+      const result = await compare(
+        startTripQRCodeInput.pin,
+        user.pinHash || '',
+      );
+      if (!result) {
+        throw new GraphQLError(AuthErrors.INVALID_PIN);
+      }
+
+      const automaticGate = await prisma.automaticGate.findUniqueOrThrow({
+        where: {
+          id: automaticGateAccessTokenPayload.automaticGateId,
+        },
+        include: {
+          toll: true,
+        },
+      });
+      const tollPrice = await this.tollPriceService.tollPrice({
+        tollId: automaticGate.tollId,
+        direction: TollDirectionType.INBOUND,
+      });
+
+      const trip = await this.databaseService.trip.create({
+        data: {
+          entryTollId: automaticGate.tollId,
+          entryTollPrice: tollPrice,
+          entryTimeStamp: new Date(),
+          baseUserId: startTripQRCodeInput.baseUserId,
+        },
+      });
+      await prisma.baseUser.update({
+        data: {
+          currentTripId: trip.id,
+        },
+        where: {
+          id: startTripQRCodeInput.baseUserId,
+        },
+      });
+      return true;
+    });
+  }
+
+  public async endTripQRCode(
+    endTripQRCodeInput: QRCodeInput,
+    automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
+  ): Promise<boolean> {
+    return await this.databaseService.$transaction(async (prisma) => {
+      const automaticGate = await prisma.automaticGate.findUniqueOrThrow({
+        where: {
+          id: automaticGateAccessTokenPayload.automaticGateId,
+        },
+        include: {
+          toll: true,
+        },
+      });
+
+      const tollPrice = await this.tollPriceService.tollPrice({
+        tollId: automaticGate.tollId,
+        direction: TollDirectionType.OUTBOUND,
+      });
+      const user = await prisma.user.findUniqueOrThrow({
+        where: {
+          baseUserId: endTripQRCodeInput.baseUserId,
+        },
+        include: {
+          baseUser: true,
+        },
+      });
+      if (!user.baseUser.currentTripId) {
+        throw new GraphQLError(PrismaErrors.NOT_FOUND);
+      }
+      const trip = await prisma.trip.findUniqueOrThrow({
+        where: {
+          id: user.baseUser.currentTripId,
+        },
+      });
+
+      const tollDistance = await this.tollDistanceService.tollDistance({
+        fromTollId: trip.entryTollId,
+        toTollId: automaticGate.tollId,
+      });
+
+      await prisma.trip.update({
+        data: {
+          exitTollId: automaticGate.tollId,
+          exitTollPrice: tollPrice,
+          exitTimeStamp: new Date(),
+          distance: tollDistance,
+        },
+        where: {
+          id: trip.id,
+        },
+      });
+
+      const tripPrice =
+        ((trip.entryTollPrice.toNumber() + tollPrice) / 2) * tollDistance;
+      await prisma.user.update({
+        data: {
+          balance: {
+            decrement: tripPrice,
+          },
+        },
+        where: {
+          baseUserId: user.baseUserId,
+        },
+      });
+      await prisma.baseUser.update({
+        data: {
+          currentTripId: null,
+        },
+        where: {
+          id: user.baseUserId,
+        },
+      });
       return true;
     });
   }

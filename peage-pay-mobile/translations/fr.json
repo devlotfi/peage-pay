@@ -54,6 +54,8 @@
   "TOLL_INFO": "Informations",
   "NAME": "Nom",
   "HIGHWAY": "Autoroute",
+  "CLOSE": "Fermer",
+  "PAYMENT_SUCCESSFUL": "Paiment effectué",
 
   "Home": "Acceuil",
   "Balance": "Solde",

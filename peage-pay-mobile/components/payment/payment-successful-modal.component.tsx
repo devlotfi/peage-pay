@@ -28,7 +28,7 @@ const PaymentSuccessfulModal = ({
             contentFit="contain"
             style={styles.image}
           ></Image>
-          <UIText style={styles.infoText}>Payment successful</UIText>
+          <UIText style={styles.infoText}>{t('PAYMENT_SUCCESSFUL')}</UIText>
           <UIButton
             variant="base-200"
             iconPosition="right"

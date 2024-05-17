@@ -162,6 +162,7 @@ export enum AuthErrors {
   EmailAlreadyVerified = 'EMAIL_ALREADY_VERIFIED',
   EmailVerificationAttemptsExceeded = 'EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
   InvalidEmailOrPassword = 'INVALID_EMAIL_OR_PASSWORD',
+  InvalidPin = 'INVALID_PIN',
   PasswordResetAttemptsExceeded = 'PASSWORD_RESET_ATTEMPTS_EXCEEDED',
   SignInWithEmaIlAttemptsExceeded = 'SIGN_IN_WITH_EMAIl_ATTEMPTS_EXCEEDED',
   VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING'
@@ -255,12 +256,6 @@ export type ChangeTollInput = {
   tollId?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ChangeTollStatusInput = {
-  inboundStatus: TollStatusType;
-  outboundStatus: TollStatusType;
-  tollId: Scalars['String']['input'];
-};
-
 export type CustomPriceListResult = {
   __typename?: 'CustomPriceListResult';
   count: Scalars['Float']['output'];
@@ -296,10 +291,6 @@ export enum DayOfWeekType {
   Tuesday = 'TUESDAY',
   Wednesday = 'WEDNESDAY'
 }
-
-export type DefinePinInput = {
-  pin: Scalars['String']['input'];
-};
 
 export type DeleteSectionInput = {
   fromTollId: Scalars['String']['input'];
@@ -337,9 +328,7 @@ export type EditHighwayInput = {
 
 export type EditSectionInput = {
   distance: Scalars['Float']['input'];
-  fromStatus: SectionStatusType;
   fromTollId: Scalars['String']['input'];
-  toStatus: SectionStatusType;
   toTollId: Scalars['String']['input'];
 };
 
@@ -352,11 +341,9 @@ export type EditSubscriptionInput = {
 
 export type EditTollInput = {
   highwayId?: InputMaybe<Scalars['String']['input']>;
-  inboundStatus?: InputMaybe<TollStatusType>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  outboundStatus?: InputMaybe<TollStatusType>;
   tollId: Scalars['String']['input'];
   wilayaId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -389,6 +376,14 @@ export type GateAdminType = {
   tollId?: Maybe<Scalars['String']['output']>;
 };
 
+export type GeneralAdminStatistics = {
+  __typename?: 'GeneralAdminStatistics';
+  highwayCount: Scalars['Float']['output'];
+  humanRessourcesAdminCount: Scalars['Float']['output'];
+  subscriptionsCount: Scalars['Float']['output'];
+  tollNetworksCount: Scalars['Float']['output'];
+};
+
 export type HighwayListInput = {
   codeSearch?: InputMaybe<Scalars['String']['input']>;
   idSearch?: InputMaybe<Scalars['String']['input']>;
@@ -418,6 +413,14 @@ export type HighwayType = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type HumanRessourcesAdminStatistics = {
+  __typename?: 'HumanRessourcesAdminStatistics';
+  gateAdminCount: Scalars['Float']['output'];
+  moderatorCount: Scalars['Float']['output'];
+  tollAdminCount: Scalars['Float']['output'];
+  userCount: Scalars['Float']['output'];
+};
+
 export type IdInput = {
   id: Scalars['String']['input'];
 };
@@ -434,6 +437,12 @@ export type ModeratorListResult = {
   __typename?: 'ModeratorListResult';
   count: Scalars['Float']['output'];
   list: Array<ModeratorType>;
+};
+
+export type ModeratorStatistics = {
+  __typename?: 'ModeratorStatistics';
+  rfidTagCount: Scalars['Float']['output'];
+  userCount: Scalars['Float']['output'];
 };
 
 export type ModeratorType = {
@@ -489,8 +498,6 @@ export type Mutation = {
   addTollNetwork: TollNetworkType;
   changeGateAdminToll: Scalars['Boolean']['output'];
   changeTollAdminToll: Scalars['Boolean']['output'];
-  changeTollStatus: Scalars['Boolean']['output'];
-  definePin: Scalars['Boolean']['output'];
   deleteAutomaticGate: Scalars['Boolean']['output'];
   deleteBaseUser: Scalars['Boolean']['output'];
   deleteGlobalPrice: Scalars['Boolean']['output'];
@@ -509,6 +516,7 @@ export type Mutation = {
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  endTripQRCode: Scalars['Boolean']['output'];
   endTripRfid: Scalars['Boolean']['output'];
   generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
@@ -527,6 +535,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  startTripQRCode: Scalars['Boolean']['output'];
   startTripRfid: Scalars['Boolean']['output'];
   validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
@@ -605,16 +614,6 @@ export type MutationChangeGateAdminTollArgs = {
 
 export type MutationChangeTollAdminTollArgs = {
   changeTollAdminTollInput: ChangeTollInput;
-};
-
-
-export type MutationChangeTollStatusArgs = {
-  changeTollStatusInput: ChangeTollStatusInput;
-};
-
-
-export type MutationDefinePinArgs = {
-  definePinInput: DefinePinInput;
 };
 
 
@@ -708,6 +707,11 @@ export type MutationEditTollNetworkArgs = {
 };
 
 
+export type MutationEndTripQrCodeArgs = {
+  endTripQRCodeInput: QrCodeInput;
+};
+
+
 export type MutationEndTripRfidArgs = {
   endTripRfidInput: RfidInput;
 };
@@ -780,6 +784,11 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
+export type MutationStartTripQrCodeArgs = {
+  startTripQRCodeInput: QrCodeInput;
+};
+
+
 export type MutationStartTripRfidArgs = {
   startTripRfidInput: RfidInput;
 };
@@ -830,6 +839,11 @@ export enum PrismaErrors {
   UniqueConstraintViolation = 'UNIQUE_CONSTRAINT_VIOLATION'
 }
 
+export type QrCodeInput = {
+  baseUserId: Scalars['String']['input'];
+  pin: Scalars['String']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   automaticGateById?: Maybe<AutomaticGateType>;
@@ -846,19 +860,23 @@ export type Query = {
   gateAdminById?: Maybe<GateAdminType>;
   gateAdminInfo?: Maybe<GateAdminType>;
   gateAdminList: GateAdminListResult;
+  generalAdminStatistics: GeneralAdminStatistics;
+  generatePin: Scalars['String']['output'];
   globalSectionList: Array<SectionType>;
   globalTollList: Array<TollType>;
   highwayById?: Maybe<HighwayType>;
   highwayList: HighwayListResult;
+  humanRessourcesAdminStatistics: HumanRessourcesAdminStatistics;
   lol: Scalars['String']['output'];
   moderatorList: ModeratorListResult;
+  moderatorStatistics: ModeratorStatistics;
   monthlyPriceGlobalList: MonthlyPriceListResult;
   monthlyPriceLocalList: MonthlyPriceListResult;
   rfidTagByRfid?: Maybe<RfidTagType>;
   rfidTagList: RfidTagListResult;
   sectionByIds?: Maybe<SectionType>;
-  sectionListForToll: SectionListResult;
   sectionListForTollNetwork: Array<SectionType>;
+  sectionListForTollNetworkPaginated: SectionListResult;
   signInAutomaticGateRefreshToken: SignInAutomaticGateResult;
   signInWithRefreshToken: SignInWithRefreshTokenResult;
   signInWithRefreshTokenCookie: SignInWithRefreshTokenResult;
@@ -868,6 +886,7 @@ export type Query = {
   tollAdminById?: Maybe<TollAdminType>;
   tollAdminInfo?: Maybe<TollAdminType>;
   tollAdminList: TollAdminListResult;
+  tollAdminStatistics: TollAdminStatistics;
   tollById: TollType;
   tollDistance: Scalars['Float']['output'];
   tollDistanceList: TollDistanceListResult;
@@ -983,13 +1002,13 @@ export type QuerySectionByIdsArgs = {
 };
 
 
-export type QuerySectionListForTollArgs = {
-  sectionListForTollInput: SectionListForTollInput;
+export type QuerySectionListForTollNetworkArgs = {
+  sectionListForTollNetworkInput: IdInput;
 };
 
 
-export type QuerySectionListForTollNetworkArgs = {
-  sectionListForTollNetworkInput: IdInput;
+export type QuerySectionListForTollNetworkPaginatedArgs = {
+  sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput;
 };
 
 
@@ -1157,7 +1176,7 @@ export type SectionByIdsInput = {
   toTollId: Scalars['String']['input'];
 };
 
-export type SectionListForTollInput = {
+export type SectionListForTollNetworkPaginatedInput = {
   id: Scalars['String']['input'];
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
@@ -1169,20 +1188,11 @@ export type SectionListResult = {
   list: Array<SectionType>;
 };
 
-export enum SectionStatusType {
-  Blocked = 'BLOCKED',
-  HighTraffic = 'HIGH_TRAFFIC',
-  ModerateTraffic = 'MODERATE_TRAFFIC',
-  NormalTraffic = 'NORMAL_TRAFFIC'
-}
-
 export type SectionType = {
   __typename?: 'SectionType';
   distance: Scalars['Float']['output'];
-  fromStatus: SectionStatusType;
   fromToll: TollType;
   fromTollId: Scalars['String']['output'];
-  toStatus: SectionStatusType;
   toToll: TollType;
   toTollId: Scalars['String']['output'];
 };
@@ -1331,6 +1341,15 @@ export type TollAdminListResult = {
   list: Array<TollAdminType>;
 };
 
+export type TollAdminStatistics = {
+  __typename?: 'TollAdminStatistics';
+  automaticGateCount: Scalars['Float']['output'];
+  localGateAdminCount: Scalars['Float']['output'];
+  qrCodeReaderCount: Scalars['Float']['output'];
+  rfidReaderCount: Scalars['Float']['output'];
+  ticketPrinterCount: Scalars['Float']['output'];
+};
+
 export type TollAdminType = {
   __typename?: 'TollAdminType';
   baseUser: BaseUserType;
@@ -1435,24 +1454,15 @@ export enum TollSearchFields {
   WilayaNameSearch = 'wilayaNameSearch'
 }
 
-export enum TollStatusType {
-  HighTraffic = 'HIGH_TRAFFIC',
-  ModerateTraffic = 'MODERATE_TRAFFIC',
-  NormalTraffic = 'NORMAL_TRAFFIC',
-  OutOfService = 'OUT_OF_SERVICE'
-}
-
 export type TollType = {
   __typename?: 'TollType';
   createdAt: Scalars['DateTime']['output'];
   highway: HighwayType;
   highwayId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  inboundStatus: TollStatusType;
   latitude: Scalars['Float']['output'];
   longitude: Scalars['Float']['output'];
   name: Scalars['String']['output'];
-  outboundStatus: TollStatusType;
   tollNetwork: TollNetworkType;
   tollNetworkId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1553,20 +1563,20 @@ export type YearlyPriceType = {
   startDate: Scalars['DateTime']['output'];
 };
 
-export type Start_Trip_RfidMutationVariables = Exact<{
-  startTripRfidInput: RfidInput;
+export type Start_Trip_Qr_CodeMutationVariables = Exact<{
+  startTripQrCodeInput: QrCodeInput;
 }>;
 
 
-export type Start_Trip_RfidMutation = { __typename?: 'Mutation', startTripRfid: boolean };
+export type Start_Trip_Qr_CodeMutation = { __typename?: 'Mutation', startTripQRCode: boolean };
 
-export type End_Trip_RfidMutationVariables = Exact<{
-  endTripRfidInput: RfidInput;
+export type End_Trip_Qr_CodeMutationVariables = Exact<{
+  endTripQrCodeInput: QrCodeInput;
 }>;
 
 
-export type End_Trip_RfidMutation = { __typename?: 'Mutation', endTripRfid: boolean };
+export type End_Trip_Qr_CodeMutation = { __typename?: 'Mutation', endTripQRCode: boolean };
 
 
-export const Start_Trip_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"START_TRIP_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startTripRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startTripRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"startTripRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startTripRfidInput"}}}]}]}}]} as unknown as DocumentNode<Start_Trip_RfidMutation, Start_Trip_RfidMutationVariables>;
-export const End_Trip_RfidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"END_TRIP_RFID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endTripRfidInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RfidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endTripRfid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"endTripRfidInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endTripRfidInput"}}}]}]}}]} as unknown as DocumentNode<End_Trip_RfidMutation, End_Trip_RfidMutationVariables>;
+export const Start_Trip_Qr_CodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"START_TRIP_QR_CODE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startTripQrCodeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"QRCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startTripQRCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"startTripQRCodeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startTripQrCodeInput"}}}]}]}}]} as unknown as DocumentNode<Start_Trip_Qr_CodeMutation, Start_Trip_Qr_CodeMutationVariables>;
+export const End_Trip_Qr_CodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"END_TRIP_QR_CODE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endTripQrCodeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"QRCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endTripQRCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"endTripQRCodeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endTripQrCodeInput"}}}]}]}}]} as unknown as DocumentNode<End_Trip_Qr_CodeMutation, End_Trip_Qr_CodeMutationVariables>;

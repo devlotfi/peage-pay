@@ -21,7 +21,7 @@ const TollMapMarker = ({
   onPressed,
 }: TollMapMarkerProps): JSX.Element => {
   const { theme } = useAppTheme();
-  const styles = makeStyles(theme, toll, selected);
+  const styles = makeStyles(theme, selected);
 
   return (
     <MapMarker coordinate={coordinates} onPress={() => onPressed(toll)}>
@@ -36,14 +36,13 @@ const TollMapMarker = ({
   );
 };
 
-const makeStyles = (theme: AppTheme, toll: TollType, selected: boolean) =>
+const makeStyles = (theme: AppTheme, selected: boolean) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
     },
     tollName: {
-      fontSize: selected ? 19 : 14,
-      fontWeight: selected ? 'bold' : 'normal',
+      fontSize: 14,
       color: selected ? theme['color-content'] : theme['base-content'],
     },
     main: {
@@ -51,7 +50,6 @@ const makeStyles = (theme: AppTheme, toll: TollType, selected: boolean) =>
       padding: 10,
       borderRadius: 10,
       borderColor: theme['edge-200'],
-      borderWidth: selected ? 0 : 1,
       marginTop: 5,
       flexDirection: 'row',
     },

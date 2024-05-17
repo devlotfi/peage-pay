@@ -19,6 +19,7 @@ import { RfidInput } from 'src/shared/graphql/rfid-input.gql';
 import { AutomaticGateAccessTokenPayload } from 'src/automatic-gate/types/automatic-gate-access-token-payload.type';
 import { TollType } from 'src/toll/graphql/toll.gql';
 import { TollService } from 'src/toll/toll.service';
+import { QRCodeInput } from 'src/shared/graphql/qr-code-input.gql';
 
 @Resolver(() => TripType)
 export class TripResolver {
@@ -65,6 +66,32 @@ export class TripResolver {
   ) {
     return await this.tripService.endTripRfid(
       endTripRfidInput,
+      automaticGateAccessTokenPayload,
+    );
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AutomaticGateAuthGuard)
+  public async startTripQRCode(
+    @Args('startTripQRCodeInput') startTripQRCodeInput: QRCodeInput,
+    @ContextAccessTokenPayload()
+    automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
+  ) {
+    return await this.tripService.startTripQRCode(
+      startTripQRCodeInput,
+      automaticGateAccessTokenPayload,
+    );
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AutomaticGateAuthGuard)
+  public async endTripQRCode(
+    @Args('endTripQRCodeInput') endTripQRCodeInput: QRCodeInput,
+    @ContextAccessTokenPayload()
+    automaticGateAccessTokenPayload: AutomaticGateAccessTokenPayload,
+  ) {
+    return await this.tripService.endTripQRCode(
+      endTripQRCodeInput,
       automaticGateAccessTokenPayload,
     );
   }

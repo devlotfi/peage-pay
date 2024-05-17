@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation START_TRIP_RFID($startTripRfidInput: RfidInput!) {\n    startTripRfid(startTripRfidInput: $startTripRfidInput)\n  }\n": types.Start_Trip_RfidDocument,
-    "\n  mutation END_TRIP_RFID($endTripRfidInput: RfidInput!) {\n    endTripRfid(endTripRfidInput: $endTripRfidInput)\n  }\n": types.End_Trip_RfidDocument,
+    "\n  mutation START_TRIP_QR_CODE($startTripQrCodeInput: QRCodeInput!) {\n    startTripQRCode(startTripQRCodeInput: $startTripQrCodeInput)\n  }\n": types.Start_Trip_Qr_CodeDocument,
+    "\n  mutation END_TRIP_QR_CODE($endTripQrCodeInput: QRCodeInput!) {\n    endTripQRCode(endTripQRCodeInput: $endTripQrCodeInput)\n  }\n": types.End_Trip_Qr_CodeDocument,
 };
 
 /**
@@ -34,11 +34,11 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation START_TRIP_RFID($startTripRfidInput: RfidInput!) {\n    startTripRfid(startTripRfidInput: $startTripRfidInput)\n  }\n"): (typeof documents)["\n  mutation START_TRIP_RFID($startTripRfidInput: RfidInput!) {\n    startTripRfid(startTripRfidInput: $startTripRfidInput)\n  }\n"];
+export function gql(source: "\n  mutation START_TRIP_QR_CODE($startTripQrCodeInput: QRCodeInput!) {\n    startTripQRCode(startTripQRCodeInput: $startTripQrCodeInput)\n  }\n"): (typeof documents)["\n  mutation START_TRIP_QR_CODE($startTripQrCodeInput: QRCodeInput!) {\n    startTripQRCode(startTripQRCodeInput: $startTripQrCodeInput)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation END_TRIP_RFID($endTripRfidInput: RfidInput!) {\n    endTripRfid(endTripRfidInput: $endTripRfidInput)\n  }\n"): (typeof documents)["\n  mutation END_TRIP_RFID($endTripRfidInput: RfidInput!) {\n    endTripRfid(endTripRfidInput: $endTripRfidInput)\n  }\n"];
+export function gql(source: "\n  mutation END_TRIP_QR_CODE($endTripQrCodeInput: QRCodeInput!) {\n    endTripQRCode(endTripQRCodeInput: $endTripQrCodeInput)\n  }\n"): (typeof documents)["\n  mutation END_TRIP_QR_CODE($endTripQrCodeInput: QRCodeInput!) {\n    endTripQRCode(endTripQRCodeInput: $endTripQrCodeInput)\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
