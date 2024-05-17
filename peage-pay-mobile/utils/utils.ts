@@ -11,16 +11,16 @@ export class Utils {
 
   public static formatDateTime(date: Date): string {
     return `${date.getFullYear()}/${Utils.formatSingleDigit(
-      date.getMonth(),
-    )}/${Utils.formatSingleDigit(date.getDay())} ${Utils.formatSingleDigit(
+      date.getMonth() + 1,
+    )}/${Utils.formatSingleDigit(date.getDate())} ${Utils.formatSingleDigit(
       date.getHours(),
     )}:${Utils.formatSingleDigit(date.getMinutes())}`;
   }
 
   public static formatDate(date: Date): string {
     return `${date.getFullYear()}/${Utils.formatSingleDigit(
-      date.getMonth(),
-    )}/${Utils.formatSingleDigit(date.getDay())}`;
+      date.getMonth() + 1,
+    )}/${Utils.formatSingleDigit(date.getDate())}`;
   }
 
   public static formatTime(date: Date): string {

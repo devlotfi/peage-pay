@@ -5,6 +5,7 @@ import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import UIButton from '../../elements/ui-button/ui-button.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
 
 interface PaymentSuccessfulModalProps extends ModalProps {
   onClose: () => void;
@@ -14,6 +15,7 @@ const PaymentSuccessfulModal = ({
   onClose,
   ...props
 }: PaymentSuccessfulModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -32,7 +34,7 @@ const PaymentSuccessfulModal = ({
             iconPosition="right"
             onPress={() => onClose()}
           >
-            <UIButton.Content>Close</UIButton.Content>
+            <UIButton.Content>{t('CLOSE')}</UIButton.Content>
             <UIButton.Icon icon={faTimes}></UIButton.Icon>
           </UIButton>
         </View>

@@ -148,7 +148,7 @@ const ResetPasswordScreen = ({ navigation }: Props): JSX.Element => {
                 style={styles.back}
                 iconPosition="right"
               >
-                <UIButtonOutline.Content>Back</UIButtonOutline.Content>
+                <UIButtonOutline.Content>{t('BACK')}</UIButtonOutline.Content>
                 <UIButtonOutline.Icon icon={faBackward}></UIButtonOutline.Icon>
               </UIButtonOutline>
             </ScrollView>

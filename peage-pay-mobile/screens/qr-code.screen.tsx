@@ -2,53 +2,57 @@ import { StyleSheet, View } from 'react-native';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import type { StackScreenProps } from '@react-navigation/stack';
-import UITabs from '../elements/ui-tabs/ui-tabs.component';
-import { faKey, faQrcode } from '@fortawesome/free-solid-svg-icons';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
-import { useState } from 'react';
-import DefinePinForm from '../components/qr-code/define-pin-form.component';
-import GenerateQrCode from '../components/qr-code/generate-qr-code.component';
+import { useContext } from 'react';
+import QRCode from 'react-qr-code';
+import { AuthContext } from '../context/auth.context';
+import UIHeading from '../elements/ui-heading/ui-heading.component';
+import UIText from '../elements/ui-text/ui-text.component';
+import FullScreenLoading from '../layout/full-screen-loading.component';
+import { useQuery } from '@apollo/client';
+import { GENERATE_PIN } from '../graphql/queries';
+import FullScreenError from '../layout/full-screen-error.component';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;
 
-type Tab = 'DEFINE_PIN' | 'QR_CODE';
-
 const QrCodeScreen = (): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
-  const [tab, setTab] = useState<Tab>('QR_CODE');
+  const { authData } = useContext(AuthContext);
 
-  const renderTab = () => {
-    switch (tab) {
-      case 'DEFINE_PIN':
-        return <DefinePinForm></DefinePinForm>;
+  const { loading, error, data } = useQuery(GENERATE_PIN, {
+    fetchPolicy: 'network-only',
+  });
 
-      case 'QR_CODE':
-        return <GenerateQrCode></GenerateQrCode>;
-    }
+  const getQRCodeDataString = () => {
+    const qrCodeData = {
+      baseUserId: authData?.baseUser.id,
+      pin: data?.generatePin,
+    };
+
+    return JSON.stringify(qrCodeData);
   };
 
   return (
     <View style={styles.page}>
-      <UITabs>
-        <UITabs.Item
-          onPress={() => setTab('DEFINE_PIN')}
-          variant={tab === 'DEFINE_PIN' ? 'active' : 'inactive'}
-        >
-          <UITabs.Icon icon={faKey}></UITabs.Icon>
-          <UITabs.Content>Code pin</UITabs.Content>
-        </UITabs.Item>
-        <UITabs.Item
-          onPress={() => setTab('QR_CODE')}
-          variant={tab === 'QR_CODE' ? 'active' : 'inactive'}
-        >
-          <UITabs.Icon icon={faQrcode}></UITabs.Icon>
-          <UITabs.Content>Qr Code</UITabs.Content>
-        </UITabs.Item>
-      </UITabs>
-
-      {renderTab()}
+      <UIHeading style={{ marginLeft: 5, marginVertical: 20 }} size={25}>
+        <UIHeading.Icon position="left" icon={faQrcode}></UIHeading.Icon>
+        <UIHeading.Text>{t('QR_CODE')}</UIHeading.Text>
+      </UIHeading>
+      <FullScreenLoading loading={loading}>
+        <FullScreenError error={error}>
+          <View style={styles.container}>
+            <UIText style={styles.text}>{t('USE_QR_CODE')}</UIText>
+            <View style={styles.card}>
+              <QRCode value={getQRCodeDataString()}></QRCode>
+            </View>
+          </View>
+        </FullScreenError>
+      </FullScreenLoading>
     </View>
   );
 };
@@ -59,6 +63,24 @@ const makeStyles = (theme: AppTheme) =>
       backgroundColor: theme['base-100'],
       flex: 1,
       padding: 10,
+    },
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    card: {
+      borderColor: theme['edge-100'],
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor: '#FFFFFF',
+    },
+    text: {
+      color: theme['base-content'],
+      fontSize: 17,
+      fontWeight: 'bold',
+      marginBottom: 10,
     },
   });
 

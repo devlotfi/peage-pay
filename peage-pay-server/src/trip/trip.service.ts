@@ -30,6 +30,9 @@ export class TripService {
           id: userAccessTokenPayload.userId,
         },
       },
+      orderBy: {
+        entryTimeStamp: 'desc',
+      },
     });
   }
 

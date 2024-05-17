@@ -10,6 +10,7 @@ import { TRIP_PRICE } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
 import FullScreenError from '../../layout/full-screen-error.component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useTranslation } from 'react-i18next';
 
 interface TripPriceDetailsProps {
   fromToll: TollType;
@@ -22,6 +23,7 @@ const TripPriceDetails = ({
   toToll,
   onBack,
 }: TripPriceDetailsProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -60,7 +62,7 @@ const TripPriceDetails = ({
       <View style={styles.header}>
         <UIButton onPress={onBack} variant="base-200">
           <UIButton.Icon icon={faCaretLeft}></UIButton.Icon>
-          <UIButton.Content>Retour</UIButton.Content>
+          <UIButton.Content>{t('BACK')}</UIButton.Content>
         </UIButton>
       </View>
 
@@ -68,11 +70,11 @@ const TripPriceDetails = ({
         <FullScreenError error={error}>
           <View style={styles.infoCard}>
             <View style={styles.infoRow}>
-              <UIText style={styles.infoName}>Arrivée:</UIText>
+              <UIText style={styles.infoName}>{t('DEPARTURE')}:</UIText>
               <UIText style={styles.infoContent}>{fromToll.name}</UIText>
             </View>
             <View style={styles.infoRow}>
-              <UIText style={styles.infoName}>Tarif:</UIText>
+              <UIText style={styles.infoName}>{t('TOLL_PRICE')}:</UIText>
               <UIText style={styles.infoContent}>
                 {data?.tripPrice.fromTollPrice} DZD/KM
               </UIText>
@@ -87,11 +89,11 @@ const TripPriceDetails = ({
           </View>
           <View style={styles.infoCard}>
             <View style={styles.infoRow}>
-              <UIText style={styles.infoName}>Arrivée:</UIText>
+              <UIText style={styles.infoName}>{t('ARRIVAL')}:</UIText>
               <UIText style={styles.infoContent}>{toToll.name}</UIText>
             </View>
             <View style={styles.infoRow}>
-              <UIText style={styles.infoName}>Tarif:</UIText>
+              <UIText style={styles.infoName}>{t('TOLL_PRICE')}:</UIText>
               <UIText style={styles.infoContent}>
                 {data?.tripPrice.toTollPrice} DZD/KM
               </UIText>
@@ -101,13 +103,13 @@ const TripPriceDetails = ({
           <View style={styles.totalContainer}>
             <View style={styles.totalInfoCard}>
               <View style={styles.infoRow}>
-                <UIText style={styles.infoName}>Tarif appliqué:</UIText>
+                <UIText style={styles.infoName}>{t('APPLIED_PRICE')}:</UIText>
                 <UIText style={styles.infoContent}>
                   {calculateAplliedPrice()} DZD/KM
                 </UIText>
               </View>
               <View style={styles.infoRow}>
-                <UIText style={styles.infoName}>Distance:</UIText>
+                <UIText style={styles.infoName}>{t('DISTANCE')}:</UIText>
                 <UIText style={styles.infoContent}>
                   {data?.tripPrice.distance} KM
                 </UIText>

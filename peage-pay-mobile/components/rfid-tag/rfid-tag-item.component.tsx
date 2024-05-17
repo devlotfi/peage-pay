@@ -4,34 +4,32 @@ import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import UIText from '../../elements/ui-text/ui-text.component';
 import { RfidTagType } from '../../__generated__/graphql';
 import { Utils } from '../../utils/utils';
+import { useTranslation } from 'react-i18next';
 
 interface RfidTagItemProps {
   rfidTag: RfidTagType;
 }
 
 const RfidTagItem = ({ rfidTag }: RfidTagItemProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
   return (
     <View style={styles.main}>
       <View style={styles.infoRow}>
-        <UIText style={styles.infoName}>Rfid:</UIText>
+        <UIText style={styles.infoName}>{t('RFID')}:</UIText>
         <UIText style={styles.infoContent}>{rfidTag.rfid}</UIText>
       </View>
       <View style={styles.infoRow}>
-        <UIText style={styles.infoName}>Matricule:</UIText>
+        <UIText style={styles.infoName}>{t('REGISTRATION_NUMBER')}:</UIText>
         <UIText style={styles.infoContent}>{rfidTag.registrationNumber}</UIText>
       </View>
       <View style={styles.infoRow}>
-        <UIText style={styles.infoName}>Date assignation:</UIText>
+        <UIText style={styles.infoName}>{t('ASSIGNATION_DATE')}:</UIText>
         <UIText style={styles.infoContent}>
           {Utils.formatDateTime(new Date(rfidTag.createdAt))}
         </UIText>
-      </View>
-      <View style={styles.infoRow}>
-        <UIText style={styles.infoName}>Identifiant:</UIText>
-        <UIText style={styles.infoContent}>{rfidTag.id}</UIText>
       </View>
     </View>
   );

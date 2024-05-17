@@ -8,6 +8,7 @@ import { BottomTabsNavigatorParamList } from '../navigators/router';
 import { useState } from 'react';
 import RedeemCodeForm from '../components/payment/redeem-code-form.component';
 import DepositAmountForm from '../components/payment/deposit-amount.component';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;
@@ -15,6 +16,7 @@ type Props = StackScreenProps<BottomTabsNavigatorParamList, 'Deposit'>;
 type Tab = 'CARD' | 'CODE';
 
 const DepositScreen = (): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const [tab, setTab] = useState<Tab>('CODE');
@@ -37,14 +39,14 @@ const DepositScreen = (): JSX.Element => {
           variant={tab === 'CODE' ? 'active' : 'inactive'}
         >
           <UITabs.Icon icon={faTicket}></UITabs.Icon>
-          <UITabs.Content>Code</UITabs.Content>
+          <UITabs.Content>{t('CODE')}</UITabs.Content>
         </UITabs.Item>
         <UITabs.Item
           onPress={() => setTab('CARD')}
           variant={tab === 'CARD' ? 'active' : 'inactive'}
         >
           <UITabs.Icon icon={faCreditCard}></UITabs.Icon>
-          <UITabs.Content>Carte</UITabs.Content>
+          <UITabs.Content>{t('CARD')}</UITabs.Content>
         </UITabs.Item>
       </UITabs>
 

@@ -35,12 +35,6 @@ export const SIGN_OUT = gql(`
   }
 `);
 
-export const DEFINE_PIN = gql(`
-  mutation DEFINE_PIN($definePinInput: DefinePinInput!) {
-    definePin(definePinInput: $definePinInput)
-  }
-`);
-
 export const REDEEM_CODE = gql(`
   mutation REDEEM_CODE($redeemCodeInput: RedeemCodeInput!) {
     redeemCode(redeemCodeInput: $redeemCodeInput)

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { randomBytes } from 'crypto';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { DatabaseService } from 'src/database/database.service';
-import { DefinePinInput } from './input/define-pin.input.gql';
 import { Utils } from 'src/shared/utils';
 
 @Injectable()
@@ -19,18 +19,25 @@ export class UserService {
     });
   }
 
-  public async definePin(
-    definePinInput: DefinePinInput,
+  private generatePinString(): string {
+    const tokenLength = 128;
+    const size = Math.floor(tokenLength / 2);
+    const token = randomBytes(size).toString('hex');
+    return token;
+  }
+
+  public async generatePin(
     userAccessTokenPayload: UserAccessTokenPayload,
-  ): Promise<boolean> {
+  ): Promise<string> {
+    const pin = this.generatePinString();
     await this.databaseService.user.update({
       data: {
-        pinHash: await Utils.hashString(definePinInput.pin),
+        pinHash: await Utils.hashString(pin),
       },
       where: {
         baseUserId: userAccessTokenPayload.userId,
       },
     });
-    return true;
+    return pin;
   }
 }

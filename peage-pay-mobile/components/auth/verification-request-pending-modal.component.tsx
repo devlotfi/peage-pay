@@ -5,6 +5,7 @@ import { useAppTheme } from '../../hooks/use-app-theme.hook';
 import UIButton from '../../elements/ui-button/ui-button.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
 
 interface VerificationRequestPendingModalProps extends ModalProps {
   onClose: () => void;
@@ -14,6 +15,7 @@ const VerificationRequestPendingModal = ({
   onClose,
   ...props
 }: VerificationRequestPendingModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -27,7 +29,7 @@ const VerificationRequestPendingModal = ({
             style={styles.image}
           ></Image>
           <UIText style={styles.infoText}>
-            A verification email has been sent
+            {t('VERIFICATIOn_REQUEST_SENT')}
           </UIText>
           <UIButton
             variant="base-200"

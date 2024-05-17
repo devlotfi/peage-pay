@@ -11,6 +11,7 @@ import {
 import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 import UIButton from '../../elements/ui-button/ui-button.component';
 import UIButtonOutline from '../../elements/ui-button-outline/ui-button-outline.component';
+import { useTranslation } from 'react-i18next';
 
 interface TripSelectionDetailsProps {
   fromToll: TollType | null;
@@ -31,13 +32,14 @@ const TripSelectionDetails = ({
   onResetToToll,
   onCalculatePrice,
 }: TripSelectionDetailsProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
   return (
     <View style={styles.main}>
       <View style={styles.header}>
-        <UIText style={styles.title}>Definir trajet</UIText>
+        <UIText style={styles.title}>{t('DEFINE_TRIP')}</UIText>
         <UIButton onPress={onClose} variant="base-200">
           <UIButton.Icon
             style={{ marginRight: 0 } as ViewProps}
@@ -48,9 +50,9 @@ const TripSelectionDetails = ({
 
       <View style={styles.infoCard}>
         <View style={styles.textContainer}>
-          <UIText style={styles.infoName}>Depart:</UIText>
+          <UIText style={styles.infoName}>{t('DEPARTURE')}:</UIText>
           <UIText style={[styles.infoContent, !fromToll && styles.notDefined]}>
-            {fromToll?.name ? fromToll?.name : 'Non Defini'}
+            {fromToll?.name ? fromToll?.name : t('NOT_DEFINED')}
           </UIText>
         </View>
 
@@ -84,9 +86,9 @@ const TripSelectionDetails = ({
       </View>
       <View style={styles.infoCard}>
         <View style={styles.textContainer}>
-          <UIText style={styles.infoName}>Arrivée:</UIText>
+          <UIText style={styles.infoName}>{t('ARRIVAL')}:</UIText>
           <UIText style={[styles.infoContent, !toToll && styles.notDefined]}>
-            {toToll?.name ? toToll?.name : 'Non Defini'}
+            {toToll?.name ? toToll?.name : t('NOT_DEFINED')}
           </UIText>
         </View>
 
@@ -109,7 +111,9 @@ const TripSelectionDetails = ({
         variant="primary"
       >
         <UIButtonOutline.Icon icon={faCalculator}></UIButtonOutline.Icon>
-        <UIButtonOutline.Content>Calculer prix</UIButtonOutline.Content>
+        <UIButtonOutline.Content>
+          {t('CALCULATE_PRICE')}
+        </UIButtonOutline.Content>
       </UIButtonOutline>
     </View>
   );

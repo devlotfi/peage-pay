@@ -12,11 +12,13 @@ import FullScreenError from '../layout/full-screen-error.component';
 import EmptyList from '../layout/empty-list.component';
 import RfidTagItem from '../components/rfid-tag/rfid-tag-item.component';
 import { RfidTagType } from '../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Badges'>;
 
 const BadgesScreen = (): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -48,9 +50,9 @@ const BadgesScreen = (): JSX.Element => {
           style={styles.page}
           contentContainerStyle={styles.pageScrollContent}
         >
-          <UIHeading style={{ marginLeft: 20 }} size={30}>
+          <UIHeading style={{ marginLeft: 20 }} size={25}>
             <UIHeading.Icon position="left" icon={faIdBadge}></UIHeading.Icon>
-            <UIHeading.Text>Badges</UIHeading.Text>
+            <UIHeading.Text>{t('BADGES')}</UIHeading.Text>
           </UIHeading>
 
           <View style={styles.rfidTagList}>{renderRfidTagList()}</View>

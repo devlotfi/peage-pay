@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import FullScreenError from '../layout/full-screen-error.component';
 import EmptyList from '../layout/empty-list.component';
 import { Image } from 'expo-image';
-import TripItem from '../components/trip/deposit-item.component';
+import TripItem from '../components/trip/trip-item.component';
 import { TripType } from '../__generated__/graphql';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -64,14 +64,14 @@ const HomeScreen = (): JSX.Element => {
           style={styles.page}
           contentContainerStyle={styles.pageScrollContent}
         >
-          <UIHeading style={{ marginLeft: 20 }} size={30}>
+          <UIHeading style={{ marginLeft: 20 }} size={25}>
             <UIHeading.Icon position="left" icon={faCarSide}></UIHeading.Icon>
-            <UIHeading.Text>Status utilisateur</UIHeading.Text>
+            <UIHeading.Text>{t('USER_STATUS')}</UIHeading.Text>
           </UIHeading>
           <LinearGradient
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
-            style={styles.balanceContainer}
+            style={styles.imageContainer}
             colors={[
               theme['base-100'],
               userInfoData?.userInfo.baseUser.currentTrip
@@ -95,13 +95,13 @@ const HomeScreen = (): JSX.Element => {
             <View style={styles.statusContainer}>
               <UIText style={styles.statusContainerText}>
                 {userInfoData?.userInfo.baseUser.currentTrip
-                  ? 'En trajet'
-                  : 'Inactif'}
+                  ? t('ON_THE_WAY')
+                  : t('INACTIVE')}
               </UIText>
             </View>
           </LinearGradient>
 
-          <UIHeading style={{ marginLeft: 20 }} size={30}>
+          <UIHeading style={{ marginLeft: 20 }} size={25}>
             <UIHeading.Icon position="left" icon={faRoad}></UIHeading.Icon>
             <UIHeading.Text>{t('TRIPS')}</UIHeading.Text>
           </UIHeading>
@@ -122,19 +122,19 @@ const makeStyles = (theme: AppTheme, status: boolean) =>
     pageScrollContent: {
       paddingBottom: 30,
     },
-    balanceContainer: {
+    imageContainer: {
       borderRadius: 20,
       marginHorizontal: 15,
-      padding: 20,
+      padding: 13,
       minHeight: 170,
       alignItems: 'center',
     },
     image: {
-      height: 150,
+      height: 100,
       width: '100%',
     },
     statusContainer: {
-      padding: 15,
+      padding: 13,
       marginTop: 20,
       borderRadius: 10,
       backgroundColor: status ? theme['success-100'] : theme['error-100'],

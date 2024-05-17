@@ -13,6 +13,7 @@ import { TollModule } from 'src/toll/toll.module';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 import { TripModule } from 'src/trip/trip.module';
+import { TokenModule } from 'src/token/token.module';
 
 @Module({
   imports: [TollModule, TripModule],

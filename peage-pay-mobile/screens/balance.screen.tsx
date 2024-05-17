@@ -61,7 +61,7 @@ const BalanceScreen = (): JSX.Element => {
           style={styles.page}
           contentContainerStyle={styles.pageScrollContent}
         >
-          <UIHeading style={{ marginLeft: 20 }} size={30}>
+          <UIHeading style={{ marginLeft: 20 }} size={25}>
             <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
             <UIHeading.Text>{t('BALANCE')}</UIHeading.Text>
           </UIHeading>
@@ -72,7 +72,7 @@ const BalanceScreen = (): JSX.Element => {
             colors={['#3793D6', '#4ED2EF', '#9FDDFF']}
           >
             <View>
-              <UIText style={styles.balanceTitle}>Balance</UIText>
+              <UIText style={styles.balanceTitle}>{t('BALANCE')}</UIText>
               <UIText style={styles.balanceValue}>
                 {userInfoData?.userInfo.balance} DZD
               </UIText>
@@ -82,7 +82,7 @@ const BalanceScreen = (): JSX.Element => {
             </UIText>
           </LinearGradient>
 
-          <UIHeading style={{ marginLeft: 20 }} size={30}>
+          <UIHeading style={{ marginLeft: 20 }} size={25}>
             <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
             <UIHeading.Text>{t('DEPOSITS')}</UIHeading.Text>
           </UIHeading>

@@ -3,8 +3,10 @@ import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import UIText from '../elements/ui-text/ui-text.component';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 
 const CustomTabBar = (props: BottomTabBarProps): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -48,7 +50,7 @@ const CustomTabBar = (props: BottomTabBarProps): JSX.Element => {
                 props.state.index === index ? styles.activeTabLabel : null,
               ]}
             >
-              {route.name}
+              {t(route.name)}
             </UIText>
           </Pressable>
         ))}

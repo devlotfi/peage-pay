@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import UIText from '../elements/ui-text/ui-text.component';
@@ -14,10 +14,12 @@ import { UserAuthUtils } from '../utils/utils';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useTranslation } from 'react-i18next';
 
 const CustomDrawerContent = (
   props: DrawerContentComponentProps,
 ): JSX.Element => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { authData, setAuthData } = useContext(AuthContext);
@@ -56,11 +58,14 @@ const CustomDrawerContent = (
         </View>
         <UIButton variant="error" onPress={() => signOut()}>
           {loading ? (
-            <UIText>Loading</UIText>
+            <ActivityIndicator
+              size={30}
+              color={theme['color-content']}
+            ></ActivityIndicator>
           ) : (
             <>
               <UIButton.Icon icon={faPowerOff}></UIButton.Icon>
-              <UIButton.Content>Sign out</UIButton.Content>
+              <UIButton.Content>{t('SIGN_OUT')}</UIButton.Content>
             </>
           )}
         </UIButton>

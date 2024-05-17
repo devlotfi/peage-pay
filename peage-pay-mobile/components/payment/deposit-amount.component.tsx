@@ -70,7 +70,7 @@ const DepositAmountForm = (): JSX.Element => {
     <ScrollView>
       <UIHeading style={{ marginLeft: 5, marginVertical: 20 }} size={25}>
         <UIHeading.Icon position="left" icon={faMoneyBill}></UIHeading.Icon>
-        <UIHeading.Text>{t('DEPOSIT')}</UIHeading.Text>
+        <UIHeading.Text>{t('DEPOSIT_WITH_CARD')}</UIHeading.Text>
       </UIHeading>
 
       <UITextInput
@@ -124,7 +124,7 @@ const DepositAmountForm = (): JSX.Element => {
           ></ActivityIndicator>
         ) : (
           <>
-            <UIButton.Content>{t('DEPOSIT')}</UIButton.Content>
+            <UIButton.Content>{t('DEPOSIT_WITH_CARD')}</UIButton.Content>
             <UIButton.Icon icon={faSignIn}></UIButton.Icon>
           </>
         )}

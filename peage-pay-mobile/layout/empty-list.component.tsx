@@ -3,8 +3,10 @@ import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { Image } from 'expo-image';
 import UIText from '../elements/ui-text/ui-text.component';
+import { useTranslation } from 'react-i18next';
 
 const EmptyList = () => {
+  const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
 
@@ -15,7 +17,7 @@ const EmptyList = () => {
         style={styles.image}
         contentFit="contain"
       ></Image>
-      <UIText style={styles.text}>No data</UIText>
+      <UIText style={styles.text}>{t('NO_DATA')}</UIText>
     </View>
   );
 };

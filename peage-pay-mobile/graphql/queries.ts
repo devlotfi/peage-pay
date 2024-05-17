@@ -85,8 +85,6 @@ export const GLOBAL_TOLL_LIST = gql(`
     globalTollList {
       id
       name
-      inboundStatus
-      outboundStatus
       longitude
       latitude
       wilayaId
@@ -112,28 +110,6 @@ export const GLOBAL_TOLL_LIST = gql(`
   }
 `);
 
-export const GLOBAL_SECTION_LIST = gql(`
-  query GLOBAL_SECTION_LIST {
-    globalSectionList {
-      distance
-      fromStatus
-      toStatus
-      fromToll {
-        id
-        name
-        latitude
-        longitude
-      }
-      toToll {
-        id
-        name
-        latitude
-        longitude
-      }
-    }
-  }
-`);
-
 export const TRIP_PRICE = gql(`
   query TRIP_PRICE($tripPriceInput: TripPriceInput!) {
     tripPrice(tripPriceInput: $tripPriceInput) {
@@ -152,5 +128,11 @@ export const USER_RFID_TAG_LIST = gql(`
       registrationNumber
       createdAt
     }
+  }
+`);
+
+export const GENERATE_PIN = gql(`
+  query GENERATE_PIN {
+    generatePin
   }
 `);
