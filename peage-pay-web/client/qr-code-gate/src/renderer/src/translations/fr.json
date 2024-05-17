@@ -97,7 +97,7 @@
   "OCTOBER": "Octobre",
   "NOVEMBER": "Novembre",
   "DECEMBER": "Decembre",
-  "APP_NAME": "Barriére a badge de télépéeage",
+  "APP_NAME": "Barriére a QR Code",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
   "DIRECTION": "Direction",
@@ -111,9 +111,10 @@
   "TOLL_LIST": "Liste des péages",
   "HIGHWAY": "Autoroute",
 
-  "WAITING_FOR_BADGE": "En attente de detection d'un badge",
+  "WAITING_FOR_QR_CODE": "En attente de detection d'un QR Code",
   "TRANSACTION_SUCCESSFUL": "Transaction resussie",
-  "RFID_READER": "Lecteur de badges",
+  "CAMERA": "Camera",
+  "QR_CODE_READER": "Lecteur de QR Code",
 
   "SERIAL_PORT": "Port série",
   "CONNECTED_TO": "Connecté a",

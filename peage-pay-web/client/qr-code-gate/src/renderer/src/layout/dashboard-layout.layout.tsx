@@ -1,20 +1,20 @@
-import { faTowerBroadcast } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { PeagePayLogo } from '@peage-pay-web/assets';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { PeagePayLogo } from '@peage-pay-web/assets'
 import {
   AutomaticGateAuthContext,
-  AutomaticGateNavbarDropdown,
-} from '@peage-pay-web/automatic-gate-auth';
-import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui';
-import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+  AutomaticGateNavbarDropdown
+} from '@peage-pay-web/automatic-gate-auth'
+import { AdminDashboardLayout, MenuItem } from '@peage-pay-web/ui'
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 const DashboardLayout = (): JSX.Element => {
-  const { t } = useTranslation();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { automaticGateAuthData } = useContext(AutomaticGateAuthContext);
+  const { t } = useTranslation()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { automaticGateAuthData } = useContext(AutomaticGateAuthContext)
 
   return (
     <AdminDashboardLayout usage={'desktop'}>
@@ -32,15 +32,13 @@ const DashboardLayout = (): JSX.Element => {
           ) : undefined}
           <MenuItem
             onClick={() => navigate('/dashboard')}
-            variant={
-              location.pathname === '/dashboard' ? 'primary' : 'base-200'
-            }
+            variant={location.pathname === '/dashboard' ? 'primary' : 'base-200'}
             className="w-full mb-[0.5rem]"
           >
             <MenuItem.Icon>
-              <FontAwesomeIcon icon={faTowerBroadcast}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faQrcode}></FontAwesomeIcon>
             </MenuItem.Icon>
-            <MenuItem.Text>{t('RFID_READER')}</MenuItem.Text>
+            <MenuItem.Text>{t('QR_CODE_READER')}</MenuItem.Text>
           </MenuItem>
         </AdminDashboardLayout.Sidebar.Main>
         <AdminDashboardLayout.Sidebar.Overlay></AdminDashboardLayout.Sidebar.Overlay>
@@ -55,7 +53,7 @@ const DashboardLayout = (): JSX.Element => {
         </AdminDashboardLayout.Content>
       </AdminDashboardLayout.Main>
     </AdminDashboardLayout>
-  );
-};
+  )
+}
 
-export default DashboardLayout;
+export default DashboardLayout

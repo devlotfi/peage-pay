@@ -51,6 +51,9 @@
   "ASSIGNATION_DATE": "Date d'affectation",
   "QR_CODE": "QR Code",
   "USE_QR_CODE": "Utiliser ce code pour passer au péage",
+  "TOLL_INFO": "Informations",
+  "NAME": "Nom",
+  "HIGHWAY": "Autoroute",
 
   "Home": "Acceuil",
   "Balance": "Solde",

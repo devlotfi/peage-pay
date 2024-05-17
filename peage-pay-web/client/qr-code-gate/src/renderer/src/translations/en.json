@@ -1,0 +1,25 @@
+{
+  "WELCOME_MESSAGE": "Welcome to PeagePay app",
+  "OR": "Or",
+  "SIGN_IN": "Sign in",
+  "SIGN_UP": "Sign up",
+  "SIGN_OUT": "Sign out",
+  "RESET_PASSWORD": "Reset password",
+  "OPERATION_SUCCESSFUL": "Operation done",
+  "FIRST_NAME": "First name",
+  "LAST_NAME": "Last name",
+  "EMAIL": "E-mail",
+  "PASSWORD": "Password",
+  "CONFIRM_PASSWORD": "Confirm password",
+  "SIGN_IN_WITH_GOOGLE": "Sign in with google",
+  "INVALID_EMAIL_OR_PASSWORD": "Invalid E-mail or password",
+  "NOT_FOUND": "Element not found",
+  "UNIQUE_CONSTRAINT_VIOLATION": "Already existing element",
+  "FOREIGN_KEY_CONSTRAINT_VIOLATION": "Error",
+  "INTERNAL_SERVER_ERROR": "Internal error",
+  "SEND": "Send",
+
+  "BALANCE": "Balance",
+  "DEPOSITS": "Deposits",
+  "TRIPS": "Trips"
+}

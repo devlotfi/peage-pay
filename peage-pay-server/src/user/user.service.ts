@@ -20,7 +20,7 @@ export class UserService {
   }
 
   private generatePinString(): string {
-    const tokenLength = 128;
+    const tokenLength = 7;
     const size = Math.floor(tokenLength / 2);
     const token = randomBytes(size).toString('hex');
     return token;
