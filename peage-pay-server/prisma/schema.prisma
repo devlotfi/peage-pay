@@ -226,8 +226,8 @@ model Section {
 }
 
 model TollDistance {
-  fromToll Toll @relation("fromTollDistance", fields: [fromTollId], references: [id])
-  toToll   Toll @relation("toTollDistance", fields: [toTollId], references: [id])
+  fromToll Toll @relation("fromTollDistance", fields: [fromTollId], references: [id], onDelete: Cascade)
+  toToll   Toll @relation("toTollDistance", fields: [toTollId], references: [id], onDelete: Cascade)
 
   fromTollId String
   toTollId   String

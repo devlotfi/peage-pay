@@ -1,6 +1,5 @@
 import {
   faCircleNodes,
-  faFileSignature,
   faHome,
   faList,
   faMoneyBill1Wave,
@@ -62,7 +61,7 @@ const DashboardLayout = (): JSX.Element => {
             </MenuItem.Icon>
             <MenuItem.Text>{t('HIGHWAYS')}</MenuItem.Text>
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             onClick={() => navigate('/dashboard/subscription/list')}
             variant={
               location.pathname === '/dashboard/subscription/list'
@@ -75,7 +74,7 @@ const DashboardLayout = (): JSX.Element => {
               <FontAwesomeIcon icon={faFileSignature}></FontAwesomeIcon>
             </MenuItem.Icon>
             <MenuItem.Text>{t('SUBSCRIPTIONS')}</MenuItem.Text>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={() => navigate('/dashboard/toll-network/list')}
             variant={

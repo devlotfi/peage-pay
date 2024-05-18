@@ -76,7 +76,7 @@ const TripPriceDetails = ({
             <View style={styles.infoRow}>
               <UIText style={styles.infoName}>{t('TOLL_PRICE')}:</UIText>
               <UIText style={styles.infoContent}>
-                {data?.tripPrice.fromTollPrice} DZD/KM
+                {data?.tripPrice.fromTollPrice} dzd/km
               </UIText>
             </View>
           </View>
@@ -95,7 +95,7 @@ const TripPriceDetails = ({
             <View style={styles.infoRow}>
               <UIText style={styles.infoName}>{t('TOLL_PRICE')}:</UIText>
               <UIText style={styles.infoContent}>
-                {data?.tripPrice.toTollPrice} DZD/KM
+                {data?.tripPrice.toTollPrice} dzd/km
               </UIText>
             </View>
           </View>
@@ -105,13 +105,13 @@ const TripPriceDetails = ({
               <View style={styles.infoRow}>
                 <UIText style={styles.infoName}>{t('APPLIED_PRICE')}:</UIText>
                 <UIText style={styles.infoContent}>
-                  {calculateAplliedPrice()} DZD/KM
+                  {calculateAplliedPrice()} dzd/km
                 </UIText>
               </View>
               <View style={styles.infoRow}>
                 <UIText style={styles.infoName}>{t('DISTANCE')}:</UIText>
                 <UIText style={styles.infoContent}>
-                  {data?.tripPrice.distance} KM
+                  {data?.tripPrice.distance} km
                 </UIText>
               </View>
               <View style={styles.infoRow}>
@@ -119,7 +119,7 @@ const TripPriceDetails = ({
                   Total:
                 </UIText>
                 <UIText style={styles.infoContent}>
-                  {calculateTotal().toFixed(2)} DZD
+                  {calculateTotal().toFixed(2)} km
                 </UIText>
               </View>
             </View>

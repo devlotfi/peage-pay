@@ -35,7 +35,7 @@ const initialValues: AddRfidTagValues = {
 
 const addRfidTagValidationSchema = yup.object({
   rfid: yup.string().max(256).required(),
-  registrationNumber: yup.string().max(10).required(),
+  registrationNumber: yup.string().max(50).required(),
 });
 
 const AddRfidTagPage = (): JSX.Element => {

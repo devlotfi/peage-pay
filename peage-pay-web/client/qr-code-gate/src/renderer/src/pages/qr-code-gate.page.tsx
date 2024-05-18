@@ -113,7 +113,7 @@ const QRCodeGatePage = (): JSX.Element => {
             error={startTripQRCodeError || endTripQRCodeError || !hasCamera}
           >
             {startTripQRCodeData || endTripQRCodeData ? (
-              <div className="flex flex-1 flex-col items-center">
+              <div className="flex flex-1 justify-center flex-col items-center">
                 <FontAwesomeIcon
                   icon={faCheckCircle}
                   className="text-success-100 text-[10rem]"

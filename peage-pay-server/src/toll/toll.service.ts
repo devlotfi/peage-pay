@@ -185,11 +185,15 @@ export class TollService {
   }
 
   public async deleteToll(deleteTollInput: IdInput): Promise<boolean> {
-    await this.databaseService.toll.delete({
-      where: {
-        id: deleteTollInput.id,
-      },
-    });
+    try {
+      await this.databaseService.toll.delete({
+        where: {
+          id: deleteTollInput.id,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
     return true;
   }
 }
