@@ -16,9 +16,9 @@ import {
 } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
-import { Utils } from '@peage-pay-web/utils';
 import TollAdminItem from '../../components/toll-admin/toll-admin-item.component';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<BaseUserSearchFields> = {
   search: '',
@@ -27,6 +27,7 @@ const initialValues: SearchValues<BaseUserSearchFields> = {
 
 const TollAdminListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -45,7 +46,7 @@ const TollAdminListPage = (): JSX.Element => {
       <SearchForm
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={initialValues.field}
-        fieldSelectOptions={Utils.renderFieldOptions(BaseUserSearchFields)}
+        fieldSelectOptions={renderFieldOptions(BaseUserSearchFields)}
       ></SearchForm>
 
       <ListPageLayout.Title>

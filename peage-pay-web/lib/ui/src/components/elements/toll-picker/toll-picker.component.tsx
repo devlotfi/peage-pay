@@ -14,7 +14,6 @@ import {
 import { useQuery } from '@apollo/client';
 import TollPickerItem from './toll-picker-item.component';
 import { RefObject, useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
 import {
   TollSearchFields,
   TollType,
@@ -22,6 +21,7 @@ import {
 } from '../../../__generated__/graphql';
 import { TOLL_LIST } from '../../../graphql/queries';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<TollSearchFields> = {
   search: '',
@@ -42,6 +42,7 @@ const TollPicker = ({
   tollNetwork,
 }: TollPickerProps): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -89,7 +90,7 @@ const TollPicker = ({
             <SearchForm
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={TollSearchFields.NameSearch}
-              fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
+              fieldSelectOptions={renderFieldOptions(TollSearchFields)}
             ></SearchForm>
 
             <ListPageLayout.Title>

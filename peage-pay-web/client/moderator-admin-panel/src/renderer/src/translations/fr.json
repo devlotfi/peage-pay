@@ -97,6 +97,11 @@
   "OCTOBER": "Octobre",
   "NOVEMBER": "Novembre",
   "DECEMBER": "Decembre",
+  "TICKET_PRINTER": "Imprimante a tickets",
+  "RFID_READER": "Lecteur de badges",
+  "QR_CODE_READER": "Lecteur de QR Code",
+  "INBOUND": "Rentrant",
+  "OUTBOUND": "Sortant",
   "APP_NAME": "Barriére a badge de télépéeage",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
@@ -113,7 +118,6 @@
 
   "WAITING_FOR_BADGE": "En attente de detection d'un badge",
   "TRANSACTION_SUCCESSFUL": "Transaction resussie",
-  "RFID_READER": "Lecteur de badges",
 
   "SERIAL_PORT": "Port série",
   "CONNECTED_TO": "Connecté à",

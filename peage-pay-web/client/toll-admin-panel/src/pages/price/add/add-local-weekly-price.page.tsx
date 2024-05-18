@@ -18,7 +18,7 @@ import {
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Utils } from '@peage-pay-web/utils';
+import { Utils, useRenderFieldOptions } from '@peage-pay-web/utils';
 import {
   DayOfWeekType,
   TollDirectionType,
@@ -62,6 +62,7 @@ const addLocalWeeklyPriceValidationSchema = yup.object({
 
 const AddLocalWeeklyPricePage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const {
@@ -119,7 +120,7 @@ const AddLocalWeeklyPricePage = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             >
-              {Utils.renderFieldOptions(TollDirectionType)}
+              {renderFieldOptions(TollDirectionType)}
             </Select.Field>
           </Select.Main>
           {errors.direction && touched.direction ? (

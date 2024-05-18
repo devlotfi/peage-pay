@@ -17,12 +17,12 @@ import {
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { ADD_AUTOMATIC_GATE } from '../../graphql/mutations';
-import { Utils } from '@peage-pay-web/utils';
 import {
   AutomaticGateVariantType,
   TollDirectionType,
 } from '../../__generated__/graphql';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 interface AddAutomaticGateValues {
   name: string;
@@ -51,6 +51,7 @@ const addAutomaticGateValidationSchema = yup.object({
 
 const AddAutomaticGatePage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [addAutomaticGate, { loading, error, data }] =
     useMutation(ADD_AUTOMATIC_GATE);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -114,7 +115,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             >
-              {Utils.renderFieldOptions(AutomaticGateVariantType)}
+              {renderFieldOptions(AutomaticGateVariantType)}
             </Select.Field>
           </Select.Main>
           {errors.variant && touched.variant ? (
@@ -133,7 +134,7 @@ const AddAutomaticGatePage = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             >
-              {Utils.renderFieldOptions(TollDirectionType)}
+              {renderFieldOptions(TollDirectionType)}
             </Select.Field>
           </Select.Main>
           {errors.direction && touched.direction ? (

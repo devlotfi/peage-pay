@@ -20,11 +20,12 @@ import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { AUTOMATIC_GATE_BY_ID } from '../../graphql/queries';
 import { EDIT_AUTOMATIC_GATE } from '../../graphql/mutations';
-import { Utils } from '@peage-pay-web/utils';
 import {
   AutomaticGateVariantType,
   TollDirectionType,
 } from '../../__generated__/graphql';
+import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 interface EditAutomaticGateValues {
   name: string;
@@ -59,6 +60,8 @@ const editAutomaticGateValidationSchema = yup.object({
 });
 
 const EditAutomaticGatePage = (): JSX.Element => {
+  const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const { automaticGateId } = useParams();
   const { loading: automaticGateLoading, error: automaticGateError } = useQuery(
     AUTOMATIC_GATE_BY_ID,
@@ -120,7 +123,7 @@ const EditAutomaticGatePage = (): JSX.Element => {
                 <Heading.Icon position={'left'}>
                   <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                 </Heading.Icon>
-                <Heading.Text>Edit automatic gate</Heading.Text>
+                <Heading.Text>{t('EDIT_AUTOMATIC_GATE')}</Heading.Text>
               </Heading>
             </FormPageLayout.Title>
 
@@ -129,13 +132,13 @@ const EditAutomaticGatePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Name</TextInput.Label>
+                <TextInput.Label>{t('NAME')}</TextInput.Label>
                 <TextInput.Field
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter automatic gate name"
+                  placeholder={t('ENTER_NAME')}
                   type="text"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -148,14 +151,14 @@ const EditAutomaticGatePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <Select.Main>
-                <Select.Label>Direction</Select.Label>
+                <Select.Label>{t('VARIANT')}</Select.Label>
                 <Select.Field
                   name="variant"
                   value={values.variant}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 >
-                  {Utils.renderFieldOptions(AutomaticGateVariantType)}
+                  {renderFieldOptions(AutomaticGateVariantType)}
                 </Select.Field>
               </Select.Main>
               {errors.variant && touched.variant ? (
@@ -169,14 +172,14 @@ const EditAutomaticGatePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <Select.Main>
-                <Select.Label>Direction</Select.Label>
+                <Select.Label>{t('DIRECTION')}</Select.Label>
                 <Select.Field
                   name="direction"
                   value={values.direction}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 >
-                  {Utils.renderFieldOptions(TollDirectionType)}
+                  {renderFieldOptions(TollDirectionType)}
                 </Select.Field>
               </Select.Main>
               {errors.direction && touched.direction ? (
@@ -190,13 +193,13 @@ const EditAutomaticGatePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Password</TextInput.Label>
+                <TextInput.Label>{t('PASSWORD')}</TextInput.Label>
                 <TextInput.Field
                   name="password"
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter automatic gate password"
+                  placeholder={t('ENTER_PASSWORD')}
                   type="password"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -213,13 +216,13 @@ const EditAutomaticGatePage = (): JSX.Element => {
               className="w-full mb-[1.3rem]"
             >
               <TextInput.Main>
-                <TextInput.Label>Confirm password</TextInput.Label>
+                <TextInput.Label>{t('CONFIRM_PASSWORD')}</TextInput.Label>
                 <TextInput.Field
                   name="confirmPassword"
                   value={values.confirmPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Confirm password"
+                  placeholder={t('ENTER_PASSWORD')}
                   type="password"
                 ></TextInput.Field>
               </TextInput.Main>
@@ -235,7 +238,7 @@ const EditAutomaticGatePage = (): JSX.Element => {
                 <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
-                <Alert.Content>Highway updated</Alert.Content>
+                <Alert.Content>{t('OPERATION_SUCCESSFUL')}</Alert.Content>
               </Alert>
             ) : null}
 
@@ -258,7 +261,7 @@ const EditAutomaticGatePage = (): JSX.Element => {
                   <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
                   </Button.Icon>
-                  <Button.Content>Edit highway</Button.Content>
+                  <Button.Content>{t('EDIT_AUTOMATIC_GATE')}</Button.Content>
                 </>
               )}
             </Button>

@@ -16,7 +16,8 @@ import { useQuery } from '@apollo/client';
 import { WILAYA_LIST } from '../../graphql/queries';
 import WilayaItem from './wilaya-item.component';
 import { useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<WilayaSearchFields> = {
   search: '',
@@ -34,6 +35,8 @@ const WilayaPicker = ({
   modalRef,
   value,
 }: WilayaPickerProps): JSX.Element => {
+  const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -63,7 +66,7 @@ const WilayaPicker = ({
       <Modal.Window className="overflow-y-auto">
         <Modal.Header>
           <div className="flex items-center justify-between w-full">
-            <div className="flex">Pick a wilaya</div>
+            <div className="flex">{t('PICK_WILAYA')}</div>
             <Button
               onClick={() => modalRef.current?.close()}
               variant={'base-200'}
@@ -80,7 +83,7 @@ const WilayaPicker = ({
             <SearchForm
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={WilayaSearchFields.NameSearch}
-              fieldSelectOptions={Utils.renderFieldOptions(WilayaSearchFields)}
+              fieldSelectOptions={renderFieldOptions(WilayaSearchFields)}
             ></SearchForm>
 
             <ListPageLayout.Title>

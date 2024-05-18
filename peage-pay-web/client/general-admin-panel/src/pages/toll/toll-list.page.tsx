@@ -15,7 +15,7 @@ import TollListItem from '../../components/toll/toll-list-item.component';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
-import { Utils } from '@peage-pay-web/utils';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 import { useTranslation } from 'react-i18next';
 
 const initialValues: SearchValues<TollSearchFields> = {
@@ -25,6 +25,7 @@ const initialValues: SearchValues<TollSearchFields> = {
 
 const TollListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
   const { tollNetworkId } = useParams();
@@ -63,7 +64,7 @@ const TollListPage = (): JSX.Element => {
           <SearchForm
             handleSearch={(searchData) => setSearchData(searchData)}
             initialFieldSearch={TollSearchFields.NameSearch}
-            fieldSelectOptions={Utils.renderFieldOptions(TollSearchFields)}
+            fieldSelectOptions={renderFieldOptions(TollSearchFields)}
           ></SearchForm>
 
           <ListPageLayout.Title>

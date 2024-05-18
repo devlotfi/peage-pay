@@ -16,10 +16,10 @@ import {
 } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
-import { Utils } from '@peage-pay-web/utils';
 import AutomaticGateItem from '../../components/automatic-gate/automatic-gate-item.component';
 import { TollAdminInfoConext } from '../../context/toll-admin-info.context';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<AutomaticGateSearchFields> = {
   search: '',
@@ -28,6 +28,7 @@ const initialValues: SearchValues<AutomaticGateSearchFields> = {
 
 const AutomaticGateListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
   const { tollAdmin } = useContext(TollAdminInfoConext);
@@ -49,7 +50,7 @@ const AutomaticGateListPage = (): JSX.Element => {
       <SearchForm
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={AutomaticGateSearchFields.NameSearch}
-        fieldSelectOptions={Utils.renderFieldOptions(AutomaticGateSearchFields)}
+        fieldSelectOptions={renderFieldOptions(AutomaticGateSearchFields)}
       ></SearchForm>
 
       <ListPageLayout.Title>

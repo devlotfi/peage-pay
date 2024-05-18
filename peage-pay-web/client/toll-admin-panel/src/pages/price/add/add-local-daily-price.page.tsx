@@ -17,7 +17,7 @@ import {
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Utils } from '@peage-pay-web/utils';
+import { Utils, useRenderFieldOptions } from '@peage-pay-web/utils';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
 import { TollDirectionType } from '../../../__generated__/graphql';
 import { useTranslation } from 'react-i18next';
@@ -50,6 +50,7 @@ const addLocalDailyPriceValidationSchema = yup.object({
 
 const AddLocalDailyPricePage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const { errors, touched, handleChange, handleBlur, handleSubmit, values } =
@@ -101,7 +102,7 @@ const AddLocalDailyPricePage = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             >
-              {Utils.renderFieldOptions(TollDirectionType)}
+              {renderFieldOptions(TollDirectionType)}
             </Select.Field>
           </Select.Main>
           {errors.direction && touched.direction ? (

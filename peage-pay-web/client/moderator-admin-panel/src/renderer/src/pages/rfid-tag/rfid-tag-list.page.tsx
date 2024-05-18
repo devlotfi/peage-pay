@@ -12,11 +12,11 @@ import { useState } from 'react';
 import { RfidTagSearchFields, RfidTagType } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
-import { Utils } from '@peage-pay-web/utils';
 import { RFID_TAG_LIST } from '../../graphql/queries';
 import { useParams } from 'react-router-dom';
 import RfidTagItem from '../../components/rfid-tag/rfid-tag-item.component';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<RfidTagSearchFields> = {
   search: '',
@@ -25,6 +25,7 @@ const initialValues: SearchValues<RfidTagSearchFields> = {
 
 const RfisTagListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const { baseUserId } = useParams();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
@@ -45,7 +46,7 @@ const RfisTagListPage = (): JSX.Element => {
       <SearchForm
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={RfidTagSearchFields.RfidSearch}
-        fieldSelectOptions={Utils.renderFieldOptions(RfidTagSearchFields)}
+        fieldSelectOptions={renderFieldOptions(RfidTagSearchFields)}
       ></SearchForm>
 
       <ListPageLayout.Title>

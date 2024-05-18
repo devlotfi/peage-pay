@@ -14,8 +14,8 @@ import { TollNetworkSearchFields } from '../../__generated__/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import TollNetworkItem from '../../components/toll-network/toll-network-item.component';
-import { Utils } from '@peage-pay-web/utils';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<TollNetworkSearchFields> = {
   search: '',
@@ -24,6 +24,7 @@ const initialValues: SearchValues<TollNetworkSearchFields> = {
 
 const TollNetworkListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -42,7 +43,7 @@ const TollNetworkListPage = (): JSX.Element => {
       <SearchForm
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={TollNetworkSearchFields.NameSearch}
-        fieldSelectOptions={Utils.renderFieldOptions(TollNetworkSearchFields)}
+        fieldSelectOptions={renderFieldOptions(TollNetworkSearchFields)}
       ></SearchForm>
 
       <ListPageLayout.Title>

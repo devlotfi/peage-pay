@@ -14,7 +14,7 @@ import {
 import { useQuery } from '@apollo/client';
 import AutomaticGatePickerItem from './automatic-gate-picker-item.component';
 import { RefObject, useState } from 'react';
-import { Utils } from '@peage-pay-web/utils';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 import {
   TollType,
   AutomaticGateSearchFields,
@@ -42,6 +42,7 @@ const AutomaticGatePicker = ({
   toll,
 }: AutomaticGatePickerProps): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -89,9 +90,7 @@ const AutomaticGatePicker = ({
             <SearchForm
               handleSearch={(searchData) => setSearchData(searchData)}
               initialFieldSearch={AutomaticGateSearchFields.NameSearch}
-              fieldSelectOptions={Utils.renderFieldOptions(
-                AutomaticGateSearchFields,
-              )}
+              fieldSelectOptions={renderFieldOptions(AutomaticGateSearchFields)}
             ></SearchForm>
 
             <ListPageLayout.Title>

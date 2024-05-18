@@ -14,8 +14,8 @@ import { HighwaySearchFields } from '../../__generated__/graphql';
 import HighwayListItem from '../../components/highway/highway-list-item.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
-import { Utils } from '@peage-pay-web/utils';
 import { useTranslation } from 'react-i18next';
+import { useRenderFieldOptions } from '@peage-pay-web/utils';
 
 const initialValues: SearchValues<HighwaySearchFields> = {
   search: '',
@@ -24,6 +24,7 @@ const initialValues: SearchValues<HighwaySearchFields> = {
 
 const HighwayListPage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [searchData, setSearchData] = useState(initialValues);
   const [page, setPage] = useState<number>(1);
 
@@ -42,7 +43,7 @@ const HighwayListPage = (): JSX.Element => {
       <SearchForm
         handleSearch={(searchData) => setSearchData(searchData)}
         initialFieldSearch={HighwaySearchFields.NameSearch}
-        fieldSelectOptions={Utils.renderFieldOptions(HighwaySearchFields)}
+        fieldSelectOptions={renderFieldOptions(HighwaySearchFields)}
       ></SearchForm>
 
       <ListPageLayout.Title>

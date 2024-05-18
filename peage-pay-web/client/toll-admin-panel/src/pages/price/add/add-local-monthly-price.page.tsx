@@ -18,7 +18,7 @@ import {
 } from '@peage-pay-web/ui';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Utils } from '@peage-pay-web/utils';
+import { Utils, useRenderFieldOptions } from '@peage-pay-web/utils';
 import { MonthType, TollDirectionType } from '../../../__generated__/graphql';
 import { ADD_LOCAL_PRICE } from '../../../graphql/mutations';
 import { useTranslation } from 'react-i18next';
@@ -73,6 +73,7 @@ const addLocalMonthlyPriceValidationSchema = yup.object({
 
 const AddLocalMonthlyPricePage = (): JSX.Element => {
   const { t } = useTranslation();
+  const { renderFieldOptions } = useRenderFieldOptions();
   const [addLocalPrice, { loading, error, data }] =
     useMutation(ADD_LOCAL_PRICE);
   const {
@@ -132,7 +133,7 @@ const AddLocalMonthlyPricePage = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             >
-              {Utils.renderFieldOptions(TollDirectionType)}
+              {renderFieldOptions(TollDirectionType)}
             </Select.Field>
           </Select.Main>
           {errors.direction && touched.direction ? (

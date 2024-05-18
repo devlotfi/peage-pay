@@ -97,6 +97,11 @@
   "OCTOBER": "Octobre",
   "NOVEMBER": "Novembre",
   "DECEMBER": "Decembre",
+  "TICKET_PRINTER": "Imprimante a tickets",
+  "RFID_READER": "Lecteur de badges",
+  "QR_CODE_READER": "Lecteur de QR Code",
+  "INBOUND": "Rentrant",
+  "OUTBOUND": "Sortant",
   "APP_NAME": "Barriére imprimante à tickets",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
@@ -113,7 +118,6 @@
 
   "WAITING_FOR_BADGE": "En attente de détection d'un badge",
   "TRANSACTION_SUCCESSFUL": "Transaction réussie",
-  "TICKET_PRINTER": "Imprimante a tickets",
   "PRINT_TICKET": "Imprimer ticket",
   "TICKET": "Ticket",
 
