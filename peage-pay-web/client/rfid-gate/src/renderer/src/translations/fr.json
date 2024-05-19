@@ -108,7 +108,7 @@
   "firstNameSearch": "Recherche par prénom",
   "lastNameSearch": "Recherche par nom",
   "PEAGE_PAY_GATES": "Barriéres automatiques de Peage Pay",
-  "APP_NAME": "Barriére a badge de télépéeage",
+  "APP_NAME": "Barriére a badge de télépéage",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
   "DIRECTION": "Direction",
@@ -122,7 +122,7 @@
   "TOLL_LIST": "Liste des péages",
   "HIGHWAY": "Autoroute",
 
-  "WAITING_FOR_QR_CODE": "En attente de détection d'un QR Code",
+  "WAITING_FOR_BADGE": "En attente de détection d'un badge",
   "TRANSACTION_SUCCESSFUL": "Transaction resussie",
   "CAMERA": "Caméra",
 
