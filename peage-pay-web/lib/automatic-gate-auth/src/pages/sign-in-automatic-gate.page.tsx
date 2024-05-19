@@ -58,7 +58,7 @@ const SignInAutomaticGatePage = ({
           <div className="bg-edge-100 w-[1px] my-[1rem] mx-[1.5rem] hidden lg:flex"></div>
           <div className="flex flex-col">
             <div className="flex justify-between text-[17pt] items-center">
-              <div className="flex mr-[1.5rem]">PeagePay Adminstration</div>
+              <div className="flex mr-[1.5rem]">{t('PEAGE_PAY_GATES')}</div>
               <FontAwesomeIcon
                 className="text-[25pt] text-primary-100"
                 icon={faUserGear}

@@ -107,6 +107,7 @@
   "idSearch": "Recherche par identifiant",
   "firstNameSearch": "Recherche par prénom",
   "lastNameSearch": "Recherche par nom",
+  "PEAGE_PAY_GATES": "Barriéres automatiques de Peage Pay",
   "APP_NAME": "Barriére imprimante à tickets",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
