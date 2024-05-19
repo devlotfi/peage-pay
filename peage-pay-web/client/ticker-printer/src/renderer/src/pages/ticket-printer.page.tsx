@@ -61,12 +61,11 @@ const TicketPrinter = (): JSX.Element => {
     const imageData = qrCodeCanvas.toDataURL('image/webp');
     console.log(doc.internal.pageSize.getWidth());
     const docWidth = doc.internal.pageSize.getWidth();
-    doc.setFontSize(13);
     console.log(automaticGateAuthData?.automaticGate);
-
-    doc.text(`Delivré par le péage de:`, docWidth / 2, 17, {
-      align: 'center',
-    });
+    doc.setFontSize(10),
+      doc.text(`Delivré par le péage de:`, docWidth / 2, 17, {
+        align: 'center',
+      });
     doc.text(
       `${automaticGateAuthData?.automaticGate.toll.name}`,
       docWidth / 2,
@@ -75,7 +74,6 @@ const TicketPrinter = (): JSX.Element => {
         align: 'center',
       },
     );
-
     const imgWidth = 30;
     const imgHeight = 30;
     doc.addImage(

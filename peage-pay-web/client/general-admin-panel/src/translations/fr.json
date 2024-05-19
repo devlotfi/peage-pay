@@ -102,6 +102,11 @@
   "QR_CODE_READER": "Lecteur de QR Code",
   "INBOUND": "Rentrant",
   "OUTBOUND": "Sortant",
+  "nameSearch": "Recherche par nom",
+  "codeSearch": "Recherche par code",
+  "idSearch": "Recherche par identifiant",
+  "firstNameSearch": "Recherche par prénom",
+  "lastNameSearch": "Recherche par nom",
   "APP_NAME": "Administration generale",
   "HOME": "Acceuil",
   "WELCOME_MESSAGE": "Bienvenu sur le panneau d'administration générale",
@@ -146,7 +151,7 @@
   "ADD_SECTION": "Ajouter une section",
   "EDIT_SECTION": "Modifer une section",
 
-  "GRAPH": "Graphe du reseau",
+  "GRAPH": "Graphe du réseau",
 
   "GENERATED_DISTANCES": "Distances générés",
 

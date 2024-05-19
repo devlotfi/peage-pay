@@ -56,8 +56,8 @@ const AutomaticGatePickerItem = ({
     <Table.Body.Tr variant={'zebra'}>
       <Table.Body.Td>{renderButton()}</Table.Body.Td>
       <Table.Body.Td>{automaticGate.name}</Table.Body.Td>
-      <Table.Body.Td>{automaticGate.direction}</Table.Body.Td>
-      <Table.Body.Td>{automaticGate.variant}</Table.Body.Td>
+      <Table.Body.Td>{t(automaticGate.direction)}</Table.Body.Td>
+      <Table.Body.Td>{t(automaticGate.variant)}</Table.Body.Td>
       <Table.Body.Td>
         {(() => {
           const date = new Date(automaticGate.createdAt);

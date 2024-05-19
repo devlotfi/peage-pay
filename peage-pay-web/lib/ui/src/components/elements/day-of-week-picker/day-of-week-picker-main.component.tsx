@@ -67,20 +67,28 @@ const DayOfWeekPickerMain = ({
   };
 
   const renderDays = () => {
-    return Object.keys(DayOfWeekType).map((key) => {
-      const dayOfWeek = DayOfWeekType[key as keyof typeof DayOfWeekType];
+    return [
+      'SUNDAY',
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+    ].map((key) => {
+      const dayOfWeek = key;
       return (
         <div key={key} className="p-[0.7rem]">
           <Checkbox
-            initialChecked={isDaySelected(dayOfWeek)}
+            initialChecked={isDaySelected(dayOfWeek as any)}
             variant={'primary'}
           >
             <Checkbox.Check></Checkbox.Check>
             <Checkbox.Field
               onChange={(e) =>
                 e.target.checked
-                  ? handleDaySelected(dayOfWeek)
-                  : handleDayUnselected(dayOfWeek)
+                  ? handleDaySelected(dayOfWeek as any)
+                  : handleDayUnselected(dayOfWeek as any)
               }
             ></Checkbox.Field>
             <Checkbox.Label>{t(dayOfWeek)}</Checkbox.Label>

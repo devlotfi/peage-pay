@@ -1,6 +1,6 @@
 /// <reference types="@types/google.maps" />
 import { useQuery } from '@apollo/client';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AdminDashboardLayout, Heading } from '@peage-pay-web/ui';
 import { useEffect } from 'react';
@@ -66,9 +66,6 @@ const TollNetworkGraphPage = (): JSX.Element => {
       const { Map } = (await google.maps.importLibrary(
         'maps',
       )) as google.maps.MapsLibrary;
-      const { TrafficLayer } = (await google.maps.importLibrary(
-        'maps',
-      )) as google.maps.MapsLibrary;
       const { AdvancedMarkerElement } = (await google.maps.importLibrary(
         'marker',
       )) as google.maps.MarkerLibrary;
@@ -79,8 +76,6 @@ const TollNetworkGraphPage = (): JSX.Element => {
         mapId: 'DEMO_MAP_ID',
         mapTypeId: 'hybrid',
       });
-      const trafficLayer = new TrafficLayer();
-      trafficLayer.setMap(map);
 
       for (const toll of tollListData.fullTollList) {
         const tollMarker = document.createElement('div');
@@ -155,7 +150,7 @@ const TollNetworkGraphPage = (): JSX.Element => {
         <div className="flex flex-col flex-1">
           <Heading className="text-[20pt] my-[0.5rem] ml-[1rem]">
             <Heading.Icon position={'left'}>
-              <FontAwesomeIcon icon={faPen}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faNetworkWired}></FontAwesomeIcon>
             </Heading.Icon>
             <Heading.Text>{t('GRAPH')}</Heading.Text>
           </Heading>

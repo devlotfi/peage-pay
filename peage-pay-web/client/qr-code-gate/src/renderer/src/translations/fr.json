@@ -102,6 +102,11 @@
   "QR_CODE_READER": "Lecteur de QR Code",
   "INBOUND": "Rentrant",
   "OUTBOUND": "Sortant",
+  "nameSearch": "Recherche par nom",
+  "codeSearch": "Recherche par code",
+  "idSearch": "Recherche par identifiant",
+  "firstNameSearch": "Recherche par prénom",
+  "lastNameSearch": "Recherche par nom",
   "APP_NAME": "Barriére a badge de télépéeage",
   "HOME": "Acceuil",
   "STATISTICS": "Statistiques",
@@ -116,8 +121,9 @@
   "TOLL_LIST": "Liste des péages",
   "HIGHWAY": "Autoroute",
 
-  "WAITING_FOR_BADGE": "En attente de détection d'un badge",
+  "WAITING_FOR_QR_CODE": "En attente de détection d'un QR Code",
   "TRANSACTION_SUCCESSFUL": "Transaction resussie",
+  "CAMERA": "Caméra",
 
   "SERIAL_PORT": "Port série",
   "CONNECTED_TO": "Connecté à",

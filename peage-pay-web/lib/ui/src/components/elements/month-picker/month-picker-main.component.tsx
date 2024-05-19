@@ -67,17 +67,33 @@ const MonthPickerMain = ({
   };
 
   const renderMonths = () => {
-    return Object.keys(MonthType).map((key) => {
-      const month = MonthType[key as keyof typeof MonthType];
+    return [
+      'JANUARY',
+      'FEBRUARY',
+      'MARCH',
+      'APRIL',
+      'MAY',
+      'JUNE',
+      'JULY',
+      'AUGUST',
+      'SEPTEMBER',
+      'OCTOBER',
+      'NOVEMBER',
+      'DECEMBER',
+    ].map((key) => {
+      const month = key;
       return (
         <div key={key} className="p-[0.7rem]">
-          <Checkbox initialChecked={isMonthSelected(month)} variant={'primary'}>
+          <Checkbox
+            initialChecked={isMonthSelected(month as any)}
+            variant={'primary'}
+          >
             <Checkbox.Check></Checkbox.Check>
             <Checkbox.Field
               onChange={(e) =>
                 e.target.checked
-                  ? handleMonthSelected(month)
-                  : handleMonthUnselected(month)
+                  ? handleMonthSelected(month as any)
+                  : handleMonthUnselected(month as any)
               }
             ></Checkbox.Field>
             <Checkbox.Label>{t(month)}</Checkbox.Label>

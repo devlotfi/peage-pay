@@ -213,7 +213,7 @@ const ScanTicketPage = (): JSX.Element => {
                         </Table.Body.Tr>
                         <Table.Body.Tr variant={'zebra'}>
                           <Table.Body.Td>
-                            {t('PRCIE')} ({t('EXIT_TOLL')})
+                            {t('PRICE')} ({t('EXIT_TOLL')})
                           </Table.Body.Td>
                           <Table.Body.Td>
                             {ticketData?.ticketInfo.exitTollPrice} dzd/km
