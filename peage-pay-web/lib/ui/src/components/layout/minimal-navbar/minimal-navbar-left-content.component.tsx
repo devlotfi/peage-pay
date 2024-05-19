@@ -8,11 +8,14 @@ const navbarLeftContentVariants = cva('flex');
 
 interface NavbarLeftContentProps
   extends BaseHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof navbarLeftContentVariants> {}
+    VariantProps<typeof navbarLeftContentVariants> {
+  title: string;
+}
 
 const MinimalNavbarLeftContent = ({
   className,
   children,
+  title,
   ...props
 }: NavbarLeftContentProps): JSX.Element => {
   return (
@@ -28,7 +31,7 @@ const MinimalNavbarLeftContent = ({
             alt="peage-pay-admin-logo"
           />
           <div className="hidden md:flex font-bold font-logo text-[15pt] ml-[0.7rem] lg:text-base-content">
-            PeagePay Admin
+            {title}
           </div>
         </Button.Content>
       </Button>
