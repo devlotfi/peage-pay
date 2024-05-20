@@ -1,10 +1,10 @@
-<mxfile host="Electron" modified="2024-03-16T15:42:03.632Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.0.4 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="Im8OOKuDqi7g4m33i-Ik" version="24.0.4" type="device" pages="5">
+<mxfile host="Electron" modified="2024-05-20T18:29:08.523Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="NQkW1nw0NeyfB8wWZb09" version="24.4.0" type="device" pages="5">
   <diagram name="general" id="ha2fX4iCLFVDqD_ERbBz">
     <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="qedNEsPueD_ycMbko3un-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
+        <mxCell id="qedNEsPueD_ycMbko3un-1" value="Diagramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
           <mxGeometry x="414" y="70" width="436" height="420" as="geometry" />
         </mxCell>
         <mxCell id="qedNEsPueD_ycMbko3un-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;dashed=1;" parent="qedNEsPueD_ycMbko3un-1" source="qedNEsPueD_ycMbko3un-4" target="qedNEsPueD_ycMbko3un-10" edge="1">
@@ -95,7 +95,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="FHG8nHzmXMOlOSdZ3-3M-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les utilisateurs)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
+        <mxCell id="FHG8nHzmXMOlOSdZ3-3M-1" value="Diagramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les utilisateurs)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
           <mxGeometry x="420" y="100" width="440" height="240" as="geometry" />
         </mxCell>
         <mxCell id="FHG8nHzmXMOlOSdZ3-3M-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="FHG8nHzmXMOlOSdZ3-3M-1" source="FHG8nHzmXMOlOSdZ3-3M-5" target="FHG8nHzmXMOlOSdZ3-3M-2" edge="1">
@@ -137,7 +137,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="6u2Il2lnk1wcm9pCuBmY-1" value="Digramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les administrateurs de péage)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
+        <mxCell id="6u2Il2lnk1wcm9pCuBmY-1" value="Diagramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les administrateurs de péage)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="1" vertex="1">
           <mxGeometry x="420" y="100" width="440" height="420" as="geometry" />
         </mxCell>
         <mxCell id="Uyuyjd7_dGLzrPh6zylt-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="6u2Il2lnk1wcm9pCuBmY-1" source="Uyuyjd7_dGLzrPh6zylt-1" target="6u2Il2lnk1wcm9pCuBmY-2" edge="1">
@@ -213,7 +213,7 @@
       <root>
         <mxCell id="jnfncZrrwxTsxoOmY05j-0" />
         <mxCell id="jnfncZrrwxTsxoOmY05j-1" parent="jnfncZrrwxTsxoOmY05j-0" />
-        <mxCell id="zdb1GF-9bG4vKWn5U5Ir-0" value="Digramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les administrateurs de barriére)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="jnfncZrrwxTsxoOmY05j-1" vertex="1">
+        <mxCell id="zdb1GF-9bG4vKWn5U5Ir-0" value="Diagramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les administrateurs de barriére)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="jnfncZrrwxTsxoOmY05j-1" vertex="1">
           <mxGeometry x="420" y="100" width="440" height="420" as="geometry" />
         </mxCell>
         <mxCell id="zdb1GF-9bG4vKWn5U5Ir-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=block;endFill=0;endSize=13;" parent="zdb1GF-9bG4vKWn5U5Ir-0" source="zdb1GF-9bG4vKWn5U5Ir-3" target="zdb1GF-9bG4vKWn5U5Ir-1" edge="1">
@@ -289,8 +289,8 @@
       <root>
         <mxCell id="zGWyWfWqzbsHsBF5hGwG-0" />
         <mxCell id="zGWyWfWqzbsHsBF5hGwG-1" parent="zGWyWfWqzbsHsBF5hGwG-0" />
-        <mxCell id="_n5n5oatF7jmswbBTfVq-0" value="Digramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les administrateurs de barriére)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="zGWyWfWqzbsHsBF5hGwG-1" vertex="1">
-          <mxGeometry x="420" y="100" width="440" height="240" as="geometry" />
+        <mxCell id="_n5n5oatF7jmswbBTfVq-0" value="Diagramme de cas d&#39;utilisation de l&#39;administrateur des ressources humaines (Gérer les modérateurs)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" parent="zGWyWfWqzbsHsBF5hGwG-1" vertex="1">
+          <mxGeometry x="420" y="100" width="460" height="240" as="geometry" />
         </mxCell>
         <mxCell id="_n5n5oatF7jmswbBTfVq-1" value="Gérer les modérateurs" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="_n5n5oatF7jmswbBTfVq-0" vertex="1">
           <mxGeometry x="20" y="100" width="120" height="80" as="geometry" />

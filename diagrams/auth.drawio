@@ -1,10 +1,10 @@
-<mxfile host="Electron" modified="2024-03-17T23:49:09.397Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.0.4 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="0uZX9H1osi5PJ9ktbbcD" version="24.0.4" type="device">
+<mxfile host="Electron" modified="2024-05-19T18:10:28.532Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="s-UFc4f5WjFfnOKhDMKx" version="24.4.0" type="device">
   <diagram name="Page-1" id="EHaqlrGL4wt-yzTPNNFz">
     <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="fWUK7DSqChX-zVgT0Dmt-1" value="Digramme de cas d&#39;utilisation du&amp;nbsp;système&amp;nbsp;d&#39;authethification" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;" parent="1" vertex="1">
+        <mxCell id="fWUK7DSqChX-zVgT0Dmt-1" value="Diagramme de cas d&#39;utilisation du&amp;nbsp;système&amp;nbsp;d&#39;authethification" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="430" y="70" width="460" height="310" as="geometry" />
         </mxCell>
         <mxCell id="fWUK7DSqChX-zVgT0Dmt-20" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 15px;&quot;&gt;S’authentifier&lt;br style=&quot;font-size: 15px;&quot;&gt;avec e-mail et mot de passe&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="fWUK7DSqChX-zVgT0Dmt-1" vertex="1">
@@ -13,7 +13,7 @@
         <mxCell id="fWUK7DSqChX-zVgT0Dmt-21" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 15px;&quot;&gt;S’authentifier&lt;br style=&quot;font-size: 15px;&quot;&gt;avec un compte google&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="fWUK7DSqChX-zVgT0Dmt-1" vertex="1">
           <mxGeometry x="45" y="220" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="fWUK7DSqChX-zVgT0Dmt-30" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 15px;&quot;&gt;Envoyer un e-mail de verification&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="fWUK7DSqChX-zVgT0Dmt-1" vertex="1">
+        <mxCell id="fWUK7DSqChX-zVgT0Dmt-30" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 15px;&quot;&gt;Envoyer un e-mail de vérification&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="fWUK7DSqChX-zVgT0Dmt-1" vertex="1">
           <mxGeometry x="320" y="40" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="fWUK7DSqChX-zVgT0Dmt-34" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 15px;&quot;&gt;Créer un compte&lt;br style=&quot;font-size: 15px;&quot;&gt;avec e-mail et mot de passe&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="fWUK7DSqChX-zVgT0Dmt-1" vertex="1">
