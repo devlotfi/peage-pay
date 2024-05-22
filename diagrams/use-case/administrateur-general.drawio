@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-05-19T18:22:13.374Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="X5n1utX9xjyjt3z5UeYb" version="24.4.0" type="device" pages="9">
+<mxfile host="Electron" modified="2024-05-22T09:09:27.860Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="tmi1wXQ2obp9kNUpge6E" version="24.4.0" type="device" pages="13">
   <diagram name="general" id="lKCrcBrGeFNF5y-A4sd_">
     <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -130,7 +130,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="f9rSoK2AUhVcHhe2ojxJ-6" value="Administrateur général" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="1" vertex="1">
-          <mxGeometry x="230" y="580" width="30" height="60" as="geometry" />
+          <mxGeometry x="300" y="580" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="99OSb5iaZ4uGp6rUP6t1-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" parent="1" source="f9rSoK2AUhVcHhe2ojxJ-6" target="99OSb5iaZ4uGp6rUP6t1-1" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -764,6 +764,262 @@
         </mxCell>
         <mxCell id="IP_3J1tOa9POkAvjoAbO-22" value="Administrateur général" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="330" y="285" width="30" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="JDpiMLbrDJ-pfQ3C8McS" name="barrieres automatiques authenthification">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="QSnnv84PyScZNDjtdvTZ-1" value="Diagramme de cas d&#39;utilisation de l&#39;authenthification des barriéres automatiques" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="430" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="QSnnv84PyScZNDjtdvTZ-16" value="Selectionner un poste de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="QSnnv84PyScZNDjtdvTZ-1">
+          <mxGeometry x="280" y="150" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="QSnnv84PyScZNDjtdvTZ-17" value="Authenthifier la barriére automatique" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="QSnnv84PyScZNDjtdvTZ-1">
+          <mxGeometry x="30" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-3" value="Selectionner une barriére automatique" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="QSnnv84PyScZNDjtdvTZ-1">
+          <mxGeometry x="280" y="330" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-4" value="Consulter la liste des postes de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="QSnnv84PyScZNDjtdvTZ-1">
+          <mxGeometry x="280" y="60" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-5" value="Consulter la liste des barriéres automatiques" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="QSnnv84PyScZNDjtdvTZ-1">
+          <mxGeometry x="280" y="240" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="QSnnv84PyScZNDjtdvTZ-1" source="6fbP7GJXZa_s-klS2Nd1-4" target="QSnnv84PyScZNDjtdvTZ-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="552" as="sourcePoint" />
+            <mxPoint x="588" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-2" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="6fbP7GJXZa_s-klS2Nd1-1">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-6" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="QSnnv84PyScZNDjtdvTZ-1" source="QSnnv84PyScZNDjtdvTZ-16" target="QSnnv84PyScZNDjtdvTZ-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="407" y="200" as="sourcePoint" />
+            <mxPoint x="245" y="288" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-7" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="6fbP7GJXZa_s-klS2Nd1-6">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-8" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="QSnnv84PyScZNDjtdvTZ-1" source="6fbP7GJXZa_s-klS2Nd1-5" target="QSnnv84PyScZNDjtdvTZ-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="366" y="280" as="sourcePoint" />
+            <mxPoint x="230" y="306" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-9" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="6fbP7GJXZa_s-klS2Nd1-8">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="QSnnv84PyScZNDjtdvTZ-1" source="6fbP7GJXZa_s-klS2Nd1-3" target="QSnnv84PyScZNDjtdvTZ-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="304" y="380.5" as="sourcePoint" />
+            <mxPoint x="170" y="359.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fbP7GJXZa_s-klS2Nd1-11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="6fbP7GJXZa_s-klS2Nd1-10">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QSnnv84PyScZNDjtdvTZ-18" value="Barriére automatique" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="1">
+          <mxGeometry x="320" y="310" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="QSnnv84PyScZNDjtdvTZ-19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="QSnnv84PyScZNDjtdvTZ-18" target="QSnnv84PyScZNDjtdvTZ-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ClidjoD1v5Ri1XY9oUFF" name="imprimante a tickets">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-1" value="Diagramme de cas d&#39;utilisation de la barriére automatique (Imprimante a tickets)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="430" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-3" value="Imprimer ticket de péage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="zeygzdeRHT4EiI1-IP6k-1">
+          <mxGeometry x="30" y="60" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-5" value="S&#39;authenthifier" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="zeygzdeRHT4EiI1-IP6k-1">
+          <mxGeometry x="280" y="60" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="zeygzdeRHT4EiI1-IP6k-1" source="zeygzdeRHT4EiI1-IP6k-3" target="zeygzdeRHT4EiI1-IP6k-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="552" as="sourcePoint" />
+            <mxPoint x="280" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-8" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="zeygzdeRHT4EiI1-IP6k-7">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-15" value="Barriére automatique&lt;div&gt;(Imprimante a tickets)&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="1">
+          <mxGeometry x="320" y="170" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zeygzdeRHT4EiI1-IP6k-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="zeygzdeRHT4EiI1-IP6k-15" target="zeygzdeRHT4EiI1-IP6k-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="8sSJvalMMY5Obmn3PWyn" name="detecteur de badges">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-1" value="Diagramme de cas d&#39;utilisation de la barriére automatique (Lecteur de badges de télépéage)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="510" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-2" value="Initier une session de trajet" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="9pKuhKxEmD_3GKZwqmPX-1">
+          <mxGeometry x="30" y="60" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-3" value="S&#39;authenthifier" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="9pKuhKxEmD_3GKZwqmPX-1">
+          <mxGeometry x="360" y="60" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="9pKuhKxEmD_3GKZwqmPX-1" source="9pKuhKxEmD_3GKZwqmPX-2" target="9pKuhKxEmD_3GKZwqmPX-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="552" as="sourcePoint" />
+            <mxPoint x="280" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-5" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="9pKuhKxEmD_3GKZwqmPX-4">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-8" value="Terminer une session de trajet&lt;div&gt;(Facturation)&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="9pKuhKxEmD_3GKZwqmPX-1">
+          <mxGeometry x="30" y="150" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-9" value="Detection du badge de télépéage" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="9pKuhKxEmD_3GKZwqmPX-1">
+          <mxGeometry x="360" y="150" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;jumpStyle=arc;jumpSize=20;" edge="1" parent="9pKuhKxEmD_3GKZwqmPX-1" source="9pKuhKxEmD_3GKZwqmPX-8" target="9pKuhKxEmD_3GKZwqmPX-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="190" as="sourcePoint" />
+            <mxPoint x="370" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="9pKuhKxEmD_3GKZwqmPX-10">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint x="-35" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;jumpStyle=arc;jumpSize=20;" edge="1" parent="9pKuhKxEmD_3GKZwqmPX-1" source="9pKuhKxEmD_3GKZwqmPX-2" target="9pKuhKxEmD_3GKZwqmPX-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="248" as="sourcePoint" />
+            <mxPoint x="400" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-13" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="9pKuhKxEmD_3GKZwqmPX-12">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint x="-45" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-14" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="9pKuhKxEmD_3GKZwqmPX-1" source="9pKuhKxEmD_3GKZwqmPX-8" target="9pKuhKxEmD_3GKZwqmPX-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="152" y="130" as="sourcePoint" />
+            <mxPoint x="297" y="187" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-15" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="9pKuhKxEmD_3GKZwqmPX-14">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-6" value="Barriére automatique&lt;div&gt;(Lecteur de badges&lt;/div&gt;&lt;div&gt;de télépéage)&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="1">
+          <mxGeometry x="320" y="170" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9pKuhKxEmD_3GKZwqmPX-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="9pKuhKxEmD_3GKZwqmPX-6" target="9pKuhKxEmD_3GKZwqmPX-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="-RCiKyConMhkIlWrRON5" name="lecteur de qr code">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dAg9rtn1hNU67q79VmIz-1" value="Diagramme de cas d&#39;utilisation de la barriére automatique (Lecteur de QR Code)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#99D3FF;fontSize=15;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="510" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-2" value="Initier une session de trajet" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dAg9rtn1hNU67q79VmIz-1">
+          <mxGeometry x="30" y="60" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-3" value="S&#39;authenthifier" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dAg9rtn1hNU67q79VmIz-1">
+          <mxGeometry x="360" y="60" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="dAg9rtn1hNU67q79VmIz-1" source="dAg9rtn1hNU67q79VmIz-2" target="dAg9rtn1hNU67q79VmIz-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="552" as="sourcePoint" />
+            <mxPoint x="280" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-5" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="dAg9rtn1hNU67q79VmIz-4">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-6" value="Terminer une session de trajet&lt;div&gt;(Facturation)&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dAg9rtn1hNU67q79VmIz-1">
+          <mxGeometry x="30" y="150" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-7" value="Detection du QR Code affiché sur l&#39;application mobile" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="dAg9rtn1hNU67q79VmIz-1">
+          <mxGeometry x="360" y="150" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-8" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;jumpStyle=arc;jumpSize=20;" edge="1" parent="dAg9rtn1hNU67q79VmIz-1" source="dAg9rtn1hNU67q79VmIz-6" target="dAg9rtn1hNU67q79VmIz-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="190" as="sourcePoint" />
+            <mxPoint x="370" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-9" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="dAg9rtn1hNU67q79VmIz-8">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint x="-35" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;jumpStyle=arc;jumpSize=20;" edge="1" parent="dAg9rtn1hNU67q79VmIz-1" source="dAg9rtn1hNU67q79VmIz-2" target="dAg9rtn1hNU67q79VmIz-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="248" as="sourcePoint" />
+            <mxPoint x="400" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="dAg9rtn1hNU67q79VmIz-10">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint x="-45" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;startSize=6;endArrow=open;endFill=0;endSize=13;" edge="1" parent="dAg9rtn1hNU67q79VmIz-1" source="dAg9rtn1hNU67q79VmIz-6" target="dAg9rtn1hNU67q79VmIz-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="152" y="130" as="sourcePoint" />
+            <mxPoint x="297" y="187" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-13" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=default;fontFamily=Helvetica;fontSize=13;fontColor=default;labelBackgroundColor=default;fillColor=#99D3FF;" vertex="1" connectable="0" parent="dAg9rtn1hNU67q79VmIz-12">
+          <mxGeometry x="-0.0081" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-14" value="Barriére automatique&lt;div&gt;(Lecteur de QR Code&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=15;fontColor=default;fillColor=#99D3FF;" vertex="1" parent="1">
+          <mxGeometry x="320" y="170" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dAg9rtn1hNU67q79VmIz-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;endArrow=open;endFill=0;startSize=6;endSize=13;" edge="1" parent="1" source="dAg9rtn1hNU67q79VmIz-14" target="dAg9rtn1hNU67q79VmIz-2">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

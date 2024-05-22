@@ -84,7 +84,7 @@ const SendPasswordResetEmailPage = ({
       {...props}
     >
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex flex-col lg:justify-center items-center h-full">

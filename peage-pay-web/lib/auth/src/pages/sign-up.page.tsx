@@ -44,7 +44,7 @@ const SignUpPage = ({
       {...props}
     >
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent title={title}></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay Admin"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex flex-1 justify-center mt-0 lg:m-0 lg:items-center">

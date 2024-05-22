@@ -27,7 +27,7 @@ const PermissionErrorPage = (): JSX.Element => {
   return (
     <div className="flex flex-col h-screen w-screen bg-base-200">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay Admin"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex h-full items-center justify-center">

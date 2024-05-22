@@ -74,7 +74,7 @@ const SignInPage = ({
       {...props}
     >
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay Admin"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex flex-1 justify-center mt-0 lg:m-0 md:items-center">

@@ -1,0 +1,90 @@
+Classe Noeud
+  id: Chaine;
+  arrêtes: Liste de Arrête;
+Fin Classe
+
+Classe Arrête
+  noeud1: Noeud;
+  noeud2: Noeud;
+  distance: réél;
+Fin Classe
+
+Classe DistanceEntreNoeuds
+  idNoeud1: chaine;
+  idNoeud2: chaine;
+  distance: réél;
+Fin Classe
+
+Programme "Calcul des distances"
+  var 
+  mapDistanceEntreNoeuds: Map<chaine, DistanceEntreNoeuds>
+  arrétesVisités: Set<Arréte>
+
+  Fonction parcourir_depuis_noeud(
+    noeudInitial: Noeud,
+    noeudCourant: Noeud,
+    arrétesVisités: Set<Arréte>,
+    distanceActuelle: réél
+  ): void
+    var
+    noeudSuivant: Noeud;
+    distanceExistante: DistanceEntreNoeuds;
+    nouvelleDistanceEntreNoeuds: DistanceEntreNoeuds;
+
+    Debut
+      Pour chaque arréte dans noeudCourant.arrêtes faire
+        noeudSuivant = NIL;
+        distanceExistante = NIL;
+        Si arrétesVisités.contient(arréte) = Vrai alors
+          arrétesVisités.ajouter(arréte);
+          
+          Si arréte.noeud1 <> noeudCourant alors 
+            noeudSuivant = arréte.noeud1;
+          Sinon
+            Si arréte.noeud2 <> noeudCourant alors
+              noeudSuivant = arréte.noeud2;
+            Fin Si
+          Fin Si
+
+          distanceExistante = mapDistanceEntreNoeuds.trouver(
+            concatener(arréte.noeud1.id, arréte.noeud2.id)
+          );
+          Si distanceExistante = NIL alors 
+            distanceExistante = mapDistanceEntreNoeuds.trouver(
+              concatener(arréte.noeud2.id, arréte.noeud1.id)
+            );
+          Fin Si
+
+          Si distanceExistante = NIL alors
+            nouvelleDistanceEntreNoeuds = new DistanceEntreNoeuds();
+            nouvelleDistanceEntreNoeuds.idNoeud1 = noeudInitial.id;
+            nouvelleDistanceEntreNoeuds.idNoeud2 = noeudSuivant.id;
+            nouvelleDistanceEntreNoeuds.distance = distanceActuelle + arréte.distance;
+
+            mapDistanceEntreNoeuds.ajouter(
+              concatener(arréte.noeud1.id, arréte.noeud2.id),
+              nouvelleDistanceEntreNoeuds
+            );
+          Fin Si
+
+          parcourir_depuis_noeud(
+            noeudInitial,
+            noeudSuivant,
+            arrétesVisités,
+            distanceActuelle + arréte.distance
+          );
+        Fin Si
+      Fait
+    Fin
+
+Debut
+  Pour chaque noeud dans mapNoeuds faire
+    arrétesVisités = new Set<Arréte>();
+    parcourir_depuis_noeud(
+      noeud,
+      noeud,
+      arrétesVisités,
+      0
+    );
+  Fait
+Fin

@@ -1,16 +1,16 @@
-import { useMutation } from "@apollo/client";
-import { VERIFY_EMAIL } from "../graphql/mutations";
-import { Alert, Button, LoaderDots, MinimalNavbar } from "@peage-pay-web/ui";
-import { useSearchParams } from "react-router-dom";
-import { MailSent } from "@peage-pay-web/assets";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from '@apollo/client';
+import { VERIFY_EMAIL } from '../graphql/mutations';
+import { Alert, Button, LoaderDots, MinimalNavbar } from '@peage-pay-web/ui';
+import { useSearchParams } from 'react-router-dom';
+import { MailSent } from '@peage-pay-web/assets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck,
   faExclamationCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { TokenErrors } from "../__generated__/graphql";
+} from '@fortawesome/free-solid-svg-icons';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { TokenErrors } from '../__generated__/graphql';
 
 const verifyEmailvalidationSchema = yup.object({
   userId: yup.string().uuid().required(),
@@ -23,7 +23,7 @@ const VerifyEmailPage = (): JSX.Element => {
     onError(error) {
       switch (error.message) {
         case TokenErrors.InvalidVerificationToken:
-          setFieldError("password", "auth:errors.INVALID_VERIFICATION_TOKEN");
+          setFieldError('password', 'auth:errors.INVALID_VERIFICATION_TOKEN');
           break;
       }
     },
@@ -32,8 +32,8 @@ const VerifyEmailPage = (): JSX.Element => {
   const { handleSubmit, setFieldError } = useFormik({
     validationSchema: verifyEmailvalidationSchema,
     initialValues: {
-      userId: params.get("userId"),
-      token: params.get("token"),
+      userId: params.get('userId'),
+      token: params.get('token'),
     },
     onSubmit(values) {
       if (values.token && values.userId) {
@@ -52,7 +52,7 @@ const VerifyEmailPage = (): JSX.Element => {
   return (
     <div className="h-screen w-screen flex flex-col bg-base-200">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex h-full flex-col justify-center items-center">
@@ -65,8 +65,8 @@ const VerifyEmailPage = (): JSX.Element => {
             />
 
             {data ? (
-              <Alert variant={"success"}>
-                <Alert.Icon position={"left"}>
+              <Alert variant={'success'}>
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>Account verified</Alert.Content>
@@ -74,22 +74,22 @@ const VerifyEmailPage = (): JSX.Element => {
             ) : null}
 
             {error ? (
-              <Alert variant={"error"}>
-                <Alert.Icon position={"left"}>
+              <Alert variant={'error'}>
+                <Alert.Icon position={'left'}>
                   <FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon>
                 </Alert.Icon>
                 <Alert.Content>{error.message}</Alert.Content>
               </Alert>
             ) : null}
 
-            <Button className="mt-[0.5rem]" variant={"primary"} type="submit">
+            <Button className="mt-[0.5rem]" variant={'primary'} type="submit">
               {loading ? (
                 <LoaderDots
-                  dotProps={{ variant: "color-content" }}
+                  dotProps={{ variant: 'color-content' }}
                 ></LoaderDots>
               ) : (
                 <>
-                  <Button.Icon position={"left"}>
+                  <Button.Icon position={'left'}>
                     <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                   </Button.Icon>
                   <Button.Content>Verify email</Button.Content>

@@ -28,7 +28,7 @@ const SignInWithGoogleExternalPage = (): JSX.Element => {
   return (
     <div className="h-screen w-screen flex flex-col bg-base-200">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex h-full flex-col justify-center items-center">

@@ -70,7 +70,7 @@ const ResetPasswordPage = () => {
   return (
     <div className="h-screen w-screen bg-base-200 flex flex-col">
       <MinimalNavbar>
-        <MinimalNavbar.LeftContent></MinimalNavbar.LeftContent>
+        <MinimalNavbar.LeftContent title="PeagePay"></MinimalNavbar.LeftContent>
         <MinimalNavbar.RightContent></MinimalNavbar.RightContent>
       </MinimalNavbar>
       <div className="flex flex-col justify-center items-center h-full">
