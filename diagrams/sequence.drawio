@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-05-20T19:07:20.483Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="lYE5StAc5Js9s1R5SBje" version="24.4.0" type="device" pages="7">
+<mxfile host="Electron" modified="2024-05-26T03:13:10.523Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="wZ-pcWl158U6OnzLevId" version="24.4.8" type="device" pages="7">
   <diagram id="y-PkM5mK6ElMooPPY6-2" name="auth-email">
     <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -149,7 +149,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="5UJZca8mw1h-aE6w1gkt" name="email-verification">
-    <mxGraphModel dx="1510" dy="398" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1401" dy="334" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -190,7 +190,7 @@
             <mxPoint x="195" y="245" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="eZqeryYfZ05lPvWdjT2d-39" value="Accès a la page de verification&lt;br&gt;et cliquer su verifier" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" parent="1" target="eZqeryYfZ05lPvWdjT2d-38" edge="1">
+        <mxCell id="eZqeryYfZ05lPvWdjT2d-39" value="Accès a la page de verification&lt;br&gt;et cliquer sur verifier" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" parent="1" target="eZqeryYfZ05lPvWdjT2d-38" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="120.02380952380952" y="290" as="sourcePoint" />
             <mxPoint x="404" y="290" as="targetPoint" />
@@ -697,7 +697,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="1c_5kWe2gKv8NjcWUtpm" name="toll (tickets)">
-    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="478" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -707,7 +707,7 @@
         <mxCell id="vtccQXc38L3f67q0_ENY-2" value="Utilisateur" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="200" y="130" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="vtccQXc38L3f67q0_ENY-3" value="Systeme" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;fillColor=#99D3FF;" parent="1" vertex="1">
+        <mxCell id="vtccQXc38L3f67q0_ENY-3" value="Système&amp;nbsp;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;fillColor=#99D3FF;" parent="1" vertex="1">
           <mxGeometry x="400" y="160" width="100" height="380" as="geometry" />
         </mxCell>
         <mxCell id="vtccQXc38L3f67q0_ENY-4" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;fillColor=#99D3FF;" parent="vtccQXc38L3f67q0_ENY-3" vertex="1">
