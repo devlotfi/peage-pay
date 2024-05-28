@@ -5,10 +5,10 @@ import { Request } from 'express';
 import { createHmac } from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import { Env } from 'src/shared/config/env.type';
-import { RedisService } from 'src/redis/redis.service';
 import { PaymentMessagesPrefixes } from './payment-messages-prefixes';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { DatabaseService } from 'src/database/database.service';
+import { pubSub } from 'src/shared/pub-sub';
 
 @Injectable()
 export class PaymentService {
@@ -16,7 +16,6 @@ export class PaymentService {
     private readonly databaseService: DatabaseService,
     private readonly chargilyService: ChargilyService,
     private readonly configService: ConfigService<Env>,
-    private readonly redisService: RedisService,
   ) {}
 
   public async depositAmount(
@@ -83,7 +82,7 @@ export class PaymentService {
             },
           }),
         ]);
-        this.redisService.pubSubClient.publish(
+        pubSub.publish(
           PaymentMessagesPrefixes.PAYMENT_SUCCESSFUL(
             checkout.data.metadata.baseUserId,
           ),
@@ -93,7 +92,7 @@ export class PaymentService {
         );
         break;
       case 'checkout.failed':
-        this.redisService.pubSubClient.publish(
+        pubSub.publish(
           PaymentMessagesPrefixes.PAYMENT_FAILED(
             checkout.data.metadata.baseUserId,
           ),

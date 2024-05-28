@@ -1,16 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { DayOfWeek, Month, Prisma } from '@prisma/client';
-import { RedisService } from 'src/redis/redis.service';
+import { DayOfWeek, Month } from '@prisma/client';
 import { PriceRedisPrefixes } from 'src/price/price-redis-prefixes';
 import { TollPriceInput } from './input/toll-price.input.gql';
 
 @Injectable()
 export class TollPriceService {
-  public constructor(
-    private readonly databaseService: DatabaseService,
-    public readonly redisService: RedisService,
-  ) {}
+  public constructor(private readonly databaseService: DatabaseService) {}
 
   public dayOfWeekFromDate(data: Date) {
     switch (data.getDay()) {
@@ -134,15 +130,9 @@ export class TollPriceService {
   }
 
   private async defaultPriceCached(): Promise<number> {
-    const cachedResult = await this.redisService.client.get(
-      PriceRedisPrefixes.defaultPrice(),
-    );
-    if (!cachedResult) {
-      return (
-        await this.databaseService.defaultPrice.findFirstOrThrow()
-      ).value.toNumber();
-    }
-    return +cachedResult;
+    return (
+      await this.databaseService.defaultPrice.findFirstOrThrow()
+    ).value.toNumber();
   }
 
   public async tollPrice(tollPriceInput: TollPriceInput): Promise<number> {

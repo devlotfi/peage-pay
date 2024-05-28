@@ -12,7 +12,6 @@ import { RefreshTokenMode } from './graphql/refresh-token-mode.gql';
 import { SignInResult } from './result/sign-in.result.gql';
 import { UserTokenService } from 'src/token/user-token.service';
 import { SendResetPasswordEmailInput } from './input/send-reset-password-email.input.gql';
-import { AuthRedisService } from './auth-redis.service';
 import { ResetPasswordInput } from './input/reset-password.input.gql';
 import { Request, Response } from 'express';
 import { BaseUserService } from 'src/user/base-user.service';
@@ -26,7 +25,6 @@ export class EmailAuthService {
     private readonly emailService: EmailService,
     private readonly userTokenService: UserTokenService,
     private readonly baseUserService: BaseUserService,
-    private readonly authRedisService: AuthRedisService,
   ) {}
 
   public async signUpWithEmail(
@@ -135,17 +133,6 @@ export class EmailAuthService {
         },
       });
 
-    const passwordResetAttempts =
-      await this.authRedisService.getPasswordResetAttempts(
-        emailAuthMethod.authMethod.userId,
-      );
-    if (passwordResetAttempts < 1) {
-      throw new GraphQLError(AuthErrors.PASSWORD_RESET_ATTEMPTS_EXCEEDED);
-    }
-
-    await this.authRedisService.decrementPasswordResetAttempts(
-      emailAuthMethod.authMethod.userId,
-    );
     await this.emailService.sendPasswordResetEmail(
       emailAuthMethod.authMethod.userId,
       emailAuthMethod.email,
@@ -223,39 +210,17 @@ export class EmailAuthService {
         },
       });
 
-    const signInWithEmailAttempts =
-      await this.authRedisService.getSignInWithEmailAttempts(
-        emailAuthMethod.authMethod.userId,
-      );
-    if (signInWithEmailAttempts < 1) {
-      throw new GraphQLError(AuthErrors.SIGN_IN_WITH_EMAIl_ATTEMPTS_EXCEEDED);
-    }
-
     const result = await compare(
       signInWithEmailInput.password,
       emailAuthMethod.passwordHash,
     );
     if (!result) {
-      await this.authRedisService.decrementSignInWithEmailAttempts(
-        emailAuthMethod.authMethod.userId,
-      );
       throw new GraphQLError(AuthErrors.INVALID_EMAIL_OR_PASSWORD);
     }
     if (!emailAuthMethod.verifiedAt) {
-      const emailVerificationAttempts =
-        await this.authRedisService.getEmailVerificationAttempts(
-          emailAuthMethod.authMethod.userId,
-        );
-      if (emailVerificationAttempts < 1) {
-        throw new GraphQLError(AuthErrors.EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED);
-      }
-
       await this.emailService.sendVerificationEmail(
         emailAuthMethod.authMethod.userId,
         emailAuthMethod.email,
-      );
-      await this.authRedisService.decrementEmailVerificationAttempts(
-        emailAuthMethod.authMethod.userId,
       );
       throw new GraphQLError(AuthErrors.VERIFICATION_REQUEST_PENDING);
     }

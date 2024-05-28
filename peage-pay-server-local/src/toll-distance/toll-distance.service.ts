@@ -5,7 +5,6 @@ import { Decimal } from '@prisma/client/runtime/library';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TollDistanceListInput } from './input/toll-distance-list.input.gql';
 import { TollDistanceListResult } from './result/toll-distance-list.result.gql';
-import { RedisService } from 'src/redis/redis.service';
 import { TollDistanceRedisPrefixes } from './toll-distance-prefixes';
 import { TollDistanceInput } from './input/toll-distance.input.gql';
 
@@ -124,10 +123,7 @@ function traverseFromNode(
 
 @Injectable()
 export class TollDistanceService {
-  public constructor(
-    private readonly databaseService: DatabaseService,
-    private readonly redisService: RedisService,
-  ) {}
+  public constructor(private readonly databaseService: DatabaseService) {}
 
   public async generateTollDistances(
     generateTollDistancesInput: IdInput,
@@ -266,19 +262,6 @@ export class TollDistanceService {
   public async tollDistance(
     tollDistanceInput: TollDistanceInput,
   ): Promise<number> {
-    const cacheResult = await this.redisService.client.get(
-      TollDistanceRedisPrefixes.tollDistance(
-        tollDistanceInput.fromTollId,
-        tollDistanceInput.toTollId,
-      ),
-    );
-
-    if (cacheResult) {
-      console.log('distance from cache');
-
-      return +cacheResult;
-    }
-
     const tollDistance =
       await this.databaseService.tollDistance.findFirstOrThrow({
         where: {
@@ -294,27 +277,6 @@ export class TollDistanceService {
           ],
         },
       });
-    const cacheSet1Promise = this.redisService.client.set(
-      TollDistanceRedisPrefixes.tollDistance(
-        tollDistance.fromTollId,
-        tollDistance.toTollId,
-      ),
-      tollDistance.distance.toNumber(),
-      {
-        EX: 60 * 60 * 24,
-      },
-    );
-    const cacheSet2Promise = this.redisService.client.set(
-      TollDistanceRedisPrefixes.tollDistance(
-        tollDistance.toTollId,
-        tollDistance.fromTollId,
-      ),
-      tollDistance.distance.toNumber(),
-      {
-        EX: 60 * 60 * 24,
-      },
-    );
-    await Promise.all([cacheSet1Promise, cacheSet2Promise]);
     return tollDistance.distance.toNumber();
   }
 }

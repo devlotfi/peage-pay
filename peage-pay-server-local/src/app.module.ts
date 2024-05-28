@@ -1,17 +1,13 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
-import { RedisModule } from './redis/redis.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
-import { SmsModule } from './sms/sms.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { validateEnv } from './shared/config/validate-env';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { AuthErrors } from './auth/graphql/auth-errors.gql';
-import { BullModule } from '@nestjs/bull';
-import { Env } from './shared/config/env.type';
 import { TokenModule } from './token/token.module';
 import { HighwayModule } from './highway/highway.module';
 import { SubscriptionModule } from './subscription/subscription.module';
@@ -50,17 +46,6 @@ import { StatisticsModule } from './statistics/statistics.module';
     ConfigModule.forRoot({
       validate: validateEnv,
     }),
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-
-      useFactory(...args) {
-        const configService: ConfigService<Env> = args[0];
-        return {
-          url: configService.getOrThrow<string>('REDIS_URL'),
-        };
-      },
-    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -92,10 +77,8 @@ import { StatisticsModule } from './statistics/statistics.module';
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     DatabaseModule,
-    RedisModule,
     AuthModule,
     EmailModule,
-    SmsModule,
     TokenModule,
     HighwayModule,
     SubscriptionModule,

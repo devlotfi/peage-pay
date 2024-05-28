@@ -8,15 +8,12 @@ import { BaseUserRolesType } from 'src/user/graphql/base-user-roles.gql';
 import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
 import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
-import { RedisService } from 'src/redis/redis.service';
 import { PaymentMessagesPrefixes } from './payment-messages-prefixes';
+import { pubSub } from 'src/shared/pub-sub';
 
 @Resolver()
 export class PaymentResolver {
-  public constructor(
-    private readonly paymentService: PaymentService,
-    private readonly redisService: RedisService,
-  ) {}
+  public constructor(private readonly paymentService: PaymentService) {}
 
   @Mutation(() => String)
   @AllowRoles([BaseUserRolesType.USER])
@@ -35,7 +32,7 @@ export class PaymentResolver {
   public paymentSuccessful(
     @Args('paymentSuccessfulInput') paymentSuccessfulInput: IdInput,
   ) {
-    return this.redisService.pubSubClient.asyncIterator(
+    return pubSub.asyncIterator(
       PaymentMessagesPrefixes.PAYMENT_SUCCESSFUL(paymentSuccessfulInput.id),
     );
   }
@@ -44,7 +41,7 @@ export class PaymentResolver {
   public paymentFailed(
     @Args('paymentFailedInput') paymentFailedInput: IdInput,
   ) {
-    return this.redisService.pubSubClient.asyncIterator(
+    return pubSub.asyncIterator(
       PaymentMessagesPrefixes.PAYMENT_FAILED(paymentFailedInput.id),
     );
   }
