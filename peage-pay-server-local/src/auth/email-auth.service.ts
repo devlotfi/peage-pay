@@ -164,9 +164,6 @@ export class EmailAuthService {
     ) {
       throw new GraphQLError(PrismaErrors.NOT_FOUND);
     }
-    if (baseUser.authMethod.emailAuthMethod.verifiedAt) {
-      throw new GraphQLError(AuthErrors.EMAIL_ALREADY_VERIFIED);
-    }
     if (new Date() > baseUser.verificationToken.expiresAt) {
       throw new GraphQLError(TokenErrors.VERIFICATION_TOKEN_EXPIRED);
     }
