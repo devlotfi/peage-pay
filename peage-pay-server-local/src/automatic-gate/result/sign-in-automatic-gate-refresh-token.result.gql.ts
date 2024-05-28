@@ -1,0 +1,11 @@
+import { Field, ObjectType } from '@nestjs/graphql';
+import { AutomaticGateType } from '../graphql/automatic-gate.gql';
+
+@ObjectType()
+export class SignInAutomaticGateRefreshTokenResult {
+  @Field(() => AutomaticGateType)
+  public automaticGate: AutomaticGateType;
+
+  @Field()
+  public accessToken: string;
+}

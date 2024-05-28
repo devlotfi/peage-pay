@@ -1,0 +1,71 @@
+import { Injectable } from '@nestjs/common';
+import { DatabaseService } from 'src/database/database.service';
+import { GraphQLError } from 'graphql';
+import { PriceErrors } from './graphql/price-errors.gql';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
+import { BaseUserErrors } from 'src/user/graphql/base-user-errors.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { TollAdminService } from 'src/user/toll-admin.service';
+
+@Injectable()
+export class DeletePriceService {
+  public constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly tollAdminService: TollAdminService,
+  ) {}
+
+  public async deleteGlobalPrice(deletePriceInput: IdInput): Promise<boolean> {
+    const price = await this.databaseService.price.findUnique({
+      where: {
+        id: deletePriceInput.id,
+      },
+      include: {
+        tollPrice: true,
+      },
+    });
+    if (!price) {
+      throw new GraphQLError(PriceErrors.PRICE_NOT_FOUND);
+    }
+    if (price.tollPrice) {
+      throw new GraphQLError(PriceErrors.CANNOT_DELETE_LOCAL_PRICE);
+    }
+    return await this.deletePrice(deletePriceInput);
+  }
+
+  public async deleteLocalPrice(
+    deletePriceInput: IdInput,
+    accessTokenPayload: UserAccessTokenPayload,
+  ): Promise<boolean> {
+    const price = await this.databaseService.price.findUnique({
+      where: {
+        id: deletePriceInput.id,
+      },
+      include: {
+        tollPrice: true,
+      },
+    });
+    if (!price) {
+      throw new GraphQLError(PriceErrors.PRICE_NOT_FOUND);
+    }
+    if (!price.tollPrice) {
+      throw new GraphQLError(PriceErrors.CANNOT_DELETE_GLOBAL_PRICE);
+    }
+
+    const tollAdminData =
+      (await this.tollAdminService.tollAdminInfo(accessTokenPayload))!;
+    if (tollAdminData.tollId! !== price.tollPrice.tollId) {
+      throw new GraphQLError(BaseUserErrors.INSUFFICIENT_PRIVILEGES);
+    }
+
+    return await this.deletePrice(deletePriceInput);
+  }
+
+  private async deletePrice(deletePriceInput: IdInput): Promise<boolean> {
+    await this.databaseService.price.delete({
+      where: {
+        id: deletePriceInput.id,
+      },
+    });
+    return true;
+  }
+}

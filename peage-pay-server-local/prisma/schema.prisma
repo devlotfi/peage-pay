@@ -1,0 +1,419 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model AuthMethod {
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  id               String            @id @default(uuid())
+  userId           String            @unique
+  emailAuthMethod  EmailAuthMethod?
+  googleAuthMethod GoogleAuthMethod?
+}
+
+model EmailAuthMethod {
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id], onDelete: Cascade)
+
+  authMethodId String    @id
+  email        String    @unique
+  passwordHash String
+  verifiedAt   DateTime?
+}
+
+model GoogleAuthMethod {
+  authMethod AuthMethod @relation(fields: [authMethodId], references: [id], onDelete: Cascade)
+
+  authMethodId String @id
+  googleId     String @unique
+  email        String @unique
+}
+
+model VerificationToken {
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model UserRefreshToken {
+  baseUser BaseUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  id        String   @id @default(uuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model RfidTag {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  id                 String   @id @default(uuid())
+  baseUserId         String
+  rfid               String   @unique
+  registrationNumber String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Subscription {
+  userSubscriptions UserSubscription[]
+
+  id        String   @id @default(uuid())
+  name      String   @unique
+  days      Int
+  price     Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserSubscription {
+  baseUser     BaseUser     @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  baseUserId     String
+  subscriptionId String
+
+  @@id([baseUserId, subscriptionId])
+}
+
+model BaseUser {
+  user                 User?
+  authMethod           AuthMethod?
+  generalAdmin         GeneralAdmin?
+  humanRessourcesAdmin HumanRessourcesAdmin?
+  moderator            Moderator?
+  tollAdmin            TollAdmin?
+  gateAdmin            GateAdmin?
+  verificationToken    VerificationToken?
+  userRefreshToken     UserRefreshToken[]
+  trips                Trip[]                @relation("Trips")
+  userSubscriptions    UserSubscription[]
+  rfidTags             RfidTag[]
+  currentTrip          Trip?                 @relation(fields: [currentTripId], references: [id])
+  deposits             Deposit[]
+
+  id            String   @id @default(uuid())
+  currentTripId String?  @unique
+  firstName     String
+  lastName      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model User {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  baseUserId String  @id
+  balance    Decimal @default(0)
+  pinHash    String?
+}
+
+model GeneralAdmin {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  baseUserId String @id
+}
+
+model HumanRessourcesAdmin {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  baseUserId String @id
+}
+
+model Moderator {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  baseUserId String @id
+}
+
+model TollAdmin {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+  toll     Toll?    @relation(fields: [tollId], references: [id])
+
+  baseUserId String  @id
+  tollId     String?
+}
+
+model GateAdmin {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+  toll     Toll?    @relation(fields: [tollId], references: [id])
+
+  baseUserId String  @id
+  tollId     String?
+}
+
+model Wilaya {
+  tolls Toll[]
+
+  id   String @id @default(uuid())
+  name String @unique
+  code String @unique
+}
+
+model Highway {
+  tolls Toll[]
+
+  id        String   @id @default(uuid())
+  name      String   @unique
+  code      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TollNetwork {
+  tolls Toll[]
+
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Toll {
+  wilaya            Wilaya          @relation(fields: [wilayaId], references: [id])
+  highway           Highway         @relation(fields: [highwayId], references: [id])
+  tollNetwork       TollNetwork     @relation(fields: [tollNetworkId], references: [id])
+  fromTollDistances TollDistance[]  @relation("fromTollDistance")
+  toTollDistances   TollDistance[]  @relation("toTollDistance")
+  fromSections      Section[]       @relation("fromSection")
+  toSections        Section[]       @relation("toSection")
+  automaticGates    AutomaticGate[]
+  entryTollsTrip    Trip[]          @relation("entryTollTrip")
+  exitTollsTrip     Trip[]          @relation("exitTollTrip")
+  entryTollsTicket  Ticket[]        @relation("entryTollTicket")
+  exitTollsTicket   Ticket[]        @relation("exitTollTicket")
+  tollPrices        TollPrice[]
+  tollAdmins        TollAdmin[]
+  gateAdmins        GateAdmin[]
+
+  id            String   @id @default(uuid())
+  wilayaId      String
+  tollNetworkId String
+  highwayId     String
+  name          String   @unique
+  longitude     Decimal
+  latitude      Decimal
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Section {
+  fromToll Toll @relation("fromSection", fields: [fromTollId], references: [id], onDelete: Cascade)
+  toToll   Toll @relation("toSection", fields: [toTollId], references: [id], onDelete: Cascade)
+
+  fromTollId String
+  toTollId   String
+  distance   Decimal
+
+  @@id([fromTollId, toTollId])
+}
+
+model TollDistance {
+  fromToll Toll @relation("fromTollDistance", fields: [fromTollId], references: [id], onDelete: Cascade)
+  toToll   Toll @relation("toTollDistance", fields: [toTollId], references: [id], onDelete: Cascade)
+
+  fromTollId String
+  toTollId   String
+  distance   Decimal
+
+  @@id([fromTollId, toTollId])
+}
+
+model AutomaticGateRefreshToken {
+  automaticGate AutomaticGate @relation(fields: [automaticGateId], references: [id], onDelete: Cascade)
+
+  id              String   @id @default(uuid())
+  automaticGateId String   @unique
+  tokenHash       String
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+}
+
+enum AutomaticGateVariant {
+  TICKET_PRINTER
+  RFID_READER
+  QR_CODE_READER
+}
+
+model AutomaticGate {
+  toll                      Toll                       @relation(fields: [tollId], references: [id])
+  automaticGateRefreshToken AutomaticGateRefreshToken?
+
+  id           String               @id @default(uuid())
+  tollId       String
+  name         String
+  variant      AutomaticGateVariant
+  direction    TollDirection
+  passwordHash String
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  @@unique([name, tollId])
+}
+
+model Trip {
+  entryToll       Toll      @relation("entryTollTrip", fields: [entryTollId], references: [id], onDelete: Cascade)
+  exitToll        Toll?     @relation("exitTollTrip", fields: [exitTollId], references: [id], onDelete: Cascade)
+  baseUser        BaseUser  @relation("Trips", fields: [baseUserId], references: [id], onDelete: Cascade)
+  currentBaseUser BaseUser?
+
+  id             String    @id @default(uuid())
+  entryTollId    String
+  exitTollId     String?
+  baseUserId     String
+  entryTimeStamp DateTime  @default(now())
+  entryTollPrice Decimal
+  exitTimeStamp  DateTime?
+  exitTollPrice  Decimal?
+  distance       Decimal?
+}
+
+model Ticket {
+  entryToll Toll  @relation("entryTollTicket", fields: [entryTollId], references: [id], onDelete: Cascade)
+  exitToll  Toll? @relation("exitTollTicket", fields: [exitTollId], references: [id], onDelete: Cascade)
+
+  id             String    @id @default(uuid())
+  entryTollId    String
+  exitTollId     String?
+  entryTimeStamp DateTime  @default(now())
+  entryTollPrice Decimal
+  exitTimeStamp  DateTime?
+  exitTollPrice  Decimal?
+  distance       Decimal?
+  used           Boolean   @default(false)
+}
+
+enum Month {
+  JANUARY
+  FEBRUARY
+  MARCH
+  APRIL
+  MAY
+  JUNE
+  JULY
+  AUGUST
+  SEPTEMBER
+  OCTOBER
+  NOVEMBER
+  DECEMBER
+}
+
+enum DayOfWeek {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+enum TollDirection {
+  INBOUND
+  OUTBOUND
+}
+
+model TollPrice {
+  toll  Toll  @relation(fields: [tollId], references: [id], onDelete: Cascade)
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  tollId        String
+  priceId       String        @unique
+  tollDirection TollDirection
+
+  @@id([tollId, priceId])
+}
+
+model Price {
+  tollPrice    TollPrice?
+  dailyPrice   DailyPrice?
+  weeklyPrice  WeeklyPrice?
+  monthlyPrice MonthlyPrice?
+  yearlyPrice  YearlyPrice?
+  customPrice  CustomPrice?
+
+  id             String   @id @default(uuid())
+  value          Decimal
+  startTimestamp DateTime
+  endTimestamp   DateTime
+  priority       Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model DailyPrice {
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  priceId String @id
+}
+
+model WeeklyPrice {
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  priceId String      @id
+  days    DayOfWeek[]
+}
+
+model MonthlyPrice {
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  priceId  String  @id
+  months   Month[]
+  startDay Int
+  endDay   Int
+}
+
+model YearlyPrice {
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  priceId   String   @id
+  months    Month[]
+  startDate DateTime
+  endDate   DateTime
+}
+
+model CustomPrice {
+  price Price @relation(fields: [priceId], references: [id], onDelete: Cascade)
+
+  priceId   String   @id
+  startDate DateTime
+  endDate   DateTime
+}
+
+model DefaultPrice {
+  id    String  @id @default(uuid())
+  value Decimal @default(0)
+}
+
+model Deposit {
+  baseUser BaseUser @relation(fields: [baseUserId], references: [id], onDelete: Cascade)
+
+  id         String   @id @default(uuid())
+  baseUserId String
+  amount     Decimal
+  createdAt  DateTime @default(now())
+}
+
+model Code {
+  id        String   @id @default(uuid())
+  codeHash  String   @unique
+  value     Decimal
+  createdAt DateTime @default(now())
+}

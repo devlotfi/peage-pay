@@ -1,0 +1,153 @@
+import { Injectable } from '@nestjs/common';
+import { Section, TollDistance } from '@prisma/client';
+import { DatabaseService } from 'src/database/database.service';
+import { SectionListForTollInput } from './input/section-list-for-toll.input.gql';
+import { AddSectionInput } from './input/add-section.input.gql';
+import { DeleteSectionInput } from './input/delete-section.input.gql';
+import { SectionListResult } from './result/section-list.result.gql';
+import { EditSectionInput } from './input/edit-section-input.gql';
+import { SectionByIdsInput } from './input/section-by-ids.input.gql';
+import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { SectionListForTollNetworkPaginatedInput } from './input/section-list-for-toll-network-paginated.input.gql copy';
+
+@Injectable()
+export class SectionService {
+  public constructor(private readonly databaseService: DatabaseService) {}
+
+  public async globalSectionList(): Promise<Section[]> {
+    return await this.databaseService.section.findMany();
+  }
+
+  public async sectionListForTollNetworkPaginated(
+    sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput,
+  ): Promise<SectionListResult> {
+    console.log('testa');
+
+    const sectionList = await this.databaseService.section.findMany({
+      where: {
+        OR: [
+          {
+            fromToll: {
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
+            },
+          },
+          {
+            toToll: {
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
+            },
+          },
+        ],
+      },
+      take: sectionListForTollNetworkPaginatedInput.take,
+      skip: sectionListForTollNetworkPaginatedInput.skip,
+    });
+    const sectionCount = await this.databaseService.section.count({
+      where: {
+        OR: [
+          {
+            fromToll: {
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
+            },
+          },
+          {
+            toToll: {
+              tollNetworkId: sectionListForTollNetworkPaginatedInput.id,
+            },
+          },
+        ],
+      },
+    });
+    return {
+      count: sectionCount,
+      list: sectionList as any,
+    };
+  }
+
+  public async sectionListForTollNetwork(
+    sectionListForTollNetworkInput: IdInput,
+  ): Promise<TollDistance[]> {
+    return await this.databaseService.section.findMany({
+      where: {
+        OR: [
+          {
+            fromToll: {
+              tollNetwork: {
+                id: sectionListForTollNetworkInput.id,
+              },
+            },
+          },
+          {
+            toToll: {
+              tollNetwork: {
+                id: sectionListForTollNetworkInput.id,
+              },
+            },
+          },
+        ],
+      },
+    });
+  }
+
+  public async sectionByIds(
+    sectionByIdsInput: SectionByIdsInput,
+  ): Promise<Section | null> {
+    return await this.databaseService.section.findUnique({
+      where: {
+        fromTollId_toTollId: {
+          fromTollId: sectionByIdsInput.fromTollId,
+          toTollId: sectionByIdsInput.toTollId,
+        },
+      },
+    });
+  }
+
+  public async addSection(addSectionInput: AddSectionInput): Promise<Section> {
+    const graphTollDistance = await this.databaseService.section.create({
+      data: {
+        fromToll: {
+          connect: {
+            id: addSectionInput.fromTollId,
+          },
+        },
+        toToll: {
+          connect: {
+            id: addSectionInput.toTollId,
+          },
+        },
+        distance: addSectionInput.distance,
+      },
+    });
+    return graphTollDistance;
+  }
+
+  public async editSection(
+    editSectionInput: EditSectionInput,
+  ): Promise<Section> {
+    const graphTollDistance = await this.databaseService.section.update({
+      data: {
+        distance: editSectionInput.distance,
+      },
+      where: {
+        fromTollId_toTollId: {
+          fromTollId: editSectionInput.fromTollId,
+          toTollId: editSectionInput.toTollId,
+        },
+      },
+    });
+    return graphTollDistance;
+  }
+
+  public async deleteSection(
+    deleteSectionInput: DeleteSectionInput,
+  ): Promise<boolean> {
+    await this.databaseService.section.delete({
+      where: {
+        fromTollId_toTollId: {
+          fromTollId: deleteSectionInput.fromTollId,
+          toTollId: deleteSectionInput.toTollId,
+        },
+      },
+    });
+    return true;
+  }
+}

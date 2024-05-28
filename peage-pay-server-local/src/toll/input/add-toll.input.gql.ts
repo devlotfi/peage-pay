@@ -1,0 +1,29 @@
+import { Field, InputType } from '@nestjs/graphql';
+import { IsLatitude, IsLongitude, IsUUID, Length } from 'class-validator';
+
+@InputType()
+export class AddTollInput {
+  @Field()
+  @IsUUID()
+  public wilayaId: string;
+
+  @Field()
+  @IsUUID()
+  public highwayId: string;
+
+  @Field()
+  @IsUUID()
+  public tollNetworkId: string;
+
+  @Field()
+  @Length(1, 1024)
+  public name: string;
+
+  @Field()
+  @IsLatitude()
+  public latitude: number;
+
+  @Field()
+  @IsLongitude()
+  public longitude: number;
+}
