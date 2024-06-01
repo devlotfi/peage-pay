@@ -170,5 +170,6 @@
   "ADD_GLOBAL_WEEKLY_PRICE": "Ajouter un tarif hebdomadaire global",
   "ADD_GLOBAL_MONTHLY_PRICE": "Ajouter un tarif mensuel global",
   "ADD_GLOBAL_YEARLY_PRICE": "Ajouter un tarif annuel global",
-  "ADD_GLOBAL_CUSTOM_PRICE": "Ajouter un tarif customisé global"
+  "ADD_GLOBAL_CUSTOM_PRICE": "Ajouter un tarif customisé global",
+  "PICK_TOLL": "Selectionner péage"
 }

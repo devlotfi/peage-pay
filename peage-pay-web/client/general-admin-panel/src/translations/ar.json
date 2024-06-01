@@ -159,5 +159,6 @@
   "ADD_GLOBAL_WEEKLY_PRICE": "أضف سعر أسبوعي عام",
   "ADD_GLOBAL_MONTHLY_PRICE": "أضف سعر شهري عام",
   "ADD_GLOBAL_YEARLY_PRICE": "أضف سعر سنوي عام",
-  "ADD_GLOBAL_CUSTOM_PRICE": "أضف سعرًا مخصصًا عاما"
+  "ADD_GLOBAL_CUSTOM_PRICE": "أضف سعرًا مخصصًا عاما",
+  "PICK_TOLL": "اختر محطة حصيلة"
 }

@@ -159,5 +159,6 @@
   "ADD_GLOBAL_WEEKLY_PRICE": "Add a global weekly rate",
   "ADD_GLOBAL_MONTHLY_PRICE": "Add a global monthly rate",
   "ADD_GLOBAL_YEARLY_PRICE": "Add a global annual rate",
-  "ADD_GLOBAL_CUSTOM_PRICE": "Add a global custom rate"
+  "ADD_GLOBAL_CUSTOM_PRICE": "Add a global custom rate",
+  "PICK_TOLL": "Selectionner péage"
 }
