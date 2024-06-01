@@ -1,14 +1,14 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import UIText from '../elements/ui-text/ui-text.component';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import FullScreenLoading from '../layout/full-screen-loading.component';
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import { DEPOSIT_LIST, USER_INFO } from '../graphql/queries';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 import UIHeading from '../elements/ui-heading/ui-heading.component';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +25,8 @@ const BalanceScreen = (): JSX.Element => {
   const styles = makeStyles(theme);
   const { authData } = useContext(AuthContext);
   const { t } = useTranslation();
+  const client = useApolloClient();
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     loading: userInfoLoading,
@@ -58,6 +60,18 @@ const BalanceScreen = (): JSX.Element => {
     <FullScreenLoading loading={userInfoLoading || depositListLoading}>
       <FullScreenError error={userInfoError || depositListError}>
         <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={async () => {
+                setRefreshing(true);
+                await client.refetchQueries({
+                  include: [USER_INFO, DEPOSIT_LIST],
+                });
+                setRefreshing(false);
+              }}
+            ></RefreshControl>
+          }
           style={styles.page}
           contentContainerStyle={styles.pageScrollContent}
         >

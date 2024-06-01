@@ -7,7 +7,11 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import UIButton from '../elements/ui-button/ui-button.component';
-import { faPowerOff, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPowerOff,
+  faUser,
+  faUserCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { useMutation } from '@apollo/client';
 import { SIGN_OUT } from '../graphql/mutations';
 import { UserAuthUtils } from '../utils/utils';
@@ -56,6 +60,10 @@ const CustomDrawerContent = (
             {authData?.baseUser.firstName} {authData?.baseUser.lastName}
           </UIText>
         </View>
+        <UIButton variant="base-100" style={{ marginBottom: 15 }}>
+          <UIButton.Icon icon={faUser}></UIButton.Icon>
+          <UIButton.Content>{t('PROFILE')}</UIButton.Content>
+        </UIButton>
         <UIButton variant="error" onPress={() => signOut()}>
           {loading ? (
             <ActivityIndicator

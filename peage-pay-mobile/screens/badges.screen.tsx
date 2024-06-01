@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { AppTheme } from '../theme/types/app-theme.type';
 import { useAppTheme } from '../hooks/use-app-theme.hook';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import FullScreenLoading from '../layout/full-screen-loading.component';
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import { USER_RFID_TAG_LIST } from '../graphql/queries';
 import { BottomTabsNavigatorParamList } from '../navigators/router';
 import UIHeading from '../elements/ui-heading/ui-heading.component';
@@ -13,6 +13,7 @@ import EmptyList from '../layout/empty-list.component';
 import RfidTagItem from '../components/rfid-tag/rfid-tag-item.component';
 import { RfidTagType } from '../__generated__/graphql';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Props = DrawerScreenProps<BottomTabsNavigatorParamList, 'Badges'>;
@@ -21,6 +22,8 @@ const BadgesScreen = (): JSX.Element => {
   const { t } = useTranslation();
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
+  const client = useApolloClient();
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     loading: rfidTagListLoading,
@@ -47,6 +50,18 @@ const BadgesScreen = (): JSX.Element => {
     <FullScreenLoading loading={rfidTagListLoading}>
       <FullScreenError error={rfidTagListError}>
         <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={async () => {
+                setRefreshing(true);
+                await client.refetchQueries({
+                  include: [USER_RFID_TAG_LIST],
+                });
+                setRefreshing(false);
+              }}
+            ></RefreshControl>
+          }
           style={styles.page}
           contentContainerStyle={styles.pageScrollContent}
         >

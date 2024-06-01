@@ -44,6 +44,7 @@ import { ChargilyModule } from './chargily/chargily.module';
 import { PaymentModule } from './payment/payment.module';
 import { PaymentSubscriptionMessages } from './payment/graphql/payment-subscription-messages.gql';
 import { StatisticsModule } from './statistics/statistics.module';
+import { PaymentErrors } from './payment/graphql/payment-errors.gql';
 
 @Module({
   imports: [
@@ -75,6 +76,7 @@ import { StatisticsModule } from './statistics/statistics.module';
           TokenErrors,
           PriceErrors,
           PrismaErrors,
+          PaymentErrors,
 
           HighwaySearchFields,
           TollNetworkSearchFields,

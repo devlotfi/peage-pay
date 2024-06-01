@@ -15,6 +15,7 @@ import { TripPriceResult } from './result/trip-price.result.gql';
 import { QRCodeInput } from 'src/shared/graphql/qr-code-input.gql';
 import { compare } from 'bcrypt';
 import { AuthErrors } from 'src/auth/graphql/auth-errors.gql';
+import { PaymentErrors } from 'src/payment/graphql/payment-errors.gql';
 
 @Injectable()
 export class TripService {
@@ -99,7 +100,17 @@ export class TripService {
         where: {
           rfid: startTripRfidInput.rfid,
         },
+        include: {
+          baseUser: true,
+        },
       });
+      if (rfidTag.baseUser.currentTripId) {
+        await this.databaseService.trip.delete({
+          where: {
+            id: rfidTag.baseUser.currentTripId,
+          },
+        });
+      }
 
       const trip = await this.databaseService.trip.create({
         data: {
@@ -144,7 +155,11 @@ export class TripService {
           rfid: endTripRfidInput.rfid,
         },
         include: {
-          baseUser: true,
+          baseUser: {
+            include: {
+              user: true,
+            },
+          },
         },
       });
       if (!rfidTag.baseUser.currentTripId) {
@@ -175,6 +190,13 @@ export class TripService {
 
       const tripPrice =
         ((trip.entryTollPrice.toNumber() + tollPrice) / 2) * tollDistance;
+
+      if (
+        rfidTag.baseUser.user &&
+        rfidTag.baseUser.user.balance.toNumber() < tripPrice
+      ) {
+        throw new GraphQLError(PaymentErrors.INSUFFICIENT_FUNDS);
+      }
       await prisma.user.update({
         data: {
           balance: {
@@ -206,6 +228,9 @@ export class TripService {
         where: {
           baseUserId: startTripQRCodeInput.baseUserId,
         },
+        include: {
+          baseUser: true,
+        },
       });
       const result = await compare(
         startTripQRCodeInput.pin,
@@ -213,6 +238,14 @@ export class TripService {
       );
       if (!result) {
         throw new GraphQLError(AuthErrors.INVALID_PIN);
+      }
+
+      if (user.baseUser.currentTripId) {
+        await this.databaseService.trip.delete({
+          where: {
+            id: user.baseUser.currentTripId,
+          },
+        });
       }
 
       const automaticGate = await prisma.automaticGate.findUniqueOrThrow({
@@ -302,6 +335,13 @@ export class TripService {
 
       const tripPrice =
         ((trip.entryTollPrice.toNumber() + tollPrice) / 2) * tollDistance;
+
+      console.log(user.balance.toNumber());
+      console.log(tripPrice);
+
+      if (user.balance.toNumber() < tripPrice) {
+        throw new GraphQLError(PaymentErrors.INSUFFICIENT_FUNDS);
+      }
       await prisma.user.update({
         data: {
           balance: {

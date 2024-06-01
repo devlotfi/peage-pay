@@ -119,7 +119,7 @@ const TripPriceDetails = ({
                   Total:
                 </UIText>
                 <UIText style={styles.infoContent}>
-                  {calculateTotal().toFixed(2)} km
+                  {calculateTotal().toFixed(2)} dzd
                 </UIText>
               </View>
             </View>
