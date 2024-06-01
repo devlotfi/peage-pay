@@ -7,6 +7,8 @@ import { BaseUserListResult } from './result/base-user-list.result.gql';
 import { PrismaErrors } from 'src/shared/graphql/prisma-errors.gql';
 import { BaseUserType } from './graphql/base-user.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
+import { EditProfileInput } from './input/edit-profile.input.gql';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
 
 @Injectable()
 export class BaseUserService {
@@ -108,6 +110,22 @@ export class BaseUserService {
     baseUser.gateAdmin && roleList.push(BaseUserRolesType.GATE_ADMIN);
     baseUser.moderator && roleList.push(BaseUserRolesType.MODERATOR);
     return roleList;
+  }
+
+  public async editProfile(
+    editProfileInput: EditProfileInput,
+    accessTokenPayload: UserAccessTokenPayload,
+  ): Promise<boolean> {
+    await this.databaseService.baseUser.update({
+      data: {
+        firstName: editProfileInput.firstName,
+        lastName: editProfileInput.lastName,
+      },
+      where: {
+        id: accessTokenPayload.userId,
+      },
+    });
+    return true;
   }
 
   public async deleteBaseUser(deleteBaseUserInput: IdInput): Promise<boolean> {

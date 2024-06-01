@@ -17,6 +17,9 @@ import { BaseUserListResult } from './result/base-user-list.result.gql';
 import { IdInput } from 'src/shared/graphql/id-input.gql';
 import { TripService } from 'src/trip/trip.service';
 import { TripType } from 'src/trip/graphql/trip.gql';
+import { ContextAccessTokenPayload } from 'src/shared/decorators/context-access-token-payload.decorator';
+import { UserAccessTokenPayload } from 'src/auth/types/user-access-token-payload.type';
+import { EditProfileInput } from './input/edit-profile.input.gql';
 
 @Resolver(() => BaseUserType)
 export class BaseUserResolver {
@@ -49,6 +52,18 @@ export class BaseUserResolver {
     @Args('baseUserByIdInput') baseUserByIdInput: IdInput,
   ) {
     return (await this.baseUserService.baseUserById(baseUserByIdInput)) as any;
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(AuthGuard)
+  public async editProfile(
+    @Args('editProfileInput') editProfileInput: EditProfileInput,
+    @ContextAccessTokenPayload() userAccessTokenPayload: UserAccessTokenPayload,
+  ) {
+    return await this.baseUserService.editProfile(
+      editProfileInput,
+      userAccessTokenPayload,
+    );
   }
 
   @Mutation(() => Boolean)

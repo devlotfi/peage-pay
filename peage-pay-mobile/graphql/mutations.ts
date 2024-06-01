@@ -46,3 +46,9 @@ export const DEPOSIT_AMOUNT = gql(`
     depositAmount(depositAmountInput: $depositAmountInput)
   }
 `);
+
+export const EDIT_PROFILE = gql(`
+  mutation EDIT_PROFILE($editProfileInput: EditProfileInput!) {
+    editProfile(editProfileInput: $editProfileInput)
+  }
+`);

@@ -19,6 +19,7 @@ const documents = {
     "\n  mutation SIGN_OUT($signOutInput: SignOutInput!) {\n    signOut(signOutInput: $signOutInput)\n  }\n": types.Sign_OutDocument,
     "\n  mutation REDEEM_CODE($redeemCodeInput: RedeemCodeInput!) {\n    redeemCode(redeemCodeInput: $redeemCodeInput)\n  }\n": types.Redeem_CodeDocument,
     "\n  mutation DEPOSIT_AMOUNT($depositAmountInput: DepositAmountInput!) {\n    depositAmount(depositAmountInput: $depositAmountInput)\n  }\n": types.Deposit_AmountDocument,
+    "\n  mutation EDIT_PROFILE($editProfileInput: EditProfileInput!) {\n    editProfile(editProfileInput: $editProfileInput)\n  }\n": types.Edit_ProfileDocument,
     "\n  query SIGN_IN_WITH_REFRESH_TOKEN_INITIAL($signInWithRefreshTokenInput: SignInWithRefreshTokenInput!) {\n    signInWithRefreshToken(signInWithRefreshTokenInput: $signInWithRefreshTokenInput) {\n      baseUser {\n        id\n        firstName\n        lastName\n        createdAt\n        updatedAt\n      }\n      accessToken\n      roles\n    }\n  }\n": types.Sign_In_With_Refresh_Token_InitialDocument,
     "\n  query SIGN_IN_WITH_REFRESH_TOKEN_COOKIE {\n    signInWithRefreshTokenCookie {\n      accessToken\n    }\n  }\n": types.Sign_In_With_Refresh_Token_CookieDocument,
     "\n  query DEPOSIT_LIST {\n    depositList {\n      id\n      amount\n      createdAt\n    }\n  }\n": types.Deposit_ListDocument,
@@ -70,6 +71,10 @@ export function gql(source: "\n  mutation REDEEM_CODE($redeemCodeInput: RedeemCo
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation DEPOSIT_AMOUNT($depositAmountInput: DepositAmountInput!) {\n    depositAmount(depositAmountInput: $depositAmountInput)\n  }\n"): (typeof documents)["\n  mutation DEPOSIT_AMOUNT($depositAmountInput: DepositAmountInput!) {\n    depositAmount(depositAmountInput: $depositAmountInput)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation EDIT_PROFILE($editProfileInput: EditProfileInput!) {\n    editProfile(editProfileInput: $editProfileInput)\n  }\n"): (typeof documents)["\n  mutation EDIT_PROFILE($editProfileInput: EditProfileInput!) {\n    editProfile(editProfileInput: $editProfileInput)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

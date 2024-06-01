@@ -15,10 +15,11 @@ import {
 import { useMutation } from '@apollo/client';
 import { SIGN_OUT } from '../graphql/mutations';
 import { UserAuthUtils } from '../utils/utils';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useTranslation } from 'react-i18next';
+import EditProfileModal from '../components/user/edit-profile-modal.component';
 
 const CustomDrawerContent = (
   props: DrawerContentComponentProps,
@@ -27,6 +28,8 @@ const CustomDrawerContent = (
   const { theme } = useAppTheme();
   const styles = makeStyles(theme);
   const { authData, setAuthData } = useContext(AuthContext);
+  const [showEditProfileModal, setShowEditProfileModal] =
+    useState<boolean>(false);
 
   const [signOut, { loading }] = useMutation(SIGN_OUT, {
     variables: {
@@ -60,9 +63,19 @@ const CustomDrawerContent = (
             {authData?.baseUser.firstName} {authData?.baseUser.lastName}
           </UIText>
         </View>
-        <UIButton variant="base-100" style={{ marginBottom: 15 }}>
+        <EditProfileModal
+          onClose={() => setShowEditProfileModal(false)}
+          animationType="fade"
+          transparent={true}
+          visible={showEditProfileModal}
+        ></EditProfileModal>
+        <UIButton
+          onPress={() => setShowEditProfileModal(true)}
+          variant="base-100"
+          style={{ marginBottom: 15 }}
+        >
           <UIButton.Icon icon={faUser}></UIButton.Icon>
-          <UIButton.Content>{t('PROFILE')}</UIButton.Content>
+          <UIButton.Content>{t('EDIT_PROFILE')}</UIButton.Content>
         </UIButton>
         <UIButton variant="error" onPress={() => signOut()}>
           {loading ? (

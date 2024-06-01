@@ -162,6 +162,7 @@ export enum AuthErrors {
   EmailAlreadyVerified = 'EMAIL_ALREADY_VERIFIED',
   EmailVerificationAttemptsExceeded = 'EMAIL_VERIFICATION_ATTEMPTS_EXCEEDED',
   InvalidEmailOrPassword = 'INVALID_EMAIL_OR_PASSWORD',
+  InvalidPin = 'INVALID_PIN',
   PasswordResetAttemptsExceeded = 'PASSWORD_RESET_ATTEMPTS_EXCEEDED',
   SignInWithEmaIlAttemptsExceeded = 'SIGN_IN_WITH_EMAIl_ATTEMPTS_EXCEEDED',
   VerificationRequestPending = 'VERIFICATION_REQUEST_PENDING'
@@ -323,6 +324,11 @@ export type EditHighwayInput = {
   code?: InputMaybe<Scalars['String']['input']>;
   highwayId: Scalars['String']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type EditProfileInput = {
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EditSectionInput = {
@@ -511,10 +517,12 @@ export type Mutation = {
   editAutomaticGate: AutomaticGateType;
   editDefaultPrice: Scalars['Boolean']['output'];
   editHighway: HighwayType;
+  editProfile: Scalars['Boolean']['output'];
   editSection: SectionType;
   editSubscription: SubscriptionType;
   editToll: TollType;
   editTollNetwork: TollNetworkType;
+  endTripQRCode: Scalars['Boolean']['output'];
   endTripRfid: Scalars['Boolean']['output'];
   generateCodes: Array<Scalars['String']['output']>;
   generateTicket: TicketType;
@@ -533,6 +541,7 @@ export type Mutation = {
   signOutAutomaticGate: Scalars['Boolean']['output'];
   signOutWithRefreshTokenCookie: Scalars['Boolean']['output'];
   signUpWithEmail: Scalars['Boolean']['output'];
+  startTripQRCode: Scalars['Boolean']['output'];
   startTripRfid: Scalars['Boolean']['output'];
   validateTicket: TicketType;
   verifyEmail: Scalars['Boolean']['output'];
@@ -684,6 +693,11 @@ export type MutationEditHighwayArgs = {
 };
 
 
+export type MutationEditProfileArgs = {
+  editProfileInput: EditProfileInput;
+};
+
+
 export type MutationEditSectionArgs = {
   editSectionInput: EditSectionInput;
 };
@@ -701,6 +715,11 @@ export type MutationEditTollArgs = {
 
 export type MutationEditTollNetworkArgs = {
   editTollNetworkInput: EditTollNetworkInput;
+};
+
+
+export type MutationEndTripQrCodeArgs = {
+  endTripQRCodeInput: QrCodeInput;
 };
 
 
@@ -776,6 +795,11 @@ export type MutationSignUpWithEmailArgs = {
 };
 
 
+export type MutationStartTripQrCodeArgs = {
+  startTripQRCodeInput: QrCodeInput;
+};
+
+
 export type MutationStartTripRfidArgs = {
   startTripRfidInput: RfidInput;
 };
@@ -794,6 +818,10 @@ export type PaginationInput = {
   skip?: InputMaybe<Scalars['Float']['input']>;
   take: Scalars['Float']['input'];
 };
+
+export enum PaymentErrors {
+  InsufficientFunds = 'INSUFFICIENT_FUNDS'
+}
 
 export enum PaymentSubscriptionMessages {
   PaymentFailed = 'PAYMENT_FAILED',
@@ -825,6 +853,11 @@ export enum PrismaErrors {
   NotFound = 'NOT_FOUND',
   UniqueConstraintViolation = 'UNIQUE_CONSTRAINT_VIOLATION'
 }
+
+export type QrCodeInput = {
+  baseUserId: Scalars['String']['input'];
+  pin: Scalars['String']['input'];
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -1588,6 +1621,13 @@ export type Deposit_AmountMutationVariables = Exact<{
 
 export type Deposit_AmountMutation = { __typename?: 'Mutation', depositAmount: string };
 
+export type Edit_ProfileMutationVariables = Exact<{
+  editProfileInput: EditProfileInput;
+}>;
+
+
+export type Edit_ProfileMutation = { __typename?: 'Mutation', editProfile: boolean };
+
 export type Sign_In_With_Refresh_Token_InitialQueryVariables = Exact<{
   signInWithRefreshTokenInput: SignInWithRefreshTokenInput;
 }>;
@@ -1658,6 +1698,7 @@ export const Sign_In_With_EmailDocument = {"kind":"Document","definitions":[{"ki
 export const Sign_OutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SIGN_OUT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignOutInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signOut"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signOutInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signOutInput"}}}]}]}}]} as unknown as DocumentNode<Sign_OutMutation, Sign_OutMutationVariables>;
 export const Redeem_CodeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"REDEEM_CODE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RedeemCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"redeemCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"redeemCodeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"redeemCodeInput"}}}]}]}}]} as unknown as DocumentNode<Redeem_CodeMutation, Redeem_CodeMutationVariables>;
 export const Deposit_AmountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DEPOSIT_AMOUNT"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DepositAmountInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositAmount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"depositAmountInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"depositAmountInput"}}}]}]}}]} as unknown as DocumentNode<Deposit_AmountMutation, Deposit_AmountMutationVariables>;
+export const Edit_ProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EDIT_PROFILE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"editProfileInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EditProfileInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editProfile"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"editProfileInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"editProfileInput"}}}]}]}}]} as unknown as DocumentNode<Edit_ProfileMutation, Edit_ProfileMutationVariables>;
 export const Sign_In_With_Refresh_Token_InitialDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_INITIAL"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInWithRefreshTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"signInWithRefreshTokenInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"signInWithRefreshTokenInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"baseUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_InitialQuery, Sign_In_With_Refresh_Token_InitialQueryVariables>;
 export const Sign_In_With_Refresh_Token_CookieDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SIGN_IN_WITH_REFRESH_TOKEN_COOKIE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signInWithRefreshTokenCookie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}}]}}]}}]} as unknown as DocumentNode<Sign_In_With_Refresh_Token_CookieQuery, Sign_In_With_Refresh_Token_CookieQueryVariables>;
 export const Deposit_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DEPOSIT_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"depositList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<Deposit_ListQuery, Deposit_ListQueryVariables>;
