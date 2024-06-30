@@ -52,6 +52,12 @@ yarn
 
 In each app you might find a `.env` file with env variables that have `COMPLETE_THIS_FIELD` in them, you have to complete them with you own configuration instead
 
+## Running migrations
+After configuring the database cnnection you have to run this command in the server folder
+```
+yarn prisma migrate dev
+```
+
 ## Running the apps
 
 In each app project you can find the appropriate command to run the app in `package.json`
