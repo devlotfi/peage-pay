@@ -41,7 +41,7 @@ yarn
 ```
 
 ## Configuring environement variables
-In each app you might find a `.env` file with empty env variables, you have to complete them with you own configuration instead
+In each app you might find a `.env` file with env variables that have `COMPLETE_THIS_FIELD` in them, you have to complete them with you own configuration instead
 
 ## Running the apps
 In each app project you can find the appropriate command to run the app in `package.json`
