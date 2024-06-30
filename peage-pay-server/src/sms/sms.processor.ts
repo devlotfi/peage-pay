@@ -34,8 +34,6 @@ export class SmsProcessor {
         to: `+213542687187`,
         channel: 'sms',
       });
-    console.log('lol');
-
     return {};
   }
 }

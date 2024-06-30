@@ -90,8 +90,6 @@ export const initApolloClient = (
           UserAuthUtils.setAccessToken(accessToken);
         }
       } else {
-        console.log('lolaaaaaaaaaaaaaaaaaaa');
-
         const response = await axios.post<{
           data: {
             signInAutomaticGateRefreshToken: {

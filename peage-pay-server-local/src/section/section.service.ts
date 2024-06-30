@@ -21,8 +21,6 @@ export class SectionService {
   public async sectionListForTollNetworkPaginated(
     sectionListForTollNetworkPaginatedInput: SectionListForTollNetworkPaginatedInput,
   ): Promise<SectionListResult> {
-    console.log('testa');
-
     const sectionList = await this.databaseService.section.findMany({
       where: {
         OR: [
