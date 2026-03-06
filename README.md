@@ -758,11 +758,9 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Language                                                                                                     | Role                                                                  |
 | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) **HTML5**                      | Web page structure                                                    |
-| ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) **CSS3**                          | Styling and layout                                                    |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) **TypeScript** | Typed superset of JavaScript used for all front-end and back-end code |
-
-> **Figures:** `Figure 60 — HTML Logo` · `Figure 61 — CSS Logo` · `Figure 62 — TypeScript Logo`
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/html.svg">                      | Web page structure                                                    |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/css.svg">                        | Styling and layout                                                    |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/ts.svg"> | Typed superset of JavaScript used for all front-end and back-end code |
 
 ---
 
@@ -771,11 +769,9 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 | Tool                   | Purpose                                                   |
 | ---------------------- | --------------------------------------------------------- |
 | **Visual Studio Code** | Primary code editor (IntelliSense, debugging, extensions) |
-| **Figma**              | UI/UX design and prototyping                              |
-| **Fritzing**           | Electronic circuit design and prototyping                 |
-| **Draw.io**            | UML diagrams and architectural visualizations             |
-
-> **Figures:** `Figure 63 — VS Code Logo` · `Figure 64 — Figma Logo` · `Figure 65 — Fritzing Logo` · `Figure 66 — Draw.io Logo`
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/figma.svg">             | UI/UX design and prototyping                              |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/fritzing.svg">           | Electronic circuit design and prototyping                 |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/drawio.svg">            | UML diagrams and architectural visualizations             |
 
 ---
 
@@ -783,11 +779,9 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | API                  | Role                                                                                           |
 | -------------------- | ---------------------------------------------------------------------------------------------- |
-| **Google OAuth API** | User authentication via Google accounts; uses access tokens to secure data                     |
-| **Google Maps API**  | Interactive toll map display, markers, geocoding, and real-time traffic information            |
-| **Chargily Pay**     | Algerian payment gateway supporting EDAHABIA, CIB, VISA, and Mastercard; free API with plugins |
-
-> **Figures:** `Figure 67 — Google Logo` · `Figure 68 — Google Maps Logo` · `Figure 69 — Chargily Pay Logo`
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/googleoauth.svg"> | User authentication via Google accounts; uses access tokens to secure data                     |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/googlemapsapi.svg">  | Interactive toll map display, markers, geocoding, and real-time traffic information            |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/chargily.svg">     | Algerian payment gateway supporting EDAHABIA, CIB, VISA, and Mastercard; free API with plugins |
 
 ---
 
@@ -795,10 +789,8 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Technology               | Role                                                                                           |
 | ------------------------ | ---------------------------------------------------------------------------------------------- |
-| **JWT (JSON Web Token)** | Open standard (RFC 7519) for secure access tokens; used for all API authentication             |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/jwt.svg"> | Open standard (RFC 7519) for secure access tokens; used for all API authentication             |
 | **OAuth 2.0**            | Open authorization protocol (RFC 6749) for Google-based login without sharing user credentials |
-
-> **Figures:** `Figure 70 — GraphQL Logo` · `Figure 71 — JWT Logo`
 
 ---
 
@@ -806,10 +798,8 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Technology     | Role                                                                                    |
 | -------------- | --------------------------------------------------------------------------------------- |
-| **PostgreSQL** | Primary relational DBMS — robust, ACID-compliant, high availability through replication |
-| **Redis**      | In-memory key-value store used for caching, session management, and fast data access    |
-
-> **Figures:** `Figure 72 — PostgreSQL Logo` · `Figure 73 — Redis Logo`
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/postgres.svg"> | Primary relational DBMS — robust, ACID-compliant, high availability through replication |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/redis.svg">      | In-memory key-value store used for caching, session management, and fast data access    |
 
 ---
 
@@ -817,12 +807,10 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Technology     | Role                                                                                                                                     |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| **Node.js**    | Server-side JavaScript runtime built on Google's V8 engine                                                                               |
-| **NestJS**     | Progressive Node.js framework with modular architecture, dependency injection, OOP patterns, validation, caching, and exception handling |
-| **Prisma ORM** | Modern TypeScript ORM for Node.js; declarative schema-based migrations compatible with most SQL databases                                |
-| **GraphQL**    | API query language enabling clients to request exactly the data they need in a single request                                            |
-
-> **Figures:** `Figure 74 — Node.js Logo` · `Figure 75 — NestJS Logo` · `Figure 76 — Prisma Logo` · `Figure 70 — GraphQL Logo`
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/nodejs.svg">    | Server-side JavaScript runtime built on Google's V8 engine                                                                               |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/nestjs.svg">     | Progressive Node.js framework with modular architecture, dependency injection, OOP patterns, validation, caching, and exception handling |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/prisma.svg"> | Modern TypeScript ORM for Node.js; declarative schema-based migrations compatible with most SQL databases                                |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/graphql.svg">    | API query language enabling clients to request exactly the data they need in a single request                                            |
 
 ---
 
@@ -830,17 +818,15 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Technology          | Role                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------- |
-| **React.js**        | JavaScript library for building reusable UI components and single-page applications                     |
-| **Tailwind CSS**    | Utility-first CSS framework for rapid, consistent styling                                               |
-| **FontAwesome**     | Vector icon library integrated throughout the UI                                                        |
-| **Electron-Vite**   | Combines Electron (desktop apps using web tech) + Vite (ultra-fast build tool) for desktop applications |
-| **React Native**    | Open-source framework (by Meta) for building native iOS and Android apps with JavaScript and React      |
-| **Expo**            | React Native development platform for rapid setup, testing, and deployment without native build config  |
-| **Apollo Client**   | JavaScript library for managing GraphQL state and API interaction, with advanced caching                |
-| **React i18n**      | Internationalization library for multi-language support in React apps                                   |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/react.svg">        | JavaScript library for building reusable UI components and single-page applications                     |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/tailwind.svg">    | Utility-first CSS framework for rapid, consistent styling                                               |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/fontawesome.svg">     | Vector icon library integrated throughout the UI                                                        |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/electron.svg">   | Combines Electron (desktop apps using web tech) + Vite (ultra-fast build tool) for desktop applications |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/reactnative.svg">    | Open-source framework (by Meta) for building native iOS and Android apps with JavaScript and React      |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/expo.svg">            | React Native development platform for rapid setup, testing, and deployment without native build config  |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/apollo.svg">   | JavaScript library for managing GraphQL state and API interaction, with advanced caching                |
+| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/i18n.svg">      | Internationalization library for multi-language support in React apps                                   |
 | **Node SerialPort** | Node.js library for serial communication with microcontrollers (Arduino)                                |
-
-> **Figures:** `Figure 77 — React.js Logo` · `Figure 78 — Tailwind CSS Logo` · `Figure 79 — FontAwesome Logo` · `Figure 80 — Electron-Vite Logo` · `Figure 81 — React Native Logo` · `Figure 82 — Expo Logo` · `Figure 83 — Apollo Client Logo` · `Figure 84 — React i18n Logo` · `Figure 85 — Node SerialPort Logo`
 
 ---
 
