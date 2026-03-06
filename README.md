@@ -708,7 +708,7 @@ The system simulates hardware features that cannot be achieved with a standard c
 - **Barrier opening and closing** (servo motor)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img334.jpg">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img334.jpg" height="100">
   <br>
   <em>Arduino Logo</em>
 </p>
@@ -818,14 +818,14 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 | Technology          | Role                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------- |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/react.svg">        | JavaScript library for building reusable UI components and single-page applications                     |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/tailwind.svg">    | Utility-first CSS framework for rapid, consistent styling                                               |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/fontawesome.svg">     | Vector icon library integrated throughout the UI                                                        |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/electron.svg">   | Combines Electron (desktop apps using web tech) + Vite (ultra-fast build tool) for desktop applications |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/reactnative.svg">    | Open-source framework (by Meta) for building native iOS and Android apps with JavaScript and React      |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/expo.svg">            | React Native development platform for rapid setup, testing, and deployment without native build config  |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/apollo.svg">   | JavaScript library for managing GraphQL state and API interaction, with advanced caching                |
-| <img height="50px" src="https://devlotfi.github.io/stack-icons/icons/i18n.svg">      | Internationalization library for multi-language support in React apps                                   |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/react.svg">        | JavaScript library for building reusable UI components and single-page applications                     |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/tailwind.svg">    | Utility-first CSS framework for rapid, consistent styling                                               |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/fontawesome.svg">     | Vector icon library integrated throughout the UI                                                        |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/electron.svg">   | Combines Electron (desktop apps using web tech) + Vite (ultra-fast build tool) for desktop applications |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/reactnative.svg">    | Open-source framework (by Meta) for building native iOS and Android apps with JavaScript and React      |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/expo.svg">            | React Native development platform for rapid setup, testing, and deployment without native build config  |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/apollo.svg">   | JavaScript library for managing GraphQL state and API interaction, with advanced caching                |
+| <img height="35px" src="https://devlotfi.github.io/stack-icons/icons/i18n.svg">      | Internationalization library for multi-language support in React apps                                   |
 | **Node SerialPort** | Node.js library for serial communication with microcontrollers (Arduino)                                |
 
 ---
