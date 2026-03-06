@@ -1,4 +1,5 @@
 <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/github-banner.png">
+<img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/bachelors-thesis-project.png">
 
 # PeagePay — Electronic Toll Simulator Platform
 
@@ -993,34 +994,79 @@ The Arduino communicates with the desktop PC applications via the **Node SerialP
 
 The mobile app is the primary interface for motorists. It is built with **React Native + Expo** and supports Android and iOS.
 
-> **Figure:** `Figure 87 — Splash/Start Page`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img388.jpg" height="512">
+  <br>
+  <em>Splash/Start Page</em>
+</p>
 
 #### Authentication
 
-> **Figure:** `Figure 88 — Sign Up Page`
-> **Figure:** `Figure 89 — Login Page`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img389.jpg" height="512">
+  <br>
+  <em>Sign Up Page</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img390.jpg" height="512">
+  <br>
+  <em>Login Page</em>
+</p>
 
 Users can register with email + password or log in with a Google account.
 
 #### Home Screen
 
-> **Figure:** `Figure 90 — Home Page (Inactive status)`
-> **Figure:** `Figure 91 — Home Page (Active trip in progress)`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img391.jpg" height="512">
+  <br>
+  <em>Home Page (Inactive status)</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img392.jpg" height="512">
+  <br>
+  <em>Home Page (Active trip in progress)</em>
+</p>
 
 The home screen displays the user's status (inactive / on a trip), a summary of recent completed trips, and real-time trip details.
 
 #### Account Balance
 
-> **Figure:** `Figure 92 — Account Balance Screen`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img393.jpg" height="512">
+  <br>
+  <em>Account Balance Screen</em>
+</p>
 
 Shows the current balance, user ID, and full recharge history.
 
 #### Recharge Account
 
-> **Figure:** `Figure 93 — Recharge with Code`
-> **Figure:** `Figure 94 — Recharge with Card`
-> **Figure:** `Figure 95 — Chargily Pay Payment API`
-> **Figure:** `Figure 96 — Payment Confirmed`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img397.jpg" height="512">
+  <br>
+  <em>Recharge with Code</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img398.jpg" height="512">
+  <br>
+  <em>Recharge with Card</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img399.jpg" height="512">
+  <br>
+  <em>Chargily Pay Payment API</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img400.jpg" height="512">
+  <br>
+  <em>Payment Confirmed</em>
+</p>
 
 Two recharge methods:
 
@@ -1029,21 +1075,43 @@ Two recharge methods:
 
 #### RFID Badge List
 
-> **Figure:** `Figure 97 — List of RFID Badges`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img401.jpg" height="512">
+  <br>
+  <em>List of RFID Badges</em>
+</p>
 
 Displays all RFID badges linked to the user's account, including their identifier, vehicle registration number, and assignment date.
 
 #### QR Code for Toll Identification
 
-> **Figure:** `Figure 98 — QR Code Screen`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img402.jpg" height="512">
+  <br>
+  <em>QR Code Screen</em>
+</p>
 
 Displays a unique, short-lived QR code used to identify the user at a QR code barrier. The code must be scanned before it expires.
 
 #### Toll Map
 
-> **Figure:** `Figure 99 — Toll Map`
-> **Figure:** `Figure 100 — Define a Trip`
-> **Figure:** `Figure 101 — Trip Price Calculation`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img406.jpg" height="512">
+  <br>
+  <em>Toll Map</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img407.jpg" height="512">
+  <br>
+  <em>Define a Trip</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img408.jpg" height="512">
+  <br>
+  <em>Trip Price Calculation</em>
+</p>
 
 The map shows all toll booths on the network. Users can define a trip (departure and arrival booth) and get an estimated price.
 
@@ -1051,7 +1119,11 @@ The map shows all toll booths on the network. Users can define a trip (departure
 
 ### 10.2 Admin Authentication Page
 
-> **Figure:** `Figure 102 — Admin Authentication Page`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img409.jpg">
+  <br>
+  <em>Admin Authentication Page</em>
+</p>
 
 A shared authentication page used by all administration panels. Supports email/password login and Google login.
 
