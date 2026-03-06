@@ -1,65 +1,1191 @@
-![peage-pay-logo](https://github.com/devlotfi/peage-pay/blob/master/github-assets/repository-cover.jpg)
+# PeagePay — Electronic Toll Simulator Platform
 
-# PeagePay
+> **Bachelor's Thesis Project** — University of Sciences and Technology Houari Boumediene (USTHB)  
+> Faculty of Computer Science · Department SIQ · Specialty: ISIL  
+> Presented by: **DEBBAL Lotfi** & **TEHAR Ahmed** · Supervised by: **Mme ABERBOUR Rima**  
+> Defense date: 02/06/2024
 
-## About the project
-PeagePay is a highway toll management system that includes all essential features likes (admin panel, payement system...)
+---
 
-## Authors
+## Table of Contents
 
-- DEBBAL Lotfi
-- TEHAR Ahmed
+1. [Project Overview](#1-project-overview)
+2. [Context & Motivation](#2-context--motivation)
+3. [Study of Existing Systems](#3-study-of-existing-systems)
+   - [Types of Toll Systems](#31-types-of-toll-systems)
+   - [Payment Methods](#32-payment-methods)
+   - [Existing Toll Platforms Worldwide](#33-existing-toll-platforms-worldwide)
+   - [Algeria's Toll Infrastructure](#34-algerias-toll-infrastructure)
+4. [System Requirements & Specifications](#4-system-requirements--specifications)
+   - [User Roles](#41-user-roles)
+   - [Functional Requirements](#42-functional-requirements)
+   - [Non-Functional Requirements](#43-non-functional-requirements)
+5. [System Analysis — UML Diagrams](#5-system-analysis--uml-diagrams)
+   - [Use Case Diagrams](#51-use-case-diagrams)
+   - [Sequence Diagrams](#52-sequence-diagrams)
+6. [System Design](#6-system-design)
+   - [Class Diagram](#61-class-diagram)
+   - [Relational Model](#62-relational-model)
+   - [Entity-Relationship Diagram](#63-entity-relationship-diagram)
+7. [Architecture](#7-architecture)
+   - [3-Tier Architecture](#71-3-tier-architecture)
+   - [Monorepo Structure](#72-monorepo-structure)
+   - [General Architecture](#73-general-architecture)
+   - [Deployment Diagram](#74-deployment-diagram)
+8. [Hardware Simulation (Arduino)](#8-hardware-simulation-arduino)
+9. [Technology Stack](#9-technology-stack)
+   - [Languages](#91-languages)
+   - [Tools](#92-tools)
+   - [External APIs](#93-external-apis)
+   - [Authentication](#94-authentication)
+   - [Data Layer](#95-data-layer)
+   - [Back-End](#96-back-end)
+   - [Front-End](#97-front-end)
+10. [Platform Applications — PeagePay](#10-platform-applications--peagepay)
+    - [Mobile Application](#101-mobile-application-peagepay)
+    - [Admin Authentication Page](#102-admin-authentication-page)
+    - [General Administration Panel](#103-general-administration-panel)
+    - [HR Administration Panel](#104-hr-administration-panel)
+    - [Toll Administration Panel](#105-toll-administration-panel)
+    - [Moderator Administration Panel](#106-moderator-administration-panel)
+    - [Gate Admin Panel](#107-gate-admin-panel)
+    - [Automatic Gate Applications](#108-automatic-gate-applications)
+11. [Core Algorithms](#11-core-algorithms)
+    - [Dynamic Pricing System](#111-dynamic-pricing-system)
+    - [Toll Network Graph & Distance Calculation](#112-toll-network-graph--distance-calculation)
+    - [Trip Fare Formula](#113-trip-fare-formula)
+12. [Database Schema](#12-database-schema)
+13. [Project Structure](#13-project-structure)
+14. [Conclusion & Perspectives](#14-conclusion--perspectives)
 
-# How to use
-In this section we will explain how to run the apps
+---
 
-## Prerequisites
-- Node Js (v21.7.3) or higher
-- Yarn package manager
-- PostgreSQL
-- Redis (Only required when running `peage-pay-server` and not `peage-pay-server-local`)
-- Ngrok (Only for the payment system to work)
+## 1. Project Overview
 
-### How to enable yarn package manager
-On windows open a terminal window as administrator and run 
+**PeagePay** is a complete software simulation platform for managing electronic toll (télépéage) systems. It was designed in anticipation of Algeria's upcoming deployment of highway tolls on the East-West motorway, operated by _l'Algérienne des Autoroutes (ADA)_.
+
+The platform models and simulates all real-world aspects of a modern toll system, including:
+
+- **User-facing mobile app** for managing accounts, QR code identification, badge management, and online top-up
+- **Multiple web admin panels** for global system management, HR role management, toll station management, and moderator functions
+- **Desktop applications** for automated barrier control (ticket printer, RFID badge reader, QR code reader)
+- **Hardware simulation** using an Arduino microcontroller circuit to physically simulate barrier opening/closing and RFID badge detection
+
+> **Figure:** `Figure 86 — PeagePay Platform Logo`
+
+---
+
+## 2. Context & Motivation
+
+A **toll** is a fee collection system for the use of roads, bridges, tunnels, or other transport infrastructure. Tolls are collected at specific checkpoints — highway barriers, bridge booths, or tunnel gates. Tariffs vary based on distance traveled, vehicle type, vehicle category, and time of day.
+
+Traditional toll roads have significant drawbacks:
+
+- Time lost stopping and paying
+- High operational costs (up to ~⅓ of revenue in some cases)
+- Queuing and traffic congestion
+
+Automated toll systems address these issues by allowing rapid, often stop-free identification and automatic payment deduction.
+
+**Algeria's situation:** The _Algérienne des Autoroutes_ (ADA) has begun implementing a highway toll system. However, it is essential to anticipate and plan for an electronic toll system (_télépéage_) that will optimize traffic flow. Since no such system currently exists in Algeria, this project proposes a full simulator to provide a detailed, complete vision of what a global toll management platform could look like.
+
+---
+
+## 3. Study of Existing Systems
+
+### 3.1 Types of Toll Systems
+
+Two main types of toll systems exist in terms of operation:
+
+#### Open System Tolls
+
+Drivers pay a **fixed price**, generally at the highway entrance, **regardless of distance traveled**.
+
+| Advantages                                                 | Disadvantages                                                          |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Simple to understand and use for occasional drivers        | Penalizes short-distance users who pay the same as long-distance users |
+| Lower infrastructure costs (no booths at every entry/exit) | —                                                                      |
+
+#### Closed System Tolls
+
+Drivers are **charged based on the distance traveled** between their entry and exit points.
+
+| Advantages                                          | Disadvantages                                                                  |
+| --------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Fairer payment — tariff is proportional to distance | Higher infrastructure costs (electronic systems required at entries and exits) |
+| —                                                   | Complexity for drivers (understanding billing, having a linked payment method) |
+
+> **This project focuses on the closed system**, as it is the model being deployed in Algeria.
+
+---
+
+### 3.2 Payment Methods
+
+#### 3.2.1 Cash Payment (Classical)
+
+The user takes a printed ticket at the highway entry. At the exit toll, they present the ticket to the agent or machine, which scans it, calculates the amount due, and opens the barrier once payment is received.
+
+| Advantages                                           | Disadvantages                                  |
+| ---------------------------------------------------- | ---------------------------------------------- |
+| Accessible to all — no card or digital access needed | Coins/bills can be counterfeited               |
+| Simple and quick to implement                        | Risk of theft or aggression when handling cash |
+| —                                                    | Causes longer queues — slow payment process    |
+| —                                                    | Insufficient change can block payments         |
+| —                                                    | Requires a full stop at the toll booth         |
+
+#### 3.2.2 Bank Card Payment
+
+Same process as cash but the user swipes their card at a machine equipped with a card reader.
+
+| Advantages                           | Disadvantages                                         |
+| ------------------------------------ | ----------------------------------------------------- |
+| Faster and more convenient than cash | Bank transaction fees per payment                     |
+| Reduces need for personnel           | Card data can be stolen if equipment is tampered with |
+| —                                    | Still requires the user to stop                       |
+
+#### 3.2.3 Mobile Application (QR Code / NFC)
+
+At entry, the user uses their phone app to transmit their ID (via QR code or NFC). The system registers the entry and opens the barrier. At exit, the required amount is debited from their account and the barrier opens.
+
+| Advantages                                      | Disadvantages                   |
+| ----------------------------------------------- | ------------------------------- |
+| More secure — banking data not directly exposed | Still requires the user to stop |
+| Eliminates the need for printed tickets         | Requires carrying a smartphone  |
+| Reduces the need for personnel                  | —                               |
+
+#### 3.2.4 Electronic Toll Badge (RFID Transponder)
+
+> **Figure:** `Figure 1 — Example of an Electronic Toll Badge`
+
+The user attaches an RFID badge (transponder) to their windshield. At entry and exit, a receiver detects the badge, registers the trip, and automatically debits the account. Vehicle identification requires very little or even zero stopping time.
+
+| Advantages                                           | Disadvantages            |
+| ---------------------------------------------------- | ------------------------ |
+| Fastest and most convenient — minimal or no stopping | High implementation cost |
+| Reduces the need for personnel                       | —                        |
+
+#### 3.2.5 License Plate Detection
+
+Cameras and AI read the vehicle's license plate. The principle is similar to RFID toll badging, but antennas are replaced with cameras.
+
+| Advantages                     | Disadvantages                                                          |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| Fast — no stopping required    | High implementation cost                                               |
+| Reduces the need for personnel | Difficulty reading plates in certain conditions (weather, dirt, angle) |
+
+---
+
+### 3.3 Existing Toll Platforms Worldwide
+
+#### Bip&Go (France)
+
+> **Figure:** `Figure 2 — Bip&Go Homepage`
+
+Bip&Go is a French toll service provider offering electronic toll solutions on highways and partner road networks. It provides an electronic badge for rapid identification, allowing drivers to pass without stopping. Its mobile application, launched in 2020, supports highways and car parks across France, Spain, Portugal, Italy, and certain Italian ferries, with full online subscription management.
+
+#### Telepass (Italy)
+
+> **Figure:** `Figure 3 — Telepass Homepage`
+
+Italy was the **first country in the world** to deploy a complete Electronic Toll Collection (ETC) system across all national highways in **1989**. The first prototype was developed between December 20, 1986 and April 17, 1987 by engineers from Sixcom SpA (Olivetti Group). Telepass introduced the concept of **interoperability** in 1990, interconnecting 24 different Italian highway operators so users pay only once at the end of their journey. It later became a European standard in 1996 and served as a model for deployments in Japan, the USA, Brazil, and more.
+
+#### e-Toll (Poland)
+
+> **Figure:** `Figure 4 — e-Toll Homepage`
+
+Poland's electronic toll system, **e-TOLL**, replaced the former ViaToll system on October 1, 2021. Unlike the French badge-based system, e-TOLL uses **satellite geolocation** to track vehicles on toll roads — no onboard unit (OBU) is required. Users manage their account via the e-TOLL mobile app.
+
+#### Why These Systems Cannot Work in Algeria
+
+- They require **monthly subscription fees**, which may be too costly for Algerian users
+- They use payment methods (**Mastercard, Visa, PayPal**) not widely used in Algeria
+- Their interfaces are **complex and not intuitive** for the local audience
+
+---
+
+### 3.4 Algeria's Toll Infrastructure
+
+> **Figure:** `Figure 5 — Global View of a Toll Center`
+> **Figure:** `Figure 6 — Toll Booth Locations on the East-West Highway (Eastern Region)`
+> **Figure:** `Figure 7 — Toll Booth Locations on the East-West Highway (Western Region)`
+> **Figure:** `Figure 10 — A Toll Under Construction in Algeria`
+
+Algeria's toll network is currently composed primarily of the **East-West Highway (Autoroute Est-Ouest)**, divided into two distinct toll networks for the Eastern and Western regions.
+
+Toll booths fall into two categories:
+
+- **Full-lane booths (Postes en pleine voie):** Located at the extremities of a network (start/end of a highway or network boundary) to ensure every user passes through them.
+
+  > **Figure:** `Figure 8 — Example of a Full-Lane Toll Booth`
+
+- **Interchange booths (Postes sur échangeur):** Located on the sides of the highway at intermediate points. They avoid interrupting the main traffic flow and only charge users who pass through that specific booth.
+
+  > **Figure:** `Figure 9 — Example of an Interchange Toll Booth`
+
+---
+
+## 4. System Requirements & Specifications
+
+### 4.1 User Roles
+
+The platform defines **six distinct roles**, each with specific access and responsibilities:
+
+| Role                      | Responsibilities                                                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **General Administrator** | Manages the entire system globally: highways, toll networks, toll booths, global tariffs, HR admin list, and subscription types |
+| **HR Administrator**      | Manages lower-level administrator roles: toll admins, gate admins, and moderators                                               |
+| **Toll Administrator**    | Manages a specific toll booth: automated barriers and local tariff rules                                                        |
+| **Gate Administrator**    | Manages manual exit lanes (cash payment); scans user tickets and receives payment                                               |
+| **Moderator**             | Manages user data and RFID badge assignments; resolves account issues                                                           |
+| **User (Motorist)**       | Uses the platform to identify at toll booths, manage account balance, view trip history, and subscribe to plans                 |
+
+---
+
+### 4.2 Functional Requirements
+
+#### Multilingual Application
+
+The system must be available in multiple languages to maximize accessibility.
+
+#### Secure Payment System
+
+Each user account holds an integrated balance. Two recharge methods are supported:
+
+1. **Recharge code** — the user enters a code that adds a predefined amount
+2. **Online payment** — recharge via EDAHABIA card, CIB card, VISA, or Mastercard (through the Chargily Pay API)
+
+#### Secure Toll Identification System
+
+Two automatic identification methods are supported:
+
+- **QR Code (Mobile App):** A unique, short-lived QR code displayed in the app is scanned at the toll booth
+- **RFID Toll Badge:** Each badge is uniquely linked to a single user and a specific vehicle (registration number and vehicle type are stored). Badges cannot be cloned.
+
+#### Authentication System
+
+- Email + password login with email verification
+- Google OAuth login
+- Password recovery flow
+- Dedicated authentication for automated barriers (credentials set by the toll admin)
+
+#### Dynamic Pricing System
+
+Tariffs are set dynamically at two levels — global (by the General Admin) and per-booth (by the Toll Admin) — using a priority-based rule system (see [Section 11.1](#111-dynamic-pricing-system)).
+
+#### Toll Network Structure
+
+The system organizes toll booths into **networks**. A toll network is a set of interconnected highway sections where a driver **pays only once** — at entry and at exit. A network can span one or multiple highways.
+
+#### User Billing
+
+Users are charged based on **distance traveled** between entry and exit, multiplied by the applicable tariff at the time of travel.
+
+---
+
+#### Role-Specific Features
+
+**General Administrator:**
+
+- CRUD operations on: toll networks, highway sections, highways, toll booths, subscription types
+- Assign/revoke HR Administrator roles
+- Manage global tariff rules and default tariff
+
+**HR Administrator:**
+
+- Assign/revoke Toll Admin, Gate Admin, and Moderator roles
+- Assign admins to specific toll booths
+
+**Toll Administrator:**
+
+- CRUD on automated barriers within their assigned booth
+- Manage local tariff rules for their booth
+
+**Gate Administrator:**
+
+- Scan a user's ticket
+- View the amount owed
+- Mark the trip as paid and open the barrier
+
+**Moderator:**
+
+- CRUD on user accounts
+- Assign RFID badges to users
+
+**User (Motorist):**
+
+- View and recharge account balance
+- View list of assigned RFID badges
+- View toll map with traffic status
+- Estimate trip cost between two booths
+- Identify at a toll booth (QR code or RFID badge)
+- View trip history and recharge history
+- Edit personal account information
+- Subscribe to subscription plans
+
+---
+
+### 4.3 Non-Functional Requirements
+
+| Requirement         | Description                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Speed**           | Fast response times, especially for toll identification and transaction processing, to ensure optimal traffic flow |
+| **Reliability**     | Error-free operation; data consistency must be maintained throughout                                               |
+| **Availability**    | System must remain online even during partial server failures                                                      |
+| **Ergonomics**      | Interfaces must be intuitive and user-friendly across all applications                                             |
+| **Security**        | User data, transactions, and toll identification must all be fully secured                                         |
+| **Maintainability** | Code must follow best practices: readable, well-structured, with maximum code reuse and minimal repetition         |
+
+---
+
+## 5. System Analysis — UML Diagrams
+
+The system was modeled using **UML (Unified Modeling Language)** following the **Unified Process (UP)** methodology — an iterative, incremental software development framework.
+
+> **Figure:** `Figure 11 — UML Logo`
+
+### 5.1 Use Case Diagrams
+
+#### Authentication (All Roles)
+
+> **Figure:** `Figure 14 — Authentication System Use Case Diagram`
+
+All roles share the same authentication system, supporting:
+
+- Create account (email + password) → includes email verification
+- Log in with email + password → extends to password recovery
+- Log in with a Google account
+
+---
+
+#### User (Motorist)
+
+> **Figure:** `Figure 15 — User Use Case Diagram`
+> **Figure:** `Figure 16 — User: View Toll Map`
+> **Figure:** `Figure 17 — User: Manage Account Balance`
+> **Figure:** `Figure 18 — User: Identify at Toll Booth`
+
+---
+
+#### General Administrator
+
+> **Figure:** `Figure 19 — General Admin Use Case Diagram`
+> **Figure:** `Figure 20 — General Admin: Manage Highway Sections`
+> **Figure:** `Figure 21 — General Admin: Manage Subscriptions`
+> **Figure:** `Figure 22 — General Admin: Manage Toll Networks`
+> **Figure:** `Figure 23 — General Admin: Manage HR Administrators`
+> **Figure:** `Figure 24 — General Admin: Manage Highways`
+> **Figure:** `Figure 25 — General Admin: Manage Users`
+> **Figure:** `Figure 26 — General Admin: Manage Global Tariffs`
+> **Figure:** `Figure 27 — General Admin: Manage Toll Booths`
+
+---
+
+#### HR Administrator
+
+> **Figure:** `Figure 28 — HR Admin Use Case Diagram`
+> **Figure:** `Figure 29 — HR Admin: Manage Users`
+> **Figure:** `Figure 30 — HR Admin: Manage Toll Administrators`
+> **Figure:** `Figure 31 — HR Admin: Manage Gate Administrators`
+> **Figure:** `Figure 32 — HR Admin: Manage Moderators`
+
+---
+
+#### Toll Administrator
+
+> **Figure:** `Figure 33 — Toll Admin Use Case Diagram`
+> **Figure:** `Figure 34 — Toll Admin: Manage Local Tariffs`
+> **Figure:** `Figure 35 — Toll Admin: Manage Automated Barriers`
+
+---
+
+#### Gate Administrator
+
+> **Figure:** `Figure 36 — Gate Admin Use Case Diagram`
+> **Figure:** `Figure 37 — Gate Admin: Bill a User with a Ticket`
+
+---
+
+#### Moderator
+
+> **Figure:** `Figure 39 — Moderator Use Case Diagram`
+> **Figure:** `Figure 38 — Moderator: Manage RFID Badges`
+> **Figure:** `Figure 40 — Moderator: Manage User Accounts`
+
+---
+
+#### Automated Barriers
+
+> **Figure:** `Figure 41 — Automated Barrier Authentication Use Case`
+> **Figure:** `Figure 42 — Automated Barrier: Ticket Printer`
+> **Figure:** `Figure 43 — Automated Barrier: RFID Badge Reader`
+> **Figure:** `Figure 44 — Automated Barrier: QR Code Reader`
+
+---
+
+### 5.2 Sequence Diagrams
+
+#### Email Authentication
+
+> **Figure:** `Figure 45 — Sequence Diagram: Email Authentication`
+
+#### Email Verification
+
+> **Figure:** `Figure 46 — Sequence Diagram: Email Verification`
+
+#### Google Account Authentication
+
+> **Figure:** `Figure 47 — Sequence Diagram: Google Authentication`
+
+#### Passing a Toll with an Automated Payment Method (RFID / QR Code)
+
+> **Figure:** `Figure 48 — Sequence Diagram: Passing a Toll with Automated Payment`
+
+The sequence is:
+
+1. The RFID badge is detected or the QR code is read by the mobile app
+2. **If entering the highway:** A trip session is initiated → barrier opens
+3. **If exiting the highway:** Transaction is initiated → barrier opens if payment succeeds
+
+#### Passing a Toll with a Ticket (Cash)
+
+> **Figure:** `Figure 49 — Sequence Diagram: Passing a Toll with a Ticket`
+
+1. **At entry:** User presses the print button → ticket is printed → barrier opens
+2. **At exit:** User presents ticket to the gate admin → amount is displayed → user pays → barrier opens
+
+---
+
+## 6. System Design
+
+### 6.1 Class Diagram
+
+> **Figure:** `Figure 50 — Class Diagram (see Appendix A for class descriptions)`
+
+The class diagram represents the static structure of the system. Key classes include:
+
+| Class                       | Role                                                                    |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `BaseUser`                  | Core user entity shared by all roles                                    |
+| `User`                      | Standard motorist role with account balance                             |
+| `GeneralAdmin`              | General administrator role                                              |
+| `HumanRessourcesAdmin`      | HR administrator role                                                   |
+| `Moderator`                 | Moderator role                                                          |
+| `TollAdmin`                 | Toll booth administrator role (linked to a specific booth)              |
+| `GateAdmin`                 | Barrier administrator role (linked to a specific booth)                 |
+| `RfidTag`                   | Stores RFID badge information (badge ID, vehicle registration)          |
+| `Toll`                      | Toll booth entity (name, coordinates, highway, network)                 |
+| `TollNetwork`               | Groups toll booths into a network                                       |
+| `Highway`                   | Highway entity                                                          |
+| `Wilaya`                    | Algerian administrative district                                        |
+| `Section`                   | Highway section linking two toll booths with a distance                 |
+| `TollDistance`              | Pre-computed distances between all pairs of toll booths                 |
+| `Trip`                      | Represents a completed trip (entry, exit, timestamps, prices, distance) |
+| `Ticket`                    | Printed ticket for cash-paying users                                    |
+| `Price`                     | Tariff rule (value, time range, direction, priority)                    |
+| `DailyPrice`                | Daily recurring tariff                                                  |
+| `WeeklyPrice`               | Weekly recurring tariff (with specific days of the week)                |
+| `MonthlyPrice`              | Monthly recurring tariff (with specific months and day range)           |
+| `YearlyPrice`               | Yearly recurring tariff                                                 |
+| `CustomPrice`               | One-time, non-recurring tariff                                          |
+| `DefaultPrice`              | Fallback global tariff                                                  |
+| `AutomaticGate`             | Automated barrier entity (name, password)                               |
+| `Subscription`              | Subscription plan (name, price, duration in days)                       |
+| `UserSubscription`          | A user's active subscription with start and end dates                   |
+| `Deposit`                   | Account top-up record                                                   |
+| `AuthMethod`                | Base authentication method                                              |
+| `EmailAuthMethod`           | Email + password authentication                                         |
+| `GoogleAuthMethod`          | Google OAuth authentication                                             |
+| `VerificationToken`         | Token for email/password verification                                   |
+| `RefreshToken`              | JWT refresh token                                                       |
+| `AutomaticGateRefreshToken` | JWT token for automated barriers                                        |
+
+---
+
+### 6.2 Relational Model
+
+The class diagram was converted to a relational model using the **Class Table Inheritance** pattern for inheritance relationships. Each class in an inheritance hierarchy gets its own table. Subclass tables reference the parent table's primary key — which also serves as both primary key and foreign key in the subclass table.
+
+> **Figure:** `Figure 52 — Example of Inheritance Mapping to Relational Model`
+
+---
+
+### 6.3 Entity-Relationship Diagram
+
+> **Figure:** `Figure 53 — Entity-Relationship Diagram`
+
+The ER diagram shows all tables, primary keys, foreign keys, cardinalities, and relationship types (one-to-one, one-to-many, many-to-many).
+
+---
+
+## 7. Architecture
+
+### 7.1 3-Tier Architecture
+
+The platform follows the classic **3-tier architecture**:
+
 ```
-corepack enable
+┌─────────────────────────────┐
+│     Presentation Layer      │  ← Mobile App, Web Admin Panels, Desktop Apps
+├─────────────────────────────┤
+│      Business Logic Layer   │  ← NestJS Server (rules, processing, decisions)
+├─────────────────────────────┤
+│        Data Layer           │  ← PostgreSQL (relational data) + Redis (cache)
+└─────────────────────────────┘
 ```
 
-## Installing dependencies
-There are 4 main packages
-- peage-pay-server
-- peage-pay-server-local
-- peage-pay-web
-- peage-pay-mobile
+This separation of concerns ensures **maintainability**, **scalability**, and **clean code organization**.
 
-***NOTE:*** The difference between `peage-pay-server` and `peage-pay-server-local` is that `peage-pay-server-local` is a simplified version that does dot require **Redis**
+---
 
-In each package run the command
+### 7.2 Monorepo Structure
+
+The project uses a **monorepo** architecture — multiple applications and libraries share a single source code repository. This approach provides:
+
+- **Centralized shared libraries** — UI components, authentication, utilities, and configuration are developed once and reused across all applications
+- **Unified design** — all applications share the same component library and styling system
+- **Centralized authentication** — a single, configurable authentication system shared by all panels
+- **Single bug-fix propagation** — fixes in shared libraries automatically apply to all apps
+
+The TypeScript-based part of the project is organized into three top-level folders:
+
 ```
-yarn
+peage-pay-web/        ← All web and desktop applications
+peage-pay-mobile/     ← Mobile application (React Native + Expo)
+peage-pay-server/     ← NestJS backend server
 ```
 
-## Configuring environement variables
-In each app you might find a `.env` file with env variables that have `COMPLETE_THIS_FIELD` in them, you have to complete them with you own configuration instead
+> **Figure:** `Figure 127 — Global Monorepo Project Structure`
 
-## Running the apps
-In each app project you can find the appropriate command to run the app in `package.json`
+Inside `peage-pay-web`:
 
-### Payment System 
-For the payment system to work you have to configure the webhook url for the ***Chargily Pay*** API in the dashboard
-You will also need to configure the public url for the webhook and put it in the `ngrok` script in the `package.json` of `peage-pay-server`
+```
+peage-pay-web/
+├── assets/                    ← Images and illustrations
+├── lib/                       ← Shared code
+│   ├── apollo-client/         ← Pre-configured GraphQL client
+│   ├── auth/                  ← User authentication system
+│   ├── automatic-gate-auth/   ← Barrier authentication system
+│   ├── constants/             ← Shared constants
+│   ├── serial-port/           ← Arduino serial connection components
+│   ├── tailwind-config/       ← Shared Tailwind CSS configuration
+│   ├── ui/                    ← Shared UI components
+│   └── utils/                 ← Utility functions
+└── client/                    ← Individual applications
+    ├── auth-common-client/    ← Shared authentication pages
+    ├── general-admin-panel/   ← General admin web panel
+    ├── human-ressources-admin-panel/
+    ├── toll-admin-panel/
+    ├── gate-admin-panel/
+    ├── moderator-admin-panel/
+    ├── ticket-printer/        ← Barrier: ticket printer desktop app
+    ├── rfid-gate/             ← Barrier: RFID badge reader desktop app
+    └── qr-code-gate/          ← Barrier: QR code reader desktop app
+```
 
-### Mobile app
-The pc which runs the server and the phone which runs the app must be on the same network
-After running the app the url, of the server might not be configured correctly
-To solve this we take these steps:
-- Get the ipv4 of you pc that runs the server using `ipconfig` on windows
-- While running the mobile app turn off the internet on your phone, a special UI will appear that will let you configure the url of the server for HTTP and Websocket
-For example you might write
-- `http://192.168.1.33:3000` for http
-- `ws://192.168.1.33:3000` for websocket
-- Then turn on the internet on the phone and rerun the app
+> **Figure:** `Figure 128 — Structure of the peage-pay-web Folder`
 
+---
 
+### 7.3 General Architecture
 
+The system is based on a **centralized client-server architecture**. All clients — mobile, web, and desktop — communicate with a single central server that handles authentication and all request processing.
+
+> **Figure:** `Figure 54 — General Architecture Diagram`
+
+Applications on the platform:
+
+- **Mobile App** (Android/iOS) — User-facing app
+- **Web Admin Panels** (Browser) — General admin, HR admin, Toll admin
+- **Desktop Apps** (Windows/Linux/macOS) — Gate admin, Moderator, Automated barrier apps
+- **Automated barrier computers** — Ticket printer, RFID gate, QR code gate
+
+---
+
+### 7.4 Deployment Diagram
+
+> **Figure:** `Figure 55 — UML Deployment Diagram`
+
+Key infrastructure nodes:
+
+- **Web Server** — Node.js runtime running the NestJS application
+- **Database Server** — PostgreSQL DBMS
+- **Cache Server** — Redis
+- **Load Balancer** — For high availability
+- **Google Server** — Google Maps API + Google OAuth
+- **Chargily Pay Server** — Online payment processing
+- **Mobile Device** (Android/iOS) — PeagePay app
+- **Web Browser** — Admin panels
+- **PC** (Windows/Linux/macOS) — Gate admin, moderator, and barrier apps
+- **Arduino Barrier Controller** — Physical simulation circuit
+- **RFID Badge Reader** — Arduino-based RFID module
+- **QR Code Reader** — Camera-based QR scanner
+- **Ticket Printer** — Physical thermal printer
+
+---
+
+## 8. Hardware Simulation (Arduino)
+
+The system simulates hardware features that cannot be achieved with a standard computer alone:
+
+- **RFID badge detection**
+- **Barrier opening and closing** (servo motor)
+
+> **Figure:** `Figure 56 — Arduino Logo`
+> **Figure:** `Figure 57 — Full Circuit Connection Diagram`
+> **Figure:** `Figure 58 — Arduino Nano Pin Detail`
+> **Figure:** `Figure 59 — RFID RC522 Reader Connection Detail`
+
+### Components
+
+| #   | Component                    | Role                                                                                            |
+| --- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| 1   | **Arduino Nano**             | Controls all circuit components; communicates with a PC via USB                                 |
+| 2   | **RC522 (RFID Reader)**      | Reads RFID badges operating at 13.56 MHz                                                        |
+| 3   | **SG90 (Servo Motor)**       | Controls barrier open/close movement                                                            |
+| 4   | **4× AA Batteries (series)** | Secondary power source supplying sufficient current for the servo (USB port is current-limited) |
+| 5   | **Buzzer**                   | Emits an audible signal when a badge is detected                                                |
+| 6   | **Red LED**                  | Signals vehicle to stop                                                                         |
+| 7   | **Green LED**                | Signals vehicle to proceed                                                                      |
+| 8   | **Blue LED**                 | Lights up when a badge is detected                                                              |
+| 9   | **220Ω Resistors**           | Limit current through LEDs to prevent damage                                                    |
+| 10  | **Breadboard**               | Prototyping board — no soldering required                                                       |
+| 11  | **Cables**                   | Connect all components                                                                          |
+| 12  | **Arduino USB Port**         | Communication between desktop apps and Arduino; also used to upload programs                    |
+
+The Arduino communicates with the desktop PC applications via the **Node SerialPort** library, enabling the software to send commands (open gate, close gate) and receive badge scan events in real time.
+
+---
+
+## 9. Technology Stack
+
+### 9.1 Languages
+
+| Language                                                                                                     | Role                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) **HTML5**                      | Web page structure                                                    |
+| ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) **CSS3**                          | Styling and layout                                                    |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) **TypeScript** | Typed superset of JavaScript used for all front-end and back-end code |
+
+> **Figures:** `Figure 60 — HTML Logo` · `Figure 61 — CSS Logo` · `Figure 62 — TypeScript Logo`
+
+---
+
+### 9.2 Tools
+
+| Tool                   | Purpose                                                   |
+| ---------------------- | --------------------------------------------------------- |
+| **Visual Studio Code** | Primary code editor (IntelliSense, debugging, extensions) |
+| **Figma**              | UI/UX design and prototyping                              |
+| **Fritzing**           | Electronic circuit design and prototyping                 |
+| **Draw.io**            | UML diagrams and architectural visualizations             |
+
+> **Figures:** `Figure 63 — VS Code Logo` · `Figure 64 — Figma Logo` · `Figure 65 — Fritzing Logo` · `Figure 66 — Draw.io Logo`
+
+---
+
+### 9.3 External APIs
+
+| API                  | Role                                                                                           |
+| -------------------- | ---------------------------------------------------------------------------------------------- |
+| **Google OAuth API** | User authentication via Google accounts; uses access tokens to secure data                     |
+| **Google Maps API**  | Interactive toll map display, markers, geocoding, and real-time traffic information            |
+| **Chargily Pay**     | Algerian payment gateway supporting EDAHABIA, CIB, VISA, and Mastercard; free API with plugins |
+
+> **Figures:** `Figure 67 — Google Logo` · `Figure 68 — Google Maps Logo` · `Figure 69 — Chargily Pay Logo`
+
+---
+
+### 9.4 Authentication
+
+| Technology               | Role                                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------------------------- |
+| **JWT (JSON Web Token)** | Open standard (RFC 7519) for secure access tokens; used for all API authentication             |
+| **OAuth 2.0**            | Open authorization protocol (RFC 6749) for Google-based login without sharing user credentials |
+
+> **Figures:** `Figure 70 — GraphQL Logo` · `Figure 71 — JWT Logo`
+
+---
+
+### 9.5 Data Layer
+
+| Technology     | Role                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------- |
+| **PostgreSQL** | Primary relational DBMS — robust, ACID-compliant, high availability through replication |
+| **Redis**      | In-memory key-value store used for caching, session management, and fast data access    |
+
+> **Figures:** `Figure 72 — PostgreSQL Logo` · `Figure 73 — Redis Logo`
+
+---
+
+### 9.6 Back-End
+
+| Technology     | Role                                                                                                                                     |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Node.js**    | Server-side JavaScript runtime built on Google's V8 engine                                                                               |
+| **NestJS**     | Progressive Node.js framework with modular architecture, dependency injection, OOP patterns, validation, caching, and exception handling |
+| **Prisma ORM** | Modern TypeScript ORM for Node.js; declarative schema-based migrations compatible with most SQL databases                                |
+| **GraphQL**    | API query language enabling clients to request exactly the data they need in a single request                                            |
+
+> **Figures:** `Figure 74 — Node.js Logo` · `Figure 75 — NestJS Logo` · `Figure 76 — Prisma Logo` · `Figure 70 — GraphQL Logo`
+
+---
+
+### 9.7 Front-End
+
+| Technology          | Role                                                                                                    |
+| ------------------- | ------------------------------------------------------------------------------------------------------- |
+| **React.js**        | JavaScript library for building reusable UI components and single-page applications                     |
+| **Tailwind CSS**    | Utility-first CSS framework for rapid, consistent styling                                               |
+| **FontAwesome**     | Vector icon library integrated throughout the UI                                                        |
+| **Electron-Vite**   | Combines Electron (desktop apps using web tech) + Vite (ultra-fast build tool) for desktop applications |
+| **React Native**    | Open-source framework (by Meta) for building native iOS and Android apps with JavaScript and React      |
+| **Expo**            | React Native development platform for rapid setup, testing, and deployment without native build config  |
+| **Apollo Client**   | JavaScript library for managing GraphQL state and API interaction, with advanced caching                |
+| **React i18n**      | Internationalization library for multi-language support in React apps                                   |
+| **Node SerialPort** | Node.js library for serial communication with microcontrollers (Arduino)                                |
+
+> **Figures:** `Figure 77 — React.js Logo` · `Figure 78 — Tailwind CSS Logo` · `Figure 79 — FontAwesome Logo` · `Figure 80 — Electron-Vite Logo` · `Figure 81 — React Native Logo` · `Figure 82 — Expo Logo` · `Figure 83 — Apollo Client Logo` · `Figure 84 — React i18n Logo` · `Figure 85 — Node SerialPort Logo`
+
+---
+
+## 10. Platform Applications — PeagePay
+
+### 10.1 Mobile Application (PeagePay)
+
+The mobile app is the primary interface for motorists. It is built with **React Native + Expo** and supports Android and iOS.
+
+> **Figure:** `Figure 87 — Splash/Start Page`
+
+#### Authentication
+
+> **Figure:** `Figure 88 — Sign Up Page`
+> **Figure:** `Figure 89 — Login Page`
+
+Users can register with email + password or log in with a Google account.
+
+#### Home Screen
+
+> **Figure:** `Figure 90 — Home Page (Inactive status)`
+> **Figure:** `Figure 91 — Home Page (Active trip in progress)`
+
+The home screen displays the user's status (inactive / on a trip), a summary of recent completed trips, and real-time trip details.
+
+#### Account Balance
+
+> **Figure:** `Figure 92 — Account Balance Screen`
+
+Shows the current balance, user ID, and full recharge history.
+
+#### Recharge Account
+
+> **Figure:** `Figure 93 — Recharge with Code`
+> **Figure:** `Figure 94 — Recharge with Card`
+> **Figure:** `Figure 95 — Chargily Pay Payment API`
+> **Figure:** `Figure 96 — Payment Confirmed`
+
+Two recharge methods:
+
+1. **Recharge code** — enter a predefined code (available in 500, 1000, 2000 DZD denominations)
+2. **Online card payment** — via the Chargily Pay API (EDAHABIA, CIB, VISA, Mastercard)
+
+#### RFID Badge List
+
+> **Figure:** `Figure 97 — List of RFID Badges`
+
+Displays all RFID badges linked to the user's account, including their identifier, vehicle registration number, and assignment date.
+
+#### QR Code for Toll Identification
+
+> **Figure:** `Figure 98 — QR Code Screen`
+
+Displays a unique, short-lived QR code used to identify the user at a QR code barrier. The code must be scanned before it expires.
+
+#### Toll Map
+
+> **Figure:** `Figure 99 — Toll Map`
+> **Figure:** `Figure 100 — Define a Trip`
+> **Figure:** `Figure 101 — Trip Price Calculation`
+
+The map shows all toll booths on the network. Users can define a trip (departure and arrival booth) and get an estimated price.
+
+---
+
+### 10.2 Admin Authentication Page
+
+> **Figure:** `Figure 102 — Admin Authentication Page`
+
+A shared authentication page used by all administration panels. Supports email/password login and Google login.
+
+---
+
+### 10.3 General Administration Panel
+
+A web application for global system management.
+
+> **Figure:** `Figure 103 — General Admin Dashboard`
+
+The dashboard displays key statistics: number of highways, toll networks, subscriptions, and HR administrators.
+
+#### User Management
+
+> **Figure:** `Figure 104 — User List`
+
+The admin can view all users and assign/revoke the HR Administrator role.
+
+#### Toll Network Management
+
+> **Figure:** `Figure 105 — Toll Networks List`
+
+Lists all toll networks. The admin can add, edit, or delete networks.
+
+#### Global Tariff Management
+
+> **Figure:** `Figure 106 — Add Weekly Global Tariff`
+
+The admin can set the default tariff and schedule periodic or one-time tariff changes at a global scale (see [Section 11.1](#111-dynamic-pricing-system)).
+
+#### Toll Booth Management
+
+> **Figure:** `Figure 107 — Toll Booth List`
+> **Figure:** `Figure 108 — Add a Toll Booth`
+> **Figure:** `Figure 109 — Map-based Location Selector`
+
+Add or manage toll booths. Booth location can be selected visually on an interactive Google Maps satellite view.
+
+#### Network Graph Visualization
+
+> **Figure:** `Figure 110 — Toll Network Graph on Map`
+
+Displays the toll network as an interactive graph overlaid on Google Maps, showing all booths as nodes and highway sections as edges with distances labeled.
+
+---
+
+### 10.4 HR Administration Panel
+
+A web application for managing role assignments.
+
+> **Figure:** `Figure 111 — Role Assignment Page`
+> **Figure:** `Figure 112 — Assign Toll Admin to a Booth`
+
+Roles that can be managed: Toll Admin, Gate Admin, Moderator. Toll and Gate Admins are assigned to a specific booth.
+
+---
+
+### 10.5 Toll Administration Panel
+
+A web application for managing a specific toll booth.
+
+#### Automated Barrier Management
+
+> **Figure:** `Figure 113 — List of Automated Barriers`
+> **Figure:** `Figure 114 — Add an Automated Barrier`
+
+Manage barriers associated with the toll booth. Each barrier has a name, variant (RFID reader, QR code reader, or ticket printer), direction (entering/exiting), and a password.
+
+#### Local Tariff Management
+
+> **Figure:** `Figure 115 — Add Monthly Local Tariff`
+
+Set tariff rules specific to this toll booth (daily, weekly, monthly, yearly, or custom one-time rules), overriding global tariffs according to the priority system.
+
+---
+
+### 10.6 Moderator Administration Panel
+
+A **desktop application** (Electron) for managing user data and RFID badge assignments.
+
+> **Figure:** `Figure 116 — User List`
+> **Figure:** `Figure 117 — RFID Badge List for a User`
+> **Figure:** `Figure 118 — Add an RFID Badge`
+> **Figure:** `Figure 119 — Scan Badge to Get Its Identifier`
+
+The moderator can browse users, view their linked badges, and add new badges. Adding a badge involves entering the badge identifier (which can be auto-populated by physically scanning the badge via the connected Arduino) and the vehicle's registration number.
+
+---
+
+### 10.7 Gate Admin Panel
+
+A **desktop application** for barrier administrators managing manual (cash) exit lanes.
+
+> **Figure:** `Figure 120 — Gate Admin: Scan User Ticket`
+
+The gate admin uses their webcam to scan the QR code on a user's printed ticket. The system retrieves and displays:
+
+- Entry toll booth
+- Entry tariff (DZD/km)
+- Exit tariff (DZD/km)
+- Distance traveled (km)
+- Applied tariff
+- **Total amount due**
+
+After receiving payment, the admin clicks "Validate ticket" to mark it as paid and trigger the barrier to open.
+
+---
+
+### 10.8 Automatic Gate Applications
+
+These are **desktop applications** running on the computers physically connected to each automated barrier via USB (Arduino).
+
+#### Barrier Authentication
+
+> **Figure:** `Figure 121 — Automated Barrier Authentication Page`
+
+Before use, each barrier computer must authenticate using the credentials defined by the Toll Admin, selecting its assigned toll booth and barrier.
+
+#### Ticket Printer Barrier
+
+> **Figure:** `Figure 122 — Ticket Printer Page`
+> **Figure:** `Figure 123 — Ticket Print Preview`
+
+At the highway entrance, the user presses a button. The app generates a trip ticket, displays a print preview, sends it to the printer, and commands the Arduino to open the barrier. The ticket contains a unique QR code encoding the trip ID.
+
+#### RFID Badge Reader Barrier
+
+> **Figure:** `Figure 124 — RFID Badge Reader (Waiting for Badge)`
+> **Figure:** `Figure 125 — After Badge Detection (Transaction Successful)`
+
+Continuously listens for RFID badge signals from the Arduino. When a badge is detected:
+
+- At **entry**: creates a trip session → sends open command to Arduino
+- At **exit**: processes the transaction, deducts balance → sends open command if successful
+
+Displays live transaction status with a success/failure indicator.
+
+#### QR Code Reader Barrier
+
+> **Figure:** `Figure 126 — QR Code Reader Barrier`
+
+Uses the computer's webcam to continuously scan for QR codes displayed in users' mobile apps. When a valid QR code is read:
+
+- At **entry**: creates a trip session → opens barrier
+- At **exit**: processes payment → opens barrier
+
+The user can select from available connected cameras.
+
+---
+
+## 11. Core Algorithms
+
+### 11.1 Dynamic Pricing System
+
+The system uses a **priority-based dynamic tariff system** with two levels:
+
+- **Global level** — set by the General Administrator, applied to all toll booths
+- **Booth level** — set by the Toll Administrator, applied to their specific booth only
+
+#### Tariff Types
+
+| Type           | Scope          | Description                                                 |
+| -------------- | -------------- | ----------------------------------------------------------- |
+| `DefaultPrice` | Global         | Fallback tariff applied when no other rule matches          |
+| `DailyPrice`   | Global / Booth | Applies every day during a defined time range               |
+| `WeeklyPrice`  | Global / Booth | Applies on specific days of the week during a time range    |
+| `MonthlyPrice` | Global / Booth | Applies during specific months on a defined day range       |
+| `YearlyPrice`  | Global / Booth | Applies on a defined annual date range                      |
+| `CustomPrice`  | Global / Booth | One-time application during a specific date and time window |
+
+#### Priority System
+
+When multiple rules apply at the same instant, the system uses a **frequency × specificity priority**:
+
+```
+← Less specific, more frequent (lower priority)
+  Global Default Tariff
+  Global Daily Tariff
+  Global Weekly Tariff
+  Global Monthly Tariff
+  Global Yearly Tariff
+  Global Custom (Non-Periodic) Tariff
+  Booth Daily Tariff
+  Booth Weekly Tariff
+  Booth Monthly Tariff
+  Booth Yearly Tariff
+  Booth Custom (Non-Periodic) Tariff     ← More specific, less frequent (higher priority)
+```
+
+> **Figure:** `Figure 12 — Tariff Priority Hierarchy`
+
+To determine the active tariff at a booth at time T: retrieve all applicable rules sorted by priority (highest first) and apply the most specific one.
+
+---
+
+### 11.2 Toll Network Graph & Distance Calculation
+
+#### Network Representation
+
+Each toll network is represented as a **connected, undirected, acyclic graph**:
+
+- **Nodes** = toll booths
+- **Edges** = highway sections with defined distances
+
+> **Figure:** `Figure 13 — Example of a Toll Network Graph`
+
+This graph has an important constraint: there must be **one and only one path** between any two nodes (no cycles). This guarantees that the route taken between any entry and exit point is unambiguous.
+
+#### Example Network
+
+The graph example in the thesis (7 booths) produces 21 distance pairs:
+
+| From    | To      | Distance |
+| ------- | ------- | -------- |
+| Booth 1 | Booth 2 | 25 km    |
+| Booth 1 | Booth 3 | 78 km    |
+| Booth 1 | Booth 4 | 72 km    |
+| Booth 2 | Booth 3 | 53 km    |
+| Booth 3 | Booth 5 | 16 km    |
+| Booth 3 | Booth 6 | 35 km    |
+| ...     | ...     | ...      |
+
+#### Pre-computation for Performance
+
+Computing distances on-the-fly by traversing the graph for every transaction is resource-intensive. Instead, distances between **all pairs** of booths are pre-computed when the graph changes and stored in the `TollDistance` table. This allows the server to retrieve any distance with a **single SQL query** (and optionally cache it in Redis).
+
+#### Distance Algorithm (Pseudo-code — DFS-based)
+
+```
+for each node in nodeList:
+  visitedEdges = new Set()
+  traverse(startNode=node, currentNode=node, visitedEdges, currentDistance=0)
+
+function traverse(startNode, currentNode, visitedEdges, currentDistance):
+  for each edge in currentNode.edges:
+    if edge not in visitedEdges:
+      visitedEdges.add(edge)
+      nextNode = the other node of edge
+
+      key = concat(startNode.id, nextNode.id)
+      if key not in distanceMap AND reverse key not in distanceMap:
+        distanceMap[key] = DistancePair(startNode.id, nextNode.id, currentDistance + edge.distance)
+
+      traverse(startNode, nextNode, visitedEdges, currentDistance + edge.distance)
+```
+
+---
+
+### 11.3 Trip Fare Formula
+
+```
+Applied Tariff = (Entry Booth Tariff + Exit Booth Tariff) / 2
+
+Trip Price = Applied Tariff × Distance Traveled
+```
+
+Since each booth can have a different active tariff at any given moment, the **average of the two booths' tariffs** is used to ensure fairness.
+
+---
+
+## 12. Database Schema
+
+Complete relational model (primary keys **underlined**, foreign keys marked with `*`):
+
+```sql
+BaseUser(id, firstName, lastName, createdAt, updatedAt)
+User(baseUserId*, balance)
+GeneralAdmin(baseUserId*)
+HumanRessourcesAdmin(baseUserId*)
+Moderator(baseUserId*)
+TollAdmin(baseUserId*, tollId*)
+GateAdmin(baseUserId*, tollId*)
+Deposit(id, baseUserId*, value, createdAt)
+VerificationToken(id, baseUserId*, tokenHash, createdAt, expiresAt)
+RefreshToken(id, baseUserId*, tokenHash, createdAt)
+AuthMethod(id, baseUserId*)
+EmailAuthMethod(authMethodId*, email, passwordHash, verifiedAt)
+GoogleAuthMethod(authMethodId*, googleId, email)
+RfidTag(id, baseUserId*, rfid, registrationNumber, createdAt, updatedAt)
+TollNetwork(id, name, createdAt, updatedAt)
+Subscription(id, name, price, duration, createdAt, updatedAt)
+UserSubscription(baseUserId*, subscriptionId*, startDate, endDate)
+Wilaya(id, name, code)
+Highway(id, name, code, createdAt, updatedAt)
+Toll(id, wilayaId*, highwayId*, tollNetworkId*, name, longitude, latitude, createdAt, updatedAt)
+TollDistance(fromTollId*, toTollId*, distance)
+Section(fromTollId*, toTollId*, distance)
+AutomaticGate(id, tollId*, name, passwordHash, createdAt, updatedAt)
+AutomaticGateRefreshToken(id, automaticGateId*, tokenHash, createdAt)
+Trip(id, entryTollId*, exitTollId*, baseUserId*, entryTimestamp, entryTollPrice, exitTimestamp, exitTollPrice, distance)
+Ticket(id, entryTollId*, exitTollId*, entryTimestamp, entryTollPrice, exitTimestamp, exitTollPrice, distance, used)
+Price(id, tollId*, value, startTimestamp, endTimestamp, priority, direction, createdAt, updatedAt)
+DailyPrice(priceId*)
+WeeklyPrice(priceId*, daysOfWeek)
+MonthlyPrice(priceId*, startDay, endDay, months)
+YearlyPrice(priceId*, startDate, endDate)
+CustomPrice(priceId*, startDate, endDate)
+DefaultPrice(value)
+Code(id*, codeHash, createdAt)
+```
+
+---
+
+## 13. Project Structure
+
+```
+peage-pay/
+├── peage-pay-web/
+│   ├── assets/
+│   ├── lib/
+│   │   ├── apollo-client/
+│   │   ├── auth/
+│   │   ├── automatic-gate-auth/
+│   │   ├── constants/
+│   │   ├── serial-port/
+│   │   ├── tailwind-config/
+│   │   ├── ui/
+│   │   └── utils/
+│   └── client/
+│       ├── auth-common-client/
+│       ├── general-admin-panel/
+│       ├── human-ressources-admin-panel/
+│       ├── toll-admin-panel/
+│       ├── gate-admin-panel/
+│       ├── moderator-admin-panel/
+│       ├── ticket-printer/
+│       ├── rfid-gate/
+│       └── qr-code-gate/
+├── peage-pay-mobile/
+└── peage-pay-server/
+```
+
+---
+
+## 14. Conclusion & Perspectives
+
+PeagePay provides a comprehensive and realistic simulation of what a toll management platform for Algeria could look like — adapted to local payment methods (EDAHABIA, CIB), local currency (DZD), local language support, and the actual infrastructure of the East-West highway network.
+
+### Key Achievements
+
+- A functional end-to-end simulation of a full national toll management system
+- Platform adapted to Algerian context: local payment methods, currency units, and multilingual support
+- Hardware simulation using Arduino for RFID badge detection and physical barrier control
+- 9 distinct applications (mobile, web, desktop) sharing a unified codebase
+
+### Current Limitations
+
+| Limitation                             | Notes                                                                                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Subscription system is incomplete      | Users cannot yet purchase or use subscriptions through the mobile app                                         |
+| Tariff estimation vs. real-time tariff | Trip estimates use the current tariff; the actual tariff applied at entry is the one saved on the trip record |
+| Server response time                   | Some complex operations (e.g., distance pre-computation) may have higher latency                              |
+
+### Future Improvements
+
+- **Full subscription system** — including purchase flow in the mobile app and special plans for taxis, buses, and freight carriers
+- **Real-time tariff calculation during active trips** — use the entry tariff stored on the trip record
+- **Server-side performance optimization** — improve response times for complex operations
+- **Offline mode in the mobile app** — especially for the QR code screen used to pass toll booths without network connectivity
+
+---
+
+## Acknowledgements
+
+This project was supervised by **Mme ABERBOUR Rima** and evaluated by a jury composed of **M. FERGUENE Farid** (President) and **Mme. SEDDIKI Manel** (Member) at the _Université des Sciences et de la Technologie Houari Boumediene (USTHB)_, Faculty of Computer Science, Department SIQ.
+
+---
+
+## License
+
+This project is an academic work submitted in partial fulfillment of the requirements for the **License degree in Computer Science (ISIL specialty)** at USTHB.
+
+---
+
+_© 2024 DEBBAL Lotfi & TEHAR Ahmed — USTHB, Faculty of Computer Science_
