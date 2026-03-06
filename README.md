@@ -409,66 +409,203 @@ All roles share the same authentication system, supporting:
 
 #### User (Motorist)
 
-> **Figure:** `Figure 15 — User Use Case Diagram`
-> **Figure:** `Figure 16 — User: View Toll Map`
-> **Figure:** `Figure 17 — User: Manage Account Balance`
-> **Figure:** `Figure 18 — User: Identify at Toll Booth`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img220.jpg">
+  <br>
+  <em>User Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img218.jpg">
+  <br>
+  <em>User: View Toll Map</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img219.jpg">
+  <br>
+  <em>User: Manage Account Balance</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img224.jpg">
+  <br>
+  <em>User: Identify at Toll Booth</em>
+</p>
 
 ---
 
 #### General Administrator
 
-> **Figure:** `Figure 19 — General Admin Use Case Diagram`
-> **Figure:** `Figure 20 — General Admin: Manage Highway Sections`
-> **Figure:** `Figure 21 — General Admin: Manage Subscriptions`
-> **Figure:** `Figure 22 — General Admin: Manage Toll Networks`
-> **Figure:** `Figure 23 — General Admin: Manage HR Administrators`
-> **Figure:** `Figure 24 — General Admin: Manage Highways`
-> **Figure:** `Figure 25 — General Admin: Manage Users`
-> **Figure:** `Figure 26 — General Admin: Manage Global Tariffs`
-> **Figure:** `Figure 27 — General Admin: Manage Toll Booths`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img225.jpg">
+  <br>
+  <em>General Admin Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img231.jpg">
+  <br>
+  <em>General Admin: Manage Highway Sections</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img229.jpg">
+  <br>
+  <em>General Admin: Manage Subscriptions</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img230.jpg">
+  <br>
+  <em>General Admin: Manage Toll Networks</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img232.jpg">
+  <br>
+  <em>General Admin: Manage HR Administrators</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img236.jpg">
+  <br>
+  <em>General Admin: Manage Highways</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img237.jpg">
+  <br>
+  <em>General Admin: Manage Users</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img238.jpg">
+  <br>
+  <em>General Admin: Manage Global Tariffs</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img239.jpg">
+  <br>
+  <em>General Admin: Manage Toll Booths</em>
+</p>
 
 ---
 
 #### HR Administrator
 
-> **Figure:** `Figure 28 — HR Admin Use Case Diagram`
-> **Figure:** `Figure 29 — HR Admin: Manage Users`
-> **Figure:** `Figure 30 — HR Admin: Manage Toll Administrators`
-> **Figure:** `Figure 31 — HR Admin: Manage Gate Administrators`
-> **Figure:** `Figure 32 — HR Admin: Manage Moderators`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img243.jpg">
+  <br>
+  <em>HR Admin Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img244.jpg">
+  <br>
+  <em>HR Admin: Manage Users</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img245.jpg">
+  <br>
+  <em>HR Admin: Manage Toll Administrators</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img246.jpg">
+  <br>
+  <em>HR Admin: Manage Gate Administrators</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img247.jpg">
+  <br>
+  <em>HR Admin: Manage Moderators</em>
+</p>
 
 ---
 
 #### Toll Administrator
 
-> :** `Figure 33 — Toll Admin Use Case Diagram`
-> :** `Figure 34 — Toll Admin: Manage Local Tariffs`
-> :** `Figure 35 — Toll Admin: Manage Automated Barriers`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img251.jpg">
+  <br>
+  <em>Toll Admin Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img252.jpg">
+  <br>
+  <em>Toll Admin: Manage Local Tariffs</em>
+</p>
 
 ---
 
 #### Gate Administrator
 
-> :** `Figure 36 — Gate Admin Use Case Diagram`
-> :** `Figure 37 — Gate Admin: Bill a User with a Ticket`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img257.jpg">
+  <br>
+  <em>Gate Admin Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img258.jpg">
+  <br>
+  <em>Gate Admin: Bill a User with a Ticket</em>
+</p>
 
 ---
 
 #### Moderator
 
-> :** `Figure 39 — Moderator Use Case Diagram`
-> :** `Figure 38 — Moderator: Manage RFID Badges`
-> :** `Figure 40 — Moderator: Manage User Accounts`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img263.jpg">
+  <br>
+  <em>Moderator Use Case Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img262.jpg">
+  <br>
+  <em>Moderator: Manage RFID Badges</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img264.jpg">
+  <br>
+  <em>Moderator: Manage User Accounts</em>
+</p>
 
 ---
 
 #### Automated Barriers
 
-> :** `Figure 41 — Automated Barrier Authentication Use Case`
-> :** `Figure 42 — Automated Barrier: Ticket Printer`
-> :** `Figure 43 — Automated Barrier: RFID Badge Reader`
-> :** `Figure 44 — Automated Barrier: QR Code Reader`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img266.jpg">
+  <br>
+  <em>Automated Barrier Authentication Use Case</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img265.jpg">
+  <br>
+  <em>Automated Barrier: Ticket Printer</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img271.jpg">
+  <br>
+  <em>Automated Barrier: RFID Badge Reader</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img270.jpg">
+  <br>
+  <em>Automated Barrier: QR Code Reader</em>
+</p>
 
 ---
 
