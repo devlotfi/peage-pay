@@ -383,13 +383,21 @@ Users are charged based on **distance traveled** between entry and exit, multipl
 
 The system was modeled using **UML (Unified Modeling Language)** following the **Unified Process (UP)** methodology — an iterative, incremental software development framework.
 
-> **Figure:** `Figure 11 — UML Logo`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img157.jpg">
+  <br>
+  <em>UML Logo</em>
+</p>
 
 ### 5.1 Use Case Diagrams
 
 #### Authentication (All Roles)
 
-> **Figure:** `Figure 14 — Authentication System Use Case Diagram`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img217.jpg">
+  <br>
+  <em>Authentication System Use Case Diagram</em>
+</p>
 
 All roles share the same authentication system, supporting:
 
@@ -434,33 +442,33 @@ All roles share the same authentication system, supporting:
 
 #### Toll Administrator
 
-> **Figure:** `Figure 33 — Toll Admin Use Case Diagram`
-> **Figure:** `Figure 34 — Toll Admin: Manage Local Tariffs`
-> **Figure:** `Figure 35 — Toll Admin: Manage Automated Barriers`
+> :** `Figure 33 — Toll Admin Use Case Diagram`
+> :** `Figure 34 — Toll Admin: Manage Local Tariffs`
+> :** `Figure 35 — Toll Admin: Manage Automated Barriers`
 
 ---
 
 #### Gate Administrator
 
-> **Figure:** `Figure 36 — Gate Admin Use Case Diagram`
-> **Figure:** `Figure 37 — Gate Admin: Bill a User with a Ticket`
+> :** `Figure 36 — Gate Admin Use Case Diagram`
+> :** `Figure 37 — Gate Admin: Bill a User with a Ticket`
 
 ---
 
 #### Moderator
 
-> **Figure:** `Figure 39 — Moderator Use Case Diagram`
-> **Figure:** `Figure 38 — Moderator: Manage RFID Badges`
-> **Figure:** `Figure 40 — Moderator: Manage User Accounts`
+> :** `Figure 39 — Moderator Use Case Diagram`
+> :** `Figure 38 — Moderator: Manage RFID Badges`
+> :** `Figure 40 — Moderator: Manage User Accounts`
 
 ---
 
 #### Automated Barriers
 
-> **Figure:** `Figure 41 — Automated Barrier Authentication Use Case`
-> **Figure:** `Figure 42 — Automated Barrier: Ticket Printer`
-> **Figure:** `Figure 43 — Automated Barrier: RFID Badge Reader`
-> **Figure:** `Figure 44 — Automated Barrier: QR Code Reader`
+> :** `Figure 41 — Automated Barrier Authentication Use Case`
+> :** `Figure 42 — Automated Barrier: Ticket Printer`
+> :** `Figure 43 — Automated Barrier: RFID Badge Reader`
+> :** `Figure 44 — Automated Barrier: QR Code Reader`
 
 ---
 
@@ -501,7 +509,11 @@ The sequence is:
 
 ### 6.1 Class Diagram
 
-> **Figure:** `Figure 50 — Class Diagram (see Appendix A for class descriptions)`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img122.jpg">
+  <br>
+  <em>Class Diagram (see Appendix A for class descriptions)</em>
+</p>
 
 The class diagram represents the static structure of the system. Key classes include:
 
@@ -547,7 +559,11 @@ The class diagram represents the static structure of the system. Key classes inc
 
 The class diagram was converted to a relational model using the **Class Table Inheritance** pattern for inheritance relationships. Each class in an inheritance hierarchy gets its own table. Subclass tables reference the parent table's primary key — which also serves as both primary key and foreign key in the subclass table.
 
-> **Figure:** `Figure 52 — Example of Inheritance Mapping to Relational Model`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img301.jpg">
+  <br>
+  <em>Example of Inheritance Mapping to Relational Model</em>
+</p>
 
 ---
 
@@ -595,8 +611,11 @@ peage-pay-web/        ← All web and desktop applications
 peage-pay-mobile/     ← Mobile application (React Native + Expo)
 peage-pay-server/     ← NestJS backend server
 ```
-
-> **Figure:** `Figure 127 — Global Monorepo Project Structure`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img561.jpg">
+  <br>
+  <em>Global Monorepo Project Structure</em>
+</p>
 
 Inside `peage-pay-web`:
 
@@ -624,7 +643,11 @@ peage-pay-web/
     └── qr-code-gate/          ← Barrier: QR code reader desktop app
 ```
 
-> **Figure:** `Figure 128 — Structure of the peage-pay-web Folder`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img561.jpg">
+  <br>
+  <em>Structure of the peage-pay-web Folder</em>
+</p>
 
 ---
 
@@ -672,10 +695,29 @@ The system simulates hardware features that cannot be achieved with a standard c
 - **RFID badge detection**
 - **Barrier opening and closing** (servo motor)
 
-> **Figure:** `Figure 56 — Arduino Logo`
-> **Figure:** `Figure 57 — Full Circuit Connection Diagram`
-> **Figure:** `Figure 58 — Arduino Nano Pin Detail`
-> **Figure:** `Figure 59 — RFID RC522 Reader Connection Detail`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img334.jpg">
+  <br>
+  <em>Arduino Logo</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img561.jpg">
+  <br>
+  <em>Full Circuit Connection Diagram</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img338.jpg">
+  <br>
+  <em>Arduino Nano Pin Detail</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img339.jpg">
+  <br>
+  <em>RFID RC522 Reader Connection Detail</em>
+</p>
 
 ### Components
 
