@@ -613,19 +613,35 @@ All roles share the same authentication system, supporting:
 
 #### Email Authentication
 
-> **Figure:** `Figure 45 — Sequence Diagram: Email Authentication`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img275.jpg">
+  <br>
+  <em>Sequence Diagram: Email Authentication</em>
+</p>
 
 #### Email Verification
 
-> **Figure:** `Figure 46 — Sequence Diagram: Email Verification`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img280.jpg">
+  <br>
+  <em>Sequence Diagram: Email Verification</em>
+</p>
 
 #### Google Account Authentication
 
-> **Figure:** `Figure 47 — Sequence Diagram: Google Authentication`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img281.jpg">
+  <br>
+  <em>Sequence Diagram: Google Authentication</em>
+</p>
 
 #### Passing a Toll with an Automated Payment Method (RFID / QR Code)
 
-> **Figure:** `Figure 48 — Sequence Diagram: Passing a Toll with Automated Payment`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img285.jpg">
+  <br>
+  <em>Sequence Diagram: Passing a Toll with Automated Payment</em>
+</p>
 
 The sequence is:
 
@@ -635,7 +651,11 @@ The sequence is:
 
 #### Passing a Toll with a Ticket (Cash)
 
-> **Figure:** `Figure 49 — Sequence Diagram: Passing a Toll with a Ticket`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img286.jpg">
+  <br>
+  <em>Sequence Diagram: Passing a Toll with a Ticket</em>
+</p>
 
 1. **At entry:** User presses the print button → ticket is printed → barrier opens
 2. **At exit:** User presents ticket to the gate admin → amount is displayed → user pays → barrier opens
