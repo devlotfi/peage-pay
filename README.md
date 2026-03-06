@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/github-banner.png">
+
 # PeagePay — Electronic Toll Simulator Platform
 
 > **Bachelor's Thesis Project** — University of Sciences and Technology Houari Boumediene (USTHB)  
@@ -70,8 +72,6 @@ The platform models and simulates all real-world aspects of a modern toll system
 - **Multiple web admin panels** for global system management, HR role management, toll station management, and moderator functions
 - **Desktop applications** for automated barrier control (ticket printer, RFID badge reader, QR code reader)
 - **Hardware simulation** using an Arduino microcontroller circuit to physically simulate barrier opening/closing and RFID badge detection
-
-> **Figure:** `Figure 86 — PeagePay Platform Logo`
 
 ---
 
@@ -155,7 +155,11 @@ At entry, the user uses their phone app to transmit their ID (via QR code or NFC
 
 #### 3.2.4 Electronic Toll Badge (RFID Transponder)
 
-> **Figure:** `Figure 1 — Example of an Electronic Toll Badge`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img118.jpg">
+  <br>
+  <em>Peage Pay system interface</em>
+</p>
 
 The user attaches an RFID badge (transponder) to their windshield. At entry and exit, a receiver detects the badge, registers the trip, and automatically debits the account. Vehicle identification requires very little or even zero stopping time.
 
@@ -179,19 +183,31 @@ Cameras and AI read the vehicle's license plate. The principle is similar to RFI
 
 #### Bip&Go (France)
 
-> **Figure:** `Figure 2 — Bip&Go Homepage`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img122.jpg">
+  <br>
+  <em>Bip&Go Homepage</em>
+</p>
 
 Bip&Go is a French toll service provider offering electronic toll solutions on highways and partner road networks. It provides an electronic badge for rapid identification, allowing drivers to pass without stopping. Its mobile application, launched in 2020, supports highways and car parks across France, Spain, Portugal, Italy, and certain Italian ferries, with full online subscription management.
 
 #### Telepass (Italy)
 
-> **Figure:** `Figure 3 — Telepass Homepage`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img126.jpg">
+  <br>
+  <em>Telepass Homepage</em>
+</p>
 
 Italy was the **first country in the world** to deploy a complete Electronic Toll Collection (ETC) system across all national highways in **1989**. The first prototype was developed between December 20, 1986 and April 17, 1987 by engineers from Sixcom SpA (Olivetti Group). Telepass introduced the concept of **interoperability** in 1990, interconnecting 24 different Italian highway operators so users pay only once at the end of their journey. It later became a European standard in 1996 and served as a model for deployments in Japan, the USA, Brazil, and more.
 
 #### e-Toll (Poland)
 
-> **Figure:** `Figure 4 — e-Toll Homepage`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img127.jpg">
+  <br>
+  <em>e-Toll Homepage</em>
+</p>
 
 Poland's electronic toll system, **e-TOLL**, replaced the former ViaToll system on October 1, 2021. Unlike the French badge-based system, e-TOLL uses **satellite geolocation** to track vehicles on toll roads — no onboard unit (OBU) is required. Users manage their account via the e-TOLL mobile app.
 
@@ -205,22 +221,48 @@ Poland's electronic toll system, **e-TOLL**, replaced the former ViaToll system 
 
 ### 3.4 Algeria's Toll Infrastructure
 
-> **Figure:** `Figure 5 — Global View of a Toll Center`
-> **Figure:** `Figure 6 — Toll Booth Locations on the East-West Highway (Eastern Region)`
-> **Figure:** `Figure 7 — Toll Booth Locations on the East-West Highway (Western Region)`
-> **Figure:** `Figure 10 — A Toll Under Construction in Algeria`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img134.jpg">
+  <br>
+  <em>Global View of a Toll Center</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img139.jpg">
+  <br>
+  <em>Toll Booth Locations on the East-West Highway (Eastern Region)</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img140.jpg">
+  <br>
+  <em>Toll Booth Locations on the East-West Highway (Western Region)</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img147.jpg">
+  <br>
+  <em>A Toll Under Construction in Algeria</em>
+</p>
 
 Algeria's toll network is currently composed primarily of the **East-West Highway (Autoroute Est-Ouest)**, divided into two distinct toll networks for the Eastern and Western regions.
 
 Toll booths fall into two categories:
 
 - **Full-lane booths (Postes en pleine voie):** Located at the extremities of a network (start/end of a highway or network boundary) to ensure every user passes through them.
+  <p align="center">
+     <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img138.jpg">
+     <br>
+     <em>Example of a Full-Lane Toll Booth</em>
+   </p>
 
-  > **Figure:** `Figure 8 — Example of a Full-Lane Toll Booth`
 
 - **Interchange booths (Postes sur échangeur):** Located on the sides of the highway at intermediate points. They avoid interrupting the main traffic flow and only charge users who pass through that specific booth.
-
-  > **Figure:** `Figure 9 — Example of an Interchange Toll Booth`
+  <p align="center">
+     <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img146.jpg">
+     <br>
+     <em>Example of an Interchange Toll Booth</em>
+   </p>
 
 ---
 
