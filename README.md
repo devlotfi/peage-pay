@@ -1133,39 +1133,73 @@ A shared authentication page used by all administration panels. Supports email/p
 
 A web application for global system management.
 
-> **Figure:** `Figure 103 — General Admin Dashboard`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img413.jpg">
+  <br>
+  <em>General Admin Dashboard</em>
+</p>
 
 The dashboard displays key statistics: number of highways, toll networks, subscriptions, and HR administrators.
 
 #### User Management
 
-> **Figure:** `Figure 104 — User List`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img414.jpg">
+  <br>
+  <em>User List</em>
+</p>
 
 The admin can view all users and assign/revoke the HR Administrator role.
 
 #### Toll Network Management
 
-> **Figure:** `Figure 105 — Toll Networks List`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img418.jpg">
+  <br>
+  <em>Toll Networks List</em>
+</p>
 
 Lists all toll networks. The admin can add, edit, or delete networks.
 
 #### Global Tariff Management
 
-> **Figure:** `Figure 106 — Add Weekly Global Tariff`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img419.jpg">
+  <br>
+  <em>Add Weekly Global Tariff</em>
+</p>
 
 The admin can set the default tariff and schedule periodic or one-time tariff changes at a global scale (see [Section 11.1](#111-dynamic-pricing-system)).
 
 #### Toll Booth Management
 
-> **Figure:** `Figure 107 — Toll Booth List`
-> **Figure:** `Figure 108 — Add a Toll Booth`
-> **Figure:** `Figure 109 — Map-based Location Selector`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img423.jpg">
+  <br>
+  <em>Toll Booth List</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img424.jpg">
+  <br>
+  <em>Add a Toll Booth</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img428.jpg">
+  <br>
+  <em>Map-based Location Selector</em>
+</p>
 
 Add or manage toll booths. Booth location can be selected visually on an interactive Google Maps satellite view.
 
 #### Network Graph Visualization
 
-> **Figure:** `Figure 110 — Toll Network Graph on Map`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img429.jpg">
+  <br>
+  <em>Toll Network Graph on Map</em>
+</p>
 
 Displays the toll network as an interactive graph overlaid on Google Maps, showing all booths as nodes and highway sections as edges with distances labeled.
 
@@ -1175,8 +1209,17 @@ Displays the toll network as an interactive graph overlaid on Google Maps, showi
 
 A web application for managing role assignments.
 
-> **Figure:** `Figure 111 — Role Assignment Page`
-> **Figure:** `Figure 112 — Assign Toll Admin to a Booth`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img433.jpg">
+  <br>
+  <em>Role Assignment Page</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img434.jpg">
+  <br>
+  <em>Assign Toll Admin to a Booth</em>
+</p>
 
 Roles that can be managed: Toll Admin, Gate Admin, Moderator. Toll and Gate Admins are assigned to a specific booth.
 
@@ -1188,14 +1231,27 @@ A web application for managing a specific toll booth.
 
 #### Automated Barrier Management
 
-> **Figure:** `Figure 113 — List of Automated Barriers`
-> **Figure:** `Figure 114 — Add an Automated Barrier`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img438.jpg">
+  <br>
+  <em>List of Automated Barriers</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img439.jpg">
+  <br>
+  <em>Add an Automated Barrier</em>
+</p>
 
 Manage barriers associated with the toll booth. Each barrier has a name, variant (RFID reader, QR code reader, or ticket printer), direction (entering/exiting), and a password.
 
 #### Local Tariff Management
 
-> **Figure:** `Figure 115 — Add Monthly Local Tariff`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img443.jpg">
+  <br>
+  <em>Add Monthly Local Tariff</em>
+</p>
 
 Set tariff rules specific to this toll booth (daily, weekly, monthly, yearly, or custom one-time rules), overriding global tariffs according to the priority system.
 
@@ -1205,10 +1261,29 @@ Set tariff rules specific to this toll booth (daily, weekly, monthly, yearly, or
 
 A **desktop application** (Electron) for managing user data and RFID badge assignments.
 
-> **Figure:** `Figure 116 — User List`
-> **Figure:** `Figure 117 — RFID Badge List for a User`
-> **Figure:** `Figure 118 — Add an RFID Badge`
-> **Figure:** `Figure 119 — Scan Badge to Get Its Identifier`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img444.jpg">
+  <br>
+  <em>User List</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img448.jpg">
+  <br>
+  <em>RFID Badge List for a User</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img449.jpg">
+  <br>
+  <em>Add an RFID Badge</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img453.jpg">
+  <br>
+  <em>Scan Badge to Get Its Identifier</em>
+</p>
 
 The moderator can browse users, view their linked badges, and add new badges. Adding a badge involves entering the badge identifier (which can be auto-populated by physically scanning the badge via the connected Arduino) and the vehicle's registration number.
 
@@ -1218,7 +1293,11 @@ The moderator can browse users, view their linked badges, and add new badges. Ad
 
 A **desktop application** for barrier administrators managing manual (cash) exit lanes.
 
-> **Figure:** `Figure 120 — Gate Admin: Scan User Ticket`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img454.jpg">
+  <br>
+  <em>Gate Admin: Scan User Ticket</em>
+</p>
 
 The gate admin uses their webcam to scan the QR code on a user's printed ticket. The system retrieves and displays:
 
@@ -1239,21 +1318,43 @@ These are **desktop applications** running on the computers physically connected
 
 #### Barrier Authentication
 
-> **Figure:** `Figure 121 — Automated Barrier Authentication Page`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img458.jpg">
+  <br>
+  <em>Automated Barrier Authentication Page</em>
+</p>
 
 Before use, each barrier computer must authenticate using the credentials defined by the Toll Admin, selecting its assigned toll booth and barrier.
 
 #### Ticket Printer Barrier
 
-> **Figure:** `Figure 122 — Ticket Printer Page`
-> **Figure:** `Figure 123 — Ticket Print Preview`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img459.jpg">
+  <br>
+  <em>Ticket Printer Page</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img463.jpg">
+  <br>
+  <em>Ticket Print Preview</em>
+</p>
 
 At the highway entrance, the user presses a button. The app generates a trip ticket, displays a print preview, sends it to the printer, and commands the Arduino to open the barrier. The ticket contains a unique QR code encoding the trip ID.
 
 #### RFID Badge Reader Barrier
 
-> **Figure:** `Figure 124 — RFID Badge Reader (Waiting for Badge)`
-> **Figure:** `Figure 125 — After Badge Detection (Transaction Successful)`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img464.jpg">
+  <br>
+  <em>RFID Badge Reader (Waiting for Badge)</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img468.jpg">
+  <br>
+  <em>After Badge Detection (Transaction Successful)</em>
+</p>
 
 Continuously listens for RFID badge signals from the Arduino. When a badge is detected:
 
@@ -1264,7 +1365,11 @@ Displays live transaction status with a success/failure indicator.
 
 #### QR Code Reader Barrier
 
-> **Figure:** `Figure 126 — QR Code Reader Barrier`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img469.jpg">
+  <br>
+  <em>QR Code Reader Barrier</em>
+</p>
 
 Uses the computer's webcam to continuously scan for QR codes displayed in users' mobile apps. When a valid QR code is read:
 
