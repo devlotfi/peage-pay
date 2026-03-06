@@ -510,7 +510,7 @@ The sequence is:
 ### 6.1 Class Diagram
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img122.jpg">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img290.jpg">
   <br>
   <em>Class Diagram (see Appendix A for class descriptions)</em>
 </p>
@@ -569,7 +569,11 @@ The class diagram was converted to a relational model using the **Class Table In
 
 ### 6.3 Entity-Relationship Diagram
 
-> **Figure:** `Figure 53 — Entity-Relationship Diagram`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img305.jpg">
+  <br>
+  <em>Entity-Relationship Diagram</em>
+</p>
 
 The ER diagram shows all tables, primary keys, foreign keys, cardinalities, and relationship types (one-to-one, one-to-many, many-to-many).
 
@@ -612,7 +616,7 @@ peage-pay-mobile/     ← Mobile application (React Native + Expo)
 peage-pay-server/     ← NestJS backend server
 ```
 <p align="center">
-  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img561.jpg">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img560.jpg">
   <br>
   <em>Global Monorepo Project Structure</em>
 </p>
@@ -655,7 +659,11 @@ peage-pay-web/
 
 The system is based on a **centralized client-server architecture**. All clients — mobile, web, and desktop — communicate with a single central server that handles authentication and all request processing.
 
-> **Figure:** `Figure 54 — General Architecture Diagram`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img321.jpg">
+  <br>
+  <em>General Architecture Diagram</em>
+</p>
 
 Applications on the platform:
 
@@ -668,7 +676,11 @@ Applications on the platform:
 
 ### 7.4 Deployment Diagram
 
-> **Figure:** `Figure 55 — UML Deployment Diagram`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img327.jpg">
+  <br>
+  <em>UML Deployment Diagram</em>
+</p>
 
 Key infrastructure nodes:
 
@@ -702,7 +714,7 @@ The system simulates hardware features that cannot be achieved with a standard c
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img561.jpg">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img332.jpg">
   <br>
   <em>Full Circuit Connection Diagram</em>
 </p>
@@ -1087,7 +1099,11 @@ When multiple rules apply at the same instant, the system uses a **frequency × 
   Booth Custom (Non-Periodic) Tariff     ← More specific, less frequent (higher priority)
 ```
 
-> **Figure:** `Figure 12 — Tariff Priority Hierarchy`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img167.jpg">
+  <br>
+  <em>Tariff Priority Hierarchy</em>
+</p>
 
 To determine the active tariff at a booth at time T: retrieve all applicable rules sorted by priority (highest first) and apply the most specific one.
 
@@ -1102,7 +1118,11 @@ Each toll network is represented as a **connected, undirected, acyclic graph**:
 - **Nodes** = toll booths
 - **Edges** = highway sections with defined distances
 
-> **Figure:** `Figure 13 — Example of a Toll Network Graph`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devlotfi/peage-pay/master/github-assets/img/img171.jpg">
+  <br>
+  <em>Example of a Toll Network Graph</em>
+</p>
 
 This graph has an important constraint: there must be **one and only one path** between any two nodes (no cycles). This guarantees that the route taken between any entry and exit point is unambiguous.
 
